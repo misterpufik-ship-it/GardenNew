@@ -141,6 +141,7 @@
     .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 4px 24px; }
     .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
+    .mobile-menu-contact { margin-top: 18px; }
     .desktop-call-link { display: inline-flex; align-items: center; gap: 6px; line-height: 1; }
     .desktop-call-link .fa-phone-alt { font-size: 11px !important; line-height: 1 !important; color: inherit !important; transform: translateY(0); }
     .desktop-call-link:hover,
@@ -332,7 +333,7 @@
         <img src="https://misterpufik.ru/div.png" class="w-[200px] h-auto my-2" alt="divider">
     </div>
     
-    <div class="mt-auto pb-6 flex flex-col items-center w-full z-10">
+    <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
             <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
             <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="font-serif italic text-white text-xl mt-1"><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></a>
