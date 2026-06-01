@@ -147,7 +147,9 @@
     .desktop-call-link:hover .fa-phone-alt { color: var(--gold-main) !important; }
 
     .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
-    .gold-line-thin { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-main), transparent); opacity: 0.6; z-index: 10; }
+    .hero-branch-row { display: flex !important; align-items: center; justify-content: center; gap: 14px; width: min(86vw, 520px); margin: 2px auto 0; opacity: 0.98; }
+    .gold-line-thin { flex: 1 1 68px; max-width: 140px; min-width: 48px; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(197, 160, 89, 0.98) 50%, transparent 100%); opacity: 0.95; z-index: 10; box-shadow: 0 0 8px rgba(197, 160, 89, 0.34); }
+    #hero-branch-name-desk { color: var(--gold-main) !important; font-size: 12px !important; line-height: 1.1 !important; letter-spacing: 0.42em !important; font-weight: 700 !important; text-transform: uppercase; text-align: center; white-space: nowrap; text-shadow: 0 0 12px rgba(197, 160, 89, 0.22); }
 
     /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
     @media (max-width: 767px) {
@@ -157,7 +159,23 @@
             width: min(76vw, 320px) !important;
             max-width: 320px !important;
         }
-        .tagline-premium { font-size: 10px; letter-spacing: 0.15em; }
+        .tagline-premium { font-size: 10px; letter-spacing: 0.15em; margin-bottom: 12px !important; }
+        .hero-branch-row {
+            width: min(86vw, 340px);
+            gap: 10px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+        .gold-line-thin {
+            flex-basis: 54px;
+            min-width: 36px;
+            max-width: 86px;
+        }
+        #hero-branch-name-desk {
+            display: block !important;
+            font-size: 9px !important;
+            letter-spacing: 0.26em !important;
+        }
         .mobile-quick-links {
             gap: 8px !important;
             margin-left: -4px !important;
@@ -338,7 +356,7 @@
     <div class="flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
         <p class="tagline-premium shimmer-text uppercase tracking-[0.2em] text-[11px] md:text-[13px] mb-6 m-0"><cms:show hero_tagline /></p>
         
-        <div class="hidden md:flex items-center gap-4">
+        <div class="hero-branch-row hidden md:flex items-center gap-4">
             <div class="gold-line-thin"></div>
             <p id="hero-branch-name-desk" class="text-[14px] uppercase tracking-[0.6em] text-[#C5A059]">admiralteyskaya</p>
             <div class="gold-line-thin"></div>
