@@ -151,8 +151,8 @@
     .hero-bottom-content { position: relative; z-index: 60 !important; filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.95)); }
     .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
     .hero-branch-row { display: flex !important; align-items: center; justify-content: center; gap: 14px; width: min(86vw, 560px); margin: 4px auto 0; opacity: 1; position: relative; z-index: 70 !important; }
-    .gold-line-thin { flex: 1 1 78px; max-width: 160px; min-width: 54px; height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(197, 160, 89, 0.45) 15%, #FFEebb 50%, rgba(197, 160, 89, 0.45) 85%, transparent 100%); opacity: 1; z-index: 71 !important; box-shadow: 0 0 12px rgba(197, 160, 89, 0.72); }
-    #hero-branch-name-desk { color: var(--gold-main) !important; font-size: 13px !important; line-height: 1.1 !important; letter-spacing: 0.42em !important; font-weight: 800 !important; text-transform: uppercase; text-align: center; white-space: nowrap; opacity: 1 !important; position: relative; z-index: 72 !important; text-shadow: 0 0 3px rgba(0, 0, 0, 0.95), 0 0 14px rgba(255, 238, 187, 0.68), 0 0 24px rgba(197, 160, 89, 0.42); }
+    .gold-line-thin { flex: 1 1 72px; max-width: 150px; min-width: 50px; height: 1px; background: linear-gradient(to right, transparent, rgba(197, 160, 89, 0.78), transparent); opacity: 0.78; z-index: 71 !important; box-shadow: none; }
+    #hero-branch-name-desk { color: #ffffff !important; font-size: 11px !important; line-height: 1.1 !important; letter-spacing: 0.38em !important; font-weight: 700 !important; text-transform: uppercase; text-align: center; white-space: nowrap; opacity: 1 !important; position: relative; z-index: 72 !important; text-shadow: 0 0 4px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.75); }
 
     /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
     @media (max-width: 767px) {
@@ -176,8 +176,8 @@
         }
         #hero-branch-name-desk {
             display: block !important;
-            font-size: 9px !important;
-            letter-spacing: 0.26em !important;
+            font-size: 8px !important;
+            letter-spacing: 0.24em !important;
         }
         .mobile-quick-links {
             gap: 8px !important;
@@ -199,6 +199,11 @@
         .burger-btn:hover,
         .burger-btn:focus,
         .burger-btn:active {
+            color: var(--gold-main) !important;
+        }
+        .burger-btn:hover i,
+        .burger-btn:focus i,
+        .burger-btn:active i {
             color: var(--gold-main) !important;
         }
         .mobile-quick-link i {
@@ -253,6 +258,10 @@
         .burger-btn {
             color: #ffffff !important;
             transition: color 0.25s ease, transform 0.25s ease;
+        }
+        .burger-btn i {
+            color: inherit !important;
+            transition: color 0.25s ease;
         }
     }
 </style>
