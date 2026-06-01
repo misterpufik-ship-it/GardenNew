@@ -143,6 +143,19 @@
     .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
     .mobile-menu-contact { margin-top: 18px; }
+    .mobile-menu-contact-link,
+    .mobile-menu-social-link {
+        color: #ffffff !important;
+        transition: color 0.25s ease, transform 0.25s ease;
+    }
+    .mobile-menu-contact-link:hover,
+    .mobile-menu-contact-link:focus,
+    .mobile-menu-contact-link:active,
+    .mobile-menu-social-link:hover,
+    .mobile-menu-social-link:focus,
+    .mobile-menu-social-link:active {
+        color: var(--gold-main) !important;
+    }
     .desktop-call-link { display: inline-flex; align-items: center; gap: 6px; line-height: 1; font-size: 9px !important; letter-spacing: 0.15em !important; }
     .desktop-call-link .fa-phone-alt { font-size: 11px !important; line-height: 1 !important; color: inherit !important; transform: translateY(0); }
     .desktop-call-link:hover,
@@ -360,11 +373,11 @@
     <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
             <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
-            <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="font-serif italic text-white text-xl mt-1"><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></a>
+            <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></a>
         </div>
         <div class="flex gap-8">
-            <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="text-[#C5A059] text-2xl"><i class="fab fa-vk"></i></a>
-            <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="text-[#C5A059] text-2xl"><i class="fab fa-instagram"></i></a>
+            <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-vk"></i></a>
+            <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 </div>
