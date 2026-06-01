@@ -132,8 +132,12 @@
     }
 
     /* --- МОБИЛЬНОЕ МЕНЮ --- */
-    .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; }
+    .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; overflow: hidden; }
     .mobile-menu-overlay.active { transform: translateY(0); visibility: visible; }
+    .mobile-menu-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .mobile-menu-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); opacity: 0.52; filter: brightness(0.55) saturate(0.82) blur(0.8px); }
+    .mobile-menu-bg-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.46); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
+    .mobile-menu-overlay > :not(.mobile-menu-bg-layer) { position: relative; z-index: 2; }
     .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 4px 24px; }
     .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
@@ -221,8 +225,8 @@
 
 <nav class="gl-navbar flex justify-between items-center px-6 md:px-8" id="navbar">
     <div class="hidden md:flex gap-4 items-center flex-1">
-        <a href="<cms:show link_vk />" target="_blank" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-vk text-lg"></i></a>
-        <a href="<cms:show link_inst />" target="_blank" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-instagram text-lg"></i></a>
+        <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-vk text-lg"></i></a>
+        <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-instagram text-lg"></i></a>
     </div>
 
     <div class="hidden md:flex items-center gap-1 flex-none">
@@ -248,13 +252,13 @@
     </div>
 
     <div class="hidden md:flex gap-6 items-center justify-end flex-1">
-        <a href="tel:<cms:show header_phone_link />" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
+        <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
     </div>
 
     <div class="md:hidden flex items-center justify-between w-full pl-0 pr-1 relative">
         <div class="mobile-quick-links flex items-center gap-0 z-20 -ml-2">
-            <a href="tel:<cms:show header_phone_link />" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
-            <a href="<cms:show link_tg />" target="_blank" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
+            <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
+            <a href="<cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if>" target="_blank" rel="noopener" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
         </div>
 
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center flex flex-col items-center cursor-pointer" id="mobileBranchTrigger">
@@ -286,8 +290,9 @@
 </div>
 
 <div class="mobile-menu-overlay" id="mobileMenu">
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute inset-0 bg-[url('<cms:show hero_bg_mob />')] bg-cover bg-center scale-110 brightness-[0.2]"></div>
+    <div class="mobile-menu-bg-layer absolute inset-0 pointer-events-none overflow-hidden">
+        <img src="<cms:show hero_bg_mob />" class="mobile-menu-bg-img" alt="">
+        <div class="mobile-menu-bg-shade"></div>
     </div>
     
     <div class="w-full flex justify-center items-center px-6 pt-6 z-10 relative">
@@ -312,11 +317,11 @@
     <div class="mt-auto pb-6 flex flex-col items-center w-full z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
             <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
-            <a href="tel:<cms:show header_phone_link />" class="font-serif italic text-white text-xl mt-1"><cms:show header_phone /></a>
+            <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="font-serif italic text-white text-xl mt-1"><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></a>
         </div>
         <div class="flex gap-8">
-            <a href="<cms:show link_vk />" target="_blank" class="text-[#C5A059] text-2xl"><i class="fab fa-vk"></i></a>
-            <a href="<cms:show link_inst />" target="_blank" class="text-[#C5A059] text-2xl"><i class="fab fa-instagram"></i></a>
+            <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="text-[#C5A059] text-2xl"><i class="fab fa-vk"></i></a>
+            <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="text-[#C5A059] text-2xl"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 </div>
