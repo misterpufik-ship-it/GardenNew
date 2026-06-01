@@ -49,6 +49,13 @@
         transform: translateY(-25%) !important; 
     }
 
+    .hero-section > .logo-luxe-animate {
+        width: clamp(240px, 26vw, 340px) !important;
+        max-width: min(68vw, 340px) !important;
+        height: auto !important;
+        margin-top: 0 !important;
+    }
+
     /* ЖЕСТКАЯ КОРРЕКЦИЯ ДЛЯ МОБИЛЬНЫХ */
     @media (max-width: 767px) {
         .logo-luxe-animate {
@@ -108,8 +115,21 @@
     .branch-option.active { color: var(--gold-main); font-weight: 700; }
 
     /* --- МОДАЛКА ВЫБОРА (ДЛЯ МОБИЛОК) --- */
-    .mobile-branch-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); z-index: 1000001; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+    .mobile-branch-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); z-index: 1000001; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 92px 20px 32px; }
     .mobile-branch-modal.active { display: flex; }
+    .mobile-branch-close { position: fixed !important; top: 18px !important; right: 18px !important; z-index: 1000002 !important; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--gold-main) !important; }
+    .mobile-branch-modal .mobile-branch-title { margin: 0 0 34px !important; text-align: center; }
+    .mobile-branch-modal .mobile-branch-opt { width: 100%; padding: 20px 12px !important; }
+    .mobile-branch-modal .mobile-branch-opt h3 {
+        margin: 0 0 6px;
+        background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent !important;
+        animation: goldShimmer 5s linear infinite;
+    }
 
     /* --- МОБИЛЬНОЕ МЕНЮ --- */
     .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; }
@@ -129,13 +149,37 @@
     @media (max-width: 767px) {
         .hero-section { height: 100svh; }
         .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: auto; }
+        .hero-section > .logo-luxe-animate {
+            width: min(76vw, 320px) !important;
+            max-width: 320px !important;
+        }
         .tagline-premium { font-size: 10px; letter-spacing: 0.15em; }
+        .mobile-quick-links {
+            gap: 8px !important;
+            margin-left: -4px !important;
+        }
+        .mobile-quick-link {
+            width: 32px !important;
+            height: 32px !important;
+            padding: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: var(--gold-main) !important;
+        }
+        .mobile-quick-link i {
+            font-size: 17px !important;
+            line-height: 1 !important;
+        }
+        .mobile-quick-link .fa-telegram-plane {
+            font-size: 18px !important;
+        }
         #mobileBranchTrigger {
             position: absolute !important;
             left: calc(50vw - 24px) !important;
             top: 50% !important;
             transform: translate(-50%, -50%) !important;
-            width: min(58vw, 240px);
+            width: min(60vw, 250px);
             max-width: calc(100vw - 150px);
             color: var(--gold-main) !important;
         }
@@ -152,15 +196,15 @@
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-size: 11px !important;
+            font-size: 12px !important;
             line-height: 1.15 !important;
-            letter-spacing: 0.12em !important;
+            letter-spacing: 0.13em !important;
             text-align: center !important;
         }
         #mob-branch-addr {
             width: 100%;
             color: #fff !important;
-            font-size: 8px !important;
+            font-size: 9px !important;
             line-height: 1.2 !important;
             letter-spacing: 0.08em !important;
             text-align: center !important;
@@ -208,9 +252,9 @@
     </div>
 
     <div class="md:hidden flex items-center justify-between w-full pl-0 pr-1 relative">
-        <div class="flex items-center gap-0 z-20 -ml-2">
-            <a href="tel:<cms:show header_phone_link />" class="text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
-            <a href="<cms:show link_tg />" target="_blank" class="text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
+        <div class="mobile-quick-links flex items-center gap-0 z-20 -ml-2">
+            <a href="tel:<cms:show header_phone_link />" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
+            <a href="<cms:show link_tg />" target="_blank" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
         </div>
 
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center flex flex-col items-center cursor-pointer" id="mobileBranchTrigger">
@@ -227,8 +271,8 @@
 </nav>
 
 <div class="mobile-branch-modal" id="mobileBranchModal">
-    <div class="absolute top-8 right-8 text-[#C5A059] text-3xl cursor-pointer" id="closeBranchModal"><i class="fas fa-times"></i></div>
-    <p class="text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Выберите локацию</p>
+    <div class="mobile-branch-close absolute top-8 right-8 text-[#C5A059] text-3xl cursor-pointer" id="closeBranchModal"><i class="fas fa-times"></i></div>
+    <p class="mobile-branch-title text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Выберите локацию</p>
     <div class="flex flex-col gap-6 w-full max-w-[300px]">
         <div class="text-center py-6 mobile-branch-opt active" data-branch="admiral">
             <h3 class="text-2xl font-serif italic text-[#C5A059]">Адмиралтейская</h3>
