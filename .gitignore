@@ -20,3 +20,8 @@ desktop.ini
 *.log
 *.tmp
 *.bak
+
+# Local database dumps/imports
+_local_db/
+*.sql
+*.sql.zip

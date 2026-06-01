@@ -117,6 +117,10 @@
     .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 4px 24px; }
     .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
+    .desktop-call-link { display: inline-flex; align-items: center; gap: 6px; line-height: 1; }
+    .desktop-call-link .fa-phone-alt { font-size: 11px !important; line-height: 1 !important; color: inherit !important; transform: translateY(0); }
+    .desktop-call-link:hover,
+    .desktop-call-link:hover .fa-phone-alt { color: var(--gold-main) !important; }
 
     .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
     .gold-line-thin { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-main), transparent); opacity: 0.6; z-index: 10; }
@@ -126,6 +130,48 @@
         .hero-section { height: 100svh; }
         .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: auto; }
         .tagline-premium { font-size: 10px; letter-spacing: 0.15em; }
+        #mobileBranchTrigger {
+            position: absolute !important;
+            left: calc(50vw - 24px) !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: min(58vw, 240px);
+            max-width: calc(100vw - 150px);
+            color: var(--gold-main) !important;
+        }
+        #mobileBranchTrigger > div {
+            width: 100%;
+            justify-content: center;
+            gap: 5px;
+        }
+        #mobileBranchTrigger i,
+        #mob-branch-name {
+            color: var(--gold-main) !important;
+        }
+        #mob-branch-name {
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 11px !important;
+            line-height: 1.15 !important;
+            letter-spacing: 0.12em !important;
+            text-align: center !important;
+        }
+        #mob-branch-addr {
+            width: 100%;
+            color: #fff !important;
+            font-size: 8px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.08em !important;
+            text-align: center !important;
+            opacity: 0.78 !important;
+        }
+        #closeBtn.mobile-close-btn {
+            position: fixed !important;
+            top: 18px !important;
+            right: 18px !important;
+            z-index: 1000002 !important;
+        }
     }
 </style>
 
@@ -158,7 +204,7 @@
     </div>
 
     <div class="hidden md:flex gap-6 items-center justify-end flex-1">
-        <a href="tel:<cms:show header_phone_link />" class="text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt ml-1"></i></a>
+        <a href="tel:<cms:show header_phone_link />" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
     </div>
 
     <div class="md:hidden flex items-center justify-between w-full pl-0 pr-1 relative">
@@ -205,7 +251,7 @@
      alt="Logo" 
      class="logo-luxe-animate" 
      style="width: 380px !important; max-width: 90vw; margin-top: 5vh !important;">
-        <div class="cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
+        <div class="mobile-close-btn cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
             <i class="fas fa-times text-3xl"></i>
         </div>
     </div>
@@ -369,11 +415,9 @@
         // 2. Добавляем рамку только тому пункту, на который нажали
         this.classList.add('active-rect');
 
-        // 3. Закрываем меню через небольшую паузу
-        setTimeout(() => {
-            if (mobileMenu) mobileMenu.classList.remove('active');
-            body.classList.remove('menu-open');
-        }, 300);
+        // 3. Закрываем меню сразу, переход к разделу продолжится по ссылке
+        if (mobileMenu) mobileMenu.classList.remove('active');
+        body.classList.remove('menu-open');
     };
 });
 
