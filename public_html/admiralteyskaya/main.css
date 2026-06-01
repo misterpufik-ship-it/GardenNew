@@ -204,7 +204,20 @@ img { display: block; max-width: 100%; height: auto; }
    ============================================================ */
 
 /* --- PHILOSOPHY --- */
-.title-philosophy, .experience-title { font-size: 30px !important; line-height: 36px !important; font-weight: 300 !important; font-style: italic !important; margin: 0; text-align: center; }
+.title-philosophy, .experience-title {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 30px !important;
+    line-height: 36px !important;
+    font-weight: 300 !important;
+    font-style: italic !important;
+    margin: 0;
+    text-align: center;
+}
+
+.philosophy-main-text,
+.philosophy-main-text * {
+    font-family: 'Montserrat', sans-serif !important;
+}
 
 /* Подписи КОНЦЕПЦИЯ / ВИЗУАЛЬНАЯ ЭСТЕТИКА / ЭСТЕТИКА ВКУСА */
 .title-concept, .shimmer-gold.text-\[12px\], .shimmer-gold.tracking-\[0\.4em\] { 
