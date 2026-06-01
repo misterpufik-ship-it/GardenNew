@@ -1,0 +1,12 @@
+row_type,i_name,i_name_en,i_desc,i_desc_en,i_price
+header,АВТОРСКИЙ,AUTHOR EDITION,,,
+item,GARDEN EDITION,GARDEN EDITION,"Каменный куб, заросший мхом, будто пролежал в саду под дождями... Тяга мягкая, но уверенная.","Stone cube overgrown with moss... Soft but steady draw.",3500
+header,КЛАССИЧЕСКИЙ,CLASSIC,,,
+item,CLASSIC,CLASSIC,,,2000
+header,ПРЕМИАЛЬНЫЕ,PREMIUM,,,
+item,WORLD TOBACCO ORIGINAL (WTO),WORLD TOBACCO ORIGINAL (WTO),"Уникальный продукт, изготовленный из дорогих сигарных табачных листьев.","Unique product made from expensive cigar tobacco leaves.",+1200
+item,DEUS PERFUME,DEUS PERFUME,"Парфюмированный кальянный табак от компании DEUS.","Perfumed hookah tobacco from DEUS.",+1200
+header,ФРУКТОВЫЕ ЧАШИ,FRUIT BOWLS,,,
+item,Грейпфрут,Grapefruit,,,+1000
+item,Гранат,Pomegranate,,,+1200
+item,Помело,Pomelo,,,+1200

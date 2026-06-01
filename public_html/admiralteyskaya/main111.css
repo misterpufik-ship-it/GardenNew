@@ -1,0 +1,68 @@
+/* --- СЛОГАН В ФИЛОСОФИИ --- */
+.slogan-rituals {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3em !important;
+    text-align: center !important;
+    line-height: 1.8 !important;
+    margin: 40px auto !important;
+    max-width: 600px !important;
+    /* Золотой градиент */
+    background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    animation: shineGold 5s linear infinite !important;
+}
+
+/* --- СЕКЦИЯ ОТЗЫВОВ (FIX) --- */
+.gl_rating_item {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 20px 16px !important;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.1) !important;
+    text-decoration: none !important;
+    color: white !important;
+    min-height: 70px;
+}
+
+.gl_platform_box {
+    flex: 1; /* Левая часть */
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.gl_platform_name {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.gl_action_label {
+    font-size: 10px !important;
+    opacity: 0.4;
+    text-transform: lowercase;
+}
+
+.gl_stars_box {
+    flex: 0 0 120px; /* Центр со звездами */
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    color: var(--gold-main) !important;
+}
+
+.gl_rating_stats {
+    flex: 1; /* Правая часть */
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}

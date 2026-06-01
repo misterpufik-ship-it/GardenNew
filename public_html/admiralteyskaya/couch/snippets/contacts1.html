@@ -1,0 +1,179 @@
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+    /* Изоляция контейнера */
+    .branch-section-container {
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        overflow: hidden;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .branch-wrapper {
+        position: relative;
+        width: 100%;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000000;
+        color: #EAEAEA;
+        padding: 60px 10px; 
+    }
+
+    .content-limiter {
+        max-width: 600px; 
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+        text-align: center;
+    }
+
+    /* Золотая анимация */
+    @keyframes shineGold {
+        to { background-position: 200% center; }
+    }
+
+    .title-branch {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 30px;
+        font-style: italic;
+        color: #ffffff;
+        margin: 0;
+        font-weight: 300;
+    }
+
+    .gold-line {
+        width: 160px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #C5A059, transparent);
+        margin: 16px auto;
+        opacity: 0.8;
+    }
+
+    .subtitle-gold {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shineGold 5s linear infinite;
+    }
+
+    /* Блок контактов */
+    .social-contacts {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 30px 0;
+    }
+
+    .social-link {
+        display: inline-block;
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        text-decoration: none;
+    }
+
+    /* Эффект увеличения только для десктопа */
+    @media (min-width: 1024px) {
+        .social-link:hover {
+            transform: scale(1.2); /* Увеличение на 20% */
+        }
+    }
+
+    .social-icon-img {
+        width: 45px;
+        height: 45px;
+        filter: drop-shadow(0 0 5px rgba(197, 160, 89, 0.2));
+    }
+
+    .address-text {
+        font-[13px] font-light tracking-[0.2em] text-gray-300 uppercase;
+        margin-bottom: 5px;
+    }
+
+    .metro-text {
+        font-[11px] font-light tracking-[0.15em] text-gray-500 uppercase;
+    }
+
+    /* Кнопка */
+    .btn-action {
+        display: inline-block;
+        padding: 18px 44px;
+        border: 1px solid rgba(197, 160, 89, 0.4);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        text-decoration: none;
+        margin-top: 30px;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shineGold 5s linear infinite;
+        font-weight: 500;
+        transition: all 0.4s ease;
+    }
+
+    .btn-action:hover {
+        border-color: rgba(197, 160, 89, 0.8);
+        transform: translateY(-2px);
+    }
+
+    .separator-img {
+        max-width: 200px;
+        width: 100%;
+        opacity: 0.7;
+        margin-top: 40px;
+    }
+</style>
+
+<div class="branch-section-container">
+    <div class="branch-wrapper">
+        <div class="content-limiter">
+            
+            <h2 class="title-branch">Garden Lounge Udelnaya</h2>
+            <div class="gold-line"></div>
+            <p class="subtitle-gold">Свяжитесь с нами</p>
+
+            <div class="social-contacts">
+                <a href="https://wa.me/ваш_номер" class="social-link" target="_blank" title="WhatsApp">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3670/3670051.png" alt="WhatsApp" class="social-icon-img">
+                </a>
+                <a href="https://t.me/ваш_ник" class="social-link" target="_blank" title="Telegram">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" class="social-icon-img">
+                </a>
+            </div>
+
+            <div class="address-block">
+                <p style="font-size: 13px; font-weight: 300; letter-spacing: 0.2em; color: #D1D5DB; text-transform: uppercase; margin: 0;">
+                    СПб., ул. Аккуратова, д. 13
+                </p>
+                <p style="font-size: 11px; font-weight: 300; letter-spacing: 0.15em; color: #6B7280; text-transform: uppercase; margin-top: 8px;">
+                    м. Удельная
+                </p>
+            </div>
+
+            <a href="https://garden-lounge.pro" class="btn-action">
+                Забронировать стол
+            </a>
+
+            <div>
+                <img src="https://misterpufik.ru/div.png" alt="Separator" class="separator-img">
+            </div>
+
+        </div>
+    </div>
+</div>

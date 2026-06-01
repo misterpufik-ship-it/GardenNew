@@ -1,0 +1,102 @@
+<div id="contact" class="gl_full_width_bg">
+    <div class="gl_tp_body_wrapper">
+        
+        <div class="gl_tp_main_title gl_tp_serif">Concierge & Information</div>
+        <div class="gl_tp_hr_top"></div>
+        <div class="gl_tp_top_label gl_tp_sans"><span class="subtitle-gold">Контактная информация</span></div>
+
+        <div class="gl_desktop_grid">
+            <div class="gl_tp_col">
+                <div class="gl_tp_section">
+                    <span class="gl_tp_section_label gl_tp_sans"><span class="subtitle-gold">Location</span></span>
+                    <a href="<cms:show cont_map_link />" target="_blank" class="gl_tp_address_text gl_tp_serif"><cms:show cont_address /></a>
+                    <a href="<cms:show cont_map_link />" target="_blank" class="gl_tp_route_btn gl_tp_sans">построить маршрут</a>
+                </div>
+                <div class="gl_tp_hr_gold"></div>
+                <div class="gl_tp_section">
+                    <span class="gl_tp_section_label gl_tp_sans"><span class="subtitle-gold">Opening Hours</span></span>
+                    <div class="gl_tp_serif">
+                        <p class="gl_tp_hours_row" style="font-size: 18px !important;">Пн–Чт; Вс <span class="subtitle-gold" style="margin-left: 10px !important;"><cms:show cont_hours_1 /></span></p>
+                        <p class="gl_tp_hours_row" style="font-size: 18px !important;">Пт–Сб <span class="subtitle-gold" style="margin-left: 10px !important;"><cms:show cont_hours_2 /></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gl_tp_col">
+                <div class="gl_tp_section">
+                    <span class="gl_tp_section_label gl_tp_sans"><span class="subtitle-gold">Contact Us</span></span>
+                    <a href="tel:<cms:show cont_phone_link />" class="gl_tp_phone_number gl_tp_serif"><cms:show cont_phone /></a>
+                    
+                    <div class="gl_tp_social_grid">
+                        <a href="<cms:show cont_whatsapp />" target="_blank" class="gl_tp_social_link">
+                            <div class="gl_tp_icon_circle"><i class="fab fa-whatsapp text-2xl"></i></div>
+                            <span class="gl_tp_social_title gl_tp_sans"><span class="subtitle-gold">WhatsApp</span></span>
+                        </a>
+                        <a href="<cms:show cont_telegram />" target="_blank" class="gl_tp_social_link">
+                            <div class="gl_tp_icon_circle"><i class="fab fa-telegram-plane text-2xl"></i></div>
+                            <span class="gl_tp_social_title gl_tp_sans"><span class="subtitle-gold">Telegram</span></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gl_widgets_grid">
+            <div class="gl_tp_card">
+                <div class="gl_tp_card_head gl_tp_sans"><span class="subtitle-gold">Guest Reviews & Ratings</span></div>
+                <div class="gl_rating_container">
+                    
+                    <a href="<cms:show cont_map_link />reviews/" target="_blank" class="gl_rating_item">
+                        <div class="gl_platform_box">
+                            <span class="gl_platform_name">Yandex</span>
+                            <span class="gl_action_label">написать отзыв</span>
+                        </div>
+                        <div class="gl_stars_box">
+                            <cms:repeat count='5'><i class="fas fa-star" style="font-size: 10px;"></i></cms:repeat>
+                        </div>
+                        <div class="gl_rating_stats">
+                            <span class="subtitle-gold" style="font-size: 18px; font-weight: 700;"><cms:show rate_yandex_val /></span>
+                            <span style="opacity: 0.4; font-size: 10px; margin-left: 5px;"><cms:show rate_yandex_count /> отзывов</span>
+                        </div>
+                    </a>
+
+                    <a href="https://2gis.ru/spb/firm/70000001089303834/tab/reviews" target="_blank" class="gl_rating_item">
+                        <div class="gl_platform_box">
+                            <span class="gl_platform_name">2GIS</span>
+                            <span class="gl_action_label">написать отзыв</span>
+                        </div>
+                        <div class="gl_stars_box">
+                            <cms:repeat count='5'><i class="fas fa-star" style="font-size: 10px;"></i></cms:repeat>
+                        </div>
+                        <div class="gl_rating_stats">
+                            <span class="subtitle-gold" style="font-size: 18px; font-weight: 700;"><cms:show rate_2gis_val /></span>
+                            <span style="opacity: 0.4; font-size: 10px; margin-left: 5px;"><cms:show rate_2gis_count /> отзывов</span>
+                        </div>
+                    </a>
+
+                    <a href="<cms:show rate_google_link />" target="_blank" class="gl_rating_item">
+                        <div class="gl_platform_box">
+                            <span class="gl_platform_name">Google</span>
+                            <span class="gl_action_label">написать отзыв</span>
+                        </div>
+                        <div class="gl_stars_box">
+                            <cms:repeat count='5'><i class="fas fa-star" style="font-size: 10px;"></i></cms:repeat>
+                        </div>
+                        <div class="gl_rating_stats">
+                            <span class="subtitle-gold" style="font-size: 18px; font-weight: 700;"><cms:show rate_google_val /></span>
+                            <span style="opacity: 0.4; font-size: 10px; margin-left: 5px;"><cms:show rate_google_count /> отзывов</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="gl_tp_card">
+                <div class="gl_map_wrapper">
+                    <iframe src="<cms:show cont_map_iframe />" class="gl_dark_map_frame" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

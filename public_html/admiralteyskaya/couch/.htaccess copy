@@ -1,0 +1,61 @@
+# Включаем механизм редиректов
+RewriteEngine On
+
+# -------------------------------------------------
+# 1. Редирект http -> https
+# -------------------------------------------------
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# -------------------------------------------------
+# 2. Приводим www -> без www (одно зеркало)
+# -------------------------------------------------
+RewriteCond %{HTTP_HOST} ^www\.garden-lounge\.pro$ [NC]
+RewriteRule ^ https://garden-lounge.pro%{REQUEST_URI} [R=301,L]
+
+# -------------------------------------------------
+# 3. Убираем index.php из URL (красивые адреса)
+# -------------------------------------------------
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.php[\s?] [NC]
+RewriteRule ^(.*/)?index\.php$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# -------------------------------------------------
+# 4. Защита системных файлов
+# -------------------------------------------------
+<FilesMatch "^(\.htaccess|\.env|config\.php|couch\.db)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# -------------------------------------------------
+# 5. Запрет листинга директорий
+# -------------------------------------------------
+Options -Indexes
+
+# -------------------------------------------------
+# 6. WebP: правильный MIME (чтобы CMS/браузер не тупили)
+# -------------------------------------------------
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+</IfModule>
+
+# -------------------------------------------------
+# 7. Кеширование статики (ускорение)
+# -------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 7 days"
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType image/jpg "access plus 30 days"
+    ExpiresByType image/jpeg "access plus 30 days"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/webp "access plus 30 days"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>

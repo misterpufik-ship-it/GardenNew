@@ -1,0 +1,138 @@
+<style>
+    /* Основной контейнер */
+    #menu-block {
+        --bg-color: #000000;
+        --gold: #C5A059;
+         width: 100% !important;
+    position: relative !important;
+    left: 0 !important;
+    transform: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+           box-sizing: border-box !important;
+        min-height: 400px;
+        z-index: 5;
+    }
+
+    #menu-block .content-limiter {
+        max-width: 600px; margin: 0 auto !important; width: 100%;
+        padding: 0 20px; position: relative; z-index: 10;
+    }
+
+    #menu-block .font-serif-lux { font-family: 'Cormorant Garamond', serif !important; }
+
+    /* Анимация золотого перелива */
+    @keyframes menuShine { to { background-position: 200% center; } }
+
+    #menu-block .shimmer-gold {
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: menuShine 5s linear infinite;
+        display: inline-block;
+    }
+
+    #menu-block .fade-up { animation: menuFadeIn 1s ease-out forwards; opacity: 0; }
+    @keyframes menuFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    #menu-block .film-grain {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: url('https://grainy-gradients.vercel.app/noise.svg');
+        opacity: 0.04; pointer-events: none; z-index: 1;
+    }
+
+    #menu-block .golden-line {
+        width: 160px; height: 1px;
+        background: linear-gradient(to right, transparent, var(--gold), transparent);
+        margin: 16px auto !important;
+    }
+
+    #menu-block .main-card {
+        background-color: #0a0a0a; height: 280px; display: flex;
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6); position: relative;
+    }
+
+    @media (min-width: 768px) { #menu-block .main-card { height: 320px; } }
+
+    #menu-block .card-left {
+        width: 55%; height: 100%; position: relative;
+        border-right: 1px solid rgba(197, 160, 89, 0.2); overflow: hidden;
+    }
+    
+    #menu-block .card-left img {
+        width: 100%; height: 100%; object-fit: cover; opacity: 0.6;
+        transition: transform 1.2s ease;
+    }
+    
+    #menu-block .main-card:hover .card-left img { transform: scale(1.05); }
+
+    #menu-block .card-right { width: 45%; display: flex; flex-direction: column; }
+
+    #menu-block .menu-btn {
+        flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-decoration: none !important; color: inherit !important; transition: background 0.3s;
+    }
+
+    #menu-block .menu-btn:hover { background: rgba(197, 160, 89, 0.05); }
+    #menu-block .card-divider { height: 1px; width: 100%; background: rgba(197, 160, 89, 0.15); }
+</style>
+
+<div id="menu-block">
+    <div class="film-grain"></div>
+
+    <div class="content-limiter">
+        <div class="text-center mb-12 fade-up" style="animation-delay: 0.1s;">
+            <h2 class="font-serif-lux text-3xl text-white font-light italic m-0"><cms:show menu_main_title /></h2>
+            <div class="golden-line"></div>
+            <p class="text-[12px] uppercase tracking-[0.4em] font-medium shimmer-gold m-0"><cms:show menu_sub_title /></p>
+        </div>
+
+        <div class="main-card fade-up" style="animation-delay: 0.3s;">
+            
+            <a href="<cms:show menu_visual_link />" target="_self" class="card-left">
+                <img src="<cms:show menu_visual_img />" alt="Визуальное меню">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-2">
+                    <h3 class="font-serif-lux text-2xl md:text-3xl italic text-white text-center m-0 leading-tight">
+                        Визуальное<br>меню
+                    </h3>
+                    <div class="mt-4 flex items-center gap-2 opacity-50">
+                        <i class="fas fa-camera text-[10px] text-[#C5A059]"></i>
+                        <span class="text-[9px] uppercase tracking-[0.2em] text-[#C5A059]">Open Gallery</span>
+                    </div>
+                </div>
+            </a>
+            
+            <div class="card-right">
+                <a href="<cms:show menu_text_link />" target="_self" class="menu-btn group">
+                    <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">Текстовое</h3>
+                    <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">Classic List</span>
+                </a>
+                
+                <div class="card-divider"></div>
+                
+                <a href="<cms:show menu_eng_link />" target="_self" class="menu-btn group">
+                    <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">English menu</h3>
+                    <div class="flex items-center gap-1 opacity-40">
+                         <span class="text-[7px] uppercase tracking-[0.1em] text-white">Open</span>
+                         <i class="fas fa-download text-[7px]"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-12 text-center fade-up" style="animation-delay: 0.5s;">
+            <p class="text-[10px] uppercase tracking-[0.3em] font-medium shimmer-gold m-0 mb-8">
+                <cms:show menu_footer_text />
+            </p>
+            
+            <div class="flex justify-center">
+                <img src="<cms:show menu_sep />" alt="Разделитель" class="w-64 h-auto opacity-70 object-contain">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+<style>
+    /* Изоляция контейнера на всю ширину */
+    .branch-section-container {
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        overflow: hidden;
+    }
+
+    .branch-wrapper {
+        --bg-deep: #000000;
+        --text-main: #EAEAEA;
+        --gold-matte: #C5A059;
+        
+        position: relative;
+        width: 100%;
+        min-height: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--bg-deep);
+        color: var(--text-main);
+        font-family: 'Montserrat', sans-serif;
+        /* На мобильных уменьшаем боковые отступы до 10px */
+        padding: 60px 10px; 
+    }
+    
+    @media (min-width: 640px) {
+        .branch-wrapper {
+            padding: 80px 20px;
+        }
+    }
+
+    .content-limiter {
+        max-width: 600px; 
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+        text-align: center;
+    }
+
+    /* Заголовок в стиле Philosophy */
+    .title-branch {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 30px;
+        line-height: 1.2;
+        font-weight: 300;
+        font-style: italic;
+        color: #ffffff;
+        margin: 0;
+    }
+
+    /* Золотая линия 160px */
+    .gold-line {
+        width: 160px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, #C5A059, transparent);
+        margin: 16px auto;
+        opacity: 0.8;
+    }
+
+    /* Подзаголовок с переливом */
+    .subtitle-gold {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        margin: 0;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shineGold 5s linear infinite;
+    }
+
+    /* Стили изображения */
+    .img-frame {
+        position: relative;
+        margin: 30px auto;
+        width: 100%; /* На мобильных на всю ширину лимитера */
+        max-width: 500px; /* На десктопе ограничиваем */
+        padding: 1px;
+        background: linear-gradient(45deg, rgba(197,160,89,0.3), transparent, rgba(197,160,89,0.3));
+    }
+    
+    @media (min-width: 640px) {
+        .img-frame {
+            margin: 40px auto;
+        }
+    }
+
+    .img-premium {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: brightness(0.9);
+    }
+
+    /* Кнопка с переливом */
+    .btn-action {
+        display: inline-block;
+        padding: 18px 44px;
+        border: 1px solid rgba(197, 160, 89, 0.4);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        text-decoration: none;
+        transition: all 0.4s ease;
+        margin-top: 24px;
+        position: relative;
+
+        /* Эффект перелива для текста */
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: shineGold 5s linear infinite;
+        font-weight: 500;
+    }
+
+    .btn-action:hover {
+        border-color: rgba(197, 160, 89, 0.8);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes shineGold {
+        to { background-position: 200% center; }
+    }
+
+    .fade-up { 
+        animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    @keyframes fadeUp { 
+        to { opacity: 1; transform: translateY(0); } 
+    }
+
+    .film-grain {
+        position: absolute; 
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: url('https://grainy-gradients.vercel.app/noise.svg');
+        opacity: 0.04; pointer-events: none; z-index: 1;
+    }
+
+    .separator-img {
+        max-width: 256px;
+        width: 100%;
+        height: auto;
+        opacity: 0.9;
+        margin: 40px auto 0;
+    }
+</style>
+
+<div class="branch-section-container">
+    <div class="branch-wrapper">
+        <div class="film-grain"></div>
+
+        <div class="content-limiter">
+            <!-- Заголовок -->
+            <div class="fade-up">
+                <h2 class="title-branch">Garden Lounge Udelnaya</h2>
+            </div>
+
+            <!-- Золотая линия -->
+            <div class="fade-up" style="animation-delay: 0.2s;">
+                <div class="gold-line"></div>
+            </div>
+
+            <!-- Подзаголовок -->
+            <div class="fade-up" style="animation-delay: 0.3s;">
+                <p class="subtitle-gold">Второй филиал тайного сада</p>
+            </div>
+            
+            <!-- Изображение -->
+            <div class="fade-up" style="animation-delay: 0.5s;">
+                <div class="img-frame">
+                    <img src="https://garden-lounge.pro/img/akkuratova.webp" 
+                         alt="Garden Lounge Udelnaya" 
+                         class="img-premium">
+                </div>
+                
+                <!-- Адресный блок -->
+                <div class="mb-8 px-4">
+                    <p class="text-[13px] font-light tracking-[0.2em] text-gray-300 uppercase">
+                        СПб., ул. Аккуратова, д. 13
+                    </p>
+                    <p class="text-[11px] font-light tracking-[0.15em] text-gray-500 uppercase mt-2">
+                        м. Удельная
+                    </p>
+                </div>
+
+                <!-- Кнопка с переливом -->
+                <a href="https://garden-lounge.pro" class="btn-action">
+                    Перейти на сайт
+                </a>
+
+                <!-- Золотой разделитель-арт -->
+                <div class="flex justify-center">
+                    <img src="https://misterpufik.ru/div.png" 
+                         alt="Gold Separator" 
+                         class="separator-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

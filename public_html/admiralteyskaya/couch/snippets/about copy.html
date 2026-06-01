@@ -1,0 +1,92 @@
+<style>
+    .philosophy-section-container {
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    width: 100%;
+    position: relative;
+    /* Убрали left: 50% и отрицательные маржины, которые вызывали дерганье */
+    overflow: hidden;
+}
+
+/* Дополнительная фиксация для мобилок, чтобы блоки не вылезали за края */
+@media (max-width: 768px) {
+    .philosophy-wrapper {
+        width: 100%;
+        padding: 40px 20px; /* Добавили комфортные отступы вместо 1px 2px */
+        min-height: auto;   /* На мобильных лучше позволить контенту диктовать высоту */
+    }
+    
+    .content-limiter {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+    .philosophy-wrapper {
+        --bg-deep: #000000; --text-main: #EAEAEA; --gold-matte: #C5A059;
+        position: relative; width: 100%; min-height: 600px;
+        display: flex; align-items: center; justify-content: center;
+        background-color: var(--bg-deep); color: var(--text-main);
+        font-family: 'Montserrat', sans-serif; padding: 1px 2px; 
+    }
+    .content-limiter { max-width: 600px; margin: 0 auto; width: 100%; position: relative; z-index: 10; }
+    .title-philosophy {
+        font-family: 'Cormorant Garamond', serif; font-size: 30px; line-height: 36px;
+        font-weight: 300; font-style: italic; color: #ffffff; margin: 0; text-align: center;
+    }
+    .gold-line {
+        width: 160px; height: 1px; margin: 16px auto; opacity: 0.8;
+        background: linear-gradient(to right, transparent, #C5A059, transparent);
+    }
+    .title-concept {
+        font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500;
+        text-transform: uppercase; letter-spacing: 0.4em; margin: 0; text-align: center;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: shineGold 5s linear infinite;
+    }
+    .slogan-rituals {
+        font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500;
+        text-transform: uppercase; letter-spacing: 0.2em; text-align: center;
+        line-height: 1.8; margin: 40px auto; max-width: 400px;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: shineGold 5s linear infinite;
+    }
+    @keyframes shineGold { to { background-position: 200% center; } }
+    .fade-up { animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; transform: translateY(20px); }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .film-grain {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: url('https://grainy-gradients.vercel.app/noise.svg');
+        opacity: 0.04; pointer-events: none; z-index: 1;
+    }
+    .separator-img { max-width: 256px; width: 100%; height: auto; opacity: 0.9; object-fit: contain; }
+</style>
+
+<div id="about-us" class="philosophy-section-container">
+    <div class="philosophy-wrapper">
+        <div class="film-grain"></div>
+        <div class="content-limiter">
+            <div class="fade-up">
+                <div class="title-philosophy"><cms:show phil_title /></div>
+            </div>
+            <div class="fade-up" style="animation-delay: 0.2s;">
+                <div class="gold-line"></div>
+            </div>
+            <div class="fade-up" style="animation-delay: 0.3s;">
+                <p class="title-concept"><cms:show phil_concept /></p>
+            </div>
+            <div class="fade-up" style="animation-delay: 0.5s;">
+                <div class="text-sm text-gray-300 font-light leading-relaxed mt-6 mb-4 tracking-wide text-center">
+                    <cms:show phil_content />
+                </div>
+                <div class="w-12 h-[1px] bg-[#C5A059]/40 my-10 mx-auto"></div>
+                <p class="slogan-rituals"><cms:show phil_slogan /></p>
+                <div class="flex justify-center">
+                    <img src="<cms:show phil_sep />" alt="Separator" class="separator-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

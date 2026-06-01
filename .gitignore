@@ -1,0 +1,22 @@
+# Local CMS/database credentials
+public_html/admiralteyskaya/couch/config.php
+public_html/admiralteyskaya/couch/config copy*.php
+public_html/admiralteyskaya/couch/confi41g.php
+
+# CouchCMS runtime cache
+public_html/admiralteyskaya/couch/cache/
+public_html/admiralteyskaya/couch/cache copy/
+
+# Local/system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor state
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
