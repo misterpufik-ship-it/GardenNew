@@ -105,6 +105,7 @@
 }
     
     .nav-link { position: relative; color: #ffffff !important; text-transform: uppercase; font-size: 11px; letter-spacing: 0.15em; font-weight: 500; transition: all 0.3s ease; padding: 8px 12px; text-decoration: none; border: 1px solid transparent; }
+    .nav-link:hover { color: var(--gold-main) !important; }
     .nav-booking-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
 
     /* Стили селектора филиала */
@@ -142,15 +143,16 @@
     .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
     .mobile-menu-contact { margin-top: 18px; }
-    .desktop-call-link { display: inline-flex; align-items: center; gap: 6px; line-height: 1; }
+    .desktop-call-link { display: inline-flex; align-items: center; gap: 6px; line-height: 1; font-size: 9px !important; letter-spacing: 0.15em !important; }
     .desktop-call-link .fa-phone-alt { font-size: 11px !important; line-height: 1 !important; color: inherit !important; transform: translateY(0); }
     .desktop-call-link:hover,
     .desktop-call-link:hover .fa-phone-alt { color: var(--gold-main) !important; }
 
+    .hero-bottom-content { position: relative; z-index: 60 !important; filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.95)); }
     .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
-    .hero-branch-row { display: flex !important; align-items: center; justify-content: center; gap: 14px; width: min(86vw, 520px); margin: 2px auto 0; opacity: 0.98; }
-    .gold-line-thin { flex: 1 1 68px; max-width: 140px; min-width: 48px; height: 1px; background: linear-gradient(90deg, transparent 0%, rgba(197, 160, 89, 0.98) 50%, transparent 100%); opacity: 0.95; z-index: 10; box-shadow: 0 0 8px rgba(197, 160, 89, 0.34); }
-    #hero-branch-name-desk { color: var(--gold-main) !important; font-size: 12px !important; line-height: 1.1 !important; letter-spacing: 0.42em !important; font-weight: 700 !important; text-transform: uppercase; text-align: center; white-space: nowrap; text-shadow: 0 0 12px rgba(197, 160, 89, 0.22); }
+    .hero-branch-row { display: flex !important; align-items: center; justify-content: center; gap: 14px; width: min(86vw, 560px); margin: 4px auto 0; opacity: 1; position: relative; z-index: 70 !important; }
+    .gold-line-thin { flex: 1 1 78px; max-width: 160px; min-width: 54px; height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(197, 160, 89, 0.45) 15%, #FFEebb 50%, rgba(197, 160, 89, 0.45) 85%, transparent 100%); opacity: 1; z-index: 71 !important; box-shadow: 0 0 12px rgba(197, 160, 89, 0.72); }
+    #hero-branch-name-desk { color: var(--gold-main) !important; font-size: 13px !important; line-height: 1.1 !important; letter-spacing: 0.42em !important; font-weight: 800 !important; text-transform: uppercase; text-align: center; white-space: nowrap; opacity: 1 !important; position: relative; z-index: 72 !important; text-shadow: 0 0 3px rgba(0, 0, 0, 0.95), 0 0 14px rgba(255, 238, 187, 0.68), 0 0 24px rgba(197, 160, 89, 0.42); }
 
     /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
     @media (max-width: 767px) {
@@ -188,6 +190,15 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
+            color: #ffffff !important;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+        .mobile-quick-link:hover,
+        .mobile-quick-link:focus,
+        .mobile-quick-link:active,
+        .burger-btn:hover,
+        .burger-btn:focus,
+        .burger-btn:active {
             color: var(--gold-main) !important;
         }
         .mobile-quick-link i {
@@ -238,6 +249,10 @@
             top: 18px !important;
             right: 18px !important;
             z-index: 1000002 !important;
+        }
+        .burger-btn {
+            color: #ffffff !important;
+            transition: color 0.25s ease, transform 0.25s ease;
         }
     }
 </style>
@@ -354,7 +369,7 @@
     
     <img src="https://misterpufik.ru/logo3.png" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto">
     
-    <div class="flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
+    <div class="hero-bottom-content flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
         <p class="tagline-premium shimmer-text uppercase tracking-[0.2em] text-[11px] md:text-[13px] mb-6 m-0"><cms:show hero_tagline /></p>
         
         <div class="hero-branch-row hidden md:flex items-center gap-4">
