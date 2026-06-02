@@ -448,7 +448,7 @@
 
 <div class="mobile-menu-overlay" id="mobileMenu">
     <div class="mobile-menu-bg-layer absolute inset-0 pointer-events-none overflow-hidden">
-        <img src="<cms:show hero_bg_mob />" class="mobile-menu-bg-img" alt="">
+        <img src="<cms:show hero_bg_mob />" class="mobile-menu-bg-img" loading="lazy" decoding="async" alt="">
         <div class="mobile-menu-bg-shade"></div>
     </div>
     
@@ -456,7 +456,11 @@
         <img src="couch/uploads/image/logo3.webp"
      alt="Logo" 
      class="logo-luxe-animate" 
-     style="width: 380px !important; max-width: 90vw; margin-top: 5vh !important;">
+     width="380"
+     height="160"
+     loading="lazy"
+     decoding="async"
+     style="width: 380px !important; max-width: 90vw; margin-top: 5vh !important; height: auto;">
         <div class="mobile-close-btn cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
             <i class="fas fa-times text-3xl"></i>
         </div>
@@ -468,7 +472,7 @@
                 <cms:show item_name />
             </a>
         </cms:show_repeatable>
-        <img src="couch/uploads/image/div.webp" class="w-[200px] h-auto my-2" alt="divider">
+        <img src="couch/uploads/image/div.webp" class="w-[200px] h-auto my-2" width="200" height="26" loading="lazy" decoding="async" alt="divider">
     </div>
     
     <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
@@ -485,12 +489,12 @@
 
 <header class="hero-section" id="home">
     <div class="hero-bg">
-        <img src="<cms:show hero_bg_desk />" class="hidden md:block" alt="Interior">
-        <img src="<cms:show hero_bg_mob />" class="block md:hidden" alt="Interior Mobile">
+        <img src="<cms:show hero_bg_desk />" class="hidden md:block" fetchpriority="high" decoding="async" alt="Interior">
+        <img src="<cms:show hero_bg_mob />" class="block md:hidden" fetchpriority="high" decoding="async" alt="Interior Mobile">
         <div class="hero-overlay"></div>
     </div>
     
-    <img src="couch/uploads/image/logo3.webp" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto">
+    <img src="couch/uploads/image/logo3.webp" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto" width="384" height="162" fetchpriority="high" decoding="async">
     
     <div class="hero-bottom-content flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
         <p class="tagline-premium shimmer-text uppercase tracking-[0.2em] text-[11px] md:text-[13px] mb-6 m-0"><cms:show hero_tagline /></p>

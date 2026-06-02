@@ -218,12 +218,12 @@
                 <div class="img-frame branch-gallery" data-branch-gallery>
                     <div class="branch-gallery-track">
                         <div class="branch-gallery-slide">
-                            <img src="<cms:show final_img />" alt="Branch Office" class="img-premium">
+                            <img src="<cms:show final_img />" alt="Branch Office" class="img-premium" loading="lazy" decoding="async">
                         </div>
                         <cms:show_repeatable 'final_gallery'>
                             <cms:if final_gallery_img>
                                 <div class="branch-gallery-slide">
-                                    <img src="<cms:show final_gallery_img />" alt="<cms:show final_gallery_alt />" class="img-premium">
+                                    <img src="<cms:show final_gallery_img />" alt="<cms:show final_gallery_alt />" class="img-premium" loading="lazy" decoding="async">
                                 </div>
                             </cms:if>
                         </cms:show_repeatable>
@@ -247,7 +247,7 @@
                 </a>
 
                 <div class="flex justify-center">
-                    <img src="<cms:show final_sep />" alt="Separator" class="separator-img">
+                    <img src="<cms:show final_sep />" alt="Separator" class="separator-img" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
