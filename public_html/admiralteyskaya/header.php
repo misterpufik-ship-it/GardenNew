@@ -18,7 +18,7 @@
 
     <cms:editable name='group_hero' label='Главный экран (Hero)' type='group' />
     <cms:editable name='hero_tagline' label='Слоган под лого' group='group_hero' type='text'>Магический вечнозеленый сад в самом сердце Санкт-Петербурга</cms:editable>
-    <cms:editable name='hero_bg_desk' label='Фон (Десктоп)' group='group_hero' type='image'>:garden-main.jpg</cms:editable>
+    <cms:editable name='hero_bg_desk' label='Фон (Десктоп)' group='group_hero' type='image'>:garden-main.webp</cms:editable>
     <cms:editable name='hero_bg_mob' label='Фон (Мобилка)' group='group_hero' type='image'>:garden-main-mobile.webp</cms:editable>
 
 </cms:template>

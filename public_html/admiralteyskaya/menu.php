@@ -6,7 +6,7 @@
     <cms:editable name='menu_sub_title' label='Подзаголовок' group='menu_group_titles' type='text'>Эстетика вкуса</cms:editable>
 
     <cms:editable name='menu_group_visual' label='Визуальное меню (Левая часть)' type='group' />
-    <cms:editable name='menu_visual_img' label='Обложка визуального меню' group='menu_group_visual' type='image'>https://misterpufik.ru/gf11.jpg</cms:editable>
+    <cms:editable name='menu_visual_img' label='Обложка визуального меню' group='menu_group_visual' type='image'>:gf11.webp</cms:editable>
     <cms:editable name='menu_visual_link' label='Ссылка на визуальное меню' group='menu_group_visual' type='text'>https://garden-lounge.pro/admiralteyskaya/menu/visual/</cms:editable>
 
     <cms:editable name='menu_group_links' label='Кнопки справа' type='group' />
@@ -14,7 +14,7 @@
     <cms:editable name='menu_eng_link' label='Ссылка: English Menu' group='menu_group_links' type='text'>https://garden-lounge.pro/admiralteyskaya/menu/english/</cms:editable>
 
     <cms:editable name='menu_footer_text' label='Текст внизу' type='text'>Гастрономическая поэзия</cms:editable>
-    <cms:editable name='menu_sep' label='Картинка разделителя' type='image'>https://misterpufik.ru/div.png</cms:editable>
+    <cms:editable name='menu_sep' label='Картинка разделителя' type='image'>:div.webp</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

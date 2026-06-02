@@ -32,7 +32,7 @@
     <cms:editable name='akzii_sep' 
         label='Картинка разделителя (узор)' 
         group='group_footer' 
-        type='image'>https://misterpufik.ru/div.png</cms:editable>
+        type='image'>:div.webp</cms:editable>
 
 </cms:template>
 

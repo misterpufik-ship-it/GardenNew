@@ -21,7 +21,7 @@
         <cms:editable name='phil_lsi' label='LSI Ключи для ИИ (скрытые)' group='phil_seo_group' type='textarea' desc='Пропишите здесь через запятую важные ключи, которые ИИ должен связать с этим текстом (например: дизайнерская кальянная, центр спб, живые растения)'>дизайнерская кальянная СПб, премиум лаундж в центре, место с живыми растениями и фонтаном</cms:editable>
 
     <cms:editable name='phil_img_group' label='Изображения' type='group' order='3' />
-        <cms:editable name='phil_sep' label='Картинка разделителя (узор)' group='phil_img_group' type='image'>https://misterpufik.ru/div.png</cms:editable>
+        <cms:editable name='phil_sep' label='Картинка разделителя (узор)' group='phil_img_group' type='image'>:div.webp</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

@@ -321,15 +321,43 @@
             transition: color 0.25s ease;
         }
     }
+
+    @media (max-width: 1180px) {
+        .desktop-nav-zone {
+            display: none !important;
+        }
+
+        .mobile-nav-zone {
+            display: flex !important;
+        }
+    }
+
+    @media (min-width: 1181px) {
+        .desktop-nav-zone {
+            display: flex !important;
+        }
+
+        .mobile-nav-zone {
+            display: none !important;
+        }
+    }
+
+    .gl-navbar.nav-compact .desktop-nav-zone {
+        display: none !important;
+    }
+
+    .gl-navbar.nav-compact .mobile-nav-zone {
+        display: flex !important;
+    }
 </style>
 
 <nav class="gl-navbar flex justify-between items-center px-6 md:px-8" id="navbar">
-    <div class="hidden md:flex gap-4 items-center flex-1">
+    <div class="desktop-nav-zone hidden md:flex gap-4 items-center flex-1">
         <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-vk text-lg"></i></a>
         <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-instagram text-lg"></i></a>
     </div>
 
-    <div class="hidden md:flex items-center gap-1 flex-none">
+    <div class="desktop-nav-zone hidden md:flex items-center gap-1 flex-none">
         <div class="branch-selector" id="desktopBranchSelector">
             <div class="flex items-center gap-3">
                 <i class="fas fa-location-dot text-[11px] text-[#C5A059]"></i>
@@ -351,11 +379,11 @@
         </div>
     </div>
 
-    <div class="hidden md:flex gap-6 items-center justify-end flex-1">
+    <div class="desktop-nav-zone hidden md:flex gap-6 items-center justify-end flex-1">
         <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
     </div>
 
-    <div class="md:hidden flex items-center justify-between w-full pl-0 pr-1 relative">
+    <div class="mobile-nav-zone md:hidden flex items-center justify-between w-full pl-0 pr-1 relative">
         <div class="mobile-quick-links flex items-center gap-0 z-20 -ml-2">
             <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
             <a href="<cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if>" target="_blank" rel="noopener" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
@@ -396,7 +424,7 @@
     </div>
     
     <div class="w-full flex justify-center items-center px-6 pt-6 z-10 relative">
-        <img src="https://misterpufik.ru/logo3.png" 
+        <img src="/couch/uploads/image/logo3.webp"
      alt="Logo" 
      class="logo-luxe-animate" 
      style="width: 380px !important; max-width: 90vw; margin-top: 5vh !important;">
@@ -411,7 +439,7 @@
                 <cms:show item_name />
             </a>
         </cms:show_repeatable>
-        <img src="https://misterpufik.ru/div.png" class="w-[200px] h-auto my-2" alt="divider">
+        <img src="/couch/uploads/image/div.webp" class="w-[200px] h-auto my-2" alt="divider">
     </div>
     
     <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
@@ -433,7 +461,7 @@
         <div class="hero-overlay"></div>
     </div>
     
-    <img src="https://misterpufik.ru/logo3.png" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto">
+    <img src="/couch/uploads/image/logo3.webp" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto">
     
     <div class="hero-bottom-content flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
         <p class="tagline-premium shimmer-text uppercase tracking-[0.2em] text-[11px] md:text-[13px] mb-6 m-0"><cms:show hero_tagline /></p>
@@ -451,6 +479,7 @@
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const body = document.body;
+    const desktopZones = document.querySelectorAll('.desktop-nav-zone');
 
     const branches = {
         admiral: { name: "Адмиралтейская", slug: "admiralteyskaya", address: "Набережная реки Мойки д.67-69", addrMob: "Moyki 67-69" },
@@ -477,6 +506,30 @@
         document.querySelectorAll('.branch-option, .mobile-branch-opt').forEach(opt => {
             opt.classList.toggle('active', opt.dataset.branch === id);
         });
+    }
+
+    function syncResponsiveNav() {
+        if (!navbar) return;
+
+        navbar.classList.remove('nav-compact');
+
+        if (window.innerWidth <= 1180) {
+            navbar.classList.add('nav-compact');
+            return;
+        }
+
+        const totalWidth = Array.from(desktopZones).reduce((sum, item) => {
+            return sum + item.scrollWidth;
+        }, 0);
+        const navStyle = window.getComputedStyle(navbar);
+        const navPadding =
+            parseFloat(navStyle.paddingLeft || 0) +
+            parseFloat(navStyle.paddingRight || 0);
+        const availableWidth = navbar.clientWidth - navPadding;
+
+        if (totalWidth + 28 > availableWidth) {
+            navbar.classList.add('nav-compact');
+        }
     }
 
     // Логика переключения филиалов
@@ -533,6 +586,13 @@
             requestAnimationFrame(onScroll);
         }
     }, { passive: true });
+
+    syncResponsiveNav();
+    window.addEventListener('resize', syncResponsiveNav, { passive: true });
+    window.addEventListener('load', syncResponsiveNav);
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncResponsiveNav);
+    }
 
     // УПРАВЛЕНИЕ МЕНЮ (ОСНОВНОЕ)
     if (burgerBtn && mobileMenu) {
