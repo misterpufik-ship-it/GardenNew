@@ -18,13 +18,13 @@
         position: relative; width: 100%; min-height: 600px;
         display: flex; align-items: center; justify-content: center;
         background-color: var(--bg-deep); color: var(--text-main);
-        font-family: 'Montserrat', sans-serif; padding: 60px 10px; 
+        font-family: 'Montserrat', sans-serif; padding: 64px 18px 70px;
     }
     
-    @media (min-width: 640px) { .branch-wrapper { padding: 80px 20px; } }
+    @media (min-width: 640px) { .branch-wrapper { padding: 76px 20px 86px; } }
 
     .content-limiter {
-        max-width: 600px; margin: 0 auto; width: 100%;
+        max-width: 680px; margin: 0 auto; width: 100%;
         position: relative; z-index: 10; text-align: center;
     }
 
@@ -54,28 +54,59 @@
         display: inline-block;
     }
 
+    .branch-address-wrap {
+        width: min(100%, 430px);
+        margin: 0 auto;
+        padding: 22px 20px;
+        border: 1px solid rgba(197, 160, 89, 0.24);
+        background: rgba(12, 12, 12, 0.54);
+        text-align: center;
+    }
+
+    .branch-address-text {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-size: 23px !important;
+        line-height: 1.18 !important;
+        font-weight: 300 !important;
+        font-style: italic !important;
+        color: #ffffff !important;
+        letter-spacing: 0 !important;
+        text-transform: none !important;
+        margin: 0 !important;
+    }
+
+    .branch-metro-text {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 9px !important;
+        line-height: 1.6 !important;
+        letter-spacing: 0.22em !important;
+        color: rgba(255,255,255,0.52) !important;
+        text-transform: uppercase !important;
+        margin: 10px 0 0 !important;
+    }
+
     /* Стили изображения */
     .img-frame {
-        position: relative; margin: 30px auto; width: 100%; max-width: 500px; padding: 1px;
+        position: relative; margin: 30px auto 24px; width: 100%; max-width: 520px; padding: 1px;
         background: linear-gradient(45deg, rgba(197,160,89,0.3), transparent, rgba(197,160,89,0.3));
     }
     
-    @media (min-width: 640px) { .img-frame { margin: 40px auto; } }
+    @media (min-width: 640px) { .img-frame { margin: 36px auto 28px; } }
 
     .img-premium { width: 100%; height: auto; display: block; filter: brightness(0.9); }
 
     /* Кнопка с переливом */
     .btn-action {
-        display: inline-block; padding: 18px 44px; border: 1px solid rgba(197, 160, 89, 0.4);
-        font-size: 10px; text-transform: uppercase; letter-spacing: 0.3em;
-        text-decoration: none; transition: all 0.4s ease; margin-top: 24px;
-        position: relative; font-weight: 500;
-        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
-        background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
-        color: transparent; animation: shineGold 5s linear infinite;
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: min(100%, 300px); padding: 18px 28px; border: none;
+        font-size: 11px; text-transform: uppercase; letter-spacing: 0.25em;
+        text-decoration: none; transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease; margin-top: 26px;
+        position: relative; font-weight: 800;
+        background: linear-gradient(135deg, #8e7037, #C5A059, #FFEebb, #C5A059);
+        color: #000000 !important; animation: none; box-shadow: 0 12px 34px rgba(0, 0, 0, 0.42);
     }
 
-    .btn-action:hover { border-color: rgba(197, 160, 89, 0.8); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); }
+    .btn-action:hover { transform: translateY(-2px); filter: brightness(1.06); box-shadow: 0 16px 42px rgba(0, 0, 0, 0.52); }
 
     .film-grain {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -84,6 +115,17 @@
     }
 
     .separator-img { max-width: 256px; width: 100%; height: auto; opacity: 0.9; margin: 40px auto 0; }
+
+    @media (max-width: 767px) {
+        .branch-wrapper { padding: 52px 16px 62px; }
+        .title-branch { font-size: 30px; }
+        .subtitle-gold { font-size: 10px; letter-spacing: 0.28em; line-height: 1.8; }
+        .branch-address-wrap { padding: 20px 16px; }
+        .branch-address-text { font-size: 22px !important; }
+        .branch-metro-text { font-size: 8px !important; letter-spacing: 0.18em !important; }
+        .btn-action { min-width: min(100%, 280px); font-size: 10px; padding: 17px 22px; }
+        .separator-img { max-width: 220px; margin-top: 34px; }
+    }
 </style>
 
 <div class="branch-section-container">
@@ -108,11 +150,11 @@
                     <img src="<cms:show final_img />" alt="Branch Office" class="img-premium">
                 </div>
                 
-                <div class="mb-8 px-4">
-                    <p class="text-[13px] font-light tracking-[0.2em] text-gray-300 uppercase">
+                <div class="branch-address-wrap">
+                    <p class="branch-address-text">
                         <cms:show final_address />
                     </p>
-                    <p class="text-[11px] font-light tracking-[0.15em] text-gray-500 uppercase mt-2">
+                    <p class="branch-metro-text">
                         <cms:show final_metro />
                     </p>
                 </div>

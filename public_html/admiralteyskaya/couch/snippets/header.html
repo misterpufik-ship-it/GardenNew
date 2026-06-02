@@ -119,10 +119,44 @@
     .mobile-branch-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); z-index: 1000001; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 92px 20px 32px; }
     .mobile-branch-modal.active { display: flex; }
     .mobile-branch-close { position: fixed !important; top: 18px !important; right: 18px !important; z-index: 1000002 !important; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--gold-main) !important; }
-    .mobile-branch-modal .mobile-branch-title { margin: 0 0 34px !important; text-align: center; }
-    .mobile-branch-modal .mobile-branch-opt { width: 100%; padding: 20px 12px !important; }
+    .mobile-branch-modal .mobile-branch-title {
+        margin: 0 0 28px !important;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 10px !important;
+        line-height: 1.8 !important;
+        letter-spacing: 0.28em !important;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.78) !important;
+    }
+    .mobile-branch-modal .mobile-branch-list {
+        width: min(100%, 330px);
+        gap: 14px !important;
+    }
+    .mobile-branch-modal .mobile-branch-opt {
+        width: 100%;
+        min-height: 116px;
+        padding: 24px 18px !important;
+        border: 1px solid rgba(197, 160, 89, 0.24);
+        background: rgba(12, 12, 12, 0.54);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.25s ease, background 0.25s ease;
+    }
+    .mobile-branch-modal .mobile-branch-opt.active,
+    .mobile-branch-modal .mobile-branch-opt:hover {
+        border-color: rgba(197, 160, 89, 0.58);
+        background: rgba(197, 160, 89, 0.08);
+    }
     .mobile-branch-modal .mobile-branch-opt h3 {
-        margin: 0 0 6px;
+        margin: 0 0 8px;
+        font-size: 25px !important;
+        line-height: 1.05 !important;
+        font-family: 'Cormorant Garamond', serif !important;
+        font-style: italic !important;
+        font-weight: 300 !important;
         background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
@@ -130,6 +164,14 @@
         -webkit-text-fill-color: transparent;
         color: transparent !important;
         animation: goldShimmer 5s linear infinite;
+    }
+    .mobile-branch-modal .mobile-branch-opt p {
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 9px !important;
+        line-height: 1.5 !important;
+        letter-spacing: 0.18em !important;
+        color: rgba(255,255,255,0.58) !important;
+        margin: 0 !important;
     }
 
     /* --- МОБИЛЬНОЕ МЕНЮ --- */
@@ -334,7 +376,7 @@
 <div class="mobile-branch-modal" id="mobileBranchModal">
     <div class="mobile-branch-close absolute top-8 right-8 text-[#C5A059] text-3xl cursor-pointer" id="closeBranchModal"><i class="fas fa-times"></i></div>
     <p class="mobile-branch-title text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Выберите локацию</p>
-    <div class="flex flex-col gap-6 w-full max-w-[300px]">
+    <div class="mobile-branch-list flex flex-col gap-6 w-full max-w-[300px]">
         <div class="text-center py-6 mobile-branch-opt active" data-branch="admiral">
             <h3 class="text-2xl font-serif italic text-[#C5A059]">Адмиралтейская</h3>
             <p class="text-[10px] uppercase text-white/60">Мойки 67-69</p>
