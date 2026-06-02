@@ -118,7 +118,7 @@ class gd {
             $image = $this->image;
             list($width, $height) = $this->get_prop_size($bigger_size);
             $this->image = imagecreatetruecolor($width, $height);
-            if ($this->type == IMAGETYPE_PNG) {
+            if ($this->type == IMAGETYPE_PNG || (defined('IMAGETYPE_WEBP') && $this->type == IMAGETYPE_WEBP)) {
                 imagealphablending($this->image, false);
                 imagesavealpha($this->image, true);
             }
@@ -396,6 +396,15 @@ class gd {
         if (is_null($filename) && !headers_sent())
             header("Content-Type: image/gif");
         return imagegif($this->image, $filename);
+    }
+
+    public function imagewebp($filename=null, $quality=75) {
+        if (!function_exists('imagewebp'))
+            return false;
+        if (is_null($filename) && !headers_sent())
+            header("Content-Type: image/webp");
+        @imagesavealpha($this->image, true);
+        return imagewebp($this->image, $filename, $quality);
     }
 }
 

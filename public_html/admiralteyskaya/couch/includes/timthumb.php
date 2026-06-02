@@ -48,7 +48,7 @@ function k_resize_image( $src, $dest=0, $new_width=0, $new_height=0, $zoom_crop=
 
     ini_set('memory_limit', "64M");
 
-    // make sure that the src is gif/jpg/png
+    // make sure that the src is gif/jpg/png/webp
     if(!valid_src_mime_type($mime_type)) {
         return displayError("Invalid src mime type: " .$mime_type);
     }
@@ -258,6 +258,16 @@ function save_image($mime_type, $image_resized, $file, $quality=80) {
                 imagejpeg($image_resized, $file, $quality);
                 break;
 
+            case 'image/webp':
+                if (function_exists('imagewebp')) {
+                    imagewebp($image_resized, $file, $quality);
+                    break;
+                }
+                // Fall back to PNG if the host's GD library cannot write WebP.
+                $quality = floor ($quality * 0.09);
+                imagepng($image_resized, $file, $quality);
+                break;
+
             default :
                 $quality = floor ($quality * 0.09);
                 imagepng($image_resized, $file, $quality);
@@ -286,6 +296,10 @@ function open_image($mime_type, $src) {
     } elseif (stristr ($mime_type, 'png')) {
 
         $image = @imagecreatefrompng($src);
+
+    } elseif (stristr ($mime_type, 'webp')) {
+
+        $image = function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($src) : false;
 
     }
 
@@ -342,7 +356,8 @@ function mime_type($file) {
              'jpg'  => 'image/jpeg',
              'jpeg' => 'image/jpeg',
              'png'  => 'image/png',
-             'gif'  => 'image/gif'
+             'gif'  => 'image/gif',
+             'webp' => 'image/webp'
          );
 
         if (strlen($ext) && strlen($types[$ext])) {
@@ -360,7 +375,7 @@ function mime_type($file) {
  */
 function valid_src_mime_type($mime_type) {
 
-    if (preg_match("/jpg|jpeg|gif|png/i", $mime_type)) {
+    if (preg_match("/jpg|jpeg|gif|png|webp/i", $mime_type)) {
         return true;
     }
 
@@ -373,7 +388,7 @@ function valid_src_mime_type($mime_type) {
  */
 function valid_extension ($ext) {
 
-    if (preg_match("/jpg|jpeg|png|gif/i", $ext)) {
+    if (preg_match("/jpg|jpeg|png|gif|webp/i", $ext)) {
         return TRUE;
     } else {
         return FALSE;
