@@ -229,11 +229,11 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* Слоган в концепции */
-.slogan-rituals { 
-    font-size: 10px !important; 
+.slogan-rituals {
+    font-size: 11px !important;
     font-weight: 500 !important; 
     text-transform: uppercase !important; 
-    letter-spacing: 0.2em !important; 
+    letter-spacing: 0.4em !important;
     text-align: center !important; 
     line-height: 1.8 !important; 
     margin: 40px auto !important; 
