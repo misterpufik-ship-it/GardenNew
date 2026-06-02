@@ -95,10 +95,21 @@
         animation: menuShine 5s linear infinite;
     }
 
+    #menu-block .menu-visual-title {
+        font-size: 20px !important;
+        line-height: 1.15 !important;
+    }
+
     #menu-block .menu-footer-note {
         font-size: 11px !important;
         line-height: 1.8 !important;
         letter-spacing: 0.4em !important;
+    }
+
+    @media (min-width: 768px) {
+        #menu-block .menu-visual-title {
+            font-size: 20px !important;
+        }
     }
 </style>
 
@@ -119,12 +130,12 @@
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                 
                 <div class="absolute inset-0 flex flex-col items-center justify-center p-2">
-                    <h3 class="font-serif-lux text-2xl md:text-3xl italic text-white text-center m-0 leading-tight">
+                    <h3 class="menu-visual-title font-serif-lux italic text-white text-center m-0 leading-tight">
                         Визуальное<br>меню
                     </h3>
                     <div class="mt-4 flex items-center gap-2 opacity-50">
                         <i class="fas fa-camera text-[10px] text-[#C5A059]"></i>
-                        <span class="text-[9px] uppercase tracking-[0.2em] text-[#C5A059]">Open Gallery</span>
+                        <span class="menu-card-caption uppercase shimmer-gold">Open Gallery</span>
                     </div>
                 </div>
             </a>
