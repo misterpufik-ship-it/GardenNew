@@ -55,45 +55,114 @@
     }
 
     .branch-address-wrap {
-        width: min(100%, 430px);
+        width: min(100%, 560px);
         margin: 0 auto;
-        padding: 22px 20px;
-        border: 1px solid rgba(197, 160, 89, 0.24);
-        background: rgba(12, 12, 12, 0.54);
+        padding: 0 12px;
+        border: 0;
+        background: transparent;
         text-align: center;
     }
 
     .branch-address-text {
         font-family: 'Cormorant Garamond', serif !important;
-        font-size: 23px !important;
-        line-height: 1.18 !important;
+        font-size: clamp(21px, 4.8vw, 30px) !important;
+        line-height: 1.24 !important;
         font-weight: 300 !important;
         font-style: italic !important;
         color: #ffffff !important;
         letter-spacing: 0 !important;
         text-transform: none !important;
         margin: 0 !important;
+        overflow-wrap: anywhere;
     }
 
     .branch-metro-text {
         font-family: 'Montserrat', sans-serif !important;
-        font-size: 9px !important;
+        font-size: clamp(8px, 2.4vw, 11px) !important;
         line-height: 1.6 !important;
-        letter-spacing: 0.22em !important;
+        letter-spacing: clamp(0.12em, 0.7vw, 0.22em) !important;
         color: rgba(255,255,255,0.52) !important;
         text-transform: uppercase !important;
-        margin: 10px 0 0 !important;
+        margin: 8px 0 0 !important;
+        overflow-wrap: anywhere;
     }
 
     /* Стили изображения */
     .img-frame {
         position: relative; margin: 30px auto 24px; width: 100%; max-width: 520px; padding: 1px;
         background: linear-gradient(45deg, rgba(197,160,89,0.3), transparent, rgba(197,160,89,0.3));
+        overflow: hidden;
     }
     
     @media (min-width: 640px) { .img-frame { margin: 36px auto 28px; } }
 
-    .img-premium { width: 100%; height: auto; display: block; filter: brightness(0.9); }
+    .img-premium {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+        display: block;
+        filter: brightness(0.9);
+    }
+
+    .branch-gallery-track {
+        display: flex;
+        transition: transform 0.45s ease;
+        will-change: transform;
+    }
+
+    .branch-gallery-slide {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .branch-gallery-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(197, 160, 89, 0.45);
+        background: rgba(0,0,0,0.44);
+        color: #C5A059;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3;
+        cursor: pointer;
+        transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .branch-gallery-btn:hover {
+        background: rgba(197, 160, 89, 0.18);
+        color: #ffffff;
+    }
+
+    .branch-gallery-prev { left: 12px; }
+    .branch-gallery-next { right: 12px; }
+
+    .branch-gallery-dots {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 12px;
+        display: flex;
+        justify-content: center;
+        gap: 7px;
+        z-index: 3;
+    }
+
+    .branch-gallery-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.35);
+        border: 0;
+        padding: 0;
+    }
+
+    .branch-gallery-dot.active {
+        background: #C5A059;
+    }
 
     /* Кнопка с переливом */
     .btn-action {
@@ -120,11 +189,11 @@
         .branch-wrapper { padding: 52px 16px 62px; }
         .title-branch { font-size: 30px; }
         .subtitle-gold { font-size: 10px; letter-spacing: 0.28em; line-height: 1.8; }
-        .branch-address-wrap { padding: 20px 16px; }
-        .branch-address-text { font-size: 22px !important; }
-        .branch-metro-text { font-size: 8px !important; letter-spacing: 0.18em !important; }
+        .branch-address-wrap { padding: 0 6px; }
         .btn-action { min-width: min(100%, 280px); font-size: 10px; padding: 17px 22px; }
         .separator-img { max-width: 220px; margin-top: 34px; }
+        .img-premium { aspect-ratio: 4 / 3; }
+        .branch-gallery-btn { width: 34px; height: 34px; }
     }
 </style>
 
@@ -146,8 +215,22 @@
             </div>
             
             <div class="fade-up" style="animation-delay: 0.5s;">
-                <div class="img-frame">
-                    <img src="<cms:show final_img />" alt="Branch Office" class="img-premium">
+                <div class="img-frame branch-gallery" data-branch-gallery>
+                    <div class="branch-gallery-track">
+                        <div class="branch-gallery-slide">
+                            <img src="<cms:show final_img />" alt="Branch Office" class="img-premium">
+                        </div>
+                        <cms:show_repeatable 'final_gallery'>
+                            <cms:if final_gallery_img>
+                                <div class="branch-gallery-slide">
+                                    <img src="<cms:show final_gallery_img />" alt="<cms:show final_gallery_alt />" class="img-premium">
+                                </div>
+                            </cms:if>
+                        </cms:show_repeatable>
+                    </div>
+                    <button type="button" class="branch-gallery-btn branch-gallery-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
+                    <button type="button" class="branch-gallery-btn branch-gallery-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
+                    <div class="branch-gallery-dots" aria-hidden="true"></div>
                 </div>
                 
                 <div class="branch-address-wrap">
@@ -170,3 +253,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('[data-branch-gallery]').forEach((gallery) => {
+        const track = gallery.querySelector('.branch-gallery-track');
+        const slides = Array.from(gallery.querySelectorAll('.branch-gallery-slide'));
+        const prev = gallery.querySelector('.branch-gallery-prev');
+        const next = gallery.querySelector('.branch-gallery-next');
+        const dotsWrap = gallery.querySelector('.branch-gallery-dots');
+        let index = 0;
+
+        if (!track || slides.length < 2) {
+            if (prev) prev.style.display = 'none';
+            if (next) next.style.display = 'none';
+            if (dotsWrap) dotsWrap.style.display = 'none';
+            return;
+        }
+
+        slides.forEach((_, dotIndex) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'branch-gallery-dot';
+            dot.addEventListener('click', () => show(dotIndex));
+            dotsWrap.appendChild(dot);
+        });
+
+        const dots = Array.from(dotsWrap.querySelectorAll('.branch-gallery-dot'));
+
+        function show(nextIndex) {
+            index = (nextIndex + slides.length) % slides.length;
+            track.style.transform = `translateX(${-index * 100}%)`;
+            dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+        }
+
+        prev.addEventListener('click', () => show(index - 1));
+        next.addEventListener('click', () => show(index + 1));
+        show(0);
+    });
+</script>
