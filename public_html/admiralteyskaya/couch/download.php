@@ -217,6 +217,7 @@
             'vcd' => 'application/x-cdlink',
             'vrml' => 'model/vrml',
             'wav' => 'audio/x-wav',
+            'webp' => 'image/webp',
             'webm' => 'video/webm',
             'wbmp' => 'image/vnd.wap.wbmp',
             'wbxml' => 'application/vnd.wap.wbxml',
@@ -249,7 +250,8 @@
             'gif' => 'image/gif',
             'jpeg' => 'image/jpeg',
             'jpg' => 'image/jpeg',
-            'png' => 'image/png'
+            'png' => 'image/png',
+            'webp' => 'image/webp'
         );
     }
 

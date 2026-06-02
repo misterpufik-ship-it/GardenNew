@@ -602,6 +602,7 @@ class uploader {
             ($gd->get_height() <= $this->config['thumbHeight'])
         ) {
             $browsable = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
+            if (defined('IMAGETYPE_WEBP')) $browsable[] = IMAGETYPE_WEBP;
             // Drop only browsable types
             if (in_array($gd->type, $browsable))
                 return true;

@@ -91,6 +91,7 @@ class file {
         'txt'   => 'text/plain',
         'wav'   => 'audio/x-wav',
         'wbxml' => 'application/wbxml',
+        'webp'  => 'image/webp',
         'webm'  => 'video/webm',
         'wmlc'  => 'application/wmlc',
         'word'  => 'application/msword',

@@ -155,13 +155,15 @@ class browser extends uploader {
             if ($image->init_error)
                 $this->sendDefaultThumb($file);
             $browsable = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
+            if (defined('IMAGETYPE_WEBP')) $browsable[] = IMAGETYPE_WEBP;
             if (in_array($image->type, $browsable) &&
                 ($image->get_width() <= $this->config['thumbWidth']) &&
                 ($image->get_height() <= $this->config['thumbHeight'])
             ) {
                 $type =
+                    (defined('IMAGETYPE_WEBP') && ($image->type == IMAGETYPE_WEBP)) ? "webp" : (
                     ($image->type == IMAGETYPE_GIF) ? "gif" : (
-                    ($image->type == IMAGETYPE_PNG) ? "png" : "jpeg");
+                    ($image->type == IMAGETYPE_PNG) ? "png" : "jpeg"));
                 $type = "image/$type";
                 httpCache::file($file, $type);
             } else

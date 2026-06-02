@@ -60,15 +60,16 @@ class gd {
 
         } elseif (false !== (list($width, $height, $type) = @getimagesize($image))) {
             $image =
+                (defined('IMAGETYPE_WEBP') && ($type == IMAGETYPE_WEBP) && function_exists('imagecreatefromwebp')) ? @imagecreatefromwebp($image) : (
                 ($type == IMAGETYPE_GIF)      ? @imagecreatefromgif($image)  : (
                 ($type == IMAGETYPE_WBMP)     ? @imagecreatefromwbmp($image) : (
                 ($type == IMAGETYPE_JPEG)     ? @imagecreatefromjpeg($image) : (
                 ($type == IMAGETYPE_JPEG2000) ? @imagecreatefromjpeg($image) : (
                 ($type == IMAGETYPE_PNG)      ? imagecreatefrompng($image)  : (
                 ($type == IMAGETYPE_XBM)      ? @imagecreatefromxbm($image)  : false
-            )))));
+            ))))));
 
-            if ($type == IMAGETYPE_PNG)
+            if ($type == IMAGETYPE_PNG || (defined('IMAGETYPE_WEBP') && $type == IMAGETYPE_WEBP))
                 imagealphablending($image, false);
         }
 

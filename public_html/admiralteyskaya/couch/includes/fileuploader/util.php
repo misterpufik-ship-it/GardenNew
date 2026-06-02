@@ -186,7 +186,7 @@ function IsImageValid( $filePath, $extension )
 		return -1;
 	}
 
-	$imageCheckExtensions = array('gif', 'jpeg', 'jpg', 'png', 'swf', 'psd', 'bmp', 'iff');
+	$imageCheckExtensions = array('gif', 'jpeg', 'jpg', 'png', 'webp', 'swf', 'psd', 'bmp', 'iff');
 
 	// version_compare is available since PHP4 >= 4.0.7
 	if ( function_exists( 'version_compare' ) ) {
