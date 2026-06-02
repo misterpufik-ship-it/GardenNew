@@ -151,7 +151,7 @@ select.guest-select:focus{
         </form>
 
         <div class="divider-container fade-up" style="animation-delay: 0.4s;">
-            <img src="<cms:show res_sep />" alt="divider" class="divider-image">
+            <img src="<cms:if res_sep='https://misterpufik.ru/div.png'>couch/uploads/image/div.webp<cms:else /><cms:show res_sep /></cms:if>" alt="divider" class="divider-image" loading="lazy" decoding="async">
         </div>
     </div>
 </div>
