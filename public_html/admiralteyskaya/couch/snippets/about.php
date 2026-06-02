@@ -1,20 +1,20 @@
-﻿<?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Р‘Р»РѕРє Р¤РёР»РѕСЃРѕС„РёСЏ' order='20'>
-    <cms:editable name='about_title' label='Р“Р»Р°РІРЅС‹Р№ Р·Р°РіРѕР»РѕРІРѕРє' type='text'>Philosophy</cms:editable>
-    <cms:editable name='about_concept' label='РўРµРєСЃС‚ РЅР°Рґ С‡РµСЂС‚РѕР№' type='text'>РљРѕРЅС†РµРїС†РёСЏ</cms:editable>
-
-    <cms:editable name='about_content' label='РћСЃРЅРѕРІРЅРѕР№ С‚РµРєСЃС‚' type='richtext'>
-        РњР°РіРёС‡РµСЃРєРёР№ РІРµС‡РЅРѕР·РµР»РµРЅС‹Р№ СЃР°Рґ, СЃРєСЂС‹С‚С‹Р№ РѕС‚ РіРѕСЂРѕРґСЃРєРѕР№ СЃСѓРµС‚С‹ РІ СЃР°РјРѕРј СЃРµСЂРґС†Рµ РџРµС‚РµСЂР±СѓСЂРіР°.
+<?php require_once( 'couch/cms.php' ); ?>
+<cms:template title='Блок Философия' order='20'>
+    <cms:editable name='about_title' label='Главный заголовок' type='text'>Philosophy</cms:editable>
+    <cms:editable name='about_concept' label='Текст над чертой' type='text'>Концепция</cms:editable>
+    
+    <cms:editable name='about_content' label='Основной текст' type='richtext'>
+        Магический вечнозеленый сад, скрытый от городской суеты в самом сердце Петербурга. 
         <br><br>
-        Р—РґРµСЃСЊ РІСЂРµРјСЏ Р·Р°РјРµРґР»СЏРµС‚ СЃРІРѕР№ С…РѕРґ. Р РѕСЃРєРѕС€РЅС‹Р№ РёРЅС‚РµСЂСЊРµСЂ, СѓС‚РѕРїР°СЋС‰РёР№ РІ Р¶РёРІС‹С… С‚СЂРѕРїРёРєР°С…, РјРµР»РѕРґРёС‡РЅС‹Р№ С€СѓРј С„РѕРЅС‚Р°РЅР° Рё СѓСЋС‚РЅРѕРµ С‚РµРїР»Рѕ РєР°РјРёРЅР° СЃРѕР·РґР°СЋС‚ Р°С‚РјРѕСЃС„РµСЂСѓ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РіР°СЂРјРѕРЅРёРё Рё СѓРµРґРёРЅРµРЅРёСЏ.
+        Здесь время замедляет свой ход. Роскошный интерьер, утопающий в живых тропиках, мелодичный шум фонтана и уютное тепло камина создают атмосферу абсолютной гармонии и уединения.
     </cms:editable>
-
-    <cms:editable name='about_slogan' label='РЎР»РѕРіР°РЅ (РІРЅРёР·Сѓ)' type='textarea'>Garden Lounge вЂ” РјРµСЃС‚Рѕ, РіРґРµ СЂРѕР¶РґР°СЋС‚СЃСЏ СЂРёС‚СѓР°Р»С‹, РґРѕСЃС‚РѕР№РЅС‹Рµ РІР°С€РёС… РІРѕСЃРїРѕРјРёРЅР°РЅРёР№</cms:editable>
-    <cms:editable name='about_sep_img' label='РљР°СЂС‚РёРЅРєР° СЂР°Р·РґРµР»РёС‚РµР»СЏ' type='image'>/couch/uploads/image/div.webp</cms:editable>
+    
+    <cms:editable name='about_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
+    <cms:editable name='about_sep_img' label='Картинка разделителя' type='image'>https://misterpufik.ru/div.png</cms:editable>
 </cms:template>
 
 <style>
-    /* РЎС‚РёР»Рё РѕСЃС‚Р°СЋС‚СЃСЏ РїСЂРµР¶РЅРёРјРё, РѕРЅРё РЅРµ РІР»РёСЏСЋС‚ РЅР° СЂР°Р±РѕС‚Сѓ Р°РґРјРёРЅРєРё */
+    /* Стили остаются прежними, они не влияют на работу админки */
     .philosophy-section-container {
         margin: 0; padding: 0; background-color: #000000;
         width: 100vw; position: relative; left: 50%; right: 50%;
@@ -24,12 +24,12 @@
         position: relative; width: 100%; min-height: 500px;
         display: flex; align-items: center; justify-content: center;
         background-color: #000000; color: #EAEAEA;
-        font-family: 'Montserrat', sans-serif; padding: 60px 20px;
+        font-family: 'Montserrat', sans-serif; padding: 60px 20px; 
     }
     .content-limiter { max-width: 600px; margin: 0 auto; width: 100%; position: relative; z-index: 10; }
     .title-philosophy { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: #ffffff; text-align: center; margin: 0; }
     .gold-line { width: 160px; height: 1px; margin: 16px auto; background: linear-gradient(to right, transparent, #C5A059, transparent); opacity: 0.8; }
-    .title-concept {
+    .title-concept { 
         font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.4em; text-align: center;
         background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shineGold 5s linear infinite;
@@ -62,14 +62,14 @@
             <div class="fade-up" style="animation-delay: 0.3s;">
                 <p class="title-concept"><cms:show about_concept /></p>
             </div>
-
+            
             <div class="fade-up" style="animation-delay: 0.5s;">
                 <div class="text-sm text-gray-300 font-light leading-relaxed mt-12 mb-8 tracking-wide text-center">
                     <cms:show about_content />
                 </div>
-
+                
                 <div class="w-12 h-[1px] bg-[#C5A059]/40 my-10 mx-auto"></div>
-
+                
                 <p class="slogan-rituals">
                     <cms:show about_slogan />
                 </p>

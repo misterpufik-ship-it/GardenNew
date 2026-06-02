@@ -1,49 +1,49 @@
-﻿<!-- РџРћР”РљР›Р®Р§Р•РќРР• Р‘РР‘Р›РРћРўР•Рљ -->
+<!-- ПОДКЛЮЧЕНИЕ БИБЛИОТЕК -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-    /* РћР‘Р©РР• РЎРўРР›Р */
+    /* ОБЩИЕ СТИЛИ */
     .taplink-block-wrapper {
-        --bg-deep: #000000; /* Р§РёСЃС‚Рѕ С‡РµСЂРЅС‹Р№ С„РѕРЅ */
+        --bg-deep: #000000; /* Чисто черный фон */
         --bg-accent: #000000;
         --text-main: #EAEAEA;
         --gold-matte: #C5A059;
-
+        
         width: 100vw;
         position: relative;
         left: 50%;
         margin-left: -50vw;
-        z-index: 10;
+        z-index: 10; 
         background-color: var(--bg-deep);
         color: var(--text-main);
         font-family: 'Montserrat', sans-serif;
-        /* РЎРѕС…СЂР°РЅСЏРµРј РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ РѕС‚СЃС‚СѓРї РґР»СЏ СЃС‚С‹РєР°, РЅРѕ РєРѕРјРїРµРЅСЃРёСЂСѓРµРј РµРіРѕ РІРЅСѓС‚СЂРµРЅРЅРёРј РѕС‚СЃС‚СѓРїРѕРј */
-        margin-top: -2px;
+        /* Сохраняем отрицательный отступ для стыка, но компенсируем его внутренним отступом */
+        margin-top: -2px; 
         overflow: hidden;
     }
 
     .content-limiter {
-        max-width: 600px;
+        max-width: 600px; 
         margin: 0 auto;
         width: 100%;
         position: relative;
         z-index: 10;
-        /* РЈРІРµР»РёС‡РµРЅ РѕС‚СЃС‚СѓРї СЃРІРµСЂС…Сѓ (60px РІРјРµСЃС‚Рѕ 30px) */
-        padding: 60px 20px 30px 20px;
+        /* Увеличен отступ сверху (60px вместо 30px) */
+        padding: 60px 20px 30px 20px; 
     }
 
     .font-serif-lux { font-family: 'Cormorant Garamond', serif !important; }
 
-    /* Р¤РѕРЅРѕРІС‹Р№ С€СѓРј (Film Grain) */
+    /* Фоновый шум (Film Grain) */
     .film-grain {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         background: url('https://grainy-gradients.vercel.app/noise.svg');
         opacity: 0.04; pointer-events: none; z-index: 1;
     }
 
-    /* Р­С„С„РµРєС‚ Р·РѕР»РѕС‚РѕРіРѕ Р±Р»РёРєР° (Shimmer) */
+    /* Эффект золотого блика (Shimmer) */
     .shimmer-gold {
         background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto;
@@ -55,19 +55,19 @@
     }
     @keyframes shine { to { background-position: 200% center; } }
 
-    /* РђРЅРёРјР°С†РёСЏ РїРѕСЏРІР»РµРЅРёСЏ */
-    .fade-up {
-        animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        opacity: 0;
-        transform: translateY(10px);
+    /* Анимация появления */
+    .fade-up { 
+        animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+        opacity: 0; 
+        transform: translateY(10px); 
     }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* РЎС‚РёР»Рё РєР°СЂС‚РѕС‡РєРё */
+    /* Стили карточки */
     .promo-card {
         border: 1px solid rgba(197, 160, 89, 0.2);
-        background-color: rgba(20, 20, 20, 0.4); /* РћСЃС‚Р°РІР»СЏРµРј Р»РµРіРєРёР№ РєРѕРЅС‚СЂР°СЃС‚ РґР»СЏ РєР°СЂС‚РѕС‡РµРє РЅР° С‡РµСЂРЅРѕРј С„РѕРЅРµ */
-        padding: 20px 20px;
+        background-color: rgba(20, 20, 20, 0.4); /* Оставляем легкий контраст для карточек на черном фоне */
+        padding: 20px 20px; 
         text-align: center;
         transition: border-color 0.6s ease;
     }
@@ -75,15 +75,15 @@
         border-color: rgba(197, 160, 89, 0.5);
     }
 
-    /* Р—РѕР»РѕС‚РёСЃС‚Р°СЏ РїРѕР»РѕСЃРєР° СЃ РёСЃС‡РµР·Р°СЋС‰РёРјРё РєСЂР°СЏРјРё Рё СЃРёРјРјРµС‚СЂРёС‡РЅС‹РјРё РѕС‚СЃС‚СѓРїР°РјРё РїРѕ 16px */
+    /* Золотистая полоска с исчезающими краями и симметричными отступами по 16px */
     .gold-line-fade {
         width: 160px;
         height: 1px;
         background: linear-gradient(to right, transparent, var(--gold-matte), transparent);
-        margin: 16px auto; /* Р Р°РІРЅРѕРјРµСЂРЅС‹Р№ РѕС‚СЃС‚СѓРї 16px */
+        margin: 16px auto; /* Равномерный отступ 16px */
     }
 
-    /* РЎС‚РёР»СЊ РґР»СЏ РЅРёР¶РЅРµРіРѕ СЂР°Р·РґРµР»РёС‚РµР»СЏ */
+    /* Стиль для нижнего разделителя */
     .bottom-divider {
         display: block;
         max-width: 280px;
@@ -92,66 +92,66 @@
     }
 </style>
 
-<!-- Р”РѕР±Р°РІР»РµРЅ id="special" РґР»СЏ СЏРєРѕСЂСЏ -->
+<!-- Добавлен id="special" для якоря -->
 <div id="special" class="taplink-block-wrapper">
-    <!-- Р­С„С„РµРєС‚ Р·РµСЂРЅРёСЃС‚РѕСЃС‚Рё -->
+    <!-- Эффект зернистости -->
     <div class="film-grain"></div>
 
     <div class="content-limiter">
-        <!-- Р—Р°РіРѕР»РѕРІРѕРє СЃРµРєС†РёРё -->
+        <!-- Заголовок секции -->
         <header class="text-center mb-12 fade-up">
             <h1 class="font-serif-lux text-3xl text-white font-light italic m-0">Our Privileges</h1>
-            <!-- Р—РѕР»РѕС‚РёСЃС‚Р°СЏ РїРѕР»РѕСЃРєР° -->
+            <!-- Золотистая полоска -->
             <div class="gold-line-fade"></div>
-            <!-- РЎРїРµС†РёР°Р»СЊРЅС‹Рµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ СЂР°Р·РјРµСЂРѕРј 12px -->
-            <p class="text-[12px] uppercase tracking-[0.4em] shimmer-gold font-medium m-0">РЎРїРµС†РёР°Р»СЊРЅС‹Рµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ</p>
+            <!-- Специальные предложения размером 12px -->
+            <p class="text-[12px] uppercase tracking-[0.4em] shimmer-gold font-medium m-0">Специальные предложения</p>
         </header>
 
-        <!-- РЎРµС‚РєР° РєР°СЂС‚РѕС‡РµРє -->
+        <!-- Сетка карточек -->
         <div class="space-y-3">
-
-            <!-- РђРєС†РёСЏ 1 -->
+            
+            <!-- Акция 1 -->
             <div class="promo-card fade-up" style="animation-delay: 0.1s;">
                 <h2 class="font-serif-lux text-2xl text-white italic mb-1">Smoky Lunch</h2>
                 <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3 tracking-wide">
-                    РњР°РіРёС‡РµСЃРєРёР№ РјРѕРјРµРЅС‚ СЃРїРѕРєРѕР№СЃС‚РІРёСЏ РІ СЃР°РјРѕРј СЃРµСЂРґС†Рµ РјРµРіР°РїРѕР»РёСЃР°. Р’СЂРµРјСЏ Р·Р°РјРµРґР»РёС‚СЊ С…РѕРґ СЃРѕР±С‹С‚РёР№.
+                    Магический момент спокойствия в самом сердце мегаполиса. Время замедлить ход событий.
                 </p>
                 <div class="w-6 h-px bg-[#C5A059]/30 mx-auto mb-3"></div>
-                <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium">30% РЎРљРР”РљРђ вЂў Р‘РЈР”РќР Р”Рћ 17:00</p>
+                <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium">30% СКИДКА • БУДНИ ДО 17:00</p>
             </div>
 
-            <!-- РђРєС†РёСЏ 2 -->
+            <!-- Акция 2 -->
             <div class="promo-card fade-up" style="animation-delay: 0.2s;">
                 <h2 class="font-serif-lux text-2xl text-white italic mb-1">Celebration</h2>
                 <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3 tracking-wide">
-                    Р’Р°С€ РѕСЃРѕР±РµРЅРЅС‹Р№ РґРµРЅСЊ РІ Р°С‚РјРѕСЃС„РµСЂРµ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РіР°СЂРјРѕРЅРёРё. РџСЂР°Р·РґРЅСѓР№С‚Рµ РєСЂР°СЃРёРІРѕ РІ РЅР°С€РµРј СЃР°РґСѓ.
+                    Ваш особенный день в атмосфере абсолютной гармонии. Празднуйте красиво в нашем саду.
                 </p>
                 <div class="w-6 h-px bg-[#C5A059]/30 mx-auto mb-3"></div>
-                <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium">10% РЎРљРР”РљРђ вЂў Р”Р•РќР¬ Р РћР–Р”Р•РќРРЇ</p>
+                <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium">10% СКИДКА • ДЕНЬ РОЖДЕНИЯ</p>
             </div>
 
-            <!-- РђРєС†РёСЏ 3 -->
+            <!-- Акция 3 -->
             <div class="promo-card fade-up" style="animation-delay: 0.3s;">
                 <h2 class="font-serif-lux text-2xl text-white italic mb-1">Ladies Day</h2>
                 <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3 tracking-wide">
-                    Р’РµС‡РµСЂ РіСЂР°С†РёРё Рё РјРµР»РѕРґРёС‡РЅРѕРіРѕ С€СѓРјР° С„РѕРЅС‚Р°РЅР°. Р­РєСЃРєР»СЋР·РёРІРЅРѕРµ РїСЂРµРґР»РѕР¶РµРЅРёРµ РґР»СЏ РєРѕРјРїР°РЅРёР№.
+                    Вечер грации и мелодичного шума фонтана. Эксклюзивное предложение для компаний.
                 </p>
                 <div class="w-6 h-px bg-[#C5A059]/30 mx-auto mb-3"></div>
-                <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium">50% РќРђ РљРђР›Р¬РЇРќ вЂў РџРћ РЎР Р•Р”РђРњ</p>
+                <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium">50% НА КАЛЬЯН • ПО СРЕДАМ</p>
             </div>
 
         </div>
 
-        <!-- Р¤РёРЅР°Р»СЊРЅР°СЏ РїРѕРґРїРёСЃСЊ: 10px, Р·РѕР»РѕС‚РѕР№ РїРµСЂРµР»РёРІ -->
+        <!-- Финальная подпись: 10px, золотой перелив -->
         <footer class="mt-8 text-center fade-up" style="animation-delay: 0.5s;">
             <p class="text-[10px] uppercase tracking-[0.3em] font-medium m-0 italic shimmer-gold">
-                РРґРµР°Р»СЊРЅРѕРµ РјРµСЃС‚Рѕ РґР»СЏ С†РµРЅРёС‚РµР»РµР№ РїСЂРµРєСЂР°СЃРЅРѕРіРѕ.
+                Идеальное место для ценителей прекрасного.
             </p>
         </footer>
 
-        <!-- Р Р°Р·РґРµР»РёС‚РµР»СЊ -->
+        <!-- Разделитель -->
         <div class="fade-up" style="animation-delay: 0.6s;">
-            <img src="/couch/uploads/image/div.webp" alt="Р Р°Р·РґРµР»РёС‚РµР»СЊ" class="bottom-divider">
+            <img src="https://misterpufik.ru/div.png" alt="Разделитель" class="bottom-divider">
         </div>
     </div>
 </div>

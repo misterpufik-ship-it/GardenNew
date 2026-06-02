@@ -1,20 +1,20 @@
-﻿<style>
-    /* РћСЃРЅРѕРІРЅРѕР№ РєРѕРЅС‚РµР№РЅРµСЂ СЃ Р¶РµСЃС‚РєРѕР№ РїСЂРёРІСЏР·РєРѕР№ Рє ID */
+<style>
+    /* Основной контейнер с жесткой привязкой к ID */
     #menu-block {
-        --bg-color: #000000; /* РР·РјРµРЅРµРЅРѕ РЅР° С‡РёСЃС‚Рѕ С‡РµСЂРЅС‹Р№ */
+        --bg-color: #000000; /* Изменено на чисто черный */
         --gold: #C5A059;
-
+        
         display: block !important;
         background-color: var(--bg-color) !important;
         color: #EAEAEA !important;
         font-family: 'Montserrat', sans-serif !important;
-
-        /* Р Р°СЃС‚СЏРіРёРІР°РЅРёРµ РЅР° РІСЃСЋ С€РёСЂРёРЅСѓ Taplink */
+        
+        /* Растягивание на всю ширину Taplink */
         width: 100vw !important;
         position: relative !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-
+        
         padding: 60px 0 !important;
         margin: 0 !important;
         overflow: hidden !important;
@@ -24,7 +24,7 @@
     }
 
     #menu-block .content-limiter {
-        max-width: 600px;
+        max-width: 600px; 
         margin: 0 auto !important;
         width: 100%;
         padding: 0 20px;
@@ -32,29 +32,29 @@
         z-index: 10;
     }
 
-    /* РЁСЂРёС„С‚С‹ */
-    #menu-block .font-serif-lux {
-        font-family: 'Cormorant Garamond', serif !important;
+    /* Шрифты */
+    #menu-block .font-serif-lux { 
+        font-family: 'Cormorant Garamond', serif !important; 
     }
 
-    /* РђРЅРёРјР°С†РёСЏ */
-    #menu-block .fade-up {
-        animation: menuFadeIn 1s ease-out forwards;
-        opacity: 0;
+    /* Анимация */
+    #menu-block .fade-up { 
+        animation: menuFadeIn 1s ease-out forwards; 
+        opacity: 0; 
     }
-    @keyframes menuFadeIn {
+    @keyframes menuFadeIn { 
         from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        to { opacity: 1; transform: translateY(0); } 
     }
 
-    /* Р¤РѕРЅРѕРІС‹Р№ СЌС„С„РµРєС‚ */
+    /* Фоновый эффект */
     #menu-block .film-grain {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         background: url('https://grainy-gradients.vercel.app/noise.svg');
         opacity: 0.04; pointer-events: none; z-index: 1;
     }
 
-    /* Р—РѕР»РѕС‚Р°СЏ Р»РёРЅРёСЏ */
+    /* Золотая линия */
     #menu-block .golden-line {
         width: 160px;
         height: 1px;
@@ -62,7 +62,7 @@
         margin: 16px auto !important;
     }
 
-    /* РљР°СЂС‚РѕС‡РєР° */
+    /* Карточка */
     #menu-block .main-card {
         background-color: #0a0a0a;
         height: 280px;
@@ -83,7 +83,7 @@
         border-right: 1px solid rgba(197, 160, 89, 0.2);
         overflow: hidden;
     }
-
+    
     #menu-block .card-left img {
         width: 100%;
         height: 100%;
@@ -91,7 +91,7 @@
         opacity: 0.6;
         transition: transform 1.2s ease;
     }
-
+    
     #menu-block .main-card:hover .card-left img {
         transform: scale(1.05);
     }
@@ -123,7 +123,7 @@
         background: rgba(197, 160, 89, 0.15);
     }
 
-    /* РўРµРєСЃС‚ СЃ РїРµСЂРµР»РёРІРѕРј */
+    /* Текст с переливом */
     #menu-block .shimmer-gold {
         background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto;
@@ -141,24 +141,24 @@
     <div class="film-grain"></div>
 
     <div class="content-limiter">
-        <!-- Р—РђР“РћР›РћР’РћРљ -->
+        <!-- ЗАГОЛОВОК -->
         <div class="text-center mb-12 fade-up" style="animation-delay: 0.1s;">
             <h2 class="font-serif-lux text-3xl text-white font-light italic m-0">Menu</h2>
             <div class="golden-line"></div>
-            <p class="text-[12px] uppercase tracking-[0.4em] font-medium shimmer-gold m-0">Р­СЃС‚РµС‚РёРєР° РІРєСѓСЃР°</p>
+            <p class="text-[12px] uppercase tracking-[0.4em] font-medium shimmer-gold m-0">Эстетика вкуса</p>
         </div>
 
-        <!-- Р“Р›РђР’РќРђРЇ РљРђР РўРћР§РљРђ -->
+        <!-- ГЛАВНАЯ КАРТОЧКА -->
         <div class="main-card fade-up" style="animation-delay: 0.3s;">
-
-            <!-- Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ -->
+            
+            <!-- Визуальное меню -->
             <a href="https://garden-lounge.pro/admiralteyskaya/menu/visual/" target="_self" class="card-left">
-                <img src="/couch/uploads/image/gf11.webp" alt="Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ">
+                <img src="https://misterpufik.ru/gf11.jpg" alt="Визуальное меню">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-
+                
                 <div class="absolute inset-0 flex flex-col items-center justify-center p-2">
                     <h3 class="font-serif-lux text-2xl md:text-3xl italic text-white text-center m-0 leading-tight">
-                        Р’РёР·СѓР°Р»СЊРЅРѕРµ<br>РјРµРЅСЋ
+                        Визуальное<br>меню
                     </h3>
                     <div class="mt-4 flex items-center gap-2 opacity-50">
                         <i class="fas fa-camera text-[10px] text-[#C5A059]"></i>
@@ -166,16 +166,16 @@
                     </div>
                 </div>
             </a>
-
-            <!-- РЎСЃС‹Р»РєРё -->
+            
+            <!-- Ссылки -->
             <div class="card-right">
                 <a href="https://garden-lounge.pro/admiralteyskaya/menu/text/" target="_self" class="menu-btn group">
-                    <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">РўРµРєСЃС‚РѕРІРѕРµ</h3>
+                    <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">Текстовое</h3>
                     <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">Classic List</span>
                 </a>
-
+                
                 <div class="card-divider"></div>
-
+                
                 <a href="https://garden-lounge.pro/admiralteyskaya/menu/english/" target="_self" class="menu-btn group">
                     <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">English menu</h3>
                     <div class="flex items-center gap-1 opacity-40">
@@ -186,14 +186,14 @@
             </div>
         </div>
 
-        <!-- РџРћР”РџРРЎР¬ -->
+        <!-- ПОДПИСЬ -->
         <div class="mt-12 text-center fade-up" style="animation-delay: 0.5s;">
             <p class="text-[10px] uppercase tracking-[0.3em] font-medium shimmer-gold m-0 mb-8">
-                Р“Р°СЃС‚СЂРѕРЅРѕРјРёС‡РµСЃРєР°СЏ РїРѕСЌР·РёСЏ
+                Гастрономическая поэзия
             </p>
-
+            
             <div class="flex justify-center">
-                <img src="/couch/uploads/image/div.webp" alt="Р Р°Р·РґРµР»РёС‚РµР»СЊ" class="w-64 h-auto opacity-70 object-contain">
+                <img src="https://misterpufik.ru/div.png" alt="Разделитель" class="w-64 h-auto opacity-70 object-contain">
             </div>
         </div>
     </div>

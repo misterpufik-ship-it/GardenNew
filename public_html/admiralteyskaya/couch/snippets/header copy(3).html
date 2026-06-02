@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     :root {
         --gold-main: #C5A059;
         --gold-dark: #8e7037;
@@ -6,36 +6,36 @@
         --bg-black: #000000;
     }
 
-    /* --- Р‘РђР—Рђ --- */
+    /* --- БАЗА --- */
     html, body { width: 100%; overflow-x: hidden; background: #000; margin: 0; }
 
-    /* --- HERO Р¤РћРўРћ (РРЎРџР РђР’Р›Р•РќРћ Р Р—РђР¤РРљРЎРР РћР’РђРќРћ) --- */
+    /* --- HERO ФОТО (ИСПРАВЛЕНО И ЗАФИКСИРОВАНО) --- */
     .hero-section {
         position: relative;
         width: 100%;
         height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* РћСЂРёРіРёРЅР°Р»СЊРЅРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ */
+        justify-content: space-between; /* Оригинальное выравнивание */
         align-items: center;
-        padding: 110px 20px 40px 20px; /* РЈРјРµРЅСЊС€РёР»Рё РІРµСЂС…РЅРёР№ padding РґР»СЏ С†РµРЅС‚СЂРёСЂРѕРІР°РЅРёСЏ Р»РѕРіРѕ */
+        padding: 110px 20px 40px 20px; /* Уменьшили верхний padding для центрирования лого */
         box-sizing: border-box;
         overflow: hidden;
     }
 
     .hero-bg { position: absolute; inset: 0; z-index: 1; }
-    .hero-bg img {
+    .hero-bg img { 
         position: absolute; inset: 0;
-        width: 100%; height: 100%;
-        object-fit: cover;
-        opacity: 0.7; /* Р¤РѕС‚Рѕ РІРёРґРЅРѕ С‡РµС‚РєРѕ */
+        width: 100%; height: 100%; 
+        object-fit: cover; 
+        opacity: 0.7; /* Фото видно четко */
     }
     .hero-overlay {
         position: absolute; inset: 0; z-index: 2;
         background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 40%, transparent 70%, #000 100%);
     }
 
-    /* --- РђРќРРњРђР¦РР --- */
+    /* --- АНИМАЦИИ --- */
     @keyframes glFadeInOnly { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
     @keyframes glLogoPulse { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.05); filter: brightness(1.15); } }
    .logo-luxe-animate {
@@ -45,21 +45,21 @@
         z-index: 10;
         display: block;
         margin-bottom: auto !important;
-        /* Р”РµСЃРєС‚РѕРїРЅР°СЏ РЅР°СЃС‚СЂРѕР№РєР°: */
-        transform: translateY(-25%) !important;
+        /* Десктопная настройка: */
+        transform: translateY(-25%) !important; 
     }
 
-    /* Р–Р•РЎРўРљРђРЇ РљРћР Р Р•РљР¦РРЇ Р”Р›РЇ РњРћР‘РР›Р¬РќР«РҐ */
+    /* ЖЕСТКАЯ КОРРЕКЦИЯ ДЛЯ МОБИЛЬНЫХ */
     @media (max-width: 767px) {
         .logo-luxe-animate {
-            /* РћС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ РјР°СЂР¶РёРЅ С‚СЏРЅРµС‚ Р»РѕРіРѕС‚РёРї РІРІРµСЂС… Рє РЅР°РІРёРіР°С†РёРё */
-            margin-top: -1vh !important;
+            /* Отрицательный маржин тянет логотип вверх к навигации */
+            margin-top: -1vh !important; 
             transform: translateY(0) !important;
-            /* РЈРІРµР»РёС‡РёРІР°РµРј СЂР°Р·РјРµСЂ РґР»СЏ РјРѕР±РёР»РѕРє */
-            width: 400px !important;
+            /* Увеличиваем размер для мобилок */
+            width: 400px !important; 
         }
     }
-
+    
     @keyframes goldShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
     .shimmer-text {
         background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
@@ -68,50 +68,50 @@
         animation: goldShimmer 5s linear infinite;
         z-index: 10;
     }
-/* РљР»Р°СЃСЃ РґР»СЏ Р°РєС‚РёРІРЅРѕРіРѕ РїСѓРЅРєС‚Р° РІ РјРѕР±РёР»СЊРЅРѕРј РјРµРЅСЋ */
+/* Класс для активного пункта в мобильном меню */
 .mobile-link.active-click {
     border: 1px solid rgba(197, 160, 89, 0.6) !important;
     background-color: rgba(197, 160, 89, 0.1) !important;
     color: #C5A059 !important;
 }
-    /* --- РќРђР’РР“РђР¦РРЇ --- */
-    /* Р‘Р°Р·РѕРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РјРµРЅСЋ (РїСЂРѕР·СЂР°С‡РЅРѕРµ) */
-.gl-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 9999;
-    padding: 24px;
-    transition: all 0.4s ease;
-    background: transparent !important; /* РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїСЂРѕР·СЂР°С‡РЅРѕ */
+    /* --- НАВИГАЦИЯ --- */
+    /* Базовое состояние меню (прозрачное) */
+.gl-navbar { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    z-index: 9999; 
+    padding: 24px; 
+    transition: all 0.4s ease; 
+    background: transparent !important; /* По умолчанию прозрачно */
 }
 
-/* РЎРѕСЃС‚РѕСЏРЅРёРµ РїСЂРё РїСЂРѕРєСЂСѓС‚РєРµ (С‡РµСЂРЅС‹Р№ С„РѕРЅ) */
-.gl-navbar.scrolled {
-    background: rgba(0, 0, 0, 0.95) !important; /* Р§РµСЂРЅС‹Р№ С„РѕРЅ СЃ Р»РµРіРєРѕР№ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊСЋ */
-    backdrop-filter: blur(12px) !important;
+/* Состояние при прокрутке (черный фон) */
+.gl-navbar.scrolled { 
+    background: rgba(0, 0, 0, 0.95) !important; /* Черный фон с легкой прозрачностью */
+    backdrop-filter: blur(12px) !important; 
     -webkit-backdrop-filter: blur(12px) !important;
-    border-bottom: 1px solid rgba(197, 160, 89, 0.2) !important;
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2) !important; 
+    padding-top: 5px !important; 
+    padding-bottom: 5px !important; 
 }
-
+    
     .nav-link { position: relative; color: #ffffff !important; text-transform: uppercase; font-size: 11px; letter-spacing: 0.15em; font-weight: 500; transition: all 0.3s ease; padding: 8px 12px; text-decoration: none; border: 1px solid transparent; }
     .nav-booking-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
 
-    /* РЎС‚РёР»Рё СЃРµР»РµРєС‚РѕСЂР° С„РёР»РёР°Р»Р° */
+    /* Стили селектора филиала */
     .branch-selector { position: relative; cursor: pointer; padding: 8px 16px; margin-right: 15px; z-index: 100; }
     .branch-dropdown { position: absolute; top: 100%; left: 0; min-width: 210px; background: rgba(0,0,0,0.9) !important; backdrop-filter: blur(10px); border: 1px solid var(--gold-main); display: none; flex-direction: column; z-index: 99; }
     .branch-selector.active .branch-dropdown { display: flex; }
     .branch-option { padding: 16px 20px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; transition: 0.3s; color: rgba(255,255,255,0.7); cursor: pointer; }
     .branch-option.active { color: var(--gold-main); font-weight: 700; }
 
-    /* --- РњРћР”РђР›РљРђ Р’Р«Р‘РћР Рђ (Р”Р›РЇ РњРћР‘РР›РћРљ) --- */
+    /* --- МОДАЛКА ВЫБОРА (ДЛЯ МОБИЛОК) --- */
     .mobile-branch-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); z-index: 1000001; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
     .mobile-branch-modal.active { display: flex; }
 
-    /* --- РњРћР‘РР›Р¬РќРћР• РњР•РќР® --- */
+    /* --- МОБИЛЬНОЕ МЕНЮ --- */
     .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; }
     .mobile-menu-overlay.active { transform: translateY(0); visibility: visible; }
     .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 4px 24px; }
@@ -121,7 +121,7 @@
     .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
     .gold-line-thin { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-main), transparent); opacity: 0.6; z-index: 10; }
 
-    /* --- РњРћР‘РР›Р¬РќР«Р• РџР РђР’РљР --- */
+    /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
     @media (max-width: 767px) {
         .hero-section { height: 100svh; }
         .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: auto; }
@@ -139,12 +139,12 @@
         <div class="branch-selector" id="desktopBranchSelector">
             <div class="flex items-center gap-3">
                 <i class="fas fa-location-dot text-[11px] text-[#C5A059]"></i>
-                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</span>
+                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">Адмиралтейская</span>
                 <i class="fas fa-chevron-down text-[8px] opacity-60"></i>
             </div>
             <div class="branch-dropdown">
-                <div class="branch-option active" data-branch="admiral">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</div>
-                <div class="branch-option" data-branch="udelnaya">РЈРґРµР»СЊРЅР°СЏ</div>
+                <div class="branch-option active" data-branch="admiral">Адмиралтейская</div>
+                <div class="branch-option" data-branch="udelnaya">Удельная</div>
             </div>
         </div>
 
@@ -182,15 +182,15 @@
 
 <div class="mobile-branch-modal" id="mobileBranchModal">
     <div class="absolute top-8 right-8 text-[#C5A059] text-3xl cursor-pointer" id="closeBranchModal"><i class="fas fa-times"></i></div>
-    <p class="text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Р’С‹Р±РµСЂРёС‚Рµ Р»РѕРєР°С†РёСЋ</p>
+    <p class="text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Выберите локацию</p>
     <div class="flex flex-col gap-6 w-full max-w-[300px]">
         <div class="text-center py-6 mobile-branch-opt active" data-branch="admiral">
-            <h3 class="text-2xl font-serif italic text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</h3>
-            <p class="text-[10px] uppercase text-white/60">РњРѕР№РєРё 67-69</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059]">Адмиралтейская</h3>
+            <p class="text-[10px] uppercase text-white/60">Мойки 67-69</p>
         </div>
         <div class="text-center py-6 mobile-branch-opt" data-branch="udelnaya">
-            <h3 class="text-2xl font-serif italic text-[#C5A059]">РЈРґРµР»СЊРЅР°СЏ</h3>
-            <p class="text-[10px] uppercase text-white/60">РђРєРєСѓСЂР°С‚РѕРІР° 13</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059]">Удельная</h3>
+            <p class="text-[10px] uppercase text-white/60">Аккуратова 13</p>
         </div>
     </div>
 </div>
@@ -199,29 +199,29 @@
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
         <div class="absolute inset-0 bg-[url('<cms:show hero_bg_mob />')] bg-cover bg-center scale-110 brightness-[0.2]"></div>
     </div>
-
+    
     <div class="w-full flex justify-center items-center px-6 pt-6 z-10 relative">
-        <img src="/couch/uploads/image/logo3.webp"
-     alt="Logo"
-     class="logo-luxe-animate"
+        <img src="https://misterpufik.ru/logo3.png" 
+     alt="Logo" 
+     class="logo-luxe-animate" 
      style="width: 380px !important; max-width: 90vw; margin-top: 5vh !important;">
         <div class="cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
             <i class="fas fa-times text-3xl"></i>
         </div>
     </div>
-
+    
     <div class="flex flex-col items-center justify-center mt-2 w-full z-10 overflow-y-auto">
         <cms:show_repeatable 'nav_menu'>
             <a href="<cms:show item_link />" class="mobile-link <cms:if is_button>active-rect</cms:if>">
                 <cms:show item_name />
             </a>
         </cms:show_repeatable>
-        <img src="/couch/uploads/image/div.webp" class="w-[200px] h-auto my-2" alt="divider">
+        <img src="https://misterpufik.ru/div.png" class="w-[200px] h-auto my-2" alt="divider">
     </div>
-
+    
     <div class="mt-auto pb-6 flex flex-col items-center w-full z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
-            <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69</p>
+            <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
             <a href="tel:<cms:show header_phone_link />" class="font-serif italic text-white text-xl mt-1"><cms:show header_phone /></a>
         </div>
         <div class="flex gap-8">
@@ -237,12 +237,12 @@
         <img src="<cms:show hero_bg_mob />" class="block md:hidden" alt="Interior Mobile">
         <div class="hero-overlay"></div>
     </div>
-
-    <img src="/couch/uploads/image/logo3.webp" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto">
-
+    
+    <img src="https://misterpufik.ru/logo3.png" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto">
+    
     <div class="flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
         <p class="tagline-premium shimmer-text uppercase tracking-[0.2em] text-[11px] md:text-[13px] mb-6 m-0"><cms:show hero_tagline /></p>
-
+        
         <div class="hidden md:flex items-center gap-4">
             <div class="gold-line-thin"></div>
             <p id="hero-branch-name-desk" class="text-[14px] uppercase tracking-[0.6em] text-[#C5A059]">admiralteyskaya</p>
@@ -251,22 +251,22 @@
     </div>
 </header>
     <script>
-
+    
     const navbar = document.getElementById('navbar');
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     const body = document.body;
 
     const branches = {
-        admiral: { name: "РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ", slug: "admiralteyskaya", address: "РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69", addrMob: "Moyki 67-69" },
-        udelnaya: { name: "РЈРґРµР»СЊРЅР°СЏ", slug: "udelnaya", address: "РђРєРєСѓСЂР°С‚РѕРІР° Рґ.13", addrMob: "Akkuratova 13" }
+        admiral: { name: "Адмиралтейская", slug: "admiralteyskaya", address: "Набережная реки Мойки д.67-69", addrMob: "Moyki 67-69" },
+        udelnaya: { name: "Удельная", slug: "udelnaya", address: "Аккуратова д.13", addrMob: "Akkuratova 13" }
     };
 
     function updateBranchUI(id) {
         const data = branches[id];
         if (!data) return;
 
-        // РСЃРїРѕР»СЊР·СѓРµРј РѕРїС†РёРѕРЅР°Р»СЊРЅСѓСЋ РїСЂРѕРІРµСЂРєСѓ, С‡С‚РѕР±С‹ СЃРєСЂРёРїС‚ РЅРµ РїР°РґР°Р», РµСЃР»Рё СЌР»РµРјРµРЅС‚Р° РЅРµС‚ РЅР° СЃС‚СЂР°РЅРёС†Рµ
+        // Используем опциональную проверку, чтобы скрипт не падал, если элемента нет на странице
         const elDesk = document.getElementById('current-branch-desk');
         const elMobName = document.getElementById('mob-branch-name');
         const elMobAddr = document.getElementById('mob-branch-addr');
@@ -284,17 +284,17 @@
         });
     }
 
-    // Р›РѕРіРёРєР° РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ С„РёР»РёР°Р»РѕРІ
+    // Логика переключения филиалов
     document.querySelectorAll('.branch-option, .mobile-branch-opt').forEach(opt => {
         opt.addEventListener('click', (e) => {
             updateBranchUI(opt.dataset.branch);
-            // Р•СЃР»Рё СЌС‚Рѕ РјРѕР±РёР»СЊРЅРѕРµ РјРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ, Р·Р°РєСЂС‹РІР°РµРј РµРіРѕ РїРѕСЃР»Рµ РІС‹Р±РѕСЂР°
+            // Если это мобильное модальное окно, закрываем его после выбора
             const modal = document.getElementById('mobileBranchModal');
             if (modal) modal.classList.remove('active');
         });
     });
 
-    // РћС‚РєСЂС‹С‚РёРµ РґРµСЃРєС‚РѕРїРЅРѕРіРѕ СЃРµР»РµРєС‚РѕСЂР°
+    // Открытие десктопного селектора
     const deskSelector = document.getElementById('desktopBranchSelector');
     if (deskSelector) {
         deskSelector.onclick = (e) => {
@@ -303,7 +303,7 @@
         };
     }
 
-    // РњРѕР±РёР»СЊРЅРѕРµ РјРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ РІС‹Р±РѕСЂР° С„РёР»РёР°Р»Р°
+    // Мобильное модальное окно выбора филиала
     const mobTrigger = document.getElementById('mobileBranchTrigger');
     const closeBranch = document.getElementById('closeBranchModal');
     if (mobTrigger) mobTrigger.onclick = () => {
@@ -319,7 +319,7 @@
         if (deskSelector) deskSelector.classList.remove('active');
     };
 
-    // РЎРєСЂРѕР»Р» РЅР°РІРёРіР°С†РёРё
+    // Скролл навигации
     let lastScrolled = false;
     let ticking = false;
 
@@ -339,7 +339,7 @@
         }
     }, { passive: true });
 
-    // РЈРџР РђР’Р›Р•РќРР• РњР•РќР® (РћРЎРќРћР’РќРћР•)
+    // УПРАВЛЕНИЕ МЕНЮ (ОСНОВНОЕ)
     if (burgerBtn && mobileMenu) {
         burgerBtn.onclick = () => {
             mobileMenu.classList.add('active');
@@ -354,22 +354,22 @@
             body.classList.remove('menu-open');
         };
     }
-
+    
    document.querySelectorAll('.mobile-link').forEach(link => {
     link.onclick = function() {
-        // 1. РС‰РµРј Р’РЎР• СЃСЃС‹Р»РєРё РІ РјРѕР±РёР»СЊРЅРѕРј РјРµРЅСЋ, Сѓ РєРѕС‚РѕСЂС‹С… РјРѕР¶РµС‚ Р±С‹С‚СЊ СЂР°РјРєР°
-        // (Рё РѕР±С‹С‡РЅС‹Рµ Р°РєС‚РёРІРЅС‹Рµ, Рё С‚Сѓ, С‡С‚Рѕ РїСЂРёС€Р»Р° РёР· CouchCMS РєР°Рє 'nav-booking-rect')
+        // 1. Ищем ВСЕ ссылки в мобильном меню, у которых может быть рамка
+        // (и обычные активные, и ту, что пришла из CouchCMS как 'nav-booking-rect')
         const allLinks = document.querySelectorAll('.mobile-link');
-
+        
         allLinks.forEach(l => {
             l.classList.remove('active-rect');
-            l.classList.remove('nav-booking-rect'); // РЈРґР°Р»СЏРµРј РѕСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ РєР»Р°СЃСЃ РєРЅРѕРїРєРё
+            l.classList.remove('nav-booking-rect'); // Удаляем оригинальный класс кнопки
         });
-
-        // 2. Р”РѕР±Р°РІР»СЏРµРј СЂР°РјРєСѓ С‚РѕР»СЊРєРѕ С‚РѕРјСѓ РїСѓРЅРєС‚Сѓ, РЅР° РєРѕС‚РѕСЂС‹Р№ РЅР°Р¶Р°Р»Рё
+        
+        // 2. Добавляем рамку только тому пункту, на который нажали
         this.classList.add('active-rect');
 
-        // 3. Р—Р°РєСЂС‹РІР°РµРј РјРµРЅСЋ С‡РµСЂРµР· РЅРµР±РѕР»СЊС€СѓСЋ РїР°СѓР·Сѓ
+        // 3. Закрываем меню через небольшую паузу
         setTimeout(() => {
             if (mobileMenu) mobileMenu.classList.remove('active');
             body.classList.remove('menu-open');
@@ -377,7 +377,7 @@
     };
 });
 
-    // Р—РѕР»РѕС‚Р°СЏ СЂР°РјРєР° РІ РјРµРЅСЋ
+    // Золотая рамка в меню
     document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {

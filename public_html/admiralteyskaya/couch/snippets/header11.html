@@ -1,16 +1,16 @@
-﻿<style>
-    /* --- РљР РРўРР§Р•РЎРљРР™ РЎР‘Р РћРЎ Р”Р›РЇ SEO-РўР•Р“РћР’ (С‡С‚РѕР±С‹ РґРёР·Р°Р№РЅ РЅРµ РµС…Р°Р») --- */
+<style>
+    /* --- КРИТИЧЕСКИЙ СБРОС ДЛЯ SEO-ТЕГОВ (чтобы дизайн не ехал) --- */
     #navbar h1, #navbar h2, .hero-section h1, .hero-section h2 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0;
         padding: 0;
-        display: inline; /* Р§С‚РѕР±С‹ РЅРµ Р·Р°РЅРёРјР°Р»Рё РІСЃСЋ СЃС‚СЂРѕРєСѓ */
+        display: inline; /* Чтобы не занимали всю строку */
         line-height: inherit;
         font-family: inherit;
     }
-
-    /* РЎРєСЂС‹С‚С‹Р№ С‚РµРєСЃС‚ С‚РѕР»СЊРєРѕ РґР»СЏ РР-Р±РѕС‚РѕРІ */
+    
+    /* Скрытый текст только для ИИ-ботов */
     .seo-visually-hidden {
         position: absolute;
         width: 1px;
@@ -30,10 +30,10 @@
         --bg-black: #000000;
     }
 
-    /* --- Р‘РђР—Рђ --- */
+    /* --- БАЗА --- */
     html, body { width: 100%; overflow-x: hidden; background: #000; margin: 0; }
 
-    /* --- HERO Р¤РћРўРћ --- */
+    /* --- HERO ФОТО --- */
     .hero-section {
         position: relative;
         width: 100%;
@@ -48,10 +48,10 @@
     }
 
     .hero-bg { position: absolute; inset: 0; z-index: 1; }
-    .hero-bg img {
+    .hero-bg img { 
         position: absolute; inset: 0;
-        width: 100%; height: 100%;
-        object-fit: cover;
+        width: 100%; height: 100%; 
+        object-fit: cover; 
         opacity: 0.7;
     }
     .hero-overlay {
@@ -59,10 +59,10 @@
         background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 40%, transparent 70%, #000 100%);
     }
 
-    /* --- РђРќРРњРђР¦РР --- */
+    /* --- АНИМАЦИИ --- */
     @keyframes glFadeInOnly { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
     @keyframes glLogoPulse { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.05); filter: brightness(1.15); } }
-
+    
     .logo-luxe-animate {
         opacity: 0;
         animation: glFadeInOnly 1.5s ease-out forwards, glLogoPulse 6s ease-in-out 1.5s infinite;
@@ -70,17 +70,17 @@
         z-index: 10;
         display: block;
         margin-bottom: auto !important;
-        transform: translateY(-25%) !important;
+        transform: translateY(-25%) !important; 
     }
 
     @media (max-width: 767px) {
         .logo-luxe-animate {
-            margin-top: -1vh !important;
+            margin-top: -1vh !important; 
             transform: translateY(0) !important;
-            width: 400px !important;
+            width: 400px !important; 
         }
     }
-
+    
     @keyframes goldShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
     .shimmer-text {
         background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
@@ -90,10 +90,10 @@
         z-index: 10;
     }
 
-    /* --- РќРђР’РР“РђР¦РРЇ --- */
+    /* --- НАВИГАЦИЯ --- */
     .gl-navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 24px; transition: all 0.4s ease; background: transparent; }
     .gl-navbar.scrolled { background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(197, 160, 89, 0.2); padding-top: 5px; padding-bottom: 5px; }
-
+    
     .nav-link { position: relative; color: #ffffff !important; text-transform: uppercase; font-size: 11px; letter-spacing: 0.15em; font-weight: 500; transition: all 0.3s ease; padding: 8px 12px; text-decoration: none; border: 1px solid transparent; }
     .nav-booking-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
 
@@ -131,12 +131,12 @@
         <div class="branch-selector" id="desktopBranchSelector">
             <div class="flex items-center gap-3">
                 <i class="fas fa-location-dot text-[11px] text-[#C5A059]"></i>
-                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</span>
+                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">Адмиралтейская</span>
                 <i class="fas fa-chevron-down text-[8px] opacity-60"></i>
             </div>
             <div class="branch-dropdown">
-                <div class="branch-option active" data-branch="admiral">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</div>
-                <div class="branch-option" data-branch="udelnaya">РЈРґРµР»СЊРЅР°СЏ</div>
+                <div class="branch-option active" data-branch="admiral">Адмиралтейская</div>
+                <div class="branch-option" data-branch="udelnaya">Удельная</div>
             </div>
         </div>
 
@@ -174,21 +174,21 @@
 
 <header class="hero-section" id="home">
     <div class="hero-bg">
-        <img src="<cms:show hero_bg_desk />" class="hidden md:block" alt="РРЅС‚РµСЂСЊРµСЂ РїСЂРµРјРёСѓРј РєР°Р»СЊСЏРЅРЅРѕР№ Garden Lounge РЎРџР±">
-        <img src="<cms:show hero_bg_mob />" class="block md:hidden" alt="РљР°Р»СЊСЏРЅРЅР°СЏ РІ С†РµРЅС‚СЂРµ РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРіР°">
+        <img src="<cms:show hero_bg_desk />" class="hidden md:block" alt="Интерьер премиум кальянной Garden Lounge СПб">
+        <img src="<cms:show hero_bg_mob />" class="block md:hidden" alt="Кальянная в центре Санкт-Петербурга">
         <div class="hero-overlay"></div>
     </div>
-
+    
     <h1 class="logo-luxe-animate w-64 md:w-96 h-auto">
-        <img src="/couch/uploads/image/logo3.webp" alt="Garden Lounge вЂ” Р»СѓС‡С€Р°СЏ РєР°Р»СЊСЏРЅРЅР°СЏ Рё Р»Р°СѓРЅРґР¶ Р±Р°СЂ РІ РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРіРµ">
-        <span class="seo-visually-hidden">Garden Lounge РЎРџР± РљР°Р»СЊСЏРЅРЅР°СЏ РІ С†РµРЅС‚СЂРµ РђРґРјРёСЂР°Р»С‚РµР№СЃРєРёР№ СЂР°Р№РѕРЅ</span>
+        <img src="https://misterpufik.ru/logo3.png" alt="Garden Lounge — лучшая кальянная и лаундж бар в Санкт-Петербурге">
+        <span class="seo-visually-hidden">Garden Lounge СПб Кальянная в центре Адмиралтейский район</span>
     </h1>
-
+    
     <div class="flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
         <p class="tagline-premium shimmer-text uppercase tracking-[0.2em] text-[11px] md:text-[13px] mb-6 m-0">
             <cms:show hero_tagline />
         </p>
-
+        
         <div class="hidden md:flex items-center gap-4">
             <div class="gold-line-thin"></div>
             <h2 id="hero-branch-name-desk" class="text-[14px] uppercase tracking-[0.6em] text-[#C5A059]">admiralteyskaya</h2>

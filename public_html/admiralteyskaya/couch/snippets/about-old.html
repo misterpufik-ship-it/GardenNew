@@ -1,49 +1,49 @@
-﻿<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-    /* РР·РѕР»РёСЂСѓРµРј СЃС‚РёР»Рё РІРЅСѓС‚СЂРё РєРѕРЅС‚РµР№РЅРµСЂР° Рё СЂР°СЃС‚СЏРіРёРІР°РµРј РµРіРѕ РЅР° РІСЃСЋ С€РёСЂРёРЅСѓ СЌРєСЂР°РЅР° */
+    /* Изолируем стили внутри контейнера и растягиваем его на всю ширину экрана */
     .philosophy-section-container {
         margin: 0;
         padding: 0;
-        /* РЈСЃС‚Р°РЅРѕРІР»РµРЅ С‡РёСЃС‚Рѕ С‡РµСЂРЅС‹Р№ С†РІРµС‚ */
+        /* Установлен чисто черный цвет */
         background-color: #000000;
-
-        /* Р Р°СЃС‚СЏРіРёРІР°РЅРёРµ РЅР° РІСЃСЋ С€РёСЂРёРЅСѓ РІСЊСЋРїРѕСЂС‚Р° */
+        
+        /* Растягивание на всю ширину вьюпорта */
         width: 100vw;
         position: relative;
         left: 50%;
         right: 50%;
         margin-left: -50vw;
         margin-right: -50vw;
-
+        
         overflow: hidden;
     }
 
     .philosophy-wrapper {
-        /* РР·РјРµРЅРµРЅРѕ РЅР° С‡РёСЃС‚Рѕ С‡РµСЂРЅС‹Р№ */
+        /* Изменено на чисто черный */
         --bg-deep: #000000;
         --text-main: #EAEAEA;
         --gold-matte: #C5A059;
-
+        
         position: relative;
         width: 100%;
         min-height: 600px;
         display: flex;
         align-items: center;
         justify-content: center;
-
+        
         background-color: var(--bg-deep);
         color: var(--text-main);
         font-family: 'Montserrat', sans-serif;
-
-        padding: 60px 20px;
+        
+        padding: 60px 20px; 
     }
 
     .content-limiter {
-        max-width: 600px;
+        max-width: 600px; 
         margin: 0 auto;
         width: 100%;
         position: relative;
@@ -62,7 +62,7 @@
         text-align: center;
     }
 
-    /* Р—РѕР»РѕС‚Р°СЏ Р»РёРЅРёСЏ 160px */
+    /* Золотая линия 160px */
     .gold-line {
         width: 160px;
         height: 1px;
@@ -71,7 +71,7 @@
         opacity: 0.8;
     }
 
-    /* РљРѕРЅС†РµРїС†РёСЏ: 12px + РїРµСЂРµР»РёРІ */
+    /* Концепция: 12px + перелив */
     .title-concept {
         font-family: 'Montserrat', sans-serif;
         font-size: 12px;
@@ -82,7 +82,7 @@
         margin: 0;
         display: block;
         text-align: center;
-
+        
         background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
@@ -91,7 +91,7 @@
         animation: shineGold 5s linear infinite;
     }
 
-    /* РЎР»РѕРіР°РЅ: 10px + РїРµСЂРµР»РёРІ */
+    /* Слоган: 10px + перелив */
     .slogan-rituals {
         font-family: 'Montserrat', sans-serif;
         font-size: 10px;
@@ -102,7 +102,7 @@
         line-height: 1.8;
         margin: 40px auto;
         max-width: 400px;
-
+        
         background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
@@ -115,24 +115,24 @@
         to { background-position: 200% center; }
     }
 
-    .fade-up {
-        animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        opacity: 0;
-        transform: translateY(20px);
+    .fade-up { 
+        animation: fadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+        opacity: 0; 
+        transform: translateY(20px); 
     }
-    @keyframes fadeUp {
-        to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp { 
+        to { opacity: 1; transform: translateY(0); } 
     }
 
     .film-grain {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
         height: 100%;
         background: url('https://grainy-gradients.vercel.app/noise.svg');
-        opacity: 0.04;
-        pointer-events: none;
+        opacity: 0.04; 
+        pointer-events: none; 
         z-index: 1;
     }
 
@@ -145,47 +145,47 @@
     }
 </style>
 
-<!-- Р”РѕР±Р°РІР»РµРЅ ID СЏРєРѕСЂСЏ РґР»СЏ РЅР°РІРёРіР°С†РёРё -->
+<!-- Добавлен ID якоря для навигации -->
 <div id="about-us" class="philosophy-section-container">
     <div class="philosophy-wrapper">
         <div class="film-grain"></div>
 
         <div class="content-limiter">
-            <!-- Philosophy Р—Р°РіРѕР»РѕРІРѕРє -->
+            <!-- Philosophy Заголовок -->
             <div class="fade-up">
                 <h2 class="title-philosophy">Philosophy</h2>
             </div>
 
-            <!-- Р—РѕР»РѕС‚Р°СЏ Р»РёРЅРёСЏ (160px, РѕС‚СЃС‚СѓРїС‹ 16px) -->
+            <!-- Золотая линия (160px, отступы 16px) -->
             <div class="fade-up" style="animation-delay: 0.2s;">
                 <div class="gold-line"></div>
             </div>
 
-            <!-- РљРѕРЅС†РµРїС†РёСЏ (12px, РїРµСЂРµР»РёРІ) -->
+            <!-- Концепция (12px, перелив) -->
             <div class="fade-up" style="animation-delay: 0.3s;">
-                <p class="title-concept">РљРѕРЅС†РµРїС†РёСЏ</p>
+                <p class="title-concept">Концепция</p>
             </div>
-
+            
             <div class="fade-up" style="animation-delay: 0.5s;">
-                <!-- РћСЃРЅРѕРІРЅРѕР№ С‚РµРєСЃС‚ -->
+                <!-- Основной текст -->
                 <p class="text-sm text-gray-300 font-light leading-relaxed mt-12 mb-8 tracking-wide text-center">
-                    РњР°РіРёС‡РµСЃРєРёР№ РІРµС‡РЅРѕР·РµР»РµРЅС‹Р№ СЃР°Рґ, СЃРєСЂС‹С‚С‹Р№ РѕС‚ РіРѕСЂРѕРґСЃРєРѕР№ СЃСѓРµС‚С‹ РІ СЃР°РјРѕРј СЃРµСЂРґС†Рµ РџРµС‚РµСЂР±СѓСЂРіР°.
+                    Магический вечнозеленый сад, скрытый от городской суеты в самом сердце Петербурга. 
                     <br><br>
-                    Р—РґРµСЃСЊ РІСЂРµРјСЏ Р·Р°РјРµРґР»СЏРµС‚ СЃРІРѕР№ С…РѕРґ. Р РѕСЃРєРѕС€РЅС‹Р№ РёРЅС‚РµСЂСЊРµСЂ, СѓС‚РѕРїР°СЋС‰РёР№ РІ Р¶РёРІС‹С… С‚СЂРѕРїРёРєР°С…, РјРµР»РѕРґРёС‡РЅС‹Р№ С€СѓРј С„РѕРЅС‚Р°РЅР° Рё СѓСЋС‚РЅРѕРµ С‚РµРїР»Рѕ РєР°РјРёРЅР° СЃРѕР·РґР°СЋС‚ Р°С‚РјРѕСЃС„РµСЂСѓ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РіР°СЂРјРѕРЅРёРё Рё СѓРµРґРёРЅРµРЅРёСЏ.
+                    Здесь время замедляет свой ход. Роскошный интерьер, утопающий в живых тропиках, мелодичный шум фонтана и уютное тепло камина создают атмосферу абсолютной гармонии и уединения.
                 </p>
-
-                <!-- Р”РµРєРѕСЂР°С‚РёРІРЅР°СЏ Р»РёРЅРёСЏ (РєРѕСЂРѕС‚РєР°СЏ РЅРёР¶РЅСЏСЏ) -->
+                
+                <!-- Декоративная линия (короткая нижняя) -->
                 <div class="w-12 h-[1px] bg-[#C5A059]/40 my-10 mx-auto"></div>
-
-                <!-- РћР±РЅРѕРІР»РµРЅРЅС‹Р№ СЃР»РѕРіР°РЅ (10px, РїРµСЂРµР»РёРІ) -->
+                
+                <!-- Обновленный слоган (10px, перелив) -->
                 <p class="slogan-rituals">
-                    Garden Lounge вЂ” РјРµСЃС‚Рѕ, РіРґРµ СЂРѕР¶РґР°СЋС‚СЃСЏ СЂРёС‚СѓР°Р»С‹, РґРѕСЃС‚РѕР№РЅС‹Рµ РІР°С€РёС… РІРѕСЃРїРѕРјРёРЅР°РЅРёР№
+                    Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний
                 </p>
 
-                <!-- Р—РѕР»РѕС‚РѕР№ СЂР°Р·РґРµР»РёС‚РµР»СЊ-Р°СЂС‚ -->
+                <!-- Золотой разделитель-арт -->
                 <div class="flex justify-center">
-                    <img src="/couch/uploads/image/div.webp"
-                         alt="Gold Separator"
+                    <img src="https://misterpufik.ru/div.png" 
+                         alt="Gold Separator" 
                          class="separator-img">
                 </div>
             </div>

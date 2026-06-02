@@ -1,16 +1,16 @@
-﻿<?php require_once( '../../couch/cms.php' ); ?>
-<cms:template title='РњРµРЅСЋ : English (РђРІС‚Рѕ-РІС‹РІРѕРґ)' icon='globe' />
+<?php require_once( '../../couch/cms.php' ); ?>
+<cms:template title='Меню : English (Авто-вывод)' icon='globe' />
 
 <cms:pages masterpage='menu/text/index.php' limit='1'>
     <cms:set my_lang='en' 'global' />
-
+    
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><cms:if page_title_en><cms:show page_title_en /><cms:else /><cms:show page_title /></cms:if></title>
-
+        
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -40,8 +40,8 @@
             .subcat-title{ font-family:'Montserrat', sans-serif; font-weight:700; letter-spacing: .2em; text-transform: uppercase; font-size:.7rem; text-align:center; margin-top: 1.5rem; margin-bottom: .8rem; }
             .price-tag{ font-family:'Montserrat', sans-serif; font-weight:500; font-size:1.1rem; white-space:nowrap; }
             .note-after{ margin-top: 4px; font-size: 11px; color: #777; }
-
-            /* РЎС‚РёР»Рё РґР»СЏ Р°РєС†РёР№ */
+            
+            /* Стили для акций */
             .taplink-block-wrapper { width:100vw; position:relative; left:50%; margin-left:-50vw; background-color: #000; padding: 40px 0; overflow: hidden; }
             .content-limiter { max-width:600px; margin:0 auto; padding: 0 20px; position: relative; z-index: 10; }
             .promo-card { border:1px solid rgba(197,160,89,0.2); background-color: rgba(20,20,20,0.4); padding:20px; text-align:center; margin-bottom: 15px; }
@@ -95,7 +95,7 @@
         </div>
 
         <main class="max-w-2xl mx-auto px-4 py-8 pb-24 min-h-screen">
-
+            
             <div id="hookahs" class="tab-content active">
                 <cms:show_repeatable 'rep_hookahs_v2'>
                     <div class="menu-row" data-subtab="all">
@@ -107,7 +107,7 @@
                             <div class="w-full pb-2 border-b border-white/5 mb-4">
                                 <div class="grid grid-cols-[1fr_auto] gap-x-4 items-start">
                                     <div class="text-white text-lg"><cms:if i_name_en><cms:show i_name_en /><cms:else /><cms:show i_name /></cms:if></div>
-                                    <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                     <cms:if i_desc_en || i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_desc_en><cms:show i_desc_en /><cms:else /><cms:show i_desc /></cms:if></div></cms:if>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                             <div class="w-full pb-2 border-b border-white/5 mb-4">
                                 <div class="grid grid-cols-[1fr_auto] gap-x-4 items-start">
                                     <div class="text-white text-lg"><cms:if kit_name_en><cms:show kit_name_en /><cms:else /><cms:show kit_name /></cms:if></div>
-                                    <span class="price-tag gold-shimmer"><cms:show kit_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show kit_price /> ₽</span>
                                     <cms:if kit_desc_en || kit_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if kit_desc_en><cms:show kit_desc_en /><cms:else /><cms:show kit_desc /></cms:if></div></cms:if>
                                     <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>
@@ -151,7 +151,7 @@
                                 <cms:if i_subheader_en || i_subheader><div class="gold-shimmer text-xs uppercase font-bold mt-3 mb-1"><cms:if i_subheader_en><cms:show i_subheader_en /><cms:else /><cms:show i_subheader /></cms:if></div></cms:if>
                                 <div class="grid grid-cols-[1fr_auto] gap-x-4 items-start">
                                     <div class="text-white text-lg"><cms:if i_name_en><cms:show i_name_en /><cms:else /><cms:show i_name /></cms:if></div>
-                                    <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                 </div>
                             </div>
                         </cms:if>
@@ -171,7 +171,7 @@
                             <div class="w-full pb-2 border-b border-white/5 mb-4">
                                 <div class="grid grid-cols-[1fr_auto] gap-x-4 items-start">
                                     <div class="text-white text-lg"><cms:if i_name_en><cms:show i_name_en /><cms:else /><cms:show i_name /></cms:if></div>
-                                    <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                     <cms:if i_desc_en || i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_desc_en><cms:show i_desc_en /><cms:else /><cms:show i_desc /></cms:if></div></cms:if>
                                 </div>
                             </div>
@@ -218,7 +218,7 @@
                         </footer>
 
                         <div style="margin-top: 40px; text-align: center; opacity: 0.7;">
-                            <img src="/couch/uploads/image/div.webp" alt="Separator" style="max-width:280px; margin:0 auto;">
+                            <img src="https://misterpufik.ru/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
                         </div>
                     </div>
                 </div>
@@ -228,16 +228,16 @@
     @media (min-width: 768px) { .action-area { flex-direction: row; justify-content: center; gap: 15px; } }
     .btn-base {
         display: flex; align-items: center; justify-content: center;
-        width: 100%; max-width: 280px; height: 52px;
+        width: 100%; max-width: 280px; height: 52px;    
         border: 1px solid rgba(197, 160, 89, 0.3);
         text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em;
         text-decoration: none; text-align: center; box-sizing: border-box; transition: 0.3s;
     }
     .btn-base:hover { border-color: #C5A059; }
-    .btn-gold-fill {
-        background: linear-gradient(to right, #8e7037, #C5A059, #FFEebb, #C5A059, #8e7037);
-        background-size: 200% auto; animation: shineGold 5s linear infinite;
-        color: #000 !important; font-weight: 700; border: none;
+    .btn-gold-fill { 
+        background: linear-gradient(to right, #8e7037, #C5A059, #FFEebb, #C5A059, #8e7037); 
+        background-size: 200% auto; animation: shineGold 5s linear infinite; 
+        color: #000 !important; font-weight: 700; border: none; 
     }
     .subtitle-gold {
         background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
@@ -292,7 +292,7 @@
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 const target = document.getElementById(tabId);
                 if(target) target.classList.add('active');
-
+                
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                 const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
                 if(btn) btn.classList.add('active');
