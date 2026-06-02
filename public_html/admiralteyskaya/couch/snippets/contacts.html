@@ -169,29 +169,32 @@
     #contact .gl_tp_card_head {
         background: #0a0a0a !important;
         border-bottom: 1px solid rgba(197, 160, 89, 0.28);
-        padding: 14px 16px !important;
-        font-size: 10px !important;
-        letter-spacing: 0.24em !important;
+        padding: 14px clamp(10px, 2.2vw, 16px) !important;
+        font-size: clamp(8px, 1vw, 10px) !important;
+        letter-spacing: clamp(0.12em, 0.8vw, 0.24em) !important;
         text-align: center !important;
     }
 
     #contact .gl_rating_container {
-        padding: 16px 18px;
+        padding: clamp(12px, 1.8vw, 18px);
         display: flex;
         flex-direction: column;
         gap: 0;
+        overflow: visible;
     }
 
     #contact .gl_rating_item {
         display: grid;
         grid-template-columns:
-            minmax(150px, 1.12fr)
-            minmax(92px, 0.7fr)
-            minmax(54px, 0.34fr)
-            minmax(78px, 0.52fr);
-        gap: clamp(14px, 2.5vw, 28px);
+            minmax(104px, 1.08fr)
+            minmax(62px, 0.58fr)
+            minmax(36px, 0.34fr)
+            minmax(50px, 0.52fr);
+        gap: clamp(7px, 1.8vw, 24px);
         align-items: center;
-        padding: 18px 20px;
+        min-width: 0;
+        overflow: visible;
+        padding: clamp(14px, 1.7vw, 18px) clamp(8px, 1.8vw, 20px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         text-align: left;
         transition: background 0.25s ease;
@@ -223,18 +226,20 @@
         color: #C5A059;
         white-space: nowrap;
         text-align: left;
-        width: clamp(72px, 8vw, 86px);
+        width: clamp(58px, 7vw, 78px);
         display: inline-flex;
         justify-content: flex-start;
-        gap: 2px;
+        gap: clamp(1px, 0.25vw, 2px);
         justify-self: start;
         align-self: center;
+        overflow: visible;
         transition: color 0.25s ease;
     }
 
     #contact .gl_stars_box i {
-        width: clamp(9px, 0.9vw, 10px);
-        flex: 0 0 clamp(9px, 0.9vw, 10px);
+        width: clamp(7px, 0.85vw, 10px);
+        flex: 0 0 clamp(7px, 0.85vw, 10px);
+        font-size: clamp(7px, 0.85vw, 10px) !important;
         text-align: center;
         line-height: 1;
     }
@@ -246,11 +251,13 @@
         justify-self: start;
         text-align: left;
         white-space: nowrap;
-        font-size: clamp(18px, 1.9vw, 24px) !important;
+        font-size: clamp(14px, 1.7vw, 22px) !important;
         line-height: 1;
+        min-width: 0;
     }
     #contact .gl_rating_count {
         min-width: 0;
+        max-width: clamp(42px, 7.5vw, 72px);
         display: inline-flex;
         flex-direction: column;
         align-items: flex-start;
@@ -261,6 +268,7 @@
         white-space: normal;
         justify-self: start;
         text-align: left;
+        overflow: visible;
     }
     #contact .gl_rating_count_num,
     #contact .gl_rating_count_word {
@@ -269,13 +277,13 @@
         overflow-wrap: normal;
     }
     #contact .gl_rating_count_num {
-        font-size: clamp(9px, 1vw, 11px);
+        font-size: clamp(8px, 0.95vw, 11px);
         letter-spacing: 0.08em;
         white-space: nowrap;
     }
     #contact .gl_rating_count_word {
-        font-size: clamp(7px, 0.82vw, 9px);
-        letter-spacing: 0.08em;
+        font-size: clamp(6px, 0.74vw, 9px);
+        letter-spacing: clamp(0.02em, 0.22vw, 0.08em);
         text-transform: uppercase;
         white-space: nowrap;
     }
@@ -335,37 +343,37 @@
 
         #contact .gl_rating_item {
             grid-template-columns:
-                minmax(76px, 1fr)
-                minmax(54px, 0.72fr)
-                minmax(32px, 0.38fr)
-                minmax(44px, 0.52fr);
-            gap: clamp(6px, 2vw, 10px);
+                minmax(64px, 1fr)
+                minmax(40px, 0.62fr)
+                minmax(26px, 0.34fr)
+                minmax(34px, 0.54fr);
+            gap: clamp(4px, 1.7vw, 8px);
             padding: 14px 0;
             text-align: left;
         }
 
         #contact .gl_stars_box {
-            width: clamp(50px, 15vw, 62px);
-            gap: 1px;
+            width: clamp(42px, 13vw, 56px);
+            gap: clamp(0px, 0.35vw, 1px);
         }
 
         #contact .gl_stars_box i {
-            width: clamp(7px, 2.05vw, 8px);
-            flex-basis: clamp(7px, 2.05vw, 8px);
-            font-size: clamp(7px, 2.05vw, 8px) !important;
+            width: clamp(6px, 1.9vw, 8px);
+            flex-basis: clamp(6px, 1.9vw, 8px);
+            font-size: clamp(6px, 1.9vw, 8px) !important;
         }
 
         #contact .gl_rating_value {
-            font-size: clamp(13px, 4vw, 16px) !important;
+            font-size: clamp(11px, 3.6vw, 16px) !important;
         }
 
         #contact .gl_rating_count_num {
-            font-size: clamp(8px, 2.6vw, 10px);
+            font-size: clamp(7px, 2.35vw, 10px);
         }
 
         #contact .gl_rating_count_word {
-            font-size: clamp(6px, 2.1vw, 8px);
-            letter-spacing: 0.05em;
+            font-size: clamp(5px, 1.8vw, 8px);
+            letter-spacing: 0.03em;
         }
 
         #contact .gl_platform_name {
