@@ -105,12 +105,12 @@
     padding-bottom: 5px !important; 
 }
     
-    .nav-link { position: relative; color: #ffffff !important; text-transform: uppercase; font-size: 11px; letter-spacing: 0.15em; font-weight: 500; transition: all 0.3s ease; padding: 8px 12px; text-decoration: none; border: 1px solid transparent; }
+    .nav-link { position: relative; color: #ffffff !important; text-transform: uppercase; font-size: clamp(8px, 0.72vw, 11px); letter-spacing: clamp(0.08em, 0.12vw, 0.15em); font-weight: 500; transition: all 0.3s ease; padding: clamp(5px, 0.55vw, 8px) clamp(6px, 0.78vw, 12px); text-decoration: none; border: 1px solid transparent; white-space: nowrap; }
     .nav-link:hover { color: var(--gold-main) !important; }
     .nav-booking-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
 
     /* Стили селектора филиала */
-    .branch-selector { position: relative; cursor: pointer; padding: 8px 16px; margin-right: 15px; z-index: 100; }
+    .branch-selector { position: relative; cursor: pointer; padding: clamp(5px, 0.55vw, 8px) clamp(8px, 0.95vw, 16px); margin-right: clamp(4px, 0.9vw, 15px); z-index: 100; white-space: nowrap; }
     .branch-dropdown { position: absolute; top: 100%; left: 0; min-width: 210px; background: rgba(0,0,0,0.9) !important; backdrop-filter: blur(10px); border: 1px solid var(--gold-main); display: none; flex-direction: column; z-index: 99; }
     .branch-selector.active .branch-dropdown { display: flex; }
     .branch-option { padding: 16px 20px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; transition: 0.3s; color: rgba(255,255,255,0.7); cursor: pointer; }
@@ -199,7 +199,7 @@
     .mobile-menu-social-link:active {
         color: var(--gold-main) !important;
     }
-    .desktop-call-link { display: inline-flex; align-items: center; gap: 6px; line-height: 1; font-size: 9px !important; letter-spacing: 0.15em !important; }
+    .desktop-call-link { display: inline-flex; align-items: center; gap: clamp(4px, 0.45vw, 6px); line-height: 1; font-size: clamp(8px, 0.68vw, 9px) !important; letter-spacing: clamp(0.08em, 0.12vw, 0.15em) !important; white-space: nowrap; }
     .desktop-call-link .fa-phone-alt { font-size: 11px !important; line-height: 1 !important; color: inherit !important; transform: translateY(0); }
     .desktop-call-link:hover,
     .desktop-call-link:hover .fa-phone-alt { color: var(--gold-main) !important; }
@@ -322,7 +322,27 @@
         }
     }
 
-    @media (max-width: 1180px) {
+    #navbar {
+        gap: clamp(8px, 1.4vw, 24px);
+        padding-left: clamp(16px, 2vw, 32px) !important;
+        padding-right: clamp(16px, 2vw, 32px) !important;
+    }
+
+    #desktopMenuLinks {
+        gap: clamp(0px, 0.24vw, 4px) !important;
+        flex-wrap: nowrap;
+    }
+
+    #desktopBranchSelector .flex {
+        gap: clamp(6px, 0.7vw, 12px) !important;
+    }
+
+    #current-branch-desk {
+        font-size: clamp(8px, 0.68vw, 10px) !important;
+        letter-spacing: clamp(0.08em, 0.14vw, 0.2em) !important;
+    }
+
+    @media (max-width: 767px) {
         .desktop-nav-zone {
             display: none !important;
         }
@@ -332,7 +352,7 @@
         }
     }
 
-    @media (min-width: 1181px) {
+    @media (min-width: 768px) {
         .desktop-nav-zone {
             display: flex !important;
         }
@@ -513,7 +533,7 @@
 
         navbar.classList.remove('nav-compact');
 
-        if (window.innerWidth <= 1180) {
+        if (window.innerWidth <= 767) {
             navbar.classList.add('nav-compact');
             return;
         }
@@ -527,7 +547,7 @@
             parseFloat(navStyle.paddingRight || 0);
         const availableWidth = navbar.clientWidth - navPadding;
 
-        if (totalWidth + 28 > availableWidth) {
+        if (totalWidth + 18 > availableWidth) {
             navbar.classList.add('nav-compact');
         }
     }
