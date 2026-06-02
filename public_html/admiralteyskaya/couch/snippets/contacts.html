@@ -184,7 +184,7 @@
 
     #contact .gl_rating_item {
         display: grid;
-        grid-template-columns: minmax(118px, 1fr) 86px minmax(128px, 0.92fr);
+        grid-template-columns: minmax(118px, 1fr) clamp(72px, 8vw, 86px) minmax(128px, 0.92fr);
         gap: 16px;
         align-items: center;
         padding: 15px 8px;
@@ -219,12 +219,22 @@
         color: #C5A059;
         white-space: nowrap;
         text-align: center;
-        width: 86px;
+        width: clamp(72px, 8vw, 86px);
         display: inline-flex;
         justify-content: center;
         gap: 1px;
+        justify-self: center;
+        align-self: center;
         transition: color 0.25s ease, filter 0.25s ease;
     }
+
+    #contact .gl_stars_box i {
+        width: clamp(9px, 0.9vw, 10px);
+        flex: 0 0 clamp(9px, 0.9vw, 10px);
+        text-align: center;
+        line-height: 1;
+    }
+
     #contact .gl_rating_stats {
         display: grid;
         grid-template-columns: auto minmax(42px, auto);
@@ -233,6 +243,7 @@
         gap: 8px;
         text-align: right;
         min-width: 0;
+        justify-self: end;
     }
     #contact .gl_rating_value {
         text-align: right;
@@ -325,19 +336,21 @@
         }
 
         #contact .gl_rating_item {
-            grid-template-columns: minmax(86px, 1fr) 70px minmax(76px, 0.9fr);
+            grid-template-columns: minmax(86px, 1fr) clamp(62px, 18vw, 70px) minmax(76px, 0.9fr);
             gap: 7px;
             padding: 14px 0;
             text-align: left;
         }
 
         #contact .gl_stars_box {
-            width: 70px;
+            width: clamp(62px, 18vw, 70px);
             gap: 0;
         }
 
         #contact .gl_stars_box i {
-            font-size: 9px !important;
+            width: clamp(8px, 2.25vw, 9px);
+            flex-basis: clamp(8px, 2.25vw, 9px);
+            font-size: clamp(8px, 2.25vw, 9px) !important;
         }
 
         #contact .gl_rating_stats {
