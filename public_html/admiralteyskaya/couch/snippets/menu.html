@@ -79,6 +79,27 @@
     #menu-block .menu-btn:hover { background: rgba(197, 160, 89, 0.05); }
     #menu-block .card-divider { height: 1px; width: 100%; background: rgba(197, 160, 89, 0.15); }
 
+    #menu-block .menu-card-caption {
+        font-size: 7px !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0.14em !important;
+    }
+
+    #menu-block .menu-card-caption-icon {
+        font-size: 6px !important;
+        color: transparent !important;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: menuShine 5s linear infinite;
+    }
+
+    #menu-block .menu-footer-note {
+        font-size: 11px !important;
+        line-height: 1.8 !important;
+        letter-spacing: 0.4em !important;
+    }
 </style>
 
 <div id="menu-block">
@@ -111,23 +132,23 @@
             <div class="card-right">
                 <a href="<cms:show menu_text_link />" target="_self" class="menu-btn group">
                     <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">Текстовое</h3>
-                    <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">Classic List</span>
+                    <span class="menu-card-caption uppercase shimmer-gold">Classic List</span>
                 </a>
                 
                 <div class="card-divider"></div>
                 
                 <a href="<cms:show menu_eng_link />" target="_self" class="menu-btn group">
                     <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">English menu</h3>
-                    <div class="flex items-center gap-1 opacity-40">
-                         <span class="text-[7px] uppercase tracking-[0.1em] text-white">Open</span>
-                         <i class="fas fa-download text-[7px]"></i>
+                    <div class="flex items-center gap-1">
+                         <span class="menu-card-caption uppercase shimmer-gold">Open</span>
+                         <i class="menu-card-caption-icon fas fa-download"></i>
                     </div>
                 </a>
             </div>
         </div>
 
         <div class="mt-12 text-center fade-up" style="animation-delay: 0.5s;">
-            <p class="text-[10px] uppercase tracking-[0.3em] font-medium shimmer-gold m-0 mb-8">
+            <p class="menu-footer-note uppercase font-medium shimmer-gold m-0 mb-8">
                 <cms:show menu_footer_text />
             </p>
             

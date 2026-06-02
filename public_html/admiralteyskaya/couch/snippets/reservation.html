@@ -48,6 +48,27 @@
   display: block;
   filter: none;       /* чтобы не отличался по яркости */
 }
+
+.reservation-subtitle {
+  font-size: 11px !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.4em !important;
+}
+
+.reservation-submit {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 11px !important;
+  line-height: 1.8 !important;
+  letter-spacing: 0.4em !important;
+  font-weight: 500 !important;
+}
+
+@media (max-width: 767px) {
+  .reservation-submit {
+    font-size: 10px !important;
+    letter-spacing: 0.28em !important;
+  }
+}
 /* ===== FIX SELECT: центр + тёмный список ===== */
 
 /* ВАЖНО: усиливаем приоритет, потому что Tailwind и браузер могут перебивать */
@@ -89,7 +110,7 @@ select.guest-select:focus{
         <header class="fade-up mb-10 text-center">
             <h1 class="font-serif-lux text-3xl text-white font-light italic m-0"><cms:show res_title /></h1>
             <div class="shimmer-line"></div>
-            <p class="text-[12px] uppercase tracking-[0.45em] font-medium m-0 shimmer-text-gold"><cms:show res_subtitle /></p>
+            <p class="reservation-subtitle uppercase font-medium m-0 shimmer-text-gold"><cms:show res_subtitle /></p>
         </header>
 
         <form class="gl-form-modern space-y-10 fade-up" style="animation-delay: 0.2s;" action="https://1.misterpufik.workers.dev" method="POST">
@@ -125,7 +146,7 @@ select.guest-select:focus{
                 </div>
             </div>
             <div class="pt-4">
-                <button class="gl-btn-luxe" type="submit">Забронировать</button>
+                <button class="gl-btn-luxe reservation-submit" type="submit">Забронировать</button>
             </div>
         </form>
 
