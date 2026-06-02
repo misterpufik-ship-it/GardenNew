@@ -1,19 +1,19 @@
-<?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Адмиралтейская' order='2'>
-    
-    <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text'>Philosophy</cms:editable>
-    <cms:editable name='phil_concept' label='Текст концепции (надпись)' type='text'>Концепция</cms:editable>
-    <cms:editable name='phil_content' label='Основной текст (Редактор)' type='richtext'>
-        Магический вечнозеленый сад, скрытый от городской суеты в самом сердце Петербурга.
-        <br><br>
-        Здесь время замедляет свой ход. Роскошный интерьер, утопающий в живых тропиках, мелодичный шум фонтана и уютное тепло камина создают атмосферу абсолютной гармонии и уединения.
-    </cms:editable>
-    <cms:editable name='phil_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
-    <cms:editable name='phil_sep' label='Картинка разделителя' type='image'>https://misterpufik.ru/div.png</cms:editable>
+﻿<?php require_once( 'couch/cms.php' ); ?>
+<cms:template title='РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ' order='2'>
 
-    <cms:editable name='seo_group' label='SEO и Оптимизация под ИИ (скрытое)' type='group' order='10' />
-        <cms:editable name='phil_img_alt' label='Alt-текст для картинки (для ИИ-зрения)' group='seo_group' type='text'>Эстетичный лаундж бар Санкт-Петербург, интерьер</cms:editable>
-        <cms:editable name='phil_lsi' label='LSI Ключи для ИИ (через запятую)' group='seo_group' type='textarea'>дизайнерская кальянная СПб, премиум лаундж в центре, место с живыми растениями, фонтан, уютное место</cms:editable>
+    <cms:editable name='phil_title' label='Р—Р°РіРѕР»РѕРІРѕРє (С‚РѕС‚, С‡С‚Рѕ Philosophy)' type='text'>Philosophy</cms:editable>
+    <cms:editable name='phil_concept' label='РўРµРєСЃС‚ РєРѕРЅС†РµРїС†РёРё (РЅР°РґРїРёСЃСЊ)' type='text'>РљРѕРЅС†РµРїС†РёСЏ</cms:editable>
+    <cms:editable name='phil_content' label='РћСЃРЅРѕРІРЅРѕР№ С‚РµРєСЃС‚ (Р РµРґР°РєС‚РѕСЂ)' type='richtext'>
+        РњР°РіРёС‡РµСЃРєРёР№ РІРµС‡РЅРѕР·РµР»РµРЅС‹Р№ СЃР°Рґ, СЃРєСЂС‹С‚С‹Р№ РѕС‚ РіРѕСЂРѕРґСЃРєРѕР№ СЃСѓРµС‚С‹ РІ СЃР°РјРѕРј СЃРµСЂРґС†Рµ РџРµС‚РµСЂР±СѓСЂРіР°.
+        <br><br>
+        Р—РґРµСЃСЊ РІСЂРµРјСЏ Р·Р°РјРµРґР»СЏРµС‚ СЃРІРѕР№ С…РѕРґ. Р РѕСЃРєРѕС€РЅС‹Р№ РёРЅС‚РµСЂСЊРµСЂ, СѓС‚РѕРїР°СЋС‰РёР№ РІ Р¶РёРІС‹С… С‚СЂРѕРїРёРєР°С…, РјРµР»РѕРґРёС‡РЅС‹Р№ С€СѓРј С„РѕРЅС‚Р°РЅР° Рё СѓСЋС‚РЅРѕРµ С‚РµРїР»Рѕ РєР°РјРёРЅР° СЃРѕР·РґР°СЋС‚ Р°С‚РјРѕСЃС„РµСЂСѓ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РіР°СЂРјРѕРЅРёРё Рё СѓРµРґРёРЅРµРЅРёСЏ.
+    </cms:editable>
+    <cms:editable name='phil_slogan' label='РЎР»РѕРіР°РЅ (РІРЅРёР·Сѓ)' type='textarea'>Garden Lounge вЂ” РјРµСЃС‚Рѕ, РіРґРµ СЂРѕР¶РґР°СЋС‚СЃСЏ СЂРёС‚СѓР°Р»С‹, РґРѕСЃС‚РѕР№РЅС‹Рµ РІР°С€РёС… РІРѕСЃРїРѕРјРёРЅР°РЅРёР№</cms:editable>
+    <cms:editable name='phil_sep' label='РљР°СЂС‚РёРЅРєР° СЂР°Р·РґРµР»РёС‚РµР»СЏ' type='image'>/couch/uploads/image/div.webp</cms:editable>
+
+    <cms:editable name='seo_group' label='SEO Рё РћРїС‚РёРјРёР·Р°С†РёСЏ РїРѕРґ РР (СЃРєСЂС‹С‚РѕРµ)' type='group' order='10' />
+        <cms:editable name='phil_img_alt' label='Alt-С‚РµРєСЃС‚ РґР»СЏ РєР°СЂС‚РёРЅРєРё (РґР»СЏ РР-Р·СЂРµРЅРёСЏ)' group='seo_group' type='text'>Р­СЃС‚РµС‚РёС‡РЅС‹Р№ Р»Р°СѓРЅРґР¶ Р±Р°СЂ РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРі, РёРЅС‚РµСЂСЊРµСЂ</cms:editable>
+        <cms:editable name='phil_lsi' label='LSI РљР»СЋС‡Рё РґР»СЏ РР (С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ)' group='seo_group' type='textarea'>РґРёР·Р°Р№РЅРµСЂСЃРєР°СЏ РєР°Р»СЊСЏРЅРЅР°СЏ РЎРџР±, РїСЂРµРјРёСѓРј Р»Р°СѓРЅРґР¶ РІ С†РµРЅС‚СЂРµ, РјРµСЃС‚Рѕ СЃ Р¶РёРІС‹РјРё СЂР°СЃС‚РµРЅРёСЏРјРё, С„РѕРЅС‚Р°РЅ, СѓСЋС‚РЅРѕРµ РјРµСЃС‚Рѕ</cms:editable>
 </cms:template>
 
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "<cms:show adm_address />",
-        "addressLocality": "Санкт-Петербург"
+        "addressLocality": "РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРі"
       },
       "telephone": "<cms:show adm_phone />",
       "url": "<cms:show k_site_link />"
@@ -55,7 +55,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <cms:embed 'styles.html' />
     <cms:embed 'seo_tags.html' />
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap">

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lounge Garden — Меню</title>
-    <!-- Добавление фавикона -->
+    <title>Lounge Garden вЂ” РњРµРЅСЋ</title>
+    <!-- Р”РѕР±Р°РІР»РµРЅРёРµ С„Р°РІРёРєРѕРЅР° -->
     <link rel="icon" type="image/png" href="/favicon.png">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
             overflow-x: hidden;
         }
 
-        /* Эффект кинопленки */
+        /* Р­С„С„РµРєС‚ РєРёРЅРѕРїР»РµРЅРєРё */
         .film-grain {
             position: fixed;
             top: 0;
@@ -44,7 +44,7 @@
             font-family: 'Cormorant Garamond', serif;
         }
 
-        /* Анимация появления */
+        /* РђРЅРёРјР°С†РёСЏ РїРѕСЏРІР»РµРЅРёСЏ */
         .fade-up {
             animation: menuFadeIn 1s ease-out forwards;
             opacity: 0;
@@ -55,7 +55,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Золотое свечение текста */
+        /* Р—РѕР»РѕС‚РѕРµ СЃРІРµС‡РµРЅРёРµ С‚РµРєСЃС‚Р° */
         .shimmer-gold {
             background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
             background-size: 200% auto;
@@ -69,7 +69,7 @@
             to { background-position: 200% center; }
         }
 
-        /* Стили карточки */
+        /* РЎС‚РёР»Рё РєР°СЂС‚РѕС‡РєРё */
         .main-card {
             background-color: #0a0a0a;
             height: 280px;
@@ -144,7 +144,7 @@
             margin: 16px auto;
         }
 
-        /* Кнопка возврата */
+        /* РљРЅРѕРїРєР° РІРѕР·РІСЂР°С‚Р° */
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -172,52 +172,52 @@
     <div class="film-grain"></div>
 
     <div class="min-h-screen flex flex-col items-center pt-4 pb-10 md:py-10 px-6">
-        
-        <!-- ЛОГОТИП -->
+
+        <!-- Р›РћР“РћРўРРџ -->
         <header class="mb-8 fade-up" style="animation-delay: 0.1s;">
             <a href="https://garden-lounge.pro/admiralteyskaya/" class="block">
-                <img src="https://misterpufik.ru/logo3.png" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500">
+                <img src="/img/logo3.webp" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500">
             </a>
         </header>
 
-        <!-- ОСНОВНОЙ БЛОК МЕНЮ -->
+        <!-- РћРЎРќРћР’РќРћР™ Р‘Р›РћРљ РњР•РќР® -->
         <main class="w-full max-w-[600px] z-10">
-            
-            <!-- Заголовок секции -->
+
+            <!-- Р—Р°РіРѕР»РѕРІРѕРє СЃРµРєС†РёРё -->
             <div class="text-center mb-6 fade-up" style="animation-delay: 0.2s;">
-                <h2 class="font-serif-lux text-4xl text-white font-light italic m-0">Меню</h2>
+                <h2 class="font-serif-lux text-4xl text-white font-light italic m-0">РњРµРЅСЋ</h2>
                 <div class="golden-line"></div>
-                <p class="text-[12px] uppercase tracking-[0.4em] font-medium shimmer-gold m-0">Эстетика вкуса</p>
+                <p class="text-[12px] uppercase tracking-[0.4em] font-medium shimmer-gold m-0">Р­СЃС‚РµС‚РёРєР° РІРєСѓСЃР°</p>
             </div>
 
-            <!-- ГЛАВНАЯ КАРТОЧКА -->
+            <!-- Р“Р›РђР’РќРђРЇ РљРђР РўРћР§РљРђ -->
             <div class="main-card fade-up" style="animation-delay: 0.4s;">
-                
-                <!-- Визуальное меню (Левая часть) -->
+
+                <!-- Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ (Р›РµРІР°СЏ С‡Р°СЃС‚СЊ) -->
                 <a href="/admiralteyskaya/menu/visual" class="card-left">
-                    <img src="https://misterpufik.ru/gf11.jpg" alt="Визуальное меню" onerror="this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800'">
+                    <img src="/img/gf11.webp" alt="Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ" onerror="this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                    
+
                     <div class="absolute inset-0 flex flex-col items-center justify-center p-4">
                         <h3 class="font-serif-lux text-2xl md:text-4xl italic text-white text-center m-0 leading-tight">
-                            Визуальное<br>меню
+                            Р’РёР·СѓР°Р»СЊРЅРѕРµ<br>РјРµРЅСЋ
                         </h3>
                         <div class="mt-6 flex items-center gap-2 opacity-60">
                             <i class="fas fa-camera text-[10px] text-[#C5A059]"></i>
-                            <span class="text-[9px] uppercase tracking-[0.2em] text-[#C5A059]">Открыть галерею</span>
+                            <span class="text-[9px] uppercase tracking-[0.2em] text-[#C5A059]">РћС‚РєСЂС‹С‚СЊ РіР°Р»РµСЂРµСЋ</span>
                         </div>
                     </div>
                 </a>
-                
-                <!-- Ссылки (Правая часть) -->
+
+                <!-- РЎСЃС‹Р»РєРё (РџСЂР°РІР°СЏ С‡Р°СЃС‚СЊ) -->
                 <div class="card-right">
                     <a href="/admiralteyskaya/menu/text" class="menu-btn group">
-                        <h3 class="font-serif-lux text-2xl italic text-[#C5A059] m-0 mb-1 group-hover:scale-105 transition-transform">Текстовое</h3>
+                        <h3 class="font-serif-lux text-2xl italic text-[#C5A059] m-0 mb-1 group-hover:scale-105 transition-transform">РўРµРєСЃС‚РѕРІРѕРµ</h3>
                         <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">Classic List</span>
                     </a>
-                    
+
                     <div class="card-divider"></div>
-                    
+
                     <a href="/admiralteyskaya/menu/english" class="menu-btn group">
                         <h3 class="font-serif-lux text-2xl italic text-[#C5A059] m-0 mb-1 group-hover:scale-105 transition-transform">English</h3>
                         <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">classic list</span>
@@ -225,16 +225,16 @@
                 </div>
             </div>
 
-            <!-- ПОДПИСЬ -->
+            <!-- РџРћР”РџРРЎР¬ -->
             <div class="mt-8 text-center fade-up" style="animation-delay: 0.6s;">
                 <p class="text-[10px] uppercase tracking-[0.3em] font-medium shimmer-gold m-0 mb-4">
-                    Гастрономическая поэзия
+                    Р“Р°СЃС‚СЂРѕРЅРѕРјРёС‡РµСЃРєР°СЏ РїРѕСЌР·РёСЏ
                 </p>
 
-                <!-- Кнопка возврата -->
+                <!-- РљРЅРѕРїРєР° РІРѕР·РІСЂР°С‚Р° -->
                 <a href="https://garden-lounge.pro/admiralteyskaya/" class="back-button">
                     <i class="fas fa-chevron-left text-[8px]"></i>
-                    Вернуться на главную
+                    Р’РµСЂРЅСѓС‚СЊСЃСЏ РЅР° РіР»Р°РІРЅСѓСЋ
                 </a>
             </div>
         </main>

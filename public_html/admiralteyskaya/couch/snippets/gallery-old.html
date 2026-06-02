@@ -1,10 +1,10 @@
-<section id="photo" class="photo-gallery-section">
+﻿<section id="photo" class="photo-gallery-section">
     </section>
-<!-- 2. СТИЛИ -->
+<!-- 2. РЎРўРР›Р -->
 <style>
-    /* Обертка для изоляции стилей в Taplink */
+    /* РћР±РµСЂС‚РєР° РґР»СЏ РёР·РѕР»СЏС†РёРё СЃС‚РёР»РµР№ РІ Taplink */
     .garden-experience-widget {
-        --bg-deep: #000000; /* Чисто черный фон */
+        --bg-deep: #000000; /* Р§РёСЃС‚Рѕ С‡РµСЂРЅС‹Р№ С„РѕРЅ */
         --text-main: #EAEAEA;
         --gold-matte: #C5A059;
 
@@ -16,21 +16,21 @@
         color: var(--text-main);
         line-height: 1.5;
 
-        /* ХАК ДЛЯ ВО ВСЮ ШИРИНУ В ТАПЛИНКЕ */
-        width: 100vw; 
+        /* РҐРђРљ Р”Р›РЇ Р’Рћ Р’РЎР® РЁРР РРќРЈ Р’ РўРђРџР›РРќРљР• */
+        width: 100vw;
         position: relative;
         left: 50%;
         right: 50%;
         margin-left: -50vw;
         margin-right: -50vw;
-        overflow-x: hidden; 
+        overflow-x: hidden;
         z-index: 1;
     }
 
     .garden-experience-widget * { box-sizing: border-box; }
 
     .widget-limiter {
-        max-width: 600px; 
+        max-width: 600px;
         margin: 0 auto;
         width: 100%;
     }
@@ -40,30 +40,30 @@
     }
 
     .font-serif-lux { font-family: 'Cormorant Garamond', serif; }
-    
-    /* Специфические настройки для главного заголовка */
+
+    /* РЎРїРµС†РёС„РёС‡РµСЃРєРёРµ РЅР°СЃС‚СЂРѕР№РєРё РґР»СЏ РіР»Р°РІРЅРѕРіРѕ Р·Р°РіРѕР»РѕРІРєР° */
     .experience-title {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 30px;        /* Точно 30px */
-        line-height: 36px;      /* Точно 36px */
+        font-size: 30px;        /* РўРѕС‡РЅРѕ 30px */
+        line-height: 36px;      /* РўРѕС‡РЅРѕ 36px */
         font-weight: 300;       /* Light */
-        font-style: italic;     /* Курсив */
+        font-style: italic;     /* РљСѓСЂСЃРёРІ */
         color: #ffffff;
         margin: 0;
     }
 
     .no-scroll::-webkit-scrollbar { display: none; }
-    
-    /* Стили для золотой линии (Philosophy Style) */
+
+    /* РЎС‚РёР»Рё РґР»СЏ Р·РѕР»РѕС‚РѕР№ Р»РёРЅРёРё (Philosophy Style) */
     .philosophy-divider {
-        width: 160px; 
+        width: 160px;
         height: 1px;
         background: linear-gradient(to right, transparent, var(--gold-matte), transparent);
-        margin: 16px auto; 
+        margin: 16px auto;
         opacity: 0.8;
     }
 
-    /* Анимация золотого перелива */
+    /* РђРЅРёРјР°С†РёСЏ Р·РѕР»РѕС‚РѕРіРѕ РїРµСЂРµР»РёРІР° */
     .shimmer-gold {
         background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto;
@@ -81,23 +81,23 @@
         to { background-position: 200% center; }
     }
 
-    /* --- СЛАЙДЕР --- */
+    /* --- РЎР›РђР™Р”Р•Р  --- */
     .slider-snap-area {
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; 
+        scrollbar-width: none;
         scroll-behavior: smooth;
     }
-    
+
     .gallery-slide-item {
         flex: 0 0 auto;
         scroll-snap-align: start;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
         transition: transform 0.3s ease;
     }
-    
+
     .ratio-3-2 { width: 85%; aspect-ratio: 3/2; }
     .ratio-1-1 { width: 75%; aspect-ratio: 1/1; }
 
@@ -106,14 +106,14 @@
     }
 
     .slider-relative-box { position: relative; width: 100%; }
-    
+
     .slider-arrow {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         z-index: 40;
         color: #C5A059;
-        background: rgba(0, 0, 0, 0.7); 
+        background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(4px);
         width: 44px;
         height: 44px;
@@ -139,81 +139,81 @@
         opacity: 1;
     }
 
-    .tab-btn-link { 
-        font-size: 10px; 
-        text-transform: uppercase; 
-        letter-spacing: 0.2em; 
-        color: #666; 
-        padding-bottom: 4px; 
-        border-bottom: 1px solid transparent; 
+    .tab-btn-link {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #666;
+        padding-bottom: 4px;
+        border-bottom: 1px solid transparent;
         transition: 0.3s;
     }
-    .tab-btn-link.active { 
-        color: #C5A059; 
-        border-bottom-color: #C5A059; 
+    .tab-btn-link.active {
+        color: #C5A059;
+        border-bottom-color: #C5A059;
     }
-    
+
     .lock-scroll { overflow: hidden !important; }
 </style>
 
-<!-- 3. HTML СТРУКТУРА -->
+<!-- 3. HTML РЎРўР РЈРљРўРЈР Рђ -->
 <div class="garden-experience-widget">
-    
+
     <section class="pt-4 pb-12 relative z-20 bg-black">
-        <!-- Заголовок с золотой эстетикой -->
+        <!-- Р—Р°РіРѕР»РѕРІРѕРє СЃ Р·РѕР»РѕС‚РѕР№ СЌСЃС‚РµС‚РёРєРѕР№ -->
         <div class="widget-limiter px-6 text-center pt-[16px]">
-            <!-- Применен новый класс с точными настройками 30px/36px -->
+            <!-- РџСЂРёРјРµРЅРµРЅ РЅРѕРІС‹Р№ РєР»Р°СЃСЃ СЃ С‚РѕС‡РЅС‹РјРё РЅР°СЃС‚СЂРѕР№РєР°РјРё 30px/36px -->
             <h2 class="experience-title">Experience</h2>
             <div class="philosophy-divider"></div>
-            <p class="shimmer-gold text-[12px] m-0">Визуальная эстетика</p>
-            <div class="mt-12"></div> 
+            <p class="shimmer-gold text-[12px] m-0">Р’РёР·СѓР°Р»СЊРЅР°СЏ СЌСЃС‚РµС‚РёРєР°</p>
+            <div class="mt-12"></div>
         </div>
 
         <div class="widget-limiter px-4">
-            <!-- Табы -->
+            <!-- РўР°Р±С‹ -->
             <div class="flex justify-center gap-8 mb-8">
                 <button onclick="changeWidgetTab('tab-interior', this)" class="tab-btn-link active">Interior</button>
                 <button onclick="changeWidgetTab('tab-food', this)" class="tab-btn-link">Menu</button>
                 <button onclick="changeWidgetTab('tab-vibe', this)" class="tab-btn-link">Vibe</button>
             </div>
 
-            <!-- Контент табов -->
+            <!-- РљРѕРЅС‚РµРЅС‚ С‚Р°Р±РѕРІ -->
             <div class="relative w-full">
-                
+
                 <!-- Tab 1: Interior -->
                 <div id="tab-interior" class="category-pane active">
                     <div class="slider-relative-box">
                         <button class="slider-arrow arrow-left" onclick="scrollWidgetSlider('slider-interior', -300)"><i class="fas fa-chevron-left"></i></button>
                         <button class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-interior', 300)"><i class="fas fa-chevron-right"></i></button>
-                        
+
                         <div id="slider-interior" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/ga1.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/ga1.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0">Antic Hall</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/ga2.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/ga2.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0">Hidden Garden</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/ga3.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/ga3.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0">Neon Gallery</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/ga4.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/ga4.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0">Fountain Hall</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/ga5.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/ga5.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0">Ancient Jungle</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/ga6.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/ga6.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0">Stone Bar</h3></div>
                             </div>
@@ -229,57 +229,57 @@
 
                         <div id="slider-food" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf5.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf5.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Maisons-Alfort</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf1.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf1.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Poke</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf12.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf12.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Garden Special</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf2.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf2.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Chef’s Tea</h3></div>
+                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">ChefвЂ™s Tea</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf3.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf3.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Flame-Seared Roll</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf4.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf4.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Chease cake</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf6.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf6.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Aperol Spritz</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf7.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf7.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Scallop Roll</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf8.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf8.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Salmon Bisque</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf9.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf9.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Gin Tonic Berry</h3></div>
                             </div>
                             <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="https://misterpufik.ru/gf10.jpg" class="w-full h-full object-cover">
+                                <img src="/couch/uploads/image/gf10.webp" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                                 <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Sweet Potato Fries</h3></div>
                             </div>
@@ -324,16 +324,16 @@
                 </div>
             </div>
 
-            <!-- ФИНАЛЬНЫЙ ТЕКСТ ПОД ГАЛЕРЕЕЙ -->
+            <!-- Р¤РРќРђР›Р¬РќР«Р™ РўР•РљРЎРў РџРћР” Р“РђР›Р•Р Р•Р•Р™ -->
             <div class="widget-limiter text-center mt-48 mb-8 px-6">
                 <p class="shimmer-gold text-[10px] m-0 lowercase tracking-[0.4em] leading-relaxed">
-                    Откройте мир уникальных локаций и гастрономического удовольствия
+                    РћС‚РєСЂРѕР№С‚Рµ РјРёСЂ СѓРЅРёРєР°Р»СЊРЅС‹С… Р»РѕРєР°С†РёР№ Рё РіР°СЃС‚СЂРѕРЅРѕРјРёС‡РµСЃРєРѕРіРѕ СѓРґРѕРІРѕР»СЊСЃС‚РІРёСЏ
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- МОДАЛЬНОЕ ОКНО -->
+    <!-- РњРћР”РђР›Р¬РќРћР• РћРљРќРћ -->
     <div id="widget-image-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.98); backdrop-filter:blur(10px); opacity:0; transition:opacity 0.3s ease; flex-direction:column; align-items:center; justify-content:center; padding:20px;" onclick="closeWidgetModal()">
         <button onclick="closeWidgetModal()" style="position:fixed; top:20px; right:20px; color:rgba(255,255,255,0.7); background:none; border:none; cursor:pointer; font-size:30px; z-index:100000;">
             <i class="fas fa-times"></i>
@@ -346,7 +346,7 @@
 
 </div>
 
-<!-- 4. СКРИПТЫ -->
+<!-- 4. РЎРљР РРџРўР« -->
 <script>
     function changeWidgetTab(tabId, btnElement) {
         document.querySelectorAll('.category-pane').forEach(el => {
@@ -355,7 +355,7 @@
         document.querySelectorAll('.tab-btn-link').forEach(btn => {
             btn.classList.remove('active');
         });
-        
+
         const activeTab = document.getElementById(tabId);
         if(activeTab) activeTab.classList.add('active');
         if(btnElement) btnElement.classList.add('active');
@@ -370,13 +370,13 @@
         const img = element.querySelector('img');
         const title = element.querySelector('h3');
         const modal = document.getElementById('widget-image-modal');
-        
+
         document.getElementById('widget-modal-img').src = img.src;
         document.getElementById('widget-modal-caption').innerText = title.innerText;
 
         document.body.classList.add('lock-scroll');
         modal.style.display = 'flex';
-        
+
         setTimeout(() => {
             modal.style.opacity = '1';
             modal.querySelector('div').style.transform = 'scale(1)';
@@ -387,7 +387,7 @@
         const modal = document.getElementById('widget-image-modal');
         modal.style.opacity = '0';
         modal.querySelector('div').style.transform = 'scale(0.95)';
-        
+
         setTimeout(() => {
             modal.style.display = 'none';
             document.body.classList.remove('lock-scroll');

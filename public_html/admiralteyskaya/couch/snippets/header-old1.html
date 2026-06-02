@@ -1,4 +1,4 @@
-<style>
+﻿<style>
     :root {
         --gold-main: #C5A059;
         --gold-dark: #8e7037;
@@ -19,7 +19,7 @@
         scroll-behavior: smooth;
     }
 
-    /* --- АНИМАЦИИ --- */
+    /* --- РђРќРРњРђР¦РР --- */
     @keyframes glFadeInOnly {
         0% { opacity: 0; transform: scale(0.95); }
         100% { opacity: 1; transform: scale(1); }
@@ -32,17 +32,17 @@
 
     .logo-luxe-animate {
         opacity: 0;
-        animation: 
+        animation:
             glFadeInOnly 1.5s ease-out forwards,
             glLogoPulse 6s ease-in-out 1.5s infinite;
         will-change: transform, opacity, filter;
     }
 
-    @keyframes glBreath { 
-        0% { transform: scale(1.0); } 
-        100% { transform: scale(1.08); } 
+    @keyframes glBreath {
+        0% { transform: scale(1.0); }
+        100% { transform: scale(1.08); }
     }
-    
+
     @keyframes goldShimmer {
         0% { background-position: -200% center; }
         100% { background-position: 200% center; }
@@ -67,7 +67,7 @@
         text-align: center;
     }
 
-    /* НАВИГАЦИЯ */
+    /* РќРђР’РР“РђР¦РРЇ */
     .gl-navbar {
         position: fixed;
         top: 0; left: 0; width: 100%;
@@ -83,7 +83,7 @@
         padding-top: 5px;
         padding-bottom: 5px;
     }
-    
+
     .nav-link {
         position: relative;
         color: #ffffff !important;
@@ -94,12 +94,12 @@
         transition: all 0.3s ease;
         padding: 8px 12px;
         text-decoration: none;
-        border: 1px solid transparent; /* Добавлено для исключения прыжков при активации */
+        border: 1px solid transparent; /* Р”РѕР±Р°РІР»РµРЅРѕ РґР»СЏ РёСЃРєР»СЋС‡РµРЅРёСЏ РїСЂС‹Р¶РєРѕРІ РїСЂРё Р°РєС‚РёРІР°С†РёРё */
     }
 
     .nav-link:hover { color: var(--gold-main) !important; }
 
-    /* Стиль выделения (прямоугольник) */
+    /* РЎС‚РёР»СЊ РІС‹РґРµР»РµРЅРёСЏ (РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє) */
     .nav-booking-rect {
         border: 1px solid rgba(197, 160, 89, 0.6) !important;
         background-color: rgba(197, 160, 89, 0.1) !important;
@@ -116,7 +116,7 @@
     }
     .nav-link:not(.nav-booking-rect):hover::after { width: 50%; }
 
-    /* ВЫБОР ФИЛИАЛА ДЕСКТОП */
+    /* Р’Р«Р‘РћР  Р¤РР›РРђР›Рђ Р”Р•РЎРљРўРћРџ */
     .branch-selector {
         position: relative;
         cursor: pointer;
@@ -133,14 +133,14 @@
     }
     .branch-dropdown {
         position: absolute;
-        top: 100%; 
+        top: 100%;
         left: 0;
         width: 100%;
         min-width: 210px;
         background: transparent !important;
         backdrop-filter: blur(10px);
         border: 1px solid var(--gold-main);
-        border-top: 2px solid var(--gold-main); 
+        border-top: 2px solid var(--gold-main);
         display: none;
         flex-direction: column;
         z-index: 99;
@@ -158,7 +158,7 @@
     .branch-option:hover { background: rgba(197, 160, 89, 0.15); color: var(--gold-main); }
     .branch-option.active { color: var(--gold-main); font-weight: 700; }
 
-    /* МОБИЛЬНАЯ ПАНЕЛЬ ФИЛИАЛА */
+    /* РњРћР‘РР›Р¬РќРђРЇ РџРђРќР•Р›Р¬ Р¤РР›РРђР›Рђ */
     #mobileBranchTrigger {
         background: transparent !important;
         border: none !important;
@@ -167,10 +167,10 @@
         box-shadow: none !important;
     }
 
-    /* МОБИЛЬНОЕ МЕНЮ */
+    /* РњРћР‘РР›Р¬РќРћР• РњР•РќР® */
     .mobile-menu-overlay {
         position: fixed;
-        top: 0; left: 0; width: 100%; height: 100dvh; 
+        top: 0; left: 0; width: 100%; height: 100dvh;
         background-color: #080808;
         z-index: 1000000;
         transform: translateY(-100%);
@@ -183,7 +183,7 @@
     }
     .mobile-menu-overlay.active { transform: translateY(0); visibility: visible; }
 
-    /* МОДАЛЬНОЕ ОКНО ФИЛИАЛОВ МОБИЛКА */
+    /* РњРћР”РђР›Р¬РќРћР• РћРљРќРћ Р¤РР›РРђР›РћР’ РњРћР‘РР›РљРђ */
     .mobile-branch-modal {
         position: fixed;
         inset: 0;
@@ -198,7 +198,7 @@
     }
     .mobile-branch-modal.active { display: flex; }
 
-    /* Кнопки филиалов на мобильном */
+    /* РљРЅРѕРїРєРё С„РёР»РёР°Р»РѕРІ РЅР° РјРѕР±РёР»СЊРЅРѕРј */
     .mobile-branch-opt {
         border: 1px solid rgba(255, 255, 255, 0.1);
         background: rgba(255, 255, 255, 0.03);
@@ -206,14 +206,14 @@
         cursor: pointer;
         border-style: solid !important;
     }
-    
+
     .mobile-branch-opt.active {
         border-color: var(--gold-main);
-        background: rgba(197, 160, 89, 0.1); 
+        background: rgba(197, 160, 89, 0.1);
         border-style: solid !important;
     }
 
-    /* СТИЛИ ПУНКТОВ МОБИЛЬНОГО МЕНЮ */
+    /* РЎРўРР›Р РџРЈРќРљРўРћР’ РњРћР‘РР›Р¬РќРћР“Рћ РњР•РќР® */
     .mobile-link {
         font-family: 'Cormorant Garamond', serif;
         font-size: 22px;
@@ -224,18 +224,18 @@
         transition: all 0.3s ease;
         text-decoration: none;
         letter-spacing: 0.05em;
-        border: 1px solid transparent; 
+        border: 1px solid transparent;
         padding: 4px 24px;
         display: inline-block;
     }
-    
+
     .mobile-link.active-rect {
         border-color: rgba(197, 160, 89, 0.6) !important;
         background-color: rgba(197, 160, 89, 0.1) !important;
         color: var(--gold-main) !important;
         font-weight: 500;
     }
-    
+
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
 
     .nav-line-gold { height: 1px; width: 25px; background-color: var(--gold-main); opacity: 0.7; }
@@ -250,7 +250,7 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 110px 20px 40px 20px; 
+        padding: 110px 20px 40px 20px;
         overflow: hidden;
     }
 
@@ -287,47 +287,47 @@
     body.menu-open { overflow: hidden !important; }
 </style>
 
-<!-- НАВИГАЦИЯ -->
+<!-- РќРђР’РР“РђР¦РРЇ -->
 <nav class="gl-navbar flex justify-between items-center px-6 py-6 md:px-8" id="navbar">
-    <!-- Соцсети (Desktop) -->
+    <!-- РЎРѕС†СЃРµС‚Рё (Desktop) -->
     <div class="hidden md:flex gap-4 items-center flex-1">
         <a href="https://vk.com/loungegarden" target="_blank" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-vk text-lg"></i></a>
         <a href="https://instagram.com/garden_lounge_spb/" target="_blank" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-instagram text-lg"></i></a>
         <a href="https://youtube.com/@garden.lounge" target="_blank" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-youtube text-lg"></i></a>
     </div>
 
-    <!-- Центральное меню (Desktop) -->
+    <!-- Р¦РµРЅС‚СЂР°Р»СЊРЅРѕРµ РјРµРЅСЋ (Desktop) -->
     <div class="hidden md:flex items-center gap-1 flex-none">
-        <!-- Выбор филиала Десктоп -->
+        <!-- Р’С‹Р±РѕСЂ С„РёР»РёР°Р»Р° Р”РµСЃРєС‚РѕРї -->
         <div class="branch-selector" id="desktopBranchSelector">
             <div class="flex items-center gap-3">
                 <i class="fas fa-location-dot text-[11px] text-[#C5A059]"></i>
-                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">Адмиралтейская</span>
+                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</span>
                 <i class="fas fa-chevron-down text-[8px] opacity-60"></i>
             </div>
             <div class="branch-dropdown">
-                <div class="branch-option active" data-branch="admiral">Адмиралтейская</div>
-                <div class="branch-option" data-branch="udelnaya">Удельная</div>
+                <div class="branch-option active" data-branch="admiral">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</div>
+                <div class="branch-option" data-branch="udelnaya">РЈРґРµР»СЊРЅР°СЏ</div>
             </div>
         </div>
 
         <div class="flex items-center gap-1" id="desktopMenuLinks">
-            <a href="#about-us" class="nav-link">Концепция</a>
-            <a href="#menu-block" class="nav-link">Меню</a>
-            <a href="#photo" class="nav-link">Интерьер</a>
-            <a href="#special" class="nav-link">Акции</a>
-            <a href="#reservation" class="nav-link nav-booking-rect">Бронирование</a>
-            <a href="#contact" class="nav-link">Контакты</a>
+            <a href="#about-us" class="nav-link">РљРѕРЅС†РµРїС†РёСЏ</a>
+            <a href="#menu-block" class="nav-link">РњРµРЅСЋ</a>
+            <a href="#photo" class="nav-link">РРЅС‚РµСЂСЊРµСЂ</a>
+            <a href="#special" class="nav-link">РђРєС†РёРё</a>
+            <a href="#reservation" class="nav-link nav-booking-rect">Р‘СЂРѕРЅРёСЂРѕРІР°РЅРёРµ</a>
+            <a href="#contact" class="nav-link">РљРѕРЅС‚Р°РєС‚С‹</a>
         </div>
     </div>
 
-    <!-- Связь (Desktop) -->
+    <!-- РЎРІСЏР·СЊ (Desktop) -->
     <div class="hidden md:flex gap-6 items-center justify-end flex-1">
         <a href="https://t.me/gardenlounge_admiral" target="_blank" class="text-white hover:text-[#C5A059] transition-all"><i class="fab fa-telegram-plane text-xl"></i></a>
         <a href="tel:+79956246808" class="text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt ml-1"></i></a>
     </div>
 
-    <!-- МОБИЛЬНАЯ ПАНЕЛЬ -->
+    <!-- РњРћР‘РР›Р¬РќРђРЇ РџРђРќР•Р›Р¬ -->
     <div class="md:hidden flex items-center justify-between w-full pl-0 pr-1 relative">
         <div class="flex items-center gap-0 z-20 -ml-2">
             <a href="tel:+79956246808" class="text-[#C5A059] p-2">
@@ -338,7 +338,7 @@
             </a>
         </div>
 
-        <!-- Кликабельный центр на мобилке -->
+        <!-- РљР»РёРєР°Р±РµР»СЊРЅС‹Р№ С†РµРЅС‚СЂ РЅР° РјРѕР±РёР»РєРµ -->
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center flex flex-col items-center w-auto cursor-pointer" id="mobileBranchTrigger">
              <div class="flex items-center justify-center gap-2">
                 <i class="fas fa-location-dot text-[11px] text-[#C5A059]"></i>
@@ -346,7 +346,7 @@
                 <i class="fas fa-chevron-down text-[8px] text-[#C5A059] opacity-70"></i>
             </div>
             <div class="flex items-center gap-1.5 mt-0.5 opacity-70">
-                <p id="mob-branch-addr" class="text-[9px] uppercase tracking-[0.1em] text-white font-medium">Филиал: Moyki 67-69</p>
+                <p id="mob-branch-addr" class="text-[9px] uppercase tracking-[0.1em] text-white font-medium">Р¤РёР»РёР°Р»: Moyki 67-69</p>
             </div>
         </div>
 
@@ -356,60 +356,60 @@
     </div>
 </nav>
 
-<!-- МОДАЛЬНОЕ ОКНО ВЫБОРА ФИЛИАЛА (MOBILE) -->
+<!-- РњРћР”РђР›Р¬РќРћР• РћРљРќРћ Р’Р«Р‘РћР Рђ Р¤РР›РРђР›Рђ (MOBILE) -->
 <div class="mobile-branch-modal" id="mobileBranchModal">
     <div class="absolute top-8 right-8 text-[#C5A059] text-3xl cursor-pointer" id="closeBranchModal">
         <i class="fas fa-times"></i>
     </div>
     <div class="flex flex-col items-center mb-10">
         <i class="fas fa-map-marked-alt text-4xl text-[#C5A059] mb-4"></i>
-        <p class="text-[12px] uppercase tracking-[0.4em] text-white font-semibold">Выберите локацию</p>
+        <p class="text-[12px] uppercase tracking-[0.4em] text-white font-semibold">Р’С‹Р±РµСЂРёС‚Рµ Р»РѕРєР°С†РёСЋ</p>
     </div>
     <div class="flex flex-col gap-6 w-full max-w-[300px]">
         <div class="text-center py-6 rounded-sm mobile-branch-opt active" data-branch="admiral">
-            <h3 class="text-2xl font-serif italic text-[#C5A059] mb-1">Адмиралтейская</h3>
-            <p class="text-[10px] uppercase tracking-widest text-white/60">Набережная Мойки 67-69</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059] mb-1">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</h3>
+            <p class="text-[10px] uppercase tracking-widest text-white/60">РќР°Р±РµСЂРµР¶РЅР°СЏ РњРѕР№РєРё 67-69</p>
         </div>
         <div class="text-center py-6 rounded-sm mobile-branch-opt" data-branch="udelnaya">
-            <h3 class="text-2xl font-serif italic text-[#C5A059] mb-1">Удельная</h3>
-            <p class="text-[10px] uppercase tracking-widest text-white/40">Аккуратова 13</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059] mb-1">РЈРґРµР»СЊРЅР°СЏ</h3>
+            <p class="text-[10px] uppercase tracking-widest text-white/40">РђРєРєСѓСЂР°С‚РѕРІР° 13</p>
         </div>
     </div>
 </div>
 
-<!-- МОБИЛЬНОЕ МЕНЮ (OVERLAY) -->
+<!-- РњРћР‘РР›Р¬РќРћР• РњР•РќР® (OVERLAY) -->
 <div class="mobile-menu-overlay" id="mobileMenu">
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute inset-0 bg-[url('https://misterpufik.ru/log4.jpg')] bg-cover bg-center scale-110 brightness-[0.2]"></div>
+        <div class="absolute inset-0 bg-[url('/couch/uploads/image/log4.webp')] bg-cover bg-center scale-110 brightness-[0.2]"></div>
     </div>
-    
+
     <div class="w-full flex justify-center items-center px-6 pt-6 z-10 relative">
         <a href="#home" onclick="closeMenu()">
-            <img src="https://misterpufik.ru/logo3.png" class="h-28 w-auto" alt="Logo">
+            <img src="/couch/uploads/image/logo3.webp" class="h-28 w-auto" alt="Logo">
         </a>
         <div class="cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
             <i class="fas fa-times text-3xl"></i>
         </div>
     </div>
-    
+
     <div class="flex flex-col items-center justify-center mt-2 w-full z-10">
-        <a href="#about-us" class="mobile-link">Концепция</a>
-        <a href="#menu-block" class="mobile-link">Меню</a>
-        <a href="#photo" class="mobile-link">Интерьер</a>
-        <a href="#special" class="mobile-link">Акции</a>
-        <a href="#reservation" class="mobile-link active-rect">Бронирование</a>
-        <a href="#contact" class="mobile-link">Контакты</a>
-        <img src="https://misterpufik.ru/div.png" class="w-[200px] h-auto my-2" alt="divider">
+        <a href="#about-us" class="mobile-link">РљРѕРЅС†РµРїС†РёСЏ</a>
+        <a href="#menu-block" class="mobile-link">РњРµРЅСЋ</a>
+        <a href="#photo" class="mobile-link">РРЅС‚РµСЂСЊРµСЂ</a>
+        <a href="#special" class="mobile-link">РђРєС†РёРё</a>
+        <a href="#reservation" class="mobile-link active-rect">Р‘СЂРѕРЅРёСЂРѕРІР°РЅРёРµ</a>
+        <a href="#contact" class="mobile-link">РљРѕРЅС‚Р°РєС‚С‹</a>
+        <img src="/couch/uploads/image/div.webp" class="w-[200px] h-auto my-2" alt="divider">
     </div>
-    
+
     <div class="flex flex-col items-center justify-end w-full pb-4 z-10">
         <div class="flex flex-col items-center gap-1 mb-2">
             <a href="https://yandex.ru/maps/-/CLBizUM1" target="_blank" class="flex flex-col items-center group">
                 <div class="flex items-center gap-2 shimmer-text">
                     <i class="fas fa-location-dot text-[#C5A059] text-[10px]"></i>
-                    <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium">Набережная реки Мойки д.67-69</p>
+                    <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium">РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69</p>
                 </div>
-                <p class="text-[9px] uppercase tracking-[0.15em] text-white/30 mt-0.5">построить маршрут <i class="fas fa-arrow-up text-[7px] ml-0.5"></i></p>
+                <p class="text-[9px] uppercase tracking-[0.15em] text-white/30 mt-0.5">РїРѕСЃС‚СЂРѕРёС‚СЊ РјР°СЂС€СЂСѓС‚ <i class="fas fa-arrow-up text-[7px] ml-0.5"></i></p>
             </a>
             <a href="tel:+79956246808" class="font-serif italic text-white text-xl tracking-wider mb-1 mt-1">+7 995 624 68 08</a>
         </div>
@@ -421,23 +421,23 @@
     </div>
 </div>
 
-<!-- ГЛАВНЫЙ ЭКРАН -->
+<!-- Р“Р›РђР’РќР«Р™ Р­РљР РђРќ -->
 <header class="hero-section" id="home">
     <div class="hero-bg">
-        <img src="https://misterpufik.ru/garden.jpg" class="hidden md:block" alt="Garden Lounge Interior">
-        <img src="https://misterpufik.ru/log4.jpg" class="block md:hidden" alt="Garden Lounge Interior Mobile">
+        <img src="/couch/uploads/image/garden.webp" class="hidden md:block" alt="Garden Lounge Interior">
+        <img src="/couch/uploads/image/log4.webp" class="block md:hidden" alt="Garden Lounge Interior Mobile">
         <div class="hero-overlay"></div>
     </div>
-    
+
     <div class="flex flex-col items-center z-10 w-full">
         <a href="#home">
-            <img src="https://misterpufik.ru/logo3.png" alt="Logo" class="w-64 md:w-96 h-auto logo-luxe-animate">
+            <img src="/couch/uploads/image/logo3.webp" alt="Logo" class="w-64 md:w-96 h-auto logo-luxe-animate">
         </a>
     </div>
-    
+
     <div class="flex flex-col items-center z-10 w-full px-4">
-        <p class="tagline-premium shimmer-text mb-4 md:mb-6">Магический вечнозеленый сад в самом сердце Санкт-Петербурга</p>
-        
+        <p class="tagline-premium shimmer-text mb-4 md:mb-6">РњР°РіРёС‡РµСЃРєРёР№ РІРµС‡РЅРѕР·РµР»РµРЅС‹Р№ СЃР°Рґ РІ СЃР°РјРѕРј СЃРµСЂРґС†Рµ РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРіР°</p>
+
         <!-- Desktop Info -->
         <div class="hidden md:flex flex-col items-center">
             <div class="flex items-center gap-4">
@@ -446,7 +446,7 @@
                 <div class="gold-line-thin"></div>
             </div>
             <div class="mt-1 opacity-70">
-                <p id="hero-branch-addr-desk" class="text-[9px] md:text-[10px] uppercase tracking-[0.35em] text-white">Naberezhnaya Moyki 67-69 • Est. 2024</p>
+                <p id="hero-branch-addr-desk" class="text-[9px] md:text-[10px] uppercase tracking-[0.35em] text-white">Naberezhnaya Moyki 67-69 вЂў Est. 2024</p>
             </div>
         </div>
     </div>
@@ -459,25 +459,25 @@
     const mobileMenu = document.getElementById('mobileMenu');
     const body = document.body;
 
-    // Данные филиалов
+    // Р”Р°РЅРЅС‹Рµ С„РёР»РёР°Р»РѕРІ
     const branches = {
         admiral: {
-            name: "Адмиралтейская",
+            name: "РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ",
             slug: "admiralteyskaya",
-            address: "Набережная реки Мойки д.67-69",
-            addressShort: "Naberezhnaya Moyki 67-69 • Est. 2024",
+            address: "РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69",
+            addressShort: "Naberezhnaya Moyki 67-69 вЂў Est. 2024",
             addrMob: "Moyki 67-69"
         },
         udelnaya: {
-            name: "Удельная",
+            name: "РЈРґРµР»СЊРЅР°СЏ",
             slug: "udelnaya",
-            address: "Аккуратова д.13",
-            addressShort: "Akkuratova 13 • Est. 2024",
+            address: "РђРєРєСѓСЂР°С‚РѕРІР° Рґ.13",
+            addressShort: "Akkuratova 13 вЂў Est. 2024",
             addrMob: "Akkuratova 13"
         }
     };
 
-    // Состояние
+    // РЎРѕСЃС‚РѕСЏРЅРёРµ
     let currentBranch = 'admiral';
 
     function updateBranchUI(branchId) {
@@ -486,7 +486,7 @@
 
         const deskBranchName = document.getElementById('current-branch-desk');
         if(deskBranchName) deskBranchName.innerText = data.name;
-        
+
         const mobName = document.getElementById('mob-branch-name');
         const mobAddr = document.getElementById('mob-branch-addr');
         if(mobName) mobName.innerText = data.slug;
@@ -509,7 +509,7 @@
         });
     }
 
-    // Обработчики Десктоп Филиал
+    // РћР±СЂР°Р±РѕС‚С‡РёРєРё Р”РµСЃРєС‚РѕРї Р¤РёР»РёР°Р»
     const deskSelector = document.getElementById('desktopBranchSelector');
     if(deskSelector) {
         deskSelector.addEventListener('click', (e) => {
@@ -524,7 +524,7 @@
         });
     });
 
-    // Обработчики Мобилка Филиал
+    // РћР±СЂР°Р±РѕС‚С‡РёРєРё РњРѕР±РёР»РєР° Р¤РёР»РёР°Р»
     const mobTrigger = document.getElementById('mobileBranchTrigger');
     const mobModal = document.getElementById('mobileBranchModal');
     const closeMobModal = document.getElementById('closeBranchModal');
@@ -551,12 +551,12 @@
         });
     });
 
-    // Закрытие при клике вовне
+    // Р—Р°РєСЂС‹С‚РёРµ РїСЂРё РєР»РёРєРµ РІРѕРІРЅРµ
     window.addEventListener('click', () => {
         if(deskSelector) deskSelector.classList.remove('active');
     });
 
-    // Скролл-эффект для навбара
+    // РЎРєСЂРѕР»Р»-СЌС„С„РµРєС‚ РґР»СЏ РЅР°РІР±Р°СЂР°
     window.addEventListener('scroll', () => {
         if (window.scrollY > 30) {
             navbar.classList.add('scrolled');
@@ -565,7 +565,7 @@
         }
     });
 
-    // Мобильное меню
+    // РњРѕР±РёР»СЊРЅРѕРµ РјРµРЅСЋ
     function toggleMenu() {
         const isActive = mobileMenu.classList.toggle('active');
         body.classList.toggle('menu-open', isActive);
@@ -579,7 +579,7 @@
     if(burgerBtn) burgerBtn.addEventListener('click', toggleMenu);
     if(closeBtn) closeBtn.addEventListener('click', toggleMenu);
 
-    // ОБРАБОТКА КЛИКОВ ПО МОБИЛЬНЫМ ССЫЛКАМ
+    // РћР‘Р РђР‘РћРўРљРђ РљР›РРљРћР’ РџРћ РњРћР‘РР›Р¬РќР«Рњ РЎРЎР«Р›РљРђРњ
     document.querySelectorAll('.mobile-link').forEach(link => {
         link.addEventListener('click', function(e) {
             document.querySelectorAll('.mobile-link').forEach(l => l.classList.remove('active-rect'));
@@ -588,12 +588,12 @@
         });
     });
 
-    // ОБРАБОТКА КЛИКОВ ПО ДЕСКТОПНЫМ ССЫЛКАМ (ПЕРЕМЕЩЕНИЕ РАМКИ)
+    // РћР‘Р РђР‘РћРўРљРђ РљР›РРљРћР’ РџРћ Р”Р•РЎРљРўРћРџРќР«Рњ РЎРЎР«Р›РљРђРњ (РџР•Р Р•РњР•Р©Р•РќРР• Р РђРњРљР)
     document.querySelectorAll('.gl-navbar .nav-link').forEach(link => {
         link.addEventListener('click', function() {
-            // Удаляем класс у всех десктопных ссылок в навигации
+            // РЈРґР°Р»СЏРµРј РєР»Р°СЃСЃ Сѓ РІСЃРµС… РґРµСЃРєС‚РѕРїРЅС‹С… СЃСЃС‹Р»РѕРє РІ РЅР°РІРёРіР°С†РёРё
             document.querySelectorAll('.gl-navbar .nav-link').forEach(l => l.classList.remove('nav-booking-rect'));
-            // Добавляем нажатой
+            // Р”РѕР±Р°РІР»СЏРµРј РЅР°Р¶Р°С‚РѕР№
             this.classList.add('nav-booking-rect');
         });
     });

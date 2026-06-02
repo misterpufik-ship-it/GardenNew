@@ -1,4 +1,4 @@
-<style>
+﻿<style>
     :root {
         --gold-main: #C5A059;
         --gold-dark: #8e7037;
@@ -6,7 +6,7 @@
         --bg-black: #000000;
     }
 
-    /* --- АНИМАЦИИ --- */
+    /* --- РђРќРРњРђР¦РР --- */
     @keyframes glFadeInOnly {
         0% { opacity: 0; transform: scale(0.95); }
         100% { opacity: 1; transform: scale(1); }
@@ -19,7 +19,7 @@
 
     .logo-luxe-animate {
         opacity: 0;
-        animation: 
+        animation:
             glFadeInOnly 1.5s ease-out forwards,
             glLogoPulse 6s ease-in-out 1.5s infinite;
         will-change: transform, opacity, filter;
@@ -28,7 +28,7 @@
   .logo-luxe-animate{ margin-top: -20px; }
 }
 
-    
+
     @keyframes goldShimmer {
         0% { background-position: -200% center; }
         100% { background-position: 200% center; }
@@ -53,14 +53,14 @@
         text-align: center;
     }
 
-    /* НАВИГАЦИЯ */
+    /* РќРђР’РР“РђР¦РРЇ */
     .gl-navbar{
   position: fixed;
   top: 0; left: 0;
   width: 100%;
   z-index: 9999;
 
-  /* единый источник правды по высоте */
+  /* РµРґРёРЅС‹Р№ РёСЃС‚РѕС‡РЅРёРє РїСЂР°РІРґС‹ РїРѕ РІС‹СЃРѕС‚Рµ */
   padding: calc(12px + env(safe-area-inset-top)) 16px 12px 16px;
 
   background: transparent;
@@ -71,7 +71,7 @@
   border-bottom: 1px solid rgba(197,160,89,0.2);
 }
 
-    
+
     .nav-link {
         position: relative;
         color: #ffffff !important;
@@ -103,7 +103,7 @@
     }
     .nav-link:not(.nav-booking-rect):hover::after { width: 50%; }
 
-    /* ВЫБОР ФИЛИАЛА */
+    /* Р’Р«Р‘РћР  Р¤РР›РРђР›Рђ */
     .branch-selector { position: relative; cursor: pointer; padding: 8px 16px; margin-right: 15px; transition: all 0.3s ease; background: transparent !important; z-index: 100; }
     .branch-dropdown {
         position: absolute; top: 100%; left: 0; min-width: 210px;
@@ -115,9 +115,9 @@
     .branch-option:hover { background: rgba(197, 160, 89, 0.15); color: var(--gold-main); }
     .branch-option.active { color: var(--gold-main); font-weight: 700; }
 
-    /* МОБИЛЬНОЕ МЕНЮ */
+    /* РњРћР‘РР›Р¬РќРћР• РњР•РќР® */
     .mobile-menu-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; 
+        position: fixed; top: 0; left: 0; width: 100%; height: 100dvh;
         background-color: #080808; z-index: 1000000;
         transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
         display: flex; flex-direction: column; align-items: center; visibility: hidden;
@@ -140,9 +140,9 @@
 
     /* HERO */
     .hero-section {
-        
-         min-height: 100svh;      /* стабильная высота на мобилке */
-  height: auto;            /* НЕ фиксируем 100dvh */
+
+         min-height: 100svh;      /* СЃС‚Р°Р±РёР»СЊРЅР°СЏ РІС‹СЃРѕС‚Р° РЅР° РјРѕР±РёР»РєРµ */
+  height: auto;            /* РќР• С„РёРєСЃРёСЂСѓРµРј 100dvh */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -150,14 +150,14 @@
   padding: calc(100px + env(safe-area-inset-top)) 20px 100px 20px;
   overflow: hidden;
     }
- /* HERO background — без анимации, стабильно на мобилке */
+ /* HERO background вЂ” Р±РµР· Р°РЅРёРјР°С†РёРё, СЃС‚Р°Р±РёР»СЊРЅРѕ РЅР° РјРѕР±РёР»РєРµ */
 
 .hero-bg {
     position: absolute;
     inset: 0;
     z-index: -1;
     background-color: #000;
-    overflow: hidden; /* критично, чтобы ничего не вылезало */
+    overflow: hidden; /* РєСЂРёС‚РёС‡РЅРѕ, С‡С‚РѕР±С‹ РЅРёС‡РµРіРѕ РЅРµ РІС‹Р»РµР·Р°Р»Рѕ */
 }
 
 .hero-bg img {
@@ -168,7 +168,7 @@
     object-fit: cover;
     opacity: 0.7;
 
-    /* АНИМАЦИЯ ПОЛНОСТЬЮ ВЫКЛЮЧЕНА */
+    /* РђРќРРњРђР¦РРЇ РџРћР›РќРћРЎРўР¬Р® Р’Р«РљР›Р®Р§Р•РќРђ */
     animation: none !important;
     transform: none !important;
     will-change: auto;
@@ -190,19 +190,19 @@
     .gold-line-thin { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-main), transparent); opacity: 0.6; }
 
     body.menu-open { overflow: hidden !important; }
-    /* --- FIX: убираем blur на мобилке --- */
+    /* --- FIX: СѓР±РёСЂР°РµРј blur РЅР° РјРѕР±РёР»РєРµ --- */
 @media (max-width: 767px) {
     .gl-navbar.scrolled {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
     .hero-bg img{
-    animation: none !important;  /* мобилка без zoom */
+    animation: none !important;  /* РјРѕР±РёР»РєР° Р±РµР· zoom */
     transform: none !important;
   }
 }
 
-/* --- Десктоп: blur можно оставить --- */
+/* --- Р”РµСЃРєС‚РѕРї: blur РјРѕР¶РЅРѕ РѕСЃС‚Р°РІРёС‚СЊ --- */
 @media (min-width: 768px) {
     .gl-navbar.scrolled {
         backdrop-filter: blur(12px);
@@ -223,12 +223,12 @@
         <div class="branch-selector" id="desktopBranchSelector">
             <div class="flex items-center gap-3">
                 <i class="fas fa-location-dot text-[11px] text-[#C5A059]"></i>
-                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">Адмиралтейская</span>
+                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</span>
                 <i class="fas fa-chevron-down text-[8px] opacity-60"></i>
             </div>
             <div class="branch-dropdown">
-                <div class="branch-option active" data-branch="admiral">Адмиралтейская</div>
-                <div class="branch-option" data-branch="udelnaya">Удельная</div>
+                <div class="branch-option active" data-branch="admiral">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</div>
+                <div class="branch-option" data-branch="udelnaya">РЈРґРµР»СЊРЅР°СЏ</div>
             </div>
         </div>
 
@@ -269,28 +269,28 @@
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
         <div class="absolute inset-0 bg-[url('<cms:show hero_bg_mob />')] bg-cover bg-center scale-110 brightness-[0.2]"></div>
     </div>
-    
-    
+
+
  <div class="w-full flex justify-center items-center px-6 pt-6 z-10 relative">
-        <img src="https://misterpufik.ru/logo3.png" class="h-28 w-auto" alt="Logo">
+        <img src="/couch/uploads/image/logo3.webp" class="h-28 w-auto" alt="Logo">
         <div class="cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn"><i class="fas fa-times text-3xl"></i></div>
     </div>
 
         <div class="cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn"><i class="fas fa-times text-3xl"></i></div>
     </div>
-    
+
     <div class="flex flex-col items-center justify-center mt-2 w-full z-10">
         <cms:show_repeatable 'nav_menu'>
             <a href="<cms:show item_link />" class="mobile-link <cms:if is_button>active-rect</cms:if>">
                 <cms:show item_name />
             </a>
         </cms:show_repeatable>
-        <img src="https://misterpufik.ru/div.png" class="w-[200px] h-auto my-2" alt="divider">
+        <img src="/couch/uploads/image/div.webp" class="w-[200px] h-auto my-2" alt="divider">
     </div>
-    
+
     <div class="flex flex-col items-center justify-end w-full pb-6 z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
-            <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
+            <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69</p>
             <a href="tel:<cms:show header_phone_link />" class="font-serif italic text-white text-xl mt-1"><cms:show header_phone /></a>
         </div>
         <div class="flex gap-8">
@@ -303,15 +303,15 @@
 
 <div class="mobile-branch-modal" id="mobileBranchModal">
     <div class="absolute top-8 right-8 text-[#C5A059] text-3xl cursor-pointer" id="closeBranchModal"><i class="fas fa-times"></i></div>
-    <p class="text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Выберите локацию</p>
+    <p class="text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Р’С‹Р±РµСЂРёС‚Рµ Р»РѕРєР°С†РёСЋ</p>
     <div class="flex flex-col gap-6 w-full max-w-[300px]">
         <div class="text-center py-6 mobile-branch-opt active" data-branch="admiral">
-            <h3 class="text-2xl font-serif italic text-[#C5A059]">Адмиралтейская</h3>
-            <p class="text-[10px] uppercase text-white/60">Мойки 67-69</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</h3>
+            <p class="text-[10px] uppercase text-white/60">РњРѕР№РєРё 67-69</p>
         </div>
         <div class="text-center py-6 mobile-branch-opt" data-branch="udelnaya">
-            <h3 class="text-2xl font-serif italic text-[#C5A059]">Удельная</h3>
-            <p class="text-[10px] uppercase text-white/60">Аккуратова 13</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059]">РЈРґРµР»СЊРЅР°СЏ</h3>
+            <p class="text-[10px] uppercase text-white/60">РђРєРєСѓСЂР°С‚РѕРІР° 13</p>
         </div>
     </div>
 </div>
@@ -322,7 +322,7 @@
         <img src="<cms:show hero_bg_mob />" class="block md:hidden" alt="Interior Mobile">
         <div class="hero-overlay"></div>
     </div>
-    <img src="https://misterpufik.ru/logo3.png" alt="Logo" class="w-64 md:w-96 h-auto logo-luxe-animate z-10">
+    <img src="/couch/uploads/image/logo3.webp" alt="Logo" class="w-64 md:w-96 h-auto logo-luxe-animate z-10">
     <div class="flex flex-col items-center z-10 w-full px-4">
         <p class="tagline-premium shimmer-text mb-6 m-0"><cms:show hero_tagline /></p>
         <div class="hidden md:flex items-center gap-4">
@@ -340,8 +340,8 @@
     const body = document.body;
 
     const branches = {
-        admiral: { name: "Адмиралтейская", slug: "admiralteyskaya", address: "Набережная реки Мойки д.67-69", addrMob: "Moyki 67-69" },
-        udelnaya: { name: "Удельная", slug: "udelnaya", address: "Аккуратова д.13", addrMob: "Akkuratova 13" }
+        admiral: { name: "РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ", slug: "admiralteyskaya", address: "РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69", addrMob: "Moyki 67-69" },
+        udelnaya: { name: "РЈРґРµР»СЊРЅР°СЏ", slug: "udelnaya", address: "РђРєРєСѓСЂР°С‚РѕРІР° Рґ.13", addrMob: "Akkuratova 13" }
     };
 
     function updateBranchUI(id) {
@@ -356,7 +356,7 @@
         });
     }
 
-    // Логика переключения
+    // Р›РѕРіРёРєР° РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ
     document.querySelectorAll('.branch-option, .mobile-branch-opt').forEach(opt => {
         opt.addEventListener('click', () => updateBranchUI(opt.dataset.branch));
     });
@@ -394,20 +394,20 @@ window.addEventListener('scroll', () => {
 
     burgerBtn.onclick = () => { mobileMenu.classList.add('active'); body.classList.add('menu-open'); };
     document.getElementById('closeBtn').onclick = () => { mobileMenu.classList.remove('active'); body.classList.remove('menu-open'); };
-    
+
     document.querySelectorAll('.mobile-link').forEach(link => {
         link.onclick = () => { mobileMenu.classList.remove('active'); body.classList.remove('menu-open'); };
     });
- 
+
 document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelectorAll('.nav-link');
 
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      // снимаем золотую рамку со всех
+      // СЃРЅРёРјР°РµРј Р·РѕР»РѕС‚СѓСЋ СЂР°РјРєСѓ СЃРѕ РІСЃРµС…
       navLinks.forEach(l => l.classList.remove('nav-booking-rect'));
 
-      // вешаем на нажатую
+      // РІРµС€Р°РµРј РЅР° РЅР°Р¶Р°С‚СѓСЋ
       link.classList.add('nav-booking-rect');
     });
   });
