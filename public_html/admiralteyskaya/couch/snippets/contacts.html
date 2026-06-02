@@ -226,10 +226,10 @@
         width: clamp(72px, 8vw, 86px);
         display: inline-flex;
         justify-content: flex-start;
-        gap: 1px;
+        gap: 2px;
         justify-self: start;
         align-self: center;
-        transition: color 0.25s ease, filter 0.25s ease;
+        transition: color 0.25s ease;
     }
 
     #contact .gl_stars_box i {
@@ -280,14 +280,11 @@
         white-space: nowrap;
     }
     #contact .gl_rating_item:hover {
-        background: rgba(197, 160, 89, 0.045);
+        background: transparent;
     }
-    #contact .gl_rating_item:hover .gl_platform_name,
-    #contact .gl_rating_item:hover .gl_action_label {
+    #contact .gl_rating_item:hover .gl_action_label,
+    #contact .gl_rating_item:hover .gl_rating_count {
         color: #C5A059 !important;
-    }
-    #contact .gl_rating_item:hover .gl_stars_box {
-        filter: brightness(1.18);
     }
 
     #contact .gl_map_wrapper,
@@ -349,7 +346,7 @@
 
         #contact .gl_stars_box {
             width: clamp(50px, 15vw, 62px);
-            gap: 0;
+            gap: 1px;
         }
 
         #contact .gl_stars_box i {
