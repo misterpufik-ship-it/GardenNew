@@ -332,6 +332,88 @@
             color: inherit !important;
             transition: color 0.25s ease;
         }
+        .mobile-menu-top {
+            min-height: 76px;
+            padding-top: 18px !important;
+            justify-content: flex-end !important;
+        }
+        .mobile-menu-top .mobile-menu-logo {
+            display: none !important;
+        }
+        .mobile-menu-links {
+            flex: 0 0 auto;
+            margin-top: clamp(16px, 5vh, 46px) !important;
+            padding: 0 18px;
+            overflow: visible !important;
+        }
+        .mobile-link {
+            width: min(78vw, 280px);
+            min-height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(23px, 7vw, 28px) !important;
+            line-height: 1.05 !important;
+            margin: 3px 0 !important;
+            padding: 5px 18px !important;
+            text-align: center;
+        }
+        .mobile-menu-links img {
+            width: min(48vw, 170px) !important;
+            margin-top: 6px !important;
+            margin-bottom: 0 !important;
+        }
+        .mobile-menu-contact {
+            width: min(88vw, 330px) !important;
+            margin-top: auto !important;
+            padding-bottom: max(22px, env(safe-area-inset-bottom)) !important;
+        }
+        .mobile-menu-contact > div:first-child {
+            width: 100%;
+            gap: 8px !important;
+            margin-bottom: 12px !important;
+        }
+        #menu-address-text {
+            max-width: 100%;
+            font-size: 9px !important;
+            line-height: 1.45 !important;
+            letter-spacing: 0.14em !important;
+        }
+        .mobile-menu-contact-link {
+            width: 100%;
+            min-height: 42px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(197, 160, 89, 0.45);
+            background: rgba(0, 0, 0, 0.28);
+            font-size: 20px !important;
+            margin-top: 0 !important;
+        }
+        .mobile-menu-contact .flex.gap-8 {
+            width: 100%;
+            gap: 10px !important;
+            justify-content: center;
+        }
+        .mobile-menu-social-link {
+            width: 46px;
+            height: 42px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(197, 160, 89, 0.45);
+            background: rgba(0, 0, 0, 0.28);
+            font-size: 21px !important;
+        }
+        @media (max-height: 720px) {
+            .mobile-menu-top { min-height: 58px; }
+            .mobile-menu-links { margin-top: 4px !important; }
+            .mobile-link { min-height: 36px; font-size: clamp(21px, 6.2vw, 24px) !important; }
+            .mobile-menu-links img { width: min(42vw, 140px) !important; }
+            #menu-address-text { display: none; }
+            .mobile-menu-contact-link { min-height: 38px; font-size: 18px !important; }
+            .mobile-menu-social-link { height: 38px; }
+        }
     }
 
     #navbar {
@@ -455,10 +537,10 @@
         <div class="mobile-menu-bg-shade"></div>
     </div>
     
-    <div class="w-full flex justify-center items-center px-6 pt-6 z-10 relative">
+    <div class="mobile-menu-top w-full flex justify-center items-center px-6 pt-6 z-10 relative">
         <img src="couch/uploads/image/logo3.webp"
      alt="Logo" 
-     class="logo-luxe-animate" 
+     class="logo-luxe-animate mobile-menu-logo"
      width="380"
      height="160"
      loading="lazy"
@@ -469,7 +551,7 @@
         </div>
     </div>
     
-    <div class="flex flex-col items-center justify-center mt-2 w-full z-10 overflow-y-auto">
+    <div class="mobile-menu-links flex flex-col items-center justify-center mt-2 w-full z-10 overflow-y-auto">
         <cms:show_repeatable 'nav_menu'>
             <a href="<cms:show item_link />" class="mobile-link <cms:if is_button>active-rect</cms:if>">
                 <cms:show item_name />
