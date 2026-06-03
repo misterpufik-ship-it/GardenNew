@@ -225,6 +225,12 @@
     /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
     @media (max-width: 767px) {
         .hero-section { height: 100svh; }
+        .hero-bg img {
+            object-position: center center !important;
+        }
+        .mobile-menu-bg-img {
+            object-position: center center !important;
+        }
         .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: auto; }
         .hero-section > .logo-luxe-animate {
             width: min(76vw, 320px) !important;
@@ -533,7 +539,7 @@
 
 <div class="mobile-menu-overlay" id="mobileMenu">
     <div class="mobile-menu-bg-layer absolute inset-0 pointer-events-none overflow-hidden">
-        <img src="<cms:if hero_bg_mob='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/log4.jpg'>couch/uploads/image/garden-main-mobile.webp<cms:else /><cms:show hero_bg_mob /></cms:if>" class="mobile-menu-bg-img" loading="lazy" decoding="async" alt="">
+        <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="mobile-menu-bg-img" loading="lazy" decoding="async" alt="">
         <div class="mobile-menu-bg-shade"></div>
     </div>
     
@@ -575,7 +581,7 @@
 <header class="hero-section" id="home">
     <div class="hero-bg">
         <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="hidden md:block" fetchpriority="high" decoding="async" alt="Interior">
-        <img src="<cms:if hero_bg_mob='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/log4.jpg'>couch/uploads/image/garden-main-mobile.webp<cms:else /><cms:show hero_bg_mob /></cms:if>" class="block md:hidden" fetchpriority="high" decoding="async" alt="Interior Mobile">
+        <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="block md:hidden" fetchpriority="high" decoding="async" alt="Interior Mobile">
         <div class="hero-overlay"></div>
     </div>
     

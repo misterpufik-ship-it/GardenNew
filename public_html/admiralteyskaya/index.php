@@ -39,7 +39,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <cms:pages masterpage='header.php' limit='1'>
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(min-width: 768px)" fetchpriority="high">
-        <link rel="preload" as="image" href="<cms:if hero_bg_mob='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/log4.jpg'>couch/uploads/image/garden-main-mobile.webp<cms:else /><cms:show hero_bg_mob /></cms:if>" media="(max-width: 767px)" fetchpriority="high">
+        <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(max-width: 767px)" fetchpriority="high">
         <link rel="preload" as="image" href="couch/uploads/image/logo3.webp" fetchpriority="high">
     </cms:pages>
     
