@@ -254,9 +254,9 @@
             letter-spacing: 0.24em !important;
         }
         .mobile-quick-links {
-            gap: 4px !important;
-            margin-left: -18px !important;
-            transform: translateX(-8px);
+            gap: 0 !important;
+            margin-left: 0 !important;
+            transform: translateX(6px) !important;
         }
         .mobile-quick-link {
             width: 30px !important;
@@ -265,7 +265,7 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            color: #ffffff !important;
+            color: var(--gold-main) !important;
             transition: color 0.25s ease, transform 0.25s ease;
         }
         .mobile-quick-link:hover,
@@ -287,6 +287,9 @@
         }
         .mobile-quick-link .fa-telegram-plane {
             font-size: 18px !important;
+        }
+        .mobile-quick-link + .mobile-quick-link {
+            margin-left: -2px !important;
         }
         #mobileBranchTrigger {
             position: absolute !important;
@@ -331,7 +334,7 @@
             z-index: 1000002 !important;
         }
         .burger-btn {
-            color: #ffffff !important;
+            color: var(--gold-main) !important;
             transition: color 0.25s ease, transform 0.25s ease;
         }
         .burger-btn i {
@@ -503,8 +506,8 @@
         <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
     </div>
 
-    <div class="mobile-nav-zone md:hidden flex items-center justify-between w-full pl-0 pr-1 relative">
-        <div class="mobile-quick-links flex items-center gap-0 z-20 -ml-2">
+    <div class="mobile-nav-zone md:hidden flex items-center justify-between w-full relative">
+        <div class="mobile-quick-links flex items-center gap-0 z-20">
             <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
             <a href="<cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if>" target="_blank" rel="noopener" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
         </div>
