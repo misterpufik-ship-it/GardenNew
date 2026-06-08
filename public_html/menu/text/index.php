@@ -30,7 +30,7 @@
                         } catch (e) { return text; }
                     }
 
-                    const selector = 'input[id$="cat_title"], input[id$="subcat_title"], input[id$="i_name"], textarea[id$="i_desc"], input[id$="i_subheader"], input[id$="kit_name"], textarea[id$="kit_desc"], input[id$="p_title"], textarea[id$="p_desc"], input[id$="p_tag"]';
+                    const selector = 'input:not([type="hidden"]), textarea';
                     const inputs = document.querySelectorAll(selector);
 
                     for (let input of inputs) {

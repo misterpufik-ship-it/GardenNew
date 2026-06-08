@@ -181,6 +181,7 @@
                                     </div>
                                     <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                     <cms:if i_desc_en || i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_desc_en><cms:show i_desc_en /><cms:else /><cms:show i_desc /></cms:if></div></cms:if>
+                                    <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>
                             </div>
                         </cms:if>
@@ -231,7 +232,6 @@
                              <h4 class="subcat-title gold-shimmer"><cms:if subcat_title_en><cms:show subcat_title_en /><cms:else /><cms:show subcat_title /></cms:if></h4>
                         <cms:else />
                             <div class="w-full pb-2 border-b border-white/5 mb-4">
-                                <cms:if i_subheader_en || i_subheader><div class="gold-shimmer text-xs uppercase font-bold mt-3 mb-1"><cms:if i_subheader_en><cms:show i_subheader_en /><cms:else /><cms:show i_subheader /></cms:if></div></cms:if>
                                 <div class="grid grid-cols-[1fr_auto] gap-x-4 items-start">
                                     <div class="text-white text-lg flex items-center flex-wrap">
                                         <cms:if i_name_en><cms:show i_name_en /><cms:else /><cms:show i_name /></cms:if>
@@ -243,6 +243,8 @@
                                         </div>
                                     </div>
                                     <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
+                                    <cms:if i_subheader_en || i_subheader><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_subheader_en><cms:show i_subheader_en /><cms:else /><cms:show i_subheader /></cms:if></div></cms:if>
+                                    <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>
                             </div>
                         </cms:if>
@@ -272,6 +274,7 @@
                                     </div>
                                     <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                     <cms:if i_desc_en || i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_desc_en><cms:show i_desc_en /><cms:else /><cms:show i_desc /></cms:if></div></cms:if>
+                                    <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>
                             </div>
                         </cms:if>
