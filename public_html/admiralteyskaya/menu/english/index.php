@@ -66,8 +66,8 @@
             background: rgba(197, 160, 89, 0.1);
         }
         .badge-chef { background: var(--gold); color: #000; border: 1px solid var(--gold); }
-        .badge-spicy { color: var(--gold); border: none; background: rgba(197,160,89,0.08); font-size: 12px; padding: 2px 4px; margin-left: 2px; border-radius: 999px; gap: 2px; display: inline-flex; align-items: center; line-height: 1; }
-        .badge-spicy i { color: #C5A059; filter: drop-shadow(0 0 5px rgba(197,160,89,0.22)); }
+        .badge-spicy { height: 18px; border: 1px solid rgba(197,160,89,0.34); background: linear-gradient(180deg, rgba(197,160,89,0.14), rgba(197,160,89,0.04)); font-size: 10px; padding: 0 5px; margin-left: 2px; border-radius: 999px; gap: 3px; display: inline-flex; align-items: center; line-height: 1; box-shadow: inset 0 0 8px rgba(197,160,89,0.08); }
+        .badge-spicy i { color: #C5A059; filter: drop-shadow(0 0 4px rgba(197,160,89,0.28)); }
 
         .taplink-block-wrapper { width:100vw; position:relative; left:50%; margin-left:-50vw; background-color: #000; padding: 40px 0; overflow: hidden; }
         .content-limiter { max-width:600px; margin:0 auto; padding: 0 20px; position: relative; z-index: 10; }
@@ -117,7 +117,6 @@
                 <button class="subtab-btn" data-sub="poke_bowl_wok" onclick="switchSubtab('kitchen','poke_bowl_wok')"><cms:show kt_sub_poke_en /></button>
                 <button class="subtab-btn" data-sub="hot" onclick="switchSubtab('kitchen','hot')"><cms:show kt_sub_hot_en /></button>
                 <button class="subtab-btn" data-sub="desserts" onclick="switchSubtab('kitchen','desserts')"><cms:show kt_sub_desserts_en /></button>
-                <button class="subtab-btn" data-sub="other" onclick="switchSubtab('kitchen','other')">Lunch</button>
             </div>
             <div id="subtabs-bar-alc" class="subtabs-wrap">
                 <button class="subtab-btn active" data-sub="beer" onclick="switchSubtab('bar-alc','beer')"><cms:show bt_sub_beer_en /></button>
@@ -128,7 +127,6 @@
             <div id="subtabs-bar-non" class="subtabs-wrap">
                 <button class="subtab-btn active" data-sub="tea_coffee" onclick="switchSubtab('bar-non','tea_coffee')"><cms:show dt_sub_tea_en /></button>
                 <button class="subtab-btn" data-sub="lemonades" onclick="switchSubtab('bar-non','lemonades')"><cms:show dt_sub_lemon_en /></button>
-                <button class="subtab-btn" data-sub="other" onclick="switchSubtab('bar-non','other')">Drinks</button>
             </div>
 
             <div class="gold-divider-nav"></div>
@@ -153,9 +151,9 @@
                                             <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
                                             <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
                                         </div>
                                     </div>
                                     <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
@@ -186,9 +184,9 @@
                                             <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
                                             <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
                                         </div>
                                     </div>
                                     <span class="price-tag gold-shimmer"><cms:show kit_price /> ₽</span>
