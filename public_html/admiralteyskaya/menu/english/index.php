@@ -144,7 +144,6 @@
                 <button class="subtab-btn" data-sub="wine" onclick="switchSubtab('bar-alc','wine')"><cms:show bt_sub_wine_en /></button>
                 <button class="subtab-btn" data-sub="cocktails" onclick="switchSubtab('bar-alc','cocktails')"><cms:show bt_sub_cocktails_en /></button>
                 <button class="subtab-btn" data-sub="spirits" onclick="switchSubtab('bar-alc','spirits')"><cms:show bt_sub_strong_en /></button>
-                <button class="subtab-btn" data-sub="other" onclick="switchSubtab('bar-alc','other')">Other</button>
             </div>
             <div id="subtabs-bar-non" class="subtabs-wrap">
                 <button class="subtab-btn active" data-sub="tea_coffee" onclick="switchSubtab('bar-non','tea_coffee')"><cms:show dt_sub_tea_en /></button>
