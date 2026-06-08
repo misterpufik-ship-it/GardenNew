@@ -234,24 +234,25 @@
 
         .badge-container { display: inline-flex; gap: 4px; vertical-align: middle; margin-left: 8px; position: relative; top: -1px; }
         .badge-item {
-            height: 18px !important; 
-            font-size: 12px !important; 
-            font-weight: 800 !important; 
-            text-transform: uppercase; 
+            height: 18px !important;
+            font-size: 12px !important;
+            font-weight: 800 !important;
+            text-transform: uppercase;
             letter-spacing: 0.01em;
-            padding: 0 5px !important; 
-            border-radius: 2px; 
-            white-space: nowrap; 
+            padding: 0 5px !important;
+            border-radius: 2px;
+            white-space: nowrap;
             line-height: 1;
-            display: inline-flex; 
-            align-items: center; 
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            border: 1px solid rgba(197, 160, 89, 0.6); 
-            color: var(--gold); 
+            border: 1px solid rgba(197, 160, 89, 0.6);
+            color: var(--gold);
             background: rgba(197, 160, 89, 0.1);
         }
         .badge-chef { background: var(--gold); color: #000; border: 1px solid var(--gold); }
-        .badge-spicy { color: #ff4d4d; border: none; background: none; font-size: 14px; padding: 0; margin-left: 2px; }
+        .badge-spicy { color: var(--gold); border: none; background: rgba(197,160,89,0.08); font-size: 12px; padding: 2px 4px; margin-left: 2px; border-radius: 999px; gap: 2px; display: inline-flex; align-items: center; line-height: 1; }
+        .badge-spicy i { color: #C5A059; filter: drop-shadow(0 0 5px rgba(197,160,89,0.22)); }
 
         .taplink-block-wrapper { width:100vw; position:relative; left:50%; margin-left:-50vw; background-color: #000; padding: 40px 0; overflow: hidden; }
         .content-limiter { max-width:600px; margin:0 auto; padding: 0 20px; position: relative; z-index: 10; }
@@ -335,9 +336,9 @@
                                     <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                     <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
                                     <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                    <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy">🌶️</span></cms:if>
-                                    <cms:if item_tags='🌶️🌶️'><span class="badge-spicy">🌶️🌶️</span></cms:if>
-                                    <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy">🌶️🌶️🌶️</span></cms:if>
+                                    <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
                                 </div>
                             </div>
                             <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
@@ -366,9 +367,9 @@
                                     <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                     <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
                                     <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                    <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy">🌶️</span></cms:if>
-                                    <cms:if item_tags='🌶️🌶️'><span class="badge-spicy">🌶️🌶️</span></cms:if>
-                                    <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy">🌶️🌶️🌶️</span></cms:if>
+                                    <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
                                 </div>
                             </div>
                             <span class="price-tag gold-shimmer"><cms:show kit_price /> ₽</span>
@@ -493,11 +494,11 @@
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeLoyaltyModal()">&times;</span>
         <div class="modal-title gold-shimmer">Выберите способ регистрации</div>
-        
+
         <a href="https://access.clientomer.ru/feedback/676900-1/" target="_blank" class="modal-btn">
             <i class="fa-solid fa-wallet"></i> Регистрация через Wallet
         </a>
-        
+
         <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
             <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
         </a>
@@ -542,15 +543,15 @@
         });
     }
 
-    function openLoyaltyModal() { 
-        document.getElementById('loyalty-modal').style.display = 'flex'; 
+    function openLoyaltyModal() {
+        document.getElementById('loyalty-modal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
-    function closeLoyaltyModal() { 
-        document.getElementById('loyalty-modal').style.display = 'none'; 
+    function closeLoyaltyModal() {
+        document.getElementById('loyalty-modal').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-    
+
     document.addEventListener('DOMContentLoaded', () => { switchTab('hookahs'); });
 </script>
 
