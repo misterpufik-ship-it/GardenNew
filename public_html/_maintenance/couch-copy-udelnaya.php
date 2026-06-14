@@ -221,9 +221,11 @@ try {
     set_field_text($db, $tables, 'udelnaya/header.php', 'hero_img_alt', 'Кальянная Garden Lounge Удельная, интерьер лаунж-бара на севере Санкт-Петербурга');
 
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_address', 'СПб., ул. Аккуратова, д. 13');
-    set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_map_link', 'https://yandex.ru/maps/-/CPE-mNm0');
+    set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_map_link', 'https://yandex.ru/maps/-/CPtpbQPg');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_phone', '+7 950 047-33-65');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_phone_link', '+79500473365');
+    set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_hours_1', '13:00 – 01:00');
+    set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_hours_2', '13:00 – 03:00');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_whatsapp', 'https://wa.me/79500473365');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_telegram', 'https://t.me/Garden_lounge_spb');
     set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_visual_link', 'https://garden-lounge.pro/udelnaya/menu/visual/');

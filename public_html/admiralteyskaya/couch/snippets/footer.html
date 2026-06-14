@@ -343,7 +343,7 @@
 
             <ul class="footer-list">
                 <li>
-                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPE-mNm0<cms:else /><cms:get_custom_field 'udel_map_link' masterpage='globals.php' /></cms:if>" target="_blank" class="footer-info-link">
+                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else /><cms:get_custom_field 'udel_map_link' masterpage='globals.php' /></cms:if>" target="_blank" class="footer-info-link">
                         <i class="fas fa-map-marker-alt text-xs"></i>
                         <span>
                             <span class="footer-info-main"><cms:if is_udelnaya>Ул. Аккуратова 13<cms:else /><cms:get_custom_field 'udel_address' masterpage='globals.php' /></cms:if></span>
@@ -363,8 +363,8 @@
                 <li class="footer-info-row">
                     <i class="far fa-clock text-xs"></i>
                     <span class="footer-hours">
-                        <span><cms:get_custom_field 'udel_hours_week' masterpage='globals.php' /></span><br>
-                        <span><cms:get_custom_field 'udel_hours_weekend' masterpage='globals.php' /></span>
+                        <span><cms:if is_udelnaya>Пн–Чт; Вс: 13:00 – 01:00<cms:else /><cms:get_custom_field 'udel_hours_week' masterpage='globals.php' /></cms:if></span><br>
+                        <span><cms:if is_udelnaya>Пт–Сб: 13:00 – 03:00<cms:else /><cms:get_custom_field 'udel_hours_weekend' masterpage='globals.php' /></cms:if></span>
                     </span>
                 </li>
             </ul>

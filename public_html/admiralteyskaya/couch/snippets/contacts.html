@@ -308,6 +308,12 @@
         opacity: 1 !important;
     }
 
+    #contact .gl_map_link_overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+    }
+
     @media (max-width: 767px) {
         #contact .gl_tp_body_wrapper {
             padding: 48px 16px 56px;
@@ -398,15 +404,15 @@
             <div class="gl_tp_col">
                 <div class="gl_tp_section">
                     <span class="gl_tp_section_label gl_tp_sans"><span class="subtitle-gold">Location</span></span>
-                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPE-mNm0<cms:else /><cms:show cont_map_link /></cms:if>" target="_blank" class="gl_tp_address_text gl_tp_serif"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else /><cms:show cont_address /></cms:if></a>
-                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPE-mNm0<cms:else /><cms:show cont_map_link /></cms:if>" target="_blank" class="gl_tp_route_btn gl_tp_sans">построить маршрут</a>
+                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else /><cms:show cont_map_link /></cms:if>" target="_blank" class="gl_tp_address_text gl_tp_serif"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else /><cms:show cont_address /></cms:if></a>
+                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else /><cms:show cont_map_link /></cms:if>" target="_blank" class="gl_tp_route_btn gl_tp_sans">построить маршрут</a>
                 </div>
                 <div class="gl_tp_hr_gold"></div>
                 <div class="gl_tp_section">
                     <span class="gl_tp_section_label gl_tp_sans"><span class="subtitle-gold">Opening Hours</span></span>
                     <div class="gl_tp_serif">
-                        <p class="gl_tp_hours_row" style="font-size: 18px !important;">Пн–Чт; Вс <span class="subtitle-gold" style="margin-left: 10px !important;"><cms:show cont_hours_1 /></span></p>
-                        <p class="gl_tp_hours_row" style="font-size: 18px !important;">Пт–Сб <span class="subtitle-gold" style="margin-left: 10px !important;"><cms:show cont_hours_2 /></span></p>
+                        <p class="gl_tp_hours_row" style="font-size: 18px !important;">Пн–Чт; Вс <span class="subtitle-gold" style="margin-left: 10px !important;"><cms:if is_udelnaya>13:00 – 01:00<cms:else /><cms:show cont_hours_1 /></cms:if></span></p>
+                        <p class="gl_tp_hours_row" style="font-size: 18px !important;">Пт–Сб <span class="subtitle-gold" style="margin-left: 10px !important;"><cms:if is_udelnaya>13:00 – 03:00<cms:else /><cms:show cont_hours_2 /></cms:if></span></p>
                     </div>
                 </div>
             </div>
@@ -481,8 +487,9 @@
             </div>
 
             <div class="gl_tp_card">
-                <div class="gl_map_wrapper">
-                    <iframe src="<cms:show cont_map_iframe />" class="gl_dark_map_frame" loading="lazy" title="Garden Lounge Admiralteyskaya map"></iframe>
+                <div class="gl_map_wrapper" style="position: relative;">
+                    <iframe src="<cms:show cont_map_iframe />" class="gl_dark_map_frame" loading="lazy" title="<cms:if is_udelnaya>Garden Lounge Udelnaya map<cms:else />Garden Lounge Admiralteyskaya map</cms:if>"></iframe>
+                    <cms:if is_udelnaya><a href="https://yandex.ru/maps/-/CPtpbQPg" target="_blank" class="gl_map_link_overlay" aria-label="Открыть карту Garden Lounge Удельная"></a></cms:if>
                 </div>
             </div>
         </div>

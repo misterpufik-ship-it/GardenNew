@@ -25,8 +25,8 @@ require_once $garden_cms;
 <cms:template title='Уделка Шапка' name='header_section' executable='0' order='10'>
     
     <cms:editable name='group_contacts' label='Контакты и Соцсети' type='group' />
-    <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 995 624 68 08</cms:editable>
-    <cms:editable name='header_phone_link' label='Телефон (ссылка без пробелов)' group='group_contacts' type='text'>+79956246808</cms:editable>
+    <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 950 047-33-65</cms:editable>
+    <cms:editable name='header_phone_link' label='Телефон (ссылка без пробелов)' group='group_contacts' type='text'>+79500473365</cms:editable>
     <cms:editable name='link_vk' label='VK ссылка' group='group_contacts' type='text'>https://vk.com/loungegarden</cms:editable>
     <cms:editable name='link_inst' label='Instagram ссылка' group='group_contacts' type='text'>https://instagram.com/garden_lounge_spb/</cms:editable>
     <cms:editable name='link_yt' label='YouTube ссылка' group='group_contacts' type='text'>https://youtube.com/@garden.lounge</cms:editable>

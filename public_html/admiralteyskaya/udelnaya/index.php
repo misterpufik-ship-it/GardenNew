@@ -107,13 +107,13 @@ require_once $garden_cms;
             {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
-                "opens": "12:00",
+                "opens": "13:00",
                 "closes": "01:00"
             },
             {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": ["Friday", "Saturday"],
-                "opens": "12:00",
+                "opens": "13:00",
                 "closes": "03:00"
             }
         ],

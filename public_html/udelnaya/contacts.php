@@ -26,13 +26,13 @@ require_once $garden_cms;
     
     <cms:editable name='cont_group_main' label='Основная информация' type='group' />
     <cms:editable name='cont_address' label='Адрес' group='cont_group_main' type='text'>СПб., ул. Аккуратова, д. 13</cms:editable>
-    <cms:editable name='cont_map_link' label='Ссылка на карты (маршрут)' group='cont_group_main' type='text'>https://yandex.ru/maps/-/CPE-mNm0</cms:editable>
+    <cms:editable name='cont_map_link' label='Ссылка на карты (маршрут)' group='cont_group_main' type='text'>https://yandex.ru/maps/-/CPtpbQPg</cms:editable>
     <cms:editable name='cont_phone' label='Телефон' group='cont_group_main' type='text'>+7 950 047-33-65</cms:editable>
     <cms:editable name='cont_phone_link' label='Телефон (для ссылки без пробелов)' group='cont_group_main' type='text'>+79500473365</cms:editable>
 
     <cms:editable name='cont_group_hours' label='Часы работы' type='group' />
-    <cms:editable name='cont_hours_1' label='Пн–Чт; Вс' group='cont_group_hours' type='text'>12:00 – 01:00</cms:editable>
-    <cms:editable name='cont_hours_2' label='Пт–Сб' group='cont_group_hours' type='text'>12:00 – 03:00</cms:editable>
+    <cms:editable name='cont_hours_1' label='Пн–Чт; Вс' group='cont_group_hours' type='text'>13:00 – 01:00</cms:editable>
+    <cms:editable name='cont_hours_2' label='Пт–Сб' group='cont_group_hours' type='text'>13:00 – 03:00</cms:editable>
 
     <cms:editable name='cont_group_social' label='Социальные сети' type='group' />
     <cms:editable name='cont_whatsapp' label='WhatsApp (номер или ссылка)' group='cont_group_social' type='text'>https://wa.me/79500473365</cms:editable>

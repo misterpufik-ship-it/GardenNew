@@ -26,22 +26,22 @@ require_once $garden_cms;
     
     <cms:editable name='cont_group_main' label='Основная информация' type='group' />
     <cms:editable name='cont_address' label='Адрес' group='cont_group_main' type='text'>СПб. наб. реки Мойки, д.67-69</cms:editable>
-    <cms:editable name='cont_map_link' label='Ссылка на карты (маршрут)' group='cont_group_main' type='text'>https://yandex.ru/maps/org/garden_lounge/92097430496/</cms:editable>
-    <cms:editable name='cont_phone' label='Телефон' group='cont_group_main' type='text'>+7 995 624-68-08</cms:editable>
-    <cms:editable name='cont_phone_link' label='Телефон (для ссылки без пробелов)' group='cont_group_main' type='text'>+79956246808</cms:editable>
+    <cms:editable name='cont_map_link' label='Ссылка на карты (маршрут)' group='cont_group_main' type='text'>https://yandex.ru/maps/-/CPtpbQPg</cms:editable>
+    <cms:editable name='cont_phone' label='Телефон' group='cont_group_main' type='text'>+7 950 047-33-65</cms:editable>
+    <cms:editable name='cont_phone_link' label='Телефон (для ссылки без пробелов)' group='cont_group_main' type='text'>+79500473365</cms:editable>
 
     <cms:editable name='cont_group_hours' label='Часы работы' type='group' />
-    <cms:editable name='cont_hours_1' label='Пн–Чт; Вс' group='cont_group_hours' type='text'>12:00 – 01:00</cms:editable>
-    <cms:editable name='cont_hours_2' label='Пт–Сб' group='cont_group_hours' type='text'>12:00 – 03:00</cms:editable>
+    <cms:editable name='cont_hours_1' label='Пн–Чт; Вс' group='cont_group_hours' type='text'>13:00 – 01:00</cms:editable>
+    <cms:editable name='cont_hours_2' label='Пт–Сб' group='cont_group_hours' type='text'>13:00 – 03:00</cms:editable>
 
     <cms:editable name='cont_group_social' label='Социальные сети' type='group' />
-    <cms:editable name='cont_whatsapp' label='WhatsApp (номер или ссылка)' group='cont_group_social' type='text'>https://wa.me/79956246808</cms:editable>
+    <cms:editable name='cont_whatsapp' label='WhatsApp (номер или ссылка)' group='cont_group_social' type='text'>https://wa.me/79500473365</cms:editable>
     <cms:editable name='cont_telegram' label='Telegram (ссылка)' group='cont_group_social' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
 
     <cms:editable name='cont_group_ratings' label='Рейтинги (цифры и ссылки)' type='group' />
     <cms:editable name='rate_yandex_val' label='Яндекс (балл)' group='cont_group_ratings' type='text'>5.0</cms:editable>
     <cms:editable name='rate_yandex_count' label='Яндекс (кол-во отзывов)' group='cont_group_ratings' type='text'>480+ отзывов</cms:editable>
-    <cms:editable name='rate_yandex_link' label='Google (ссылка)' group='cont_group_ratings' type='text'>https://yandex.ru/maps/org/garden_lounge/92097430496/reviews/</cms:editable>
+    <cms:editable name='rate_yandex_link' label='Google (ссылка)' group='cont_group_ratings' type='text'>https://yandex.ru/maps/-/CPtpbQPg</cms:editable>
    
     <cms:editable name='rate_2gis_val' label='2GIS (балл)' group='cont_group_ratings' type='text'>4.9</cms:editable>
     <cms:editable name='rate_2gis_count' label='2GIS (кол-во отзывов)' group='cont_group_ratings' type='text'>131+ отзыв</cms:editable>

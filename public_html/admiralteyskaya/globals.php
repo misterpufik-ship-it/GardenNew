@@ -25,12 +25,12 @@
     <!-- ГРУППА: ФИЛИАЛ УДЕЛЬНАЯ -->
     <cms:editable name='group_udelnaya' label='Филиал: Удельная' type='group' />
         <cms:editable name='udel_address' label='Адрес' group='group_udelnaya' type='text'>Ул. Аккуратова 13</cms:editable>
-        <cms:editable name='udel_map_link' label='Ссылка на Яндекс.Карты' group='group_udelnaya' type='text'>https://yandex.ru/maps/-/CPE-mNm0</cms:editable>
-        <cms:editable name='udel_phone' label='Телефон (как отображается)' group='group_udelnaya' type='text'>+7 995 624-68-08</cms:editable>
-        <cms:editable name='udel_phone_clean' label='Телефон для ссылки (без пробелов, +7...)' group='group_udelnaya' type='text'>+79956246808</cms:editable>
+        <cms:editable name='udel_map_link' label='Ссылка на Яндекс.Карты' group='group_udelnaya' type='text'>https://yandex.ru/maps/-/CPtpbQPg</cms:editable>
+        <cms:editable name='udel_phone' label='Телефон (как отображается)' group='group_udelnaya' type='text'>+7 950 047-33-65</cms:editable>
+        <cms:editable name='udel_phone_clean' label='Телефон для ссылки (без пробелов, +7...)' group='group_udelnaya' type='text'>+79500473365</cms:editable>
         <cms:editable name='udel_tg_chat' label='Ссылка на чат Telegram' group='group_udelnaya' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
-        <cms:editable name='udel_hours_week' label='Часы работы (Пн-Чт, Вс)' group='group_udelnaya' type='text'>Пн–Чт; Вс: 12:00 – 01:00</cms:editable>
-        <cms:editable name='udel_hours_weekend' label='Часы работы (Пт-Сб)' group='group_udelnaya' type='text'>Пт–Сб: 12:00 – 03:00</cms:editable>
+        <cms:editable name='udel_hours_week' label='Часы работы (Пн-Чт, Вс)' group='group_udelnaya' type='text'>Пн–Чт; Вс: 13:00 – 01:00</cms:editable>
+        <cms:editable name='udel_hours_weekend' label='Часы работы (Пт-Сб)' group='group_udelnaya' type='text'>Пт–Сб: 13:00 – 03:00</cms:editable>
 
     <!-- ГРУППА: SEO ПО УМОЛЧАНИЮ -->
     <cms:editable name='group_seo' label='SEO по умолчанию' type='group' />
