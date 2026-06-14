@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^couch/uploads/(.*)$ /admiralteyskaya/couch/uploads/$1 [L]
     RewriteCond %{HTTP:Accept} image/webp
     RewriteCond %{DOCUMENT_ROOT}/udelnaya/$1.webp -f
     RewriteRule ^(.+)\.(jpe?g|png)$ $1.webp [T=image/webp,L]

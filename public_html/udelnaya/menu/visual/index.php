@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('K_TEMPLATE_NAME', 'udelnaya/menu/visual/index.php');
 $garden_cms = null;
 foreach ([
@@ -22,52 +22,52 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='РњРµРЅСЋ: Р’РёР·СѓР°Р»СЊРЅРѕРµ' name='menu_visual' executable='1'>
+<cms:template title='Меню: Визуальное' name='menu_visual' executable='1'>
 
-    <cms:editable name='group_main_settings' label='РќР°СЃС‚СЂРѕР№РєРё Р»РѕРіРѕС‚РёРїР°' type='group' collapsed='1' order='1' />
-    <cms:editable name='visual_logo' label='Р›РѕРіРѕС‚РёРї РјРµРЅСЋ' group='group_main_settings' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>
-    <cms:editable name='visual_divider' label='Р Р°Р·РґРµР»РёС‚РµР»СЊ (Р»РёРЅРёСЏ)' group='group_main_settings' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
+    <cms:editable name='group_main_settings' label='Настройки логотипа' type='group' collapsed='1' order='1' />
+    <cms:editable name='visual_logo' label='Логотип меню' group='group_main_settings' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>
+    <cms:editable name='visual_divider' label='Разделитель (линия)' group='group_main_settings' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
 
-    <cms:set tag_options = 'РќРµС‚=- | New | Hit | Special | ChefвЂ™s Choice | рџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ | New + рџЊ¶пёЏ | Hit + рџЊ¶пёЏ' />
+    <cms:set tag_options = 'Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
 
-    <cms:editable name='group_shisha' label='РљР°Р»СЊСЏРЅС‹' type='group' collapsed='1' order='2' />
-    <cms:repeatable name='menu_shisha' label='РЎРїРёСЃРѕРє Р±Р»СЋРґ: РљР°Р»СЊСЏРЅС‹' group='group_shisha'>
-        <cms:editable name='item_title' label='РќР°Р·РІР°РЅРёРµ' type='text' />
-        <cms:editable name='item_tag' label='РўРµРі' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='item_weight' label='Р’РµСЃ/РћР±СЉРµРј' type='text' />
-        <cms:editable name='item_img' label='Р¤РѕС‚Рѕ' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='РћРїРёСЃР°РЅРёРµ' type='textarea' />
+    <cms:editable name='group_shisha' label='Кальяны' type='group' collapsed='1' order='2' />
+    <cms:repeatable name='menu_shisha' label='Список блюд: Кальяны' group='group_shisha'>
+        <cms:editable name='item_title' label='Название' type='text' />
+        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
+        <cms:editable name='item_price' label='Цена' type='text' />
+        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
+        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
+        <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:editable name='group_kitchen' label='РљСѓС…РЅСЏ' type='group' collapsed='1' order='3' />
-    <cms:repeatable name='menu_kitchen' label='РЎРїРёСЃРѕРє Р±Р»СЋРґ: РљСѓС…РЅСЏ' group='group_kitchen'>
-        <cms:editable name='item_title' label='РќР°Р·РІР°РЅРёРµ' type='text' />
-        <cms:editable name='item_tag' label='РўРµРі' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='item_weight' label='Р’РµСЃ/РћР±СЉРµРј' type='text' />
-        <cms:editable name='item_img' label='Р¤РѕС‚Рѕ' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='РћРїРёСЃР°РЅРёРµ' type='textarea' />
+    <cms:editable name='group_kitchen' label='Кухня' type='group' collapsed='1' order='3' />
+    <cms:repeatable name='menu_kitchen' label='Список блюд: Кухня' group='group_kitchen'>
+        <cms:editable name='item_title' label='Название' type='text' />
+        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
+        <cms:editable name='item_price' label='Цена' type='text' />
+        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
+        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
+        <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:editable name='group_bar' label='Р‘Р°СЂ' type='group' collapsed='1' order='4' />
-    <cms:repeatable name='menu_bar' label='РЎРїРёСЃРѕРє Р±Р»СЋРґ: Р‘Р°СЂ' group='group_bar'>
-        <cms:editable name='item_title' label='РќР°Р·РІР°РЅРёРµ' type='text' />
-        <cms:editable name='item_tag' label='РўРµРі' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='item_weight' label='Р’РµСЃ/РћР±СЉРµРј' type='text' />
-        <cms:editable name='item_img' label='Р¤РѕС‚Рѕ' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='РћРїРёСЃР°РЅРёРµ' type='textarea' />
+    <cms:editable name='group_bar' label='Бар' type='group' collapsed='1' order='4' />
+    <cms:repeatable name='menu_bar' label='Список блюд: Бар' group='group_bar'>
+        <cms:editable name='item_title' label='Название' type='text' />
+        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
+        <cms:editable name='item_price' label='Цена' type='text' />
+        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
+        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
+        <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:editable name='group_desserts' label='Р”РµСЃРµСЂС‚С‹' type='group' collapsed='1' order='5' />
-    <cms:repeatable name='menu_desserts' label='РЎРїРёСЃРѕРє Р±Р»СЋРґ: Р”РµСЃРµСЂС‚С‹' group='group_desserts'>
-        <cms:editable name='item_title' label='РќР°Р·РІР°РЅРёРµ' type='text' />
-        <cms:editable name='item_tag' label='РўРµРі' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='item_weight' label='Р’РµСЃ/РћР±СЉРµРј' type='text' />
-        <cms:editable name='item_img' label='Р¤РѕС‚Рѕ' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='РћРїРёСЃР°РЅРёРµ' type='textarea' />
+    <cms:editable name='group_desserts' label='Десерты' type='group' collapsed='1' order='5' />
+    <cms:repeatable name='menu_desserts' label='Список блюд: Десерты' group='group_desserts'>
+        <cms:editable name='item_title' label='Название' type='text' />
+        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
+        <cms:editable name='item_price' label='Цена' type='text' />
+        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
+        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
+        <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
 </cms:template>
@@ -76,13 +76,13 @@ require_once $garden_cms;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ Garden Lounge вЂ” РєР°Р»СЊСЏРЅС‹, РєСѓС…РЅСЏ Рё Р±Р°СЂ РІ РЎРџР±</title>
-    <meta name="description" content="Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ Garden Lounge РЅР° РђРґРјРёСЂР°Р»С‚РµР№СЃРєРѕР№: РєР°Р»СЊСЏРЅС‹, Р±Р»СЋРґР° РєСѓС…РЅРё, Р±Р°СЂ, РґРµСЃРµСЂС‚С‹ Рё Р°РєС†РёРё Р»Р°СѓРЅР¶-Р±Р°СЂР° РІ С†РµРЅС‚СЂРµ РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРіР°.">
+    <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
+    <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар, десерты и акции лаунж-бара в центре Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/visual/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/udelnaya/menu/visual/">
-    <meta property="og:title" content="Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ Garden Lounge вЂ” РєР°Р»СЊСЏРЅС‹, РєСѓС…РЅСЏ Рё Р±Р°СЂ РІ РЎРџР±">
-    <meta property="og:description" content="Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ Garden Lounge РЅР° РђРґРјРёСЂР°Р»С‚РµР№СЃРєРѕР№: РєР°Р»СЊСЏРЅС‹, РєСѓС…РЅСЏ, Р±Р°СЂ, РґРµСЃРµСЂС‚С‹ Рё Р°РєС†РёРё.">
+    <meta property="og:title" content="Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб">
+    <meta property="og:description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, десерты и акции.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -141,7 +141,7 @@ require_once $garden_cms;
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* РЎРўРР›Р РђРљР¦РР™ (РР— РўР•РљРЎРўРћР’РћР“Рћ РњР•РќР®) */
+        /* СТИЛИ АКЦИЙ (ИЗ ТЕКСТОВОГО МЕНЮ) */
         .promo-card { border:1px solid rgba(197,160,89,0.2); background-color: rgba(20,20,20,0.4); padding:20px; text-align:center; margin-bottom: 15px; }
         .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
         .film-grain { position:absolute; top:0; left:0; width:100%; height:100%; background:url('https://grainy-gradients.vercel.app/noise.svg'); opacity:.04; pointer-events:none; z-index:1; }
@@ -222,13 +222,13 @@ require_once $garden_cms;
 
         <div class="action-area">
             <a href="https://garden-lounge.pro/udelnaya/menu" class="btn-base">
-                <span class="subtitle-gold">Р’РµСЂРЅСѓС‚СЊСЃСЏ РќР°Р·Р°Рґ</span>
+                <span class="subtitle-gold">Вернуться Назад</span>
             </a>
             <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">
-                РџСЂРѕРіСЂР°РјРјР° Р»РѕСЏР»СЊРЅРѕСЃС‚Рё
+                Программа лояльности
             </div>
             <a href="https://garden-lounge.pro/udelnaya/menu/text/" class="btn-base">
-                <span class="subtitle-gold">РўРµРєСЃС‚РѕРІРѕРµ РјРµРЅСЋ</span>
+                <span class="subtitle-gold">Текстовое меню</span>
             </a>
         </div>
         
@@ -238,7 +238,7 @@ require_once $garden_cms;
     <div id="loyalty-modal" onclick="closeLoyaltyModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="close-modal" onclick="closeLoyaltyModal()">&times;</span>
-            <div class="modal-title subtitle-gold">РЎРїРѕСЃРѕР± СЂРµРіРёСЃС‚СЂР°С†РёРё</div>
+            <div class="modal-title subtitle-gold">Способ регистрации</div>
             <a href="https://access.clientomer.ru/feedback/676900-1/" target="_blank" class="modal-btn">
                 <i class="fa-solid fa-wallet"></i> Wallet
             </a>
@@ -270,10 +270,10 @@ require_once $garden_cms;
             if (tag.includes('New')) html += '<span class="badge-item">New</span>';
             if (tag.includes('Hit')) html += '<span class="badge-item">Hit</span>';
             if (tag.includes('Special')) html += '<span class="badge-item">Special</span>';
-            if (tag.includes('ChefвЂ™s Choice')) html += '<span class="badge-item badge-chef">Chef</span>';
-            if (tag.includes('рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ')) html += '<span class="badge-spicy">рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ</span>';
-            else if (tag.includes('рџЊ¶пёЏрџЊ¶пёЏ')) html += '<span class="badge-spicy">рџЊ¶пёЏрџЊ¶пёЏ</span>';
-            else if (tag.includes('рџЊ¶пёЏ')) html += '<span class="badge-spicy">рџЊ¶пёЏ</span>';
+            if (tag.includes('Chef’s Choice')) html += '<span class="badge-item badge-chef">Chef</span>';
+            if (tag.includes('🌶️🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️🌶️</span>';
+            else if (tag.includes('🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️</span>';
+            else if (tag.includes('🌶️')) html += '<span class="badge-spicy">🌶️</span>';
             html += '</div>';
             return html;
         }
@@ -293,10 +293,10 @@ require_once $garden_cms;
                     <h3 class="dish-title subtitle-gold">${item.title}</h3>
                     <div class="dish-bottom">
                         <div class="dish-info">
-                            <span class="price">${item.price} в‚Ѕ</span>
+                            <span class="price">${item.price} ₽</span>
                             <span class="weight">${item.weight}</span>
                         </div>
-                        <div class="details-trigger" onclick="toggleDetails(this)">РџРѕРґСЂРѕР±РЅРµРµ</div>
+                        <div class="details-trigger" onclick="toggleDetails(this)">Подробнее</div>
                         <div class="details-content">${item.desc}</div>
                     </div>
                 `;
@@ -331,7 +331,7 @@ require_once $garden_cms;
         function toggleDetails(btn) {
             const content = btn.nextElementSibling;
             content.classList.toggle('is-open');
-            btn.innerText = content.classList.contains('is-open') ? 'РЎРІРµСЂРЅСѓС‚СЊ' : 'РџРѕРґСЂРѕР±РЅРµРµ';
+            btn.innerText = content.classList.contains('is-open') ? 'Свернуть' : 'Подробнее';
         }
 
         function openLoyaltyModal() { document.getElementById('loyalty-modal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }

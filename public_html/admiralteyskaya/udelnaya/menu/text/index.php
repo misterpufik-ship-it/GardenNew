@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('K_TEMPLATE_NAME', 'udelnaya/menu/text/index.php');
 $garden_cms = null;
 foreach ([
@@ -23,14 +23,14 @@ if (!$garden_cms) {
 require_once $garden_cms;
 ?>
 
-<cms:template title='РњРµРЅСЋ : С‚РµРєСЃС‚ РђРґРј' icon='restaurant'>
+<cms:template title='Меню : текст Адм' icon='restaurant'>
 
     <cms:editable name='translation_script' type='message' order='0'>
         <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 20px;">
             <button type="button" id="auto-translate-btn" style="padding:10px 20px; background:#C5A059; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size: 14px;">
-                вњЁ РџРµСЂРµРІРµСЃС‚Рё РІСЃС‘ РЅР° Р°РЅРіР»РёР№СЃРєРёР№ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё
+                ✨ Перевести всё на английский автоматически
             </button>
-            <p style="margin: 5px 0 0; font-size: 12px; color: #666;">РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё Р·Р°РїРѕР»РЅРёС‚СЊ РїСѓСЃС‚С‹Рµ Р°РЅРіР»РёР№СЃРєРёРµ РїРѕР»СЏ РЅР° РѕСЃРЅРѕРІРµ СЂСѓСЃСЃРєРёС….</p>
+            <p style="margin: 5px 0 0; font-size: 12px; color: #666;">Нажмите, чтобы автоматически заполнить пустые английские поля на основе русских.</p>
         </div>
 
         <script>
@@ -40,7 +40,7 @@ require_once $garden_cms;
                 translateBtn.onclick = async function() {
                     const btn = this;
                     const originalText = btn.innerText;
-                    btn.innerText = 'вЏі РџРµСЂРµРІРѕР¶Сѓ...';
+                    btn.innerText = '⏳ Перевожу...';
                     btn.style.opacity = '0.7';
                     btn.disabled = true;
 
@@ -65,7 +65,7 @@ require_once $garden_cms;
                         }
                     }
 
-                    btn.innerText = `вњ… Р“РѕС‚РѕРІРѕ!`;
+                    btn.innerText = `✅ Готово!`;
                     btn.style.background = '#4CAF50';
                     setTimeout(() => {
                         btn.innerText = originalText;
@@ -79,134 +79,134 @@ require_once $garden_cms;
         </script>
     </cms:editable>
 
-    <cms:editable name='seo_group' label='SEO РќР°СЃС‚СЂРѕР№РєРё' type='group' order='1' collapsed='1' />
+    <cms:editable name='seo_group' label='SEO Настройки' type='group' order='1' collapsed='1' />
     <cms:editable name='page_title' label='Title (RU)' type='text' group='seo_group'>Garden Lounge</cms:editable>
     <cms:editable name='page_title_en' label='Title (EN)' type='text' group='seo_group'>Garden Lounge</cms:editable>
     <cms:editable name='meta_desc' label='Description' type='textarea' group='seo_group'></cms:editable>
     <cms:editable name='meta_desc_en' label='Description (EN)' type='textarea' group='seo_group'></cms:editable>
 
-    <cms:editable name='settings_group' label='РћСЃРЅРѕРІРЅС‹Рµ РЅР°СЃС‚СЂРѕР№РєРё' type='group' order='2' collapsed='1' />
-    <cms:editable name='site_logo' label='Р›РѕРіРѕС‚РёРї' type='image' group='settings_group' show_preview='1' preview_width='150'>https://misterpufik.ru/logo3.png</cms:editable>
+    <cms:editable name='settings_group' label='Основные настройки' type='group' order='2' collapsed='1' />
+    <cms:editable name='site_logo' label='Логотип' type='image' group='settings_group' show_preview='1' preview_width='150'>https://misterpufik.ru/logo3.png</cms:editable>
 
-    <cms:editable name='lbl_tab_1' label='Р’РєР»Р°РґРєР° 1 (RU)' type='text' group='settings_group'>РљР°Р»СЊСЏРЅС‹</cms:editable>
+    <cms:editable name='lbl_tab_1' label='Вкладка 1 (RU)' type='text' group='settings_group'>Кальяны</cms:editable>
     <cms:editable name='lbl_tab_1_en' label='Tab 1 (EN)' type='text' group='settings_group'>Hookahs</cms:editable>
-    <cms:editable name='lbl_tab_2' label='Р’РєР»Р°РґРєР° 2 (RU)' type='text' group='settings_group'>РљСѓС…РЅСЏ</cms:editable>
+    <cms:editable name='lbl_tab_2' label='Вкладка 2 (RU)' type='text' group='settings_group'>Кухня</cms:editable>
     <cms:editable name='lbl_tab_2_en' label='Tab 2 (EN)' type='text' group='settings_group'>Kitchen</cms:editable>
-    <cms:editable name='lbl_tab_3' label='Р’РєР»Р°РґРєР° 3 (RU)' type='text' group='settings_group'>Р‘Р°СЂ</cms:editable>
+    <cms:editable name='lbl_tab_3' label='Вкладка 3 (RU)' type='text' group='settings_group'>Бар</cms:editable>
     <cms:editable name='lbl_tab_3_en' label='Tab 3 (EN)' type='text' group='settings_group'>Bar</cms:editable>
-    <cms:editable name='lbl_tab_4' label='Р’РєР»Р°РґРєР° 4 (RU)' type='text' group='settings_group'>РќР°РїРёС‚РєРё</cms:editable>
+    <cms:editable name='lbl_tab_4' label='Вкладка 4 (RU)' type='text' group='settings_group'>Напитки</cms:editable>
     <cms:editable name='lbl_tab_4_en' label='Tab 4 (EN)' type='text' group='settings_group'>Drinks</cms:editable>
-    <cms:editable name='lbl_tab_5' label='Р’РєР»Р°РґРєР° 5 (RU)' type='text' group='settings_group'>РђРєС†РёРё</cms:editable>
+    <cms:editable name='lbl_tab_5' label='Вкладка 5 (RU)' type='text' group='settings_group'>Акции</cms:editable>
     <cms:editable name='lbl_tab_5_en' label='Tab 5 (EN)' type='text' group='settings_group'>Specials</cms:editable>
 
-    <cms:editable name='subtabs_group' label='РџРѕРґРІРєР»Р°РґРєРё (РЅР°Р·РІР°РЅРёСЏ)' type='group' order='3' collapsed='1' />
-    <cms:editable name='kt_sub_snacks' label='РљСѓС…РЅСЏ: Р—Р°РєСѓСЃРєРё' type='text' group='subtabs_group'>Р—Р°РєСѓСЃРєРё</cms:editable>
+    <cms:editable name='subtabs_group' label='Подвкладки (названия)' type='group' order='3' collapsed='1' />
+    <cms:editable name='kt_sub_snacks' label='Кухня: Закуски' type='text' group='subtabs_group'>Закуски</cms:editable>
     <cms:editable name='kt_sub_snacks_en' label='Kitchen: Snacks (EN)' type='text' group='subtabs_group'>Snacks</cms:editable>
-    <cms:editable name='kt_sub_salads' label='РљСѓС…РЅСЏ: РЎР°Р»Р°С‚С‹' type='text' group='subtabs_group'>РЎР°Р»Р°С‚С‹</cms:editable>
+    <cms:editable name='kt_sub_salads' label='Кухня: Салаты' type='text' group='subtabs_group'>Салаты</cms:editable>
     <cms:editable name='kt_sub_salads_en' label='Kitchen: Salads (EN)' type='text' group='subtabs_group'>Salads</cms:editable>
-    <cms:editable name='kt_sub_rolls' label='РљСѓС…РЅСЏ: Р РѕР»Р»С‹' type='text' group='subtabs_group'>Р РѕР»Р»С‹</cms:editable>
+    <cms:editable name='kt_sub_rolls' label='Кухня: Роллы' type='text' group='subtabs_group'>Роллы</cms:editable>
     <cms:editable name='kt_sub_rolls_en' label='Kitchen: Rolls (EN)' type='text' group='subtabs_group'>Rolls</cms:editable>
-    <cms:editable name='kt_sub_soups' label='РљСѓС…РЅСЏ: РЎСѓРїС‹' type='text' group='subtabs_group'>РЎСѓРїС‹</cms:editable>
+    <cms:editable name='kt_sub_soups' label='Кухня: Супы' type='text' group='subtabs_group'>Супы</cms:editable>
     <cms:editable name='kt_sub_soups_en' label='Kitchen: Soups (EN)' type='text' group='subtabs_group'>Soups</cms:editable>
-    <cms:editable name='kt_sub_poke' label='РљСѓС…РЅСЏ: РџРѕРєРµ' type='text' group='subtabs_group'>РџРѕРєРµ | Р‘РѕСѓР» | Wok</cms:editable>
+    <cms:editable name='kt_sub_poke' label='Кухня: Поке' type='text' group='subtabs_group'>Поке | Боул | Wok</cms:editable>
     <cms:editable name='kt_sub_poke_en' label='Kitchen: Poke (EN)' type='text' group='subtabs_group'>Poke | Bowl | Wok</cms:editable>
-    <cms:editable name='kt_sub_hot' label='РљСѓС…РЅСЏ: Р“РѕСЂСЏС‡РµРµ' type='text' group='subtabs_group'>Р“РѕСЂСЏС‡РµРµ</cms:editable>
+    <cms:editable name='kt_sub_hot' label='Кухня: Горячее' type='text' group='subtabs_group'>Горячее</cms:editable>
     <cms:editable name='kt_sub_hot_en' label='Kitchen: Hot (EN)' type='text' group='subtabs_group'>Hot</cms:editable>
-    <cms:editable name='kt_sub_desserts' label='РљСѓС…РЅСЏ: Р”РµСЃРµСЂС‚С‹' type='text' group='subtabs_group'>Р”РµСЃРµСЂС‚С‹</cms:editable>
+    <cms:editable name='kt_sub_desserts' label='Кухня: Десерты' type='text' group='subtabs_group'>Десерты</cms:editable>
     <cms:editable name='kt_sub_desserts_en' label='Kitchen: Desserts (EN)' type='text' group='subtabs_group'>Desserts</cms:editable>
-    <cms:editable name='dt_sub_tea' label='РќР°РїРёС‚РєРё: Р§Р°Р№' type='text' group='subtabs_group'>Р§Р°Р№ | РљРѕС„Рµ</cms:editable>
+    <cms:editable name='dt_sub_tea' label='Напитки: Чай' type='text' group='subtabs_group'>Чай | Кофе</cms:editable>
     <cms:editable name='dt_sub_tea_en' label='Drinks: Tea (EN)' type='text' group='subtabs_group'>Tea | Coffee</cms:editable>
-    <cms:editable name='dt_sub_lemon' label='РќР°РїРёС‚РєРё: Р›РµРјРѕРЅР°РґС‹' type='text' group='subtabs_group'>Р›РµРјРѕРЅР°РґС‹</cms:editable>
+    <cms:editable name='dt_sub_lemon' label='Напитки: Лемонады' type='text' group='subtabs_group'>Лемонады</cms:editable>
     <cms:editable name='dt_sub_lemon_en' label='Drinks: Lemonades (EN)' type='text' group='subtabs_group'>Lemonades</cms:editable>
-    <cms:editable name='bt_sub_beer' label='Р‘Р°СЂ: РџРёРІРѕ' type='text' group='subtabs_group'>РџРёРІРѕ</cms:editable>
+    <cms:editable name='bt_sub_beer' label='Бар: Пиво' type='text' group='subtabs_group'>Пиво</cms:editable>
     <cms:editable name='bt_sub_beer_en' label='Bar: Beer (EN)' type='text' group='subtabs_group'>Beer</cms:editable>
-    <cms:editable name='bt_sub_wine' label='Р‘Р°СЂ: Р’РёРЅРѕ' type='text' group='subtabs_group'>Р’РёРЅРѕ</cms:editable>
+    <cms:editable name='bt_sub_wine' label='Бар: Вино' type='text' group='subtabs_group'>Вино</cms:editable>
     <cms:editable name='bt_sub_wine_en' label='Bar: Wine (EN)' type='text' group='subtabs_group'>Wine</cms:editable>
-    <cms:editable name='bt_sub_cocktails' label='Р‘Р°СЂ: РљРѕРєС‚РµР№Р»Рё' type='text' group='subtabs_group'>РљРѕРєС‚РµР№Р»Рё</cms:editable>
+    <cms:editable name='bt_sub_cocktails' label='Бар: Коктейли' type='text' group='subtabs_group'>Коктейли</cms:editable>
     <cms:editable name='bt_sub_cocktails_en' label='Bar: Cocktails (EN)' type='text' group='subtabs_group'>Cocktails</cms:editable>
-    <cms:editable name='bt_sub_strong' label='Р‘Р°СЂ: РљСЂРµРїРєРёР№' type='text' group='subtabs_group'>РљСЂРµРїРєРёР№ Р°Р»РєРѕРіРѕР»СЊ</cms:editable>
+    <cms:editable name='bt_sub_strong' label='Бар: Крепкий' type='text' group='subtabs_group'>Крепкий алкоголь</cms:editable>
     <cms:editable name='bt_sub_strong_en' label='Bar: Spirits (EN)' type='text' group='subtabs_group'>Spirits</cms:editable>
 
-    <cms:editable name='grp_rep_hookahs' label='РЎРѕРґРµСЂР¶Р°РЅРёРµ РљР°Р»СЊСЏРЅС‹' type='group' order='4' collapsed='1' />
-    <cms:repeatable name='rep_hookahs_v2' label='РЎРїРёСЃРѕРє РљР°Р»СЊСЏРЅС‹' group='grp_rep_hookahs'>
-        <cms:editable name='item_tags' label='РўРµРі' type='dropdown' opt_values='РќРµС‚=- | New | Hit | Special | ChefвЂ™s Choice | рџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ | New + рџЊ¶пёЏ | Hit + рџЊ¶пёЏ' />
-        <cms:editable name='row_type' label='РўРёРї' type='dropdown' opt_values='РўРѕРІР°СЂ=item | Р—Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=header | РџРѕРґР·Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=subheader' />
-        <cms:editable name='cat_title' label='Р—Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='cat_title_en' label='Р—Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='subcat_title' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='subcat_title_en' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='i_name' label='РўРѕРІР°СЂ RU' type='text' />
-        <cms:editable name='i_name_en' label='РўРѕРІР°СЂ EN' type='text' />
-        <cms:editable name='i_desc' label='РћРїРёСЃР°РЅРёРµ RU' type='textarea' height='40' />
-        <cms:editable name='i_desc_en' label='РћРїРёСЃР°РЅРёРµ EN' type='textarea' height='40' />
-        <cms:editable name='i_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='note_after_ru' label='РџСЂРёРјРµС‡Р°РЅРёРµ RU' type='textarea' height='30' />
-        <cms:editable name='note_after_ru_en' label='РџСЂРёРјРµС‡Р°РЅРёРµ EN' type='textarea' height='30' />
+    <cms:editable name='grp_rep_hookahs' label='Содержание Кальяны' type='group' order='4' collapsed='1' />
+    <cms:repeatable name='rep_hookahs_v2' label='Список Кальяны' group='grp_rep_hookahs'>
+        <cms:editable name='item_tags' label='Тег' type='dropdown' opt_values='Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
+        <cms:editable name='row_type' label='Тип' type='dropdown' opt_values='Товар=item | Заголовок раздела=header | Подзаголовок раздела=subheader' />
+        <cms:editable name='cat_title' label='Заголовок (RU)' type='text' />
+        <cms:editable name='cat_title_en' label='Заголовок (EN)' type='text' />
+        <cms:editable name='subcat_title' label='Подзаголовок (RU)' type='text' />
+        <cms:editable name='subcat_title_en' label='Подзаголовок (EN)' type='text' />
+        <cms:editable name='i_name' label='Товар RU' type='text' />
+        <cms:editable name='i_name_en' label='Товар EN' type='text' />
+        <cms:editable name='i_desc' label='Описание RU' type='textarea' height='40' />
+        <cms:editable name='i_desc_en' label='Описание EN' type='textarea' height='40' />
+        <cms:editable name='i_price' label='Цена' type='text' />
+        <cms:editable name='note_after_ru' label='Примечание RU' type='textarea' height='30' />
+        <cms:editable name='note_after_ru_en' label='Примечание EN' type='textarea' height='30' />
     </cms:repeatable>
 
-    <cms:editable name='grp_rep_kitchen' label='РЎРѕРґРµСЂР¶Р°РЅРёРµ РљСѓС…РЅСЏ' type='group' order='5' collapsed='1' />
-    <cms:repeatable name='rep_kitchen_v2' label='РЎРїРёСЃРѕРє РљСѓС…РЅСЏ' group='grp_rep_kitchen'>
-        <cms:editable name='item_tags' label='РўРµРі' type='dropdown' opt_values='РќРµС‚=- | New | Hit | Special | ChefвЂ™s Choice | рџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ | New + рџЊ¶пёЏ | Hit + рџЊ¶пёЏ' />
-        <cms:editable name='row_type' label='РўРёРї' type='dropdown' opt_values='РўРѕРІР°СЂ=item | Р—Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=header | РџРѕРґР·Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=subheader' />
-        <cms:editable name='cat_title' label='Р—Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='cat_title_en' label='Р—Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='subcat_title' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='subcat_title_en' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='kitchen_subtab' label='РљР°С‚РµРіРѕСЂРёСЏ' type='dropdown' opt_values='Р—Р°РєСѓСЃРєРё=snacks | РЎР°Р»Р°С‚С‹=salads | Р РѕР»Р»С‹=rolls | РЎСѓРїС‹=soups | РџРѕРєРµ / Р‘РѕСѓР» / Wok=poke_bowl_wok | Р“РѕСЂСЏС‡РµРµ=hot | Р”РµСЃРµСЂС‚С‹=desserts | Р”СЂСѓРіРѕРµ=other' />
-        <cms:editable name='kit_name' label='РќР°Р·РІР°РЅРёРµ RU' type='text' />
-        <cms:editable name='kit_name_en' label='РќР°Р·РІР°РЅРёРµ EN' type='text' />
-        <cms:editable name='kit_desc' label='РћРїРёСЃР°РЅРёРµ RU' type='textarea' height='40' />
-        <cms:editable name='kit_desc_en' label='РћРїРёСЃР°РЅРёРµ EN' type='textarea' height='40' />
-        <cms:editable name='kit_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='note_after_ru' label='РџСЂРёРјРµС‡Р°РЅРёРµ RU' type='textarea' height='30' />
-        <cms:editable name='note_after_ru_en' label='РџСЂРёРјРµС‡Р°РЅРёРµ EN' type='textarea' height='30' />
+    <cms:editable name='grp_rep_kitchen' label='Содержание Кухня' type='group' order='5' collapsed='1' />
+    <cms:repeatable name='rep_kitchen_v2' label='Список Кухня' group='grp_rep_kitchen'>
+        <cms:editable name='item_tags' label='Тег' type='dropdown' opt_values='Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
+        <cms:editable name='row_type' label='Тип' type='dropdown' opt_values='Товар=item | Заголовок раздела=header | Подзаголовок раздела=subheader' />
+        <cms:editable name='cat_title' label='Заголовок (RU)' type='text' />
+        <cms:editable name='cat_title_en' label='Заголовок (EN)' type='text' />
+        <cms:editable name='subcat_title' label='Подзаголовок (RU)' type='text' />
+        <cms:editable name='subcat_title_en' label='Подзаголовок (EN)' type='text' />
+        <cms:editable name='kitchen_subtab' label='Категория' type='dropdown' opt_values='Закуски=snacks | Салаты=salads | Роллы=rolls | Супы=soups | Поке / Боул / Wok=poke_bowl_wok | Горячее=hot | Десерты=desserts | Другое=other' />
+        <cms:editable name='kit_name' label='Название RU' type='text' />
+        <cms:editable name='kit_name_en' label='Название EN' type='text' />
+        <cms:editable name='kit_desc' label='Описание RU' type='textarea' height='40' />
+        <cms:editable name='kit_desc_en' label='Описание EN' type='textarea' height='40' />
+        <cms:editable name='kit_price' label='Цена' type='text' />
+        <cms:editable name='note_after_ru' label='Примечание RU' type='textarea' height='30' />
+        <cms:editable name='note_after_ru_en' label='Примечание EN' type='textarea' height='30' />
     </cms:repeatable>
 
-    <cms:editable name='grp_rep_bar' label='РЎРѕРґРµСЂР¶Р°РЅРёРµ Р‘Р°СЂ' type='group' order='6' collapsed='1' />
-    <cms:repeatable name='rep_bar_alc_v2' label='РЎРїРёСЃРѕРє Р‘Р°СЂ' group='grp_rep_bar'>
-        <cms:editable name='item_tags' label='РўРµРі' type='dropdown' opt_values='РќРµС‚=- | New | Hit | Special | ChefвЂ™s Choice | рџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏ | рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ' />
-        <cms:editable name='row_type' label='РўРёРї' type='dropdown' opt_values='РўРѕРІР°СЂ=item | Р—Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=header | РџРѕРґР·Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=subheader' />
-        <cms:editable name='cat_title' label='Р—Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='cat_title_en' label='Р—Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='subcat_title' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='subcat_title_en' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='bar_alc_subtab' label='РљР°С‚РµРіРѕСЂРёСЏ' type='dropdown' opt_values='РџРёРІРѕ=beer | Р’РёРЅРѕ=wine | РљРѕРєС‚РµР№Р»Рё=cocktails | РљСЂРµРїРєРёР№ Р°Р»РєРѕРіРѕР»СЊ=spirits | Р”СЂСѓРіРѕРµ=other' />
-        <cms:editable name='i_name' label='РќР°Р·РІР°РЅРёРµ RU' type='text' />
-        <cms:editable name='i_name_en' label='РќР°Р·РІР°РЅРёРµ EN' type='text' />
-        <cms:editable name='i_subheader' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє С‚РѕРІР°СЂР° RU' type='text' />
-        <cms:editable name='i_subheader_en' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє С‚РѕРІР°СЂР° EN' type='text' />
-        <cms:editable name='i_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='note_after_ru' label='РџСЂРёРјРµС‡Р°РЅРёРµ RU' type='textarea' height='30' />
-        <cms:editable name='note_after_ru_en' label='РџСЂРёРјРµС‡Р°РЅРёРµ EN' type='textarea' height='30' />
+    <cms:editable name='grp_rep_bar' label='Содержание Бар' type='group' order='6' collapsed='1' />
+    <cms:repeatable name='rep_bar_alc_v2' label='Список Бар' group='grp_rep_bar'>
+        <cms:editable name='item_tags' label='Тег' type='dropdown' opt_values='Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️' />
+        <cms:editable name='row_type' label='Тип' type='dropdown' opt_values='Товар=item | Заголовок раздела=header | Подзаголовок раздела=subheader' />
+        <cms:editable name='cat_title' label='Заголовок (RU)' type='text' />
+        <cms:editable name='cat_title_en' label='Заголовок (EN)' type='text' />
+        <cms:editable name='subcat_title' label='Подзаголовок (RU)' type='text' />
+        <cms:editable name='subcat_title_en' label='Подзаголовок (EN)' type='text' />
+        <cms:editable name='bar_alc_subtab' label='Категория' type='dropdown' opt_values='Пиво=beer | Вино=wine | Коктейли=cocktails | Крепкий алкоголь=spirits | Другое=other' />
+        <cms:editable name='i_name' label='Название RU' type='text' />
+        <cms:editable name='i_name_en' label='Название EN' type='text' />
+        <cms:editable name='i_subheader' label='Подзаголовок товара RU' type='text' />
+        <cms:editable name='i_subheader_en' label='Подзаголовок товара EN' type='text' />
+        <cms:editable name='i_price' label='Цена' type='text' />
+        <cms:editable name='note_after_ru' label='Примечание RU' type='textarea' height='30' />
+        <cms:editable name='note_after_ru_en' label='Примечание EN' type='textarea' height='30' />
     </cms:repeatable>
 
-    <cms:editable name='grp_rep_drinks' label='РЎРѕРґРµСЂР¶Р°РЅРёРµ РќР°РїРёС‚РєРё' type='group' order='7' collapsed='1' />
-    <cms:repeatable name='rep_bar_non_v2' label='РЎРїРёСЃРѕРє РќР°РїРёС‚РєРё' group='grp_rep_drinks'>
-        <cms:editable name='item_tags' label='РўРµРі' type='dropdown' opt_values='РќРµС‚=- | New | Hit | Special | ChefвЂ™s Choice' />
-        <cms:editable name='row_type' label='РўРёРї' type='dropdown' opt_values='РўРѕРІР°СЂ=item | Р—Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=header | РџРѕРґР·Р°РіРѕР»РѕРІРѕРє СЂР°Р·РґРµР»Р°=subheader' />
-        <cms:editable name='cat_title' label='Р—Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='cat_title_en' label='Р—Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='subcat_title' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (RU)' type='text' />
-        <cms:editable name='subcat_title_en' label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє (EN)' type='text' />
-        <cms:editable name='drinks_subtab' label='РљР°С‚РµРіРѕСЂРёСЏ' type='dropdown' opt_values='Р§Р°Р№ / РљРѕС„Рµ=tea_coffee | Р›РµРјРѕРЅР°РґС‹=lemonades | Р”СЂСѓРіРѕРµ=other' />
-        <cms:editable name='i_name' label='РќР°Р·РІР°РЅРёРµ RU' type='text' />
-        <cms:editable name='i_name_en' label='РќР°Р·РІР°РЅРёРµ EN' type='text' />
-        <cms:editable name='i_desc' label='РћРїРёСЃР°РЅРёРµ RU' type='textarea' height='30' />
-        <cms:editable name='i_desc_en' label='РћРїРёСЃР°РЅРёРµ EN' type='textarea' height='30' />
-        <cms:editable name='i_price' label='Р¦РµРЅР°' type='text' />
-        <cms:editable name='note_after_ru' label='РџСЂРёРјРµС‡Р°РЅРёРµ RU' type='textarea' height='30' />
-        <cms:editable name='note_after_ru_en' label='РџСЂРёРјРµС‡Р°РЅРёРµ EN' type='textarea' height='30' />
+    <cms:editable name='grp_rep_drinks' label='Содержание Напитки' type='group' order='7' collapsed='1' />
+    <cms:repeatable name='rep_bar_non_v2' label='Список Напитки' group='grp_rep_drinks'>
+        <cms:editable name='item_tags' label='Тег' type='dropdown' opt_values='Нет=- | New | Hit | Special | Chef’s Choice' />
+        <cms:editable name='row_type' label='Тип' type='dropdown' opt_values='Товар=item | Заголовок раздела=header | Подзаголовок раздела=subheader' />
+        <cms:editable name='cat_title' label='Заголовок (RU)' type='text' />
+        <cms:editable name='cat_title_en' label='Заголовок (EN)' type='text' />
+        <cms:editable name='subcat_title' label='Подзаголовок (RU)' type='text' />
+        <cms:editable name='subcat_title_en' label='Подзаголовок (EN)' type='text' />
+        <cms:editable name='drinks_subtab' label='Категория' type='dropdown' opt_values='Чай / Кофе=tea_coffee | Лемонады=lemonades | Другое=other' />
+        <cms:editable name='i_name' label='Название RU' type='text' />
+        <cms:editable name='i_name_en' label='Название EN' type='text' />
+        <cms:editable name='i_desc' label='Описание RU' type='textarea' height='30' />
+        <cms:editable name='i_desc_en' label='Описание EN' type='textarea' height='30' />
+        <cms:editable name='i_price' label='Цена' type='text' />
+        <cms:editable name='note_after_ru' label='Примечание RU' type='textarea' height='30' />
+        <cms:editable name='note_after_ru_en' label='Примечание EN' type='textarea' height='30' />
     </cms:repeatable>
 
-    <cms:editable name='grp_promo' label='Р’РєР»Р°РґРєР°: РђРєС†РёРё' type='group' order='8' collapsed='1' />
-    <cms:editable name='promo_title' type='text' group='grp_promo'>РџСЂРёРІРёР»РµРіРёРё Garden Lounge</cms:editable>
+    <cms:editable name='grp_promo' label='Вкладка: Акции' type='group' order='8' collapsed='1' />
+    <cms:editable name='promo_title' type='text' group='grp_promo'>Привилегии Garden Lounge</cms:editable>
     <cms:editable name='promo_title_en' type='text' group='grp_promo'>Garden Lounge Privileges</cms:editable>
-    <cms:editable name='promo_subtitle' type='text' group='grp_promo'>РЎРїРµС†РёР°Р»СЊРЅС‹Рµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ</cms:editable>
+    <cms:editable name='promo_subtitle' type='text' group='grp_promo'>Специальные предложения</cms:editable>
     <cms:editable name='promo_subtitle_en' type='text' group='grp_promo'>Special Offers</cms:editable>
-    <cms:editable name='promo_footer' type='text' group='grp_promo'>РРґРµР°Р»СЊРЅРѕРµ РјРµСЃС‚Рѕ РґР»СЏ С†РµРЅРёС‚РµР»РµР№ РїСЂРµРєСЂР°СЃРЅРѕРіРѕ.</cms:editable>
+    <cms:editable name='promo_footer' type='text' group='grp_promo'>Идеальное место для ценителей прекрасного.</cms:editable>
     <cms:editable name='promo_footer_en' type='text' group='grp_promo'>Ideal place for connoisseurs.</cms:editable>
 
-    <cms:repeatable name='list_promos_v2' label='РЎРїРёСЃРѕРє Р°РєС†РёР№' group='grp_promo'>
+    <cms:repeatable name='list_promos_v2' label='Список акций' group='grp_promo'>
         <cms:editable name='p_title' type='text' /> <cms:editable name='p_title_en' type='text' />
         <cms:editable name='p_desc' type='textarea' /> <cms:editable name='p_desc_en' type='textarea' />
         <cms:editable name='p_tag' type='text' /> <cms:editable name='p_tag_en' type='text' />
@@ -219,12 +219,12 @@ require_once $garden_cms;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><cms:show page_title /></title>
-    <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />РњРµРЅСЋ Garden Lounge РЅР° РђРґРјРёСЂР°Р»С‚РµР№СЃРєРѕР№: РєР°Р»СЊСЏРЅС‹, РєСѓС…РЅСЏ, Р±Р°СЂ, РЅР°РїРёС‚РєРё Рё СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ РІ Р»Р°СѓРЅР¶-Р±Р°СЂРµ РЅР° РЅР°Р±. СЂРµРєРё РњРѕР№РєРё 67-69.</cms:if>">
+    <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения в лаунж-баре на наб. реки Мойки 67-69.</cms:if>">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/text/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/udelnaya/menu/text/">
     <meta property="og:title" content="<cms:show page_title />">
-    <meta property="og:description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />РњРµРЅСЋ Garden Lounge РЅР° РђРґРјРёСЂР°Р»С‚РµР№СЃРєРѕР№: РєР°Р»СЊСЏРЅС‹, РєСѓС…РЅСЏ, Р±Р°СЂ, РЅР°РїРёС‚РєРё Рё СЃРїРµС†РёР°Р»СЊРЅС‹Рµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ.</cms:if>">
+    <meta property="og:description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения.</cms:if>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -332,7 +332,7 @@ require_once $garden_cms;
         <button class="subtab-btn" data-sub="poke_bowl_wok" onclick="switchSubtab('kitchen','poke_bowl_wok')"><cms:show kt_sub_poke /></button>
         <button class="subtab-btn" data-sub="hot" onclick="switchSubtab('kitchen','hot')"><cms:show kt_sub_hot /></button>
         <button class="subtab-btn" data-sub="desserts" onclick="switchSubtab('kitchen','desserts')"><cms:show kt_sub_desserts /></button>
-        <button class="subtab-btn" data-sub="other" onclick="switchSubtab('kitchen','other')">Р›Р°РЅС‡Рё</button>
+        <button class="subtab-btn" data-sub="other" onclick="switchSubtab('kitchen','other')">Ланчи</button>
     </div>
 
     <div id="subtabs-bar-alc" class="subtabs-wrap">
@@ -345,7 +345,7 @@ require_once $garden_cms;
     <div id="subtabs-bar-non" class="subtabs-wrap">
         <button class="subtab-btn active" data-sub="tea_coffee" onclick="switchSubtab('bar-non','tea_coffee')"><cms:show dt_sub_tea /></button>
         <button class="subtab-btn" data-sub="lemonades" onclick="switchSubtab('bar-non','lemonades')"><cms:show dt_sub_lemon /></button>
-        <button class="subtab-btn" data-sub="other" onclick="switchSubtab('bar-non','other')">РќР°РїРёС‚РєРё</button>
+        <button class="subtab-btn" data-sub="other" onclick="switchSubtab('bar-non','other')">Напитки</button>
     </div>
     <div class="gold-divider-nav"></div>
 </div>
@@ -363,16 +363,16 @@ require_once $garden_cms;
                             <div class="text-white text-lg flex items-center flex-wrap">
                                 <cms:show i_name />
                                 <div class="badge-container">
-                                    <cms:if item_tags='New' || item_tags='New + рџЊ¶пёЏ'><span class="badge-item">New</span></cms:if>
-                                    <cms:if item_tags='Hit' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-item">Hit</span></cms:if>
+                                    <cms:if item_tags='New' || item_tags='New + 🌶️'><span class="badge-item">New</span></cms:if>
+                                    <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                     <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                    <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                    <cms:if item_tags='рџЊ¶пёЏ' || item_tags='New + рџЊ¶пёЏ' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                    <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                    <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                    <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                    <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
                                 </div>
                             </div>
-                            <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                            <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                             <cms:if i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show i_desc /></div></cms:if>
                         </div>
                         <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
@@ -394,16 +394,16 @@ require_once $garden_cms;
                             <div class="text-white text-lg flex items-center flex-wrap">
                                 <cms:show kit_name />
                                 <div class="badge-container">
-                                    <cms:if item_tags='New' || item_tags='New + рџЊ¶пёЏ'><span class="badge-item">New</span></cms:if>
-                                    <cms:if item_tags='Hit' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-item">Hit</span></cms:if>
+                                    <cms:if item_tags='New' || item_tags='New + 🌶️'><span class="badge-item">New</span></cms:if>
+                                    <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                     <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                    <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                    <cms:if item_tags='рџЊ¶пёЏ' || item_tags='New + рџЊ¶пёЏ' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                    <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                    <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                    <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                    <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                    <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
                                 </div>
                             </div>
-                            <span class="price-tag gold-shimmer"><cms:show kit_price /> в‚Ѕ</span>
+                            <span class="price-tag gold-shimmer"><cms:show kit_price /> ₽</span>
                             <cms:if kit_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show kit_desc /></div></cms:if>
                         </div>
                         <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
@@ -428,10 +428,10 @@ require_once $garden_cms;
                                     <cms:if item_tags='New'><span class="badge-item">New</span></cms:if>
                                     <cms:if item_tags='Hit'><span class="badge-item">Hit</span></cms:if>
                                     <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                    <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                    <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
                                 </div>
                             </div>
-                            <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                            <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                             <cms:if i_subheader><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show i_subheader /></div></cms:if>
                         </div>
                         <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
@@ -456,10 +456,10 @@ require_once $garden_cms;
                                     <cms:if item_tags='New'><span class="badge-item">New</span></cms:if>
                                     <cms:if item_tags='Hit'><span class="badge-item">Hit</span></cms:if>
                                     <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                    <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                    <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
                                 </div>
                             </div>
-                            <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                            <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                             <cms:if i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show i_desc /></div></cms:if>
                         </div>
                         <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
@@ -514,9 +514,9 @@ require_once $garden_cms;
     </div>
 
     <div class="action-area">
-        <a href="https://garden-lounge.pro/udelnaya/menu" class="btn-base"><span class="subtitle-gold">Р’РµСЂРЅСѓС‚СЊСЃСЏ РќР°Р·Р°Рґ</span></a>
-        <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">РџСЂРѕРіСЂР°РјРјР° Р»РѕСЏР»СЊРЅРѕСЃС‚Рё</div>
-        <a href="https://garden-lounge.pro/udelnaya/menu/visual/" class="btn-base"><span class="subtitle-gold">Р’РёР·СѓР°Р»СЊРЅРѕРµ РјРµРЅСЋ</span></a>
+        <a href="https://garden-lounge.pro/udelnaya/menu" class="btn-base"><span class="subtitle-gold">Вернуться Назад</span></a>
+        <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">Программа лояльности</div>
+        <a href="https://garden-lounge.pro/udelnaya/menu/visual/" class="btn-base"><span class="subtitle-gold">Визуальное меню</span></a>
     </div>
 
 </main>
@@ -524,14 +524,14 @@ require_once $garden_cms;
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeLoyaltyModal()">&times;</span>
-        <div class="modal-title gold-shimmer">Р’С‹Р±РµСЂРёС‚Рµ СЃРїРѕСЃРѕР± СЂРµРіРёСЃС‚СЂР°С†РёРё</div>
+        <div class="modal-title gold-shimmer">Выберите способ регистрации</div>
 
         <a href="https://access.clientomer.ru/feedback/676900-1/" target="_blank" class="modal-btn">
-            <i class="fa-solid fa-wallet"></i> Р РµРіРёСЃС‚СЂР°С†РёСЏ С‡РµСЂРµР· Wallet
+            <i class="fa-solid fa-wallet"></i> Регистрация через Wallet
         </a>
 
         <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
-            <i class="fa-brands fa-telegram"></i> Р РµРіРёСЃС‚СЂР°С†РёСЏ С‡РµСЂРµР· Telegram
+            <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
         </a>
     </div>
 </div>

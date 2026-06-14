@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('K_TEMPLATE_NAME', 'udelnaya/akzii.php');
 $garden_cms = null;
 foreach ([
@@ -23,37 +23,37 @@ if (!$garden_cms) {
 require_once $garden_cms;
 ?>
 
-<cms:template title='РЈРїСЂР°РІР»РµРЅРёРµ: РђРєС†РёРё' name='akzii_section' executable='0' order='30'>
+<cms:template title='Управление: Акции' name='akzii_section' executable='0' order='30'>
     
-    <cms:editable name='group_titles' label='Р—Р°РіРѕР»РѕРІРєРё СЃРµРєС†РёРё' type='group' />
+    <cms:editable name='group_titles' label='Заголовки секции' type='group' />
     
     <cms:editable name='akzii_main_title' 
-        label='Р“Р»Р°РІРЅС‹Р№ Р·Р°РіРѕР»РѕРІРѕРє' 
+        label='Главный заголовок' 
         group='group_titles' 
         type='text'>Our Privileges</cms:editable>
     
     <cms:editable name='akzii_sub_title' 
-        label='РџРѕРґР·Р°РіРѕР»РѕРІРѕРє' 
+        label='Подзаголовок' 
         group='group_titles' 
-        type='text'>РЎРїРµС†РёР°Р»СЊРЅС‹Рµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ</cms:editable>
+        type='text'>Специальные предложения</cms:editable>
 
-    <cms:editable name='group_promo' label='РЎРїРёСЃРѕРє РїСЂРµРґР»РѕР¶РµРЅРёР№' type='group' />
+    <cms:editable name='group_promo' label='Список предложений' type='group' />
     
-    <cms:repeatable name='promo_list' label='РўР°Р±Р»РёС†Р° Р°РєС†РёР№' group='group_promo'>
-        <cms:editable name='promo_name' label='РќР°Р·РІР°РЅРёРµ (РЅР°РїСЂРёРјРµСЂ: Smoky Lunch)' type='text' />
-        <cms:editable name='promo_desc' label='РћРїРёСЃР°РЅРёРµ (РјРµР»РєРёР№ С‚РµРєСЃС‚)' type='textarea' />
-        <cms:editable name='promo_offer' label='РЈСЃР»РѕРІРёРµ (Р—РѕР»РѕС‚РѕР№ С‚РµРєСЃС‚)' type='text' />
+    <cms:repeatable name='promo_list' label='Таблица акций' group='group_promo'>
+        <cms:editable name='promo_name' label='Название (например: Smoky Lunch)' type='text' />
+        <cms:editable name='promo_desc' label='Описание (мелкий текст)' type='textarea' />
+        <cms:editable name='promo_offer' label='Условие (Золотой текст)' type='text' />
     </cms:repeatable>
 
-    <cms:editable name='group_footer' label='РќРёР¶РЅСЏСЏ С‡Р°СЃС‚СЊ Рё РґРµРєРѕСЂ' type='group' />
+    <cms:editable name='group_footer' label='Нижняя часть и декор' type='group' />
     
     <cms:editable name='akzii_footer' 
-        label='Р¤РёРЅР°Р»СЊРЅР°СЏ С„СЂР°Р·Р°' 
+        label='Финальная фраза' 
         group='group_footer' 
-        type='text'>РРґРµР°Р»СЊРЅРѕРµ РјРµСЃС‚Рѕ РґР»СЏ С†РµРЅРёС‚РµР»РµР№ РїСЂРµРєСЂР°СЃРЅРѕРіРѕ.</cms:editable>
+        type='text'>Идеальное место для ценителей прекрасного.</cms:editable>
     
     <cms:editable name='akzii_sep' 
-        label='РљР°СЂС‚РёРЅРєР° СЂР°Р·РґРµР»РёС‚РµР»СЏ (СѓР·РѕСЂ)' 
+        label='Картинка разделителя (узор)' 
         group='group_footer' 
         type='image'>:div.webp</cms:editable>
 

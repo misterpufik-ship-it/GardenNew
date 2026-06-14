@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('K_TEMPLATE_NAME', 'udelnaya/menu/english/index.php');
 $garden_cms = null;
 foreach ([
@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='пїЅпїЅпїЅпїЅ : English (пїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅ)' icon='globe' />
+<cms:template title='���� : English (����-�����)' icon='globe' />
 
 <cms:pages masterpage='udelnaya/menu/text/index.php' limit='1'>
     <cms:set my_lang='en' 'global' />
@@ -176,16 +176,16 @@ require_once $garden_cms;
                                     <div class="text-white text-lg flex items-center flex-wrap">
                                         <cms:if i_name_en><cms:show i_name_en /><cms:else /><cms:show i_name /></cms:if>
                                         <div class="badge-container">
-                                            <cms:if item_tags='New' || item_tags='New + рџЊ¶пёЏ'><span class="badge-item">New</span></cms:if>
-                                            <cms:if item_tags='Hit' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-item">Hit</span></cms:if>
+                                            <cms:if item_tags='New' || item_tags='New + 🌶️'><span class="badge-item">New</span></cms:if>
+                                            <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                            <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                            <cms:if item_tags='рџЊ¶пёЏ' || item_tags='New + рџЊ¶пёЏ' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
                                         </div>
                                     </div>
-                                    <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                     <cms:if i_desc_en || i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_desc_en><cms:show i_desc_en /><cms:else /><cms:show i_desc /></cms:if></div></cms:if>
                                     <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>
@@ -209,16 +209,16 @@ require_once $garden_cms;
                                     <div class="text-white text-lg flex items-center flex-wrap">
                                         <cms:if kit_name_en><cms:show kit_name_en /><cms:else /><cms:show kit_name /></cms:if>
                                         <div class="badge-container">
-                                            <cms:if item_tags='New' || item_tags='New + рџЊ¶пёЏ'><span class="badge-item">New</span></cms:if>
-                                            <cms:if item_tags='Hit' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-item">Hit</span></cms:if>
+                                            <cms:if item_tags='New' || item_tags='New + 🌶️'><span class="badge-item">New</span></cms:if>
+                                            <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                            <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                            <cms:if item_tags='рџЊ¶пёЏ' || item_tags='New + рџЊ¶пёЏ' || item_tags='Hit + рџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='рџЊ¶пёЏрџЊ¶пёЏрџЊ¶пёЏ'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
                                         </div>
                                     </div>
-                                    <span class="price-tag gold-shimmer"><cms:show kit_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show kit_price /> ₽</span>
                                     <cms:if kit_desc_en || kit_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if kit_desc_en><cms:show kit_desc_en /><cms:else /><cms:show kit_desc /></cms:if></div></cms:if>
                                     <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>
@@ -245,10 +245,10 @@ require_once $garden_cms;
                                             <cms:if item_tags='New'><span class="badge-item">New</span></cms:if>
                                             <cms:if item_tags='Hit'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                            <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                            <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
                                         </div>
                                     </div>
-                                    <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                     <cms:if i_subheader_en || i_subheader><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_subheader_en><cms:show i_subheader_en /><cms:else /><cms:show i_subheader /></cms:if></div></cms:if>
                                     <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>
@@ -275,10 +275,10 @@ require_once $garden_cms;
                                             <cms:if item_tags='New'><span class="badge-item">New</span></cms:if>
                                             <cms:if item_tags='Hit'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
-                                            <cms:if item_tags='ChefвЂ™s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
+                                            <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
                                         </div>
                                     </div>
-                                    <span class="price-tag gold-shimmer"><cms:show i_price /> в‚Ѕ</span>
+                                    <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
                                     <cms:if i_desc_en || i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 leading-relaxed"><cms:if i_desc_en><cms:show i_desc_en /><cms:else /><cms:show i_desc /></cms:if></div></cms:if>
                                     <cms:if note_after_ru_en || note_after_ru><div class="col-span-2 note-after"><cms:if note_after_ru_en><cms:show note_after_ru_en /><cms:else /><cms:show note_after_ru /></cms:if></div></cms:if>
                                 </div>

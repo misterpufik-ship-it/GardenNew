@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('K_TEMPLATE_NAME', 'udelnaya/index.php');
 $garden_cms = null;
 foreach ([
@@ -22,21 +22,21 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ' order='2'>
+<cms:template title='Адмиралтейская' order='2'>
     
-    <cms:editable name='phil_title' label='Р—Р°РіРѕР»РѕРІРѕРє (С‚РѕС‚, С‡С‚Рѕ Philosophy)' type='text'>Philosophy</cms:editable>
-    <cms:editable name='phil_concept' label='РўРµРєСЃС‚ РєРѕРЅС†РµРїС†РёРё (РЅР°РґРїРёСЃСЊ)' type='text'>РљРѕРЅС†РµРїС†РёСЏ</cms:editable>
-    <cms:editable name='phil_content' label='РћСЃРЅРѕРІРЅРѕР№ С‚РµРєСЃС‚ (Р РµРґР°РєС‚РѕСЂ)' type='richtext'>
-        РњР°РіРёС‡РµСЃРєРёР№ РІРµС‡РЅРѕР·РµР»РµРЅС‹Р№ СЃР°Рґ, СЃРєСЂС‹С‚С‹Р№ РѕС‚ РіРѕСЂРѕРґСЃРєРѕР№ СЃСѓРµС‚С‹ РІ СЃР°РјРѕРј СЃРµСЂРґС†Рµ РџРµС‚РµСЂР±СѓСЂРіР°.
+    <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text'>Philosophy</cms:editable>
+    <cms:editable name='phil_concept' label='Текст концепции (надпись)' type='text'>Концепция</cms:editable>
+    <cms:editable name='phil_content' label='Основной текст (Редактор)' type='richtext'>
+        Магический вечнозеленый сад, скрытый от городской суеты в самом сердце Петербурга.
         <br><br>
-        Р—РґРµСЃСЊ РІСЂРµРјСЏ Р·Р°РјРµРґР»СЏРµС‚ СЃРІРѕР№ С…РѕРґ. Р РѕСЃРєРѕС€РЅС‹Р№ РёРЅС‚РµСЂСЊРµСЂ, СѓС‚РѕРїР°СЋС‰РёР№ РІ Р¶РёРІС‹С… С‚СЂРѕРїРёРєР°С…, РјРµР»РѕРґРёС‡РЅС‹Р№ С€СѓРј С„РѕРЅС‚Р°РЅР° Рё СѓСЋС‚РЅРѕРµ С‚РµРїР»Рѕ РєР°РјРёРЅР° СЃРѕР·РґР°СЋС‚ Р°С‚РјРѕСЃС„РµСЂСѓ Р°Р±СЃРѕР»СЋС‚РЅРѕР№ РіР°СЂРјРѕРЅРёРё Рё СѓРµРґРёРЅРµРЅРёСЏ.
+        Здесь время замедляет свой ход. Роскошный интерьер, утопающий в живых тропиках, мелодичный шум фонтана и уютное тепло камина создают атмосферу абсолютной гармонии и уединения.
     </cms:editable>
-    <cms:editable name='phil_slogan' label='РЎР»РѕРіР°РЅ (РІРЅРёР·Сѓ)' type='textarea'>Garden Lounge вЂ” РјРµСЃС‚Рѕ, РіРґРµ СЂРѕР¶РґР°СЋС‚СЃСЏ СЂРёС‚СѓР°Р»С‹, РґРѕСЃС‚РѕР№РЅС‹Рµ РІР°С€РёС… РІРѕСЃРїРѕРјРёРЅР°РЅРёР№</cms:editable>
-    <cms:editable name='phil_sep' label='РљР°СЂС‚РёРЅРєР° СЂР°Р·РґРµР»РёС‚РµР»СЏ' type='image'>:div.webp</cms:editable>
+    <cms:editable name='phil_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
+    <cms:editable name='phil_sep' label='Картинка разделителя' type='image'>:div.webp</cms:editable>
 
-    <cms:editable name='seo_group' label='SEO Рё РћРїС‚РёРјРёР·Р°С†РёСЏ РїРѕРґ РР' type='group' order='10' />
-        <cms:editable name='phil_img_alt' label='Alt-С‚РµРєСЃС‚ РґР»СЏ РєР°СЂС‚РёРЅРєРё' group='seo_group' type='text'>Р­СЃС‚РµС‚РёС‡РЅС‹Р№ Р»Р°СѓРЅРґР¶ Р±Р°СЂ РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРі</cms:editable>
-        <cms:editable name='phil_lsi' label='LSI РљР»СЋС‡Рё' group='seo_group' type='textarea'>РєР°Р»СЊСЏРЅРЅР°СЏ СЃРїР±, РїСЂРµРјРёСѓРј Р»Р°СѓРЅРґР¶</cms:editable>
+    <cms:editable name='seo_group' label='SEO и Оптимизация под ИИ' type='group' order='10' />
+        <cms:editable name='phil_img_alt' label='Alt-текст для картинки' group='seo_group' type='text'>Эстетичный лаундж бар Санкт-Петербург</cms:editable>
+        <cms:editable name='phil_lsi' label='LSI Ключи' group='seo_group' type='textarea'>кальянная спб, премиум лаундж</cms:editable>
 </cms:template>
 
 <!DOCTYPE html>
@@ -73,25 +73,25 @@ require_once $garden_cms;
     </cms:pages>
     
     <cms:embed 'styles.html' />
-        <meta name="keywords" content="Garden Lounge, кальянная Удельная, кальянная СПб, лаунж бар Удельная, кальянная у метро Удельная, ул. Аккуратова 13, VIP-комнаты, PS5, кухня">
+        <meta name="keywords" content="Garden Lounge, ��������� ��������, ��������� ���, ����� ��� ��������, ��������� � ����� ��������, ��. ���������� 13, VIP-�������, PS5, �����">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/udelnaya/">
-    <meta property="og:title" content="Garden Lounge на Удельной — кальянная и лаунж-бар в СПб">
-    <meta property="og:description" content="Garden Lounge на Удельной: кальяны, кухня, напитки, VIP-комнаты, PS5 и бронирование столика на ул. Аккуратова 13.">
+    <meta property="og:title" content="Garden Lounge �� �������� � ��������� � �����-��� � ���">
+    <meta property="og:description" content="Garden Lounge �� ��������: �������, �����, �������, VIP-�������, PS5 � ������������ ������� �� ��. ���������� 13.">
     <meta property="og:image" content="https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://garden-lounge.pro/udelnaya/">
-    <meta property="twitter:title" content="Garden Lounge на Удельной — кальянная и лаунж-бар в СПб">
-    <meta property="twitter:description" content="Кальянная Garden Lounge у метро Удельная: меню, кухня, бар, VIP-комнаты и бронь столика.">
+    <meta property="twitter:title" content="Garden Lounge �� �������� � ��������� � �����-��� � ���">
+    <meta property="twitter:description" content="��������� Garden Lounge � ����� ��������: ����, �����, ���, VIP-������� � ����� �������.">
     <meta property="twitter:image" content="https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": ["BarOrPub", "Restaurant"],
         "@id": "https://garden-lounge.pro/udelnaya/#localbusiness",
-        "name": "Garden Lounge на Удельной",
+        "name": "Garden Lounge �� ��������",
         "url": "https://garden-lounge.pro/udelnaya/",
         "image": "https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg",
         "telephone": "<cms:show adm_phone />",
@@ -100,7 +100,7 @@ require_once $garden_cms;
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "<cms:show adm_address />",
-            "addressLocality": "РЎР°РЅРєС‚-РџРµС‚РµСЂР±СѓСЂРі",
+            "addressLocality": "Санкт-Петербург",
             "addressCountry": "RU"
         },
         "openingHoursSpecification": [

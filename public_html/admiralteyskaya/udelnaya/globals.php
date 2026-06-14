@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('K_TEMPLATE_NAME', 'udelnaya/globals.php');
 $garden_cms = null;
 foreach ([
@@ -22,45 +22,45 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='РќР°СЃС‚СЂРѕР№РєРё СЃР°Р№С‚Р° (Р¤СѓС‚РµСЂ Рё SEO)' executable='0'>
+<cms:template title='Настройки сайта (Футер и SEO)' executable='0'>
 
-    <!-- Р“Р РЈРџРџРђ: РћР‘Р©РђРЇ РРќР¤РћР РњРђР¦РРЇ -->
-    <cms:editable name='group_general' label='РћР±С‰Р°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ' type='group' />
-        <cms:editable name='site_description_text' label='РћРїРёСЃР°РЅРёРµ Р±СЂРµРЅРґР° (РІ С„СѓС‚РµСЂРµ)' group='group_general' type='textarea' height='100'>РњР°РіРёС‡РµСЃРєРёР№ РІРµС‡РЅРѕР·РµР»РµРЅС‹Р№ СЃР°Рґ, СЃРєСЂС‹С‚С‹Р№ РѕС‚ РіРѕСЂРѕРґСЃРєРѕР№ СЃСѓРµС‚С‹ РІ СЃР°РјРѕРј СЃРµСЂРґС†Рµ РџРµС‚РµСЂР±СѓСЂРіР°.</cms:editable>
+    <!-- ГРУППА: ОБЩАЯ ИНФОРМАЦИЯ -->
+    <cms:editable name='group_general' label='Общая информация' type='group' />
+        <cms:editable name='site_description_text' label='Описание бренда (в футере)' group='group_general' type='textarea' height='100'>Магический вечнозеленый сад, скрытый от городской суеты в самом сердце Петербурга.</cms:editable>
 
-    <!-- Р“Р РЈРџРџРђ: РЎРћР¦ РЎР•РўР -->
-    <cms:editable name='group_socials' label='РЎРѕС†РёР°Р»СЊРЅС‹Рµ СЃРµС‚Рё' type='group' />
-        <cms:editable name='link_instagram' label='Instagram (СЃСЃС‹Р»РєР°)' group='group_socials' type='text'>https://instagram.com/garden_lounge_spb/</cms:editable>
-        <cms:editable name='link_telegram' label='Telegram РєР°РЅР°Р» (СЃСЃС‹Р»РєР°)' group='group_socials' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
-        <cms:editable name='link_vk' label='VK (СЃСЃС‹Р»РєР°)' group='group_socials' type='text'>https://vk.com/loungegarden</cms:editable>
-        <cms:editable name='link_youtube' label='YouTube (СЃСЃС‹Р»РєР°)' group='group_socials' type='text'>https://youtube.com/@garden.lounge</cms:editable>
+    <!-- ГРУППА: СОЦ СЕТИ -->
+    <cms:editable name='group_socials' label='Социальные сети' type='group' />
+        <cms:editable name='link_instagram' label='Instagram (ссылка)' group='group_socials' type='text'>https://instagram.com/garden_lounge_spb/</cms:editable>
+        <cms:editable name='link_telegram' label='Telegram канал (ссылка)' group='group_socials' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
+        <cms:editable name='link_vk' label='VK (ссылка)' group='group_socials' type='text'>https://vk.com/loungegarden</cms:editable>
+        <cms:editable name='link_youtube' label='YouTube (ссылка)' group='group_socials' type='text'>https://youtube.com/@garden.lounge</cms:editable>
 
-    <!-- Р“Р РЈРџРџРђ: Р¤РР›РРђР› РђР”РњРР РђР›РўР•Р™РЎРљРђРЇ -->
-    <cms:editable name='group_admiral' label='Р¤РёР»РёР°Р»: РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ' type='group' />
-        <cms:editable name='admiral_address' label='РђРґСЂРµСЃ' group='group_admiral' type='text'>РќР°Р±. СЂРµРєРё РњРѕР№РєРё 67-69</cms:editable>
-        <cms:editable name='admiral_map_link' label='РЎСЃС‹Р»РєР° РЅР° РЇРЅРґРµРєСЃ.РљР°СЂС‚С‹' group='group_admiral' type='text'>https://yandex.ru/maps/-/CLBURN0n</cms:editable>
-        <cms:editable name='admiral_phone' label='РўРµР»РµС„РѕРЅ (РєР°Рє РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ)' group='group_admiral' type='text'>+7 995 624-68-08</cms:editable>
-        <cms:editable name='admiral_phone_clean' label='РўРµР»РµС„РѕРЅ РґР»СЏ СЃСЃС‹Р»РєРё (Р±РµР· РїСЂРѕР±РµР»РѕРІ, +7...)' group='group_admiral' type='text'>+79956246808</cms:editable>
-        <cms:editable name='admiral_tg_chat' label='РЎСЃС‹Р»РєР° РЅР° С‡Р°С‚ Telegram' group='group_admiral' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
-        <cms:editable name='admiral_hours_week' label='Р§Р°СЃС‹ СЂР°Р±РѕС‚С‹ (РџРЅ-Р§С‚, Р’СЃ)' group='group_admiral' type='text'>РџРЅвЂ“Р§С‚; Р’СЃ: 12:00 вЂ“ 01:00</cms:editable>
-        <cms:editable name='admiral_hours_weekend' label='Р§Р°СЃС‹ СЂР°Р±РѕС‚С‹ (РџС‚-РЎР±)' group='group_admiral' type='text'>РџС‚вЂ“РЎР±: 12:00 вЂ“ 03:00</cms:editable>
+    <!-- ГРУППА: ФИЛИАЛ АДМИРАЛТЕЙСКАЯ -->
+    <cms:editable name='group_admiral' label='Филиал: Адмиралтейская' type='group' />
+        <cms:editable name='admiral_address' label='Адрес' group='group_admiral' type='text'>Наб. реки Мойки 67-69</cms:editable>
+        <cms:editable name='admiral_map_link' label='Ссылка на Яндекс.Карты' group='group_admiral' type='text'>https://yandex.ru/maps/-/CLBURN0n</cms:editable>
+        <cms:editable name='admiral_phone' label='Телефон (как отображается)' group='group_admiral' type='text'>+7 995 624-68-08</cms:editable>
+        <cms:editable name='admiral_phone_clean' label='Телефон для ссылки (без пробелов, +7...)' group='group_admiral' type='text'>+79956246808</cms:editable>
+        <cms:editable name='admiral_tg_chat' label='Ссылка на чат Telegram' group='group_admiral' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
+        <cms:editable name='admiral_hours_week' label='Часы работы (Пн-Чт, Вс)' group='group_admiral' type='text'>Пн–Чт; Вс: 12:00 – 01:00</cms:editable>
+        <cms:editable name='admiral_hours_weekend' label='Часы работы (Пт-Сб)' group='group_admiral' type='text'>Пт–Сб: 12:00 – 03:00</cms:editable>
 
-    <!-- Р“Р РЈРџРџРђ: Р¤РР›РРђР› РЈР”Р•Р›Р¬РќРђРЇ -->
-    <cms:editable name='group_udelnaya' label='Р¤РёР»РёР°Р»: РЈРґРµР»СЊРЅР°СЏ' type='group' />
-        <cms:editable name='udel_address' label='РђРґСЂРµСЃ' group='group_udelnaya' type='text'>РЈР». РђРєРєСѓСЂР°С‚РѕРІР° 13</cms:editable>
-        <cms:editable name='udel_map_link' label='РЎСЃС‹Р»РєР° РЅР° РЇРЅРґРµРєСЃ.РљР°СЂС‚С‹' group='group_udelnaya' type='text'>https://yandex.ru/maps/-/CPE-mNm0</cms:editable>
-        <cms:editable name='udel_phone' label='РўРµР»РµС„РѕРЅ (РєР°Рє РѕС‚РѕР±СЂР°Р¶Р°РµС‚СЃСЏ)' group='group_udelnaya' type='text'>+7 995 624-68-08</cms:editable>
-        <cms:editable name='udel_phone_clean' label='РўРµР»РµС„РѕРЅ РґР»СЏ СЃСЃС‹Р»РєРё (Р±РµР· РїСЂРѕР±РµР»РѕРІ, +7...)' group='group_udelnaya' type='text'>+79956246808</cms:editable>
-        <cms:editable name='udel_tg_chat' label='РЎСЃС‹Р»РєР° РЅР° С‡Р°С‚ Telegram' group='group_udelnaya' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
-        <cms:editable name='udel_hours_week' label='Р§Р°СЃС‹ СЂР°Р±РѕС‚С‹ (РџРЅ-Р§С‚, Р’СЃ)' group='group_udelnaya' type='text'>РџРЅвЂ“Р§С‚; Р’СЃ: 12:00 вЂ“ 01:00</cms:editable>
-        <cms:editable name='udel_hours_weekend' label='Р§Р°СЃС‹ СЂР°Р±РѕС‚С‹ (РџС‚-РЎР±)' group='group_udelnaya' type='text'>РџС‚вЂ“РЎР±: 12:00 вЂ“ 03:00</cms:editable>
+    <!-- ГРУППА: ФИЛИАЛ УДЕЛЬНАЯ -->
+    <cms:editable name='group_udelnaya' label='Филиал: Удельная' type='group' />
+        <cms:editable name='udel_address' label='Адрес' group='group_udelnaya' type='text'>Ул. Аккуратова 13</cms:editable>
+        <cms:editable name='udel_map_link' label='Ссылка на Яндекс.Карты' group='group_udelnaya' type='text'>https://yandex.ru/maps/-/CPE-mNm0</cms:editable>
+        <cms:editable name='udel_phone' label='Телефон (как отображается)' group='group_udelnaya' type='text'>+7 995 624-68-08</cms:editable>
+        <cms:editable name='udel_phone_clean' label='Телефон для ссылки (без пробелов, +7...)' group='group_udelnaya' type='text'>+79956246808</cms:editable>
+        <cms:editable name='udel_tg_chat' label='Ссылка на чат Telegram' group='group_udelnaya' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
+        <cms:editable name='udel_hours_week' label='Часы работы (Пн-Чт, Вс)' group='group_udelnaya' type='text'>Пн–Чт; Вс: 12:00 – 01:00</cms:editable>
+        <cms:editable name='udel_hours_weekend' label='Часы работы (Пт-Сб)' group='group_udelnaya' type='text'>Пт–Сб: 12:00 – 03:00</cms:editable>
 
-    <!-- Р“Р РЈРџРџРђ: SEO РџРћ РЈРњРћР›Р§РђРќРР® -->
-    <cms:editable name='group_seo' label='SEO РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ' type='group' />
-        <cms:editable name='seo_title_default' label='Р—Р°РіРѕР»РѕРІРѕРє (Title)' group='group_seo' type='text'>Garden Lounge РЅР° РђРґРјРёСЂР°Р»С‚РµР№СЃРєРѕР№ вЂ” РєР°Р»СЊСЏРЅРЅР°СЏ Рё Р»Р°СѓРЅР¶-Р±Р°СЂ РІ С†РµРЅС‚СЂРµ РЎРџР±</cms:editable>
-        <cms:editable name='seo_desc_default' label='РћРїРёСЃР°РЅРёРµ (Description)' group='group_seo' type='textarea'>Garden Lounge РЅР° РЅР°Р±. СЂРµРєРё РњРѕР№РєРё 67-69: РїСЂРµРјРёР°Р»СЊРЅС‹Рµ РєР°Р»СЊСЏРЅС‹, РєСѓС…РЅСЏ, VIP-РєРѕРјРЅР°С‚С‹ Рё Р±СЂРѕРЅСЊ СЃС‚РѕР»РёРєР° СЂСЏРґРѕРј СЃ РјРµС‚СЂРѕ РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ. РўРµР». +7 995 624-68-08.</cms:editable>
-        <cms:editable name='seo_keywords_default' label='РљР»СЋС‡РµРІС‹Рµ СЃР»РѕРІР°' group='group_seo' type='textarea'>Garden Lounge, РєР°Р»СЊСЏРЅРЅР°СЏ РЎРџР±, РєР°Р»СЊСЏРЅРЅР°СЏ Сѓ РђРґРјРёСЂР°Р»С‚РµР№СЃРєРѕР№, Р»Р°СѓРЅР¶ Р±Р°СЂ РЎРџР±, РєР°Р»СЊСЏРЅРЅР°СЏ РІ С†РµРЅС‚СЂРµ РЎРџР±, VIP РєР°Р»СЊСЏРЅРЅР°СЏ РЎРџР±, РєР°Р»СЊСЏРЅРЅР°СЏ СЃ РєСѓС…РЅРµР№, lounge bar, hookah bar, РєР°Р»СЊСЏРЅРЅР°СЏ РІ С†РµРЅС‚СЂРµ, РєР°Р»СЊСЏРЅРЅР°СЏ СЃ РЅРµРѕР±С‹С‡РЅС‹Рј РёРЅС‚РµСЂСЊРµСЂРѕРј, РЅР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё 67-69, РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ, VIP-РєРѕРјРЅР°С‚С‹, PS5, РєСѓС…РЅСЏ</cms:editable>
-        <cms:editable name='seo_image_default' label='РљР°СЂС‚РёРЅРєР° РґР»СЏ СЃРѕС†СЃРµС‚РµР№ (OG Image)' group='group_seo' type='image'>https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg</cms:editable>
+    <!-- ГРУППА: SEO ПО УМОЛЧАНИЮ -->
+    <cms:editable name='group_seo' label='SEO по умолчанию' type='group' />
+        <cms:editable name='seo_title_default' label='Заголовок (Title)' group='group_seo' type='text'>Garden Lounge на Адмиралтейской — кальянная и лаунж-бар в центре СПб</cms:editable>
+        <cms:editable name='seo_desc_default' label='Описание (Description)' group='group_seo' type='textarea'>Garden Lounge на наб. реки Мойки 67-69: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Адмиралтейская. Тел. +7 995 624-68-08.</cms:editable>
+        <cms:editable name='seo_keywords_default' label='Ключевые слова' group='group_seo' type='textarea'>Garden Lounge, кальянная СПб, кальянная у Адмиралтейской, лаунж бар СПб, кальянная в центре СПб, VIP кальянная СПб, кальянная с кухней, lounge bar, hookah bar, кальянная в центре, кальянная с необычным интерьером, набережная реки Мойки 67-69, Адмиралтейская, VIP-комнаты, PS5, кухня</cms:editable>
+        <cms:editable name='seo_image_default' label='Картинка для соцсетей (OG Image)' group='group_seo' type='image'>https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>
