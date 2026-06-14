@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Управление: Шапка (Header)' name='header_section' executable='0' order='10'>
+<cms:template title='Адмирал Шапка' name='header_section' executable='0' order='10'>
     
     <cms:editable name='group_contacts' label='Контакты и Соцсети' type='group' />
     <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 995 624 68 08</cms:editable>
@@ -20,6 +20,7 @@
     <cms:editable name='hero_tagline' label='Слоган под лого' group='group_hero' type='text'>Магический вечнозеленый сад в самом сердце Санкт-Петербурга</cms:editable>
     <cms:editable name='hero_bg_desk' label='Фон (Десктоп)' group='group_hero' type='image'>:garden-main.webp</cms:editable>
     <cms:editable name='hero_bg_mob' label='Фон (Мобилка)' group='group_hero' type='image'>:garden-main-mobile.webp</cms:editable>
+    <cms:editable name='hero_img_alt' label='Alt для главного фото' group='group_hero' type='text'>Интерьер Garden Lounge Адмиралтейская в центре Санкт-Петербурга</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

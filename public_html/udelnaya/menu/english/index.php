@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='���� : English (����-�����)' icon='globe' />
+<cms:template title='Уделка Меню En' icon='globe' />
 
 <cms:pages masterpage='udelnaya/menu/text/index.php' limit='1'>
     <cms:set my_lang='en' 'global' />

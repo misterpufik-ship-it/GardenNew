@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Управление: Галерея' name='gallery_section' executable='0' order='40'>
+<cms:template title='Адмирал Галерея' name='gallery_section' executable='0' order='40'>
     
     <cms:editable name='gallery_main_title' label='Главный заголовок' type='text'>Experience</cms:editable>
     <cms:editable name='gallery_sub_title' label='Подзаголовок' type='text'>Визуальная эстетика</cms:editable>

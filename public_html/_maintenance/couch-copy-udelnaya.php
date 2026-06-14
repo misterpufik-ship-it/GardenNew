@@ -19,7 +19,8 @@ if (strpos($host, ':') !== false) {
     list($host, $port) = explode(':', $host, 2);
 }
 
-$db = new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int)$port);
+mysqli_report(MYSQLI_REPORT_OFF);
+$db = @new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int)$port);
 if ($db->connect_errno) {
     fwrite(STDERR, "DB connection failed: {$db->connect_error}\n");
     exit(1);
@@ -202,17 +203,37 @@ try {
         echo "Synced {$sourceName} -> {$targetName}\n";
     }
 
-    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_title_default', 'Garden Lounge на Удельной — кальянная и лаунж-бар у метро Удельная');
-    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_desc_default', 'Garden Lounge на ул. Аккуратова 13: кальяны, кухня, бар, VIP-комнаты, PS5 и бронирование столика у метро Удельная. Тел. +7 995 624-68-08.');
-    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_keywords_default', 'Garden Lounge Удельная, кальянная Удельная, кальянная у метро Удельная, лаунж бар Удельная, кальянная СПб, ул. Аккуратова 13, VIP-комнаты, PS5, кухня');
-    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_image_default', 'https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'site_description_text', 'Магический вечнозеленый сад, скрытый от городской суеты в самом сердце - на севере Санкт-Петербурга.');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'udel_phone', '+7 950 047-33-65');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'udel_phone_clean', '+79500473365');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'udel_tg_chat', 'https://t.me/Garden_lounge_spb');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_title_default', 'Garden Lounge на Удельной — кальянная и лаунж-бар на севере СПб');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_desc_default', 'Garden Lounge на ул. Аккуратова 13: премиальные кальяны, кухня, VIP-комнаты, PS5 и бронь столика рядом с метро Удельная. Тел. +7 950 047-33-65.');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_keywords_default', 'Garden Lounge Удельная, кальянная Удельная, кальянная у метро Удельная, лаунж бар Удельная, кальянная на севере СПб, кальянная СПб, ул. Аккуратова 13, VIP-комнаты, PS5, кухня');
+    set_field_text($db, $tables, 'udelnaya/globals.php', 'seo_image_default', 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg');
+
+    set_field_text($db, $tables, 'udelnaya/header.php', 'header_phone', '+7 950 047-33-65');
+    set_field_text($db, $tables, 'udelnaya/header.php', 'header_phone_link', '+79500473365');
+    set_field_text($db, $tables, 'udelnaya/header.php', 'link_tg', 'https://t.me/Garden_lounge_spb');
+    set_field_text($db, $tables, 'udelnaya/header.php', 'hero_tagline', 'Магический вечнозеленый сад в самом сердце - на севере Санкт-Петербурга');
+    set_field_text($db, $tables, 'udelnaya/header.php', 'hero_bg_desk', 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp');
+    set_field_text($db, $tables, 'udelnaya/header.php', 'hero_bg_mob', 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp');
+    set_field_text($db, $tables, 'udelnaya/header.php', 'hero_img_alt', 'Кальянная Garden Lounge Удельная, интерьер лаунж-бара на севере Санкт-Петербурга');
 
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_address', 'СПб., ул. Аккуратова, д. 13');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_map_link', 'https://yandex.ru/maps/-/CPE-mNm0');
+    set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_phone', '+7 950 047-33-65');
+    set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_phone_link', '+79500473365');
+    set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_whatsapp', 'https://wa.me/79500473365');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_telegram', 'https://t.me/Garden_lounge_spb');
     set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_visual_link', 'https://garden-lounge.pro/udelnaya/menu/visual/');
     set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_text_link', 'https://garden-lounge.pro/udelnaya/menu/text/');
     set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_eng_link', 'https://garden-lounge.pro/udelnaya/menu/english/');
+    set_field_text($db, $tables, 'udelnaya/filial.php', 'final_title', 'Garden Lounge Admiralteyskaya');
+    set_field_text($db, $tables, 'udelnaya/filial.php', 'final_img', 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.webp');
+    set_field_text($db, $tables, 'udelnaya/filial.php', 'final_img_alt', 'Garden Lounge Admiralteyskaya, интерьер филиала на наб. реки Мойки 67-69');
+    set_field_text($db, $tables, 'udelnaya/filial.php', 'final_address', 'СПб., наб. реки Мойки, д. 67-69');
+    set_field_text($db, $tables, 'udelnaya/filial.php', 'final_metro', 'м. Адмиралтейская');
     set_field_text($db, $tables, 'udelnaya/filial.php', 'final_btn_link', 'https://garden-lounge.pro/admiralteyskaya/');
 
     $db->commit();

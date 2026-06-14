@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Адмиралтейская' order='2'>
+<cms:template title='УУ. Общая страница' order='2'>
     
     <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text'>Philosophy</cms:editable>
     <cms:editable name='phil_concept' label='Текст концепции (надпись)' type='text'>Концепция</cms:editable>
@@ -164,6 +164,12 @@ require_once $garden_cms;
     <cms:pages masterpage='udelnaya/contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
 
+    <style>
+        .footer-brand-col { order: 1; }
+        .footer-branch-udelnaya { order: 2; }
+        .footer-branch-admiral { order: 3; }
+        .footer-nav-col { order: 4; }
+    </style>
     <cms:embed 'footer.html' />
 
     <div id="scrollTopBtn"><i class="fas fa-chevron-up"></i></div>

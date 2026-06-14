@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Управление: Филиал' name='final_section' executable='0' order='70'>
+<cms:template title='Уделка Филиал' name='final_section' executable='0' order='70'>
 
     <cms:editable name='final_group_info' label='Информация о филиале' type='group' />
     <cms:editable name='final_title' label='Название филиала' group='final_group_info' type='text'>Garden Lounge Udelnaya</cms:editable>

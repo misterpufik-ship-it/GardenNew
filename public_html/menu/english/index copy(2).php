@@ -1,5 +1,5 @@
 <?php require_once( '../../couch/cms.php' ); ?>
-<cms:template title='Меню : English (Авто-вывод)' icon='globe' />
+<cms:template title='Адмирал Меню En' icon='globe' />
 
 <cms:pages masterpage='menu/text/index.php' limit='1'>
     <cms:set my_lang='en' 'global' />

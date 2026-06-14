@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Управление: Шапка (Header)' name='header_section' executable='0' order='10'>
+<cms:template title='Уделка Шапка' name='header_section' executable='0' order='10'>
     
     <cms:editable name='group_contacts' label='Контакты и Соцсети' type='group' />
     <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 995 624 68 08</cms:editable>

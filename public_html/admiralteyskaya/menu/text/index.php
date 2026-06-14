@@ -1,6 +1,6 @@
 <?php require_once( '../../couch/cms.php' ); ?>
 
-<cms:template title='Меню : текст Адм' icon='restaurant'>
+<cms:template title='Адмирал Меню' icon='restaurant'>
 
     <cms:editable name='translation_script' type='message' order='0'>
         <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 20px;">

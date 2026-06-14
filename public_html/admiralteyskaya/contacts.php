@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Управление: Контакты' name='contacts_section' executable='0' order='60'>
+<cms:template title='Адмирал Контакты' name='contacts_section' executable='0' order='60'>
     
     <cms:editable name='cont_group_main' label='Основная информация' type='group' />
     <cms:editable name='cont_address' label='Адрес' group='cont_group_main' type='text'>СПб. наб. реки Мойки, д.67-69</cms:editable>

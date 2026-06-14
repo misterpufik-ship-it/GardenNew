@@ -218,7 +218,7 @@
                 <div class="img-frame branch-gallery" data-branch-gallery>
                     <div class="branch-gallery-track">
                         <div class="branch-gallery-slide">
-                            <img src="<cms:show final_img />" alt="Branch Office" class="img-premium" loading="lazy" decoding="async">
+                            <img src="<cms:show final_img />" alt="<cms:if final_img_alt><cms:show final_img_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
                         </div>
                         <cms:show_repeatable 'final_gallery'>
                             <cms:if final_gallery_img>

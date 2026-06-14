@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Настройки сайта (Футер и SEO)' executable='0'>
+<cms:template title='Адмирал Настройки' executable='0'>
 
     <!-- ГРУППА: ОБЩАЯ ИНФОРМАЦИЯ -->
     <cms:editable name='group_general' label='Общая информация' type='group' />
