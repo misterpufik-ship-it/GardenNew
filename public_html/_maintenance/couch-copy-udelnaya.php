@@ -16,7 +16,7 @@ require_once $config;
 $host = K_DB_HOST;
 $port = ini_get('mysqli.default_port') ?: 3306;
 if (strpos($host, ':') !== false) {
-    [$host, $port] = explode(':', $host, 2);
+    list($host, $port) = explode(':', $host, 2);
 }
 
 $db = new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int)$port);
@@ -34,7 +34,7 @@ $tables = [
     'numeric' => K_DB_TABLES_PREFIX . 'couch_data_numeric',
 ];
 
-function table_columns(mysqli $db, string $table): array {
+function table_columns($db, $table) {
     $cols = [];
     $res = $db->query("SHOW COLUMNS FROM `{$table}`");
     while ($row = $res->fetch_assoc()) {
@@ -43,7 +43,7 @@ function table_columns(mysqli $db, string $table): array {
     return $cols;
 }
 
-function one(mysqli $db, string $sql): ?array {
+function one($db, $sql) {
     $res = $db->query($sql);
     if (!$res) {
         throw new RuntimeException($db->error);
@@ -52,24 +52,28 @@ function one(mysqli $db, string $sql): ?array {
     return $row ?: null;
 }
 
-function q(mysqli $db, $value): string {
+function q($db, $value) {
     if ($value === null) return 'NULL';
     return "'" . $db->real_escape_string((string)$value) . "'";
 }
 
-function insert_row(mysqli $db, string $table, array $row, array $skip = []): int {
+function insert_row($db, $table, $row, $skip = array()) {
     foreach ($skip as $key) {
         unset($row[$key]);
     }
     $cols = array_keys($row);
-    $sql = "INSERT INTO `{$table}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', array_map(fn($v) => q($db, $v), array_values($row))) . ")";
+    $values = array();
+    foreach (array_values($row) as $value) {
+        $values[] = q($db, $value);
+    }
+    $sql = "INSERT INTO `{$table}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', $values) . ")";
     if (!$db->query($sql)) {
         throw new RuntimeException($db->error . "\n" . $sql);
     }
     return (int)$db->insert_id;
 }
 
-function update_row(mysqli $db, string $table, array $row, string $where, array $skip = []): void {
+function update_row($db, $table, $row, $where, $skip = array()) {
     foreach ($skip as $key) {
         unset($row[$key]);
     }
@@ -83,7 +87,7 @@ function update_row(mysqli $db, string $table, array $row, string $where, array 
     }
 }
 
-function ensure_template(mysqli $db, array $tables, string $sourceName, string $targetName): array {
+function ensure_template($db, $tables, $sourceName, $targetName) {
     $source = one($db, "SELECT * FROM `{$tables['templates']}` WHERE name=" . q($db, $sourceName) . " AND deleted='0' LIMIT 1");
     if (!$source) {
         throw new RuntimeException("Source template not found: {$sourceName}");
@@ -108,7 +112,7 @@ function ensure_template(mysqli $db, array $tables, string $sourceName, string $
     return [$source, $target];
 }
 
-function ensure_master_page(mysqli $db, array $tables, array $sourceTpl, array $targetTpl): array {
+function ensure_master_page($db, $tables, $sourceTpl, $targetTpl) {
     $source = one($db, "SELECT * FROM `{$tables['pages']}` WHERE template_id=" . (int)$sourceTpl['id'] . " AND is_master='1' LIMIT 1");
     if (!$source) {
         throw new RuntimeException("Source master page not found: {$sourceTpl['name']}");
@@ -126,7 +130,7 @@ function ensure_master_page(mysqli $db, array $tables, array $sourceTpl, array $
     return [$source, one($db, "SELECT * FROM `{$tables['pages']}` WHERE id={$targetId} LIMIT 1")];
 }
 
-function sync_fields_and_data(mysqli $db, array $tables, array $sourceTpl, array $targetTpl, array $sourcePage, array $targetPage): void {
+function sync_fields_and_data($db, $tables, $sourceTpl, $targetTpl, $sourcePage, $targetPage) {
     $sourceFields = $db->query("SELECT * FROM `{$tables['fields']}` WHERE template_id=" . (int)$sourceTpl['id'] . " ORDER BY id");
     while ($sourceField = $sourceFields->fetch_assoc()) {
         $targetField = one($db, "SELECT * FROM `{$tables['fields']}` WHERE template_id=" . (int)$targetTpl['id'] . " AND name=" . q($db, $sourceField['name']) . " LIMIT 1");
@@ -158,7 +162,7 @@ function sync_fields_and_data(mysqli $db, array $tables, array $sourceTpl, array
     }
 }
 
-function set_field_text(mysqli $db, array $tables, string $templateName, string $fieldName, string $value, string $search = ''): void {
+function set_field_text($db, $tables, $templateName, $fieldName, $value, $search = '') {
     $tpl = one($db, "SELECT id FROM `{$tables['templates']}` WHERE name=" . q($db, $templateName) . " LIMIT 1");
     if (!$tpl) return;
     $page = one($db, "SELECT id FROM `{$tables['pages']}` WHERE template_id=" . (int)$tpl['id'] . " AND is_master='1' LIMIT 1");
@@ -192,8 +196,8 @@ $map = [
 $db->begin_transaction();
 try {
     foreach ($map as $sourceName => $targetName) {
-        [$sourceTpl, $targetTpl] = ensure_template($db, $tables, $sourceName, $targetName);
-        [$sourcePage, $targetPage] = ensure_master_page($db, $tables, $sourceTpl, $targetTpl);
+        list($sourceTpl, $targetTpl) = ensure_template($db, $tables, $sourceName, $targetName);
+        list($sourcePage, $targetPage) = ensure_master_page($db, $tables, $sourceTpl, $targetTpl);
         sync_fields_and_data($db, $tables, $sourceTpl, $targetTpl, $sourcePage, $targetPage);
         echo "Synced {$sourceName} -> {$targetName}\n";
     }
@@ -213,7 +217,7 @@ try {
 
     $db->commit();
     echo "Done. Udelnaya CouchCMS templates and menu data are ready.\n";
-} catch (Throwable $e) {
+} catch (Exception $e) {
     $db->rollback();
     fwrite(STDERR, "Migration failed: {$e->getMessage()}\n");
     exit(1);
