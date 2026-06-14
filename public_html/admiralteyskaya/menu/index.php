@@ -199,7 +199,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                     
                     <div class="absolute inset-0 flex flex-col items-center justify-center p-4">
-                        <h3 class="font-serif-lux text-2xl md:text-4xl italic text-white text-center m-0 leading-tight">
+                        <h3 class="font-serif-lux text-4xl font-light italic text-white text-center m-0 leading-tight">
                             Визуальное<br>меню
                         </h3>
                         <div class="mt-6 flex items-center gap-2 opacity-60">
