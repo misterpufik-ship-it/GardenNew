@@ -283,12 +283,13 @@ require_once $garden_cms;
             container.innerHTML = '';
             const data = menuData.filter(i => i.cat === filter);
             data.forEach(item => {
+                const imgSrc = item.img && item.img.trim() ? item.img : '/admiralteyskaya/couch/uploads/image/sajt-menu-gl.webp';
                 const card = document.createElement('div');
                 card.className = 'dish-card';
                 card.innerHTML = `
-                    <div class="image-frame" onclick="openLightbox('${item.img}')">
+                    <div class="image-frame" onclick="openLightbox('${imgSrc}')">
                         ${getTagHtml(item.tag)}
-                        <img src="${item.img}" alt="${item.title}" loading="lazy">
+                        ${'<img src="' + imgSrc + '" alt="' + item.title + '" loading="lazy">'}
                     </div>
                     <h3 class="dish-title subtitle-gold">${item.title}</h3>
                     <div class="dish-bottom">

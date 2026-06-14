@@ -119,7 +119,7 @@
                 <div class="slider">
                     <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Адмиралтейская интерьер"></div>
                     <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden-2.webp" alt="Garden Lounge Адмиралтейская зал"></div>
-                    <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_55.webp" alt="Garden Lounge Адмиралтейская атмосфера"></div>
+                    <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_55.jpg" alt="Garden Lounge Адмиралтейская атмосфера"></div>
                     <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">‹</button>
                     <button class="slider-btn next" type="button" aria-label="Следующее фото">›</button>
                 </div>
@@ -139,7 +139,7 @@
                 <div class="slider">
                     <div class="slide active"><img src="/udelnaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Удельная интерьер"></div>
                     <div class="slide"><img src="/udelnaya/couch/uploads/image/garden-2.webp" alt="Garden Lounge Удельная зал"></div>
-                    <div class="slide"><img src="/udelnaya/couch/uploads/image/safonovleonid_green_55.webp" alt="Garden Lounge Удельная атмосфера"></div>
+                    <div class="slide"><img src="/udelnaya/couch/uploads/image/safonovleonid_green_55.jpg" alt="Garden Lounge Удельная атмосфера"></div>
                     <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">‹</button>
                     <button class="slider-btn next" type="button" aria-label="Следующее фото">›</button>
                 </div>
