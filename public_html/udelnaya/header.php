@@ -22,11 +22,11 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Управление: Шапка (Header)' name='header_section' executable='0' order='10'>
+<cms:template title='Уделка Шапка' name='header_section' executable='0' order='10'>
     
     <cms:editable name='group_contacts' label='Контакты и Соцсети' type='group' />
-    <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 995 624 68 08</cms:editable>
-    <cms:editable name='header_phone_link' label='Телефон (ссылка без пробелов)' group='group_contacts' type='text'>+79956246808</cms:editable>
+    <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 950 047-33-65</cms:editable>
+    <cms:editable name='header_phone_link' label='Телефон (ссылка без пробелов)' group='group_contacts' type='text'>+79500473365</cms:editable>
     <cms:editable name='link_vk' label='VK ссылка' group='group_contacts' type='text'>https://vk.com/loungegarden</cms:editable>
     <cms:editable name='link_inst' label='Instagram ссылка' group='group_contacts' type='text'>https://instagram.com/garden_lounge_spb/</cms:editable>
     <cms:editable name='link_yt' label='YouTube ссылка' group='group_contacts' type='text'>https://youtube.com/@garden.lounge</cms:editable>
@@ -40,9 +40,10 @@ require_once $garden_cms;
     </cms:repeatable>
 
     <cms:editable name='group_hero' label='Главный экран (Hero)' type='group' />
-    <cms:editable name='hero_tagline' label='Слоган под лого' group='group_hero' type='text'>Магический вечнозеленый сад в самом сердце Санкт-Петербурга</cms:editable>
-    <cms:editable name='hero_bg_desk' label='Фон (Десктоп)' group='group_hero' type='image'>:garden-main.webp</cms:editable>
-    <cms:editable name='hero_bg_mob' label='Фон (Мобилка)' group='group_hero' type='image'>:garden-main-mobile.webp</cms:editable>
+    <cms:editable name='hero_tagline' label='Слоган под лого' group='group_hero' type='text'>Магический вечнозеленый сад в самом сердце - на севере Санкт-Петербурга</cms:editable>
+    <cms:editable name='hero_bg_desk' label='Фон (Десктоп)' group='group_hero' type='image'>:kalyannaya-garden-lounge-udelnaya-interer-spb.webp</cms:editable>
+    <cms:editable name='hero_bg_mob' label='Фон (Мобилка)' group='group_hero' type='image'>:kalyannaya-garden-lounge-udelnaya-interer-spb.webp</cms:editable>
+    <cms:editable name='hero_img_alt' label='Alt для главного фото' group='group_hero' type='text'>Интерьер кальянной Garden Lounge на Удельной, лаунж-бар на улице Аккуратова 13 в Санкт-Петербурге</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

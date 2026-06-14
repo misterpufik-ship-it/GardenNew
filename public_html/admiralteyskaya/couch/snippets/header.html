@@ -583,8 +583,8 @@
 
 <header class="hero-section" id="home">
     <div class="hero-bg">
-        <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="hidden md:block" fetchpriority="high" decoding="async" alt="Interior">
-        <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="block md:hidden" fetchpriority="high" decoding="async" alt="Interior Mobile">
+        <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="hidden md:block" fetchpriority="high" decoding="async" alt="<cms:if hero_img_alt><cms:show hero_img_alt /><cms:else />Интерьер Garden Lounge Санкт-Петербург</cms:if>">
+        <img src="<cms:if hero_bg_mob><cms:show hero_bg_mob /><cms:else /><cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if></cms:if>" class="block md:hidden" fetchpriority="high" decoding="async" alt="<cms:if hero_img_alt><cms:show hero_img_alt /><cms:else />Интерьер Garden Lounge Санкт-Петербург</cms:if>">
         <div class="hero-overlay"></div>
     </div>
     

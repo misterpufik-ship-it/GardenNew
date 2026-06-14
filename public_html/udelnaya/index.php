@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Адмиралтейская' order='2'>
+<cms:template title='УУ. Общая страница' order='2'>
     
     <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text'>Philosophy</cms:editable>
     <cms:editable name='phil_concept' label='Текст концепции (надпись)' type='text'>Концепция</cms:editable>
@@ -80,12 +80,12 @@ require_once $garden_cms;
     <meta property="og:url" content="https://garden-lounge.pro/udelnaya/">
     <meta property="og:title" content="Garden Lounge �� �������� � ��������� � �����-��� � ���">
     <meta property="og:description" content="Garden Lounge �� ��������: �������, �����, �������, VIP-�������, PS5 � ������������ ������� �� ��. ���������� 13.">
-    <meta property="og:image" content="https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg">
+    <meta property="og:image" content="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://garden-lounge.pro/udelnaya/">
     <meta property="twitter:title" content="Garden Lounge �� �������� � ��������� � �����-��� � ���">
     <meta property="twitter:description" content="��������� Garden Lounge � ����� ��������: ����, �����, ���, VIP-������� � ����� �������.">
-    <meta property="twitter:image" content="https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg">
+    <meta property="twitter:image" content="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -93,7 +93,7 @@ require_once $garden_cms;
         "@id": "https://garden-lounge.pro/udelnaya/#localbusiness",
         "name": "Garden Lounge �� ��������",
         "url": "https://garden-lounge.pro/udelnaya/",
-        "image": "https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg",
+        "image": "https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg",
         "telephone": "<cms:show adm_phone />",
         "priceRange": "$$",
         "servesCuisine": ["Hookah lounge", "Kitchen", "Bar"],
@@ -164,6 +164,12 @@ require_once $garden_cms;
     <cms:pages masterpage='udelnaya/contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
 
+    <style>
+        .footer-brand-col { order: 1; }
+        .footer-branch-udelnaya { order: 2; }
+        .footer-branch-admiral { order: 3; }
+        .footer-nav-col { order: 4; }
+    </style>
     <cms:embed 'footer.html' />
 
     <div id="scrollTopBtn"><i class="fas fa-chevron-up"></i></div>
