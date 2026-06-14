@@ -67,8 +67,8 @@ require_once $garden_cms;
 
     <link rel="icon" type="image/png" href="favicon.png">
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
-        <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(min-width: 768px)" fetchpriority="high">
-        <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(max-width: 767px)" fetchpriority="high">
+        <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(min-width: 768px)" fetchpriority="high">
+        <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(max-width: 767px)" fetchpriority="high">
         <link rel="preload" as="image" href="couch/uploads/image/logo3.webp" fetchpriority="high">
     </cms:pages>
     
@@ -155,7 +155,12 @@ require_once $garden_cms;
 </head>
 <body>
 
-    <cms:pages masterpage='udelnaya/header.php' limit='1'><cms:embed 'header.html' /></cms:pages>
+    <cms:pages masterpage='udelnaya/header.php' limit='1'>
+        <cms:set hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp' />
+        <cms:set hero_bg_mob='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp' />
+        <cms:set hero_img_alt='Интерьер кальянной Garden Lounge на Удельной, лаунж-бар на улице Аккуратова 13 в Санкт-Петербурге' />
+        <cms:embed 'header.html' />
+    </cms:pages>
     <cms:pages masterpage='udelnaya/about.php' limit='1'><cms:embed 'about.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/gallery.php' limit='1'><cms:embed 'gallery.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>
