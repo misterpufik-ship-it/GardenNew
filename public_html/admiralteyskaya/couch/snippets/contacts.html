@@ -441,7 +441,7 @@
                 <div class="gl_tp_card_head gl_tp_sans"><span class="subtitle-gold">Guest Reviews & Ratings</span></div>
                 <div class="gl_rating_container">
                     
-                    <a href="<cms:show cont_map_link />reviews/" target="_blank" class="gl_rating_item">
+                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else /><cms:show rate_yandex_link /></cms:if>" target="_blank" class="gl_rating_item">
                         <div class="gl_platform_box">
                             <span class="gl_platform_name">Yandex</span>
                             <span class="gl_action_label">написать отзыв</span>
