@@ -287,7 +287,9 @@
 <body>
 
 <header class="py-8 text-center bg-black">
-    <img src="<cms:show site_logo />" alt="Logo" class="h-28 mx-auto">
+    <a href="https://garden-lounge.pro/admiralteyskaya/menu" class="inline-block">
+        <img src="<cms:show site_logo />" alt="Logo" class="h-28 mx-auto">
+    </a>
 </header>
 
 <div class="nav-sticky">

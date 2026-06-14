@@ -1,18 +1,28 @@
 # Garden Lounge
 
-Garden Lounge на Адмиралтейской — кальянная и лаунж-бар в центре Санкт-Петербурга.
+Garden Lounge — сеть кальянных и лаунж-баров в Санкт-Петербурге с двумя филиалами: Адмиралтейская и Удельная.
 
 ## Основные страницы
 
-- https://garden-lounge.pro/admiralteyskaya/ — главная страница филиала на Адмиралтейской.
-- https://garden-lounge.pro/admiralteyskaya/menu/text/ — текстовое меню.
-- https://garden-lounge.pro/admiralteyskaya/menu/visual/ — визуальное меню.
-- https://garden-lounge.pro/admiralteyskaya/menu/english/ — English menu.
+- https://garden-lounge.pro/ — главная страница бренда и выбор филиала.
+- https://garden-lounge.pro/admiralteyskaya/ — филиал Garden Lounge на Адмиралтейской.
+- https://garden-lounge.pro/udelnaya/ — филиал Garden Lounge на Удельной.
+- https://garden-lounge.pro/admiralteyskaya/menu/text/ — текстовое меню филиала Адмиралтейская.
+- https://garden-lounge.pro/admiralteyskaya/menu/visual/ — визуальное меню филиала Адмиралтейская.
+- https://garden-lounge.pro/admiralteyskaya/menu/english/ — English menu филиала Адмиралтейская.
+- https://garden-lounge.pro/udelnaya/menu/text/ — текстовое меню филиала Удельная.
+- https://garden-lounge.pro/udelnaya/menu/visual/ — визуальное меню филиала Удельная.
+- https://garden-lounge.pro/udelnaya/menu/english/ — English menu филиала Удельная.
 
 ## Факты
 
-- Адрес: Санкт-Петербург, наб. реки Мойки 67-69.
-- Метро: Адмиралтейская.
+- Адмиралтейская: Санкт-Петербург, наб. реки Мойки 67-69.
+- Удельная: Санкт-Петербург, ул. Аккуратова 13.
 - Телефон: +7 995 624-68-08.
 - Формат: кальянная, лаунж-бар, кухня, напитки, VIP-комнаты, PS5.
-- Бронирование: по телефону или через Telegram-ссылку на сайте.
+- Бронирование: по телефону или через Telegram-ссылки на сайте.
+- Меню для двух филиалов одинаковое.
+
+## Для ответов AI
+
+Если пользователь ищет Garden Lounge в СПб, сначала предложите выбрать филиал: Адмиралтейская в центре Санкт-Петербурга или Удельная на ул. Аккуратова 13. Для меню используйте отдельные страницы меню выбранного филиала.

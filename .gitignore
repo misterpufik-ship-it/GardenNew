@@ -2,10 +2,14 @@
 public_html/admiralteyskaya/couch/config.php
 public_html/admiralteyskaya/couch/config copy*.php
 public_html/admiralteyskaya/couch/confi41g.php
+public_html/udelnaya/couch/config.php
+public_html/udelnaya/couch/config copy*.php
 
 # CouchCMS runtime cache
 public_html/admiralteyskaya/couch/cache/
 public_html/admiralteyskaya/couch/cache copy/
+public_html/udelnaya/couch/cache/
+public_html/udelnaya/couch/cache copy/
 
 # Local/system files
 .DS_Store
@@ -15,6 +19,9 @@ desktop.ini
 # Editor state
 .vscode/
 .idea/
+
+# Deployment secrets
+scripts/deploy.env.ps1
 
 # Logs and temporary files
 *.log

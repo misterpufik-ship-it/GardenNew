@@ -1,52 +1,17 @@
 <?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Меню: Визуальное' name='menu_visual' executable='1'>
+    <cms:editable name='visual_group_assets' label='Логотип и разделители' type='group' />
+    <cms:editable name='visual_logo' label='Логотип меню' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>
+    <cms:editable name='visual_divider' label='Разделитель (линия)' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
 
-    <cms:editable name='group_main_settings' label='Настройки логотипа' type='group' collapsed='1' order='1' />
-    <cms:editable name='visual_logo' label='Логотип меню' group='group_main_settings' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>
-    <cms:editable name='visual_divider' label='Разделитель (линия)' group='group_main_settings' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
-
-    <cms:set tag_options = 'Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
-
-    <cms:editable name='group_shisha' label='Кальяны' type='group' collapsed='1' order='2' />
-    <cms:repeatable name='menu_shisha' label='Список блюд: Кальяны' group='group_shisha'>
-        <cms:editable name='item_title' label='Название' type='text' />
-        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Цена' type='text' />
+    <cms:repeatable name='menu_items_list' label='Список блюд'>
+        <cms:editable name='item_title' label='Название блюда' type='text' />
+        <cms:editable name='item_price' label='Цена (цифры)' type='text' />
         <cms:editable name='item_weight' label='Вес/Объем' type='text' />
-        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
+        <cms:editable name='item_img' label='Фото блюда' type='image' input_width='150' />
         <cms:editable name='item_desc' label='Описание' type='textarea' />
+        <cms:editable name='item_cat' label='Категория' opt_values='Кальяны=shisha | Кухня=kitchen | Бар=bar | Десерты=desserts' type='dropdown' />
     </cms:repeatable>
-
-    <cms:editable name='group_kitchen' label='Кухня' type='group' collapsed='1' order='3' />
-    <cms:repeatable name='menu_kitchen' label='Список блюд: Кухня' group='group_kitchen'>
-        <cms:editable name='item_title' label='Название' type='text' />
-        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Цена' type='text' />
-        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
-        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='Описание' type='textarea' />
-    </cms:repeatable>
-
-    <cms:editable name='group_bar' label='Бар' type='group' collapsed='1' order='4' />
-    <cms:repeatable name='menu_bar' label='Список блюд: Бар' group='group_bar'>
-        <cms:editable name='item_title' label='Название' type='text' />
-        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Цена' type='text' />
-        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
-        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='Описание' type='textarea' />
-    </cms:repeatable>
-
-    <cms:editable name='group_desserts' label='Десерты' type='group' collapsed='1' order='5' />
-    <cms:repeatable name='menu_desserts' label='Список блюд: Десерты' group='group_desserts'>
-        <cms:editable name='item_title' label='Название' type='text' />
-        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Цена' type='text' />
-        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
-        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='Описание' type='textarea' />
-    </cms:repeatable>
-
 </cms:template>
 <!DOCTYPE html>
 <html lang="ru">
@@ -69,13 +34,11 @@
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shineGold 5s linear infinite;
         }
 
-        .logo-container { padding: 2rem 0; text-align: center; background: #000; }
-        .main-logo { height: 7rem; width: auto; margin: 0 auto; }
-        .nav-sticky { position: sticky; top:0; z-index:50; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
-        .nav-container { display: flex; justify-content: center; gap: 18px; padding: 14px 10px 8px; flex-wrap: wrap; }
-        .nav-item { text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; font-weight: 700; color: #888; cursor: pointer; transition: 0.3s; padding-bottom: 6px; position: relative; }
-        .nav-item.active { color: var(--gold); }
-        .nav-item.active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: var(--gold); }
+        .nav-sticky { position: sticky; top:0; z-index:50; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
+        .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
+        .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; padding: 0 0 6px; }
+        .tab-btn.active { color: var(--gold); }
+        .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
         
         .main-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
@@ -146,19 +109,19 @@
 
     <div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
 
-    <div class="logo-container">
-        <a href="https://garden-lounge.pro/admiralteyskaya">
-            <img src="<cms:show visual_logo />" alt="Logo" class="main-logo">
+    <header class="py-8 text-center bg-black">
+        <a href="https://garden-lounge.pro/admiralteyskaya/menu">
+            <img src="<cms:show visual_logo />" alt="Logo" class="h-28 mx-auto">
         </a>
-    </div>
+    </header>
 
     <div class="nav-sticky">
-        <nav class="nav-container">
-            <div class="nav-item active" onclick="filterMenu('shisha', this)">Кальяны</div>
-            <div class="nav-item" onclick="filterMenu('kitchen', this)">Кухня</div>
-            <div class="nav-item" onclick="filterMenu('bar', this)">Бар</div>
-            <div class="nav-item" onclick="filterMenu('desserts', this)">Десерты</div>
-            <div class="nav-item" onclick="showPromos(this)">Акции</div>
+        <nav class="tabs-wrap">
+            <button type="button" class="tab-btn active uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">Кальяны</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('kitchen', this)">Кухня</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('bar', this)">Бар</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('desserts', this)">Десерты</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="showPromos(this)">Акции</button>
         </nav>
         <div class="gold-divider-nav"></div>
     </div>
@@ -223,33 +186,17 @@
 
     <script>
         const menuData = [
-            <cms:show_repeatable 'menu_shisha'>
-            { cat: 'shisha', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-            <cms:show_repeatable 'menu_kitchen'>
-            { cat: 'kitchen', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-            <cms:show_repeatable 'menu_bar'>
-            { cat: 'bar', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-            <cms:show_repeatable 'menu_desserts'>
-            { cat: 'desserts', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
+            <cms:show_repeatable 'menu_items_list'>
+            {
+                cat: '<cms:show item_cat />',
+                title: '<cms:show item_title />',
+                price: '<cms:show item_price />',
+                weight: '<cms:show item_weight />',
+                img: '<cms:show item_img />',
+                desc: '<cms:show item_desc />'
+            }<cms:if k_count != k_total_records>,</cms:if>
             </cms:show_repeatable>
         ];
-
-        function getTagHtml(tag) {
-            if (!tag || tag === '-') return '';
-            let html = '<div class="badge-container">';
-            if (tag.includes('New')) html += '<span class="badge-item">New</span>';
-            if (tag.includes('Hit')) html += '<span class="badge-item">Hit</span>';
-            if (tag.includes('Special')) html += '<span class="badge-item">Special</span>';
-            if (tag.includes('Chef’s Choice')) html += '<span class="badge-item badge-chef">Chef</span>';
-            if (tag.includes('🌶️🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️🌶️</span>';
-            else if (tag.includes('🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️</span>';
-            else if (tag.includes('🌶️')) html += '<span class="badge-spicy">🌶️</span>';
-            html += '</div>';
-            return html;
-        }
 
         function renderMenu(filter = 'shisha') {
             const container = document.getElementById('menu-items');
@@ -260,7 +207,6 @@
                 card.className = 'dish-card';
                 card.innerHTML = `
                     <div class="image-frame" onclick="openLightbox('${item.img}')">
-                        ${getTagHtml(item.tag)}
                         <img src="${item.img}" alt="${item.title}" loading="lazy">
                     </div>
                     <h3 class="dish-title subtitle-gold">${item.title}</h3>
@@ -278,7 +224,7 @@
         }
 
         function filterMenu(cat, el) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
             document.getElementById('menu-items').style.display = 'grid';
             document.getElementById('promos-container').style.display = 'none';
@@ -286,7 +232,7 @@
         }
 
         function showPromos(el) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
             document.getElementById('menu-items').style.display = 'none';
             document.getElementById('promos-container').style.display = 'block';

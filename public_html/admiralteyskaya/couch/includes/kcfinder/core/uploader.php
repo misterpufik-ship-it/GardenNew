@@ -577,6 +577,19 @@ class uploader {
         ))
             return false;
 
+        return $this->saveImageByType($gd, $file);
+    }
+
+    protected function saveImageByType($gd, $file) {
+        if (defined('IMAGETYPE_WEBP') && ($gd->type == IMAGETYPE_WEBP))
+            return $gd->imagewebp($file, $this->config['jpegQuality']);
+
+        if ($gd->type == IMAGETYPE_PNG)
+            return $gd->imagepng($file);
+
+        if ($gd->type == IMAGETYPE_GIF)
+            return $gd->imagegif($file);
+
         return $gd->imagejpeg($file, $this->config['jpegQuality']);
     }
 
@@ -611,9 +624,8 @@ class uploader {
         } elseif (!$gd->resize_fit($this->config['thumbWidth'], $this->config['thumbHeight']))
             return false;
 
-        // Save thumbnail
-        //return $gd->imagejpeg($thumb, $this->config['jpegQuality']);
-        $res = $gd->imagejpeg($thumb, $this->config['jpegQuality']);
+        // Save thumbnail in the same format as the source file.
+        $res = $this->saveImageByType($gd, $thumb);
         if( $res && $this->config['ChmodOnUpload'] ){
             $permissions = $this->config['filePerms'];
             $oldumask = umask(0);

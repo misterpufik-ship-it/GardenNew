@@ -1,4 +1,4 @@
-<style>
+﻿<style>
     :root {
         --gold-main: #C5A059;
         --gold-dark: #8e7037;
@@ -6,19 +6,19 @@
         --bg-black: #000000;
     }
 
-    /* --- БАЗА --- */
+    /* --- Р‘РђР—Рђ --- */
     html, body { width: 100%; overflow-x: hidden; background: #000; margin: 0; }
 
-    /* --- HERO ФОТО (ИСПРАВЛЕНО И ЗАФИКСИРОВАНО) --- */
+    /* --- HERO Р¤РћРўРћ (РРЎРџР РђР’Р›Р•РќРћ Р Р—РђР¤РРљРЎРР РћР’РђРќРћ) --- */
     .hero-section {
         position: relative;
         width: 100%;
         height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* Оригинальное выравнивание */
+        justify-content: space-between; /* РћСЂРёРіРёРЅР°Р»СЊРЅРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ */
         align-items: center;
-        padding: 110px 20px 40px 20px; /* Уменьшили верхний padding для центрирования лого */
+        padding: 110px 20px 40px 20px; /* РЈРјРµРЅСЊС€РёР»Рё РІРµСЂС…РЅРёР№ padding РґР»СЏ С†РµРЅС‚СЂРёСЂРѕРІР°РЅРёСЏ Р»РѕРіРѕ */
         box-sizing: border-box;
         overflow: hidden;
     }
@@ -29,14 +29,14 @@
         width: 100%; height: 100%; 
         object-fit: cover; 
         object-position: center center;
-        opacity: 0.7; /* Фото видно четко */
+        opacity: 0.7; /* Р¤РѕС‚Рѕ РІРёРґРЅРѕ С‡РµС‚РєРѕ */
     }
     .hero-overlay {
         position: absolute; inset: 0; z-index: 2;
         background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 40%, transparent 70%, #000 100%);
     }
 
-    /* --- АНИМАЦИИ --- */
+    /* --- РђРќРРњРђР¦РР --- */
     @keyframes glFadeInOnly { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
     @keyframes glLogoPulse { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.05); filter: brightness(1.15); } }
    .logo-luxe-animate {
@@ -46,7 +46,7 @@
         z-index: 10;
         display: block;
         margin-bottom: auto !important;
-        /* Десктопная настройка: */
+        /* Р”РµСЃРєС‚РѕРїРЅР°СЏ РЅР°СЃС‚СЂРѕР№РєР°: */
         transform: translateY(-25%) !important; 
     }
 
@@ -57,13 +57,13 @@
         margin-top: 0 !important;
     }
 
-    /* ЖЕСТКАЯ КОРРЕКЦИЯ ДЛЯ МОБИЛЬНЫХ */
+    /* Р–Р•РЎРўРљРђРЇ РљРћР Р Р•РљР¦РРЇ Р”Р›РЇ РњРћР‘РР›Р¬РќР«РҐ */
     @media (max-width: 767px) {
         .logo-luxe-animate {
-            /* Отрицательный маржин тянет логотип вверх к навигации */
+            /* РћС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ РјР°СЂР¶РёРЅ С‚СЏРЅРµС‚ Р»РѕРіРѕС‚РёРї РІРІРµСЂС… Рє РЅР°РІРёРіР°С†РёРё */
             margin-top: -1vh !important; 
             transform: translateY(0) !important;
-            /* Увеличиваем размер для мобилок */
+            /* РЈРІРµР»РёС‡РёРІР°РµРј СЂР°Р·РјРµСЂ РґР»СЏ РјРѕР±РёР»РѕРє */
             width: 400px !important; 
         }
     }
@@ -76,14 +76,14 @@
         animation: goldShimmer 5s linear infinite;
         z-index: 10;
     }
-/* Класс для активного пункта в мобильном меню */
+/* РљР»Р°СЃСЃ РґР»СЏ Р°РєС‚РёРІРЅРѕРіРѕ РїСѓРЅРєС‚Р° РІ РјРѕР±РёР»СЊРЅРѕРј РјРµРЅСЋ */
 .mobile-link.active-click {
     border: 1px solid rgba(197, 160, 89, 0.6) !important;
     background-color: rgba(197, 160, 89, 0.1) !important;
     color: #C5A059 !important;
 }
-    /* --- НАВИГАЦИЯ --- */
-    /* Базовое состояние меню (прозрачное) */
+    /* --- РќРђР’РР“РђР¦РРЇ --- */
+    /* Р‘Р°Р·РѕРІРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РјРµРЅСЋ (РїСЂРѕР·СЂР°С‡РЅРѕРµ) */
 .gl-navbar { 
     position: fixed; 
     top: 0; 
@@ -92,12 +92,12 @@
     z-index: 9999; 
     padding: 24px; 
     transition: all 0.4s ease; 
-    background: transparent !important; /* По умолчанию прозрачно */
+    background: transparent !important; /* РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїСЂРѕР·СЂР°С‡РЅРѕ */
 }
 
-/* Состояние при прокрутке (черный фон) */
+/* РЎРѕСЃС‚РѕСЏРЅРёРµ РїСЂРё РїСЂРѕРєСЂСѓС‚РєРµ (С‡РµСЂРЅС‹Р№ С„РѕРЅ) */
 .gl-navbar.scrolled { 
-    background: rgba(0, 0, 0, 0.95) !important; /* Черный фон с легкой прозрачностью */
+    background: rgba(0, 0, 0, 0.95) !important; /* Р§РµСЂРЅС‹Р№ С„РѕРЅ СЃ Р»РµРіРєРѕР№ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊСЋ */
     backdrop-filter: blur(12px) !important; 
     -webkit-backdrop-filter: blur(12px) !important;
     border-bottom: 1px solid rgba(197, 160, 89, 0.2) !important; 
@@ -109,14 +109,14 @@
     .nav-link:hover { color: var(--gold-main) !important; }
     .nav-booking-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
 
-    /* Стили селектора филиала */
+    /* РЎС‚РёР»Рё СЃРµР»РµРєС‚РѕСЂР° С„РёР»РёР°Р»Р° */
     .branch-selector { position: relative; cursor: pointer; padding: clamp(5px, 0.55vw, 8px) clamp(8px, 0.95vw, 16px); margin-right: clamp(4px, 0.9vw, 15px); z-index: 100; white-space: nowrap; }
     .branch-dropdown { position: absolute; top: 100%; left: 0; min-width: 210px; background: rgba(0,0,0,0.9) !important; backdrop-filter: blur(10px); border: 1px solid var(--gold-main); display: none; flex-direction: column; z-index: 99; }
     .branch-selector.active .branch-dropdown { display: flex; }
     .branch-option { padding: 16px 20px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; transition: 0.3s; color: rgba(255,255,255,0.7); cursor: pointer; }
     .branch-option.active { color: var(--gold-main); font-weight: 700; }
 
-    /* --- МОДАЛКА ВЫБОРА (ДЛЯ МОБИЛОК) --- */
+    /* --- РњРћР”РђР›РљРђ Р’Р«Р‘РћР Рђ (Р”Р›РЇ РњРћР‘РР›РћРљ) --- */
     .mobile-branch-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); z-index: 1000001; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 92px 20px 32px; }
     .mobile-branch-modal.active { display: flex; }
     .mobile-branch-close { position: fixed !important; top: 18px !important; right: 18px !important; z-index: 1000002 !important; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--gold-main) !important; }
@@ -175,7 +175,7 @@
         margin: 0 !important;
     }
 
-    /* --- МОБИЛЬНОЕ МЕНЮ --- */
+    /* --- РњРћР‘РР›Р¬РќРћР• РњР•РќР® --- */
     .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; overflow: hidden; }
     .mobile-menu-overlay.active { transform: translateY(0); visibility: visible; }
     .mobile-menu-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -222,7 +222,7 @@
     }
     #hero-branch-name-desk { color: #ffffff !important; font-size: 11px !important; line-height: 1.1 !important; letter-spacing: 0.38em !important; font-weight: 700 !important; text-transform: uppercase; text-align: center; white-space: nowrap; opacity: 1 !important; position: relative; z-index: 72 !important; text-shadow: 0 0 4px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.75); }
 
-    /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
+    /* --- РњРћР‘РР›Р¬РќР«Р• РџР РђР’РљР --- */
     @media (max-width: 767px) {
         .hero-section { height: 100svh; }
         .hero-bg img {
@@ -484,12 +484,12 @@
         <div class="branch-selector" id="desktopBranchSelector">
             <div class="flex items-center gap-3">
                 <i class="fas fa-location-dot text-[11px] text-[#C5A059]"></i>
-                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">Адмиралтейская</span>
+                <span id="current-branch-desk" class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</span>
                 <i class="fas fa-chevron-down text-[8px] opacity-60"></i>
             </div>
             <div class="branch-dropdown">
-                <div class="branch-option active" data-branch="admiral">Адмиралтейская</div>
-                <div class="branch-option" data-branch="udelnaya">Удельная</div>
+                <div class="branch-option active" data-branch="admiral">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</div>
+                <div class="branch-option" data-branch="udelnaya">РЈРґРµР»СЊРЅР°СЏ</div>
             </div>
         </div>
 
@@ -527,15 +527,15 @@
 
 <div class="mobile-branch-modal" id="mobileBranchModal">
     <div class="mobile-branch-close absolute top-8 right-8 text-[#C5A059] text-3xl cursor-pointer" id="closeBranchModal"><i class="fas fa-times"></i></div>
-    <p class="mobile-branch-title text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Выберите локацию</p>
+    <p class="mobile-branch-title text-[12px] uppercase tracking-[0.4em] text-white font-semibold mb-10">Р’С‹Р±РµСЂРёС‚Рµ Р»РѕРєР°С†РёСЋ</p>
     <div class="mobile-branch-list flex flex-col gap-6 w-full max-w-[300px]">
         <div class="text-center py-6 mobile-branch-opt active" data-branch="admiral">
-            <h3 class="text-2xl font-serif italic text-[#C5A059]">Адмиралтейская</h3>
-            <p class="text-[10px] uppercase text-white/60">Мойки 67-69</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059]">РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ</h3>
+            <p class="text-[10px] uppercase text-white/60">РњРѕР№РєРё 67-69</p>
         </div>
         <div class="text-center py-6 mobile-branch-opt" data-branch="udelnaya">
-            <h3 class="text-2xl font-serif italic text-[#C5A059]">Удельная</h3>
-            <p class="text-[10px] uppercase text-white/60">Аккуратова 13</p>
+            <h3 class="text-2xl font-serif italic text-[#C5A059]">РЈРґРµР»СЊРЅР°СЏ</h3>
+            <p class="text-[10px] uppercase text-white/60">РђРєРєСѓСЂР°С‚РѕРІР° 13</p>
         </div>
     </div>
 </div>
@@ -571,7 +571,7 @@
     
     <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
-            <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
+            <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69</p>
             <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></a>
         </div>
         <div class="flex gap-8">
@@ -609,15 +609,15 @@
     const desktopZones = document.querySelectorAll('.desktop-nav-zone');
 
     const branches = {
-        admiral: { name: "Адмиралтейская", slug: "admiralteyskaya", address: "Набережная реки Мойки д.67-69", addrMob: "Moyki 67-69" },
-        udelnaya: { name: "Удельная", slug: "udelnaya", address: "Аккуратова д.13", addrMob: "Akkuratova 13" }
+        admiral: { name: "РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ", slug: "admiralteyskaya", address: "РќР°Р±РµСЂРµР¶РЅР°СЏ СЂРµРєРё РњРѕР№РєРё Рґ.67-69", addrMob: "Moyki 67-69", url: "/admiralteyskaya/" },
+        udelnaya: { name: "РЈРґРµР»СЊРЅР°СЏ", slug: "udelnaya", address: "РђРєРєСѓСЂР°С‚РѕРІР° Рґ.13", addrMob: "Akkuratova 13", url: "/udelnaya/" }
     };
 
     function updateBranchUI(id) {
         const data = branches[id];
         if (!data) return;
 
-        // Используем опциональную проверку, чтобы скрипт не падал, если элемента нет на странице
+        // РСЃРїРѕР»СЊР·СѓРµРј РѕРїС†РёРѕРЅР°Р»СЊРЅСѓСЋ РїСЂРѕРІРµСЂРєСѓ, С‡С‚РѕР±С‹ СЃРєСЂРёРїС‚ РЅРµ РїР°РґР°Р», РµСЃР»Рё СЌР»РµРјРµРЅС‚Р° РЅРµС‚ РЅР° СЃС‚СЂР°РЅРёС†Рµ
         const elDesk = document.getElementById('current-branch-desk');
         const elMobName = document.getElementById('mob-branch-name');
         const elMobAddr = document.getElementById('mob-branch-addr');
@@ -659,17 +659,21 @@
         }
     }
 
-    // Логика переключения филиалов
+    // Р›РѕРіРёРєР° РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ С„РёР»РёР°Р»РѕРІ
     document.querySelectorAll('.branch-option, .mobile-branch-opt').forEach(opt => {
         opt.addEventListener('click', (e) => {
-            updateBranchUI(opt.dataset.branch);
-            // Если это мобильное модальное окно, закрываем его после выбора
+            const branch = opt.dataset.branch;
+            updateBranchUI(branch);
+            // Р•СЃР»Рё СЌС‚Рѕ РјРѕР±РёР»СЊРЅРѕРµ РјРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ, Р·Р°РєСЂС‹РІР°РµРј РµРіРѕ РїРѕСЃР»Рµ РІС‹Р±РѕСЂР°
             const modal = document.getElementById('mobileBranchModal');
             if (modal) modal.classList.remove('active');
+            if (branches[branch] && !window.location.pathname.startsWith(branches[branch].url)) {
+                window.location.href = branches[branch].url;
+            }
         });
     });
 
-    // Открытие десктопного селектора
+    // РћС‚РєСЂС‹С‚РёРµ РґРµСЃРєС‚РѕРїРЅРѕРіРѕ СЃРµР»РµРєС‚РѕСЂР°
     const deskSelector = document.getElementById('desktopBranchSelector');
     if (deskSelector) {
         deskSelector.onclick = (e) => {
@@ -678,7 +682,7 @@
         };
     }
 
-    // Мобильное модальное окно выбора филиала
+    // РњРѕР±РёР»СЊРЅРѕРµ РјРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ РІС‹Р±РѕСЂР° С„РёР»РёР°Р»Р°
     const mobTrigger = document.getElementById('mobileBranchTrigger');
     const closeBranch = document.getElementById('closeBranchModal');
     if (mobTrigger) mobTrigger.onclick = () => {
@@ -694,7 +698,7 @@
         if (deskSelector) deskSelector.classList.remove('active');
     };
 
-    // Скролл навигации
+    // РЎРєСЂРѕР»Р» РЅР°РІРёРіР°С†РёРё
     let lastScrolled = false;
     let ticking = false;
 
@@ -714,6 +718,8 @@
         }
     }, { passive: true });
 
+    const initialBranch = window.location.pathname.indexOf('/udelnaya/') === 0 ? 'udelnaya' : 'admiral';
+    updateBranchUI(initialBranch);
     syncResponsiveNav();
     window.addEventListener('resize', syncResponsiveNav, { passive: true });
     window.addEventListener('load', syncResponsiveNav);
@@ -721,7 +727,7 @@
         document.fonts.ready.then(syncResponsiveNav);
     }
 
-    // УПРАВЛЕНИЕ МЕНЮ (ОСНОВНОЕ)
+    // РЈРџР РђР’Р›Р•РќРР• РњР•РќР® (РћРЎРќРћР’РќРћР•)
     if (burgerBtn && mobileMenu) {
         burgerBtn.onclick = () => {
             mobileMenu.classList.add('active');
@@ -739,25 +745,25 @@
     
    document.querySelectorAll('.mobile-link').forEach(link => {
     link.onclick = function() {
-        // 1. Ищем ВСЕ ссылки в мобильном меню, у которых может быть рамка
-        // (и обычные активные, и ту, что пришла из CouchCMS как 'nav-booking-rect')
+        // 1. РС‰РµРј Р’РЎР• СЃСЃС‹Р»РєРё РІ РјРѕР±РёР»СЊРЅРѕРј РјРµРЅСЋ, Сѓ РєРѕС‚РѕСЂС‹С… РјРѕР¶РµС‚ Р±С‹С‚СЊ СЂР°РјРєР°
+        // (Рё РѕР±С‹С‡РЅС‹Рµ Р°РєС‚РёРІРЅС‹Рµ, Рё С‚Сѓ, С‡С‚Рѕ РїСЂРёС€Р»Р° РёР· CouchCMS РєР°Рє 'nav-booking-rect')
         const allLinks = document.querySelectorAll('.mobile-link');
         
         allLinks.forEach(l => {
             l.classList.remove('active-rect');
-            l.classList.remove('nav-booking-rect'); // Удаляем оригинальный класс кнопки
+            l.classList.remove('nav-booking-rect'); // РЈРґР°Р»СЏРµРј РѕСЂРёРіРёРЅР°Р»СЊРЅС‹Р№ РєР»Р°СЃСЃ РєРЅРѕРїРєРё
         });
         
-        // 2. Добавляем рамку только тому пункту, на который нажали
+        // 2. Р”РѕР±Р°РІР»СЏРµРј СЂР°РјРєСѓ С‚РѕР»СЊРєРѕ С‚РѕРјСѓ РїСѓРЅРєС‚Сѓ, РЅР° РєРѕС‚РѕСЂС‹Р№ РЅР°Р¶Р°Р»Рё
         this.classList.add('active-rect');
 
-        // 3. Закрываем меню сразу, переход к разделу продолжится по ссылке
+        // 3. Р—Р°РєСЂС‹РІР°РµРј РјРµРЅСЋ СЃСЂР°Р·Сѓ, РїРµСЂРµС…РѕРґ Рє СЂР°Р·РґРµР»Сѓ РїСЂРѕРґРѕР»Р¶РёС‚СЃСЏ РїРѕ СЃСЃС‹Р»РєРµ
         if (mobileMenu) mobileMenu.classList.remove('active');
         body.classList.remove('menu-open');
     };
 });
 
-    // Золотая рамка в меню
+    // Р—РѕР»РѕС‚Р°СЏ СЂР°РјРєР° РІ РјРµРЅСЋ
     document.addEventListener('DOMContentLoaded', () => {
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
@@ -769,3 +775,4 @@
     });
 </script>
    
+

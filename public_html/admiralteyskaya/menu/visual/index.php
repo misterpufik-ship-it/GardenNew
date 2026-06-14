@@ -75,13 +75,11 @@
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shineGold 5s linear infinite;
         }
 
-        .logo-container { padding: 2rem 0; text-align: center; background: #000; }
-        .main-logo { height: 7rem; width: auto; margin: 0 auto; }
-        .nav-sticky { position: sticky; top:0; z-index:50; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
-        .nav-container { display: flex; justify-content: center; gap: 18px; padding: 14px 10px 8px; flex-wrap: wrap; }
-        .nav-item { text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; font-weight: 700; color: #888; cursor: pointer; transition: 0.3s; padding-bottom: 6px; position: relative; }
-        .nav-item.active { color: var(--gold); }
-        .nav-item.active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: var(--gold); }
+        .nav-sticky { position: sticky; top:0; z-index:50; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
+        .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
+        .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; padding: 0 0 6px; }
+        .tab-btn.active { color: var(--gold); }
+        .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
         
         .main-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
@@ -152,19 +150,19 @@
 
     <div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
 
-    <div class="logo-container">
-        <a href="https://garden-lounge.pro/admiralteyskaya">
-            <img src="<cms:show visual_logo />" alt="Logo" class="main-logo">
+    <header class="py-8 text-center bg-black">
+        <a href="https://garden-lounge.pro/admiralteyskaya/menu">
+            <img src="<cms:show visual_logo />" alt="Logo" class="h-28 mx-auto">
         </a>
-    </div>
+    </header>
 
     <div class="nav-sticky">
-        <nav class="nav-container">
-            <div class="nav-item active" onclick="filterMenu('shisha', this)">Кальяны</div>
-            <div class="nav-item" onclick="filterMenu('kitchen', this)">Кухня</div>
-            <div class="nav-item" onclick="filterMenu('bar', this)">Бар</div>
-            <div class="nav-item" onclick="filterMenu('desserts', this)">Десерты</div>
-            <div class="nav-item" onclick="showPromos(this)">Акции</div>
+        <nav class="tabs-wrap">
+            <button type="button" class="tab-btn active uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">&#1050;&#1072;&#1083;&#1100;&#1103;&#1085;&#1099;</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('kitchen', this)">&#1050;&#1091;&#1093;&#1085;&#1103;</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('bar', this)">&#1041;&#1072;&#1088;</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('desserts', this)">&#1044;&#1077;&#1089;&#1077;&#1088;&#1090;&#1099;</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
         </nav>
         <div class="gold-divider-nav"></div>
     </div>
@@ -284,7 +282,7 @@
         }
 
         function filterMenu(cat, el) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
             document.getElementById('menu-items').style.display = 'grid';
             document.getElementById('promos-container').style.display = 'none';
@@ -292,7 +290,7 @@
         }
 
         function showPromos(el) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
             document.getElementById('menu-items').style.display = 'none';
             document.getElementById('promos-container').style.display = 'block';

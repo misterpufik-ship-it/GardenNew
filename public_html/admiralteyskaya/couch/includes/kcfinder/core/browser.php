@@ -756,15 +756,41 @@ class browser extends uploader {
             $type = $img->getType();
             
             if ($type !== false) {
-                $size = $img->getSize($file);                
+                $size = $img->getSize($file);
+            } else {
+                $size = @getimagesize($file);
+            }
+
+            if (is_array($size) && count($size)) {
+                if (!isset($size[2]) || !in_array($size[2], array_filter(array(
+                    IMAGETYPE_GIF,
+                    IMAGETYPE_PNG,
+                    IMAGETYPE_JPEG,
+                    defined('IMAGETYPE_WEBP') ? IMAGETYPE_WEBP : null
+                )))) {
+                    $size = false;
+                }
+            }
+
+            if ($size !== false) {
                 if (is_array($size) && count($size)) {
                     $thumb_file = "$thumbDir/" . basename($file);
-                    if (!is_file($thumb_file))
-                        $this->makeThumb($file, false);
+                    $refreshThumb = !is_file($thumb_file);
+                    if (!$refreshThumb && defined('IMAGETYPE_WEBP') && ($size[2] == IMAGETYPE_WEBP)) {
+                        $thumbSize = @getimagesize($thumb_file);
+                        $refreshThumb = !is_array($thumbSize) || !isset($thumbSize[2]) || ($thumbSize[2] != IMAGETYPE_WEBP);
+                    }
+                    if ($refreshThumb)
+                        $this->makeThumb($file, true);
                     $smallThumb =
                         ($size[0] <= $this->config['thumbWidth']) &&
                         ($size[1] <= $this->config['thumbHeight']) &&
-                        in_array($size[2], array(IMAGETYPE_GIF, IMAGETYPE_PNG, IMAGETYPE_JPEG));
+                        in_array($size[2], array_filter(array(
+                            IMAGETYPE_GIF,
+                            IMAGETYPE_PNG,
+                            IMAGETYPE_JPEG,
+                            defined('IMAGETYPE_WEBP') ? IMAGETYPE_WEBP : null
+                        )));
                 } else
                     $smallThumb = false;
             } else
