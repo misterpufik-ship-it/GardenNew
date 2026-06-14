@@ -503,13 +503,13 @@
     </div>
 
     <div class="desktop-nav-zone hidden md:flex gap-6 items-center justify-end flex-1">
-        <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
+        <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
     </div>
 
     <div class="mobile-nav-zone md:hidden flex items-center justify-between w-full relative">
         <div class="mobile-quick-links flex items-center gap-0 z-20">
-            <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
-            <a href="<cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if>" target="_blank" rel="noopener" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
+            <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
+            <a href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if></cms:if>" target="_blank" rel="noopener" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
         </div>
 
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center flex flex-col items-center cursor-pointer" id="mobileBranchTrigger">
@@ -572,7 +572,7 @@
     <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
             <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
-            <a href="tel:<cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></a>
+            <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></a>
         </div>
         <div class="flex gap-8">
             <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-vk"></i></a>

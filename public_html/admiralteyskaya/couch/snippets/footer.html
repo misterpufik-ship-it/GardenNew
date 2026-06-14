@@ -343,20 +343,20 @@
 
             <ul class="footer-list">
                 <li>
-                    <a href="<cms:get_custom_field 'udel_map_link' masterpage='globals.php' />" target="_blank" class="footer-info-link">
+                    <a href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPE-mNm0<cms:else /><cms:get_custom_field 'udel_map_link' masterpage='globals.php' /></cms:if>" target="_blank" class="footer-info-link">
                         <i class="fas fa-map-marker-alt text-xs"></i>
                         <span>
-                            <span class="footer-info-main"><cms:get_custom_field 'udel_address' masterpage='globals.php' /></span>
+                            <span class="footer-info-main"><cms:if is_udelnaya>Ул. Аккуратова 13<cms:else /><cms:get_custom_field 'udel_address' masterpage='globals.php' /></cms:if></span>
                             <span class="footer-info-sub">Показать на карте</span>
                         </span>
                     </a>
                 </li>
                 <li class="footer-phone-row">
-                    <a href="tel:<cms:get_custom_field 'udel_phone_clean' masterpage='globals.php' />" class="footer-phone-link">
+                    <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:get_custom_field 'udel_phone_clean' masterpage='globals.php' /></cms:if>" class="footer-phone-link">
                         <i class="fas fa-phone-alt text-xs"></i>
-                        <span class="footer-info-main"><cms:get_custom_field 'udel_phone' masterpage='globals.php' /></span>
+                        <span class="footer-info-main"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:get_custom_field 'udel_phone' masterpage='globals.php' /></cms:if></span>
                     </a>
-                    <a href="<cms:get_custom_field 'udel_tg_chat' masterpage='globals.php' />" target="_blank" class="tg-chat-btn" title="Написать администратору">
+                    <a href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:get_custom_field 'udel_tg_chat' masterpage='globals.php' /></cms:if>" target="_blank" class="tg-chat-btn" title="Написать администратору">
                         <i class="fab fa-telegram-plane"></i>
                     </a>
                 </li>

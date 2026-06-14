@@ -155,6 +155,7 @@ require_once $garden_cms;
 </head>
 <body>
 
+    <cms:set is_udelnaya='1' 'global' />
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
         <cms:set hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp' />
         <cms:set hero_bg_mob='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp' />
