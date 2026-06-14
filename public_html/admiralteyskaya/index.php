@@ -27,10 +27,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <cms:pages masterpage='globals.php' limit='1'>
-        <cms:set global_title=default_seo_title 'global' />
-        <cms:set global_desc=default_seo_desc 'global' />
-        <cms:set adm_address=adm_address_field 'global' /> 
-        <cms:set adm_phone=adm_phone_field 'global' />     
+        <cms:set global_title=seo_title_default 'global' />
+        <cms:set global_desc=seo_desc_default 'global' />
+        <cms:set adm_address=admiral_address 'global' />
+        <cms:set adm_phone=admiral_phone 'global' />
+        <cms:set adm_phone_clean=admiral_phone_clean 'global' />
+        <cms:set adm_map=admiral_map_link 'global' />
+        <cms:set social_vk=link_vk 'global' />
+        <cms:set social_instagram=link_instagram 'global' />
+        <cms:set social_telegram=link_telegram 'global' />
+        <cms:set social_youtube=link_youtube 'global' />
     </cms:pages>
 
     <title><cms:if page_title><cms:show page_title /><cms:else /><cms:show global_title /></cms:if></title>
@@ -45,6 +51,46 @@
     
     <cms:embed 'styles.html' />
     <cms:embed 'seo_tags.html' />
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": ["BarOrPub", "Restaurant"],
+        "@id": "https://garden-lounge.pro/admiralteyskaya/#localbusiness",
+        "name": "Garden Lounge на Адмиралтейской",
+        "url": "https://garden-lounge.pro/admiralteyskaya/",
+        "image": "https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg",
+        "telephone": "<cms:show adm_phone />",
+        "priceRange": "$$",
+        "servesCuisine": ["Hookah lounge", "Kitchen", "Bar"],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "<cms:show adm_address />",
+            "addressLocality": "Санкт-Петербург",
+            "addressCountry": "RU"
+        },
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
+                "opens": "12:00",
+                "closes": "01:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Friday", "Saturday"],
+                "opens": "12:00",
+                "closes": "03:00"
+            }
+        ],
+        "sameAs": [
+            "<cms:show social_vk />",
+            "<cms:show social_instagram />",
+            "<cms:show social_telegram />",
+            "<cms:show social_youtube />"
+        ],
+        "hasMap": "<cms:show adm_map />"
+    }
+    </script>
     
     <link rel="stylesheet" href="main.css">
     

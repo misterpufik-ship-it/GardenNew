@@ -53,7 +53,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Lounge | Luxury Menu</title>
+    <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
+    <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар, десерты и акции лаунж-бара в центре Санкт-Петербурга.">
+    <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
+    <meta property="og:title" content="Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб">
+    <meta property="og:description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, десерты и акции.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">

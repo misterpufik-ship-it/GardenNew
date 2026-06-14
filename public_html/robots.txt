@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+Disallow: /admiralteyskaya/couch/
+Disallow: /*copy*
+Disallow: /*import*
+Disallow: /*1213*
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://garden-lounge.pro/sitemap.xml

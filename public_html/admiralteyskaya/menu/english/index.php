@@ -10,6 +10,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><cms:if page_title_en><cms:show page_title_en /><cms:else /><cms:show page_title /></cms:if></title>
+        <meta name="description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar, drinks and special offers in central Saint Petersburg.</cms:if>">
+        <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/english/">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/english/">
+        <meta property="og:title" content="<cms:if page_title_en><cms:show page_title_en /><cms:else /><cms:show page_title /></cms:if>">
+        <meta property="og:description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar and drinks.</cms:if>">
 
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">

@@ -34,10 +34,10 @@
 
     <!-- ГРУППА: SEO ПО УМОЛЧАНИЮ -->
     <cms:editable name='group_seo' label='SEO по умолчанию' type='group' />
-        <cms:editable name='seo_title_default' label='Заголовок (Title)' group='group_seo' type='text'>Garden Lounge — Магия отдыха в Санкт-Петербурге</cms:editable>
-        <cms:editable name='seo_desc_default' label='Описание (Description)' group='group_seo' type='textarea'>Garden Lounge — магический вечнозеленый сад в центре Санкт-Петербурга. Премиальные кальяны, авторская кухня, уникальный интерьер.</cms:editable>
-        <cms:editable name='seo_keywords_default' label='Ключевые слова' group='group_seo' type='textarea'>Garden Lounge, кальянная спб, лаунж бар спб, ресторан центр спб, отдых санкт-петербург, адмиралтейская, удельная</cms:editable>
-        <cms:editable name='seo_image_default' label='Картинка для соцсетей (OG Image)' group='group_seo' type='image' />
+        <cms:editable name='seo_title_default' label='Заголовок (Title)' group='group_seo' type='text'>Garden Lounge на Адмиралтейской — кальянная и лаунж-бар в центре СПб</cms:editable>
+        <cms:editable name='seo_desc_default' label='Описание (Description)' group='group_seo' type='textarea'>Garden Lounge на наб. реки Мойки 67-69: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Адмиралтейская. Тел. +7 995 624-68-08.</cms:editable>
+        <cms:editable name='seo_keywords_default' label='Ключевые слова' group='group_seo' type='textarea'>Garden Lounge, кальянная СПб, лаунж бар СПб, кальянная у Адмиралтейской, кальянная в центре Санкт-Петербурга, набережная реки Мойки 67-69, VIP-комнаты, PS5, кухня</cms:editable>
+        <cms:editable name='seo_image_default' label='Картинка для соцсетей (OG Image)' group='group_seo' type='image'>https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

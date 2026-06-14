@@ -196,6 +196,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><cms:show page_title /></title>
+    <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения в лаунж-баре на наб. реки Мойки 67-69.</cms:if>">
+    <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/text/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/text/">
+    <meta property="og:title" content="<cms:show page_title />">
+    <meta property="og:description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения.</cms:if>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
