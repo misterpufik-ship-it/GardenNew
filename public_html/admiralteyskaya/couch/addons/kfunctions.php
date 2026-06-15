@@ -62,15 +62,66 @@ function garden_admin_label_overrides(){
     return $overrides;
 }
 
+function garden_admin_menu_header( $name, $title, $weight ){
+    return array(
+        'id'=>$weight + 10000,
+        'name'=>$name,
+        'title'=>$title,
+        'desc'=>'',
+        'parent'=>'',
+        'is_header'=>1,
+        'icon'=>null,
+        'show_in_menu'=>1,
+        'weight'=>$weight,
+        'href'=>'',
+        'access_callback'=>null,
+        'access_callback_params'=>null,
+        'is_current_callback'=>null,
+        'route'=>array(),
+        'type'=>'menu',
+        'class'=>'separator',
+        'target'=>'',
+        'confirmation_msg'=>'',
+        'no_wrapper'=>0,
+        'is_custom'=>1,
+        'html'=>'',
+        'render'=>'',
+        'args'=>'',
+        'is_compound'=>0,
+        'hide'=>0,
+        'required'=>0,
+        'content'=>'',
+        'obj'=>null,
+    );
+}
+
 function garden_alter_admin_menuitems( &$items ){
     $defaults = garden_admin_label_defaults();
     $overrides = garden_admin_label_overrides();
+
+    $items['_garden_admiral_'] = garden_admin_menu_header( '_garden_admiral_', 'Адмиралтейская', 0 );
+    $items['_garden_udelnaya_'] = garden_admin_menu_header( '_garden_udelnaya_', 'Удельная', 1 );
+
+    if ( isset($items['_templates_']) ){
+        $items['_templates_']['title'] = 'Общие';
+        $items['_templates_']['weight'] = 2;
+        $items['_templates_']['class'] = 'separator';
+    }
 
     foreach ( $defaults as $name=>$info ){
         if ( isset($items[$name]) ){
             $field = $info['field'];
             $items[$name]['title'] = ( $field && isset($overrides[$field]) ) ? $overrides[$field] : $info['title'];
             $items[$name]['weight'] = $info['weight'];
+            if ( strpos($name, 'udelnaya/') === 0 ){
+                $items[$name]['parent'] = '_garden_udelnaya_';
+            }
+            elseif ( $name === 'admin-labels.php' ){
+                $items[$name]['parent'] = '_templates_';
+            }
+            else{
+                $items[$name]['parent'] = '_garden_admiral_';
+            }
         }
     }
 }
