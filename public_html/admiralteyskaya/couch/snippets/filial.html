@@ -220,13 +220,15 @@
                         <div class="branch-gallery-slide">
                             <img src="<cms:show final_img />" alt="<cms:if final_img_alt><cms:show final_img_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
                         </div>
-                        <cms:show_repeatable 'final_gallery'>
-                            <cms:if final_gallery_img>
-                                <div class="branch-gallery-slide">
-                                    <img src="<cms:show final_gallery_img />" alt="<cms:show final_gallery_alt />" class="img-premium" loading="lazy" decoding="async">
-                                </div>
-                            </cms:if>
-                        </cms:show_repeatable>
+                        <cms:if final_media_mode='gallery'>
+                            <cms:show_repeatable 'final_gallery'>
+                                <cms:if final_gallery_img>
+                                    <div class="branch-gallery-slide">
+                                        <img src="<cms:show final_gallery_img />" alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
+                                    </div>
+                                </cms:if>
+                            </cms:show_repeatable>
+                        </cms:if>
                     </div>
                     <button type="button" class="branch-gallery-btn branch-gallery-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
                     <button type="button" class="branch-gallery-btn branch-gallery-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
@@ -247,7 +249,7 @@
                 </a>
 
                 <div class="flex justify-center">
-                    <img src="<cms:if final_sep='https://misterpufik.ru/div.png'>couch/uploads/image/div.webp<cms:else /><cms:show final_sep /></cms:if>" alt="Separator" class="separator-img" loading="lazy" decoding="async">
+                    <img src="<cms:if final_sep='https://garden-lounge.pro/img/div.png'>couch/uploads/image/div.webp<cms:else /><cms:show final_sep /></cms:if>" alt="Separator" class="separator-img" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>

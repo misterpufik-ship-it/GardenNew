@@ -1,6 +1,6 @@
 <?php require_once( 'couch/cms.php' ); ?>
 
-<cms:template title='А. Акции' name='akzii_section' executable='0' order='110'>
+<cms:template title='Акции' name='akzii_section' executable='0' order='120'>
     
     <cms:editable name='group_titles' label='Заголовки секции' type='group' />
     

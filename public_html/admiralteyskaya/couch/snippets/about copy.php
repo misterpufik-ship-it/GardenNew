@@ -10,7 +10,7 @@
     </cms:editable>
     
     <cms:editable name='about_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
-    <cms:editable name='about_sep_img' label='Картинка разделителя' type='image'>https://misterpufik.ru/div.png</cms:editable>
+    <cms:editable name='about_sep_img' label='Картинка разделителя' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
 </cms:template>
 
 <style>

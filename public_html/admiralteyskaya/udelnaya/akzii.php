@@ -23,7 +23,7 @@ if (!$garden_cms) {
 require_once $garden_cms;
 ?>
 
-<cms:template title='У. Акции' name='akzii_section' executable='0' order='310'>
+<cms:template title='Акции' name='akzii_section' executable='0' order='120'>
     
     <cms:editable name='group_titles' label='Заголовки секции' type='group' />
     

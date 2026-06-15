@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='А. Философия' name='philosophy_section' executable='0' order='210'>
+<cms:template title='Концепция' name='philosophy_section' executable='0' order='110'>
     
     <cms:editable name='phil_title' label='Главный заголовок' type='text'>Philosophy</cms:editable>
     <cms:editable name='phil_concept' label='Текст концепции' type='text'>Концепция</cms:editable>
@@ -12,7 +12,7 @@
     
     <cms:editable name='phil_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
     
-    <cms:editable name='phil_sep' label='Картинка разделителя (узор)' type='image'>https://misterpufik.ru/div.png</cms:editable>
+    <cms:editable name='phil_sep' label='Картинка разделителя (узор)' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

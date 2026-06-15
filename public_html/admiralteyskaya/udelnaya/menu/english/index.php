@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='У. Меню EN' icon='globe' order='360' />
+<cms:template title='Меню EN' icon='globe' order='150' />
 
 <cms:pages masterpage='udelnaya/menu/text/index.php' limit='1'>
     <cms:set my_lang='en' 'global' />
@@ -315,7 +315,7 @@ require_once $garden_cms;
                             <p class="text-[10px] uppercase tracking-[0.3em] font-medium m-0 italic shimmer-gold"><cms:if promo_footer_en><cms:show promo_footer_en /><cms:else /><cms:show promo_footer /></cms:if></p>
                         </footer>
                         <div style="margin-top: 40px; text-align: center; opacity: 0.7;">
-                            <img src="https://misterpufik.ru/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
+                            <img src="https://garden-lounge.pro/img/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
                         </div>
                     </div>
                 </div>

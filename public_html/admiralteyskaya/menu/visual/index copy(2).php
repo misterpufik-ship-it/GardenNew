@@ -1,5 +1,5 @@
 <?php require_once( '../../couch/cms.php' ); ?>
-<cms:template title='А. Меню визуальное' name='menu_visual' executable='1' order='180'>
+<cms:template title='Меню визуальное' name='menu_visual' executable='1' order='160'>
     <cms:editable name='visual_group_assets' label='Логотип и разделители' type='group' />
     <cms:editable name='visual_logo' label='Логотип меню' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>
     <cms:editable name='visual_divider' label='Разделитель (линия)' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>

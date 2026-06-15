@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='А. Общая страница' order='100'>
+<cms:template title='Общая страница' order='220'>
     
     <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text'>Philosophy</cms:editable>
     <cms:editable name='phil_concept' label='Текст концепции (надпись)' type='text'>Концепция</cms:editable>
@@ -9,7 +9,7 @@
         Здесь время замедляет свой ход. Роскошный интерьер, утопающий в живых тропиках, мелодичный шум фонтана и уютное тепло камина создают атмосферу абсолютной гармонии и уединения.
     </cms:editable>
     <cms:editable name='phil_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
-    <cms:editable name='phil_sep' label='Картинка разделителя' type='image'>https://misterpufik.ru/div.png</cms:editable>
+    <cms:editable name='phil_sep' label='Картинка разделителя' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
 
     <cms:editable name='seo_group' label='SEO и Оптимизация под ИИ' type='group' order='10' />
         <cms:editable name='phil_img_alt' label='Alt-текст для картинки' group='seo_group' type='text'>Эстетичный лаундж бар Санкт-Петербург</cms:editable>

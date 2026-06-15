@@ -1,6 +1,6 @@
 <?php require_once( '../../couch/cms.php' ); ?>
 
-<cms:template title='А. Меню текст' icon='restaurant' order='170'>
+<cms:template title='Меню RU' icon='restaurant' order='140'>
 
     <cms:editable name='translation_script' type='message' order='0'>
         <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 20px;">
@@ -484,7 +484,7 @@
                 </footer>
 
                 <div style="margin-top: 40px; text-align: center; opacity: 0.7;">
-                    <img src="https://misterpufik.ru/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
+                    <img src="https://garden-lounge.pro/img/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='А. Настройки сайта (Футер и SEO)' executable='0' order='190'>
+<cms:template title='Футер и SEO' executable='0' order='210'>
 
     <!-- ГРУППА: ОБЩАЯ ИНФОРМАЦИЯ -->
     <cms:editable name='group_general' label='Общая информация' type='group' />

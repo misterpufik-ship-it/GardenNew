@@ -218,7 +218,7 @@
                         </footer>
 
                         <div style="margin-top: 40px; text-align: center; opacity: 0.7;">
-                            <img src="https://misterpufik.ru/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
+                            <img src="https://garden-lounge.pro/img/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='У. Философия' name='philosophy_section' executable='0' order='410'>
+<cms:template title='Концепция' name='philosophy_section' executable='0' order='110'>
     
     <cms:editable name='phil_group' label='Контент блока' type='group' order='1' />
         <cms:editable name='phil_title' label='Заголовок (H1/H2)' group='phil_group' type='text'>Philosophy</cms:editable>

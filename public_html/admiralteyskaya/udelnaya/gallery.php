@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='У. Галерея' name='gallery_section' executable='0' order='330'>
+<cms:template title='Галерея' name='gallery_section' executable='0' order='170'>
     
     <cms:editable name='gallery_main_title' label='Главный заголовок' type='text'>Experience</cms:editable>
     <cms:editable name='gallery_sub_title' label='Подзаголовок' type='text'>Визуальная эстетика</cms:editable>
@@ -30,6 +30,7 @@ require_once $garden_cms;
     <cms:repeatable name='gallery_items' label='Фотографии галереи'>
         <cms:editable name='gallery_img' label='Фото' type='image' />
         <cms:editable name='gallery_img_title' label='Подпись к фото' type='text' />
+        <cms:editable name='gallery_img_alt' label='ALT для SEO' type='text' />
         <cms:editable name='gallery_category' label='Категория (Вкладка)' 
             opt_values='Interior=interior | Menu=menu | Vibe=vibe' 
             type='dropdown' 

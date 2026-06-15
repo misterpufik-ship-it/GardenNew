@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='А. Шапка сайта (Header)' name='header_section' executable='0' order='220'>
+<cms:template title='Шапка сайта (Header)' name='header_section' executable='0' order='100'>
     
     <cms:editable name='group_contacts' label='Контакты и Соцсети' type='group' />
     <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 995 624 68 08</cms:editable>

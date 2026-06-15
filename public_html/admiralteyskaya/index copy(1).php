@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='А. Общая страница' order='100'>
+<cms:template title='Общая страница' order='220'>
     <!-- Здесь ваши редактируемые поля для этой страницы -->
     <cms:editable name='page_title' label='Заголовок страницы' type='text' />
 </cms:template>

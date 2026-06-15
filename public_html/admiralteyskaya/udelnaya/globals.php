@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='У. Настройки сайта (Футер и SEO)' executable='0' order='390'>
+<cms:template title='Футер и SEO' executable='0' order='210'>
 
     <!-- ГРУППА: ОБЩАЯ ИНФОРМАЦИЯ -->
     <cms:editable name='group_general' label='Общая информация' type='group' />
@@ -57,9 +57,9 @@ require_once $garden_cms;
 
     <!-- ГРУППА: SEO ПО УМОЛЧАНИЮ -->
     <cms:editable name='group_seo' label='SEO по умолчанию' type='group' />
-        <cms:editable name='seo_title_default' label='Заголовок (Title)' group='group_seo' type='text'>Garden Lounge на Адмиралтейской — кальянная и лаунж-бар в центре СПб</cms:editable>
-        <cms:editable name='seo_desc_default' label='Описание (Description)' group='group_seo' type='textarea'>Garden Lounge на наб. реки Мойки 67-69: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Адмиралтейская. Тел. +7 995 624-68-08.</cms:editable>
-        <cms:editable name='seo_keywords_default' label='Ключевые слова' group='group_seo' type='textarea'>Garden Lounge, кальянная СПб, кальянная у Адмиралтейской, лаунж бар СПб, кальянная в центре СПб, VIP кальянная СПб, кальянная с кухней, lounge bar, hookah bar, кальянная в центре, кальянная с необычным интерьером, набережная реки Мойки 67-69, Адмиралтейская, VIP-комнаты, PS5, кухня</cms:editable>
+        <cms:editable name='seo_title_default' label='Заголовок (Title)' group='group_seo' type='text'>Garden Lounge на Удельной — кальянная и лаунж-бар у метро Удельная в СПб</cms:editable>
+        <cms:editable name='seo_desc_default' label='Описание (Description)' group='group_seo' type='textarea'>Garden Lounge на ул. Аккуратова 13: премиальные кальяны, кухня, уютный лаунж-бар и бронь столика рядом с метро Удельная. Тел. +7 950 047-33-65.</cms:editable>
+        <cms:editable name='seo_keywords_default' label='Ключевые слова' group='group_seo' type='textarea'>Garden Lounge, кальянная Удельная, кальянная у метро Удельная, лаунж бар Удельная, кальянная СПб, лаунж бар СПб, кальянная с кухней, lounge bar, hookah bar, ул. Аккуратова 13, Удельная, кухня, бронь столика</cms:editable>
         <cms:editable name='seo_image_default' label='Картинка для соцсетей (OG Image)' group='group_seo' type='image'>https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg</cms:editable>
 
 </cms:template>

@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='У. Шапка сайта (Header)' name='header_section' executable='0' order='420'>
+<cms:template title='Шапка сайта (Header)' name='header_section' executable='0' order='100'>
     
     <cms:editable name='group_contacts' label='Контакты и Соцсети' type='group' />
     <cms:editable name='header_phone' label='Телефон (текст)' group='group_contacts' type='text'>+7 950 047-33-65</cms:editable>
