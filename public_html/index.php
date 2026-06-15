@@ -24,8 +24,9 @@
             --gold-dark: #8e7037;
             --gold-light: #FFEebb;
             --bg-black: #000000;
-            --line: rgba(197, 160, 89, .36);
             --text-soft: rgba(255, 255, 255, .74);
+            --surface: #050505;
+            --surface-soft: #090909;
         }
 
         * { box-sizing: border-box; }
@@ -86,33 +87,29 @@
         }
 
         .intro {
-            width: min(900px, 100%);
-            margin: 0 auto clamp(20px, 3vw, 30px);
+            width: min(760px, 100%);
+            margin: 0 auto clamp(18px, 2.6vw, 26px);
             text-align: center;
         }
 
         h1 {
             margin: 0;
             font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: clamp(32px, 4.8vw, 56px);
+            font-size: clamp(25px, 3.15vw, 38px);
             font-weight: 300;
-            line-height: 1.03;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold-main) 40%, var(--gold-light) 50%, var(--gold-main) 60%, var(--gold-dark) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shineGold 5s linear infinite;
+            font-style: italic;
+            line-height: 1.04;
+            letter-spacing: 0;
+            color: #fff;
+            text-shadow: 0 8px 28px rgba(0, 0, 0, .55);
         }
 
         .lead {
-            margin: 8px 0 0;
-            color: var(--text-soft);
-            font-size: clamp(13px, 1.4vw, 16px);
+            margin: 6px 0 0;
+            color: var(--gold-main);
+            font-size: clamp(10px, 1vw, 13px);
             font-weight: 500;
-            letter-spacing: .18em;
+            letter-spacing: .34em;
             text-transform: uppercase;
         }
 
@@ -129,30 +126,41 @@
         }
 
         .branch {
-            border: 1px solid var(--line);
-            background: #000;
-            box-shadow: 0 18px 52px rgba(0, 0, 0, .62);
+            background: linear-gradient(180deg, var(--surface), #000);
+            box-shadow: 0 22px 70px rgba(0, 0, 0, .58);
         }
 
         .branch-title {
-            min-height: 68px;
+            min-height: 82px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 18px 16px 14px;
-            border-bottom: 1px solid rgba(197, 160, 89, .22);
+            gap: 5px;
+            padding: 19px 16px 16px;
+            background: #000;
         }
 
         .branch-title h2 {
             margin: 0;
             font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: clamp(28px, 3.1vw, 40px);
+            font-size: clamp(33px, 3.6vw, 48px);
             font-weight: 600;
+            font-style: italic;
             line-height: 1;
-            letter-spacing: .08em;
-            text-transform: uppercase;
+            letter-spacing: 0;
+            text-transform: none;
             color: #fff;
-            text-shadow: 0 0 18px rgba(197, 160, 89, .16);
+            text-shadow: 0 10px 28px rgba(0, 0, 0, .64);
+        }
+
+        .branch-kicker {
+            color: var(--gold-main);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: .42em;
+            line-height: 1.2;
+            text-transform: uppercase;
         }
 
         .slider {
@@ -160,6 +168,7 @@
             aspect-ratio: 16 / 10;
             background: #050505;
             overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .035);
         }
 
         .slide {
@@ -235,14 +244,14 @@
         }
 
         .branch-info {
-            padding: 20px clamp(16px, 2.2vw, 26px) 24px;
-            border-top: 1px solid rgba(197, 160, 89, .2);
+            padding: 19px clamp(16px, 2.2vw, 26px) 24px;
+            background: linear-gradient(180deg, var(--surface-soft), #000);
         }
 
         .address {
             margin: 0 0 18px;
             min-height: 24px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 9px;
@@ -250,6 +259,12 @@
             font-size: 14px;
             font-weight: 600;
             text-align: center;
+            width: 100%;
+        }
+
+        .address:hover,
+        .address:focus-visible {
+            color: var(--gold-light);
         }
 
         .pin {
@@ -261,45 +276,56 @@
 
         .branch-actions {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 12px;
         }
 
         .button {
-            min-height: 47px;
-            border: 1px solid rgba(197, 160, 89, .46);
+            min-height: 78px;
+            border: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 14px;
-            background: rgba(197, 160, 89, .08);
-            color: var(--gold-main);
-            font-size: 11px;
+            padding: 18px 20px;
+            color: #000;
+            background:
+                linear-gradient(130deg, transparent 0 46%, rgba(255, 248, 220, .3) 46% 62%, transparent 62%),
+                linear-gradient(100deg, #a47f3f 0%, #c9a763 36%, #f4dda2 76%, #c29b52 100%);
+            font-size: clamp(13px, 1.2vw, 16px);
             font-weight: 800;
             line-height: 1.15;
-            letter-spacing: .18em;
+            letter-spacing: .42em;
             text-transform: uppercase;
             text-align: center;
-        }
-
-        .button.primary {
-            color: #000;
-            border-color: transparent;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold-main), var(--gold-light), var(--gold-main));
         }
 
         .button:hover,
         .button:focus-visible {
             transform: translateY(-1px);
             color: #000;
-            background: var(--gold-main);
+            background:
+                linear-gradient(130deg, transparent 0 43%, rgba(255, 250, 227, .4) 43% 64%, transparent 64%),
+                linear-gradient(100deg, #b18d49 0%, #dbbd75 42%, #ffe7aa 78%, #cda85f 100%);
+        }
+
+        .call-link {
+            justify-self: center;
+            color: rgba(255, 255, 255, .72);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+        }
+
+        .call-link:hover,
+        .call-link:focus-visible {
+            color: var(--gold-main);
         }
 
         .socials {
             width: min(1100px, 100%);
             margin: clamp(22px, 3.4vw, 38px) auto 0;
             padding-top: 22px;
-            border-top: 1px solid rgba(197, 160, 89, .32);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -309,7 +335,6 @@
         .social-link {
             width: 42px;
             height: 42px;
-            border: 1px solid rgba(197, 160, 89, .34);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
@@ -366,7 +391,7 @@
             }
 
             h1 {
-                font-size: clamp(28px, 8.1vw, 38px);
+                font-size: clamp(25px, 6.9vw, 32px);
                 line-height: 1.04;
             }
 
@@ -381,12 +406,17 @@
             }
 
             .branch-title {
-                min-height: 58px;
-                padding: 15px 12px 12px;
+                min-height: 70px;
+                padding: 16px 12px 14px;
             }
 
             .branch-title h2 {
-                font-size: clamp(25px, 7.2vw, 32px);
+                font-size: clamp(31px, 8.4vw, 39px);
+            }
+
+            .branch-kicker {
+                font-size: 9px;
+                letter-spacing: .32em;
             }
 
             .slider {
@@ -415,10 +445,10 @@
             }
 
             .button {
-                min-height: 42px;
-                padding: 10px 8px;
-                font-size: 10px;
-                letter-spacing: .1em;
+                min-height: 62px;
+                padding: 14px 12px;
+                font-size: 12px;
+                letter-spacing: .24em;
             }
 
             .socials {
@@ -467,6 +497,7 @@
             <article class="branch" data-slider>
                 <div class="branch-title">
                     <h2>Адмиралтейская</h2>
+                    <span class="branch-kicker">Classic garden</span>
                 </div>
                 <div class="slider" aria-label="Слайдер фото филиала Адмиралтейская">
                     <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Адмиралтейская"></div>
@@ -481,13 +512,13 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
-                    <p class="address">
+                    <a class="address" href="https://yandex.ru/maps/-/CPxBuF4-" target="_blank" rel="noopener">
                         <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
                         наб. реки Мойки, 67-69
-                    </p>
+                    </a>
                     <div class="branch-actions">
-                        <a class="button primary" href="/admiralteyskaya/">Открыть филиал</a>
-                        <a class="button" href="tel:+79956246808">Позвонить</a>
+                        <a class="button" href="/admiralteyskaya/">Войти в оазис</a>
+                        <a class="call-link" href="tel:+79956246808">Позвонить</a>
                     </div>
                 </div>
             </article>
@@ -495,6 +526,7 @@
             <article class="branch" data-slider>
                 <div class="branch-title">
                     <h2>Удельная</h2>
+                    <span class="branch-kicker">Secret oasis</span>
                 </div>
                 <div class="slider" aria-label="Слайдер фото филиала Удельная">
                     <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Garden Lounge Удельная"></div>
@@ -509,13 +541,13 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
-                    <p class="address">
+                    <a class="address" href="https://yandex.ru/maps/-/CPxBuAyI" target="_blank" rel="noopener">
                         <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
                         ул. Аккуратова, 13
-                    </p>
+                    </a>
                     <div class="branch-actions">
-                        <a class="button primary" href="/udelnaya/">Открыть филиал</a>
-                        <a class="button" href="tel:+79500473365">Позвонить</a>
+                        <a class="button" href="/udelnaya/">Выбрать сад</a>
+                        <a class="call-link" href="tel:+79500473365">Позвонить</a>
                     </div>
                 </div>
             </article>
