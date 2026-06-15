@@ -95,10 +95,10 @@
         h1 {
             margin: 0;
             font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: clamp(25px, 3.15vw, 38px);
-            font-weight: 300;
+            font-size: clamp(33px, 3.6vw, 48px);
+            font-weight: 600;
             font-style: italic;
-            line-height: 1.04;
+            line-height: 1;
             letter-spacing: 0;
             color: #fff;
             text-shadow: 0 8px 28px rgba(0, 0, 0, .55);
@@ -131,36 +131,50 @@
         }
 
         .branch-title {
-            min-height: 82px;
+            min-height: 88px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            padding: 19px 16px 16px;
+            gap: 7px;
+            padding: 18px 16px 17px;
             background: #000;
         }
 
         .branch-title h2 {
             margin: 0;
             font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: clamp(33px, 3.6vw, 48px);
-            font-weight: 600;
+            font-size: clamp(25px, 3.15vw, 38px);
+            font-weight: 300;
             font-style: italic;
-            line-height: 1;
+            line-height: 1.04;
             letter-spacing: 0;
             text-transform: none;
             color: #fff;
             text-shadow: 0 10px 28px rgba(0, 0, 0, .64);
         }
 
-        .branch-kicker {
+        .branch-address {
             color: var(--gold-main);
-            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-size: 12px;
             font-weight: 500;
-            letter-spacing: .42em;
-            line-height: 1.2;
-            text-transform: uppercase;
+            line-height: 1.25;
+            text-align: center;
+        }
+
+        .branch-address:hover,
+        .branch-address:focus-visible {
+            color: var(--gold-light);
+        }
+
+        .branch-address .pin {
+            width: 14px;
+            height: 14px;
+            flex-basis: 14px;
         }
 
         .slider {
@@ -244,27 +258,8 @@
         }
 
         .branch-info {
-            padding: 19px clamp(16px, 2.2vw, 26px) 24px;
+            padding: 18px clamp(16px, 2.2vw, 26px) 20px;
             background: linear-gradient(180deg, var(--surface-soft), #000);
-        }
-
-        .address {
-            margin: 0 0 18px;
-            min-height: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-            color: rgba(255, 255, 255, .82);
-            font-size: 14px;
-            font-weight: 600;
-            text-align: center;
-            width: 100%;
-        }
-
-        .address:hover,
-        .address:focus-visible {
-            color: var(--gold-light);
         }
 
         .pin {
@@ -276,25 +271,26 @@
 
         .branch-actions {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
+            grid-template-columns: minmax(0, 1fr) minmax(112px, .45fr);
+            gap: 10px;
+            align-items: stretch;
         }
 
         .button {
-            min-height: 78px;
+            min-height: 48px;
             border: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 18px 20px;
+            padding: 12px 16px;
             color: #000;
             background:
                 linear-gradient(130deg, transparent 0 46%, rgba(255, 248, 220, .3) 46% 62%, transparent 62%),
                 linear-gradient(100deg, #a47f3f 0%, #c9a763 36%, #f4dda2 76%, #c29b52 100%);
-            font-size: clamp(13px, 1.2vw, 16px);
+            font-size: clamp(11px, 1vw, 13px);
             font-weight: 800;
             line-height: 1.15;
-            letter-spacing: .42em;
+            letter-spacing: .22em;
             text-transform: uppercase;
             text-align: center;
         }
@@ -309,11 +305,16 @@
         }
 
         .call-link {
-            justify-self: center;
-            color: rgba(255, 255, 255, .72);
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: .24em;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, .045);
+            color: rgba(255, 255, 255, .78);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .18em;
             text-transform: uppercase;
         }
 
@@ -391,8 +392,8 @@
             }
 
             h1 {
-                font-size: clamp(25px, 6.9vw, 32px);
-                line-height: 1.04;
+                font-size: clamp(31px, 8.4vw, 39px);
+                line-height: 1;
             }
 
             .lead {
@@ -406,17 +407,16 @@
             }
 
             .branch-title {
-                min-height: 70px;
+                min-height: 82px;
                 padding: 16px 12px 14px;
             }
 
             .branch-title h2 {
-                font-size: clamp(31px, 8.4vw, 39px);
+                font-size: clamp(25px, 6.9vw, 32px);
             }
 
-            .branch-kicker {
-                font-size: 9px;
-                letter-spacing: .32em;
+            .branch-address {
+                font-size: 11px;
             }
 
             .slider {
@@ -445,10 +445,16 @@
             }
 
             .button {
-                min-height: 62px;
-                padding: 14px 12px;
-                font-size: 12px;
-                letter-spacing: .24em;
+                min-height: 44px;
+                padding: 11px 8px;
+                font-size: 10px;
+                letter-spacing: .1em;
+            }
+
+            .call-link {
+                min-height: 44px;
+                font-size: 9px;
+                letter-spacing: .12em;
             }
 
             .socials {
@@ -496,8 +502,11 @@
         <section class="branches" aria-label="Выбор филиала Garden Lounge">
             <article class="branch" data-slider>
                 <div class="branch-title">
-                    <h2>Адмиралтейская</h2>
-                    <span class="branch-kicker">Classic garden</span>
+                    <h2>м. Адмиралтейская</h2>
+                    <a class="branch-address" href="https://yandex.ru/maps/-/CPxBuF4-" target="_blank" rel="noopener">
+                        <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
+                        наб. реки Мойки, 67-69
+                    </a>
                 </div>
                 <div class="slider" aria-label="Слайдер фото филиала Адмиралтейская">
                     <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Адмиралтейская"></div>
@@ -512,10 +521,6 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
-                    <a class="address" href="https://yandex.ru/maps/-/CPxBuF4-" target="_blank" rel="noopener">
-                        <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
-                        наб. реки Мойки, 67-69
-                    </a>
                     <div class="branch-actions">
                         <a class="button" href="/admiralteyskaya/">Войти в оазис</a>
                         <a class="call-link" href="tel:+79956246808">Позвонить</a>
@@ -525,8 +530,11 @@
 
             <article class="branch" data-slider>
                 <div class="branch-title">
-                    <h2>Удельная</h2>
-                    <span class="branch-kicker">Secret oasis</span>
+                    <h2>м. Удельная</h2>
+                    <a class="branch-address" href="https://yandex.ru/maps/-/CPxBuAyI" target="_blank" rel="noopener">
+                        <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
+                        ул. Аккуратова, 13
+                    </a>
                 </div>
                 <div class="slider" aria-label="Слайдер фото филиала Удельная">
                     <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Garden Lounge Удельная"></div>
@@ -541,10 +549,6 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
-                    <a class="address" href="https://yandex.ru/maps/-/CPxBuAyI" target="_blank" rel="noopener">
-                        <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
-                        ул. Аккуратова, 13
-                    </a>
                     <div class="branch-actions">
                         <a class="button" href="/udelnaya/">Выбрать сад</a>
                         <a class="call-link" href="tel:+79500473365">Позвонить</a>
