@@ -53,9 +53,7 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            background:
-                radial-gradient(circle at 50% 0%, rgba(197, 160, 89, .08), transparent 28%),
-                linear-gradient(180deg, rgba(197, 160, 89, .05), transparent 260px);
+            background: none;
         }
 
         a {
@@ -76,14 +74,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: clamp(18px, 3vw, 34px);
+            margin-bottom: clamp(18px, 3vw, 32px);
         }
 
         .logo {
-            width: clamp(250px, 26vw, 360px);
+            width: clamp(268px, 28vw, 386px);
             height: auto;
             display: block;
-            filter: drop-shadow(0 0 16px rgba(197, 160, 89, .23));
+            filter: none;
         }
 
         .intro {
@@ -271,7 +269,7 @@
 
         .branch-actions {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(112px, .45fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 10px;
             align-items: stretch;
         }
@@ -287,12 +285,14 @@
             background:
                 linear-gradient(130deg, transparent 0 46%, rgba(255, 248, 220, .3) 46% 62%, transparent 62%),
                 linear-gradient(100deg, #a47f3f 0%, #c9a763 36%, #f4dda2 76%, #c29b52 100%);
+            background-size: 230% 100%, 200% 100%;
             font-size: clamp(11px, 1vw, 13px);
             font-weight: 800;
             line-height: 1.15;
             letter-spacing: .22em;
             text-transform: uppercase;
             text-align: center;
+            animation: shineGold 5s linear infinite;
         }
 
         .button:hover,
@@ -302,6 +302,7 @@
             background:
                 linear-gradient(130deg, transparent 0 43%, rgba(255, 250, 227, .4) 43% 64%, transparent 64%),
                 linear-gradient(100deg, #b18d49 0%, #dbbd75 42%, #ffe7aa 78%, #cda85f 100%);
+            background-size: 230% 100%, 200% 100%;
         }
 
         .call-link {
@@ -383,8 +384,8 @@
             }
 
             .logo {
-                width: min(64vw, 266px);
-                min-width: 222px;
+                width: min(68vw, 286px);
+                min-width: 236px;
             }
 
             .intro {
@@ -493,11 +494,6 @@
                 <img class="logo" src="/img/logo3.png" alt="Garden Lounge" width="360" height="152">
             </a>
         </header>
-
-        <section class="intro" aria-labelledby="main-title">
-            <h1 id="main-title">Два тайных сада Петербурга</h1>
-            <p class="lead">Выберите свой Garden Lounge</p>
-        </section>
 
         <section class="branches" aria-label="Выбор филиала Garden Lounge">
             <article class="branch" data-slider>
