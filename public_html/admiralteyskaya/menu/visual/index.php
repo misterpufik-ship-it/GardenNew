@@ -1,5 +1,5 @@
 <?php require_once( '../../couch/cms.php' ); ?>
-<cms:template title='Адмирал Меню Визуальное' name='menu_visual' executable='1'>
+<cms:template title='А. Меню визуальное' name='menu_visual' executable='1' order='180'>
 
     <cms:editable name='group_main_settings' label='Настройки логотипа' type='group' collapsed='1' order='1' />
     <cms:editable name='visual_logo' label='Логотип меню' group='group_main_settings' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>

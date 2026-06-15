@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Уделка Бронирование' name='reservation_section' executable='0' order='50'>
+<cms:template title='У. Бронирование' name='reservation_section' executable='0' order='320'>
     
     <cms:editable name='res_group_titles' label='Заголовки секции' type='group' />
     <cms:editable name='res_title' label='Главный заголовок' group='res_group_titles' type='text'>Reservation</cms:editable>

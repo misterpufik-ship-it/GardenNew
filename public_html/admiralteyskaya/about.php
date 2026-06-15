@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Адмирал Философия' name='philosophy_section' executable='0' order='20'>
+<cms:template title='А. Философия' name='philosophy_section' executable='0' order='210'>
     
     <cms:editable name='phil_group' label='Контент блока' type='group' order='1' />
         <cms:editable name='phil_title' label='Заголовок (H1/H2)' group='phil_group' type='text'>Philosophy</cms:editable>

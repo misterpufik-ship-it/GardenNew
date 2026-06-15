@@ -1,5 +1,5 @@
 <?php require_once( '../../couch/cms.php' ); ?>
-<cms:template title='Адмирал Меню En' icon='globe'>
+<cms:template title='А. Меню EN' icon='globe' order='160'>
     <cms:editable name='info' type='message'>
         Этот шаблон автоматически отображает данные из русской версии (текст Адм).
         Все правки вносите в основном шаблоне по адресу: menu/text/index.php

@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Адмирал Филиал' name='final_section' executable='0' order='70'>
+<cms:template title='А. Филиал' name='final_section' executable='0' order='200'>
 
     <cms:editable name='final_group_info' label='Информация о филиале' type='group' />
     <cms:editable name='final_title' label='Название филиала' group='final_group_info' type='text'>Garden Lounge Udelnaya</cms:editable>

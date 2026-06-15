@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Уделка Меню' name='menu_section' executable='0' order='35'>
+<cms:template title='У. Меню' name='menu_section' executable='0' order='350'>
     
     <cms:editable name='menu_group_titles' label='Заголовки' type='group' />
     <cms:editable name='menu_main_title' label='Главный заголовок' group='menu_group_titles' type='text'>Menu</cms:editable>

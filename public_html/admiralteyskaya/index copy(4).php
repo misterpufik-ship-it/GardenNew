@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='АА. Общая страница' order='2'>
+<cms:template title='А. Общая страница' order='100'>
     <cms:editable name='seo_group' label='SEO этой страницы (Приоритет)' type='group' order='1' />
         <cms:editable name='page_title' label='Заголовок (Title)' group='seo_group' type='text' />
         <cms:editable name='page_desc' label='Описание (Description)' group='seo_group' type='textarea' />

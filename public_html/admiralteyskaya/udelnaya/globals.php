@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Уделка Настройки' executable='0'>
+<cms:template title='У. Настройки сайта (Футер и SEO)' executable='0' order='390'>
 
     <!-- ГРУППА: ОБЩАЯ ИНФОРМАЦИЯ -->
     <cms:editable name='group_general' label='Общая информация' type='group' />

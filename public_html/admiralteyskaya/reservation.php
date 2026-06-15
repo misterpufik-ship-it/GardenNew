@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Адмирал Бронирование' name='reservation_section' executable='0' order='50'>
+<cms:template title='А. Бронирование' name='reservation_section' executable='0' order='120'>
     
     <cms:editable name='res_group_titles' label='Заголовки секции' type='group' />
     <cms:editable name='res_title' label='Главный заголовок' group='res_group_titles' type='text'>Reservation</cms:editable>

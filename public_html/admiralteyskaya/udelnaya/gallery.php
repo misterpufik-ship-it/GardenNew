@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Уделка Галерея' name='gallery_section' executable='0' order='40'>
+<cms:template title='У. Галерея' name='gallery_section' executable='0' order='330'>
     
     <cms:editable name='gallery_main_title' label='Главный заголовок' type='text'>Experience</cms:editable>
     <cms:editable name='gallery_sub_title' label='Подзаголовок' type='text'>Визуальная эстетика</cms:editable>

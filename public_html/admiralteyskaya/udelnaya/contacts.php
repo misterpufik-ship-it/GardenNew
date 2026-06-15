@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Уделка Контакты' name='contacts_section' executable='0' order='60'>
+<cms:template title='У. Контакты' name='contacts_section' executable='0' order='340'>
     
     <cms:editable name='cont_group_main' label='Основная информация' type='group' />
     <cms:editable name='cont_address' label='Адрес' group='cont_group_main' type='text'>СПб. наб. реки Мойки, д.67-69</cms:editable>
