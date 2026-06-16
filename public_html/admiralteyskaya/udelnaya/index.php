@@ -65,7 +65,7 @@ require_once $garden_cms;
     <title><cms:if page_title><cms:show page_title /><cms:else /><cms:show global_title /></cms:if></title>
     <meta name="description" content="<cms:if page_desc><cms:show page_desc /><cms:else /><cms:show global_desc /></cms:if>">
 
-    <link rel="icon" type="image/png" href="favicon.png">
+    <cms:embed 'favicon.html' />
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(min-width: 768px)" fetchpriority="high">
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(max-width: 767px)" fetchpriority="high">
@@ -157,6 +157,7 @@ require_once $garden_cms;
 
     <cms:pages masterpage='udelnaya/header.php' limit='1'><cms:embed 'header.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/about.php' limit='1'><cms:embed 'about.html' /></cms:pages>
+    <cms:set is_udelnaya='1' scope='global' />
     <cms:pages masterpage='udelnaya/gallery.php' limit='1'><cms:embed 'gallery.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/akzii.php' limit='1'><cms:embed 'akzii.html' /></cms:pages>

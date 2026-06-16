@@ -139,7 +139,7 @@
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
         font-weight: 400;
-        font-size: clamp(26px, 5.6vw, 34px);
+        font-size: clamp(20px, 4.2vw, 26px);
         line-height: 1.2;
         margin: 0;
         letter-spacing: 0.02em;
@@ -159,7 +159,7 @@
         }
 
         .gallery-slide-caption h3 {
-            font-size: clamp(28px, 2.2vw, 36px);
+            font-size: clamp(21px, 1.65vw, 27px);
         }
     }
 
@@ -294,6 +294,10 @@
 </style>
 
 <!-- 3. HTML СТРУКТУРА -->
+<cms:if k_template_name='udelnaya/gallery.php'>
+    <cms:set is_udelnaya='1' scope='global' />
+</cms:if>
+<cms:set gallery_img_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/' />
 <div class="garden-experience-widget">
     <section class="pt-4 pb-12 relative z-20 bg-black">
         <div class="widget-limiter px-6 text-center pt-[16px]">
@@ -318,6 +322,23 @@
                         <button class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-interior', 300)"><i class="fas fa-chevron-right"></i></button>
                         
                         <div id="slider-interior" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
+                            <cms:if is_udelnaya='1'>
+                            <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
+                                <img src="<cms:show gallery_img_base />kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Интерьер Garden Lounge на Удельной" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Вечнозелёный сад</h3></div>
+                            </div>
+                            <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
+                                <img src="<cms:show gallery_img_base />garden.webp" alt="Интерьер лаунж-бара Garden Lounge Удельная" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Интерьер лаунжа</h3></div>
+                            </div>
+                            <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
+                                <img src="<cms:show gallery_img_base />safonovleonid_green_65.webp" alt="VIP-зона Garden Lounge на Удельной" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>VIP-зона</h3></div>
+                            </div>
+                            <cms:else />
                             <cms:show_repeatable 'gallery_items'>
     <cms:if gallery_category='interior'>
         <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
@@ -332,6 +353,7 @@
         </div>
     </cms:if>
 </cms:show_repeatable>
+                            </cms:if>
 
                         </div>
                     </div>
@@ -405,6 +427,18 @@
                         <button class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-vibe', 300)"><i class="fas fa-chevron-right"></i></button>
 
                         <div id="slider-vibe" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
+                            <cms:if is_udelnaya='1'>
+                            <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
+                                <img src="<cms:show gallery_img_base />safonovleonid_green_65.webp" alt="Атмосфера Garden Lounge на Удельной" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Atmosphere</h3></div>
+                            </div>
+                            <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
+                                <img src="<cms:show gallery_img_base />garden.webp" alt="Вечер в Garden Lounge Удельная" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Evening Vibe</h3></div>
+                            </div>
+                            <cms:else />
                             <cms:show_repeatable 'gallery_items'>
                                 <cms:if gallery_category='vibe'>
                                     <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
@@ -414,6 +448,7 @@
                                     </div>
                                 </cms:if>
                             </cms:show_repeatable>
+                            </cms:if>
                         </div>
                     </div>
                 </div>
