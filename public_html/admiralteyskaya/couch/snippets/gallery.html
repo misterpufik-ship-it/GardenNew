@@ -135,25 +135,22 @@
         pointer-events: none;
     }
 
-    .gallery-slide-caption::before {
-        content: '';
-        display: block;
-        width: 18px;
-        height: 1px;
-        margin-bottom: 7px;
-        background: rgba(197, 160, 89, 0.9);
-    }
-
     .gallery-slide-caption h3 {
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
         font-weight: 400;
         font-size: clamp(13px, 2.8vw, 17px);
         line-height: 1.2;
-        color: #fff;
         margin: 0;
-        letter-spacing: 0.01em;
-        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
+        letter-spacing: 0.02em;
+        display: inline-block;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: shine 5s linear infinite;
+        filter: drop-shadow(0 1px 5px rgba(0, 0, 0, 0.55));
     }
 
     @media (min-width: 768px) {
