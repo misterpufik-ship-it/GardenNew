@@ -2,7 +2,7 @@
 <cms:template title='Меню визуальное' name='menu_visual' executable='1' order='160'>
 
     <cms:editable name='group_main_settings' label='Настройки логотипа' type='group' collapsed='1' order='1' />
-    <cms:editable name='visual_logo' label='Логотип меню' group='group_main_settings' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>
+    <cms:editable name='visual_logo' label='Логотип меню' group='group_main_settings' type='image'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
     <cms:editable name='visual_divider' label='Разделитель (линия)' group='group_main_settings' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
 
     <cms:set tag_options = 'Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
@@ -53,6 +53,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <cms:embed 'favicon.html' />
     <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
     <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар, десерты и акции лаунж-бара в центре Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/visual/">

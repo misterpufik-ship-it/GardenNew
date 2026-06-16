@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lounge Garden — Меню</title>
     <!-- Добавление фавикона -->
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <cms:embed 'favicon.html' />
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -176,7 +176,7 @@
         <!-- ЛОГОТИП -->
         <header class="mb-8 fade-up" style="animation-delay: 0.1s;">
             <a href="https://garden-lounge.pro/udelnaya/" class="block">
-                <img src="https://misterpufik.ru/logo3.png" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500">
+                <img src="/img/logo3.webp" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500" width="384" height="162" decoding="async">
             </a>
         </header>
 
@@ -195,7 +195,7 @@
                 
                 <!-- Визуальное меню (Левая часть) -->
                 <a href="/udelnaya/menu/visual" class="card-left">
-                    <img src="https://misterpufik.ru/gf11.jpg" alt="Визуальное меню" onerror="this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800'">
+                    <img src="/admiralteyskaya/couch/uploads/image/gf11.webp" alt="Визуальное меню" loading="lazy" decoding="async">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                     
                     <div class="absolute inset-0 flex flex-col items-center justify-center p-4">

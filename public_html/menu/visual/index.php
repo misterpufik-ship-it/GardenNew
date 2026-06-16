@@ -1,7 +1,7 @@
 <?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Адмирал Меню Визуальное' name='menu_visual' executable='1'>
     <cms:editable name='visual_group_assets' label='Логотип и разделители' type='group' />
-    <cms:editable name='visual_logo' label='Логотип меню' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/logo3.png</cms:editable>
+    <cms:editable name='visual_logo' label='Логотип меню' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
     <cms:editable name='visual_divider' label='Разделитель (линия)' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
 
     <cms:repeatable name='menu_items_list' label='Список блюд'>
@@ -18,6 +18,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <cms:embed 'favicon.html' />
     <title>Garden Lounge | Luxury Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">

@@ -8,7 +8,7 @@
     <meta name="keywords" content="Garden Lounge, кальянная СПб, лаунж бар СПб, кальянная Адмиралтейская, кальянная Удельная">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://garden-lounge.pro/">
-    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="icon" type="image/png" href="/udelnaya/favicon.png">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/">
     <meta property="og:title" content="Garden Lounge - филиалы в Санкт-Петербурге">
@@ -477,7 +477,7 @@
         "@id": "https://garden-lounge.pro/#organization",
         "name": "Garden Lounge",
         "url": "https://garden-lounge.pro/",
-        "logo": "https://garden-lounge.pro/img/logo3.png",
+        "logo": "https://garden-lounge.pro/img/logo3.webp",
         "sameAs": [
             "https://instagram.com/garden_lounge_spb/",
             "https://vk.com/loungegarden",
@@ -491,7 +491,7 @@
     <main class="page">
         <header class="header">
             <a href="/" aria-label="Garden Lounge">
-                <img class="logo" src="/img/logo3.png" alt="Garden Lounge" width="360" height="152">
+                <img class="logo" src="/img/logo3.webp" alt="Garden Lounge" width="360" height="152" decoding="async">
             </a>
         </header>
 
