@@ -160,7 +160,10 @@ function ensure_text_field($db, $fields, $templateId, $name, $label, $groupName,
         return $existing;
     }
 
-    $sample = one($db, "SELECT * FROM `{$fields}` WHERE template_id=" . (int)$templateId . " AND k_type='text' LIMIT 1");
+    $sample = one($db, "SELECT * FROM `{$fields}` WHERE template_id=" . (int)$templateId . " AND name='final_subtitle' LIMIT 1");
+    if (!$sample) {
+        $sample = one($db, "SELECT * FROM `{$fields}` WHERE template_id=" . (int)$templateId . " AND k_type='text' LIMIT 1");
+    }
     if (!$sample) {
         throw new RuntimeException("No sample text field for template {$templateId}");
     }
@@ -170,7 +173,8 @@ function ensure_text_field($db, $fields, $templateId, $name, $label, $groupName,
     $row['label'] = $label;
     $row['k_group'] = $groupName;
     $row['k_order'] = (string)next_order($db, $fields, $templateId);
-    $row['default_val'] = $default;
+    $row['default_data'] = $default;
+    $row['_html'] = '';
     $fieldId = insert_field($db, $fields, $row);
     echo "Created field {$name} (#{$fieldId})\n";
     return $fieldId;
