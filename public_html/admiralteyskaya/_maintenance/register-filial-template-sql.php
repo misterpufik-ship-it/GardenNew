@@ -174,7 +174,18 @@ function clone_repeatable($db, $fields, $templates, $sourceTemplateName, $source
         echo "  + child {$childRow['name']} (#{$childId})\n";
     }
 
+    sync_repeatable_html($db, $fields, $repeatableId);
+
     return $repeatableId;
+}
+
+function sync_repeatable_html($db, $fields, $repeatableId) {
+    $html = "<cms:editable name='final_gallery_img' label='Фото' type='image' />\r\n" .
+            "<cms:editable name='final_gallery_alt' label='Alt / подпись' type='text' />";
+    $db->query(
+        "UPDATE `{$fields}` SET _html=" . q($db, $html) . " WHERE id=" . (int)$repeatableId . " LIMIT 1"
+    );
+    echo "  synced repeatable _html for field #{$repeatableId}\n";
 }
 
 function ensure_text_field($db, $fields, $templateId, $name, $label, $groupName, $default = '') {
@@ -279,6 +290,10 @@ try {
             'Дополнительные фото галереи',
             'final_group_info'
         );
+        $galleryFieldId = field_exists($db, $fields, $templateId, 'final_gallery');
+        if ($galleryFieldId) {
+            sync_repeatable_html($db, $fields, $galleryFieldId);
+        }
         restore_empty_image($db, $fields, $text, $pages, $templateId, $target['default_image']);
     }
 
