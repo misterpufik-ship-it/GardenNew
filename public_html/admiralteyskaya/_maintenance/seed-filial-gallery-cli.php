@@ -51,6 +51,24 @@ function menu_gallery_rows($menuBase)
     );
 }
 
+function admiral_gallery_fallback($imgBase)
+{
+    $rows = array(
+        filial_row($imgBase . 'garden-main.webp', 'Garden Lounge', 'Интерьер Garden Lounge на Адмиралтейской', 'interior'),
+        filial_row($imgBase . 'garden.webp', 'Вечнозелёный сад', 'Интерьер лаунж-бара Garden Lounge', 'interior'),
+        filial_row($imgBase . 'garden-2.webp', 'VIP-зона', 'VIP-зона Garden Lounge на Мойке', 'interior'),
+    );
+
+    for ($i = 1; $i <= 6; $i++) {
+        $rows[] = filial_row($imgBase . 'ga' . $i . '.webp', 'Interior ' . $i, 'Интерьер Garden Lounge Admiralteyskaya', 'interior');
+    }
+    for ($i = 1; $i <= 6; $i++) {
+        $rows[] = filial_row($imgBase . 'gf' . $i . '.webp', 'Vibe ' . $i, 'Атмосфера Garden Lounge Admiralteyskaya', 'vibe');
+    }
+
+    return $rows;
+}
+
 function udelnaya_gallery_rows($imgBase, $menuBase)
 {
     $rows = array(
@@ -144,103 +162,13 @@ function save_filial_gallery($templateName, $rows)
     echo "Saved " . count($rows) . " photos to {$templateName}\n";
 }
 
-function read_gallery_items_sql()
-{
-    $config = __DIR__ . '/../couch/config.php';
-    if (!is_file($config)) {
-        return array();
-    }
-
-    require_once $config;
-    $host = K_DB_HOST;
-    $port = 3306;
-    if (strpos($host, ':') !== false) {
-        list($host, $port) = explode(':', $host, 2);
-    }
-
-    $db = @new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int)$port);
-    if ($db->connect_errno) {
-        return array();
-    }
-    $db->set_charset('utf8');
-
-    $templates = K_DB_TABLES_PREFIX . 'couch_templates';
-    $fields = K_DB_TABLES_PREFIX . 'couch_fields';
-    $pages = K_DB_TABLES_PREFIX . 'couch_pages';
-    $text = K_DB_TABLES_PREFIX . 'couch_data_text';
-
-    $tpl = $db->query("SELECT id FROM `{$templates}` WHERE name='gallery.php' LIMIT 1");
-    $tplRow = $tpl ? $tpl->fetch_assoc() : null;
-    if (!$tplRow) {
-        return array();
-    }
-
-    $page = $db->query("SELECT id FROM `{$pages}` WHERE template_id=" . (int)$tplRow['id'] . " LIMIT 1");
-    $pageRow = $page ? $page->fetch_assoc() : null;
-    if (!$pageRow) {
-        return array();
-    }
-
-    $fieldMap = array();
-    $res = $db->query("SELECT id, name FROM `{$fields}` WHERE template_id=" . (int)$tplRow['id'] . " AND name IN ('gallery_img','gallery_img_title','gallery_img_alt','gallery_category')");
-    while ($res && ($row = $res->fetch_assoc())) {
-        $fieldMap[$row['name']] = (int)$row['id'];
-    }
-
-    if (!$fieldMap) {
-        return array();
-    }
-
-    $rows = array();
-    $res = $db->query(
-        "SELECT field_id, value FROM `{$text}` WHERE page_id=" . (int)$pageRow['id'] .
-        " AND field_id IN (" . implode(',', array_values($fieldMap)) . ") ORDER BY id"
-    );
-
-    $buffer = array();
-    while ($res && ($row = $res->fetch_assoc())) {
-        $name = array_search((int)$row['field_id'], $fieldMap, true);
-        if ($name === false) {
-            continue;
-        }
-        if ($name === 'gallery_img') {
-            if ($buffer) {
-                $rows[] = $buffer;
-            }
-            $buffer = array('gallery_img' => $row['value']);
-            continue;
-        }
-        $buffer[$name] = $row['value'];
-    }
-    if ($buffer) {
-        $rows[] = $buffer;
-    }
-
-    $out = array();
-    foreach ($rows as $row) {
-        if (empty($row['gallery_img'])) {
-            continue;
-        }
-        $out[] = filial_row(
-            $row['gallery_img'],
-            isset($row['gallery_img_title']) ? $row['gallery_img_title'] : '',
-            isset($row['gallery_img_alt']) ? $row['gallery_img_alt'] : '',
-            isset($row['gallery_category']) ? $row['gallery_category'] : 'interior'
-        );
-    }
-
-    return $out;
-}
-
 try {
     $FUNCS->invalidate_cache();
 
     $admiralRows = read_gallery_items('gallery.php');
     if (!$admiralRows) {
-        $admiralRows = read_gallery_items_sql();
-    }
-    if (!$admiralRows) {
-        echo "Warning: gallery.php has no CMS rows, using menu-only fallback for admiral\n";
+        $admiralRows = admiral_gallery_fallback($imgBase);
+        echo "Using admiral gallery fallback photos\n";
     }
     $admiralFilialRows = array_merge($admiralRows, menu_gallery_rows($menuBase));
 
