@@ -27,13 +27,14 @@ require_once $garden_cms;
     <cms:editable name='final_group_info' label='Информация о филиале' type='group' />
     <cms:editable name='final_title' label='Название филиала' group='final_group_info' type='text'>Garden Lounge Admiralteyskaya</cms:editable>
     <cms:editable name='final_subtitle' label='Подзаголовок' group='final_group_info' type='text'>Второй филиал тайного сада</cms:editable>
-    <cms:editable name='final_img' label='Обложка филиала' group='final_group_info' type='image'>https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.webp</cms:editable>
-    <cms:editable name='final_img_alt' label='Alt для обложки филиала' group='final_group_info' type='text'>Garden Lounge Admiralteyskaya, интерьер филиала на наб. реки Мойки 67-69</cms:editable>
 
-    <cms:repeatable name='final_gallery' label='Галерея филиала' group='final_group_info'>
+    <cms:repeatable name='final_gallery' label='Галерея фотографий' group='final_group_info'>
         <cms:editable name='final_gallery_img' label='Фото' type='image' />
-        <cms:editable name='final_gallery_alt' label='Подпись / alt' type='text' />
+        <cms:editable name='final_gallery_alt' label='Alt / подпись' type='text' />
     </cms:repeatable>
+
+    <cms:editable name='final_img' hidden='1' type='image'>https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.webp</cms:editable>
+    <cms:editable name='final_img_alt' hidden='1' type='text'>Garden Lounge Admiralteyskaya, интерьер филиала на наб. реки Мойки 67-69</cms:editable>
 
     <cms:editable name='final_address' label='Адрес' group='final_group_info' type='text'>СПб., наб. реки Мойки, д. 67-69</cms:editable>
     <cms:editable name='final_metro' label='Метро' group='final_group_info' type='text'>м. Адмиралтейская</cms:editable>

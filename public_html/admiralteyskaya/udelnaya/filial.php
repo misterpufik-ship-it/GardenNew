@@ -27,14 +27,14 @@ require_once $garden_cms;
     <cms:editable name='final_group_info' label='Информация о филиале' type='group' />
     <cms:editable name='final_title' label='Название филиала' group='final_group_info' type='text'>Garden Lounge Udelnaya</cms:editable>
     <cms:editable name='final_subtitle' label='Подзаголовок' group='final_group_info' type='text'>Второй филиал тайного сада</cms:editable>
-    <cms:editable name='final_media_mode' label='Формат фото' group='final_group_info' type='dropdown' opt_values='Одно фото=single | Галерея из нескольких фото=gallery'>single</cms:editable>
-    <cms:editable name='final_img' label='Обложка филиала' group='final_group_info' type='image'>https://garden-lounge.pro/img/akkuratova.webp</cms:editable>
-    <cms:editable name='final_img_alt' label='Alt для обложки филиала' group='final_group_info' type='text'>Garden Lounge Udelnaya, интерьер филиала на ул. Аккуратова 13</cms:editable>
 
-    <cms:repeatable name='final_gallery' label='Галерея филиала' group='final_group_info'>
+    <cms:repeatable name='final_gallery' label='Галерея фотографий' group='final_group_info'>
         <cms:editable name='final_gallery_img' label='Фото' type='image' />
-        <cms:editable name='final_gallery_alt' label='Подпись / alt' type='text' />
+        <cms:editable name='final_gallery_alt' label='Alt / подпись' type='text' />
     </cms:repeatable>
+
+    <cms:editable name='final_img' hidden='1' type='image'>https://garden-lounge.pro/img/akkuratova.webp</cms:editable>
+    <cms:editable name='final_img_alt' hidden='1' type='text'>Garden Lounge Udelnaya, интерьер филиала на ул. Аккуратова 13</cms:editable>
 
     <cms:editable name='final_address' label='Адрес' group='final_group_info' type='text'>СПб., ул. Аккуратова, д. 13</cms:editable>
     <cms:editable name='final_metro' label='Метро' group='final_group_info' type='text'>м. Удельная</cms:editable>
