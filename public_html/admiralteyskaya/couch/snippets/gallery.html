@@ -100,7 +100,17 @@
         background: #111;
         cursor: zoom-in;
         box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); 
-        transition: transform 0.3s ease;
+        transition: box-shadow 0.35s ease;
+    }
+
+    .gallery-slide-item::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        background: rgba(0, 0, 0, 0);
+        transition: background 0.35s ease;
+        pointer-events: none;
     }
 
     .gallery-slide-item img {
@@ -110,6 +120,45 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .gallery-slide-hover-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.88);
+        z-index: 4;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1px solid rgba(197, 160, 89, 0.55);
+        background: rgba(0, 0, 0, 0.62);
+        color: #C5A059;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        opacity: 0;
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+        transition: opacity 0.35s ease, transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+    }
+
+    .gallery-slide-item:hover::after {
+        background: rgba(0, 0, 0, 0.32);
+    }
+
+    .gallery-slide-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .gallery-slide-item:hover .gallery-slide-hover-icon {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        background: rgba(0, 0, 0, 0.72);
+        border-color: #C5A059;
     }
 
     .gallery-slide-shade {
@@ -139,7 +188,7 @@
         font-family: 'Cormorant Garamond', serif;
         font-style: italic;
         font-weight: 400;
-        font-size: clamp(20px, 4.2vw, 26px);
+        font-size: clamp(17px, 3.5vw, 22px);
         line-height: 1.2;
         margin: 0;
         letter-spacing: 0.02em;
@@ -159,17 +208,17 @@
         }
 
         .gallery-slide-caption h3 {
-            font-size: clamp(21px, 1.65vw, 27px);
+            font-size: clamp(18px, 1.4vw, 23px);
         }
     }
 
     #tab-vibe .gallery-slide-item img {
         filter: grayscale(1);
-        transition: filter 0.7s ease;
     }
 
     #tab-vibe .gallery-slide-item:hover img {
         filter: grayscale(0);
+        transform: scale(1.05);
     }
     
     .ratio-3-2 { width: 85%; aspect-ratio: 3/2; }
@@ -259,8 +308,8 @@
 
     .widget-modal-frame {
         position: relative;
-        width: 100%;
-        max-width: 1000px;
+        width: auto;
+        max-width: min(96vw, 1000px);
         transform: scale(0.95);
         transition: transform 0.3s ease;
         display: flex;
@@ -270,7 +319,32 @@
 
     .widget-modal-image-wrap {
         position: relative;
-        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        max-width: min(96vw, 1000px);
+    }
+
+    #widget-modal-img {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: min(92vw, 1000px);
+        max-height: 75vh;
+        object-fit: contain;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    }
+
+    #widget-modal-caption {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(22px, 3vw, 28px);
+        color: #fff;
+        font-style: italic;
+        margin: 24px 0 0;
+        text-align: center;
     }
 
     .widget-modal-arrow-prev { left: 10px; }
@@ -475,7 +549,7 @@
         </button>
         <div class="widget-modal-frame" onclick="event.stopPropagation()">
             <div class="widget-modal-image-wrap">
-                <img id="widget-modal-img" src="" style="width:100%; height:auto; max-height:75vh; object-contain; border:1px solid rgba(255,255,255,0.1); border-radius:2px; box-shadow:0 0 50px rgba(0,0,0,0.8);">
+                <img id="widget-modal-img" src="" alt="">
                 <button type="button" class="widget-modal-arrow widget-modal-arrow-prev" onclick="event.stopPropagation(); shiftWidgetModal(-1);" aria-label="Предыдущее фото">
                     <i class="fas fa-chevron-left"></i>
                 </button>
@@ -483,7 +557,7 @@
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
-            <h3 id="widget-modal-caption" class="font-serif-lux" style="font-size:32px; color:white; font-style:italic; margin-top:30px; text-align:center;"></h3>
+            <h3 id="widget-modal-caption"></h3>
         </div>
     </div>
 
@@ -519,8 +593,19 @@
 
         const img = item.querySelector('img');
         const title = item.querySelector('h3');
+        const modalImg = document.getElementById('widget-modal-img');
 
-        document.getElementById('widget-modal-img').src = img ? img.src : '';
+        if (img) {
+            modalImg.src = img.currentSrc || img.src;
+            modalImg.alt = img.alt || (title ? title.innerText : '');
+            modalImg.removeAttribute('width');
+            modalImg.removeAttribute('height');
+            modalImg.style.width = '';
+            modalImg.style.height = '';
+        } else {
+            modalImg.removeAttribute('src');
+        }
+
         document.getElementById('widget-modal-caption').innerText = title ? title.innerText : '';
     }
 
@@ -557,7 +642,8 @@
         
         setTimeout(() => {
             modal.style.opacity = '1';
-            modal.querySelector('div').style.transform = 'scale(1)';
+            const frame = modal.querySelector('.widget-modal-frame');
+            if (frame) frame.style.transform = 'scale(1)';
         }, 10);
     }
 
@@ -570,7 +656,8 @@
     function closeWidgetModal() {
         const modal = document.getElementById('widget-image-modal');
         modal.style.opacity = '0';
-        modal.querySelector('div').style.transform = 'scale(0.95)';
+        const frame = modal.querySelector('.widget-modal-frame');
+        if (frame) frame.style.transform = 'scale(0.95)';
         
         setTimeout(() => {
             modal.style.display = 'none';
@@ -583,4 +670,13 @@
     window.openWidgetModal = openWidgetModal;
     window.closeWidgetModal = closeWidgetModal;
     window.shiftWidgetModal = shiftWidgetModal;
+
+    document.querySelectorAll('.gallery-slide-item').forEach((item) => {
+        if (item.querySelector('.gallery-slide-hover-icon')) return;
+        const icon = document.createElement('span');
+        icon.className = 'gallery-slide-hover-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        icon.innerHTML = '<i class="fas fa-search-plus"></i>';
+        item.appendChild(icon);
+    });
 </script>
