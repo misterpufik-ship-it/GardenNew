@@ -156,11 +156,13 @@ function clone_repeatable($db, $fields, $templates, $sourceTemplateName, $source
             $childRow['label'] = 'Фото';
         } elseif ($childRow['name'] === 'gallery_img_alt') {
             $childRow['name'] = 'final_gallery_alt';
-            $childRow['label'] = 'Alt / подпись';
+            $childRow['label'] = 'Alt / SEO';
         } elseif ($childRow['name'] === 'gallery_img_title') {
-            continue;
+            $childRow['name'] = 'final_gallery_title';
+            $childRow['label'] = 'Подпись';
         } elseif ($childRow['name'] === 'gallery_category') {
-            continue;
+            $childRow['name'] = 'final_gallery_category';
+            $childRow['label'] = 'Вкладка';
         } else {
             continue;
         }
@@ -174,18 +176,46 @@ function clone_repeatable($db, $fields, $templates, $sourceTemplateName, $source
         echo "  + child {$childRow['name']} (#{$childId})\n";
     }
 
-    sync_repeatable_html($db, $fields, $repeatableId);
+    sync_filial_gallery_html($db, $fields, $repeatableId);
 
     return $repeatableId;
 }
 
-function sync_repeatable_html($db, $fields, $repeatableId) {
+function sync_filial_gallery_html($db, $fields, $repeatableId) {
     $html = "<cms:editable name='final_gallery_img' label='Фото' type='image' />\r\n" .
-            "<cms:editable name='final_gallery_alt' label='Alt / подпись' type='text' />";
+            "<cms:editable name='final_gallery_title' label='Подпись' type='text' />\r\n" .
+            "<cms:editable name='final_gallery_alt' label='Alt / SEO' type='text' />\r\n" .
+            "<cms:editable name='final_gallery_category' label='Вкладка' opt_values='Interior=interior | Menu=menu | Vibe=vibe' type='dropdown' />";
     $db->query(
         "UPDATE `{$fields}` SET _html=" . q($db, $html) . " WHERE id=" . (int)$repeatableId . " LIMIT 1"
     );
-    echo "  synced repeatable _html for field #{$repeatableId}\n";
+    echo "  synced final_gallery_items _html for field #{$repeatableId}\n";
+}
+
+function ensure_group_field($db, $fields, $templateId, $name, $label, $order) {
+    $existing = field_exists($db, $fields, $templateId, $name);
+    if ($existing) {
+        $db->query(
+            "UPDATE `{$fields}` SET label=" . q($db, $label) . ", k_order=" . q($db, (string)$order) .
+            " WHERE id={$existing} LIMIT 1"
+        );
+        echo "Updated group {$name} (#{$existing})\n";
+        return $existing;
+    }
+
+    $sample = one($db, "SELECT * FROM `{$fields}` WHERE template_id=" . (int)$templateId . " AND k_type='group' LIMIT 1");
+    if (!$sample) {
+        throw new RuntimeException("No sample group field for template {$templateId}");
+    }
+
+    $row = $sample;
+    $row['name'] = $name;
+    $row['label'] = $label;
+    $row['k_group'] = '';
+    $row['k_order'] = (string)$order;
+    $fieldId = insert_field($db, $fields, $row);
+    echo "Created group {$name} (#{$fieldId})\n";
+    return $fieldId;
 }
 
 function ensure_text_field($db, $fields, $templateId, $name, $label, $groupName, $default = '') {
@@ -269,12 +299,7 @@ try {
         }
 
         $templateId = (int)$template['id'];
-        $db->query(
-            "UPDATE `{$fields}` SET label='Изображение филиала', k_group='final_group_info' " .
-            "WHERE template_id={$templateId} AND name='final_img' LIMIT 1"
-        );
-
-        ensure_text_field($db, $fields, $templateId, 'final_img_alt', 'Alt основного фото', 'final_group_info');
+        ensure_group_field($db, $fields, $templateId, 'final_group_gallery', 'Фотогалерея', 15);
         $source = find_repeatable_source($db, $fields, $templates, 'gallery_items');
         if (!$source) {
             throw new RuntimeException('gallery_items repeatable not found in any template');
@@ -286,15 +311,14 @@ try {
             $source['template_name'],
             'gallery_items',
             $templateId,
-            'final_gallery',
-            'Дополнительные фото галереи',
-            'final_group_info'
+            'final_gallery_items',
+            'Фото галереи',
+            'final_group_gallery'
         );
-        $galleryFieldId = field_exists($db, $fields, $templateId, 'final_gallery');
+        $galleryFieldId = field_exists($db, $fields, $templateId, 'final_gallery_items');
         if ($galleryFieldId) {
-            sync_repeatable_html($db, $fields, $galleryFieldId);
+            sync_filial_gallery_html($db, $fields, $galleryFieldId);
         }
-        restore_empty_image($db, $fields, $text, $pages, $templateId, $target['default_image']);
     }
 
     require __DIR__ . '/clear-couch-cache-cli.php';

@@ -28,6 +28,12 @@
         position: relative; z-index: 10; text-align: center;
     }
 
+    .content-limiter-wide {
+        max-width: min(100%, 1200px);
+        margin: 0 auto;
+        width: 100%;
+    }
+
     /* Заголовок */
     .title-branch {
         font-family: 'Cormorant Garamond', serif; font-size: 30px;
@@ -214,26 +220,8 @@
                 <p class="subtitle-gold"><cms:show final_subtitle /></p>
             </div>
             
-            <div class="fade-up" style="animation-delay: 0.5s;">
-                <div class="img-frame branch-gallery" data-branch-gallery>
-                    <div class="branch-gallery-track">
-                        <cms:if final_img>
-                            <div class="branch-gallery-slide">
-                                <img src="<cms:show final_img />" alt="<cms:if final_img_alt><cms:show final_img_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
-                            </div>
-                        </cms:if>
-                        <cms:show_repeatable 'final_gallery'>
-                            <cms:if final_gallery_img>
-                                <div class="branch-gallery-slide">
-                                    <img src="<cms:show final_gallery_img />" alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
-                                </div>
-                            </cms:if>
-                        </cms:show_repeatable>
-                    </div>
-                    <button type="button" class="branch-gallery-btn branch-gallery-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
-                    <button type="button" class="branch-gallery-btn branch-gallery-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
-                    <div class="branch-gallery-dots" aria-hidden="true"></div>
-                </div>
+            <div class="fade-up content-limiter-wide" style="animation-delay: 0.5s;">
+                <cms:embed 'filial-gallery.html' />
                 
                 <div class="branch-address-wrap">
                     <p class="branch-address-text">
@@ -255,41 +243,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.querySelectorAll('[data-branch-gallery]').forEach((gallery) => {
-        const track = gallery.querySelector('.branch-gallery-track');
-        const slides = Array.from(gallery.querySelectorAll('.branch-gallery-slide'));
-        const prev = gallery.querySelector('.branch-gallery-prev');
-        const next = gallery.querySelector('.branch-gallery-next');
-        const dotsWrap = gallery.querySelector('.branch-gallery-dots');
-        let index = 0;
-
-        if (!track || slides.length < 2) {
-            if (prev) prev.style.display = 'none';
-            if (next) next.style.display = 'none';
-            if (dotsWrap) dotsWrap.style.display = 'none';
-            return;
-        }
-
-        slides.forEach((_, dotIndex) => {
-            const dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'branch-gallery-dot';
-            dot.addEventListener('click', () => show(dotIndex));
-            dotsWrap.appendChild(dot);
-        });
-
-        const dots = Array.from(dotsWrap.querySelectorAll('.branch-gallery-dot'));
-
-        function show(nextIndex) {
-            index = (nextIndex + slides.length) % slides.length;
-            track.style.transform = `translateX(${-index * 100}%)`;
-            dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
-        }
-
-        prev.addEventListener('click', () => show(index - 1));
-        next.addEventListener('click', () => show(index + 1));
-        show(0);
-    });
-</script>

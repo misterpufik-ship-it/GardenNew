@@ -27,16 +27,18 @@ require_once $garden_cms;
     <cms:editable name='final_group_info' label='Информация о филиале' type='group' />
     <cms:editable name='final_title' label='Название филиала' group='final_group_info' type='text'>Garden Lounge Admiralteyskaya</cms:editable>
     <cms:editable name='final_subtitle' label='Подзаголовок' group='final_group_info' type='text'>Второй филиал тайного сада</cms:editable>
-    <cms:editable name='final_img' label='Изображение филиала' group='final_group_info' type='image'>https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.webp</cms:editable>
-    <cms:editable name='final_img_alt' label='Alt основного фото' group='final_group_info' type='text'>Garden Lounge Admiralteyskaya, интерьер филиала на наб. реки Мойки 67-69</cms:editable>
-
-    <cms:repeatable name='final_gallery' label='Дополнительные фото галереи' group='final_group_info'>
-        <cms:editable name='final_gallery_img' label='Фото' type='image' />
-        <cms:editable name='final_gallery_alt' label='Alt / подпись' type='text' />
-    </cms:repeatable>
-
     <cms:editable name='final_address' label='Адрес' group='final_group_info' type='text'>СПб., наб. реки Мойки, д. 67-69</cms:editable>
     <cms:editable name='final_metro' label='Метро' group='final_group_info' type='text'>м. Адмиралтейская</cms:editable>
+
+    <cms:editable name='final_group_gallery' label='Фотогалерея' type='group' />
+    <cms:repeatable name='final_gallery_items' label='Фото галереи' group='final_group_gallery'>
+        <cms:editable name='final_gallery_img' label='Фото' type='image' />
+        <cms:editable name='final_gallery_title' label='Подпись' type='text' />
+        <cms:editable name='final_gallery_alt' label='Alt / SEO' type='text' />
+        <cms:editable name='final_gallery_category' label='Вкладка'
+            opt_values='Interior=interior | Menu=menu | Vibe=vibe'
+            type='dropdown' />
+    </cms:repeatable>
 
     <cms:editable name='final_group_btn' label='Кнопка действия' type='group' />
     <cms:editable name='final_btn_text' label='Текст кнопки' group='final_group_btn' type='text'>Перейти на сайт</cms:editable>
@@ -46,5 +48,4 @@ require_once $garden_cms;
 
 </cms:template>
 <?php COUCH::invoke(); ?>
-
 

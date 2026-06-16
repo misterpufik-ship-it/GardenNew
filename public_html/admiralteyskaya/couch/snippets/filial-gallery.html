@@ -1,0 +1,244 @@
+<style>
+    .branch-filial-gallery-widget {
+        --bf-gold: #C5A059;
+        width: 100%;
+        max-width: 1200px;
+        margin: 28px auto 0;
+        text-align: left;
+    }
+
+    .branch-filial-gallery-widget .bf-tab-row {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        margin-bottom: 24px;
+    }
+
+    .branch-filial-gallery-widget .bf-tab-btn {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #666;
+        padding-bottom: 4px;
+        border: 0;
+        border-bottom: 1px solid transparent;
+        background: transparent;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .branch-filial-gallery-widget .bf-tab-btn.active {
+        color: var(--bf-gold);
+        border-bottom-color: var(--bf-gold);
+    }
+
+    .branch-filial-gallery-widget .bf-pane { display: none; opacity: 0; transition: opacity 0.35s ease; }
+    .branch-filial-gallery-widget .bf-pane.active { display: block; opacity: 1; }
+
+    .branch-filial-gallery-widget .bf-slider-box { position: relative; width: 100%; }
+
+    .branch-filial-gallery-widget .bf-slider {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        gap: 12px;
+        padding: 0 8px 16px;
+    }
+
+    .branch-filial-gallery-widget .bf-slider::-webkit-scrollbar { display: none; }
+
+    .branch-filial-gallery-widget .bf-slide {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        background: #111;
+        cursor: pointer;
+        width: 85%;
+        aspect-ratio: 3 / 2;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+    }
+
+    .branch-filial-gallery-widget .bf-pane-menu .bf-slide { width: 75%; aspect-ratio: 1 / 1; }
+
+    @media (min-width: 768px) {
+        .branch-filial-gallery-widget .bf-slide,
+        .branch-filial-gallery-widget .bf-pane-menu .bf-slide {
+            width: calc(25% - 12px);
+        }
+    }
+
+    .branch-filial-gallery-widget .bf-slide img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .branch-filial-gallery-widget .bf-slide-shade {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 38%, transparent 68%);
+    }
+
+    .branch-filial-gallery-widget .bf-slide-caption {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+        padding: 12px 14px 11px;
+        max-width: 88%;
+        pointer-events: none;
+    }
+
+    .branch-filial-gallery-widget .bf-slide-caption h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(17px, 3.5vw, 22px);
+        line-height: 1.2;
+        margin: 0;
+        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-size: 200% auto;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    .branch-filial-gallery-widget .bf-pane-vibe .bf-slide img { filter: grayscale(1); }
+    .branch-filial-gallery-widget .bf-pane-vibe .bf-slide:hover img { filter: grayscale(0); transform: scale(1.05); }
+
+    .branch-filial-gallery-widget .bf-slide:hover img { transform: scale(1.05); }
+
+    .branch-filial-gallery-widget .bf-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 4;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid rgba(197, 160, 89, 0.4);
+        background: rgba(0, 0, 0, 0.7);
+        color: var(--bf-gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .branch-filial-gallery-widget .bf-arrow:hover { background: var(--bf-gold); color: #000; }
+    .branch-filial-gallery-widget .bf-arrow-left { left: 8px; }
+    .branch-filial-gallery-widget .bf-arrow-right { right: 8px; }
+
+    .branch-filial-gallery-widget .bf-empty {
+        text-align: center;
+        color: rgba(255,255,255,0.45);
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 24px 12px;
+    }
+</style>
+
+<div class="branch-filial-gallery-widget" data-bf-gallery>
+    <div class="bf-tab-row">
+        <button type="button" class="bf-tab-btn active" data-bf-tab="bf-pane-interior">Interior</button>
+        <button type="button" class="bf-tab-btn" data-bf-tab="bf-pane-menu">Menu</button>
+        <button type="button" class="bf-tab-btn" data-bf-tab="bf-pane-vibe">Vibe</button>
+    </div>
+
+    <div id="bf-pane-interior" class="bf-pane bf-pane-interior active">
+        <div class="bf-slider-box">
+            <button type="button" class="bf-arrow bf-arrow-left" data-bf-scroll="bf-slider-interior" data-bf-dir="-1" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button type="button" class="bf-arrow bf-arrow-right" data-bf-scroll="bf-slider-interior" data-bf-dir="1" aria-label="Вперёд"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            <div id="bf-slider-interior" class="bf-slider">
+                <cms:show_repeatable 'final_gallery_items'>
+                    <cms:if final_gallery_img>
+                        <cms:if final_gallery_category='interior'>
+                            <div class="bf-slide" data-bf-modal>
+                                <img src="<cms:show final_gallery_img />" alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_gallery_title /></cms:if>" loading="lazy" decoding="async">
+                                <div class="bf-slide-shade"></div>
+                                <div class="bf-slide-caption"><h3><cms:show final_gallery_title /></h3></div>
+                            </div>
+                        </cms:if>
+                    </cms:if>
+                </cms:show_repeatable>
+            </div>
+        </div>
+    </div>
+
+    <div id="bf-pane-menu" class="bf-pane bf-pane-menu">
+        <div class="bf-slider-box">
+            <button type="button" class="bf-arrow bf-arrow-left" data-bf-scroll="bf-slider-menu" data-bf-dir="-1" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button type="button" class="bf-arrow bf-arrow-right" data-bf-scroll="bf-slider-menu" data-bf-dir="1" aria-label="Вперёд"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            <div id="bf-slider-menu" class="bf-slider">
+                <cms:show_repeatable 'final_gallery_items'>
+                    <cms:if final_gallery_img>
+                        <cms:if final_gallery_category='menu'>
+                            <div class="bf-slide" data-bf-modal>
+                                <img src="<cms:show final_gallery_img />" alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_gallery_title /></cms:if>" loading="lazy" decoding="async">
+                                <div class="bf-slide-shade"></div>
+                                <div class="bf-slide-caption"><h3><cms:show final_gallery_title /></h3></div>
+                            </div>
+                        </cms:if>
+                    </cms:if>
+                </cms:show_repeatable>
+            </div>
+        </div>
+    </div>
+
+    <div id="bf-pane-vibe" class="bf-pane bf-pane-vibe">
+        <div class="bf-slider-box">
+            <button type="button" class="bf-arrow bf-arrow-left" data-bf-scroll="bf-slider-vibe" data-bf-dir="-1" aria-label="Назад"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <button type="button" class="bf-arrow bf-arrow-right" data-bf-scroll="bf-slider-vibe" data-bf-dir="1" aria-label="Вперёд"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            <div id="bf-slider-vibe" class="bf-slider">
+                <cms:show_repeatable 'final_gallery_items'>
+                    <cms:if final_gallery_img>
+                        <cms:if final_gallery_category='vibe'>
+                            <div class="bf-slide" data-bf-modal>
+                                <img src="<cms:show final_gallery_img />" alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_gallery_title /></cms:if>" loading="lazy" decoding="async">
+                                <div class="bf-slide-shade"></div>
+                                <div class="bf-slide-caption"><h3><cms:show final_gallery_title /></h3></div>
+                            </div>
+                        </cms:if>
+                    </cms:if>
+                </cms:show_repeatable>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var widget = document.querySelector('[data-bf-gallery]');
+    if (!widget) return;
+
+    widget.querySelectorAll('.bf-tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var paneId = btn.getAttribute('data-bf-tab');
+            widget.querySelectorAll('.bf-pane').forEach(function (pane) { pane.classList.remove('active'); });
+            widget.querySelectorAll('.bf-tab-btn').forEach(function (tab) { tab.classList.remove('active'); });
+            var pane = document.getElementById(paneId);
+            if (pane) pane.classList.add('active');
+            btn.classList.add('active');
+        });
+    });
+
+    widget.querySelectorAll('[data-bf-scroll]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var slider = document.getElementById(btn.getAttribute('data-bf-scroll'));
+            var dir = parseInt(btn.getAttribute('data-bf-dir'), 10) || 1;
+            if (slider) slider.scrollBy({ left: dir * 280, behavior: 'smooth' });
+        });
+    });
+})();
+</script>
