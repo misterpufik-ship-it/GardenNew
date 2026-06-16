@@ -1,0 +1,440 @@
+{
+  "bar": [
+    {
+      "item_title": "Aperol Spritz",
+      "item_price": "790",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/aperol-spritz.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "CHERRY SMOKE",
+      "item_price": "900",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/cherry-smoke.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Clover Club",
+      "item_price": "750",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/clover-club.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "ELDER BLOOM",
+      "item_price": "1000",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/elder-bloom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Gin-Tonic Berry",
+      "item_price": "750",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/gin-tonic-berry.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Green Bro",
+      "item_price": "490",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/green-bro.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Lemon Pie",
+      "item_price": "750",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/lemon-pie.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Negroni",
+      "item_price": "750",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/negroni.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Pina Colada",
+      "item_price": "690",
+      "item_weight": "",
+      "item_img": "",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "SPICY WOOD",
+      "item_price": "900",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/spicy-wood.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "SPRING MELONY",
+      "item_price": "800",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/spring-melony.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Summer Breeze",
+      "item_price": "490",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/summer-breeze.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "SUMMER SPRITZ",
+      "item_price": "1100",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/summer-spritz.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "SWEET TOMATOO",
+      "item_price": "900",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/sweet-tomatoo.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "TRIPPLE SOUR",
+      "item_price": "800",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/tripple-sour.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Tropical Extaz",
+      "item_price": "490",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/tropical-extaz.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Лесные ягоды",
+      "item_price": "760",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/lesnye-iagody.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Молочный улун & белый шоколад",
+      "item_price": "900",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/molochnyi-ulun-belyi-shokolad.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Молочный чай с пряностями",
+      "item_price": "760",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/molochnyi-chai-s-prianostiami.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Облепиха&имбирь",
+      "item_price": "760",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/oblepikha-imbir.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Пуэр на вишневом соке",
+      "item_price": "900",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/puer-na-vishnevom-soke.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Травяной чай",
+      "item_price": "760",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/travianoi-chai.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    }
+  ],
+  "kitchen": [
+    {
+      "item_title": "Бастурма говядина",
+      "item_price": "760",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/basturma-goviadina.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Батат фри",
+      "item_price": "710",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/batat-fri.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Запеченный ролл с жареной креветкой и сыром",
+      "item_price": "920",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/zapechennyi-roll-s-zharenoi-krevetkoi-i-syrom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Запеченный ролл с креветкой и соусом горгонзола",
+      "item_price": "920",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/zapechennyi-roll-s-krevetkoi-i-sousom-gorgonzola.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Картофель фри",
+      "item_price": "490",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/kartofel-fri.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Креветки темпура",
+      "item_price": "820",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/krevetki-tempura.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Крем-суп из лосося",
+      "item_price": "920",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/krem-sup-iz-lososia.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Куриная грудка с трюфельным пюре",
+      "item_price": "750",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/kurinaia-grudka-s-triufel-nym-piure.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Опаленный ролл с лососем, тунцом и гребешком",
+      "item_price": "1200",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/opalennyi-roll-s-lososem-tuntsom-i-grebeshkom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Печенье в облаках",
+      "item_price": "540",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/pechen-e-v-oblakakh.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Поке с креветками",
+      "item_price": "850",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/poke-s-krevetkami.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Поке с лососем",
+      "item_price": "950",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/poke-s-lososem.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Поке с опаленным гребешком и трюфельным соусом",
+      "item_price": "950",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/poke-s-opalennym-grebeshkom-i-triufel-nym-sousom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Поке с тунцом",
+      "item_price": "850",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/poke-s-tuntsom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Пюре с томленной говядиной",
+      "item_price": "700",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/piure-s-tomlennoi-goviadinoi.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Рамен Кацу",
+      "item_price": "950",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/ramen-katsu.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Рис по-тайски с креветками",
+      "item_price": "870",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/ris-po-taiski-s-krevetkami.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Ролл опаленный гребешок",
+      "item_price": "1200",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/roll-opalennyi-grebeshok.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Ролл филадельфия классическая",
+      "item_price": "950",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/roll-filadel-fiia-klassicheskaia.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Салат с опаленным лососем",
+      "item_price": "1150",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/salat-s-opalennym-lososem.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Сливочно-сырный суп с лососем",
+      "item_price": "890",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/slivochno-syrnyi-sup-s-lososem.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Сливочный удон с морепродуктами",
+      "item_price": "870",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/slivochnyi-udon-s-moreproduktami.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Спринг ролл с лососем /  тунцом",
+      "item_price": "600",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/spring-roll-s-lososem-tuntsom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Сыр охотничий спагетти",
+      "item_price": "430",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/syr-okhotnichii-spagetti.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Темпура ролл с креветкой",
+      "item_price": "920",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/tempura-roll-s-krevetkoi.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Том Ям с морепродуктами",
+      "item_price": "920",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/tom-iam-s-moreproduktami.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Цукимоно",
+      "item_price": "350",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/tsukimono.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Шашлычки с кальмаром",
+      "item_price": "700",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/shashlychki-s-kal-marom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Шашлычки с креветками",
+      "item_price": "800",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/shashlychki-s-krevetkami.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Шницель с грибным соусом",
+      "item_price": "750",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/shnitsel-s-gribnym-sousom.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    }
+  ],
+  "desserts": [
+    {
+      "item_title": "Фруктовый ролл",
+      "item_price": "820",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/fruktovyi-roll.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    },
+    {
+      "item_title": "Чизкейк \"Матча\"",
+      "item_price": "540",
+      "item_weight": "",
+      "item_img": "/admiralteyskaya/couch/uploads/image/menu-visual/chizkeik-matcha.webp",
+      "item_desc": "",
+      "item_tag": "-"
+    }
+  ]
+}
