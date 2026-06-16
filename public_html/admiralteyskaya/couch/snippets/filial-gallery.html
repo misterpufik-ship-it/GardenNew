@@ -138,16 +138,14 @@
     .branch-filial-gallery-widget .bf-arrow:hover { background: var(--bf-gold); color: #000; }
     .branch-filial-gallery-widget .bf-arrow-left { left: 8px; }
     .branch-filial-gallery-widget .bf-arrow-right { right: 8px; }
-
-    .branch-filial-gallery-widget .bf-empty {
-        text-align: center;
-        color: rgba(255,255,255,0.45);
-        font-size: 11px;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        padding: 24px 12px;
-    }
 </style>
+
+<cms:set bf_img_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/' />
+<cms:set bf_menu_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/menu-visual/' />
+<cms:set bf_show_admiral='0' />
+<cms:if k_template_name='udelnaya/filial.php'>
+    <cms:set bf_show_admiral='1' />
+</cms:if>
 
 <div class="branch-filial-gallery-widget" data-bf-gallery>
     <div class="bf-tab-row">
@@ -172,6 +170,47 @@
                         </cms:if>
                     </cms:if>
                 </cms:show_repeatable>
+
+                <cms:if bf_show_admiral='1'>
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />garden-main.webp" alt="Интерьер Garden Lounge на Адмиралтейской" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>Garden Lounge</h3></div>
+                    </div>
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />garden.webp" alt="Интерьер лаунж-бара Garden Lounge" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>Вечнозелёный сад</h3></div>
+                    </div>
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />garden-2.webp" alt="VIP-зона Garden Lounge на Мойке" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>VIP-зона</h3></div>
+                    </div>
+                    <cms:repeat count='6'>
+                        <div class="bf-slide" data-bf-modal>
+                            <img src="<cms:show bf_img_base />ga<cms:show k_count />.webp" alt="Интерьер Garden Lounge Admiralteyskaya" loading="lazy" decoding="async">
+                            <div class="bf-slide-shade"></div>
+                            <div class="bf-slide-caption"><h3>Interior <cms:show k_count /></h3></div>
+                        </div>
+                    </cms:repeat>
+                <cms:else />
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Интерьер Garden Lounge на Удельной" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>Вечнозелёный сад</h3></div>
+                    </div>
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />garden.webp" alt="Интерьер лаунж-бара Garden Lounge Удельная" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>Интерьер лаунжа</h3></div>
+                    </div>
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />safonovleonid_green_65.webp" alt="VIP-зона Garden Lounge на Удельной" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>VIP-зона</h3></div>
+                    </div>
+                </cms:if>
             </div>
         </div>
     </div>
@@ -192,6 +231,57 @@
                         </cms:if>
                     </cms:if>
                 </cms:show_repeatable>
+
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />summer-spritz.webp" alt="Summer Spritz — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Summer Spritz</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />opalennyi-roll-s-lososem-tuntsom-i-grebeshkom.webp" alt="Опаленный ролл с лососем, тунцом и гребешком" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Опаленный ролл</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />chizkeik-matcha.webp" alt="Чизкейк Матча — десерт Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Чизкейк Матча</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />elder-bloom.webp" alt="Elder Bloom — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Elder Bloom</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />ramen-katsu.webp" alt="Рамен Кацу — горячее блюдо Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Рамен Кацу</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />aperol-spritz.webp" alt="Aperol Spritz — коктейль Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Aperol Spritz</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />poke-s-lososem.webp" alt="Поке с лососем — блюдо кухни Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Поке с лососем</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />fruktovyi-roll.webp" alt="Фруктовый ролл — десерт Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Фруктовый ролл</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />cherry-smoke.webp" alt="Cherry Smoke — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Cherry Smoke</h3></div>
+                </div>
+                <div class="bf-slide" data-bf-modal>
+                    <img src="<cms:show bf_menu_base />tom-iam-s-moreproduktami.webp" alt="Том Ям с морепродуктами — блюдо кухни Garden Lounge" loading="lazy" decoding="async">
+                    <div class="bf-slide-shade"></div>
+                    <div class="bf-slide-caption"><h3>Том Ям</h3></div>
+                </div>
             </div>
         </div>
     </div>
@@ -212,6 +302,27 @@
                         </cms:if>
                     </cms:if>
                 </cms:show_repeatable>
+
+                <cms:if bf_show_admiral='1'>
+                    <cms:repeat count='6'>
+                        <div class="bf-slide" data-bf-modal>
+                            <img src="<cms:show bf_img_base />gf<cms:show k_count />.webp" alt="Атмосфера Garden Lounge Admiralteyskaya" loading="lazy" decoding="async">
+                            <div class="bf-slide-shade"></div>
+                            <div class="bf-slide-caption"><h3>Vibe <cms:show k_count /></h3></div>
+                        </div>
+                    </cms:repeat>
+                <cms:else />
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />safonovleonid_green_65.webp" alt="Атмосфера Garden Lounge на Удельной" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>Atmosphere</h3></div>
+                    </div>
+                    <div class="bf-slide" data-bf-modal>
+                        <img src="<cms:show bf_img_base />garden.webp" alt="Вечер в Garden Lounge Удельная" loading="lazy" decoding="async">
+                        <div class="bf-slide-shade"></div>
+                        <div class="bf-slide-caption"><h3>Evening Vibe</h3></div>
+                    </div>
+                </cms:if>
             </div>
         </div>
     </div>
