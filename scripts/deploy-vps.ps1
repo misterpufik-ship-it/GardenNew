@@ -51,6 +51,18 @@ try {
 
     & ssh -i $IdentityFile -o BatchMode=yes -o ConnectTimeout=15 $target $remoteCommand
     if ($LASTEXITCODE -ne 0) { throw "Remote VPS deploy failed." }
+
+    # deploy-site excludes all uploads/; sync versioned visual menu images separately
+    if ($Project -eq "garden-lounge.pro") {
+        $menuVisualSync = @(
+            "sudo -u deploy rsync -az",
+            "/srv/deploy/projects/garden-lounge.pro/repo/public_html/admiralteyskaya/couch/uploads/image/menu-visual/",
+            "mrpuffch@mrpuffch.beget.tech:/home/m/mrpuffch/garden-lounge.pro/public_html/admiralteyskaya/couch/uploads/image/menu-visual/"
+        ) -join " "
+
+        & ssh -i $IdentityFile -o BatchMode=yes -o ConnectTimeout=15 $target $menuVisualSync
+        if ($LASTEXITCODE -ne 0) { throw "Visual menu image sync failed." }
+    }
 }
 finally {
     Pop-Location

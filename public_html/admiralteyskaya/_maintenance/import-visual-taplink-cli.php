@@ -1,12 +1,26 @@
 <?php
 /**
- * One-time Taplink visual menu import for CouchCMS.
- * Run on server: php public_html/admiralteyskaya/_maintenance/import-visual-taplink-cli.php
+ * Taplink visual menu import for CouchCMS.
+ * Run on server:
+ *   php public_html/admiralteyskaya/_maintenance/import-visual-taplink-cli.php
+ *   php public_html/admiralteyskaya/_maintenance/import-visual-taplink-cli.php udelnaya
  */
 
 if (PHP_SAPI !== 'cli') {
     http_response_code(403);
     exit("CLI only\n");
+}
+
+$branch = $argv[1] ?? 'admiralteyskaya';
+$templates = [
+    'admiralteyskaya' => 'menu/visual/index.php',
+    'udelnaya' => 'udelnaya/menu/visual/index.php',
+];
+
+if (!isset($templates[$branch])) {
+    fwrite(STDERR, "Unknown branch: {$branch}\n");
+    fwrite(STDERR, "Usage: php import-visual-taplink-cli.php [admiralteyskaya|udelnaya]\n");
+    exit(1);
 }
 
 $root = realpath(__DIR__ . '/..');
@@ -34,7 +48,10 @@ if (!isset($AUTH->user) || !is_object($AUTH->user)) {
 
 $AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
 
-$pg = new KWebpage('menu/visual/index.php');
+$templateName = $templates[$branch];
+echo "Importing Taplink menu for {$branch} ({$templateName})\n";
+
+$pg = new KWebpage($templateName);
 if (!empty($pg->error)) {
     fwrite(STDERR, "Failed to load page: {$pg->err_msg}\n");
     exit(1);
