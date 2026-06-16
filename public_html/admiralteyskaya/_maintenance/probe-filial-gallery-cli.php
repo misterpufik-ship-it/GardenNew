@@ -20,12 +20,16 @@ foreach (array('filial.php', 'udelnaya/filial.php') as $templateName) {
     }
 
     $names = array();
-    foreach ($pg->fields as $name => $field) {
-        $names[] = $name;
+    $target = null;
+    foreach ($pg->fields as $field) {
+        $names[] = $field->name;
+        if ($field->name === 'final_gallery_items') {
+            $target = $field;
+        }
     }
     echo 'Fields: ' . implode(', ', $names) . "\n";
 
-    if (!isset($pg->fields['final_gallery_items'])) {
+    if (!$target) {
         echo "final_gallery_items field missing\n";
         if (isset($pg->fields['final_gallery'])) {
             echo "final_gallery field exists instead\n";
@@ -33,7 +37,7 @@ foreach (array('filial.php', 'udelnaya/filial.php') as $templateName) {
         continue;
     }
 
-    $field = $pg->fields['final_gallery_items'];
+    $field = $target;
     if (method_exists($field, 'get_rows')) {
         $rows = $field->get_rows(true);
         echo 'Rows via get_rows: ' . count($rows) . "\n";
