@@ -118,15 +118,23 @@ function save_filial_gallery($templateName, $rows)
 {
     global $FUNCS;
 
+    $FUNCS->invalidate_cache();
     $pg = new KWebpage($templateName);
     if (!empty($pg->error)) {
         throw new RuntimeException('Failed to load ' . $templateName . ': ' . $pg->err_msg);
     }
-    if (!isset($pg->fields['final_gallery_items'])) {
+
+    $field = null;
+    if (isset($pg->_fields['final_gallery_items'])) {
+        $field = $pg->_fields['final_gallery_items'];
+    } elseif (isset($pg->fields['final_gallery_items'])) {
+        $field = $pg->fields['final_gallery_items'];
+    }
+
+    if (!$field) {
         throw new RuntimeException('Field final_gallery_items missing in ' . $templateName);
     }
 
-    $field = $pg->fields['final_gallery_items'];
     $field->store_posted_changes($rows, 'db_persist');
     $errors = $pg->save('db_persist');
     if ($errors) {
@@ -136,8 +144,101 @@ function save_filial_gallery($templateName, $rows)
     echo "Saved " . count($rows) . " photos to {$templateName}\n";
 }
 
+function read_gallery_items_sql()
+{
+    $config = __DIR__ . '/../couch/config.php';
+    if (!is_file($config)) {
+        return array();
+    }
+
+    require_once $config;
+    $host = K_DB_HOST;
+    $port = 3306;
+    if (strpos($host, ':') !== false) {
+        list($host, $port) = explode(':', $host, 2);
+    }
+
+    $db = @new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int)$port);
+    if ($db->connect_errno) {
+        return array();
+    }
+    $db->set_charset('utf8');
+
+    $templates = K_DB_TABLES_PREFIX . 'couch_templates';
+    $fields = K_DB_TABLES_PREFIX . 'couch_fields';
+    $pages = K_DB_TABLES_PREFIX . 'couch_pages';
+    $text = K_DB_TABLES_PREFIX . 'couch_data_text';
+
+    $tpl = $db->query("SELECT id FROM `{$templates}` WHERE name='gallery.php' LIMIT 1");
+    $tplRow = $tpl ? $tpl->fetch_assoc() : null;
+    if (!$tplRow) {
+        return array();
+    }
+
+    $page = $db->query("SELECT id FROM `{$pages}` WHERE template_id=" . (int)$tplRow['id'] . " LIMIT 1");
+    $pageRow = $page ? $page->fetch_assoc() : null;
+    if (!$pageRow) {
+        return array();
+    }
+
+    $fieldMap = array();
+    $res = $db->query("SELECT id, name FROM `{$fields}` WHERE template_id=" . (int)$tplRow['id'] . " AND name IN ('gallery_img','gallery_img_title','gallery_img_alt','gallery_category')");
+    while ($res && ($row = $res->fetch_assoc())) {
+        $fieldMap[$row['name']] = (int)$row['id'];
+    }
+
+    if (!$fieldMap) {
+        return array();
+    }
+
+    $rows = array();
+    $res = $db->query(
+        "SELECT field_id, value FROM `{$text}` WHERE page_id=" . (int)$pageRow['id'] .
+        " AND field_id IN (" . implode(',', array_values($fieldMap)) . ") ORDER BY id"
+    );
+
+    $buffer = array();
+    while ($res && ($row = $res->fetch_assoc())) {
+        $name = array_search((int)$row['field_id'], $fieldMap, true);
+        if ($name === false) {
+            continue;
+        }
+        if ($name === 'gallery_img') {
+            if ($buffer) {
+                $rows[] = $buffer;
+            }
+            $buffer = array('gallery_img' => $row['value']);
+            continue;
+        }
+        $buffer[$name] = $row['value'];
+    }
+    if ($buffer) {
+        $rows[] = $buffer;
+    }
+
+    $out = array();
+    foreach ($rows as $row) {
+        if (empty($row['gallery_img'])) {
+            continue;
+        }
+        $out[] = filial_row(
+            $row['gallery_img'],
+            isset($row['gallery_img_title']) ? $row['gallery_img_title'] : '',
+            isset($row['gallery_img_alt']) ? $row['gallery_img_alt'] : '',
+            isset($row['gallery_category']) ? $row['gallery_category'] : 'interior'
+        );
+    }
+
+    return $out;
+}
+
 try {
+    $FUNCS->invalidate_cache();
+
     $admiralRows = read_gallery_items('gallery.php');
+    if (!$admiralRows) {
+        $admiralRows = read_gallery_items_sql();
+    }
     if (!$admiralRows) {
         echo "Warning: gallery.php has no CMS rows, using menu-only fallback for admiral\n";
     }
