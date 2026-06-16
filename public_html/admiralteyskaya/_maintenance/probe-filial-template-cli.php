@@ -71,12 +71,37 @@ foreach ($templateNames as $templateName) {
              FROM `{$text}` t
              JOIN `{$fields}` f ON f.id = t.field_id
              WHERE t.page_id=" . (int)$page['id'] . "
-               AND f.name IN ('final_img','final_gallery','final_gallery_img','final_media_mode')
+               AND f.name IN ('final_img','final_gallery','final_gallery_img','final_media_mode','final_gallery_items','final_gallery_category')
              ORDER BY f.name"
         );
         while ($dataRes && ($data = $dataRes->fetch_assoc())) {
             $value = strlen($data['value']) > 120 ? substr($data['value'], 0, 120) . '...' : $data['value'];
             echo "   {$data['name']}: {$value}\n";
+        }
+
+        $repeatableField = $db->query(
+            "SELECT id, name, k_type, k_group FROM `{$fields}` WHERE template_id=" . (int)$tplRow['id'] .
+            " AND name='final_gallery_items' LIMIT 1"
+        );
+        if ($repeatableField && ($rf = $repeatableField->fetch_assoc())) {
+            echo "   final_gallery_items field id={$rf['id']} type={$rf['k_type']}\n";
+            $childRes = $db->query(
+                "SELECT name, k_type, k_group FROM `{$fields}` WHERE template_id=" . (int)$tplRow['id'] .
+                " AND k_group='final_gallery_items' ORDER BY id"
+            );
+            while ($childRes && ($child = $childRes->fetch_assoc())) {
+                echo "     child {$child['name']} [{$child['k_type']}]\n";
+            }
+            $rowCount = $db->query(
+                "SELECT COUNT(*) AS cnt FROM `{$text}` t
+                 JOIN `{$fields}` f ON f.id = t.field_id
+                 WHERE t.page_id=" . (int)$page['id'] . " AND f.k_group='final_gallery_items'"
+            );
+            if ($rowCount && ($rc = $rowCount->fetch_assoc())) {
+                echo "     repeatable row values in couch_data_text: {$rc['cnt']}\n";
+            }
+        } else {
+            echo "   final_gallery_items field NOT in DB\n";
         }
     }
 }
