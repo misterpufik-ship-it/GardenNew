@@ -217,22 +217,18 @@
             <div class="fade-up" style="animation-delay: 0.5s;">
                 <div class="img-frame branch-gallery" data-branch-gallery>
                     <div class="branch-gallery-track">
-                        <cms:capture into='branch_gallery_slides'>
-                            <cms:show_repeatable 'final_gallery'>
-                                <cms:if final_gallery_img>
-                                    <div class="branch-gallery-slide">
-                                        <img src="<cms:show final_gallery_img />" alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
-                                    </div>
-                                </cms:if>
-                            </cms:show_repeatable>
-                        </cms:capture>
-                        <cms:if branch_gallery_slides>
-                            <cms:show branch_gallery_slides />
-                        <cms:else />
+                        <cms:if final_img>
                             <div class="branch-gallery-slide">
                                 <img src="<cms:show final_img />" alt="<cms:if final_img_alt><cms:show final_img_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
                             </div>
                         </cms:if>
+                        <cms:show_repeatable 'final_gallery'>
+                            <cms:if final_gallery_img>
+                                <div class="branch-gallery-slide">
+                                    <img src="<cms:show final_gallery_img />" alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_title /></cms:if>" class="img-premium" loading="lazy" decoding="async">
+                                </div>
+                            </cms:if>
+                        </cms:show_repeatable>
                     </div>
                     <button type="button" class="branch-gallery-btn branch-gallery-prev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
                     <button type="button" class="branch-gallery-btn branch-gallery-next" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
