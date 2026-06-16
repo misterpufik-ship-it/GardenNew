@@ -98,7 +98,7 @@
         overflow: hidden;
         border-radius: 2px;
         background: #111;
-        cursor: zoom-in;
+        cursor: pointer;
         box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); 
         transition: box-shadow 0.35s ease;
     }
@@ -138,12 +138,29 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 17px;
         opacity: 0;
         pointer-events: none;
         backdrop-filter: blur(4px);
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
         transition: opacity 0.35s ease, transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+    }
+
+    .gallery-svg-icon {
+        width: 18px;
+        height: 18px;
+        display: block;
+        flex-shrink: 0;
+    }
+
+    .slider-arrow .gallery-svg-icon,
+    .widget-modal-arrow .gallery-svg-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .widget-modal-close .gallery-svg-icon {
+        width: 22px;
+        height: 22px;
     }
 
     .gallery-slide-item:hover::after {
@@ -347,6 +364,30 @@
         text-align: center;
     }
 
+    .widget-modal-close {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        color: rgba(255, 255, 255, 0.75);
+        background: rgba(0, 0, 0, 0.55);
+        border: 1px solid rgba(197, 160, 89, 0.35);
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 100000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .widget-modal-close:hover {
+        color: #000;
+        background: #C5A059;
+        border-color: #C5A059;
+    }
+
     .widget-modal-arrow-prev { left: 10px; }
     .widget-modal-arrow-next { right: 10px; }
 
@@ -392,8 +433,8 @@
                 
                 <div id="tab-interior" class="category-pane active">
                     <div class="slider-relative-box">
-                        <button class="slider-arrow arrow-left" onclick="scrollWidgetSlider('slider-interior', -300)"><i class="fas fa-chevron-left"></i></button>
-                        <button class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-interior', 300)"><i class="fas fa-chevron-right"></i></button>
+                        <button type="button" class="slider-arrow arrow-left" onclick="scrollWidgetSlider('slider-interior', -300)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                        <button type="button" class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-interior', 300)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
                         
                         <div id="slider-interior" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <cms:if is_udelnaya='1'>
@@ -435,8 +476,8 @@
 
                 <div id="tab-food" class="category-pane">
                     <div class="slider-relative-box">
-                        <button class="slider-arrow arrow-left" onclick="scrollWidgetSlider('slider-food', -250)"><i class="fas fa-chevron-left"></i></button>
-                        <button class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-food', 250)"><i class="fas fa-chevron-right"></i></button>
+                        <button type="button" class="slider-arrow arrow-left" onclick="scrollWidgetSlider('slider-food', -250)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                        <button type="button" class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-food', 250)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                         <div id="slider-food" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <cms:set menu_gallery_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/menu-visual/' />
@@ -497,8 +538,8 @@
 
                 <div id="tab-vibe" class="category-pane">
                     <div class="slider-relative-box">
-                        <button class="slider-arrow arrow-left" onclick="scrollWidgetSlider('slider-vibe', -300)"><i class="fas fa-chevron-left"></i></button>
-                        <button class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-vibe', 300)"><i class="fas fa-chevron-right"></i></button>
+                        <button type="button" class="slider-arrow arrow-left" onclick="scrollWidgetSlider('slider-vibe', -300)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                        <button type="button" class="slider-arrow arrow-right" onclick="scrollWidgetSlider('slider-vibe', 300)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                         <div id="slider-vibe" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <cms:if is_udelnaya='1'>
@@ -544,17 +585,17 @@
 
     <!-- МОДАЛЬНОЕ ОКНО -->
     <div id="widget-image-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.98); backdrop-filter:blur(10px); opacity:0; transition:opacity 0.3s ease; flex-direction:column; align-items:center; justify-content:center; padding:20px;" onclick="closeWidgetModal()">
-        <button type="button" onclick="event.stopPropagation(); closeWidgetModal();" style="position:fixed; top:20px; right:20px; color:rgba(255,255,255,0.7); background:none; border:none; cursor:pointer; font-size:30px; z-index:100000;">
-            <i class="fas fa-times"></i>
+        <button type="button" class="widget-modal-close" onclick="event.stopPropagation(); closeWidgetModal();" aria-label="Закрыть">
+            <svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
         <div class="widget-modal-frame" onclick="event.stopPropagation()">
             <div class="widget-modal-image-wrap">
                 <img id="widget-modal-img" src="" alt="">
                 <button type="button" class="widget-modal-arrow widget-modal-arrow-prev" onclick="event.stopPropagation(); shiftWidgetModal(-1);" aria-label="Предыдущее фото">
-                    <i class="fas fa-chevron-left"></i>
+                    <svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
                 </button>
                 <button type="button" class="widget-modal-arrow widget-modal-arrow-next" onclick="event.stopPropagation(); shiftWidgetModal(1);" aria-label="Следующее фото">
-                    <i class="fas fa-chevron-right"></i>
+                    <svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </button>
             </div>
             <h3 id="widget-modal-caption"></h3>
@@ -676,7 +717,7 @@
         const icon = document.createElement('span');
         icon.className = 'gallery-slide-hover-icon';
         icon.setAttribute('aria-hidden', 'true');
-        icon.innerHTML = '<i class="fas fa-search-plus"></i>';
+        icon.innerHTML = '<svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>';
         item.appendChild(icon);
     });
 </script>
