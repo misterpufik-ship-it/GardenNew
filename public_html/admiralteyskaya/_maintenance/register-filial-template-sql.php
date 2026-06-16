@@ -81,7 +81,8 @@ function field_exists($db, $fields, $templateId, $name) {
 
 function next_order($db, $fields, $templateId) {
     $row = one($db, "SELECT MAX(CAST(k_order AS UNSIGNED)) AS max_order FROM `{$fields}` WHERE template_id=" . (int)$templateId);
-    return (int)($row['max_order'] ?? 0) + 10;
+    $maxOrder = ($row && isset($row['max_order'])) ? $row['max_order'] : 0;
+    return (int)$maxOrder + 10;
 }
 
 function clone_repeatable($db, $fields, $sourceTemplateName, $sourceRepeatableName, $targetTemplateId, $targetRepeatableName, $targetRepeatableLabel, $groupName) {
@@ -204,43 +205,48 @@ function restore_empty_image($db, $fields, $text, $pages, $templateId, $defaultI
     echo "Restored empty final_img for template {$templateId}\n";
 }
 
-$targets = [
-    [
+$targets = array(
+    array(
         'template_name' => 'filial.php',
         'default_image' => 'https://garden-lounge.pro/img/akkuratova.webp',
-    ],
-    [
+    ),
+    array(
         'template_name' => 'udelnaya/filial.php',
         'default_image' => ':garden-main-1.webp',
-    ],
-];
+    ),
+);
 
-foreach ($targets as $target) {
-    echo "\n=== {$target['template_name']} ===\n";
-    $template = one($db, "SELECT id FROM `{$templates}` WHERE name=" . q($db, $target['template_name']) . " LIMIT 1");
-    if (!$template) {
-        echo "Template missing\n";
-        continue;
+try {
+    foreach ($targets as $target) {
+        echo "\n=== {$target['template_name']} ===\n";
+        $template = one($db, "SELECT id FROM `{$templates}` WHERE name=" . q($db, $target['template_name']) . " LIMIT 1");
+        if (!$template) {
+            echo "Template missing\n";
+            continue;
+        }
+
+        $templateId = (int)$template['id'];
+        $db->query(
+            "UPDATE `{$fields}` SET label='Изображение филиала', k_group='final_group_info' " .
+            "WHERE template_id={$templateId} AND name='final_img' LIMIT 1"
+        );
+
+        ensure_text_field($db, $fields, $templateId, 'final_img_alt', 'Alt основного фото', 'final_group_info');
+        clone_repeatable(
+            $db,
+            $fields,
+            'gallery.php',
+            'gallery_items',
+            $templateId,
+            'final_gallery',
+            'Дополнительные фото галереи',
+            'final_group_info'
+        );
+        restore_empty_image($db, $fields, $text, $pages, $templateId, $target['default_image']);
     }
 
-    $templateId = (int)$template['id'];
-    $db->query(
-        "UPDATE `{$fields}` SET label='Изображение филиала', k_group='final_group_info' " .
-        "WHERE template_id={$templateId} AND name='final_img' LIMIT 1"
-    );
-
-    ensure_text_field($db, $fields, $templateId, 'final_img_alt', 'Alt основного фото', 'final_group_info');
-    clone_repeatable(
-        $db,
-        $fields,
-        'gallery.php',
-        'gallery_items',
-        $templateId,
-        'final_gallery',
-        'Дополнительные фото галереи',
-        'final_group_info'
-    );
-    restore_empty_image($db, $fields, $text, $pages, $templateId, $target['default_image']);
+    require __DIR__ . '/clear-couch-cache-cli.php';
+} catch (Exception $e) {
+    fwrite(STDERR, $e->getMessage() . "\n");
+    exit(1);
 }
-
-require __DIR__ . '/clear-couch-cache-cli.php';
