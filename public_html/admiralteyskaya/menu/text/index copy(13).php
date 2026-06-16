@@ -63,7 +63,7 @@
     <cms:editable name='meta_desc_en' label='Description (EN)' type='textarea' group='seo_group'></cms:editable>
 
     <cms:editable name='settings_group' label='Основные настройки' type='group' order='2' />
-    <cms:editable name='site_logo' label='Логотип' type='image' group='settings_group' show_preview='1' preview_width='150'>https://misterpufik.ru/logo3.png</cms:editable>
+    <cms:editable name='site_logo' label='Логотип' type='image' group='settings_group' show_preview='1' preview_width='150'>/img/logo3.webp</cms:editable>
 
     <cms:editable name='lbl_tab_1' label='Вкладка 1 (RU)' type='text' group='settings_group'>Кальяны</cms:editable>
     <cms:editable name='lbl_tab_1_en' label='Tab 1 (EN)' type='text' group='settings_group'>Hookahs</cms:editable>

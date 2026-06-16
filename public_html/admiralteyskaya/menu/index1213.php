@@ -176,7 +176,7 @@
         <!-- ЛОГОТИП -->
         <header class="mb-8 fade-up" style="animation-delay: 0.1s;">
             <a href="https://garden-lounge.pro/admiralteyskaya/" class="block">
-                <img src="https://misterpufik.ru/logo3.png" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500">
+                <img src="/img/logo3.webp" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500">
             </a>
         </header>
 
@@ -195,7 +195,7 @@
                 
                 <!-- Визуальное меню (Левая часть) -->
                 <a href="/admiralteyskaya/menu/visual" class="card-left">
-                    <img src="https://misterpufik.ru/gf11.jpg" alt="Визуальное меню" onerror="this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800'">
+                    <img src="/admiralteyskaya/couch/uploads/image/gf11.webp" alt="Визуальное меню" onerror="this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                     
                     <div class="absolute inset-0 flex flex-col items-center justify-center p-4">
