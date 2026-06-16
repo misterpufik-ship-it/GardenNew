@@ -113,8 +113,9 @@ select.guest-select:focus{
             <p class="reservation-subtitle uppercase font-medium m-0 shimmer-text-gold"><cms:show res_subtitle /></p>
         </header>
 
-        <form class="gl-form-modern space-y-10 fade-up" style="animation-delay: 0.2s;" action="https://1.misterpufik.workers.dev" method="POST">
+        <form class="gl-form-modern space-y-10 fade-up" style="animation-delay: 0.2s;" action="/admiralteyskaya/api/booking.php" method="POST">
             <input type="text" name="website" class="hp">
+            <input type="hidden" name="branch" value="<cms:if is_udelnaya>udelnaya<cms:else />admiral</cms:if>">
             <div class="space-y-2">
                 <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Ваше имя</span></label>
                 <input class="gl-input-line text-center !text-xl font-serif-lux italic" name="name" placeholder="Например: Никита" required>
@@ -151,7 +152,7 @@ select.guest-select:focus{
         </form>
 
         <div class="divider-container fade-up" style="animation-delay: 0.4s;">
-            <img src="<cms:if res_sep='https://garden-lounge.pro/img/div.png'>couch/uploads/image/div.webp<cms:else /><cms:show res_sep /></cms:if>" alt="divider" class="divider-image" loading="lazy" decoding="async">
+            <img src="<cms:if res_sep='https://garden-lounge.pro/img/div.png'>couch/uploads/image/div.webp<cms:else /><cms:if res_sep='https://misterpufik.ru/div.png'>couch/uploads/image/div.webp<cms:else /><cms:show res_sep /></cms:if></cms:if>" alt="divider" class="divider-image" loading="lazy" decoding="async">
         </div>
     </div>
 </div>
@@ -203,10 +204,14 @@ select.guest-select:focus{
             try {
                 const params = new URLSearchParams();
                 for (const [key, value] of fd.entries()) params.append(key, value);
-                params.append('date', `${daySelect.value}.${monthSelect.value}.2026`);
+                const year = new Date().getFullYear();
+                params.append('date', `${daySelect.value}.${monthSelect.value}.${year}`);
                 params.append('visit_time', '19:00');
                 const resp = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() });
-                if (resp.ok) { MODAL.classList.add('is-open'); form.reset(); } else { showToast('Ошибка. Попробуйте позже.'); }
+                let data = null;
+                try { data = await resp.json(); } catch (e) {}
+                if (resp.ok && data && data.ok) { MODAL.classList.add('is-open'); form.reset(); }
+                else { showToast((data && data.message) ? data.message : 'Ошибка. Попробуйте позже.'); }
             } catch (err) { showToast('Проверьте интернет-соединение'); } finally { btn.disabled = false; btn.textContent = originalText; }
         };
     })();

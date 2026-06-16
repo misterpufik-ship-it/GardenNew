@@ -25,11 +25,13 @@ if ( $db->connect_errno ) {
 $db->set_charset('utf8mb4');
 
 $replacements = array(
-    '/img/logo3.webp' => 'https://garden-lounge.pro/img/logo3.webp',
+    'https://misterpufik.ru/logo3.png' => 'https://garden-lounge.pro/img/logo3.webp',
     'http://misterpufik.ru/logo3.png' => 'https://garden-lounge.pro/img/logo3.webp',
-    '/admiralteyskaya/couch/uploads/image/gf11.webp' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/gf11.webp',
-    '/admiralteyskaya/couch/uploads/image/log4.webp' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/log4.webp',
-    '/admiralteyskaya/couch/uploads/image/garden.webp' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden.webp',
+    'https://misterpufik.ru/div.png' => 'https://garden-lounge.pro/img/div.webp',
+    'http://misterpufik.ru/div.png' => 'https://garden-lounge.pro/img/div.webp',
+    'https://misterpufik.ru/gf11.jpg' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/gf11.webp',
+    'https://misterpufik.ru/log4.jpg' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/log4.webp',
+    'https://misterpufik.ru/garden.jpg' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden.webp',
 );
 
 for ( $i = 1; $i <= 6; $i++ ) {
