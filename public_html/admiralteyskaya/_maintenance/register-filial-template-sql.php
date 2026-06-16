@@ -85,9 +85,22 @@ function next_order($db, $fields, $templateId) {
     return (int)$maxOrder + 10;
 }
 
-function clone_repeatable($db, $fields, $sourceTemplateName, $sourceRepeatableName, $targetTemplateId, $targetRepeatableName, $targetRepeatableLabel, $groupName) {
-    global $templates;
+function find_repeatable_source($db, $fields, $templates, $repeatableName) {
+    $rows = all(
+        $db,
+        "SELECT t.name AS template_name, f.id
+         FROM `{$fields}` f
+         JOIN `{$templates}` t ON t.id = f.template_id
+         WHERE f.name=" . q($db, $repeatableName) . "
+         LIMIT 1"
+    );
+    if (!$rows) {
+        return null;
+    }
+    return $rows[0];
+}
 
+function clone_repeatable($db, $fields, $templates, $sourceTemplateName, $sourceRepeatableName, $targetTemplateId, $targetRepeatableName, $targetRepeatableLabel, $groupName) {
     $sourceTemplate = one($db, "SELECT id FROM `{$templates}` WHERE name=" . q($db, $sourceTemplateName) . " LIMIT 1");
     if (!$sourceTemplate) {
         throw new RuntimeException("Source template not found: {$sourceTemplateName}");
@@ -96,7 +109,7 @@ function clone_repeatable($db, $fields, $sourceTemplateName, $sourceRepeatableNa
     $sourceRepeatable = one(
         $db,
         "SELECT * FROM `{$fields}` WHERE template_id=" . (int)$sourceTemplate['id'] .
-        " AND name=" . q($db, $sourceRepeatableName) . " AND k_type='repeatable' LIMIT 1"
+        " AND name=" . q($db, $sourceRepeatableName) . " LIMIT 1"
     );
     if (!$sourceRepeatable) {
         throw new RuntimeException("Source repeatable not found: {$sourceRepeatableName}");
@@ -236,10 +249,15 @@ try {
         );
 
         ensure_text_field($db, $fields, $templateId, 'final_img_alt', 'Alt основного фото', 'final_group_info');
+        $source = find_repeatable_source($db, $fields, $templates, 'gallery_items');
+        if (!$source) {
+            throw new RuntimeException('gallery_items repeatable not found in any template');
+        }
         clone_repeatable(
             $db,
             $fields,
-            'gallery.php',
+            $templates,
+            $source['template_name'],
             'gallery_items',
             $templateId,
             'final_gallery',

@@ -32,7 +32,7 @@ $fields = K_DB_TABLES_PREFIX . 'couch_fields';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
 $text = K_DB_TABLES_PREFIX . 'couch_data_text';
 
-$templateNames = ['filial.php', 'udelnaya/filial.php'];
+$templateNames = array('filial.php', 'udelnaya/filial.php', 'gallery.php', 'udelnaya/gallery.php');
 
 foreach ($templateNames as $templateName) {
     echo "\n=== {$templateName} ===\n";
