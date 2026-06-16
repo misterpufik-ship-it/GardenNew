@@ -46,10 +46,13 @@ foreach ($templateNames as $templateName) {
 
     echo "Template ID: {$tplRow['id']} ({$tplRow['title']})\n";
 
-    $fieldRes = $db->query("SELECT name, label, type, hidden FROM `{$fields}` WHERE template_id=" . (int)$tplRow['id'] . " ORDER BY k_order");
+    $fieldRes = $db->query("SELECT name, label, k_type FROM `{$fields}` WHERE template_id=" . (int)$tplRow['id'] . " ORDER BY id");
     echo "Fields:\n";
+    if (!$fieldRes) {
+        echo " Field query error: {$db->error}\n";
+    }
     while ($fieldRes && ($field = $fieldRes->fetch_assoc())) {
-        echo " - {$field['name']} [{$field['type']}] label=\"{$field['label']}\" hidden={$field['hidden']}\n";
+        echo " - {$field['name']} [{$field['k_type']}] label=\"{$field['label']}\"\n";
     }
 
     $pageRes = $db->query("SELECT id, page_title FROM `{$pages}` WHERE template_id=" . (int)$tplRow['id'] . " LIMIT 5");
