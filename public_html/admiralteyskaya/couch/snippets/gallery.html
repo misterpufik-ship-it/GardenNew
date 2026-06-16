@@ -94,8 +94,85 @@
     .gallery-slide-item {
         flex: 0 0 auto;
         scroll-snap-align: start;
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        background: #111;
+        cursor: zoom-in;
         box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05); 
         transition: transform 0.3s ease;
+    }
+
+    .gallery-slide-item img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .gallery-slide-shade {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.35) 38%,
+            transparent 68%
+        );
+    }
+
+    .gallery-slide-caption {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+        padding: 12px 14px 11px;
+        max-width: 88%;
+        pointer-events: none;
+    }
+
+    .gallery-slide-caption::before {
+        content: '';
+        display: block;
+        width: 18px;
+        height: 1px;
+        margin-bottom: 7px;
+        background: rgba(197, 160, 89, 0.9);
+    }
+
+    .gallery-slide-caption h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(13px, 2.8vw, 17px);
+        line-height: 1.2;
+        color: #fff;
+        margin: 0;
+        letter-spacing: 0.01em;
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
+    }
+
+    @media (min-width: 768px) {
+        .gallery-slide-caption {
+            padding: 14px 16px 13px;
+        }
+
+        .gallery-slide-caption h3 {
+            font-size: clamp(14px, 1.1vw, 18px);
+        }
+    }
+
+    #tab-vibe .gallery-slide-item img {
+        filter: grayscale(1);
+        transition: filter 0.7s ease;
+    }
+
+    #tab-vibe .gallery-slide-item:hover img {
+        filter: grayscale(0);
     }
     
     .ratio-3-2 { width: 85%; aspect-ratio: 3/2; }
@@ -246,16 +323,14 @@
                         <div id="slider-interior" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <cms:show_repeatable 'gallery_items'>
     <cms:if gallery_category='interior'>
-        <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
+        <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
             <img src="<cms:show gallery_img />" 
                  loading="lazy" 
                  decoding="async"
-                 alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>"
-                 class="w-full h-full object-cover">
-                 
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-            <div class="absolute bottom-4 left-5">
-                <h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0"><cms:show gallery_img_title /></h3>
+                 alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>">
+            <div class="gallery-slide-shade"></div>
+            <div class="gallery-slide-caption">
+                <h3><cms:show gallery_img_title /></h3>
             </div>
         </div>
     </cms:if>
@@ -273,55 +348,55 @@
                         <div id="slider-food" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <cms:set menu_gallery_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/menu-visual/' />
 
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />summer-spritz.webp" alt="SUMMER SPRITZ — авторский коктейль Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">SUMMER SPRITZ</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />summer-spritz.webp" alt="Summer Spritz — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Summer Spritz</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />opalennyi-roll-s-lososem-tuntsom-i-grebeshkom.webp" alt="Опаленный ролл с лососем, тунцом и гребешком" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Опаленный ролл</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />opalennyi-roll-s-lososem-tuntsom-i-grebeshkom.webp" alt="Опаленный ролл с лососем, тунцом и гребешком" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Опаленный ролл</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />chizkeik-matcha.webp" alt="Чизкейк Матча — десерт Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Чизкейк Матча</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />chizkeik-matcha.webp" alt="Чизкейк Матча — десерт Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Чизкейк Матча</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />elder-bloom.webp" alt="ELDER BLOOM — авторский коктейль Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">ELDER BLOOM</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />elder-bloom.webp" alt="Elder Bloom — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Elder Bloom</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />ramen-katsu.webp" alt="Рамен Кацу — горячее блюдо Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Рамен Кацу</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />ramen-katsu.webp" alt="Рамен Кацу — горячее блюдо Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Рамен Кацу</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />aperol-spritz.webp" alt="Aperol Spritz — коктейль Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Aperol Spritz</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />aperol-spritz.webp" alt="Aperol Spritz — коктейль Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Aperol Spritz</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />poke-s-lososem.webp" alt="Поке с лососем — блюдо кухни Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Поке с лососем</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />poke-s-lososem.webp" alt="Поке с лососем — блюдо кухни Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Поке с лососем</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />fruktovyi-roll.webp" alt="Фруктовый ролл — десерт Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Фруктовый ролл</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />fruktovyi-roll.webp" alt="Фруктовый ролл — десерт Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Фруктовый ролл</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />cherry-smoke.webp" alt="CHERRY SMOKE — авторский коктейль Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">CHERRY SMOKE</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />cherry-smoke.webp" alt="Cherry Smoke — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Cherry Smoke</h3></div>
                             </div>
-                            <div class="gallery-slide-item ratio-1-1 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                <img src="<cms:show menu_gallery_base />tom-iam-s-moreproduktami.webp" alt="Том Ям с морепродуктами — блюдо кухни Garden Lounge" class="w-full h-full object-cover" loading="lazy" decoding="async">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-xl md:text-2xl text-white italic m-0">Том Ям</h3></div>
+                            <div class="gallery-slide-item ratio-1-1" onclick="openWidgetModal(this)">
+                                <img src="<cms:show menu_gallery_base />tom-iam-s-moreproduktami.webp" alt="Том Ям с морепродуктами — блюдо кухни Garden Lounge" loading="lazy" decoding="async">
+                                <div class="gallery-slide-shade"></div>
+                                <div class="gallery-slide-caption"><h3>Том Ям</h3></div>
                             </div>
                         </div>
                     </div>
@@ -335,10 +410,10 @@
                         <div id="slider-vibe" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <cms:show_repeatable 'gallery_items'>
                                 <cms:if gallery_category='vibe'>
-                                    <div class="gallery-slide-item ratio-3-2 relative rounded-sm overflow-hidden bg-[#111] group cursor-zoom-in" onclick="openWidgetModal(this)">
-                                        <img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700" loading="lazy" decoding="async">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
-                                        <div class="absolute bottom-4 left-5"><h3 class="font-serif-lux text-2xl md:text-3xl text-white italic m-0"><cms:show gallery_img_title /></h3></div>
+                                    <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
+                                        <img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" loading="lazy" decoding="async">
+                                        <div class="gallery-slide-shade"></div>
+                                        <div class="gallery-slide-caption"><h3><cms:show gallery_img_title /></h3></div>
                                     </div>
                                 </cms:if>
                             </cms:show_repeatable>
