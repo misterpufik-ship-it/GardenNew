@@ -19,6 +19,12 @@ foreach (array('filial.php', 'udelnaya/filial.php') as $templateName) {
         continue;
     }
 
+    $names = array();
+    foreach ($pg->fields as $name => $field) {
+        $names[] = $name;
+    }
+    echo 'Fields: ' . implode(', ', $names) . "\n";
+
     if (!isset($pg->fields['final_gallery_items'])) {
         echo "final_gallery_items field missing\n";
         if (isset($pg->fields['final_gallery'])) {
