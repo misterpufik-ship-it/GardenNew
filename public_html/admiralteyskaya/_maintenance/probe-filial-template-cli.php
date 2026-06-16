@@ -55,6 +55,14 @@ foreach ($templateNames as $templateName) {
         echo " - {$field['name']} [{$field['k_type']}] label=\"{$field['label']}\"\n";
     }
 
+    $allRes = $db->query("SELECT name, k_group, k_type FROM `{$fields}` WHERE template_id=" . (int)$tplRow['id'] . " ORDER BY id");
+    if ($allRes && $allRes->num_rows <= 20) {
+        echo "All field rows:\n";
+        while ($allRes && ($field = $allRes->fetch_assoc())) {
+            echo "   {$field['name']} | group={$field['k_group']} | type={$field['k_type']}\n";
+        }
+    }
+
     $pageRes = $db->query("SELECT id, page_title FROM `{$pages}` WHERE template_id=" . (int)$tplRow['id'] . " LIMIT 5");
     while ($pageRes && ($page = $pageRes->fetch_assoc())) {
         echo "Page #{$page['id']}: {$page['page_title']}\n";
