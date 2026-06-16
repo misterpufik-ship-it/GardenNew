@@ -118,24 +118,32 @@ function clone_repeatable($db, $fields, $templates, $sourceTemplateName, $source
     $existing = field_exists($db, $fields, $targetTemplateId, $targetRepeatableName);
     if ($existing) {
         echo "Repeatable already exists: {$targetRepeatableName} (field #{$existing})\n";
-        return $existing;
+        $repeatableId = $existing;
+    } else {
+        $order = next_order($db, $fields, $targetTemplateId);
+        $repeatable = $sourceRepeatable;
+        $repeatable['template_id'] = (string)$targetTemplateId;
+        $repeatable['name'] = $targetRepeatableName;
+        $repeatable['label'] = $targetRepeatableLabel;
+        $repeatable['k_group'] = $groupName;
+        $repeatable['k_order'] = (string)$order;
+        $repeatableId = insert_field($db, $fields, $repeatable);
+        echo "Created repeatable {$targetRepeatableName} (#{$repeatableId})\n";
     }
-
-    $order = next_order($db, $fields, $targetTemplateId);
-    $repeatable = $sourceRepeatable;
-    $repeatable['template_id'] = (string)$targetTemplateId;
-    $repeatable['name'] = $targetRepeatableName;
-    $repeatable['label'] = $targetRepeatableLabel;
-    $repeatable['k_group'] = $groupName;
-    $repeatable['k_order'] = (string)$order;
-    $repeatableId = insert_field($db, $fields, $repeatable);
-    echo "Created repeatable {$targetRepeatableName} (#{$repeatableId})\n";
 
     $children = all(
         $db,
         "SELECT * FROM `{$fields}` WHERE template_id=" . (int)$sourceTemplate['id'] .
         " AND k_group=" . q($db, $sourceRepeatableName) . " ORDER BY id"
     );
+
+    if (!$children) {
+        $children = all(
+            $db,
+            "SELECT * FROM `{$fields}` WHERE template_id=" . (int)$sourceTemplate['id'] .
+            " AND name IN ('gallery_img','gallery_img_alt','gallery_img_title','gallery_category') ORDER BY id"
+        );
+    }
 
     foreach ($children as $child) {
         $childRow = $child;
@@ -152,6 +160,13 @@ function clone_repeatable($db, $fields, $templates, $sourceTemplateName, $source
         } elseif ($childRow['name'] === 'gallery_img_title') {
             continue;
         } elseif ($childRow['name'] === 'gallery_category') {
+            continue;
+        } else {
+            continue;
+        }
+
+        if (field_exists($db, $fields, $targetTemplateId, $childRow['name'])) {
+            echo "  = child {$childRow['name']} already exists\n";
             continue;
         }
 
