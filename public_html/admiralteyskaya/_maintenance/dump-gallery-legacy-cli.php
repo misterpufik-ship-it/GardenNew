@@ -7,7 +7,17 @@ if (PHP_SAPI !== 'cli') {
 $config = __DIR__ . '/../couch/config.php';
 require_once $config;
 
-$db = new mysqli(K_DB_HOST, K_DB_USER, K_DB_PASSWORD, K_DB_NAME);
+$host = K_DB_HOST;
+$port = ini_get('mysqli.default_port') ?: 3306;
+if (strpos($host, ':') !== false) {
+    list($host, $port) = explode(':', $host, 2);
+}
+
+$db = new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int) $port);
+if ($db->connect_errno) {
+    fwrite(STDERR, $db->connect_error . "\n");
+    exit(1);
+}
 $db->set_charset('utf8');
 
 $text = K_DB_TABLES_PREFIX . 'couch_data_text';
