@@ -60,16 +60,6 @@ require_once $garden_cms;
         <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:editable name='group_desserts' label='Десерты' type='group' collapsed='1' order='5' />
-    <cms:repeatable name='menu_desserts' label='Список блюд: Десерты' group='group_desserts'>
-        <cms:editable name='item_title' label='Название' type='text' />
-        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Цена' type='text' />
-        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
-        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='Описание' type='textarea' />
-    </cms:repeatable>
-
 </cms:template>
 <!DOCTYPE html>
 <html lang="ru">
@@ -185,7 +175,6 @@ require_once $garden_cms;
             <button type="button" class="tab-btn active uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">&#1050;&#1072;&#1083;&#1100;&#1103;&#1085;&#1099;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('kitchen', this)">&#1050;&#1091;&#1093;&#1085;&#1103;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('bar', this)">&#1041;&#1072;&#1088;</button>
-            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('desserts', this)">&#1044;&#1077;&#1089;&#1077;&#1088;&#1090;&#1099;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
         </nav>
         <div class="gold-divider-nav"></div>
@@ -259,9 +248,6 @@ require_once $garden_cms;
             </cms:show_repeatable>
             <cms:show_repeatable 'menu_bar'>
             { cat: 'bar', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-            <cms:show_repeatable 'menu_desserts'>
-            { cat: 'desserts', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
             </cms:show_repeatable>
         ];
 

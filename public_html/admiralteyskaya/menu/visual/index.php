@@ -37,16 +37,6 @@
         <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:editable name='group_desserts' label='Десерты' type='group' collapsed='1' order='5' />
-    <cms:repeatable name='menu_desserts' label='Список блюд: Десерты' group='group_desserts'>
-        <cms:editable name='item_title' label='Название' type='text' />
-        <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
-        <cms:editable name='item_price' label='Цена' type='text' />
-        <cms:editable name='item_weight' label='Вес/Объем' type='text' />
-        <cms:editable name='item_img' label='Фото' type='image' input_width='160' />
-        <cms:editable name='item_desc' label='Описание' type='textarea' />
-    </cms:repeatable>
-
 </cms:template>
 <!DOCTYPE html>
 <html lang="ru">
@@ -55,12 +45,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <cms:embed 'favicon.html' />
     <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
-    <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар, десерты и акции лаунж-бара в центре Санкт-Петербурга.">
+    <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар и акции лаунж-бара в центре Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
     <meta property="og:title" content="Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб">
-    <meta property="og:description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, десерты и акции.">
+    <meta property="og:description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -162,7 +152,6 @@
             <button type="button" class="tab-btn active uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">&#1050;&#1072;&#1083;&#1100;&#1103;&#1085;&#1099;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('kitchen', this)">&#1050;&#1091;&#1093;&#1085;&#1103;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('bar', this)">&#1041;&#1072;&#1088;</button>
-            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('desserts', this)">&#1044;&#1077;&#1089;&#1077;&#1088;&#1090;&#1099;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
         </nav>
         <div class="gold-divider-nav"></div>
@@ -236,9 +225,6 @@
             </cms:show_repeatable>
             <cms:show_repeatable 'menu_bar'>
             { cat: 'bar', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-            <cms:show_repeatable 'menu_desserts'>
-            { cat: 'desserts', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
             </cms:show_repeatable>
         ];
 

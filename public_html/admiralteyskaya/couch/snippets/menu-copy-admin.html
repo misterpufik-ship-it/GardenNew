@@ -1,16 +1,15 @@
 <style>
 .garden-copy-row-btn-wrap {
     position: absolute;
-    top: 8px;
-    right: 36px;
-    z-index: 20;
+    top: 6px;
+    right: 8px;
+    z-index: 30;
     opacity: 0;
     pointer-events: none;
     transition: opacity .15s ease;
 }
-.repeatable-region .row:hover .garden-copy-row-btn-wrap,
-.repeatable-region .k_element_row:hover .garden-copy-row-btn-wrap,
-table.repeatable tbody tr:hover .garden-copy-row-btn-wrap {
+.repeatable-region tbody tr:hover .garden-copy-row-btn-wrap,
+.repeatable-region .mosaic_contents:hover .garden-copy-row-btn-wrap {
     opacity: 1;
     pointer-events: auto;
 }
@@ -36,15 +35,16 @@ table.repeatable tbody tr:hover .garden-copy-row-btn-wrap {
 </style>
 <script>
 (function() {
-    if (!/\/couch\/admin\//.test(window.location.pathname)) {
+    var path = window.location.pathname || '';
+    if (path.indexOf('/couch/admin.php') === -1) {
         return;
     }
 
     var TARGET_BRANCH = '<cms:show branch_copy_to />';
     var TARGET_LABEL = '<cms:show branch_copy_to_label />';
-    var API_URL = '/admiralteyskaya/api/menu-copy.php';
+    var API_URL = '/admiralteyskaya/couch/menu-copy-api.php';
     var REPEATABLES = ['rep_hookahs_v2', 'rep_kitchen_v2', 'rep_bar_alc_v2', 'rep_bar_non_v2', 'list_promos_v2'];
-    var FIELD_RE = /^f_(rep_[a-z0-9_]+|list_promos_v2)___(\d+)___([a-z0-9_]+)$/i;
+    var FIELD_RE = /^f_(rep_[a-z0-9_]+|list_promos_v2)\[(\d+)\]\[([a-z0-9_]+)\]$/i;
 
     function toast(message, ok) {
         var el = document.getElementById('garden-copy-toast');
@@ -85,11 +85,7 @@ table.repeatable tbody tr:hover .garden-copy-row-btn-wrap {
     function findRowContainer(input) {
         var node = input;
         while (node && node !== document.body) {
-            if (node.classList && (
-                node.classList.contains('row') ||
-                node.classList.contains('k_element_row') ||
-                (node.tagName === 'TR' && node.parentElement && node.parentElement.tagName === 'TBODY')
-            )) {
+            if (node.tagName === 'TR' && node.parentElement && node.parentElement.tagName === 'TBODY') {
                 return node;
             }
             node = node.parentElement;
@@ -113,8 +109,10 @@ table.repeatable tbody tr:hover .garden-copy-row-btn-wrap {
         }
 
         rowEl.dataset.gardenCopyReady = '1';
-        if (getComputedStyle(rowEl).position === 'static') {
-            rowEl.style.position = 'relative';
+
+        var anchor = rowEl.querySelector('.mosaic_contents') || rowEl.querySelector('.col-contents') || rowEl;
+        if (getComputedStyle(anchor).position === 'static') {
+            anchor.style.position = 'relative';
         }
 
         var wrap = document.createElement('div');
@@ -162,7 +160,7 @@ table.repeatable tbody tr:hover .garden-copy-row-btn-wrap {
         });
 
         wrap.appendChild(btn);
-        rowEl.appendChild(wrap);
+        anchor.appendChild(wrap);
     }
 
     function scanRepeatables() {
