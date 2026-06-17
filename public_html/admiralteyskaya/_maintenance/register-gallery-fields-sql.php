@@ -184,18 +184,15 @@ function ensure_gallery_repeatable($db, $fields, $templateId, $sourceRepeatableN
             "SELECT * FROM `{$fields}` WHERE template_id=" . (int) $templateId .
             " AND k_group=" . q($db, $sourceRepeatableName) . " AND name=" . q($db, $childName) . " LIMIT 1"
         );
-        if (!$sourceChild) {
-            $sourceChild = one(
-                $db,
-                "SELECT * FROM `{$fields}` WHERE name=" . q($db, $childName) .
-                " AND k_type IN ('text','textarea') LIMIT 1"
-            );
-        }
         if (!$sourceChild && $childName === 'gallery_img') {
-            $sourceChild = one($db, "SELECT * FROM `{$fields}` WHERE name='gallery_img' LIMIT 1");
+            $sourceChild = one($db, "SELECT * FROM `{$fields}` WHERE name IN ('gallery_img','final_gallery_img','item_img') AND k_type='image' LIMIT 1");
         }
         if (!$sourceChild) {
-            throw new RuntimeException("Cannot find sample child field {$childName}");
+            $sourceChild = one($db, "SELECT * FROM `{$fields}` WHERE name IN ('gallery_img_title','gallery_img_alt','final_gallery_title','final_gallery_alt','item_title') AND k_type='text' LIMIT 1");
+        }
+        if (!$sourceChild) {
+            echo "  ! skipped child {$childName} (no sample field)\n";
+            continue;
         }
 
         $childRow = $sourceChild;
@@ -204,9 +201,12 @@ function ensure_gallery_repeatable($db, $fields, $templateId, $sourceRepeatableN
         $childRow['label'] = $childLabel;
         $childRow['k_group'] = $repeatableName;
         $childRow['k_order'] = (string) next_order($db, $fields, $templateId);
-        if ($childName === 'gallery_img_alt') {
+        if ($childName === 'gallery_img') {
+            $childRow['k_type'] = 'image';
+        } else {
             $childRow['k_type'] = 'text';
         }
+        $childRow['_html'] = '';
         $childId = insert_field($db, $fields, $childRow);
         echo "  + child {$childName} (#{$childId})\n";
     }
