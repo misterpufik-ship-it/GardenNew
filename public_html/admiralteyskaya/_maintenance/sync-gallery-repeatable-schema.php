@@ -35,27 +35,11 @@ function one($db, $sql)
     return $row ?: null;
 }
 
-function repeatable_html_from_source($sourceHtml, $repeatableName, $repeatableLabel)
+function clean_repeatable_html()
 {
-    if (!$sourceHtml) {
-        throw new RuntimeException('Source repeatable _html is empty');
-    }
-
-    $html = preg_replace(
-        "/name='gallery_items'/",
-        "name='" . $repeatableName . "'",
-        $sourceHtml,
-        1
-    );
-
-    $html = preg_replace(
-        "/label='Фотографии галереи'/u",
-        "label='" . $repeatableLabel . "'",
-        $html,
-        1
-    );
-
-    return $html;
+    return "<cms:editable name='gallery_img' label='Фото' type='image' />\r\n" .
+           "<cms:editable name='gallery_img_title' label='Подпись к фото' type='text' />\r\n" .
+           "<cms:editable name='gallery_img_alt' label='ALT для SEO' type='text' />";
 }
 
 $targets = array(
@@ -70,37 +54,26 @@ $targets = array(
 try {
     foreach ($targets as $target) {
         list($templateName, $repeatableName, $repeatableLabel) = $target;
-        echo "Sync {$templateName} :: {$repeatableName}\n";
-
         $template = one($db, "SELECT id FROM `{$templates}` WHERE name=" . q($db, $templateName) . " LIMIT 1");
-        if (!$template) {
-            echo "  template missing\n";
-            continue;
-        }
-
-        $source = one(
-            $db,
-            "SELECT _html FROM `{$fields}` WHERE template_id=" . (int) $template['id'] .
-            " AND name='gallery_items' LIMIT 1"
-        );
-        $targetField = one(
+        $field = one(
             $db,
             "SELECT id FROM `{$fields}` WHERE template_id=" . (int) $template['id'] .
             " AND name=" . q($db, $repeatableName) . " LIMIT 1"
         );
-
-        if (!$source || !$targetField) {
-            echo "  source or target missing\n";
+        if (!$template || !$field) {
+            echo "Skip {$templateName}::{$repeatableName}\n";
             continue;
         }
 
-        $html = repeatable_html_from_source($source['_html'], $repeatableName, $repeatableLabel);
-        $db->query("UPDATE `{$fields}` SET _html=" . q($db, $html) . " WHERE id=" . (int) $targetField['id'] . " LIMIT 1");
-        echo "  updated field #{$targetField['id']} (" . strlen($html) . " bytes)\n";
+        $html = clean_repeatable_html();
+        $db->query(
+            "UPDATE `{$fields}` SET _html=" . q($db, $html) . ", label=" . q($db, $repeatableLabel) .
+            " WHERE id=" . (int) $field['id'] . " LIMIT 1"
+        );
+        echo "Synced {$templateName}::{$repeatableName}\n";
     }
 
     require __DIR__ . '/clear-couch-cache-cli.php';
-    echo "Repeatable schema sync complete.\n";
 } catch (Exception $e) {
     fwrite(STDERR, $e->getMessage() . "\n");
     exit(1);
