@@ -53,6 +53,18 @@ dump_page_repeatable($db, $fields, $text, 8, 'filial.php');
 dump_page_repeatable($db, $fields, $text, 36, 'udelnaya/filial.php');
 dump_page_repeatable($db, $fields, $text, 3, 'gallery.php');
 
+foreach (array(88, 757, 758, 759, 544, 763, 764, 765) as $fieldId) {
+    $res = $db->query("SELECT page_id, LENGTH(value) AS len FROM `{$text}` WHERE field_id=" . (int)$fieldId);
+    $total = 0;
+    while ($res && ($row = $res->fetch_assoc())) {
+        $total++;
+        echo "field #{$fieldId} page #{$row['page_id']} len={$row['len']}\n";
+    }
+    if (!$total) {
+        echo "field #{$fieldId}: no rows in couch_data_text\n";
+    }
+}
+
 $fieldRes = $db->query("SELECT id, name, _html FROM `{$fields}` WHERE name IN ('gallery_interior_items','gallery_menu_items','gallery_vibe_items')");
 while ($fieldRes && ($field = $fieldRes->fetch_assoc())) {
     echo "\nField {$field['name']} (#{$field['id']})\n";
@@ -60,5 +72,12 @@ while ($fieldRes && ($field = $fieldRes->fetch_assoc())) {
     $childRes = $db->query("SELECT id, name, k_type, k_group FROM `{$fields}` WHERE k_group=" . $db->real_escape_string($field['name']) . " OR (template_id=(SELECT template_id FROM `{$fields}` WHERE id=" . (int)$field['id'] . ") AND k_group='" . $db->real_escape_string($field['name']) . "')");
     while ($childRes && ($child = $childRes->fetch_assoc())) {
         echo "  child {$child['name']} type={$child['k_type']} group={$child['k_group']}\n";
+    }
+
+    $dataRes = $db->query("SELECT LENGTH(value) AS len, LEFT(value, 120) AS preview FROM `{$text}` WHERE page_id=3 AND field_id=" . (int)$field['id'] . " LIMIT 1");
+    if ($dataRes && ($data = $dataRes->fetch_assoc())) {
+        echo "  page data len={$data['len']} preview={$data['preview']}\n";
+    } else {
+        echo "  page data: none\n";
     }
 }
