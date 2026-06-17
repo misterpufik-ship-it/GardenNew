@@ -189,9 +189,9 @@ function read_legacy_grouped($db, $fields, $text, $pages, $templates, $templateN
 function upsert_repeatable_value($db, $text, $pageId, $fieldId, $rows)
 {
     $serialized = serialize($rows);
-    $existing = one($db, "SELECT id FROM `{$text}` WHERE page_id=" . (int) $pageId . " AND field_id=" . (int) $fieldId . " LIMIT 1");
+    $existing = one($db, "SELECT page_id FROM `{$text}` WHERE page_id=" . (int) $pageId . " AND field_id=" . (int) $fieldId . " LIMIT 1");
     if ($existing) {
-        $db->query("UPDATE `{$text}` SET value=" . q($db, $serialized) . " WHERE id=" . (int) $existing['id'] . " LIMIT 1");
+        $db->query("UPDATE `{$text}` SET value=" . q($db, $serialized) . " WHERE page_id=" . (int) $pageId . " AND field_id=" . (int) $fieldId . " LIMIT 1");
     } else {
         $db->query("INSERT INTO `{$text}` (page_id, field_id, value) VALUES (" . (int) $pageId . "," . (int) $fieldId . "," . q($db, $serialized) . ")");
     }
