@@ -185,10 +185,10 @@ function ensure_gallery_repeatable($db, $fields, $templateId, $sourceRepeatableN
             " AND k_group=" . q($db, $sourceRepeatableName) . " AND name=" . q($db, $childName) . " LIMIT 1"
         );
         if (!$sourceChild && $childName === 'gallery_img') {
-            $sourceChild = one($db, "SELECT * FROM `{$fields}` WHERE name IN ('gallery_img','final_gallery_img','item_img') AND k_type='image' LIMIT 1");
+            $sourceChild = one($db, "SELECT * FROM `{$fields}` WHERE name IN ('gallery_img','final_gallery_img','item_img') LIMIT 1");
         }
         if (!$sourceChild) {
-            $sourceChild = one($db, "SELECT * FROM `{$fields}` WHERE name IN ('gallery_img_title','gallery_img_alt','final_gallery_title','final_gallery_alt','item_title') AND k_type='text' LIMIT 1");
+            $sourceChild = one($db, "SELECT * FROM `{$fields}` WHERE name IN ('gallery_img_title','gallery_img_alt','final_gallery_title','final_gallery_alt','item_title') LIMIT 1");
         }
         if (!$sourceChild) {
             echo "  ! skipped child {$childName} (no sample field)\n";

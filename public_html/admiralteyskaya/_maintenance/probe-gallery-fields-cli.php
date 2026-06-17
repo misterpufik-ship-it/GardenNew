@@ -17,6 +17,16 @@ if (strpos($host, ':') !== false) {
 $db = new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int)$port);
 $db->set_charset('utf8');
 
+function probe_one($db, $sql)
+{
+    $res = $db->query($sql);
+    if (!$res) {
+        return null;
+    }
+    $row = $res->fetch_assoc();
+    return $row ?: null;
+}
+
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $fields = K_DB_TABLES_PREFIX . 'couch_fields';
 
@@ -31,5 +41,10 @@ foreach (array('gallery.php', 'udelnaya/gallery.php') as $templateName) {
     );
     while ($row = $res->fetch_assoc()) {
         echo "{$row['id']}\t{$row['name']}\t{$row['k_type']}\tgroup={$row['k_group']}\t{$row['label']}\n";
+    }
+
+    $repeatable = probe_one($db, "SELECT id, _html FROM `{$fields}` WHERE name='gallery_items' AND template_id=(SELECT id FROM `{$templates}` WHERE name='" . $db->real_escape_string($templateName) . "' LIMIT 1) LIMIT 1");
+    if ($repeatable) {
+        echo "gallery_items _html:\n{$repeatable['_html']}\n";
     }
 }

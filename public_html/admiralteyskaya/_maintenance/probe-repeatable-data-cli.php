@@ -52,3 +52,13 @@ function dump_page_repeatable($db, $fields, $text, $pageId, $label)
 dump_page_repeatable($db, $fields, $text, 8, 'filial.php');
 dump_page_repeatable($db, $fields, $text, 36, 'udelnaya/filial.php');
 dump_page_repeatable($db, $fields, $text, 3, 'gallery.php');
+
+$fieldRes = $db->query("SELECT id, name, _html FROM `{$fields}` WHERE name IN ('gallery_interior_items','gallery_menu_items','gallery_vibe_items')");
+while ($fieldRes && ($field = $fieldRes->fetch_assoc())) {
+    echo "\nField {$field['name']} (#{$field['id']})\n";
+    echo "  _html: " . str_replace("\r\n", ' ', substr($field['_html'], 0, 220)) . "\n";
+    $childRes = $db->query("SELECT id, name, k_type, k_group FROM `{$fields}` WHERE k_group=" . $db->real_escape_string($field['name']) . " OR (template_id=(SELECT template_id FROM `{$fields}` WHERE id=" . (int)$field['id'] . ") AND k_group='" . $db->real_escape_string($field['name']) . "')");
+    while ($childRes && ($child = $childRes->fetch_assoc())) {
+        echo "  child {$child['name']} type={$child['k_type']} group={$child['k_group']}\n";
+    }
+}
