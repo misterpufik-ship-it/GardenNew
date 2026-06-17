@@ -79,6 +79,13 @@ require_once $garden_cms;
         </script>
     </cms:editable>
 
+    <cms:editable name='branch_copy_script' type='message' order='0.1'>
+        <cms:set branch_copy_from='udelnaya' />
+        <cms:set branch_copy_to='admiralteyskaya' />
+        <cms:set branch_copy_to_label='Адмиралтейская' />
+        <cms:embed 'menu-copy-admin.html' />
+    </cms:editable>
+
     <cms:editable name='seo_group' label='SEO Настройки' type='group' order='1' collapsed='1' />
     <cms:editable name='page_title' label='Title (RU)' type='text' group='seo_group'>Garden Lounge</cms:editable>
     <cms:editable name='page_title_en' label='Title (EN)' type='text' group='seo_group'>Garden Lounge</cms:editable>
