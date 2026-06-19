@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^$ admiralteyskaya/home.php [L]
+    RewriteRule ^$ admiralteyskaya/site-home.php [L]
 </IfModule>
 
 <IfModule mod_rewrite.c>
