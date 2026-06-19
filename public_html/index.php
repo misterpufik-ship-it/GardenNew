@@ -217,6 +217,18 @@
             pointer-events: auto;
         }
 
+        @keyframes fadeGoldText {
+            0%, 100% {
+                opacity: 0.92;
+                transform: translateY(0);
+            }
+
+            40%, 60% {
+                opacity: 0.18;
+                transform: translateY(0);
+            }
+        }
+
         .slider-cta {
             display: inline-block;
             position: relative;
@@ -240,7 +252,7 @@
             -webkit-background-clip: text;
             text-shadow: 0 0 18px rgba(197, 160, 89, 0.25);
             transition: transform 0.25s ease, opacity 0.25s ease;
-            opacity: 0.92;
+            animation: fadeGoldText 5s ease-in-out infinite;
         }
 
         .slider-cta:hover,
