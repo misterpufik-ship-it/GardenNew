@@ -298,20 +298,31 @@
             z-index: 120;
             padding-bottom: env(safe-area-inset-bottom, 0px);
             pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .garden-sticky-unit {
+            position: relative;
+            display: inline-block;
+            max-width: calc(100% - 16px);
+            pointer-events: auto;
+            overflow: hidden;
+        }
+        .garden-sticky-wrap.is-collapsed .garden-sticky-unit {
+            height: 0;
+            overflow: visible;
         }
         .garden-sticky-bar {
             transform: translateY(0);
             transition: transform .4s ease;
-            pointer-events: auto;
             filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.4));
         }
         .garden-sticky-wrap.is-collapsed .garden-sticky-bar {
             transform: translateY(100%);
-            pointer-events: none;
         }
         .garden-sticky-tag {
             display: block;
-            width: 100%;
             margin: 0;
             padding: 0;
             border: 0;
@@ -321,18 +332,14 @@
         }
         .garden-sticky-tag img {
             display: block;
-            width: 100%;
+            width: min(300px, calc(100vw - 32px));
             height: auto;
-            max-height: 77px;
-            object-fit: cover;
-            object-position: center;
             pointer-events: none;
-            vertical-align: bottom;
         }
         .garden-sticky-toggle {
             position: absolute;
             top: -9px;
-            right: 6px;
+            right: 4px;
             z-index: 2;
             display: flex;
             align-items: center;
@@ -360,8 +367,12 @@
             border-right: none;
             font-size: 10px;
         }
-        body.has-garden-sticky { padding-bottom: calc(77px + env(safe-area-inset-bottom, 0px)); }
+        body.has-garden-sticky { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
         body.has-garden-sticky.garden-sticky-collapsed { padding-bottom: env(safe-area-inset-bottom, 0px); }
+        @media (min-width: 769px) {
+            .garden-sticky-tag img { width: 340px; }
+            body.has-garden-sticky { padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)); }
+        }
         .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 16px; text-align: left; }
         .second-garden-facts { list-style: none; margin: 0 0 20px; padding: 0; text-align: left; }
         .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
@@ -584,14 +595,16 @@
 </main>
 
 <div class="garden-sticky-wrap" id="garden-sticky-wrap">
-    <div class="garden-sticky-bar">
-        <button type="button" class="garden-sticky-tag" onclick="onStickyTagClick(event)" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
-            <img src="https://garden-lounge.pro/img/garden-second-sticker.webp" alt="А ты был во втором Гардене?" width="741" height="153" loading="lazy" decoding="async">
+    <div class="garden-sticky-unit">
+        <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
+            <i class="fa-solid fa-chevron-down"></i>
         </button>
+        <div class="garden-sticky-bar">
+            <button type="button" class="garden-sticky-tag" onclick="onStickyTagClick(event)" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
+                <img src="https://garden-lounge.pro/img/garden-second-sticker.webp" alt="А ты был во втором Гардене?" width="741" height="153" loading="lazy" decoding="async">
+            </button>
+        </div>
     </div>
-    <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
-        <i class="fa-solid fa-chevron-down"></i>
-    </button>
 </div>
 
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
