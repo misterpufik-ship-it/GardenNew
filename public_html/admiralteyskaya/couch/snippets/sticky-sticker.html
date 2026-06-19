@@ -1,0 +1,169 @@
+<cms:pages masterpage="<cms:show sticky_masterpage />" limit='1'>
+<cms:if sticker_enabled='1'>
+<style>
+    #second-garden-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
+    .modal-content--branch { max-width: 440px; text-align: left; padding: 28px 22px 24px; }
+    .branch-modal-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+    .branch-modal-logo { width: 58px; height: auto; flex-shrink: 0; object-fit: contain; }
+    .branch-modal-intro .modal-title { text-align: left; font-size: 20px; margin-bottom: 8px; }
+    .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0; text-align: left; }
+    .second-garden-facts { list-style: none; margin: 12px 0 0; padding: 0; text-align: left; }
+    .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 8px; }
+    .second-garden-facts i { color: var(--gold); margin-top: 2px; width: 14px; text-align: center; flex-shrink: 0; }
+    .branch-sticker-slider { position: relative; margin: 16px 0 14px; }
+    .branch-sticker-slider.is-empty { display: none; }
+    .bss-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 10px; scrollbar-width: none; padding: 0 2px; }
+    .bss-track::-webkit-scrollbar { display: none; }
+    .bss-slide { flex: 0 0 88%; scroll-snap-align: start; border-radius: 4px; overflow: hidden; aspect-ratio: 16/10; background: #111; border: 1px solid rgba(197,160,89,0.2); }
+    .bss-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .bss-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(197,160,89,0.45); background: rgba(8,8,8,0.92); color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; z-index: 2; }
+    .bss-prev { left: -6px; }
+    .bss-next { right: -6px; }
+    .modal-btn.branch-site-link { justify-content: flex-start; gap: 12px; padding: 0 16px; }
+    .branch-site-logo { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+    .garden-sticky-wrap {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        pointer-events: none; display: flex; justify-content: center; align-items: flex-end;
+        opacity: 0; visibility: hidden; transform: translateY(100%);
+        transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s;
+    }
+    .garden-sticky-wrap.is-ready { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity .45s ease, transform .45s ease; pointer-events: none; }
+    .garden-sticky-wrap.is-collapsed .garden-sticky-bar { transform: translateY(100%); pointer-events: none; }
+    .garden-sticky-wrap.is-collapsed .garden-sticky-unit { height: 0; padding-top: 0; }
+    .garden-sticky-unit { position: relative; display: inline-block; max-width: calc(100% - 16px); padding-top: 10px; pointer-events: auto; overflow: visible; }
+    .garden-sticky-bar { transform: translateY(0); transition: transform .4s ease; filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.4)); }
+    .garden-sticky-tag { display: block; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; line-height: 0; }
+    .garden-sticky-tag img { display: block; width: min(calc(100vw - 20px), <cms:show sticker_width />px); height: auto; max-width: 100%; pointer-events: none; }
+    .garden-sticky-toggle {
+        position: absolute; top: -9px; right: 4px; z-index: 2;
+        display: flex; align-items: center; justify-content: center;
+        width: 20px; height: 20px; padding: 0;
+        border: 1px solid rgba(197,160,89,0.55); border-radius: 50%;
+        background: rgba(8,8,8,0.96); color: var(--gold); cursor: pointer; font-size: 9px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.45); pointer-events: auto;
+    }
+    .garden-sticky-wrap.is-collapsed .garden-sticky-toggle {
+        position: fixed; top: auto; right: 0;
+        bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+        width: 24px; height: 42px; border-radius: 10px 0 0 10px; border-right: none; font-size: 10px;
+    }
+    body.garden-sticky-active { padding-bottom: calc((min(calc(100vw - 20px), <cms:show sticker_width />px) * 153 / 741) + 12px + env(safe-area-inset-bottom, 0px)); }
+    body.garden-sticky-active.garden-sticky-collapsed { padding-bottom: env(safe-area-inset-bottom, 0px); }
+</style>
+
+<div class="garden-sticky-wrap" id="garden-sticky-wrap" data-delay="<cms:show appear_delay />" data-storage-key="<cms:show sticky_masterpage />">
+    <div class="garden-sticky-unit">
+        <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="garden-sticky-bar">
+            <button type="button" class="garden-sticky-tag" onclick="openSecondGardenInfo()" aria-label="<cms:show sticker_alt />">
+                <img src="<cms:show sticker_image />" alt="<cms:show sticker_alt />" width="741" height="153" loading="lazy" decoding="async">
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="second-garden-modal" onclick="closeSecondGardenModal(event)">
+    <div class="modal-content modal-content--branch" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeSecondGardenModal()">&times;</span>
+        <div class="branch-modal-head">
+            <cms:if modal_logo><img class="branch-modal-logo" src="<cms:show modal_logo />" alt="<cms:show modal_title />"></cms:if>
+            <div class="branch-modal-intro">
+                <div class="modal-title gold-shimmer"><cms:show modal_title /></div>
+                <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
+                <ul class="second-garden-facts">
+                    <cms:show_repeatable 'modal_facts'>
+                        <cms:if fact_text>
+                            <li><i class="fa-solid fa-<cms:show fact_icon />"></i><span><cms:show fact_text /></span></li>
+                        </cms:if>
+                    </cms:show_repeatable>
+                </ul>
+            </div>
+        </div>
+        <div class="branch-sticker-slider" id="branch-sticker-slider">
+            <button type="button" class="bss-nav bss-prev" onclick="branchStickerSlide(-1)" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="bss-track" id="bss-track">
+                <cms:show_repeatable 'modal_gallery'>
+                    <cms:if slide_image>
+                        <div class="bss-slide"><img src="<cms:show slide_image />" alt="<cms:show slide_caption />" loading="lazy"></div>
+                    </cms:if>
+                </cms:show_repeatable>
+            </div>
+            <button type="button" class="bss-nav bss-next" onclick="branchStickerSlide(1)" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <cms:if modal_site_url>
+            <a href="<cms:show modal_site_url />" target="_blank" rel="noopener" class="modal-btn branch-site-link">
+                <cms:if modal_logo><img class="branch-site-logo" src="<cms:show modal_logo />" alt=""></cms:if>
+                <span><cms:show modal_site_label /></span>
+            </a>
+        </cms:if>
+    </div>
+</div>
+
+<script>
+(function() {
+    const GARDEN_STICKY_KEY = 'gardenSticky_' + ((document.getElementById('garden-sticky-wrap') || {}).dataset.storageKey || 'default').replace(/[^\w-]/g, '_');
+    function setGardenStickyCollapsed(collapsed) {
+        const wrap = document.getElementById('garden-sticky-wrap');
+        if (!wrap) return;
+        const toggle = wrap.querySelector('.garden-sticky-toggle');
+        const icon = toggle.querySelector('i');
+        wrap.classList.toggle('is-collapsed', collapsed);
+        document.body.classList.toggle('garden-sticky-collapsed', collapsed);
+        toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        toggle.setAttribute('aria-label', collapsed ? 'Развернуть подсказку' : 'Свернуть подсказку');
+        icon.className = collapsed ? 'fa-solid fa-chevron-left' : 'fa-solid fa-xmark';
+        try { sessionStorage.setItem(GARDEN_STICKY_KEY, collapsed ? '1' : '0'); } catch (_) {}
+    }
+    window.toggleGardenSticky = function(event) {
+        event.stopPropagation();
+        const wrap = document.getElementById('garden-sticky-wrap');
+        setGardenStickyCollapsed(!wrap.classList.contains('is-collapsed'));
+    };
+    window.openSecondGardenInfo = function() {
+        document.getElementById('second-garden-modal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    };
+    window.closeSecondGardenModal = function(event) {
+        if (event && event.target !== event.currentTarget) return;
+        document.getElementById('second-garden-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    };
+    window.branchStickerSlide = function(dir) {
+        const track = document.getElementById('bss-track');
+        if (!track) return;
+        const slide = track.querySelector('.bss-slide');
+        const step = slide ? slide.offsetWidth + 10 : 280;
+        track.scrollBy({ left: dir * step, behavior: 'smooth' });
+    };
+    function initBranchStickerSlider() {
+        const track = document.getElementById('bss-track');
+        const box = document.getElementById('branch-sticker-slider');
+        if (!track || !box) return;
+        if (!track.querySelector('.bss-slide')) box.classList.add('is-empty');
+    }
+    function initGardenSticky() {
+        const wrap = document.getElementById('garden-sticky-wrap');
+        if (!wrap) return;
+        const delay = Math.max(0, parseInt(wrap.dataset.delay || '10', 10)) * 1000;
+        setTimeout(function() {
+            wrap.classList.add('is-ready');
+            document.body.classList.add('garden-sticky-active');
+            try {
+                if (sessionStorage.getItem(GARDEN_STICKY_KEY) === '1') setGardenStickyCollapsed(true);
+            } catch (_) {}
+        }, delay);
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        initBranchStickerSlider();
+        initGardenSticky();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeSecondGardenModal();
+    });
+})();
+</script>
+</cms:if>
+</cms:pages>

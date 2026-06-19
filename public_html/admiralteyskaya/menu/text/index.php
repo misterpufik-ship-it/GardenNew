@@ -275,7 +275,7 @@
         .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
         .shimmer-gold { background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%); background-size:200% auto; color:transparent; -webkit-background-clip:text; background-clip:text; animation: shineGold 5s linear infinite; display:inline-block; }
 
-        #loyalty-modal, #second-garden-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
+        #loyalty-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .modal-content { background: #0a0a0a; border: 1px solid var(--gold); padding: 40px 25px; width: 100%; max-width: 400px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(197, 160, 89, 0.2); }
         .modal-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; margin-bottom: 25px; color: #fff; line-height: 1.2; }
         .modal-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 54px; border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 12px; color: #fff !important; text-decoration: none; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; transition: 0.3s; }
@@ -289,99 +289,10 @@
         .btn-base { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 280px; height: 52px; border: 1px solid rgba(197,160,89,0.3); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s; }
         .btn-gold-fill { background: var(--gold); color: #000; font-weight: 700; border: none; }
         .note-after { margin-top: 6px; font-size: 12px; color: #a9a9a9; line-height: 1.5; }
-
-        .garden-sticky-wrap {
-            position: fixed;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 120;
-            padding-bottom: env(safe-area-inset-bottom, 0px);
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-        .garden-sticky-unit {
-            position: relative;
-            display: inline-block;
-            max-width: calc(100% - 16px);
-            padding-top: 10px;
-            pointer-events: auto;
-            overflow: visible;
-        }
-        .garden-sticky-wrap.is-collapsed .garden-sticky-unit {
-            height: 0;
-            padding-top: 0;
-        }
-        .garden-sticky-bar {
-            transform: translateY(0);
-            transition: transform .4s ease;
-            filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.4));
-        }
-        .garden-sticky-wrap.is-collapsed .garden-sticky-bar {
-            transform: translateY(100%);
-            pointer-events: none;
-        }
-        .garden-sticky-tag {
-            display: block;
-            margin: 0;
-            padding: 0;
-            border: 0;
-            background: none;
-            cursor: pointer;
-            line-height: 0;
-        }
-        .garden-sticky-tag img {
-            display: block;
-            width: min(calc(100vw - 20px), 520px);
-            height: auto;
-            max-width: 100%;
-            pointer-events: none;
-        }
-        .garden-sticky-toggle {
-            position: absolute;
-            top: -9px;
-            right: 4px;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-            padding: 0;
-            border: 1px solid rgba(197,160,89,0.55);
-            border-radius: 50%;
-            background: rgba(8,8,8,0.96);
-            color: var(--gold);
-            cursor: pointer;
-            font-size: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.45);
-            pointer-events: auto;
-        }
-        .garden-sticky-wrap.is-collapsed .garden-sticky-toggle {
-            position: fixed;
-            top: auto;
-            right: 0;
-            bottom: calc(96px + env(safe-area-inset-bottom, 0px));
-            width: 24px;
-            height: 42px;
-            border-radius: 10px 0 0 10px;
-            border-right: none;
-            font-size: 10px;
-        }
-        body.has-garden-sticky {
-            padding-bottom: calc((min(100vw - 20px, 520px) * 153 / 741) + 12px + env(safe-area-inset-bottom, 0px));
-        }
-        body.has-garden-sticky.garden-sticky-collapsed { padding-bottom: env(safe-area-inset-bottom, 0px); }
-        .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 16px; text-align: left; }
-        .second-garden-facts { list-style: none; margin: 0 0 20px; padding: 0; text-align: left; }
-        .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
-        .second-garden-facts i { color: var(--gold); margin-top: 2px; width: 14px; text-align: center; flex-shrink: 0; }
     </style>
 </head>
 
-<body class="has-garden-sticky">
+<body>
 
 <header class="py-8 text-center bg-black">
     <a href="https://garden-lounge.pro/admiralteyskaya/menu" class="inline-block">
@@ -595,18 +506,8 @@
 
 </main>
 
-<div class="garden-sticky-wrap" id="garden-sticky-wrap">
-    <div class="garden-sticky-unit">
-        <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
-            <i class="fa-solid fa-chevron-down"></i>
-        </button>
-        <div class="garden-sticky-bar">
-            <button type="button" class="garden-sticky-tag" onclick="onStickyTagClick(event)" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
-                <img src="https://garden-lounge.pro/img/garden-second-sticker.webp" alt="А ты был во втором Гардене?" width="741" height="153" loading="lazy" decoding="async">
-            </button>
-        </div>
-    </div>
-</div>
+<cms:set sticky_masterpage='sticky-sticker.php' scope='global' />
+<cms:embed 'sticky-sticker.html' />
 
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
@@ -619,30 +520,6 @@
 
         <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
             <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
-        </a>
-    </div>
-</div>
-
-<div id="second-garden-modal" onclick="closeSecondGardenModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeSecondGardenModal()">&times;</span>
-        <div class="modal-title gold-shimmer">Garden Lounge — Удельная</div>
-        <p class="second-garden-lead">
-            Второй филиал сети — камерный лаунж у метро Удельная. Тот же Garden по духу: кальяны, авторская кухня, бар и VIP-зоны, но в более уютном формате.
-        </p>
-        <ul class="second-garden-facts">
-            <li><i class="fa-solid fa-location-dot"></i><span><cms:get_custom_field 'udel_address' masterpage='globals.php' /> · м. Удельная</span></li>
-            <li><i class="far fa-clock"></i><span><cms:get_custom_field 'udel_hours_week' masterpage='globals.php' /><br><cms:get_custom_field 'udel_hours_weekend' masterpage='globals.php' /></span></li>
-            <li><i class="fa-solid fa-phone"></i><span><cms:get_custom_field 'udel_phone' masterpage='globals.php' /></span></li>
-        </ul>
-        <a href="https://garden-lounge.pro/udelnaya/" target="_blank" rel="noopener" class="modal-btn">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> Сайт филиала
-        </a>
-        <a href="https://garden-lounge.pro/udelnaya/menu/text/" target="_blank" rel="noopener" class="modal-btn">
-            <i class="fa-solid fa-book-open"></i> Меню Удельная
-        </a>
-        <a href="<cms:get_custom_field 'udel_map_link' masterpage='globals.php' />" target="_blank" rel="noopener" class="modal-btn">
-            <i class="fa-solid fa-map-location-dot"></i> Маршрут на карте
         </a>
     </div>
 </div>
@@ -693,49 +570,8 @@
         document.getElementById('loyalty-modal').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-    function openSecondGardenInfo() {
-        document.getElementById('second-garden-modal').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-    function closeSecondGardenModal(event) {
-        if (event && event.target !== event.currentTarget) return;
-        document.getElementById('second-garden-modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
 
-    const GARDEN_STICKY_KEY = 'gardenStickyCollapsed';
-    function setGardenStickyCollapsed(collapsed) {
-        const wrap = document.getElementById('garden-sticky-wrap');
-        const toggle = wrap.querySelector('.garden-sticky-toggle');
-        const icon = toggle.querySelector('i');
-        wrap.classList.toggle('is-collapsed', collapsed);
-        document.body.classList.toggle('garden-sticky-collapsed', collapsed);
-        toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-        toggle.setAttribute('aria-label', collapsed ? 'Развернуть подсказку' : 'Свернуть подсказку');
-        icon.className = collapsed ? 'fa-solid fa-chevron-left' : 'fa-solid fa-chevron-down';
-        try { sessionStorage.setItem(GARDEN_STICKY_KEY, collapsed ? '1' : '0'); } catch (_) {}
-    }
-    function toggleGardenSticky(event) {
-        event.stopPropagation();
-        const wrap = document.getElementById('garden-sticky-wrap');
-        setGardenStickyCollapsed(!wrap.classList.contains('is-collapsed'));
-    }
-    function onStickyTagClick(event) {
-        openSecondGardenInfo();
-    }
-    function initGardenSticky() {
-        try {
-            if (sessionStorage.getItem(GARDEN_STICKY_KEY) === '1') setGardenStickyCollapsed(true);
-        } catch (_) {}
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        switchTab('hookahs');
-        initGardenSticky();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeSecondGardenModal();
-    });
+    document.addEventListener('DOMContentLoaded', () => { switchTab('hookahs'); });
 </script>
 
 </body>

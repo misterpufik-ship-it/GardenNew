@@ -17,12 +17,13 @@
     <cms:editable name='label_menu_text' label='Меню RU' group='group_a' type='text' order='15'>Меню RU</cms:editable>
     <cms:editable name='label_menu_en' label='Меню EN' group='group_a' type='text' order='16'>Меню EN</cms:editable>
     <cms:editable name='label_menu_visual' label='Меню визуальное' group='group_a' type='text' order='17'>Меню визуальное</cms:editable>
-    <cms:editable name='label_gallery' label='Галерея' group='group_a' type='text' order='18'>Галерея</cms:editable>
-    <cms:editable name='label_reservation' label='Бронирование' group='group_a' type='text' order='19'>Бронирование</cms:editable>
-    <cms:editable name='label_contacts' label='Контакты' group='group_a' type='text' order='20'>Контакты</cms:editable>
-    <cms:editable name='label_filial' label='Филиал' group='group_a' type='text' order='21'>Филиал</cms:editable>
-    <cms:editable name='label_globals' label='Футер и SEO' group='group_a' type='text' order='22'>Футер и SEO</cms:editable>
-    <cms:editable name='label_index' label='Общая страница' group='group_a' type='text' order='23'>Общая страница</cms:editable>
+    <cms:editable name='label_sticky_sticker' label='Липкий стикер' group='group_a' type='text' order='18'>Липкий стикер</cms:editable>
+    <cms:editable name='label_gallery' label='Галерея' group='group_a' type='text' order='19'>Галерея</cms:editable>
+    <cms:editable name='label_reservation' label='Бронирование' group='group_a' type='text' order='20'>Бронирование</cms:editable>
+    <cms:editable name='label_contacts' label='Контакты' group='group_a' type='text' order='21'>Контакты</cms:editable>
+    <cms:editable name='label_filial' label='Филиал' group='group_a' type='text' order='22'>Филиал</cms:editable>
+    <cms:editable name='label_globals' label='Футер и SEO' group='group_a' type='text' order='23'>Футер и SEO</cms:editable>
+    <cms:editable name='label_index' label='Общая страница' group='group_a' type='text' order='24'>Общая страница</cms:editable>
 
     <cms:editable name='group_u' label='Удельная' type='group' order='40' />
     <cms:editable name='label_u_header' label='Шапка сайта (Header)' group='group_u' type='text' order='41'>Шапка сайта (Header)</cms:editable>
@@ -32,10 +33,11 @@
     <cms:editable name='label_u_menu_text' label='Меню RU' group='group_u' type='text' order='45'>Меню RU</cms:editable>
     <cms:editable name='label_u_menu_en' label='Меню EN' group='group_u' type='text' order='46'>Меню EN</cms:editable>
     <cms:editable name='label_u_menu_visual' label='Меню визуальное' group='group_u' type='text' order='47'>Меню визуальное</cms:editable>
-    <cms:editable name='label_u_gallery' label='Галерея' group='group_u' type='text' order='48'>Галерея</cms:editable>
-    <cms:editable name='label_u_reservation' label='Бронирование' group='group_u' type='text' order='49'>Бронирование</cms:editable>
-    <cms:editable name='label_u_contacts' label='Контакты' group='group_u' type='text' order='50'>Контакты</cms:editable>
-    <cms:editable name='label_u_filial' label='Филиал' group='group_u' type='text' order='51'>Филиал</cms:editable>
-    <cms:editable name='label_u_globals' label='Футер и SEO' group='group_u' type='text' order='52'>Футер и SEO</cms:editable>
-    <cms:editable name='label_u_index' label='Общая страница' group='group_u' type='text' order='53'>Общая страница</cms:editable>
+    <cms:editable name='label_u_sticky_sticker' label='Липкий стикер' group='group_u' type='text' order='48'>Липкий стикер</cms:editable>
+    <cms:editable name='label_u_gallery' label='Галерея' group='group_u' type='text' order='49'>Галерея</cms:editable>
+    <cms:editable name='label_u_reservation' label='Бронирование' group='group_u' type='text' order='50'>Бронирование</cms:editable>
+    <cms:editable name='label_u_contacts' label='Контакты' group='group_u' type='text' order='51'>Контакты</cms:editable>
+    <cms:editable name='label_u_filial' label='Филиал' group='group_u' type='text' order='52'>Филиал</cms:editable>
+    <cms:editable name='label_u_globals' label='Футер и SEO' group='group_u' type='text' order='53'>Футер и SEO</cms:editable>
+    <cms:editable name='label_u_index' label='Общая страница' group='group_u' type='text' order='54'>Общая страница</cms:editable>
 </cms:template>

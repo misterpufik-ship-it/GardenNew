@@ -522,6 +522,9 @@ require_once $garden_cms;
 
 </main>
 
+<cms:set sticky_masterpage='udelnaya/sticky-sticker.php' scope='global' />
+<cms:embed 'sticky-sticker.html' />
+
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeLoyaltyModal()">&times;</span>
