@@ -210,7 +210,8 @@
         background: none !important;
         transition: color 0.25s ease, transform 0.25s ease;
     }
-    .mobile-menu-address-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .mobile-menu-address-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px !important; letter-spacing: 0.14em !important; line-height: 1.35 !important; max-width: 92vw; text-align: center; flex-wrap: wrap; }
+    .mobile-menu-address-link .fa-location-dot { color: var(--gold-main) !important; -webkit-text-fill-color: var(--gold-main) !important; font-size: 12px !important; flex-shrink: 0; }
     .mobile-menu-contact-link:hover,
     .mobile-menu-contact-link:focus,
     .mobile-menu-contact-link:active,
@@ -417,6 +418,9 @@
             border: none !important;
             background: none !important;
             justify-content: center !important;
+            font-size: 11px !important;
+            min-height: 34px !important;
+            letter-spacing: 0.12em !important;
         }
         .mobile-close-btn i {
             color: var(--gold-main) !important;
@@ -429,8 +433,10 @@
             justify-content: center;
             border: none !important;
             background: none !important;
-            font-size: 20px !important;
             margin-top: 0 !important;
+        }
+        #menu-phone-link.mobile-menu-contact-link {
+            font-size: 20px !important;
         }
         .mobile-menu-contact .flex.gap-8 {
             width: 100%;
@@ -452,8 +458,8 @@
             .mobile-menu-links { margin-top: 4px !important; }
             .mobile-link { min-height: 32px; font-size: clamp(17px, 5vw, 20px) !important; }
             .mobile-menu-links img { width: min(42vw, 140px) !important; }
-            #menu-address-text { display: none; }
-            .mobile-menu-contact-link { min-height: 38px; font-size: 18px !important; }
+            .mobile-menu-address-link { font-size: 10px !important; min-height: 30px !important; }
+            #menu-phone-link.mobile-menu-contact-link { min-height: 38px; font-size: 18px !important; }
             .mobile-menu-social-link { height: 38px; }
         }
     }
