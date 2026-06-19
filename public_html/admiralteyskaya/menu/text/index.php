@@ -275,7 +275,7 @@
         .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
         .shimmer-gold { background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%); background-size:200% auto; color:transparent; -webkit-background-clip:text; background-clip:text; animation: shineGold 5s linear infinite; display:inline-block; }
 
-        #loyalty-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
+        #loyalty-modal, #second-garden-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .modal-content { background: #0a0a0a; border: 1px solid var(--gold); padding: 40px 25px; width: 100%; max-width: 400px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(197, 160, 89, 0.2); }
         .modal-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; margin-bottom: 25px; color: #fff; line-height: 1.2; }
         .modal-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 54px; border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 12px; color: #fff !important; text-decoration: none; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; transition: 0.3s; }
@@ -290,29 +290,53 @@
         .btn-gold-fill { background: var(--gold); color: #000; font-weight: 700; border: none; }
         .note-after { margin-top: 6px; font-size: 12px; color: #a9a9a9; line-height: 1.5; }
 
-        .garden-sticky-note {
-            position: absolute;
-            top: 12px;
-            right: 18px;
-            width: 200px;
-            max-width: calc(100% - 40px);
-            background: rgba(197,160,89,0.12);
-            border: 1px solid rgba(197,160,89,0.3);
-            border-radius: 16px;
-            padding: 12px 14px;
-            color: #fff;
-            box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+        .garden-sticky-tag {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            z-index: 120;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: none;
             cursor: pointer;
-            transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
-            backdrop-filter: blur(12px);
-            z-index: 60;
+            transform: translateY(-50%) translateX(calc(100% - 68px));
+            transition: transform .35s ease, filter .25s ease;
+            filter: drop-shadow(0 10px 28px rgba(0,0,0,0.45));
+            animation: tagPeek 4.5s ease-in-out infinite;
         }
-        .garden-sticky-note:hover { transform: translateY(-2px); background: rgba(197,160,89,0.18); box-shadow: 0 22px 60px rgba(0,0,0,0.4); }
-        .garden-sticky-note .sticky-title { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; margin-bottom: 4px; color: #fff; }
-        .garden-sticky-note .sticky-text { font-size: 12px; color: #ece4c8; line-height: 1.35; }
-        .garden-sticky-note .sticky-accent { display: inline-block; margin-top: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,0.75); }
+        .garden-sticky-tag img { display: block; width: 168px; height: auto; pointer-events: none; }
+        .garden-sticky-tag:hover,
+        .garden-sticky-tag:focus-visible {
+            animation: none;
+            transform: translateY(-50%) translateX(10px);
+            filter: drop-shadow(0 14px 34px rgba(197,160,89,0.28));
+            outline: none;
+        }
+        @keyframes tagPeek {
+            0%, 100% { transform: translateY(-50%) translateX(calc(100% - 68px)); }
+            50% { transform: translateY(calc(-50% - 4px)) translateX(calc(100% - 74px)); }
+        }
+        .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 16px; text-align: left; }
+        .second-garden-facts { list-style: none; margin: 0 0 20px; padding: 0; text-align: left; }
+        .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
+        .second-garden-facts i { color: var(--gold); margin-top: 2px; width: 14px; text-align: center; flex-shrink: 0; }
         @media (max-width: 768px) {
-            .garden-sticky-note { position: relative; top: auto; right: auto; margin: 12px auto 0; width: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
+            .garden-sticky-tag {
+                top: auto;
+                bottom: 92px;
+                transform: translateY(0) translateX(calc(100% - 52px));
+                animation: tagPeekMobile 4.5s ease-in-out infinite;
+            }
+            .garden-sticky-tag img { width: 118px; }
+            .garden-sticky-tag:hover,
+            .garden-sticky-tag:focus-visible {
+                transform: translateY(0) translateX(8px);
+            }
+            @keyframes tagPeekMobile {
+                0%, 100% { transform: translateY(0) translateX(calc(100% - 52px)); }
+                50% { transform: translateY(-3px) translateX(calc(100% - 56px)); }
+            }
         }
     </style>
 </head>
@@ -333,12 +357,6 @@
         <button onclick="switchTab('bar-non')" class="tab-btn uppercase font-bold tracking-widest text-xs"><cms:show lbl_tab_4 /></button>
         <button onclick="switchTab('promos')" class="tab-btn uppercase font-bold tracking-widest text-xs"><cms:show lbl_tab_5 /></button>
     </nav>
-
-    <div class="garden-sticky-note" onclick="openSecondGardenInfo()" role="button" aria-label="Узнать про второй Garden">
-        <div class="sticky-title">Есть второй Garden?</div>
-        <div class="sticky-text">Нажмите, чтобы быстро узнать, где он и чем отличается.</div>
-        <div class="sticky-accent">Легкая заметка</div>
-    </div>
 
     <div id="subtabs-kitchen" class="subtabs-wrap">
         <button class="subtab-btn active" data-sub="snacks" onclick="switchSubtab('kitchen','snacks')"><cms:show kt_sub_snacks /></button>
@@ -537,6 +555,10 @@
 
 </main>
 
+<button type="button" class="garden-sticky-tag" onclick="openSecondGardenInfo()" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
+    <img src="https://garden-lounge.pro/img/garden-second-sticker.png" alt="А ты был во втором Гардене?" width="168" height="auto" loading="lazy" decoding="async">
+</button>
+
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeLoyaltyModal()">&times;</span>
@@ -555,15 +577,23 @@
 <div id="second-garden-modal" onclick="closeSecondGardenModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeSecondGardenModal()">&times;</span>
-        <div class="modal-title gold-shimmer">Второй Garden Lounge</div>
-        <p style="color:#dcd4be; font-size: 13px; line-height: 1.7; margin: 0 0 20px;">
-            Garden Lounge Удельная — второй филиал рядом с метро Удельная. Оба пространства объединяет стиль, но в Удельной больше камерных зон, авторская кухня и новая линейка коктейлей.
+        <div class="modal-title gold-shimmer">Garden Lounge — Удельная</div>
+        <p class="second-garden-lead">
+            Второй филиал сети — камерный лаунж у метро Удельная. Тот же Garden по духу: кальяны, авторская кухня, бар и VIP-зоны, но в более уютном формате.
         </p>
-        <a href="https://garden-lounge.pro/udelnaya/" target="_blank" class="modal-btn">
-            <i class="fa-solid fa-location-dot"></i> Перейти на Удельную
+        <ul class="second-garden-facts">
+            <li><i class="fa-solid fa-location-dot"></i><span><cms:get_custom_field 'udel_address' masterpage='globals.php' /> · м. Удельная</span></li>
+            <li><i class="far fa-clock"></i><span><cms:get_custom_field 'udel_hours_week' masterpage='globals.php' /><br><cms:get_custom_field 'udel_hours_weekend' masterpage='globals.php' /></span></li>
+            <li><i class="fa-solid fa-phone"></i><span><cms:get_custom_field 'udel_phone' masterpage='globals.php' /></span></li>
+        </ul>
+        <a href="https://garden-lounge.pro/udelnaya/" target="_blank" rel="noopener" class="modal-btn">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Сайт филиала
         </a>
-        <a href="https://garden-lounge.pro/udelnaya/menu/text/" target="_blank" class="modal-btn">
-            <i class="fa-solid fa-book-open"></i> Текстовое меню Удельная
+        <a href="https://garden-lounge.pro/udelnaya/menu/text/" target="_blank" rel="noopener" class="modal-btn">
+            <i class="fa-solid fa-book-open"></i> Меню Удельная
+        </a>
+        <a href="<cms:get_custom_field 'udel_map_link' masterpage='globals.php' />" target="_blank" rel="noopener" class="modal-btn">
+            <i class="fa-solid fa-map-location-dot"></i> Маршрут на карте
         </a>
     </div>
 </div>
@@ -625,6 +655,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => { switchTab('hookahs'); });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSecondGardenModal();
+    });
 </script>
 
 </body>
