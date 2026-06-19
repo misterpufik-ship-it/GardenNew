@@ -242,21 +242,6 @@
         align-items: center;
         gap: clamp(2px, 0.35vw, 6px);
     }
-    .desktop-tg-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: #ffffff !important;
-        padding: clamp(5px, 0.55vw, 8px) clamp(4px, 0.45vw, 6px);
-        transition: all 0.3s ease;
-        text-decoration: none;
-        line-height: 1;
-    }
-    .desktop-tg-link .fa-telegram-plane {
-        font-size: clamp(14px, 1.05vw, 17px);
-        line-height: 1;
-    }
-    .desktop-tg-link:hover { color: var(--gold-main) !important; }
 
     .hero-bottom-content { position: relative; z-index: 60 !important; filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.95)); }
     .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
@@ -596,7 +581,7 @@
     <div class="desktop-nav-zone hidden md:flex gap-6 items-center justify-end flex-1">
         <div class="desktop-contact-group">
             <a id="desktop-call-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="desktop-call-link text-white hover:text-[#C5A059]" title="Позвонить"><span id="desktop-call-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
-            <a id="desktop-tg-link" href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if></cms:if>" target="_blank" rel="noopener" class="desktop-tg-link" title="Написать в Telegram" aria-label="Написать в Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a id="desktop-tg-link" href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if></cms:if>" target="_blank" rel="noopener" class="text-white hover:text-[#C5A059] transition-all" title="Написать в Telegram" aria-label="Написать в Telegram"><i class="fab fa-telegram-plane text-lg"></i></a>
         </div>
     </div>
 
