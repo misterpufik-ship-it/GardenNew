@@ -222,10 +222,8 @@
     .mobile-menu-social-link:active {
         color: var(--gold-main) !important;
     }
-    .desktop-call-link { display: inline-flex; align-items: center; gap: clamp(4px, 0.45vw, 6px); line-height: 1; font-size: clamp(8px, 0.68vw, 9px) !important; letter-spacing: clamp(0.08em, 0.12vw, 0.15em) !important; white-space: nowrap; }
-    .desktop-call-link .fa-phone-alt { font-size: 11px !important; line-height: 1 !important; color: inherit !important; transform: translateY(0); }
-    .desktop-call-link:hover,
-    .desktop-call-link:hover .fa-phone-alt { color: var(--gold-main) !important; }
+    .desktop-call-link { display: inline-flex; align-items: center; line-height: 1; font-size: clamp(8px, 0.68vw, 9px) !important; letter-spacing: clamp(0.08em, 0.12vw, 0.15em) !important; white-space: nowrap; text-decoration: none; }
+    .desktop-call-link:hover { color: var(--gold-main) !important; }
 
     .hero-bottom-content { position: relative; z-index: 60 !important; filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.95)); }
     .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
@@ -562,7 +560,7 @@
     </div>
 
     <div class="desktop-nav-zone hidden md:flex gap-6 items-center justify-end flex-1">
-        <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase">Call <i class="fas fa-phone-alt"></i></a>
+        <a id="desktop-call-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase" title="Позвонить"><span id="desktop-call-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
     </div>
 
     <div class="mobile-nav-zone md:hidden flex items-center justify-between w-full relative">
@@ -712,6 +710,8 @@
         const elMenuAddrLink = document.getElementById('menu-address-link');
         const elMenuPhoneLink = document.getElementById('menu-phone-link');
         const elMenuPhoneText = document.getElementById('menu-phone-text');
+        const elDesktopCallLink = document.getElementById('desktop-call-link');
+        const elDesktopCallText = document.getElementById('desktop-call-text');
 
         if (elDesk) elDesk.innerText = data.name;
         if (elMobName) elMobName.innerText = data.slug;
@@ -721,6 +721,8 @@
         if (elMenuAddrLink) elMenuAddrLink.href = data.mapUrl;
         if (elMenuPhoneLink) elMenuPhoneLink.href = `tel:${data.phone}`;
         if (elMenuPhoneText) elMenuPhoneText.innerText = data.phoneDisplay;
+        if (elDesktopCallLink) elDesktopCallLink.href = `tel:${data.phone}`;
+        if (elDesktopCallText) elDesktopCallText.innerText = data.phoneDisplay;
 
         document.querySelectorAll('.branch-option, .mobile-branch-opt').forEach(opt => {
             opt.classList.toggle('active', opt.dataset.branch === id);
