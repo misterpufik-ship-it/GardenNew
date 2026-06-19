@@ -204,11 +204,14 @@
 
         .slider-overlay {
             position: absolute;
-            inset: auto 18px 18px 18px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(92%, 760px);
             display: none;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
+            justify-content: center;
+            gap: 16px;
             z-index: 5;
             pointer-events: none;
         }
@@ -218,26 +221,29 @@
         }
 
         .slider-cta {
-            flex: 1 1 auto;
-            min-width: 180px;
-            padding: 12px 18px;
+            flex: 0 1 auto;
+            padding: 14px 20px;
+            min-width: 220px;
             border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: rgba(0, 0, 0, 0.45);
-            color: rgba(255, 255, 255, 0.9);
+            border: none;
+            background: rgba(0, 0, 0, 0.35);
+            color: transparent;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.18em;
             text-align: center;
             text-transform: uppercase;
-            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+            transition: transform 0.25s ease, opacity 0.25s ease;
         }
 
         .slider-cta:hover,
         .slider-cta:focus-visible {
-            background: rgba(0, 0, 0, 0.65);
-            color: #fff;
+            background: rgba(0, 0, 0, 0.4);
             transform: translateY(-1px);
             opacity: 1;
         }
@@ -407,6 +413,14 @@
             min-height: 50px;
             padding: 14px 24px;
             font-size: 12px;
+            border: none;
+            background: rgba(0, 0, 0, 0.3);
+            color: transparent;
+            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            box-shadow: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
         }
 
         .pin {
@@ -438,18 +452,15 @@
 
         .button {
             min-height: 54px;
-            border: 1px solid rgba(197, 160, 89, 0.85);
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 16px 28px;
-            color: #080806;
-            background: linear-gradient(
-                135deg,
-                #c5a059 0%,
-                #f3d78b 45%,
-                #9f7a36 100%
-            );
+            color: transparent;
+            background: rgba(0, 0, 0, 0.3);
+            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
             font-family: inherit;
             font-size: 13px;
             font-weight: 700;
@@ -457,16 +468,11 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 999px;
             cursor: pointer;
-            box-shadow:
-                0 0 18px rgba(197, 160, 89, 0.28),
-                0 12px 34px rgba(0, 0, 0, 0.38),
-                inset 0 1px 0 rgba(255, 255, 255, 0.45);
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease,
-                filter 0.25s ease;
+            box-shadow: none;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
+            transition: transform 0.25s ease, opacity 0.25s ease;
         }
 
         .button:hover,
