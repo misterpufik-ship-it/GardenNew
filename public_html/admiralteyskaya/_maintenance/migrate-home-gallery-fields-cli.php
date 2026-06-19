@@ -37,7 +37,7 @@ function migrate_repeatable_keys($DB, $fields, $dataText, $pageId, $repeatableNa
         return;
     }
     $fieldId = (int) $fieldRows[0]['id'];
-    $dataRows = $DB->select($dataText, array('id', 'value'), "page_id='" . $DB->sanitize($pageId) . "' AND field_id='" . $DB->sanitize($fieldId) . "' LIMIT 1");
+    $dataRows = $DB->select($dataText, array('value'), "page_id='" . $DB->sanitize($pageId) . "' AND field_id='" . $DB->sanitize($fieldId) . "' LIMIT 1");
     if (!count($dataRows) || !$dataRows[0]['value']) {
         echo "{$repeatableName}: no data\n";
         return;
@@ -67,7 +67,11 @@ function migrate_repeatable_keys($DB, $fields, $dataText, $pageId, $repeatableNa
         echo "{$repeatableName}: nothing to migrate\n";
         return;
     }
-    $DB->update($dataText, array('value' => serialize($rows)), "id='" . $DB->sanitize($dataRows[0]['id']) . "'");
+    $DB->update(
+        $dataText,
+        array('value' => serialize($rows)),
+        "page_id='" . $DB->sanitize($pageId) . "' AND field_id='" . $DB->sanitize($fieldId) . "'"
+    );
     echo "{$repeatableName}: migrated " . count($rows) . " rows\n";
 }
 
