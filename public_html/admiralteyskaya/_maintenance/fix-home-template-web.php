@@ -31,6 +31,8 @@ $db->set_charset('utf8');
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pagesTable = K_DB_TABLES_PREFIX . 'couch_pages';
+$fieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
+$dataText = K_DB_TABLES_PREFIX . 'couch_data_text';
 
 header('Content-Type: text/plain; charset=utf-8');
 echo "DB: " . K_DB_NAME . "\n";
@@ -145,6 +147,49 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
     return $templateId;
 }
 
+function update_page_field($db, $fields, $text, $templates, $pages, $templateName, $fieldName, $newValue)
+{
+    $tpl = fetch_one($db, "SELECT id FROM `{$templates}` WHERE name='" . $db->real_escape_string($templateName) . "' LIMIT 1");
+    if (!$tpl) {
+        echo "Field update skipped: template {$templateName} not found\n";
+        return;
+    }
+
+    $field = fetch_one(
+        $db,
+        "SELECT id FROM `{$fields}` WHERE template_id=" . (int)$tpl['id'] .
+        " AND name='" . $db->real_escape_string($fieldName) . "' LIMIT 1"
+    );
+    if (!$field) {
+        echo "Field update skipped: {$fieldName} not found\n";
+        return;
+    }
+
+    $page = fetch_one($db, "SELECT id FROM `{$pages}` WHERE template_id=" . (int)$tpl['id'] . " LIMIT 1");
+    if (!$page) {
+        echo "Field update skipped: page for {$templateName} not found\n";
+        return;
+    }
+
+    $row = fetch_one(
+        $db,
+        "SELECT id, value FROM `{$text}` WHERE field_id=" . (int)$field['id'] .
+        " AND page_id=" . (int)$page['id'] . " LIMIT 1"
+    );
+    $escaped = $db->real_escape_string($newValue);
+    if ($row) {
+        $db->query("UPDATE `{$text}` SET value='{$escaped}' WHERE id=" . (int)$row['id'] . " LIMIT 1");
+        echo "Updated {$fieldName}: {$row['value']} -> {$newValue}\n";
+        return;
+    }
+
+    $db->query(
+        "INSERT INTO `{$text}` (page_id, field_id, value) VALUES (" .
+        (int)$page['id'] . ", " . (int)$field['id'] . ", '{$escaped}')"
+    );
+    echo "Inserted {$fieldName}: {$newValue}\n";
+}
+
 ensure_template($db, $templates, $pagesTable, 'home.php', 'Главная', 1, 0, 1, 'header.php');
 
 echo "Ensuring site-home.php...\n";
@@ -170,6 +215,17 @@ if (!$siteRow) {
     ensure_page($db, $pagesTable, (int)$siteRow['id'], 'Главная (сайт)');
     echo "After site-home.php updated\n";
 }
+
+update_page_field(
+    $db,
+    $fieldsTable,
+    $dataText,
+    $templates,
+    $pagesTable,
+    'home.php',
+    'home_udel_telegram',
+    'https://t.me/Garden_lounge_spb'
+);
 
 $cacheDir = K_COUCH_DIR . 'cache';
 $removed = 0;
