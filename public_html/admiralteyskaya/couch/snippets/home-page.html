@@ -67,6 +67,34 @@
                 </cms:if>
             </cms:show_repeatable>
             <cms:if adm_gallery_empty='1'>
+                <cms:pages masterpage='gallery.php' limit='1'>
+                    <cms:show_repeatable 'gallery_interior_items'>
+                        <cms:if gallery_img>
+                            <cms:set adm_gallery_empty='0' scope='global' />
+                            <div class="slide<cms:if k_count='1'> active</cms:if>">
+                                <img src="<cms:show gallery_img />"
+                                     alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:if gallery_img_title><cms:show gallery_img_title /><cms:else />Garden Lounge Адмиралтейская</cms:if></cms:if>"
+                                     loading="lazy"
+                                     decoding="async">
+                            </div>
+                        </cms:if>
+                    </cms:show_repeatable>
+                    <cms:if adm_gallery_empty='1'>
+                        <cms:show_repeatable 'gallery_vibe_items'>
+                            <cms:if gallery_img>
+                                <cms:set adm_gallery_empty='0' scope='global' />
+                                <div class="slide<cms:if k_count='1'> active</cms:if>">
+                                    <img src="<cms:show gallery_img />"
+                                         alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else />Garden Lounge Адмиралтейская</cms:if>"
+                                         loading="lazy"
+                                         decoding="async">
+                                </div>
+                            </cms:if>
+                        </cms:show_repeatable>
+                    </cms:if>
+                </cms:pages>
+            </cms:if>
+            <cms:if adm_gallery_empty='1'>
                 <cms:pages masterpage='filial.php' limit='1'>
                     <cms:show_repeatable 'final_gallery_items'>
                         <cms:if final_gallery_img>
@@ -142,6 +170,34 @@
                     </div>
                 </cms:if>
             </cms:show_repeatable>
+            <cms:if udel_gallery_empty='1'>
+                <cms:pages masterpage='udelnaya/gallery.php' limit='1'>
+                    <cms:show_repeatable 'gallery_interior_items'>
+                        <cms:if gallery_img>
+                            <cms:set udel_gallery_empty='0' scope='global' />
+                            <div class="slide<cms:if k_count='1'> active</cms:if>">
+                                <img src="<cms:show gallery_img />"
+                                     alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:if gallery_img_title><cms:show gallery_img_title /><cms:else />Garden Lounge Удельная</cms:if></cms:if>"
+                                     loading="lazy"
+                                     decoding="async">
+                            </div>
+                        </cms:if>
+                    </cms:show_repeatable>
+                    <cms:if udel_gallery_empty='1'>
+                        <cms:show_repeatable 'gallery_vibe_items'>
+                            <cms:if gallery_img>
+                                <cms:set udel_gallery_empty='0' scope='global' />
+                                <div class="slide<cms:if k_count='1'> active</cms:if>">
+                                    <img src="<cms:show gallery_img />"
+                                         alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else />Garden Lounge Удельная</cms:if>"
+                                         loading="lazy"
+                                         decoding="async">
+                                </div>
+                            </cms:if>
+                        </cms:show_repeatable>
+                    </cms:if>
+                </cms:pages>
+            </cms:if>
             <cms:if udel_gallery_empty='1'>
                 <cms:pages masterpage='udelnaya/filial.php' limit='1'>
                     <cms:show_repeatable 'final_gallery_items'>

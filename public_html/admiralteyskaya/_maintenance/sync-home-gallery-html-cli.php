@@ -1,36 +1,45 @@
 <?php
 /**
- * Sync repeatable _html for home gallery fields to match home.php definitions.
+ * Fix home gallery repeatable _html so child fields match home.php.
  */
-$root = realpath(__DIR__ . '/..');
-chdir($root);
-require_once $root . '/couch/cms.php';
-global $AUTH, $DB;
+if (PHP_SAPI !== 'cli') {
+    http_response_code(403);
+    exit("CLI only\n");
+}
 
-$AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
-$_SERVER['HTTP_HOST'] = 'garden-lounge.pro';
-$_SERVER['REQUEST_URI'] = '/admiralteyskaya/home.php';
-$_SERVER['SCRIPT_NAME'] = '/admiralteyskaya/home.php';
-$_SERVER['SCRIPT_FILENAME'] = $root . '/home.php';
-$_SERVER['REQUEST_METHOD'] = 'GET';
-$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+$config = __DIR__ . '/../couch/config.php';
+define('K_COUCH_DIR', dirname($config) . '/');
+require_once $config;
 
-ob_start();
-require $root . '/home.php';
-ob_end_clean();
+$host = K_DB_HOST;
+$port = ini_get('mysqli.default_port') ?: 3306;
+if (strpos($host, ':') !== false) {
+    list($host, $port) = explode(':', $host, 2);
+}
+$db = new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int) $port);
+$db->set_charset('utf8');
 
 $fields = K_DB_TABLES_PREFIX . 'couch_fields';
-foreach (array('home_adm_gallery', 'home_udel_gallery') as $name) {
-    $rows = $DB->select($fields, array('id', '_html'), "name='" . $DB->sanitize($name) . "' LIMIT 1");
-    if (!count($rows)) {
-        echo "{$name}: missing\n";
-        continue;
-    }
-    $html = $rows[0]['_html'];
-    echo "{$name} (#{$rows[0]['id']}):\n";
-    echo '  home_adm_gallery_img: ' . (strpos($html, 'home_adm_gallery_img') !== false ? 'yes' : 'no') . "\n";
-    echo '  home_udel_gallery_img: ' . (strpos($html, 'home_udel_gallery_img') !== false ? 'yes' : 'no') . "\n";
-    echo '  home_gallery_img: ' . (strpos($html, 'home_gallery_img') !== false ? 'yes' : 'no') . "\n";
+
+function q($db, $value)
+{
+    return "'" . $db->real_escape_string((string) $value) . "'";
+}
+
+function gallery_repeatable_html($imgName, $altName)
+{
+    return "<cms:editable name='" . $imgName . "' label='Фото' type='image' />\r\n" .
+           "<cms:editable name='" . $altName . "' label='Alt / SEO' type='text' />";
+}
+
+$map = array(
+    'home_adm_gallery' => gallery_repeatable_html('home_adm_gallery_img', 'home_adm_gallery_alt'),
+    'home_udel_gallery' => gallery_repeatable_html('home_udel_gallery_img', 'home_udel_gallery_alt'),
+);
+
+foreach ($map as $name => $html) {
+    $db->query("UPDATE `{$fields}` SET _html=" . q($db, $html) . " WHERE name=" . q($db, $name) . " LIMIT 1");
+    echo "Updated _html for {$name}\n";
 }
 
 define('GL_SKIP_CLI_CHECK', true);
