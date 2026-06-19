@@ -192,7 +192,7 @@
     .separator-img { max-width: 256px; width: 100%; height: auto; opacity: 0.9; margin: 40px auto 0; }
 
     @media (max-width: 767px) {
-        .branch-wrapper { padding: 52px 16px 62px; }
+        .branch-wrapper { padding: 28px 16px 62px; }
         .title-branch { font-size: 30px; }
         .subtitle-gold { font-size: 10px; letter-spacing: 0.28em; line-height: 1.8; }
         .branch-address-wrap { padding: 0 6px; }
@@ -201,13 +201,24 @@
         .img-premium { aspect-ratio: 4 / 3; }
         .branch-gallery-btn { width: 34px; height: 34px; }
     }
+
+    .branch-scroll-anchor {
+        display: block;
+        height: 0;
+        scroll-margin-top: calc(72px + env(safe-area-inset-top, 0px));
+    }
+
+    @media (min-width: 768px) {
+        .branch-scroll-anchor { scroll-margin-top: 96px; }
+    }
 </style>
 
-<div class="branch-section-container" id="branch-filial">
+<div class="branch-section-container">
     <div class="branch-wrapper">
         <div class="film-grain"></div>
 
         <div class="content-limiter">
+            <span id="branch-filial" class="branch-scroll-anchor" aria-hidden="true"></span>
             <div class="fade-up">
                 <h2 class="title-branch"><cms:show final_title /></h2>
             </div>
