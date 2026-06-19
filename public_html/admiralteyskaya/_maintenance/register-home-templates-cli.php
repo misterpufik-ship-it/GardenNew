@@ -5,35 +5,36 @@
  * CLI:
  *   php _maintenance/register-home-templates-cli.php
  *
- * HTTP (одноразовая активация на хостинге):
+ * HTTP:
  *   /admiralteyskaya/_maintenance/register-home-templates-cli.php?key=<md5>
  *   key = md5('garden-lounge-register-home')
  */
 
-if (PHP_SAPI !== 'cli') {
+$isWeb = (PHP_SAPI !== 'cli');
+if ($isWeb) {
     $expectedKey = md5('garden-lounge-register-home');
-    if (($_GET['key'] ?? '') !== $expectedKey) {
+    $providedKey = isset($_GET['key']) ? $_GET['key'] : '';
+    if ($providedKey !== $expectedKey) {
         http_response_code(403);
         exit("Forbidden\n");
     }
     header('Content-Type: text/plain; charset=utf-8');
 }
 
-
 $branchDir = dirname(__DIR__);
 
-$targets = [
-    [
+$targets = array(
+    array(
         'dir' => $branchDir,
         'script' => 'home.php',
         'uri' => '/admiralteyskaya/home.php',
-    ],
-    [
+    ),
+    array(
         'dir' => $branchDir,
         'script' => 'site-home.php',
         'uri' => '/admiralteyskaya/site-home.php',
-    ],
-];
+    ),
+);
 
 foreach ($targets as $target) {
     chdir($target['dir']);
@@ -65,9 +66,11 @@ if (is_file($config)) {
     $pages = K_DB_TABLES_PREFIX . 'couch_pages';
 
     $host = K_DB_HOST;
-    $port = ini_get('mysqli.default_port') ?: 3306;
+    $port = ini_get('mysqli.default_port') ? ini_get('mysqli.default_port') : 3306;
     if (strpos($host, ':') !== false) {
-        list($host, $port) = explode(':', $host, 2);
+        $parts = explode(':', $host, 2);
+        $host = $parts[0];
+        $port = $parts[1];
     }
 
     mysqli_report(MYSQLI_REPORT_OFF);
@@ -75,10 +78,10 @@ if (is_file($config)) {
     if (!$db->connect_errno) {
         $db->set_charset('utf8');
 
-        $fix = [
-            ['name' => 'home.php', 'executable' => 0, 'hidden' => 0],
-            ['name' => 'site-home.php', 'executable' => 1, 'hidden' => 1],
-        ];
+        $fix = array(
+            array('name' => 'home.php', 'executable' => 0, 'hidden' => 0, 'title' => 'Главная'),
+            array('name' => 'site-home.php', 'executable' => 1, 'hidden' => 1, 'title' => 'Главная (сайт)'),
+        );
 
         foreach ($fix as $item) {
             $res = $db->query(
@@ -92,7 +95,8 @@ if (is_file($config)) {
 
             $templateId = (int)$row['id'];
             $db->query(
-                "UPDATE `{$templates}` SET executable='{$item['executable']}', hidden='{$item['hidden']}' WHERE id={$templateId} LIMIT 1"
+                "UPDATE `{$templates}` SET executable='{$item['executable']}', hidden='{$item['hidden']}', title='" .
+                $db->real_escape_string($item['title']) . "' WHERE id={$templateId} LIMIT 1"
             );
             echo "Updated {$item['name']}: executable={$item['executable']}, hidden={$item['hidden']}\n";
 
