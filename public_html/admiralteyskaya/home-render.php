@@ -1,4 +1,6 @@
-﻿<?php require_once( 'couch/cms.php' ); ?><!DOCTYPE html>
+<?php require_once( 'couch/cms.php' ); ?>
+<cms:template title='Главная страница' hidden='1' order='0' />
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
