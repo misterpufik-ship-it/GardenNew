@@ -33,7 +33,15 @@ $name = 'home.php';
 $res = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
 $row = $res ? $res->fetch_assoc() : null;
 if (!$row) {
-    exit('template not found');
+    $all = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE name LIKE '%home%' ORDER BY id");
+    header('Content-Type: text/plain; charset=utf-8');
+    echo "template {$name} not found\n";
+    if ($all) {
+        while ($t = $all->fetch_assoc()) {
+            echo "#{$t['id']} {$t['name']} executable={$t['executable']} hidden={$t['hidden']}\n";
+        }
+    }
+    exit;
 }
 
 header('Content-Type: text/plain; charset=utf-8');
