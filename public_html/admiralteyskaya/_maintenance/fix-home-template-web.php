@@ -93,4 +93,20 @@ if (!$pageRes || !$pageRes->fetch_assoc()) {
 $res = $db->query("SELECT executable, hidden FROM `{$templates}` WHERE id=" . (int)$row['id'] . " LIMIT 1");
 $row = $res->fetch_assoc();
 echo "After: executable={$row['executable']} hidden={$row['hidden']}\n";
+
+$pageRes = $db->query("SELECT id, page_title, page_name, status, publish_date FROM `{$pages}` WHERE template_id=" . (int)$row['id']);
+echo "Pages for home.php:\n";
+while ($p = $pageRes->fetch_assoc()) {
+    echo "#{$p['id']} name={$p['page_name']} status={$p['status']} publish={$p['publish_date']}\n";
+}
+
+$refPage = $db->query("SELECT * FROM `{$pages}` WHERE template_id=1 LIMIT 1");
+if ($refPage && ($rp = $refPage->fetch_assoc())) {
+    echo "Reference index.php page columns sample:\n";
+    foreach ($rp as $k => $v) {
+        if (strlen((string)$v) > 80) $v = substr((string)$v, 0, 80) . '...';
+        echo "  {$k} = {$v}\n";
+    }
+}
+
 echo "OK\n";
