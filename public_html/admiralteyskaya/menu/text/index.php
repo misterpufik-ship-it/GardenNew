@@ -289,6 +289,31 @@
         .btn-base { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 280px; height: 52px; border: 1px solid rgba(197,160,89,0.3); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s; }
         .btn-gold-fill { background: var(--gold); color: #000; font-weight: 700; border: none; }
         .note-after { margin-top: 6px; font-size: 12px; color: #a9a9a9; line-height: 1.5; }
+
+        .garden-sticky-note {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            width: 200px;
+            max-width: calc(100% - 40px);
+            background: rgba(197,160,89,0.12);
+            border: 1px solid rgba(197,160,89,0.3);
+            border-radius: 16px;
+            padding: 12px 14px;
+            color: #fff;
+            box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+            cursor: pointer;
+            transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+            backdrop-filter: blur(12px);
+            z-index: 60;
+        }
+        .garden-sticky-note:hover { transform: translateY(-2px); background: rgba(197,160,89,0.18); box-shadow: 0 22px 60px rgba(0,0,0,0.4); }
+        .garden-sticky-note .sticky-title { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; margin-bottom: 4px; color: #fff; }
+        .garden-sticky-note .sticky-text { font-size: 12px; color: #ece4c8; line-height: 1.35; }
+        .garden-sticky-note .sticky-accent { display: inline-block; margin-top: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,0.75); }
+        @media (max-width: 768px) {
+            .garden-sticky-note { position: relative; top: auto; right: auto; margin: 12px auto 0; width: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
+        }
     </style>
 </head>
 
@@ -308,6 +333,12 @@
         <button onclick="switchTab('bar-non')" class="tab-btn uppercase font-bold tracking-widest text-xs"><cms:show lbl_tab_4 /></button>
         <button onclick="switchTab('promos')" class="tab-btn uppercase font-bold tracking-widest text-xs"><cms:show lbl_tab_5 /></button>
     </nav>
+
+    <div class="garden-sticky-note" onclick="openSecondGardenInfo()" role="button" aria-label="Узнать про второй Garden">
+        <div class="sticky-title">Есть второй Garden?</div>
+        <div class="sticky-text">Нажмите, чтобы быстро узнать, где он и чем отличается.</div>
+        <div class="sticky-accent">Легкая заметка</div>
+    </div>
 
     <div id="subtabs-kitchen" class="subtabs-wrap">
         <button class="subtab-btn active" data-sub="snacks" onclick="switchSubtab('kitchen','snacks')"><cms:show kt_sub_snacks /></button>
@@ -521,6 +552,22 @@
     </div>
 </div>
 
+<div id="second-garden-modal" onclick="closeSecondGardenModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeSecondGardenModal()">&times;</span>
+        <div class="modal-title gold-shimmer">Второй Garden Lounge</div>
+        <p style="color:#dcd4be; font-size: 13px; line-height: 1.7; margin: 0 0 20px;">
+            Garden Lounge Удельная — второй филиал рядом с метро Удельная. Оба пространства объединяет стиль, но в Удельной больше камерных зон, авторская кухня и новая линейка коктейлей.
+        </p>
+        <a href="https://garden-lounge.pro/udelnaya/" target="_blank" class="modal-btn">
+            <i class="fa-solid fa-location-dot"></i> Перейти на Удельную
+        </a>
+        <a href="https://garden-lounge.pro/udelnaya/menu/text/" target="_blank" class="modal-btn">
+            <i class="fa-solid fa-book-open"></i> Текстовое меню Удельная
+        </a>
+    </div>
+</div>
+
 <script>
     const SUBTABS = { 'kitchen': 'subtabs-kitchen', 'bar-alc': 'subtabs-bar-alc', 'bar-non': 'subtabs-bar-non' };
     const ACTIVE = { 'kitchen': 'snacks', 'bar-alc': 'beer', 'bar-non': 'tea_coffee' };
@@ -565,6 +612,15 @@
     }
     function closeLoyaltyModal() {
         document.getElementById('loyalty-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    function openSecondGardenInfo() {
+        document.getElementById('second-garden-modal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeSecondGardenModal(event) {
+        if (event && event.target !== event.currentTarget) return;
+        document.getElementById('second-garden-modal').style.display = 'none';
         document.body.style.overflow = 'auto';
     }
 
