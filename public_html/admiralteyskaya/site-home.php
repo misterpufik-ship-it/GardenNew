@@ -41,6 +41,42 @@
             --home-social-border-color: var(--home-icon-border-color);
         }
 
+        .branch-adm {
+            --branch-btn-color: <cms:if home_adm_btn_color><cms:show home_adm_btn_color /><cms:else />#a68a5c</cms:if>;
+            --branch-btn-bg: <cms:if home_adm_btn_bg><cms:show home_adm_btn_bg /><cms:else />rgba(18, 16, 14, 0.55)</cms:if>;
+            --branch-btn-border-color: <cms:if home_adm_btn_border_color><cms:show home_adm_btn_border_color /><cms:else />rgba(166, 138, 92, 0.75)</cms:if>;
+            --branch-btn-border-width: <cms:if home_adm_btn_border_width><cms:show home_adm_btn_border_width /><cms:else />1</cms:if>px;
+            --branch-btn-font-size: <cms:if home_adm_btn_font_size><cms:show home_adm_btn_font_size /><cms:else />11</cms:if>px;
+            --branch-btn-letter-spacing: <cms:if home_adm_btn_letter_spacing><cms:show home_adm_btn_letter_spacing /><cms:else />0.18</cms:if>em;
+            --branch-btn-padding-y: <cms:if home_adm_btn_padding_y><cms:show home_adm_btn_padding_y /><cms:else />16</cms:if>px;
+            --branch-btn-padding-x: <cms:if home_adm_btn_padding_x><cms:show home_adm_btn_padding_x /><cms:else />32</cms:if>px;
+            --branch-btn-min-width: <cms:if home_adm_btn_min_width><cms:show home_adm_btn_min_width /><cms:else />220</cms:if>px;
+            --branch-btn-radius: <cms:if home_adm_btn_radius><cms:show home_adm_btn_radius /><cms:else />0</cms:if>px;
+            --branch-btn-opacity-min: <cms:if home_adm_btn_opacity_min><cms:show home_adm_btn_opacity_min /><cms:else />0.42</cms:if>;
+            --branch-btn-opacity-max: <cms:if home_adm_btn_opacity_max><cms:show home_adm_btn_opacity_max /><cms:else />0.88</cms:if>;
+            --branch-btn-hover-color: <cms:if home_adm_btn_hover_color><cms:show home_adm_btn_hover_color /><cms:else />#c5a059</cms:if>;
+            --branch-btn-hover-bg: <cms:if home_adm_btn_hover_bg><cms:show home_adm_btn_hover_bg /><cms:else />rgba(18, 16, 14, 0.78)</cms:if>;
+            --branch-btn-hover-border: <cms:if home_adm_btn_hover_border><cms:show home_adm_btn_hover_border /><cms:else />rgba(197, 160, 89, 0.95)</cms:if>;
+        }
+
+        .branch-udel {
+            --branch-btn-color: <cms:if home_udel_btn_color><cms:show home_udel_btn_color /><cms:else />#a68a5c</cms:if>;
+            --branch-btn-bg: <cms:if home_udel_btn_bg><cms:show home_udel_btn_bg /><cms:else />rgba(18, 16, 14, 0.55)</cms:if>;
+            --branch-btn-border-color: <cms:if home_udel_btn_border_color><cms:show home_udel_btn_border_color /><cms:else />rgba(166, 138, 92, 0.75)</cms:if>;
+            --branch-btn-border-width: <cms:if home_udel_btn_border_width><cms:show home_udel_btn_border_width /><cms:else />1</cms:if>px;
+            --branch-btn-font-size: <cms:if home_udel_btn_font_size><cms:show home_udel_btn_font_size /><cms:else />11</cms:if>px;
+            --branch-btn-letter-spacing: <cms:if home_udel_btn_letter_spacing><cms:show home_udel_btn_letter_spacing /><cms:else />0.18</cms:if>em;
+            --branch-btn-padding-y: <cms:if home_udel_btn_padding_y><cms:show home_udel_btn_padding_y /><cms:else />16</cms:if>px;
+            --branch-btn-padding-x: <cms:if home_udel_btn_padding_x><cms:show home_udel_btn_padding_x /><cms:else />32</cms:if>px;
+            --branch-btn-min-width: <cms:if home_udel_btn_min_width><cms:show home_udel_btn_min_width /><cms:else />220</cms:if>px;
+            --branch-btn-radius: <cms:if home_udel_btn_radius><cms:show home_udel_btn_radius /><cms:else />0</cms:if>px;
+            --branch-btn-opacity-min: <cms:if home_udel_btn_opacity_min><cms:show home_udel_btn_opacity_min /><cms:else />0.42</cms:if>;
+            --branch-btn-opacity-max: <cms:if home_udel_btn_opacity_max><cms:show home_udel_btn_opacity_max /><cms:else />0.88</cms:if>;
+            --branch-btn-hover-color: <cms:if home_udel_btn_hover_color><cms:show home_udel_btn_hover_color /><cms:else />#c5a059</cms:if>;
+            --branch-btn-hover-bg: <cms:if home_udel_btn_hover_bg><cms:show home_udel_btn_hover_bg /><cms:else />rgba(18, 16, 14, 0.78)</cms:if>;
+            --branch-btn-hover-border: <cms:if home_udel_btn_hover_border><cms:show home_udel_btn_hover_border /><cms:else />rgba(197, 160, 89, 0.95)</cms:if>;
+        }
+
         body.home-icon-hover-gold .contact-btn:hover,
         body.home-icon-hover-gold .contact-btn:focus-visible {
             background: var(--home-icon-color);
@@ -269,8 +305,8 @@
         }
 
         @keyframes breatheBtn {
-            0%, 100% { opacity: 0.42; }
-            50% { opacity: 0.88; }
+            0%, 100% { opacity: var(--branch-btn-opacity-min, 0.42); }
+            50% { opacity: var(--branch-btn-opacity-max, 0.88); }
         }
 
         .slide {
@@ -282,26 +318,26 @@
             will-change: opacity;
         }
 
-        .slider-cta,
-        .button {
+        .branch .slider-cta,
+        .branch .button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             position: relative;
             z-index: 1;
-            padding: 16px 32px;
-            min-width: 220px;
+            padding: var(--branch-btn-padding-y, 16px) var(--branch-btn-padding-x, 32px);
+            min-width: var(--branch-btn-min-width, 220px);
             min-height: 52px;
-            border-radius: 0;
-            border: 1px solid rgba(166, 138, 92, 0.75);
-            background: rgba(18, 16, 14, 0.55);
-            color: #a68a5c;
+            border-radius: var(--branch-btn-radius, 0);
+            border: var(--branch-btn-border-width, 1px) solid var(--branch-btn-border-color, rgba(166, 138, 92, 0.75));
+            background: var(--branch-btn-bg, rgba(18, 16, 14, 0.55));
+            color: var(--branch-btn-color, #a68a5c);
             text-decoration: none;
             font-family: Montserrat, Arial, sans-serif;
-            font-size: 11px;
+            font-size: var(--branch-btn-font-size, 11px);
             font-weight: 600;
             font-style: normal;
-            letter-spacing: 0.18em;
+            letter-spacing: var(--branch-btn-letter-spacing, 0.18em);
             line-height: 1.2;
             text-align: center;
             text-transform: uppercase;
@@ -309,20 +345,30 @@
             cursor: pointer;
             box-shadow: none;
             text-shadow: none;
-            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+        }
+
+        .branch.branch-btn-animate-on .slider-cta,
+        .branch.branch-btn-animate-on .button {
             animation: breatheBtn 4.5s ease-in-out infinite;
         }
 
-        .slider-cta:hover,
-        .slider-cta:focus-visible,
-        .button:hover,
-        .button:focus-visible {
+        .branch.branch-btn-animate-off .slider-cta,
+        .branch.branch-btn-animate-off .button {
+            opacity: 1;
+            animation: none;
+        }
+
+        .branch .slider-cta:hover,
+        .branch .slider-cta:focus-visible,
+        .branch .button:hover,
+        .branch .button:focus-visible {
             transform: translateY(-1px);
             opacity: 1;
             animation-play-state: paused;
-            border-color: rgba(197, 160, 89, 0.95);
-            background: rgba(18, 16, 14, 0.78);
-            color: #c5a059;
+            border-color: var(--branch-btn-hover-border, rgba(197, 160, 89, 0.95));
+            background: var(--branch-btn-hover-bg, rgba(18, 16, 14, 0.78));
+            color: var(--branch-btn-hover-color, #c5a059);
         }
 
         .slider-overlay .contact-btn {
@@ -532,11 +578,11 @@
             }
         }
 
-        .button:active {
+        .branch .button:active {
             transform: translateY(0) scale(0.98);
         }
 
-        .button:focus-visible {
+        .branch .button:focus-visible {
             outline: none;
             box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.35);
         }
@@ -659,12 +705,12 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .button,
-            .slider-cta {
+            .branch .button,
+            .branch .slider-cta {
                 min-height: 48px;
-                padding: 14px 24px;
-                font-size: 10px;
-                letter-spacing: 0.16em;
+                padding: calc(var(--branch-btn-padding-y, 16px) - 2px) calc(var(--branch-btn-padding-x, 32px) - 8px);
+                font-size: calc(var(--branch-btn-font-size, 11px) - 1px);
+                letter-spacing: calc(var(--branch-btn-letter-spacing, 0.18em) - 0.02em);
             }
 
             .socials {

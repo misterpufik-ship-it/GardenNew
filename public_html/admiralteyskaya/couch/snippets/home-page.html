@@ -42,7 +42,10 @@
 </header>
 
 <section class="branches" aria-label="Выбор филиала Garden Lounge">
-    <article class="branch" data-slider>
+    <cms:set adm_btn_animate_class='branch-btn-animate-on' />
+    <cms:if home_adm_btn_animation='0'><cms:set adm_btn_animate_class='branch-btn-animate-off' /></cms:if>
+
+    <article class="branch branch-adm <cms:show adm_btn_animate_class />" data-slider>
         <div class="branch-title">
             <h2><cms:show adm_title /></h2>
             <a class="branch-address" href="<cms:show adm_map />" target="_blank" rel="noopener">
@@ -53,14 +56,31 @@
         <div class="slider" aria-label="Слайдер фото филиала Адмиралтейская" data-branch="admiralteyskaya" data-branch-link="<cms:show adm_btn_link />">
             <cms:set adm_gallery_empty='1' scope='global' />
             <cms:show_repeatable 'home_adm_gallery'>
-                <cms:if home_gallery_img>
+                <cms:if home_adm_gallery_img>
                     <cms:set adm_gallery_empty='0' scope='global' />
                     <div class="slide<cms:if k_count='1'> active</cms:if>">
-                        <img src="<cms:show home_gallery_img />"
-                             alt="<cms:if home_gallery_alt><cms:show home_gallery_alt /><cms:else />Garden Lounge Адмиралтейская</cms:if>">
+                        <img src="<cms:show home_adm_gallery_img />"
+                             alt="<cms:if home_adm_gallery_alt><cms:show home_adm_gallery_alt /><cms:else />Garden Lounge Адмиралтейская</cms:if>"
+                             loading="lazy"
+                             decoding="async">
                     </div>
                 </cms:if>
             </cms:show_repeatable>
+            <cms:if adm_gallery_empty='1'>
+                <cms:pages masterpage='filial.php' limit='1'>
+                    <cms:show_repeatable 'final_gallery_items'>
+                        <cms:if final_gallery_img>
+                            <cms:set adm_gallery_empty='0' scope='global' />
+                            <div class="slide<cms:if k_count='1'> active</cms:if>">
+                                <img src="<cms:show final_gallery_img />"
+                                     alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else />Garden Lounge Адмиралтейская</cms:if>"
+                                     loading="lazy"
+                                     decoding="async">
+                            </div>
+                        </cms:if>
+                    </cms:show_repeatable>
+                </cms:pages>
+            </cms:if>
             <cms:if adm_gallery_empty='1'>
                 <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Адмиралтейская"></div>
                 <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden-2.webp" alt="Garden Lounge Адмиралтейская интерьер"></div>
@@ -98,7 +118,10 @@
         </div>
     </article>
 
-    <article class="branch" data-slider>
+    <cms:set udel_btn_animate_class='branch-btn-animate-on' />
+    <cms:if home_udel_btn_animation='0'><cms:set udel_btn_animate_class='branch-btn-animate-off' /></cms:if>
+
+    <article class="branch branch-udel <cms:show udel_btn_animate_class />" data-slider>
         <div class="branch-title">
             <h2><cms:show udel_title /></h2>
             <a class="branch-address" href="<cms:show udel_map />" target="_blank" rel="noopener">
@@ -109,14 +132,31 @@
         <div class="slider" aria-label="Слайдер фото филиала Удельная" data-branch="udelnaya" data-branch-link="<cms:show udel_btn_link />">
             <cms:set udel_gallery_empty='1' scope='global' />
             <cms:show_repeatable 'home_udel_gallery'>
-                <cms:if home_gallery_img>
+                <cms:if home_udel_gallery_img>
                     <cms:set udel_gallery_empty='0' scope='global' />
                     <div class="slide<cms:if k_count='1'> active</cms:if>">
-                        <img src="<cms:show home_gallery_img />"
-                             alt="<cms:if home_gallery_alt><cms:show home_gallery_alt /><cms:else />Garden Lounge Удельная</cms:if>">
+                        <img src="<cms:show home_udel_gallery_img />"
+                             alt="<cms:if home_udel_gallery_alt><cms:show home_udel_gallery_alt /><cms:else />Garden Lounge Удельная</cms:if>"
+                             loading="lazy"
+                             decoding="async">
                     </div>
                 </cms:if>
             </cms:show_repeatable>
+            <cms:if udel_gallery_empty='1'>
+                <cms:pages masterpage='udelnaya/filial.php' limit='1'>
+                    <cms:show_repeatable 'final_gallery_items'>
+                        <cms:if final_gallery_img>
+                            <cms:set udel_gallery_empty='0' scope='global' />
+                            <div class="slide<cms:if k_count='1'> active</cms:if>">
+                                <img src="<cms:show final_gallery_img />"
+                                     alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else />Garden Lounge Удельная</cms:if>"
+                                     loading="lazy"
+                                     decoding="async">
+                            </div>
+                        </cms:if>
+                    </cms:show_repeatable>
+                </cms:pages>
+            </cms:if>
             <cms:if udel_gallery_empty='1'>
                 <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Garden Lounge Удельная"></div>
                 <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden.webp" alt="Garden Lounge Удельная интерьер"></div>
