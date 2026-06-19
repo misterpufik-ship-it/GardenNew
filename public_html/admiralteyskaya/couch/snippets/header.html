@@ -23,6 +23,22 @@
         overflow: hidden;
     }
 
+    body.menu-open {
+        overflow: hidden !important;
+        width: 100% !important;
+        position: fixed !important;
+        inset: 0 !important;
+        overscroll-behavior: none !important;
+        touch-action: none !important;
+    }
+
+    #scrollTopBtn { transition: all 0.2s ease !important; }
+    body.menu-open #scrollTopBtn {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
     .hero-bg { position: absolute; inset: 0; z-index: 1; }
     .hero-bg img { 
         position: absolute; inset: 0;
@@ -346,12 +362,18 @@
             transition: color 0.25s ease;
         }
         .mobile-menu-top {
-            min-height: 76px;
-            padding-top: 18px !important;
+            min-height: 78px;
+            padding: env(safe-area-inset-top, 18px) 18px 8px !important;
             justify-content: center !important;
+            position: relative !important;
+            width: 100% !important;
         }
         .mobile-menu-top .mobile-menu-logo {
-            display: flex !important;
+            display: block !important;
+            width: min(72vw, 300px) !important;
+            max-width: 90vw !important;
+            margin: 0 auto !important;
+            height: auto !important;
         }
         .mobile-menu-links {
             flex: 0 0 auto;
@@ -361,16 +383,18 @@
         }
         .mobile-link {
             width: auto !important;
-            min-width: min-content !important;
-            min-height: 42px;
+            min-width: 0 !important;
+            min-height: 48px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(23px, 7vw, 28px) !important;
-            line-height: 1.05 !important;
-            margin: 3px 0 !important;
-            padding: 5px 18px !important;
+            font-size: clamp(20px, 6vw, 26px) !important;
+            line-height: 1.1 !important;
+            margin: 4px 0 !important;
+            padding: 12px 24px !important;
             text-align: center;
+            border-radius: 24px !important;
+            white-space: nowrap !important;
         }
         .mobile-menu-links img {
             width: min(48vw, 170px) !important;
@@ -393,6 +417,9 @@
             border: none !important;
             background: none !important;
             justify-content: center !important;
+        }
+        .mobile-close-btn i {
+            color: var(--gold-main) !important;
         }
         .mobile-menu-contact-link {
             width: 100%;
@@ -552,19 +579,19 @@
         <div class="mobile-menu-bg-shade"></div>
     </div>
     
-    <div class="mobile-menu-top w-full flex justify-center items-center px-6 pt-6 z-10 relative">
-        <img src="couch/uploads/image/logo3.webp"
-     alt="Logo" 
-     class="logo-luxe-animate mobile-menu-logo"
-     width="380"
-     height="160"
-     loading="lazy"
-     decoding="async"
-     style="width: 380px !important; max-width: 90vw; margin-top: 5vh !important; height: auto;">
-        <div class="mobile-close-btn cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
-            <i class="fas fa-times text-3xl"></i>
+<div class="mobile-menu-top w-full flex justify-center items-center px-6 z-10 relative">
+            <img src="couch/uploads/image/logo3.webp"
+                alt="Logo"
+                class="logo-luxe-animate mobile-menu-logo"
+                width="300"
+                height="140"
+                loading="lazy"
+                decoding="async"
+                style="height:auto;">
+            <div class="mobile-close-btn cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
+                <i class="fas fa-times text-3xl"></i>
+            </div>
         </div>
-    </div>
     
     <div class="mobile-menu-links flex flex-col items-center justify-center mt-2 w-full z-10 overflow-y-auto">
         <cms:show_repeatable 'nav_menu'>
@@ -616,6 +643,7 @@
     const mobileMenu = document.getElementById('mobileMenu');
     const body = document.body;
     const desktopZones = document.querySelectorAll('.desktop-nav-zone');
+    let previousScrollY = 0;
 
     const branches = {
         admiral: { name: "Адмиралтейская", slug: "admiralteyskaya", address: "Набережная реки Мойки д.67-69", addrMob: "Moyki 67-69", url: "/admiralteyskaya/" },
@@ -737,38 +765,40 @@
     }
 
     // УПРАВЛЕНИЕ МЕНЮ (ОСНОВНОЕ)
-    if (burgerBtn && mobileMenu) {
-        burgerBtn.onclick = () => {
-            mobileMenu.classList.add('active');
+    function setMenuState(active) {
+        if (!mobileMenu) return;
+        if (active) {
+            previousScrollY = window.scrollY || window.pageYOffset;
+            body.style.top = `-${previousScrollY}px`;
             body.classList.add('menu-open');
-        };
+        } else {
+            body.classList.remove('menu-open');
+            body.style.top = '';
+            window.scrollTo(0, previousScrollY);
+        }
+        mobileMenu.classList.toggle('active', active);
+    }
+
+    if (burgerBtn && mobileMenu) {
+        burgerBtn.onclick = () => setMenuState(true);
     }
 
     const closeBtn = document.getElementById('closeBtn');
     if (closeBtn && mobileMenu) {
-        closeBtn.onclick = () => {
-            mobileMenu.classList.remove('active');
-            body.classList.remove('menu-open');
-        };
+        closeBtn.onclick = () => setMenuState(false);
     }
     
    document.querySelectorAll('.mobile-link').forEach(link => {
     link.onclick = function() {
-        // 1. Ищем ВСЕ ссылки в мобильном меню, у которых может быть рамка
-        // (и обычные активные, и ту, что пришла из CouchCMS как 'nav-booking-rect')
         const allLinks = document.querySelectorAll('.mobile-link');
         
         allLinks.forEach(l => {
             l.classList.remove('active-rect');
-            l.classList.remove('nav-booking-rect'); // Удаляем оригинальный класс кнопки
+            l.classList.remove('nav-booking-rect');
         });
         
-        // 2. Добавляем рамку только тому пункту, на который нажали
         this.classList.add('active-rect');
-
-        // 3. Закрываем меню сразу, переход к разделу продолжится по ссылке
-        if (mobileMenu) mobileMenu.classList.remove('active');
-        body.classList.remove('menu-open');
+        setMenuState(false);
     };
 });
 
