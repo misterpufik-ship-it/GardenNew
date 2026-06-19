@@ -469,12 +469,16 @@
         }
 
         @media (max-width: 880px) {
+            .branch-info {
+                display: none;
+            }
+
             .branch-action-icons {
                 justify-content: flex-start;
             }
 
             .slider-overlay {
-                display: none;
+                display: flex;
             }
         }
 
