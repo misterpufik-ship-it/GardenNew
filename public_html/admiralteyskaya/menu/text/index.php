@@ -290,28 +290,34 @@
         .btn-gold-fill { background: var(--gold); color: #000; font-weight: 700; border: none; }
         .note-after { margin-top: 6px; font-size: 12px; color: #a9a9a9; line-height: 1.5; }
 
-        .garden-sticky-tag {
+        .garden-sticky-wrap {
             position: fixed;
             right: 0;
             top: 50%;
             z-index: 120;
-            margin: 0;
-            padding: 0;
-            border: 0;
-            background: none;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
             transform: translateY(-50%) translateX(calc(100% - 68px));
             transition: transform .35s ease, filter .25s ease;
             filter: drop-shadow(0 10px 28px rgba(0,0,0,0.45));
             animation: tagPeek 4.5s ease-in-out infinite;
         }
-        .garden-sticky-tag img { display: block; width: 168px; height: auto; pointer-events: none; }
-        .garden-sticky-tag:hover,
-        .garden-sticky-tag:focus-visible {
+        .garden-sticky-wrap:hover {
             animation: none;
             transform: translateY(-50%) translateX(10px);
             filter: drop-shadow(0 14px 34px rgba(197,160,89,0.28));
-            outline: none;
+        }
+        .garden-sticky-tag {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: none;
+            cursor: pointer;
+            line-height: 0;
+        }
+        .garden-sticky-tag img { display: block; width: 168px; height: auto; pointer-events: none; }
+        .garden-sticky-toggle {
+            display: none;
         }
         @keyframes tagPeek {
             0%, 100% { transform: translateY(-50%) translateX(calc(100% - 68px)); }
@@ -322,20 +328,59 @@
         .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
         .second-garden-facts i { color: var(--gold); margin-top: 2px; width: 14px; text-align: center; flex-shrink: 0; }
         @media (max-width: 768px) {
-            .garden-sticky-tag {
+            .garden-sticky-wrap {
                 top: auto;
                 bottom: 92px;
-                transform: translateY(0) translateX(calc(100% - 52px));
-                animation: tagPeekMobile 4.5s ease-in-out infinite;
+                transform: translateX(0);
+                animation: none;
             }
-            .garden-sticky-tag img { width: 118px; }
-            .garden-sticky-tag:hover,
-            .garden-sticky-tag:focus-visible {
-                transform: translateY(0) translateX(8px);
+            .garden-sticky-wrap:hover {
+                transform: translateX(0);
             }
-            @keyframes tagPeekMobile {
-                0%, 100% { transform: translateY(0) translateX(calc(100% - 52px)); }
-                50% { transform: translateY(-3px) translateX(calc(100% - 56px)); }
+            .garden-sticky-wrap.is-collapsed {
+                transform: translateX(calc(100% - 38px));
+            }
+            .garden-sticky-wrap.is-collapsed:hover {
+                transform: translateX(calc(100% - 38px));
+            }
+            .garden-sticky-tag img { width: 148px; }
+            .garden-sticky-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                width: 24px;
+                height: 52px;
+                margin-right: 2px;
+                padding: 0;
+                border: 1px solid rgba(197,160,89,0.5);
+                border-right: none;
+                border-radius: 10px 0 0 10px;
+                background: rgba(8,8,8,0.94);
+                color: var(--gold);
+                cursor: pointer;
+                font-size: 11px;
+                box-shadow: -4px 0 14px rgba(0,0,0,0.35);
+            }
+            .garden-sticky-wrap.is-collapsed .garden-sticky-toggle {
+                opacity: 0;
+                pointer-events: none;
+            }
+            .garden-sticky-wrap.is-collapsed .garden-sticky-tag {
+                cursor: pointer;
+            }
+            .garden-sticky-wrap.is-collapsed::after {
+                content: '\2039';
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--gold);
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 1;
+                pointer-events: none;
+                text-shadow: 0 0 8px rgba(0,0,0,0.8);
             }
         }
     </style>
@@ -555,9 +600,14 @@
 
 </main>
 
-<button type="button" class="garden-sticky-tag" onclick="openSecondGardenInfo()" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
-    <img src="https://garden-lounge.pro/img/garden-second-sticker.png" alt="А ты был во втором Гардене?" width="168" height="auto" loading="lazy" decoding="async">
-</button>
+<div class="garden-sticky-wrap" id="garden-sticky-wrap">
+    <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <button type="button" class="garden-sticky-tag" onclick="onStickyTagClick(event)" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
+        <img src="https://garden-lounge.pro/img/garden-second-sticker.png" alt="А ты был во втором Гардене?" width="168" height="auto" loading="lazy" decoding="async">
+    </button>
+</div>
 
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
@@ -654,7 +704,43 @@
         document.body.style.overflow = 'auto';
     }
 
-    document.addEventListener('DOMContentLoaded', () => { switchTab('hookahs'); });
+    const GARDEN_STICKY_KEY = 'gardenStickyCollapsed';
+    function isMobileSticky() { return window.matchMedia('(max-width: 768px)').matches; }
+    function setGardenStickyCollapsed(collapsed) {
+        const wrap = document.getElementById('garden-sticky-wrap');
+        const toggle = wrap.querySelector('.garden-sticky-toggle');
+        const icon = toggle.querySelector('i');
+        wrap.classList.toggle('is-collapsed', collapsed);
+        toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+        toggle.setAttribute('aria-label', collapsed ? 'Развернуть подсказку' : 'Свернуть подсказку');
+        icon.className = collapsed ? 'fa-solid fa-chevron-left' : 'fa-solid fa-chevron-right';
+        try { sessionStorage.setItem(GARDEN_STICKY_KEY, collapsed ? '1' : '0'); } catch (_) {}
+    }
+    function toggleGardenSticky(event) {
+        event.stopPropagation();
+        const wrap = document.getElementById('garden-sticky-wrap');
+        setGardenStickyCollapsed(!wrap.classList.contains('is-collapsed'));
+    }
+    function onStickyTagClick(event) {
+        const wrap = document.getElementById('garden-sticky-wrap');
+        if (isMobileSticky() && wrap.classList.contains('is-collapsed')) {
+            event.stopPropagation();
+            setGardenStickyCollapsed(false);
+            return;
+        }
+        openSecondGardenInfo();
+    }
+    function initGardenSticky() {
+        if (!isMobileSticky()) return;
+        try {
+            if (sessionStorage.getItem(GARDEN_STICKY_KEY) === '1') setGardenStickyCollapsed(true);
+        } catch (_) {}
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        switchTab('hookahs');
+        initGardenSticky();
+    });
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeSecondGardenModal();
     });
