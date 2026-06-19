@@ -176,21 +176,24 @@
     }
 
     /* --- МОБИЛЬНОЕ МЕНЮ --- */
-    .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; overflow: hidden; }
+    .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; min-height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; overflow: hidden; }
     .mobile-menu-overlay.active { transform: translateY(0); visibility: visible; }
     .mobile-menu-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
     .mobile-menu-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); opacity: 0.52; filter: brightness(0.55) saturate(0.82) blur(0.8px); }
     .mobile-menu-bg-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.46); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
     .mobile-menu-overlay > :not(.mobile-menu-bg-layer) { position: relative; z-index: 2; }
-    .mobile-link { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 4px 24px; }
+    .mobile-link { display: inline-flex; align-items: center; justify-content: center; width: auto; font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 8px 28px; border-radius: 999px; text-align: center; }
     .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
     .mobile-menu-contact { margin-top: 18px; }
     .mobile-menu-contact-link,
     .mobile-menu-social-link {
         color: #ffffff !important;
+        border: none !important;
+        background: none !important;
         transition: color 0.25s ease, transform 0.25s ease;
     }
+    .mobile-menu-address-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
     .mobile-menu-contact-link:hover,
     .mobile-menu-contact-link:focus,
     .mobile-menu-contact-link:active,
@@ -344,10 +347,10 @@
         .mobile-menu-top {
             min-height: 76px;
             padding-top: 18px !important;
-            justify-content: flex-end !important;
+            justify-content: center !important;
         }
         .mobile-menu-top .mobile-menu-logo {
-            display: none !important;
+            display: flex !important;
         }
         .mobile-menu-links {
             flex: 0 0 auto;
@@ -356,7 +359,8 @@
             overflow: visible !important;
         }
         .mobile-link {
-            width: min(78vw, 280px);
+            width: auto !important;
+            min-width: min-content !important;
             min-height: 42px;
             display: inline-flex;
             align-items: center;
@@ -382,11 +386,12 @@
             gap: 8px !important;
             margin-bottom: 12px !important;
         }
-        #menu-address-text {
-            max-width: 100%;
-            font-size: 9px !important;
-            line-height: 1.45 !important;
-            letter-spacing: 0.14em !important;
+        .mobile-menu-address-link {
+            width: auto !important;
+            padding: 0 !important;
+            border: none !important;
+            background: none !important;
+            justify-content: center !important;
         }
         .mobile-menu-contact-link {
             width: 100%;
@@ -394,8 +399,8 @@
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(197, 160, 89, 0.45);
-            background: rgba(0, 0, 0, 0.28);
+            border: none !important;
+            background: none !important;
             font-size: 20px !important;
             margin-top: 0 !important;
         }
@@ -410,8 +415,8 @@
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(197, 160, 89, 0.45);
-            background: rgba(0, 0, 0, 0.28);
+            border: none !important;
+            background: none !important;
             font-size: 21px !important;
         }
         @media (max-height: 720px) {
@@ -571,7 +576,10 @@
     
     <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
         <div class="flex flex-col items-center gap-1 mb-4">
-            <p id="menu-address-text" class="text-xs uppercase tracking-[0.2em] text-center font-medium shimmer-text">Набережная реки Мойки д.67-69</p>
+            <a id="menu-address-link" href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else />https://yandex.ru/maps/-/CLBURN0n</cms:if>" target="_blank" rel="noopener" class="mobile-menu-contact-link mobile-menu-address-link font-serif italic text-white text-xs uppercase tracking-[0.2em] text-center shimmer-text">
+                <i class="fas fa-location-dot"></i>
+                <span><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
+            </a>
             <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></a>
         </div>
         <div class="flex gap-8">
