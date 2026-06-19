@@ -1,19 +1,36 @@
+<?php
+$garden_cms = null;
+foreach ([
+    __DIR__ . '/admiralteyskaya/couch/cms.php',
+    __DIR__ . '/../admiralteyskaya/couch/cms.php',
+] as $candidate) {
+    if (file_exists($candidate)) {
+        $garden_cms = $candidate;
+        break;
+    }
+}
+if (!$garden_cms) {
+    die('Garden Lounge CMS bootstrap not found');
+}
+require_once $garden_cms;
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Lounge - кальянные и лаунж-бары в Санкт-Петербурге</title>
-    <meta name="description" content="Garden Lounge в Санкт-Петербурге: выберите филиал на Адмиралтейской или Удельной. Кальянная, кухня, бар, VIP-комнаты, PS5 и звонок в выбранный филиал.">
-    <meta name="keywords" content="Garden Lounge, кальянная СПб, лаунж бар СПб, кальянная Адмиралтейская, кальянная Удельная">
+    <cms:pages masterpage='home.php' limit='1'>
+    <title><cms:show home_seo_title /></title>
+    <meta name="description" content="<cms:show home_seo_desc />">
+    <meta name="keywords" content="<cms:show home_seo_keywords />">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://garden-lounge.pro/">
-    <link rel="icon" type="image/png" href="/udelnaya/favicon.png">
+    <link rel="icon" type="image/png" href="<cms:if home_favicon><cms:show home_favicon /><cms:else />/udelnaya/favicon.png</cms:if>">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/">
-    <meta property="og:title" content="Garden Lounge - филиалы в Санкт-Петербурге">
-    <meta property="og:description" content="Два филиала Garden Lounge: Адмиралтейская и Удельная. Выберите локацию и позвоните в нужный филиал.">
-    <meta property="og:image" content="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg">
+    <meta property="og:title" content="<cms:show home_seo_title />">
+    <meta property="og:description" content="<cms:show home_seo_desc />">
+    <meta property="og:image" content="<cms:if home_seo_og_image><cms:show home_seo_og_image /><cms:else />https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg</cms:if>">
     <meta property="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +44,41 @@
             --text-soft: rgba(255, 255, 255, .74);
             --surface: #050505;
             --surface-soft: #090909;
+            --home-icon-color: <cms:show home_icon_color />;
+            --home-icon-border-color: <cms:show home_icon_border_color />;
+            --home-icon-border-width: <cms:show home_icon_border_width />px;
+            --home-icon-size: <cms:show home_icon_size />px;
+            --home-icon-bg: <cms:show home_icon_bg />;
+            --home-social-size: <cms:show home_social_size />px;
+            --home-social-border-width: <cms:show home_social_border_width />px;
+        }
+
+        body.home-icon-hover-gold .contact-btn:hover,
+        body.home-icon-hover-gold .contact-btn:focus-visible,
+        body.home-icon-hover-gold .social-link:hover,
+        body.home-icon-hover-gold .social-link:focus-visible {
+            background: var(--home-icon-color);
+            color: #000;
+            border-color: var(--home-icon-color);
+        }
+
+        body.home-icon-hover-light .contact-btn:hover,
+        body.home-icon-hover-light .contact-btn:focus-visible,
+        body.home-icon-hover-light .social-link:hover,
+        body.home-icon-hover-light .social-link:focus-visible {
+            color: var(--gold-light);
+            border-color: var(--gold-light);
+        }
+
+        body.home-icon-hover-none .contact-btn:hover,
+        body.home-icon-hover-none .contact-btn:focus-visible,
+        body.home-icon-hover-none .social-link:hover,
+        body.home-icon-hover-none .social-link:focus-visible {
+            transform: translateY(-2px);
+        }
+
+        body.home-phone-animation-off .contact-btn.phone {
+            animation: none;
         }
 
         * { box-sizing: border-box; }
@@ -405,12 +457,12 @@
         }
 
         .contact-btn {
-            width: 48px;
-            height: 48px;
-            border: 2px solid rgba(197, 160, 89, 0.75);
+            width: var(--home-icon-size);
+            height: var(--home-icon-size);
+            border: var(--home-icon-border-width) solid var(--home-icon-border-color);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.6);
-            color: var(--gold-main);
+            background: var(--home-icon-bg);
+            color: var(--home-icon-color);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -420,9 +472,6 @@
 
         .contact-btn:hover,
         .contact-btn:focus-visible {
-            background: var(--gold-main);
-            color: #000;
-            border-color: var(--gold-main);
             transform: translateY(-2px);
         }
 
@@ -562,23 +611,20 @@
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(197, 160, 89, 0.75);
+            width: var(--home-social-size);
+            height: var(--home-social-size);
+            border: var(--home-social-border-width) solid var(--home-icon-border-color);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            background: rgba(0, 0, 0, 0.5);
+            background: var(--home-icon-bg);
             cursor: pointer;
         }
 
         .social-link:hover,
         .social-link:focus-visible {
-            background: var(--gold-main);
-            color: #000;
-            border-color: var(--gold-main);
             transform: translateY(-2px);
         }
 
@@ -701,130 +747,26 @@
         "@id": "https://garden-lounge.pro/#organization",
         "name": "Garden Lounge",
         "url": "https://garden-lounge.pro/",
-        "logo": "https://garden-lounge.pro/img/logo3.webp",
+        "logo": "<cms:if home_logo><cms:show home_logo /><cms:else />https://garden-lounge.pro/img/logo3.webp</cms:if>",
         "sameAs": [
-            "https://instagram.com/garden_lounge_spb/",
-            "https://vk.com/loungegarden",
-            "https://youtube.com/@garden.lounge",
-            "https://t.me/gardenlounge_admiral"
+            "<cms:show home_instagram />",
+            "<cms:show home_vk />",
+            "<cms:show home_youtube />",
+            "<cms:show home_telegram />"
         ]
     }
     </script>
+    <cms:set home_body_class='home-icon-hover-gold' scope='global' />
+    <cms:if home_icon_hover_style='light'><cms:set home_body_class='home-icon-hover-light' scope='global' /></cms:if>
+    <cms:if home_icon_hover_style='none'><cms:set home_body_class='home-icon-hover-none' scope='global' /></cms:if>
+    <cms:if home_phone_animation='0'><cms:set home_body_class="<cms:show home_body_class /> home-phone-animation-off" scope='global' /></cms:if>
+    </cms:pages>
 </head>
-<body>
+<body class="<cms:show home_body_class />">
     <main class="page">
-        <header class="header">
-            <a href="/" aria-label="Garden Lounge">
-                <img class="logo" src="/img/logo3.webp" alt="Garden Lounge" width="360" height="152" decoding="async">
-            </a>
-        </header>
-
-        <section class="branches" aria-label="Выбор филиала Garden Lounge">
-            <article class="branch" data-slider>
-                <div class="branch-title">
-                    <h2>м. Адмиралтейская</h2>
-                    <a class="branch-address" href="https://yandex.ru/maps/-/CPxBuF4-" target="_blank" rel="noopener">
-                        <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
-                        наб. реки Мойки, 67-69
-                    </a>
-                </div>
-                <div class="slider" aria-label="Слайдер фото филиала Адмиралтейская" data-branch="admiralteyskaya">
-                    <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Адмиралтейская"></div>
-                    <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden-2.webp" alt="Garden Lounge Адмиралтейская интерьер"></div>
-                    <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_55.webp" alt="Garden Lounge Адмиралтейская зал"></div>
-                    <div class="slider-overlay">
-                        <a href="tel:+79956246808" class="contact-btn phone" aria-label="Позвонить на Адмиралтейскую" title="Позвонить">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        </a>
-                        <a href="/admiralteyskaya/" class="slider-cta">Войти в оазис</a>
-                        <a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Адмиралтейскую" title="Telegram">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
-                        </a>
-                    </div>
-                    <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-                    </button>
-                    <button class="slider-btn next" type="button" aria-label="Следующее фото">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
-                    <div class="dots" aria-hidden="true"></div>
-                </div>
-                <div class="branch-info">
-                    <div class="branch-actions">
-                        <a class="button" href="/admiralteyskaya/">Войти в оазис</a>
-                        <div class="branch-action-icons">
-                            <a href="tel:+79956246808" class="contact-btn phone" aria-label="Позвонить на Адмиралтейскую" title="Позвонить">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            </a>
-                            <a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Адмиралтейскую" title="Telegram">
-                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="branch" data-slider>
-                <div class="branch-title">
-                    <h2>м. Удельная</h2>
-                    <a class="branch-address" href="https://yandex.ru/maps/-/CPxBuAyI" target="_blank" rel="noopener">
-                        <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
-                        ул. Аккуратова, 13
-                    </a>
-                </div>
-                <div class="slider" aria-label="Слайдер фото филиала Удельная" data-branch="udelnaya">
-                    <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Garden Lounge Удельная"></div>
-                    <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden.webp" alt="Garden Lounge Удельная интерьер"></div>
-                    <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_65.webp" alt="Garden Lounge Удельная зал"></div>
-                    <div class="slider-overlay">
-                        <a href="tel:+79500473365" class="contact-btn phone" aria-label="Позвонить на Удельную" title="Позвонить">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        </a>
-                        <a href="/udelnaya/" class="slider-cta">Выбрать сад</a>
-                        <a href="https://t.me/gardenlounge_udelnaya" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Удельную" title="Telegram">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
-                        </a>
-                    </div>
-                    <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-                    </button>
-                    <button class="slider-btn next" type="button" aria-label="Следующее фото">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-                    </button>
-                    <div class="dots" aria-hidden="true"></div>
-                </div>
-                <div class="branch-info">
-                    <div class="branch-actions">
-                        <a class="button" href="/udelnaya/">Выбрать сад</a>
-                        <div class="branch-action-icons">
-                            <a href="tel:+79500473365" class="contact-btn phone" aria-label="Позвонить на Удельную" title="Позвонить">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            </a>
-                            <a href="https://t.me/gardenlounge_udelnaya" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Удельную" title="Telegram">
-                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <nav class="socials" aria-label="Социальные сети Garden Lounge">
-            <a class="social-link" href="https://instagram.com/garden_lounge_spb/" target="_blank" rel="noopener" aria-label="Instagram Garden Lounge">
-                <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><path d="M17.5 6.8h.01"/></svg>
-            </a>
-            <a class="social-link" href="https://vk.com/loungegarden" target="_blank" rel="noopener" aria-label="VK Garden Lounge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 7.2h3.1c.1 3.8 1.7 5.4 2.9 5.7V7.2h2.9v3.3c1.1-.1 2.2-1.7 2.6-3.3h2.9c-.4 2-1.9 3.6-2.9 4.3 1.1.6 2.8 2 3.5 5.3h-3.2c-.4-1.5-1.5-2.8-2.9-3v3h-.4c-6 0-8.2-4.1-8.5-9.6Z"/></svg>
-            </a>
-            <a class="social-link" href="https://youtube.com/@garden.lounge" target="_blank" rel="noopener" aria-label="YouTube Garden Lounge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.2 8.2a3 3 0 0 0-2.1-2.1C17.2 5.6 12 5.6 12 5.6s-5.2 0-7.1.5a3 3 0 0 0-2.1 2.1 31 31 0 0 0 0 7.6 3 3 0 0 0 2.1 2.1c1.9.5 7.1.5 7.1.5s5.2 0 7.1-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 0-7.6ZM10.2 15.4V8.6l5.8 3.4-5.8 3.4Z"/></svg>
-            </a>
-            <a class="social-link" href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener" aria-label="Telegram Garden Lounge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
-            </a>
-        </nav>
-
-        <p class="sr-text">Garden Lounge работает в двух филиалах Санкт-Петербурга: наб. реки Мойки 67-69 и ул. Аккуратова 13.</p>
+        <cms:pages masterpage='home.php' limit='1'>
+            <cms:embed 'home-page.html' />
+        </cms:pages>
     </main>
 
     <script>
@@ -872,11 +814,10 @@
 
             // Click on slider to open branch
             slider.addEventListener('click', (e) => {
-                if (!e.target.closest('button')) {
-                    if (branchName === 'admiralteyskaya') {
-                        window.location.href = '/admiralteyskaya/';
-                    } else if (branchName === 'udelnaya') {
-                        window.location.href = '/udelnaya/';
+                if (!e.target.closest('button') && !e.target.closest('a')) {
+                    const branchLink = slider.getAttribute('data-branch-link');
+                    if (branchLink) {
+                        window.location.href = branchLink;
                     }
                 }
             });
@@ -884,3 +825,4 @@
     </script>
 </body>
 </html>
+<?php COUCH::invoke(); ?>

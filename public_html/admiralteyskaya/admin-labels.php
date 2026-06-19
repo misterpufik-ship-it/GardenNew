@@ -6,6 +6,9 @@
         Эти поля меняют подписи разделов в левом меню админки. Если поле оставить пустым, будет использовано стандартное название.
     </cms:editable>
 
+    <cms:editable name='group_home' label='Главная' type='group' order='5' />
+    <cms:editable name='label_home' label='Главная (garden-lounge.pro)' group='group_home' type='text' order='6'>Главная</cms:editable>
+
     <cms:editable name='group_a' label='Адмиралтейская' type='group' order='10' />
     <cms:editable name='label_header' label='Шапка сайта (Header)' group='group_a' type='text' order='11'>Шапка сайта (Header)</cms:editable>
     <cms:editable name='label_about' label='Концепция' group='group_a' type='text' order='12'>Концепция</cms:editable>

@@ -1,0 +1,149 @@
+<header class="header">
+    <a href="<cms:show home_logo_link />" aria-label="<cms:show home_logo_alt />">
+        <img class="logo"
+             src="<cms:if home_logo><cms:show home_logo /><cms:else />/img/logo3.webp</cms:if>"
+             alt="<cms:show home_logo_alt />"
+             width="360"
+             height="152"
+             decoding="async">
+    </a>
+</header>
+
+<section class="branches" aria-label="Выбор филиала Garden Lounge">
+    <article class="branch" data-slider>
+        <div class="branch-title">
+            <h2><cms:show home_adm_title /></h2>
+            <a class="branch-address" href="<cms:show home_adm_map />" target="_blank" rel="noopener">
+                <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
+                <cms:show home_adm_address />
+            </a>
+        </div>
+        <div class="slider" aria-label="Слайдер фото филиала Адмиралтейская" data-branch="admiralteyskaya" data-branch-link="<cms:show home_adm_btn_link />">
+            <cms:set adm_gallery_empty='1' scope='global' />
+            <cms:show_repeatable 'home_adm_gallery'>
+                <cms:if home_gallery_img>
+                    <cms:set adm_gallery_empty='0' scope='global' />
+                    <div class="slide<cms:if k_count='1'> active</cms:if>">
+                        <img src="<cms:show home_gallery_img />"
+                             alt="<cms:if home_gallery_alt><cms:show home_gallery_alt /><cms:else />Garden Lounge Адмиралтейская</cms:if>">
+                    </div>
+                </cms:if>
+            </cms:show_repeatable>
+            <cms:if adm_gallery_empty='1'>
+                <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Адмиралтейская"></div>
+                <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden-2.webp" alt="Garden Lounge Адмиралтейская интерьер"></div>
+                <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_55.webp" alt="Garden Lounge Адмиралтейская зал"></div>
+            </cms:if>
+            <div class="slider-overlay">
+                <a href="tel:<cms:show home_adm_phone />" class="contact-btn phone" aria-label="<cms:show home_adm_phone_label />" title="Позвонить">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+                <a href="<cms:show home_adm_btn_link />" class="slider-cta"><cms:show home_adm_btn_text /></a>
+                <a href="<cms:show home_adm_telegram />" target="_blank" rel="noopener" class="contact-btn" aria-label="<cms:show home_adm_tg_label />" title="Telegram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                </a>
+            </div>
+            <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-btn next" type="button" aria-label="Следующее фото">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <div class="dots" aria-hidden="true"></div>
+        </div>
+        <div class="branch-info">
+            <div class="branch-actions">
+                <a class="button" href="<cms:show home_adm_btn_link />"><cms:show home_adm_btn_text /></a>
+                <div class="branch-action-icons">
+                    <a href="tel:<cms:show home_adm_phone />" class="contact-btn phone" aria-label="<cms:show home_adm_phone_label />" title="Позвонить">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </a>
+                    <a href="<cms:show home_adm_telegram />" target="_blank" rel="noopener" class="contact-btn" aria-label="<cms:show home_adm_tg_label />" title="Telegram">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="branch" data-slider>
+        <div class="branch-title">
+            <h2><cms:show home_udel_title /></h2>
+            <a class="branch-address" href="<cms:show home_udel_map />" target="_blank" rel="noopener">
+                <svg class="pin" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5A7.5 7.5 0 0 0 4.5 10c0 5.3 6.45 11.05 6.72 11.29a1.18 1.18 0 0 0 1.56 0C13.05 21.05 19.5 15.3 19.5 10A7.5 7.5 0 0 0 12 2.5Zm0 10.25A2.75 2.75 0 1 1 12 7.25a2.75 2.75 0 0 1 0 5.5Z"/></svg>
+                <cms:show home_udel_address />
+            </a>
+        </div>
+        <div class="slider" aria-label="Слайдер фото филиала Удельная" data-branch="udelnaya" data-branch-link="<cms:show home_udel_btn_link />">
+            <cms:set udel_gallery_empty='1' scope='global' />
+            <cms:show_repeatable 'home_udel_gallery'>
+                <cms:if home_gallery_img>
+                    <cms:set udel_gallery_empty='0' scope='global' />
+                    <div class="slide<cms:if k_count='1'> active</cms:if>">
+                        <img src="<cms:show home_gallery_img />"
+                             alt="<cms:if home_gallery_alt><cms:show home_gallery_alt /><cms:else />Garden Lounge Удельная</cms:if>">
+                    </div>
+                </cms:if>
+            </cms:show_repeatable>
+            <cms:if udel_gallery_empty='1'>
+                <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Garden Lounge Удельная"></div>
+                <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden.webp" alt="Garden Lounge Удельная интерьер"></div>
+                <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_65.webp" alt="Garden Lounge Удельная зал"></div>
+            </cms:if>
+            <div class="slider-overlay">
+                <a href="tel:<cms:show home_udel_phone />" class="contact-btn phone" aria-label="<cms:show home_udel_phone_label />" title="Позвонить">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+                <a href="<cms:show home_udel_btn_link />" class="slider-cta"><cms:show home_udel_btn_text /></a>
+                <a href="<cms:show home_udel_telegram />" target="_blank" rel="noopener" class="contact-btn" aria-label="<cms:show home_udel_tg_label />" title="Telegram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                </a>
+            </div>
+            <button class="slider-btn prev" type="button" aria-label="Предыдущее фото">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="slider-btn next" type="button" aria-label="Следующее фото">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <div class="dots" aria-hidden="true"></div>
+        </div>
+        <div class="branch-info">
+            <div class="branch-actions">
+                <a class="button" href="<cms:show home_udel_btn_link />"><cms:show home_udel_btn_text /></a>
+                <div class="branch-action-icons">
+                    <a href="tel:<cms:show home_udel_phone />" class="contact-btn phone" aria-label="<cms:show home_udel_phone_label />" title="Позвонить">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </a>
+                    <a href="<cms:show home_udel_telegram />" target="_blank" rel="noopener" class="contact-btn" aria-label="<cms:show home_udel_tg_label />" title="Telegram">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+
+<nav class="socials" aria-label="Социальные сети Garden Lounge">
+    <cms:if home_show_instagram='1'>
+        <a class="social-link" href="<cms:show home_instagram />" target="_blank" rel="noopener" aria-label="Instagram Garden Lounge">
+            <svg class="stroke-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><path d="M17.5 6.8h.01"/></svg>
+        </a>
+    </cms:if>
+    <cms:if home_show_vk='1'>
+        <a class="social-link" href="<cms:show home_vk />" target="_blank" rel="noopener" aria-label="VK Garden Lounge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 7.2h3.1c.1 3.8 1.7 5.4 2.9 5.7V7.2h2.9v3.3c1.1-.1 2.2-1.7 2.6-3.3h2.9c-.4 2-1.9 3.6-2.9 4.3 1.1.6 2.8 2 3.5 5.3h-3.2c-.4-1.5-1.5-2.8-2.9-3v3h-.4c-6 0-8.2-4.1-8.5-9.6Z"/></svg>
+        </a>
+    </cms:if>
+    <cms:if home_show_youtube='1'>
+        <a class="social-link" href="<cms:show home_youtube />" target="_blank" rel="noopener" aria-label="YouTube Garden Lounge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.2 8.2a3 3 0 0 0-2.1-2.1C17.2 5.6 12 5.6 12 5.6s-5.2 0-7.1.5a3 3 0 0 0-2.1 2.1 31 31 0 0 0 0 7.6 3 3 0 0 0 2.1 2.1c1.9.5 7.1.5 7.1.5s5.2 0 7.1-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 0-7.6ZM10.2 15.4V8.6l5.8 3.4-5.8 3.4Z"/></svg>
+        </a>
+    </cms:if>
+    <cms:if home_show_telegram='1'>
+        <a class="social-link" href="<cms:show home_telegram />" target="_blank" rel="noopener" aria-label="Telegram Garden Lounge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+        </a>
+    </cms:if>
+</nav>
+
+<p class="sr-text"><cms:show home_seo_sr_text /></p>
