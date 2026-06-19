@@ -3,35 +3,46 @@
  * Переименовывает ключи в данных repeatable-галерей home.php
  * home_gallery_img -> home_adm_gallery_img / home_udel_gallery_img
  */
-if (!defined('K_COUCH_DIR')) {
-    require_once dirname(__DIR__) . '/couch/cms.php';
+$root = realpath(__DIR__ . '/..');
+if (!$root) {
+    echo "Cannot resolve template root\n";
+    exit(1);
 }
+chdir($root);
+require_once $root . '/couch/cms.php';
 
-$db = $DB->conn;
-$tpl = mysqli_fetch_assoc(mysqli_query($db, "SELECT id FROM " . K_TBL_TEMPLATES . " WHERE name='home.php' LIMIT 1"));
-if (!$tpl) {
+global $DB;
+
+$templates = K_DB_TABLES_PREFIX . 'couch_templates';
+$fields = K_DB_TABLES_PREFIX . 'couch_fields';
+$pages = K_DB_TABLES_PREFIX . 'couch_pages';
+$dataText = K_DB_TABLES_PREFIX . 'couch_data_text';
+
+$tplRows = $DB->select($templates, array('id'), "name='home.php' LIMIT 1");
+if (!count($tplRows)) {
     echo "home.php template missing\n";
     exit(1);
 }
-$page = mysqli_fetch_assoc(mysqli_query($db, "SELECT id FROM " . K_TBL_PAGES . " WHERE template_id=" . (int) $tpl['id'] . " LIMIT 1"));
-if (!$page) {
+$pageRows = $DB->select($pages, array('id'), "template_id='" . $DB->sanitize($tplRows[0]['id']) . "' LIMIT 1");
+if (!count($pageRows)) {
     echo "home.php page missing\n";
     exit(1);
 }
 
-function migrate_repeatable_keys($db, $pageId, $repeatableName, $imgKey, $altKey)
+function migrate_repeatable_keys($DB, $fields, $dataText, $pageId, $repeatableName, $imgKey, $altKey)
 {
-    $field = mysqli_fetch_assoc(mysqli_query(
-        $db,
-        "SELECT f.id, d.id AS data_id, d.value FROM " . K_TBL_FIELDS . " f " .
-        "LEFT JOIN " . K_TBL_DATA_TEXT . " d ON d.field_id=f.id AND d.page_id=" . (int) $pageId . " " .
-        "WHERE f.name='" . mysqli_real_escape_string($db, $repeatableName) . "' LIMIT 1"
-    ));
-    if (!$field || !$field['value']) {
+    $fieldRows = $DB->select($fields, array('id'), "name='" . $DB->sanitize($repeatableName) . "' LIMIT 1");
+    if (!count($fieldRows)) {
+        echo "{$repeatableName}: field missing\n";
+        return;
+    }
+    $fieldId = (int) $fieldRows[0]['id'];
+    $dataRows = $DB->select($dataText, array('id', 'value'), "page_id='" . $DB->sanitize($pageId) . "' AND field_id='" . $DB->sanitize($fieldId) . "' LIMIT 1");
+    if (!count($dataRows) || !$dataRows[0]['value']) {
         echo "{$repeatableName}: no data\n";
         return;
     }
-    $rows = @unserialize($field['value']);
+    $rows = @unserialize($dataRows[0]['value']);
     if (!is_array($rows)) {
         echo "{$repeatableName}: invalid serialized data\n";
         return;
@@ -56,16 +67,11 @@ function migrate_repeatable_keys($db, $pageId, $repeatableName, $imgKey, $altKey
         echo "{$repeatableName}: nothing to migrate\n";
         return;
     }
-    $value = mysqli_real_escape_string($db, serialize($rows));
-    if ($field['data_id']) {
-        mysqli_query($db, "UPDATE " . K_TBL_DATA_TEXT . " SET value='{$value}' WHERE id=" . (int) $field['data_id'] . " LIMIT 1");
-    } else {
-        mysqli_query($db, "INSERT INTO " . K_TBL_DATA_TEXT . " (page_id, field_id, value) VALUES (" . (int) $pageId . ", " . (int) $field['id'] . ", '{$value}')");
-    }
+    $DB->update($dataText, array('value' => serialize($rows)), "id='" . $DB->sanitize($dataRows[0]['id']) . "'");
     echo "{$repeatableName}: migrated " . count($rows) . " rows\n";
 }
 
-$pageId = (int) $page['id'];
-migrate_repeatable_keys($db, $pageId, 'home_adm_gallery', 'home_adm_gallery_img', 'home_adm_gallery_alt');
-migrate_repeatable_keys($db, $pageId, 'home_udel_gallery', 'home_udel_gallery_img', 'home_udel_gallery_alt');
+$pageId = (int) $pageRows[0]['id'];
+migrate_repeatable_keys($DB, $fields, $dataText, $pageId, 'home_adm_gallery', 'home_adm_gallery_img', 'home_adm_gallery_alt');
+migrate_repeatable_keys($DB, $fields, $dataText, $pageId, 'home_udel_gallery', 'home_udel_gallery_img', 'home_udel_gallery_alt');
 echo "Done.\n";
