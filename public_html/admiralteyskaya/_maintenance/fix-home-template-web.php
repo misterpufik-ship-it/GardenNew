@@ -67,12 +67,18 @@ if (!$row) {
 
 $templateId = (int)$row['id'];
 $db->query("UPDATE `{$templates}` SET executable='1', hidden='0' WHERE id={$templateId} LIMIT 1");
-echo "Template home.php: executable=1 hidden=0\n";
+echo "Template home.php id={$templateId}: executable=1 hidden=0\n";
 
-$pageRes = $db->query("SELECT id FROM `{$pages}` WHERE template_id={$templateId} LIMIT 1");
+$pageRes = $db->query("SELECT id, template_id, page_name, is_master FROM `{$pages}` WHERE template_id={$templateId} LIMIT 1");
 $page = $pageRes ? $pageRes->fetch_assoc() : null;
 
-if (!$page) {
+if ($page) {
+    echo "Page: #{$page['id']} template_id={$page['template_id']} name={$page['page_name']} is_master={$page['is_master']}\n";
+    if ((int)$page['is_master'] !== 1) {
+        $db->query("UPDATE `{$pages}` SET is_master=1 WHERE id=" . (int)$page['id'] . " LIMIT 1");
+        echo "Fixed is_master=1\n";
+    }
+} else {
     $refPage = $db->query("SELECT * FROM `{$pages}` WHERE template_id=1 LIMIT 1");
     $refPageRow = $refPage ? $refPage->fetch_assoc() : null;
     if (!$refPageRow) {
@@ -112,3 +118,20 @@ if (is_dir($cacheDir)) {
 }
 
 echo "OK\n";
+
+$fields = K_DB_TABLES_PREFIX . 'couch_fields';
+$fieldCount = $db->query("SELECT COUNT(*) AS c FROM `{$fields}` WHERE template_id={$templateId}");
+if ($fieldCount && ($fc = $fieldCount->fetch_assoc())) {
+    echo "Fields for home.php template: {$fc['c']}\n";
+}
+
+$allHome = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE name LIKE '%home%'");
+echo "Templates matching home:\n";
+while ($t = $allHome->fetch_assoc()) {
+    echo "  #{$t['id']} {$t['name']} exec={$t['executable']} hidden={$t['hidden']}\n";
+}
+
+$page43 = $db->query("SELECT id, template_id, page_name, is_master FROM `{$pages}` WHERE id=43 LIMIT 1");
+if ($page43 && ($p43 = $page43->fetch_assoc())) {
+    echo "Page #43 belongs to template_id={$p43['template_id']}\n";
+}
