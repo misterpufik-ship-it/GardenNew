@@ -22,7 +22,7 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Липкий стикер' name='sticky_sticker_udel' executable='0' order='36' clonable='0'>
+<cms:template title='Липкий стикер' name='sticky_sticker_udel' executable='0' order='36'>
 
     <cms:editable name='grp_sticker' label='Стикер (текстовое меню)' type='group' order='1' />
     <cms:editable name='sticker_enabled' label='Показывать стикер' group='grp_sticker' type='dropdown' opt_values='Да=1 | Нет=0'>1</cms:editable>
