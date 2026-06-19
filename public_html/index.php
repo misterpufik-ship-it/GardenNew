@@ -279,13 +279,6 @@
             background: linear-gradient(180deg, var(--surface-soft), #000);
         }
 
-        .branch-contacts {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-            justify-content: center;
-        }
-
         .contact-btn {
             width: 54px;
             height: 54px;
@@ -314,10 +307,6 @@
             stroke-width: 1.5;
         }
 
-        .contact-btn.phone {
-            animation: ringPhone 4s ease-in-out infinite;
-        }
-
         .pin {
             width: 16px;
             height: 16px;
@@ -330,6 +319,56 @@
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 10px;
             align-items: stretch;
+        }
+
+        @media (min-width: 881px) {
+            .branch-actions {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                grid-template-columns: unset;
+            }
+
+            .branch-actions .button {
+                flex: 1;
+                min-height: 50px;
+                padding: 14px 24px;
+                font-size: 12px;
+            }
+
+            .branch-info-contact {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex: 1;
+            }
+
+            .phone-number {
+                color: var(--gold-main);
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+            }
+
+            .phone-number a {
+                color: inherit;
+            }
+
+            .phone-number a:hover {
+                color: var(--gold-light);
+            }
+
+            .branch-info-contact .contact-btn {
+                width: 50px;
+                height: 50px;
+                flex-shrink: 0;
+                border: 2px solid rgba(197, 160, 89, 0.7);
+            }
+
+            .branch-info-contact .contact-btn svg {
+                width: 26px;
+                height: 26px;
+            }
         }
 
         .button {
@@ -353,7 +392,7 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             text-align: center;
-            border-radius: 999px;
+            border-radius: 6px;
             cursor: pointer;
             box-shadow:
                 0 0 18px rgba(197, 160, 89, 0.28),
@@ -390,25 +429,6 @@
                 0 16px 42px rgba(0, 0, 0, 0.5);
         }
 
-        .call-link {
-            min-height: 48px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, .045);
-            color: rgba(255, 255, 255, .78);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: .18em;
-            text-transform: uppercase;
-        }
-
-        .call-link:hover,
-        .call-link:focus-visible {
-            color: var(--gold-main);
-        }
-
         .socials {
             width: min(1100px, 100%);
             margin: clamp(22px, 3.4vw, 38px) auto 0;
@@ -416,19 +436,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 18px;
+            gap: 14px;
         }
 
         .social-link {
-            width: 56px;
-            height: 56px;
-            border: 2px solid rgba(197, 160, 89, 0.7);
+            width: 42px;
+            height: 42px;
+            border: 2px solid rgba(197, 160, 89, 0.6);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.5);
             cursor: pointer;
         }
 
@@ -437,12 +457,12 @@
             background: var(--gold-main);
             color: #000;
             border-color: var(--gold-main);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .social-link svg {
-            width: 26px;
-            height: 26px;
+            width: 22px;
+            height: 22px;
             fill: currentColor;
         }
 
@@ -524,28 +544,9 @@
                 padding: 16px 14px 17px;
             }
 
-            .branch-contacts {
-                gap: 10px;
-                margin-bottom: 14px;
-            }
-
-            .contact-btn {
-                width: 48px;
-                height: 48px;
-            }
-
-            .contact-btn svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            .address {
-                margin-bottom: 14px;
-                font-size: 13px;
-            }
-
             .branch-actions {
                 gap: 10px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .button {
@@ -554,26 +555,20 @@
                 font-size: 12px;
             }
 
-            .call-link {
-                min-height: 44px;
-                font-size: 9px;
-                letter-spacing: .12em;
-            }
-
             .socials {
                 margin-top: 22px;
                 padding-top: 19px;
-                gap: 14px;
+                gap: 12px;
             }
 
             .social-link {
-                width: 48px;
-                height: 48px;
+                width: 40px;
+                height: 40px;
             }
 
             .social-link svg {
-                width: 24px;
-                height: 24px;
+                width: 20px;
+                height: 20px;
             }
         }
     </style>
@@ -624,17 +619,16 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
-                    <div class="branch-contacts">
-                        <a href="tel:+79956246808" class="contact-btn phone" aria-label="Позвонить на Адмиралтейскую" title="Позвонить">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        </a>
-                        <a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Адмиралтейскую" title="Telegram">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
-                        </a>
-                    </div>
                     <div class="branch-actions">
                         <a class="button" href="/admiralteyskaya/">Войти в оазис</a>
-                        <a class="call-link" href="tel:+79956246808">Позвонить</a>
+                        <div class="branch-info-contact">
+                            <div class="phone-number">
+                                <a href="tel:+79956246808">+7 995 624 68 08</a>
+                            </div>
+                            <a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Адмиралтейскую" title="Telegram">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -660,17 +654,16 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
-                    <div class="branch-contacts">
-                        <a href="tel:+79500473365" class="contact-btn phone" aria-label="Позвонить на Удельную" title="Позвонить">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        </a>
-                        <a href="https://t.me/gardenlounge_udelnaya" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Удельную" title="Telegram">
-                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
-                        </a>
-                    </div>
                     <div class="branch-actions">
                         <a class="button" href="/udelnaya/">Выбрать сад</a>
-                        <a class="call-link" href="tel:+79500473365">Позвонить</a>
+                        <div class="branch-info-contact">
+                            <div class="phone-number">
+                                <a href="tel:+79500473365">+7 950 047 33 65</a>
+                            </div>
+                            <a href="https://t.me/gardenlounge_udelnaya" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Удельную" title="Telegram">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </article>
