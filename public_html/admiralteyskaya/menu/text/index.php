@@ -292,22 +292,25 @@
 
         .garden-sticky-wrap {
             position: fixed;
+            left: 0;
             right: 0;
-            top: 50%;
+            bottom: 0;
             z-index: 120;
-            display: flex;
-            align-items: center;
-            transform: translateY(-50%) translateX(calc(100% - 68px));
-            transition: transform .35s ease, filter .25s ease;
-            filter: drop-shadow(0 10px 28px rgba(0,0,0,0.45));
-            animation: tagPeek 4.5s ease-in-out infinite;
+            padding: 0 8px calc(8px + env(safe-area-inset-bottom, 0px));
+            transform: translateY(0);
+            transition: transform .4s ease;
+            filter: drop-shadow(0 -6px 24px rgba(0,0,0,0.45));
+            pointer-events: none;
         }
-        .garden-sticky-wrap:hover {
-            animation: none;
-            transform: translateY(-50%) translateX(10px);
-            filter: drop-shadow(0 14px 34px rgba(197,160,89,0.28));
+        .garden-sticky-inner {
+            position: relative;
+            max-width: 720px;
+            margin: 0 auto;
+            pointer-events: auto;
         }
         .garden-sticky-tag {
+            display: block;
+            width: 100%;
             margin: 0;
             padding: 0;
             border: 0;
@@ -315,78 +318,52 @@
             cursor: pointer;
             line-height: 0;
         }
-        .garden-sticky-tag img { display: block; width: 168px; height: auto; pointer-events: none; }
-        .garden-sticky-toggle {
-            display: none;
+        .garden-sticky-tag img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            pointer-events: none;
         }
-        @keyframes tagPeek {
-            0%, 100% { transform: translateY(-50%) translateX(calc(100% - 68px)); }
-            50% { transform: translateY(calc(-50% - 4px)) translateX(calc(100% - 74px)); }
+        .garden-sticky-toggle {
+            position: absolute;
+            top: -11px;
+            right: 10px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            padding: 0;
+            border: 1px solid rgba(197,160,89,0.55);
+            border-radius: 50%;
+            background: rgba(8,8,8,0.96);
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 9px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.45);
+        }
+        .garden-sticky-wrap.is-collapsed {
+            transform: translateY(calc(100% - 34px));
+        }
+        .garden-sticky-wrap.is-collapsed .garden-sticky-toggle {
+            top: 6px;
+            right: 8px;
+        }
+        body.has-garden-sticky { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+        @media (min-width: 769px) {
+            body.has-garden-sticky { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+            .garden-sticky-inner { max-width: 640px; }
         }
         .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 16px; text-align: left; }
         .second-garden-facts { list-style: none; margin: 0 0 20px; padding: 0; text-align: left; }
         .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
         .second-garden-facts i { color: var(--gold); margin-top: 2px; width: 14px; text-align: center; flex-shrink: 0; }
-        @media (max-width: 768px) {
-            .garden-sticky-wrap {
-                top: auto;
-                bottom: 92px;
-                transform: translateX(0);
-                animation: none;
-            }
-            .garden-sticky-wrap:hover {
-                transform: translateX(0);
-            }
-            .garden-sticky-wrap.is-collapsed {
-                transform: translateX(calc(100% - 38px));
-            }
-            .garden-sticky-wrap.is-collapsed:hover {
-                transform: translateX(calc(100% - 38px));
-            }
-            .garden-sticky-tag img { width: 148px; }
-            .garden-sticky-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-                width: 24px;
-                height: 52px;
-                margin-right: 2px;
-                padding: 0;
-                border: 1px solid rgba(197,160,89,0.5);
-                border-right: none;
-                border-radius: 10px 0 0 10px;
-                background: rgba(8,8,8,0.94);
-                color: var(--gold);
-                cursor: pointer;
-                font-size: 11px;
-                box-shadow: -4px 0 14px rgba(0,0,0,0.35);
-            }
-            .garden-sticky-wrap.is-collapsed .garden-sticky-toggle {
-                opacity: 0;
-                pointer-events: none;
-            }
-            .garden-sticky-wrap.is-collapsed .garden-sticky-tag {
-                cursor: pointer;
-            }
-            .garden-sticky-wrap.is-collapsed::after {
-                content: '\2039';
-                position: absolute;
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-                color: var(--gold);
-                font-size: 22px;
-                font-weight: 700;
-                line-height: 1;
-                pointer-events: none;
-                text-shadow: 0 0 8px rgba(0,0,0,0.8);
-            }
-        }
     </style>
 </head>
 
-<body>
+<body class="has-garden-sticky">
 
 <header class="py-8 text-center bg-black">
     <a href="https://garden-lounge.pro/admiralteyskaya/menu" class="inline-block">
@@ -601,12 +578,14 @@
 </main>
 
 <div class="garden-sticky-wrap" id="garden-sticky-wrap">
-    <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
-        <i class="fa-solid fa-chevron-right"></i>
-    </button>
-    <button type="button" class="garden-sticky-tag" onclick="onStickyTagClick(event)" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
-        <img src="https://garden-lounge.pro/img/garden-second-sticker.png" alt="А ты был во втором Гардене?" width="168" height="auto" loading="lazy" decoding="async">
-    </button>
+    <div class="garden-sticky-inner">
+        <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <button type="button" class="garden-sticky-tag" onclick="onStickyTagClick(event)" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
+            <img src="https://garden-lounge.pro/img/garden-second-sticker.webp" alt="А ты был во втором Гардене?" width="741" height="153" loading="lazy" decoding="async">
+        </button>
+    </div>
 </div>
 
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
@@ -705,7 +684,6 @@
     }
 
     const GARDEN_STICKY_KEY = 'gardenStickyCollapsed';
-    function isMobileSticky() { return window.matchMedia('(max-width: 768px)').matches; }
     function setGardenStickyCollapsed(collapsed) {
         const wrap = document.getElementById('garden-sticky-wrap');
         const toggle = wrap.querySelector('.garden-sticky-toggle');
@@ -713,7 +691,7 @@
         wrap.classList.toggle('is-collapsed', collapsed);
         toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
         toggle.setAttribute('aria-label', collapsed ? 'Развернуть подсказку' : 'Свернуть подсказку');
-        icon.className = collapsed ? 'fa-solid fa-chevron-left' : 'fa-solid fa-chevron-right';
+        icon.className = collapsed ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
         try { sessionStorage.setItem(GARDEN_STICKY_KEY, collapsed ? '1' : '0'); } catch (_) {}
     }
     function toggleGardenSticky(event) {
@@ -723,7 +701,7 @@
     }
     function onStickyTagClick(event) {
         const wrap = document.getElementById('garden-sticky-wrap');
-        if (isMobileSticky() && wrap.classList.contains('is-collapsed')) {
+        if (wrap.classList.contains('is-collapsed')) {
             event.stopPropagation();
             setGardenStickyCollapsed(false);
             return;
@@ -731,7 +709,6 @@
         openSecondGardenInfo();
     }
     function initGardenSticky() {
-        if (!isMobileSticky()) return;
         try {
             if (sessionStorage.getItem(GARDEN_STICKY_KEY) === '1') setGardenStickyCollapsed(true);
         } catch (_) {}
