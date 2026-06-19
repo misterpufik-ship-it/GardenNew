@@ -74,7 +74,7 @@ if (is_file($config)) {
         $db->set_charset('utf8');
 
         $fix = array(
-            array('name' => 'home.php', 'executable' => 1, 'hidden' => 0, 'title' => 'Главная'),
+            array('name' => 'home.php', 'executable' => 0, 'hidden' => 0, 'title' => 'Главная'),
         );
 
         foreach ($fix as $item) {

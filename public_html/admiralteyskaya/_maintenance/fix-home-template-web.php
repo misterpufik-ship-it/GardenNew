@@ -104,8 +104,10 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
         $sample['title'] = $title;
         $sample['executable'] = (string)$executable;
         $sample['hidden'] = (string)$hidden;
-        $sample['order'] = (string)$order;
         $sample['clonable'] = '0';
+        if (isset($sample['order'])) {
+            $sample['order'] = (string)$order;
+        }
 
         $cols = array_keys($sample);
         $vals = array();
@@ -117,7 +119,6 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
             echo "Template insert failed for {$name}: {$db->error}\n";
             return 0;
         }
-
         $templateId = (int)$db->insert_id;
         echo "Created template {$name} (#{$templateId})\n";
     } else {
@@ -125,8 +126,11 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
         echo "Before {$name}: executable={$row['executable']} hidden={$row['hidden']} title={$row['title']}\n";
         $db->query(
             "UPDATE `{$templates}` SET executable='{$executable}', hidden='{$hidden}', title='" .
-            $db->real_escape_string($title) . "', `order`='{$order}' WHERE id={$templateId} LIMIT 1"
+            $db->real_escape_string($title) . "' WHERE id={$templateId} LIMIT 1"
         );
+        if ($db->error) {
+            echo "Update failed for {$name}: {$db->error}\n";
+        }
         $after = fetch_one($db, "SELECT executable, hidden, title FROM `{$templates}` WHERE id={$templateId} LIMIT 1");
         if ($after) {
             echo "After {$name}: executable={$after['executable']} hidden={$after['hidden']} title={$after['title']}\n";
