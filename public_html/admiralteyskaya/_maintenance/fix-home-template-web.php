@@ -31,46 +31,69 @@ $db->set_charset('utf8');
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
+$fields = K_DB_TABLES_PREFIX . 'couch_fields';
+$name = 'home.php';
 
 header('Content-Type: text/plain; charset=utf-8');
-echo "DB: " . K_DB_NAME . " prefix: " . K_DB_TABLES_PREFIX . "\n";
 
-function fix_home_template($db, $templates, $pages, $name, $executable, $hidden, $title) {
-    $res = $db->query("SELECT id, name, title, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
-    $row = $res ? $res->fetch_assoc() : null;
-    if (!$row) {
-        echo "Template {$name} not found — open Couch admin once after deploy to register new files.\n";
-        return;
+function qval($db, $value)
+{
+    if ($value === null) {
+        return 'NULL';
     }
-
-    echo "Before {$name}: executable={$row['executable']} hidden={$row['hidden']} title={$row['title']}\n";
-    $db->query(
-        "UPDATE `{$templates}` SET executable='{$executable}', hidden='{$hidden}', title='" .
-        $db->real_escape_string($title) . "' WHERE id=" . (int)$row['id'] . " LIMIT 1"
-    );
-
-    if ($executable) {
-        $pageRes = $db->query("SELECT id FROM `{$pages}` WHERE template_id=" . (int)$row['id'] . " LIMIT 1");
-        $page = $pageRes ? $pageRes->fetch_assoc() : null;
-        if (!$page) {
-            $now = date('Y-m-d H:i:s');
-            $db->query(
-                "INSERT INTO `{$pages}` (template_id, page_title, page_name, creation_date, modification_date, publish_date, status) VALUES (" .
-                (int)$row['id'] . ", 'Главная', 'index', '{$now}', '{$now}', '{$now}', 0)"
-            );
-            echo "Created page for {$name}\n";
-        }
-    }
-
-    $res = $db->query("SELECT executable, hidden, title FROM `{$templates}` WHERE id=" . (int)$row['id'] . " LIMIT 1");
-    $row = $res ? $res->fetch_assoc() : null;
-    if ($row) {
-        echo "After {$name}: executable={$row['executable']} hidden={$row['hidden']} title={$row['title']}\n";
-    }
+    return "'" . $db->real_escape_string((string)$value) . "'";
 }
 
-fix_home_template($db, $templates, $pages, 'home.php', 0, 0, 'Главная');
-fix_home_template($db, $templates, $pages, 'site-home.php', 1, 1, 'Главная (сайт)');
+$res = $db->query("SELECT id, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
+$row = $res ? $res->fetch_assoc() : null;
+if (!$row) {
+    exit("Template {$name} not found. Log into Couch admin and open Главная once.\n");
+}
+
+$templateId = (int)$row['id'];
+$db->query("UPDATE `{$templates}` SET executable='1', hidden='0', title='Главная' WHERE id={$templateId} LIMIT 1");
+echo "home.php template #{$templateId}: executable=1 hidden=0\n";
+
+$pageRes = $db->query("SELECT id, is_master FROM `{$pages}` WHERE template_id={$templateId} LIMIT 1");
+$page = $pageRes ? $pageRes->fetch_assoc() : null;
+
+if (!$page) {
+    $refPage = $db->query("SELECT * FROM `{$pages}` WHERE template_id=1 LIMIT 1");
+    $refPageRow = $refPage ? $refPage->fetch_assoc() : null;
+    if (!$refPageRow) {
+        exit("reference page missing\n");
+    }
+    unset($refPageRow['id']);
+    $now = date('Y-m-d H:i:s');
+    $refPageRow['template_id'] = $templateId;
+    $refPageRow['page_title'] = 'Главная';
+    $refPageRow['page_name'] = 'index';
+    $refPageRow['creation_date'] = $now;
+    $refPageRow['modification_date'] = $now;
+    $refPageRow['publish_date'] = $now;
+    $refPageRow['is_master'] = 1;
+    $cols = array_keys($refPageRow);
+    $vals = array();
+    foreach (array_values($refPageRow) as $v) {
+        $vals[] = qval($db, $v);
+    }
+    $sql = "INSERT INTO `{$pages}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', $vals) . ")";
+    if (!$db->query($sql)) {
+        exit("page insert failed: " . $db->error . "\n");
+    }
+    echo "Created page #{$db->insert_id}\n";
+} else {
+    $db->query("UPDATE `{$pages}` SET is_master=1, page_name='index', page_title='Главная' WHERE id=" . (int)$page['id'] . " LIMIT 1");
+    echo "Page #{$page['id']} updated (is_master=1)\n";
+}
+
+$fieldCount = $db->query("SELECT COUNT(*) AS c FROM `{$fields}` WHERE template_id={$templateId}");
+if ($fieldCount && ($fc = $fieldCount->fetch_assoc())) {
+    echo "Fields registered: {$fc['c']}\n";
+    if ((int)$fc['c'] === 0) {
+        echo "WARNING: no fields — open /admiralteyskaya/couch/ admin and visit Главная template once.\n";
+    }
+}
 
 $cacheDir = K_COUCH_DIR . 'cache';
 $removed = 0;
@@ -99,5 +122,5 @@ if (isset($FUNCS) && method_exists($FUNCS, 'invalidate_cache')) {
     $FUNCS->invalidate_cache();
 }
 
-echo "CouchCMS cache cleared ({$removed} files removed).\n";
+echo "Cache cleared ({$removed} files)\n";
 echo "OK\n";

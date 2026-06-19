@@ -29,11 +29,6 @@ $targets = array(
         'script' => 'home.php',
         'uri' => '/admiralteyskaya/home.php',
     ),
-    array(
-        'dir' => $branchDir,
-        'script' => 'site-home.php',
-        'uri' => '/admiralteyskaya/site-home.php',
-    ),
 );
 
 foreach ($targets as $target) {
@@ -79,8 +74,7 @@ if (is_file($config)) {
         $db->set_charset('utf8');
 
         $fix = array(
-            array('name' => 'home.php', 'executable' => 0, 'hidden' => 0, 'title' => 'Главная'),
-            array('name' => 'site-home.php', 'executable' => 1, 'hidden' => 1, 'title' => 'Главная (сайт)'),
+            array('name' => 'home.php', 'executable' => 1, 'hidden' => 0, 'title' => 'Главная'),
         );
 
         foreach ($fix as $item) {
