@@ -31,17 +31,23 @@ $pages = K_DB_TABLES_PREFIX . 'couch_pages';
 $name = 'home.php';
 
 header('Content-Type: text/plain; charset=utf-8');
-echo "DB: " . K_DB_NAME . " prefix: " . K_DB_TABLES_PREFIX . "\n";
+
+function qval(mysqli $db, $value): string
+{
+    if ($value === null) {
+        return 'NULL';
+    }
+    return "'" . $db->real_escape_string((string)$value) . "'";
+}
 
 $res = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
 $row = $res ? $res->fetch_assoc() : null;
+
 if (!$row) {
-    echo "template {$name} not found, attempting register...\n";
     $ref = $db->query("SELECT * FROM `{$templates}` WHERE name='index.php' LIMIT 1");
     $refRow = $ref ? $ref->fetch_assoc() : null;
     if (!$refRow) {
-        echo "reference template index.php not found\n";
-        exit;
+        exit("reference template index.php not found\n");
     }
     unset($refRow['id']);
     $refRow['name'] = $name;
@@ -49,64 +55,60 @@ if (!$row) {
     $refRow['executable'] = 1;
     $refRow['hidden'] = 0;
     $refRow['clonable'] = 0;
-    $refRow['description'] = '';
-    if (isset($refRow['custom_params'])) {
-        $refRow['custom_params'] = '';
-    }
     $cols = array_keys($refRow);
-    $vals = array_map(function ($v) use ($db) {
-        if ($v === null) return 'NULL';
-        return "'" . $db->real_escape_string((string)$v) . "'";
-    }, array_values($refRow));
+    $vals = array_map(fn($v) => qval($db, $v), array_values($refRow));
     $sql = "INSERT INTO `{$templates}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', $vals) . ")";
     if (!$db->query($sql)) {
-        echo "insert failed: " . $db->error . "\n";
-        exit;
+        exit("template insert failed: " . $db->error . "\n");
     }
-    $newId = (int)$db->insert_id;
-    echo "Registered template #{$newId}\n";
-    $now = date('Y-m-d H:i:s');
-    $db->query(
-        "INSERT INTO `{$pages}` (template_id, page_title, page_name, creation_date, modification_date, publish_date, status) VALUES (" .
-        $newId . ", 'Главная', 'index', '{$now}', '{$now}', '{$now}', 0)"
-    );
-    echo "Created page for home.php\n";
-    $res = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE id={$newId} LIMIT 1");
-    $row = $res ? $res->fetch_assoc() : null;
+    $row = ['id' => (int)$db->insert_id, 'name' => $name, 'executable' => 1, 'hidden' => 0];
+    echo "Registered template #{$row['id']}\n";
 }
 
-header('Content-Type: text/plain; charset=utf-8');
-echo "Before: executable={$row['executable']} hidden={$row['hidden']}\n";
+$templateId = (int)$row['id'];
+$db->query("UPDATE `{$templates}` SET executable='1', hidden='0' WHERE id={$templateId} LIMIT 1");
+echo "Template home.php: executable=1 hidden=0\n";
 
-$db->query("UPDATE `{$templates}` SET executable='1', hidden='0' WHERE id=" . (int)$row['id'] . " LIMIT 1");
+$pageRes = $db->query("SELECT id FROM `{$pages}` WHERE template_id={$templateId} LIMIT 1");
+$page = $pageRes ? $pageRes->fetch_assoc() : null;
 
-$pageRes = $db->query("SELECT id FROM `{$pages}` WHERE template_id=" . (int)$row['id'] . " LIMIT 1");
-if (!$pageRes || !$pageRes->fetch_assoc()) {
-    $now = date('Y-m-d H:i:s');
-    $db->query(
-        "INSERT INTO `{$pages}` (template_id, page_title, page_name, creation_date, modification_date, publish_date, status) VALUES (" .
-        (int)$row['id'] . ", 'Главная', 'index', '{$now}', '{$now}', '{$now}', 0)"
-    );
-    echo "Created page\n";
-}
-
-$res = $db->query("SELECT executable, hidden FROM `{$templates}` WHERE id=" . (int)$row['id'] . " LIMIT 1");
-$row = $res->fetch_assoc();
-echo "After: executable={$row['executable']} hidden={$row['hidden']}\n";
-
-$pageRes = $db->query("SELECT id, page_title, page_name, status, publish_date FROM `{$pages}` WHERE template_id=" . (int)$row['id']);
-echo "Pages for home.php:\n";
-while ($p = $pageRes->fetch_assoc()) {
-    echo "#{$p['id']} name={$p['page_name']} status={$p['status']} publish={$p['publish_date']}\n";
-}
-
-$refPage = $db->query("SELECT * FROM `{$pages}` WHERE template_id=1 LIMIT 1");
-if ($refPage && ($rp = $refPage->fetch_assoc())) {
-    echo "Reference index.php page columns sample:\n";
-    foreach ($rp as $k => $v) {
-        if (strlen((string)$v) > 80) $v = substr((string)$v, 0, 80) . '...';
-        echo "  {$k} = {$v}\n";
+if (!$page) {
+    $refPage = $db->query("SELECT * FROM `{$pages}` WHERE template_id=1 LIMIT 1");
+    $refPageRow = $refPage ? $refPage->fetch_assoc() : null;
+    if (!$refPageRow) {
+        exit("reference page for index.php not found\n");
     }
+    unset($refPageRow['id']);
+    $now = date('Y-m-d H:i:s');
+    $refPageRow['template_id'] = $templateId;
+    $refPageRow['page_title'] = 'Главная';
+    $refPageRow['page_name'] = 'index';
+    $refPageRow['creation_date'] = $now;
+    $refPageRow['modification_date'] = $now;
+    $refPageRow['publish_date'] = $now;
+    $refPageRow['is_master'] = 1;
+    $cols = array_keys($refPageRow);
+    $vals = array_map(fn($v) => qval($db, $v), array_values($refPageRow));
+    $sql = "INSERT INTO `{$pages}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', $vals) . ")";
+    if (!$db->query($sql)) {
+        exit("page insert failed: " . $db->error . "\n");
+    }
+    echo "Created page #{$db->insert_id} for home.php\n";
+} else {
+    echo "Page exists: #{$page['id']}\n";
+}
+
+$cacheDir = K_COUCH_DIR . 'cache/';
+if (is_dir($cacheDir)) {
+    $files = glob($cacheDir . '*');
+    if ($files) {
+        foreach ($files as $file) {
+            if (is_file($file)) {
+                @unlink($file);
+            }
+        }
+    }
+    echo "Cache cleared\n";
 }
 
 echo "OK\n";
