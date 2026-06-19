@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^index\.php$ admiralteyskaya/home-render.php [L]
-    RewriteRule ^$ admiralteyskaya/home-render.php [L]
+    RewriteRule ^index\.php$ admiralteyskaya/home.php [L]
+    RewriteRule ^$ admiralteyskaya/home.php [L]
 </IfModule>
 
 <IfModule mod_rewrite.c>
