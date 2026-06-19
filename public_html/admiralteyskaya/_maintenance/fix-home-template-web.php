@@ -32,9 +32,9 @@ $db->set_charset('utf8');
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
 $fields = K_DB_TABLES_PREFIX . 'couch_fields';
-$name = 'home.php';
 
 header('Content-Type: text/plain; charset=utf-8');
+echo "DB: " . K_DB_NAME . "\n";
 
 function qval($db, $value)
 {
@@ -44,56 +44,111 @@ function qval($db, $value)
     return "'" . $db->real_escape_string((string)$value) . "'";
 }
 
-$res = $db->query("SELECT id, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
-$row = $res ? $res->fetch_assoc() : null;
-if (!$row) {
-    exit("Template {$name} not found. Log into Couch admin and open Главная once.\n");
+function fetch_one($db, $sql)
+{
+    $res = $db->query($sql);
+    return $res ? $res->fetch_assoc() : null;
 }
 
-$templateId = (int)$row['id'];
-$db->query("UPDATE `{$templates}` SET executable='1', hidden='0', title='Главная' WHERE id={$templateId} LIMIT 1");
-echo "home.php template #{$templateId}: executable=1 hidden=0\n";
-
-$pageRes = $db->query("SELECT id, is_master FROM `{$pages}` WHERE template_id={$templateId} LIMIT 1");
-$page = $pageRes ? $pageRes->fetch_assoc() : null;
-
-if (!$page) {
-    $refPage = $db->query("SELECT * FROM `{$pages}` WHERE template_id=1 LIMIT 1");
-    $refPageRow = $refPage ? $refPage->fetch_assoc() : null;
-    if (!$refPageRow) {
-        exit("reference page missing\n");
+function ensure_page($db, $pages, $templateId, $title)
+{
+    $page = fetch_one($db, "SELECT id FROM `{$pages}` WHERE template_id=" . (int)$templateId . " LIMIT 1");
+    if ($page) {
+        echo "Page exists for template #{$templateId}: #{$page['id']}\n";
+        return (int)$page['id'];
     }
-    unset($refPageRow['id']);
+
+    $ref = fetch_one($db, "SELECT * FROM `{$pages}` WHERE template_id=1 LIMIT 1");
+    if (!$ref) {
+        echo "Cannot create page: reference page missing\n";
+        return 0;
+    }
+
+    unset($ref['id']);
     $now = date('Y-m-d H:i:s');
-    $refPageRow['template_id'] = $templateId;
-    $refPageRow['page_title'] = 'Главная';
-    $refPageRow['page_name'] = 'index';
-    $refPageRow['creation_date'] = $now;
-    $refPageRow['modification_date'] = $now;
-    $refPageRow['publish_date'] = $now;
-    $refPageRow['is_master'] = 1;
-    $cols = array_keys($refPageRow);
+    $ref['template_id'] = (string)$templateId;
+    $ref['page_title'] = $title;
+    $ref['page_name'] = 'index';
+    $ref['creation_date'] = $now;
+    $ref['modification_date'] = $now;
+    $ref['publish_date'] = $now;
+    $ref['is_master'] = '1';
+
+    $cols = array_keys($ref);
     $vals = array();
-    foreach (array_values($refPageRow) as $v) {
+    foreach (array_values($ref) as $v) {
         $vals[] = qval($db, $v);
     }
     $sql = "INSERT INTO `{$pages}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', $vals) . ")";
     if (!$db->query($sql)) {
-        exit("page insert failed: " . $db->error . "\n");
+        echo "Page insert failed: {$db->error}\n";
+        return 0;
     }
-    echo "Created page #{$db->insert_id}\n";
-} else {
-    $db->query("UPDATE `{$pages}` SET is_master=1, page_name='index', page_title='Главная' WHERE id=" . (int)$page['id'] . " LIMIT 1");
-    echo "Page #{$page['id']} updated (is_master=1)\n";
+
+    echo "Created page #{$db->insert_id} for template #{$templateId}\n";
+    return (int)$db->insert_id;
 }
 
-$fieldCount = $db->query("SELECT COUNT(*) AS c FROM `{$fields}` WHERE template_id={$templateId}");
-if ($fieldCount && ($fc = $fieldCount->fetch_assoc())) {
-    echo "Fields registered: {$fc['c']}\n";
-    if ((int)$fc['c'] === 0) {
-        echo "WARNING: no fields — open /admiralteyskaya/couch/ admin and visit Главная template once.\n";
+function ensure_template($db, $templates, $pages, $name, $title, $executable, $hidden, $order, $cloneFrom)
+{
+    $row = fetch_one($db, "SELECT id, name, title, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
+    if (!$row) {
+        $sample = fetch_one($db, "SELECT * FROM `{$templates}` WHERE name='" . $db->real_escape_string($cloneFrom) . "' LIMIT 1");
+        if (!$sample) {
+            echo "Template {$name} missing and clone source {$cloneFrom} not found\n";
+            return 0;
+        }
+
+        unset($sample['id']);
+        $sample['name'] = $name;
+        $sample['title'] = $title;
+        $sample['executable'] = (string)$executable;
+        $sample['hidden'] = (string)$hidden;
+        $sample['order'] = (string)$order;
+        $sample['clonable'] = '0';
+
+        $cols = array_keys($sample);
+        $vals = array();
+        foreach (array_values($sample) as $v) {
+            $vals[] = qval($db, $v);
+        }
+        $sql = "INSERT INTO `{$templates}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', $vals) . ")";
+        if (!$db->query($sql)) {
+            echo "Template insert failed for {$name}: {$db->error}\n";
+            return 0;
+        }
+
+        $templateId = (int)$db->insert_id;
+        echo "Created template {$name} (#{$templateId})\n";
+    } else {
+        $templateId = (int)$row['id'];
+        echo "Before {$name}: executable={$row['executable']} hidden={$row['hidden']} title={$row['title']}\n";
+        $db->query(
+            "UPDATE `{$templates}` SET executable='{$executable}', hidden='{$hidden}', title='" .
+            $db->real_escape_string($title) . "', `order`='{$order}' WHERE id={$templateId} LIMIT 1"
+        );
+        $after = fetch_one($db, "SELECT executable, hidden, title FROM `{$templates}` WHERE id={$templateId} LIMIT 1");
+        if ($after) {
+            echo "After {$name}: executable={$after['executable']} hidden={$after['hidden']} title={$after['title']}\n";
+        }
     }
+
+    if ($executable) {
+        ensure_page($db, $pages, $templateId, $title);
+    } else {
+        ensure_page($db, $pages, $templateId, $title);
+    }
+
+    $fieldCount = fetch_one($db, "SELECT COUNT(*) AS c FROM `{$fields}` WHERE template_id={$templateId}");
+    if ($fieldCount) {
+        echo "Fields for {$name}: {$fieldCount['c']}\n";
+    }
+
+    return $templateId;
 }
+
+ensure_template($db, $templates, $pages, 'home.php', 'Главная', 0, 0, 1, 'header.php');
+ensure_template($db, $templates, $pages, 'site-home.php', 'Главная (сайт)', 1, 1, 0, 'index.php');
 
 $cacheDir = K_COUCH_DIR . 'cache';
 $removed = 0;
