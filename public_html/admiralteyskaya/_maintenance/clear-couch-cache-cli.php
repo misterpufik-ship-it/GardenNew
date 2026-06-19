@@ -1,5 +1,5 @@
 <?php
-if (PHP_SAPI !== 'cli') {
+if (PHP_SAPI !== 'cli' && !defined('GL_SKIP_CLI_CHECK')) {
     http_response_code(403);
     exit("CLI only\n");
 }
