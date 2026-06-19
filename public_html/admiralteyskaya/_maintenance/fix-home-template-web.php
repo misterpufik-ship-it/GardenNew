@@ -227,6 +227,30 @@ update_page_field(
     'https://t.me/gardenlounge_udelnaya'
 );
 
+echo "Syncing home.php editable fields...\n";
+$homeRoot = realpath(__DIR__ . '/..');
+if ($homeRoot) {
+    chdir($homeRoot);
+    require_once $homeRoot . '/couch/cms.php';
+    global $AUTH, $DB;
+    if (isset($AUTH->user) && is_object($AUTH->user)) {
+        $AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
+        $pg = new KWebpage('home.php');
+        if (!empty($pg->error)) {
+            echo "Field sync error: {$pg->err_msg}\n";
+        } elseif (isset($DB)) {
+            $tplRows = $DB->select(K_TBL_TEMPLATES, array('id'), "name='home.php'");
+            if (count($tplRows)) {
+                $fid = $tplRows[0]['id'];
+                $fc = $DB->select(K_TBL_FIELDS, array('count(*) as cnt'), "template_id='" . $DB->sanitize($fid) . "'");
+                echo "home.php fields in DB: " . $fc[0]['cnt'] . "\n";
+            }
+        }
+    } else {
+        echo "Field sync skipped: auth not initialized\n";
+    }
+}
+
 $cacheDir = K_COUCH_DIR . 'cache';
 $removed = 0;
 if (is_dir($cacheDir)) {
