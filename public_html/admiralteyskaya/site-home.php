@@ -552,9 +552,9 @@
         }
 
         .social-link {
-            width: var(--home-social-size);
-            height: var(--home-social-size);
-            border: var(--home-social-border-width) solid var(--home-social-border-color);
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(197, 160, 89, 0.82);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
