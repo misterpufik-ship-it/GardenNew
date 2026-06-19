@@ -29,48 +29,36 @@ $db->set_charset('utf8');
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
+$name = 'home.php';
 
-function fix_template(mysqli $db, string $templates, string $pages, string $name, int $executable, int $hidden): void
-{
-    $res = $db->query("SELECT id, name, title, executable, clonable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
-    $row = $res ? $res->fetch_assoc() : null;
+$res = $db->query("SELECT id, name, title, executable, clonable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
+$row = $res ? $res->fetch_assoc() : null;
 
-    if (!$row) {
-        echo "Template {$name} is not registered yet.\n";
-        return;
-    }
-
-    echo "Before {$name}: ";
-    print_r($row);
-
-    $db->query(
-        "UPDATE `{$templates}` SET executable='{$executable}', hidden='{$hidden}' WHERE id=" . (int)$row['id'] . " LIMIT 1"
-    );
-
-    if ($executable) {
-        $pageRes = $db->query("SELECT id, page_title, publish_date FROM `{$pages}` WHERE template_id=" . (int)$row['id'] . " LIMIT 1");
-        $page = $pageRes ? $pageRes->fetch_assoc() : null;
-        if (!$page) {
-            $now = date('Y-m-d H:i:s');
-            $db->query(
-                "INSERT INTO `{$pages}` (template_id, page_title, page_name, creation_date, modification_date, publish_date, status) VALUES (" .
-                (int)$row['id'] . ", 'Главная', 'index', '{$now}', '{$now}', '{$now}', 0)"
-            );
-            echo "Created default page for {$name}\n";
-        } else {
-            echo "Page exists for {$name}: #{$page['id']} {$page['page_title']}\n";
-        }
-    }
-
-    $res = $db->query("SELECT id, name, title, executable, clonable, hidden FROM `{$templates}` WHERE id=" . (int)$row['id'] . " LIMIT 1");
-    $row = $res ? $res->fetch_assoc() : null;
-    echo "After {$name}: ";
-    print_r($row);
+if (!$row) {
+    echo "Template {$name} is not registered. Visit as admin once.\n";
+    exit(2);
 }
 
-// Data template: admin only
-fix_template($db, $templates, $pages, 'home.php', 0, 0);
-// Public renderer: direct URL, hidden from admin menu
-fix_template($db, $templates, $pages, 'home-render.php', 1, 1);
+echo "Before: ";
+print_r($row);
 
+$db->query("UPDATE `{$templates}` SET executable='1', hidden='0' WHERE id=" . (int)$row['id'] . " LIMIT 1");
+
+$pageRes = $db->query("SELECT id, page_title, publish_date FROM `{$pages}` WHERE template_id=" . (int)$row['id'] . " LIMIT 1");
+$page = $pageRes ? $pageRes->fetch_assoc() : null;
+if (!$page) {
+    $now = date('Y-m-d H:i:s');
+    $db->query(
+        "INSERT INTO `{$pages}` (template_id, page_title, page_name, creation_date, modification_date, publish_date, status) VALUES (" .
+        (int)$row['id'] . ", 'Главная', 'index', '{$now}', '{$now}', '{$now}', 0)"
+    );
+    echo "Created default page for home.php\n";
+} else {
+    echo "Page exists: #{$page['id']} {$page['page_title']}\n";
+}
+
+$res = $db->query("SELECT id, name, title, executable, clonable, hidden FROM `{$templates}` WHERE id=" . (int)$row['id'] . " LIMIT 1");
+$row = $res ? $res->fetch_assoc() : null;
+echo "After: ";
+print_r($row);
 echo "Done.\n";
