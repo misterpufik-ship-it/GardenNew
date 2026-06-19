@@ -190,7 +190,7 @@ function update_page_field($db, $fields, $text, $templates, $pages, $templateNam
     echo "Inserted {$fieldName}: {$newValue}\n";
 }
 
-ensure_template($db, $templates, $pagesTable, 'home.php', 'Главная', 1, 0, 1, 'header.php');
+ensure_template($db, $templates, $pagesTable, 'home.php', 'Главная', 0, 0, 1, 'header.php');
 
 echo "Ensuring site-home.php...\n";
 $siteRow = fetch_one($db, "SELECT id, executable, hidden, title FROM `{$templates}` WHERE name='site-home.php' LIMIT 1");
@@ -224,7 +224,7 @@ update_page_field(
     $pagesTable,
     'home.php',
     'home_udel_telegram',
-    'https://t.me/Garden_lounge_spb'
+    'https://t.me/gardenlounge_udelnaya'
 );
 
 $cacheDir = K_COUCH_DIR . 'cache';
