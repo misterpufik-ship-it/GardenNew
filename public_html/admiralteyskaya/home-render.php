@@ -229,7 +229,7 @@
             position: relative;
             aspect-ratio: 16 / 10;
             background: #050505;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .035);
             cursor: pointer;
         }
@@ -253,63 +253,61 @@
             pointer-events: auto;
         }
 
-        @keyframes fadeGoldText {
-            0%, 100% {
-                opacity: 0.92;
-                transform: translateY(0);
-            }
-
-            50% {
-                opacity: 0.6;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeBtn {
-            0%, 100% { opacity: 0.92; }
-            50% { opacity: 0.66; }
+        @keyframes breatheBtn {
+            0%, 100% { opacity: 0.42; }
+            50% { opacity: 0.88; }
         }
 
         .slide {
             position: absolute;
             inset: 0;
             opacity: 0;
+            overflow: hidden;
             transition: opacity .6s ease;
             will-change: opacity;
         }
 
-        .slider-cta {
-            display: inline-block;
+        .slider-cta,
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             z-index: 1;
-            padding: 14px 28px;
+            padding: 16px 32px;
             min-width: 220px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(0, 0, 0, 0.65);
-            color: transparent;
+            min-height: 52px;
+            border-radius: 0;
+            border: 1px solid rgba(166, 138, 92, 0.75);
+            background: rgba(18, 16, 14, 0.55);
+            color: #a68a5c;
             text-decoration: none;
-            font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: 18px;
-            font-weight: 700;
-            font-style: italic;
-            letter-spacing: 0.14em;
-            line-height: 1.1;
+            font-family: Montserrat, Arial, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: 0.18em;
+            line-height: 1.2;
             text-align: center;
-            text-transform: none;
+            text-transform: uppercase;
             white-space: nowrap;
-            background-image: linear-gradient(90deg, rgba(248, 231, 166, 1) 0%, rgba(242, 217, 139, 1) 30%, rgba(197, 160, 89, 1) 60%, rgba(255, 243, 178, 1) 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            text-shadow: 0 0 12px rgba(0,0,0,0.4);
-            transition: transform 0.18s ease, opacity 0.2s ease;
-            animation: fadeGoldText 9s ease-in-out infinite;
+            cursor: pointer;
+            box-shadow: none;
+            text-shadow: none;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+            animation: breatheBtn 4.5s ease-in-out infinite;
         }
 
         .slider-cta:hover,
-        .slider-cta:focus-visible {
+        .slider-cta:focus-visible,
+        .button:hover,
+        .button:focus-visible {
             transform: translateY(-1px);
             opacity: 1;
+            animation-play-state: paused;
+            border-color: rgba(197, 160, 89, 0.95);
+            background: rgba(18, 16, 14, 0.78);
+            color: #c5a059;
         }
 
         .slider-overlay .contact-btn {
@@ -392,8 +390,8 @@
             stroke-width: 2.2;
         }
 
-        .prev { left: 4px; }
-        .next { right: 4px; }
+        .prev { left: -10px; }
+        .next { right: -10px; }
 
         .dots {
             position: absolute;
@@ -486,20 +484,6 @@
 
         .branch-actions .button {
             flex: 1 1 220px;
-            min-height: 52px;
-            padding: 14px 26px;
-            font-size: 13px;
-            border: none;
-            background: rgba(0, 0, 0, 0.66);
-            color: transparent;
-            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-            text-shadow: 0 0 6px rgba(0,0,0,0.3);
-            border-radius: 8px;
-            animation: fadeBtn 6.5s ease-in-out infinite;
-            transition: transform 0.2s ease, opacity 0.18s ease;
         }
 
         .pin {
@@ -533,55 +517,13 @@
             }
         }
 
-        .button {
-            min-height: 54px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 28px;
-            color: transparent;
-            background: rgba(0,0,0,0.66);
-            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            text-align: center;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-            text-shadow: 0 0 8px rgba(0,0,0,0.3);
-            animation: fadeBtn 7.2s ease-in-out infinite;
-            transition: transform 0.25s ease, opacity 0.25s ease, filter 0.18s ease;
-        }
-
-        .button:hover,
-        .button:focus-visible {
-            transform: translateY(-2px);
-            filter: brightness(1.08);
-            box-shadow:
-                0 0 26px rgba(197, 160, 89, 0.45),
-                0 16px 42px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.55);
-        }
-
         .button:active {
             transform: translateY(0) scale(0.98);
-            box-shadow:
-                0 0 14px rgba(197, 160, 89, 0.25),
-                0 8px 22px rgba(0, 0, 0, 0.42);
         }
 
         .button:focus-visible {
             outline: none;
-            box-shadow:
-                0 0 0 3px rgba(197, 160, 89, 0.28),
-                0 0 26px rgba(197, 160, 89, 0.45),
-                0 16px 42px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.35);
         }
 
         .socials {
@@ -689,8 +631,8 @@
                 height: 42px;
             }
 
-            .prev { left: 8px; }
-            .next { right: 8px; }
+            .prev { left: -6px; }
+            .next { right: -6px; }
 
             .branch-info {
                 padding: 16px 14px 17px;
@@ -701,10 +643,12 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .button {
+            .button,
+            .slider-cta {
                 min-height: 48px;
                 padding: 14px 24px;
-                font-size: 12px;
+                font-size: 10px;
+                letter-spacing: 0.16em;
             }
 
             .socials {
