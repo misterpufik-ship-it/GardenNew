@@ -241,18 +241,18 @@
             display: inline-block;
             position: relative;
             z-index: 1;
-            padding: 10px 20px;
-            min-width: 200px;
-            border-radius: 6px;
+            padding: 14px 28px;
+            min-width: 220px;
+            border-radius: 8px;
             border: none;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.65);
             color: transparent;
             text-decoration: none;
             font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             font-style: italic;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.14em;
             line-height: 1.1;
             text-align: center;
             text-transform: none;
@@ -260,9 +260,9 @@
             background-image: linear-gradient(90deg, rgba(248, 231, 166, 1) 0%, rgba(242, 217, 139, 1) 30%, rgba(197, 160, 89, 1) 60%, rgba(255, 243, 178, 1) 100%);
             background-clip: text;
             -webkit-background-clip: text;
-            text-shadow: 0 0 12px rgba(197, 160, 89, 0.22);
-            transition: transform 0.25s ease, opacity 0.25s ease;
-            animation: fadeGoldText 7s ease-in-out infinite;
+            text-shadow: 0 0 12px rgba(0,0,0,0.4);
+            transition: transform 0.18s ease, opacity 0.2s ease;
+            animation: fadeGoldText 9s ease-in-out infinite;
         }
 
         .slider-cta:hover,
@@ -328,32 +328,31 @@
             position: absolute;
             top: 50%;
             z-index: 3;
-            width: 30px;
-            height: 30px;
-            border: 1px solid rgba(197, 160, 89, .42);
-            border-radius: 50%;
-            background: rgba(0, 0, 0, .54);
+            padding: 6px;
+            background: transparent;
+            border: none;
             color: var(--gold-main);
-            display: grid;
-            place-items: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transform: translateY(-50%);
         }
 
         .slider-btn:hover,
         .slider-btn:focus-visible {
-            color: #000;
-            background: var(--gold-main);
+            color: var(--gold-light);
+            background: transparent;
         }
 
         .slider-btn svg {
-            width: 16px;
-            height: 16px;
-            stroke-width: 2;
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.2;
         }
 
-        .prev { left: 8px; }
-        .next { right: 8px; }
+        .prev { left: 6px; }
+        .next { right: 6px; }
 
         .dots {
             position: absolute;
@@ -554,9 +553,9 @@
         }
 
         .social-link {
-            width: 38px;
-            height: 38px;
-            border: 2px solid rgba(197, 160, 89, 0.6);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(197, 160, 89, 0.75);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
@@ -583,7 +582,7 @@
         .social-link .stroke-icon {
             fill: none;
             stroke: currentColor;
-            stroke-width: 1.9;
+            stroke-width: 2.6;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
