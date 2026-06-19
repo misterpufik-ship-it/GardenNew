@@ -30,29 +30,41 @@
             --text-soft: rgba(255, 255, 255, .74);
             --surface: #050505;
             --surface-soft: #090909;
-            --home-icon-color: <cms:show home_icon_color />;
-            --home-icon-border-color: <cms:show home_icon_border_color />;
-            --home-icon-border-width: <cms:show home_icon_border_width />px;
-            --home-icon-size: <cms:show home_icon_size />px;
-            --home-icon-bg: <cms:show home_icon_bg />;
-            --home-social-size: <cms:show home_social_size />px;
-            --home-social-border-width: <cms:show home_social_border_width />px;
+            --home-icon-color: <cms:if home_icon_color><cms:show home_icon_color /><cms:else />#C5A059</cms:if>;
+            --home-icon-border-color: <cms:if home_icon_border_color><cms:show home_icon_border_color /><cms:else />rgba(197, 160, 89, 0.82)</cms:if>;
+            --home-icon-border-width: <cms:if home_icon_border_width><cms:show home_icon_border_width /><cms:else />2</cms:if>px;
+            --home-icon-size: <cms:if home_icon_size><cms:show home_icon_size /><cms:else />48</cms:if>px;
+            --home-icon-bg: <cms:if home_icon_bg><cms:show home_icon_bg /><cms:else />rgba(0, 0, 0, 0.6)</cms:if>;
+            --home-social-size: <cms:if home_social_size><cms:show home_social_size /><cms:else />42</cms:if>px;
+            --home-social-border-width: <cms:if home_social_border_width><cms:show home_social_border_width /><cms:else />1</cms:if>px;
+            --home-social-border-color: var(--home-icon-border-color);
         }
 
         body.home-icon-hover-gold .contact-btn:hover,
-        body.home-icon-hover-gold .contact-btn:focus-visible,
-        body.home-icon-hover-gold .social-link:hover,
-        body.home-icon-hover-gold .social-link:focus-visible {
+        body.home-icon-hover-gold .contact-btn:focus-visible {
             background: var(--home-icon-color);
             color: #000;
             border-color: var(--home-icon-color);
         }
 
+        body.home-icon-hover-gold .social-link:hover,
+        body.home-icon-hover-gold .social-link:focus-visible {
+            background: transparent;
+            color: #fff;
+            border-color: var(--gold-main);
+            box-shadow: 0 0 14px rgba(197, 160, 89, 0.28);
+        }
+
         body.home-icon-hover-light .contact-btn:hover,
-        body.home-icon-hover-light .contact-btn:focus-visible,
+        body.home-icon-hover-light .contact-btn:focus-visible {
+            color: var(--gold-light);
+            border-color: var(--gold-light);
+        }
+
         body.home-icon-hover-light .social-link:hover,
         body.home-icon-hover-light .social-link:focus-visible {
-            color: var(--gold-light);
+            background: transparent;
+            color: #fff;
             border-color: var(--gold-light);
         }
 
@@ -535,20 +547,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: clamp(14px, 2.4vw, 22px);
         }
 
         .social-link {
             width: var(--home-social-size);
             height: var(--home-social-size);
-            border: var(--home-social-border-width) solid var(--home-icon-border-color);
+            border: var(--home-social-border-width) solid var(--home-social-border-color);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            background: var(--home-icon-bg);
+            background: transparent;
             cursor: pointer;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
         }
 
         .social-link:hover,
@@ -662,6 +675,7 @@
             .social-link {
                 width: 40px;
                 height: 40px;
+                border-width: 1px;
             }
 
             .social-link svg {
