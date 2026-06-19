@@ -152,7 +152,30 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
 }
 
 ensure_template($db, $templates, $pages, 'home.php', 'Главная', 0, 0, 1, 'header.php');
-ensure_template($db, $templates, $pages, 'site-home.php', 'Главная (сайт)', 1, 1, 0, 'index.php');
+
+echo "Ensuring site-home.php...\n";
+$siteRow = fetch_one($db, "SELECT id, executable, hidden, title FROM `{$templates}` WHERE name='site-home.php' LIMIT 1");
+if (!$siteRow) {
+    $insertSql =
+        "INSERT INTO `{$templates}` (name, title, executable, hidden, clonable) " .
+        "SELECT 'site-home.php', 'Главная (сайт)', '1', '1', '0' FROM `{$templates}` WHERE name='index.php' LIMIT 1";
+    if (!$db->query($insertSql)) {
+        echo "site-home insert failed: {$db->error}\n";
+    } else {
+        echo "Created site-home.php template #{$db->insert_id}\n";
+        ensure_page($db, $pages, (int)$db->insert_id, 'Главная (сайт)');
+    }
+} else {
+    echo "Before site-home.php: executable={$siteRow['executable']} hidden={$siteRow['hidden']}\n";
+    $db->query(
+        "UPDATE `{$templates}` SET executable='1', hidden='1', title='Главная (сайт)' WHERE id=" . (int)$siteRow['id'] . " LIMIT 1"
+    );
+    if ($db->error) {
+        echo "site-home update failed: {$db->error}\n";
+    }
+    ensure_page($db, $pages, (int)$siteRow['id'], 'Главная (сайт)');
+    echo "After site-home.php updated\n";
+}
 
 $cacheDir = K_COUCH_DIR . 'cache';
 $removed = 0;
