@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Главная (сайт)' hidden='1' order='0' />
+<cms:template title='Главная (сайт)' order='0' />
 
 <!DOCTYPE html>
 <html lang="ru">
