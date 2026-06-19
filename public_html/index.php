@@ -202,11 +202,72 @@
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .035), 0 0 20px rgba(197, 160, 89, 0.2);
         }
 
-        .slide {
+        .slider-overlay {
             position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity .55s ease;
+            inset: auto 18px 18px 18px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .slider-overlay > * {
+            pointer-events: auto;
+        }
+
+        .slider-cta {
+            flex: 1 1 auto;
+            min-width: 180px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(0, 0, 0, 0.45);
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-align: center;
+            text-transform: uppercase;
+            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+        }
+
+        .slider-cta:hover,
+        .slider-cta:focus-visible {
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            transform: translateY(-1px);
+            opacity: 1;
+        }
+
+        .slider-overlay .contact-btn {
+            width: 42px;
+            height: 42px;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .slider-overlay .contact-btn:hover,
+        .slider-overlay .contact-btn:focus-visible {
+            opacity: 1;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            z-index: 3;
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(197, 160, 89, .42);
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .54);
+            color: var(--gold-main);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transform: translateY(-50%);
         }
 
         .slide.active { opacity: 1; }
