@@ -241,18 +241,18 @@
             color: transparent;
             text-decoration: none;
             font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: clamp(18px, 4vw, 28px);
-            font-weight: 500;
+            font-size: 14px;
+            font-weight: 700;
             font-style: italic;
-            letter-spacing: 0.16em;
-            line-height: 1.1;
+            letter-spacing: 0.18em;
+            line-height: 1.2;
             text-align: center;
-            text-transform: none;
+            text-transform: uppercase;
             white-space: nowrap;
             background-image: linear-gradient(90deg, rgba(248, 231, 166, 0.92) 0%, rgba(242, 217, 139, 0.92) 30%, rgba(197, 160, 89, 0.92) 60%, rgba(255, 243, 178, 0.92) 100%);
             background-clip: text;
             -webkit-background-clip: text;
-            text-shadow: 0 0 20px rgba(197, 160, 89, 0.28);
+            text-shadow: 0 0 18px rgba(197, 160, 89, 0.28);
             transition: transform 0.25s ease, opacity 0.25s ease;
             animation: fadeGoldText 5s ease-in-out infinite;
         }
@@ -312,6 +312,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
             display: block;
         }
 
@@ -319,11 +320,11 @@
             position: absolute;
             top: 50%;
             z-index: 3;
-            width: 38px;
-            height: 38px;
+            width: 30px;
+            height: 30px;
             border: 1px solid rgba(197, 160, 89, .42);
             border-radius: 50%;
-            background: rgba(0, 0, 0, .64);
+            background: rgba(0, 0, 0, .54);
             color: var(--gold-main);
             display: grid;
             place-items: center;
@@ -338,13 +339,13 @@
         }
 
         .slider-btn svg {
-            width: 22px;
-            height: 22px;
-            stroke-width: 2.2;
+            width: 16px;
+            height: 16px;
+            stroke-width: 2;
         }
 
-        .prev { left: 10px; }
-        .next { right: 10px; }
+        .prev { left: 8px; }
+        .next { right: 8px; }
 
         .dots {
             position: absolute;
