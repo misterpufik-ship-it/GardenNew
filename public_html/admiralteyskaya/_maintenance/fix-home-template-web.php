@@ -31,7 +31,7 @@ $db->set_charset('utf8');
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
-$fields = K_DB_TABLES_PREFIX . 'couch_fields';
+$fieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
 
 header('Content-Type: text/plain; charset=utf-8');
 echo "DB: " . K_DB_NAME . "\n";
@@ -143,7 +143,7 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
         ensure_page($db, $pages, $templateId, $title);
     }
 
-    $fieldCount = fetch_one($db, "SELECT COUNT(*) AS c FROM `{$fields}` WHERE template_id={$templateId}");
+    $fieldCount = fetch_one($db, "SELECT COUNT(*) AS c FROM `{$fieldsTable}` WHERE template_id={$templateId}");
     if ($fieldCount) {
         echo "Fields for {$name}: {$fieldCount['c']}\n";
     }
