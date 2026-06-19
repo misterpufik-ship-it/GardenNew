@@ -296,19 +296,18 @@
             right: 0;
             bottom: 0;
             z-index: 120;
-            padding: 0;
             padding-bottom: env(safe-area-inset-bottom, 0px);
-            transform: translateY(0);
-            transition: transform .4s ease;
-            filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.4));
             pointer-events: none;
         }
-        .garden-sticky-inner {
-            position: relative;
-            width: 100%;
-            max-width: none;
-            margin: 0;
+        .garden-sticky-bar {
+            transform: translateY(0);
+            transition: transform .4s ease;
             pointer-events: auto;
+            filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.4));
+        }
+        .garden-sticky-wrap.is-collapsed .garden-sticky-bar {
+            transform: translateY(100%);
+            pointer-events: none;
         }
         .garden-sticky-tag {
             display: block;
@@ -348,15 +347,21 @@
             cursor: pointer;
             font-size: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.45);
-        }
-        .garden-sticky-wrap.is-collapsed {
-            transform: translateY(calc(100% - 18px));
+            pointer-events: auto;
         }
         .garden-sticky-wrap.is-collapsed .garden-sticky-toggle {
-            top: 2px;
-            right: 4px;
+            position: fixed;
+            top: auto;
+            right: 0;
+            bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+            width: 24px;
+            height: 42px;
+            border-radius: 10px 0 0 10px;
+            border-right: none;
+            font-size: 10px;
         }
         body.has-garden-sticky { padding-bottom: calc(77px + env(safe-area-inset-bottom, 0px)); }
+        body.has-garden-sticky.garden-sticky-collapsed { padding-bottom: env(safe-area-inset-bottom, 0px); }
         .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 16px; text-align: left; }
         .second-garden-facts { list-style: none; margin: 0 0 20px; padding: 0; text-align: left; }
         .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
@@ -579,14 +584,14 @@
 </main>
 
 <div class="garden-sticky-wrap" id="garden-sticky-wrap">
-    <div class="garden-sticky-inner">
-        <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
-            <i class="fa-solid fa-chevron-down"></i>
-        </button>
+    <div class="garden-sticky-bar">
         <button type="button" class="garden-sticky-tag" onclick="onStickyTagClick(event)" aria-label="А ты был во втором Гардене? Узнать про филиал Удельная">
             <img src="https://garden-lounge.pro/img/garden-second-sticker.webp" alt="А ты был во втором Гардене?" width="741" height="153" loading="lazy" decoding="async">
         </button>
     </div>
+    <button type="button" class="garden-sticky-toggle" onclick="toggleGardenSticky(event)" aria-expanded="true" aria-label="Свернуть подсказку">
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
 </div>
 
 <div id="loyalty-modal" onclick="closeLoyaltyModal()">
@@ -690,9 +695,10 @@
         const toggle = wrap.querySelector('.garden-sticky-toggle');
         const icon = toggle.querySelector('i');
         wrap.classList.toggle('is-collapsed', collapsed);
+        document.body.classList.toggle('garden-sticky-collapsed', collapsed);
         toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
         toggle.setAttribute('aria-label', collapsed ? 'Развернуть подсказку' : 'Свернуть подсказку');
-        icon.className = collapsed ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down';
+        icon.className = collapsed ? 'fa-solid fa-chevron-left' : 'fa-solid fa-chevron-down';
         try { sessionStorage.setItem(GARDEN_STICKY_KEY, collapsed ? '1' : '0'); } catch (_) {}
     }
     function toggleGardenSticky(event) {
@@ -701,12 +707,6 @@
         setGardenStickyCollapsed(!wrap.classList.contains('is-collapsed'));
     }
     function onStickyTagClick(event) {
-        const wrap = document.getElementById('garden-sticky-wrap');
-        if (wrap.classList.contains('is-collapsed')) {
-            event.stopPropagation();
-            setGardenStickyCollapsed(false);
-            return;
-        }
         openSecondGardenInfo();
     }
     function initGardenSticky() {
