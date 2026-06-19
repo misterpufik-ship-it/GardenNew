@@ -115,6 +115,20 @@
             to { background-position: 200% center; }
         }
 
+        @keyframes ringPhone {
+            0%, 100% { transform: rotate(0deg); }
+            10% { transform: rotate(-15deg); }
+            20% { transform: rotate(15deg); }
+            30% { transform: rotate(-15deg); }
+            40% { transform: rotate(15deg); }
+            50% { transform: rotate(0deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(197, 160, 89, 0); }
+        }
+
         .branches {
             width: min(1100px, 100%);
             margin: 0 auto;
@@ -181,6 +195,11 @@
             background: #050505;
             overflow: hidden;
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .035);
+            cursor: pointer;
+        }
+
+        .slider:hover {
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .035), 0 0 20px rgba(197, 160, 89, 0.2);
         }
 
         .slide {
@@ -260,6 +279,45 @@
             background: linear-gradient(180deg, var(--surface-soft), #000);
         }
 
+        .branch-contacts {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            justify-content: center;
+        }
+
+        .contact-btn {
+            width: 54px;
+            height: 54px;
+            border: 2px solid rgba(197, 160, 89, 0.7);
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.6);
+            color: var(--gold-main);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover,
+        .contact-btn:focus-visible {
+            background: var(--gold-main);
+            color: #000;
+            border-color: var(--gold-main);
+            transform: translateY(-3px);
+        }
+
+        .contact-btn svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 1.5;
+        }
+
+        .contact-btn.phone {
+            animation: ringPhone 4s ease-in-out infinite;
+        }
+
         .pin {
             width: 16px;
             height: 16px;
@@ -275,34 +333,61 @@
         }
 
         .button {
-            min-height: 48px;
-            border: 0;
+            min-height: 54px;
+            border: 1px solid rgba(197, 160, 89, 0.85);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 16px;
-            color: #000;
-            background:
-                linear-gradient(130deg, transparent 0 46%, rgba(255, 248, 220, .3) 46% 62%, transparent 62%),
-                linear-gradient(100deg, #a47f3f 0%, #c9a763 36%, #f4dda2 76%, #c29b52 100%);
-            background-size: 230% 100%, 200% 100%;
-            font-size: clamp(11px, 1vw, 13px);
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: .22em;
+            padding: 16px 28px;
+            color: #080806;
+            background: linear-gradient(
+                135deg,
+                #c5a059 0%,
+                #f3d78b 45%,
+                #9f7a36 100%
+            );
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
             text-align: center;
-            animation: shineGold 5s linear infinite;
+            border-radius: 999px;
+            cursor: pointer;
+            box-shadow:
+                0 0 18px rgba(197, 160, 89, 0.28),
+                0 12px 34px rgba(0, 0, 0, 0.38),
+                inset 0 1px 0 rgba(255, 255, 255, 0.45);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                filter 0.25s ease;
         }
 
         .button:hover,
         .button:focus-visible {
-            transform: translateY(-1px);
-            color: #000;
-            background:
-                linear-gradient(130deg, transparent 0 43%, rgba(255, 250, 227, .4) 43% 64%, transparent 64%),
-                linear-gradient(100deg, #b18d49 0%, #dbbd75 42%, #ffe7aa 78%, #cda85f 100%);
-            background-size: 230% 100%, 200% 100%;
+            transform: translateY(-2px);
+            filter: brightness(1.08);
+            box-shadow:
+                0 0 26px rgba(197, 160, 89, 0.45),
+                0 16px 42px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.55);
+        }
+
+        .button:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow:
+                0 0 14px rgba(197, 160, 89, 0.25),
+                0 8px 22px rgba(0, 0, 0, 0.42);
+        }
+
+        .button:focus-visible {
+            outline: none;
+            box-shadow:
+                0 0 0 3px rgba(197, 160, 89, 0.28),
+                0 0 26px rgba(197, 160, 89, 0.45),
+                0 16px 42px rgba(0, 0, 0, 0.5);
         }
 
         .call-link {
@@ -331,30 +416,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
+            gap: 18px;
         }
 
         .social-link {
-            width: 42px;
-            height: 42px;
+            width: 56px;
+            height: 56px;
+            border: 2px solid rgba(197, 160, 89, 0.7);
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #fff;
-            background: #000;
+            background: rgba(0, 0, 0, 0.6);
+            cursor: pointer;
         }
 
         .social-link:hover,
         .social-link:focus-visible {
             background: var(--gold-main);
             color: #000;
-            transform: translateY(-2px);
+            border-color: var(--gold-main);
+            transform: translateY(-3px);
         }
 
         .social-link svg {
-            width: 21px;
-            height: 21px;
+            width: 26px;
+            height: 26px;
             fill: currentColor;
         }
 
@@ -436,6 +524,21 @@
                 padding: 16px 14px 17px;
             }
 
+            .branch-contacts {
+                gap: 10px;
+                margin-bottom: 14px;
+            }
+
+            .contact-btn {
+                width: 48px;
+                height: 48px;
+            }
+
+            .contact-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+
             .address {
                 margin-bottom: 14px;
                 font-size: 13px;
@@ -446,10 +549,9 @@
             }
 
             .button {
-                min-height: 44px;
-                padding: 11px 8px;
-                font-size: 10px;
-                letter-spacing: .1em;
+                min-height: 48px;
+                padding: 14px 24px;
+                font-size: 12px;
             }
 
             .call-link {
@@ -461,12 +563,17 @@
             .socials {
                 margin-top: 22px;
                 padding-top: 19px;
-                gap: 12px;
+                gap: 14px;
             }
 
             .social-link {
-                width: 40px;
-                height: 40px;
+                width: 48px;
+                height: 48px;
+            }
+
+            .social-link svg {
+                width: 24px;
+                height: 24px;
             }
         }
     </style>
@@ -504,7 +611,7 @@
                         наб. реки Мойки, 67-69
                     </a>
                 </div>
-                <div class="slider" aria-label="Слайдер фото филиала Адмиралтейская">
+                <div class="slider" aria-label="Слайдер фото филиала Адмиралтейская" data-branch="admiralteyskaya">
                     <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/garden-main.webp" alt="Garden Lounge Адмиралтейская"></div>
                     <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden-2.webp" alt="Garden Lounge Адмиралтейская интерьер"></div>
                     <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_55.webp" alt="Garden Lounge Адмиралтейская зал"></div>
@@ -517,6 +624,14 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
+                    <div class="branch-contacts">
+                        <a href="tel:+79956246808" class="contact-btn phone" aria-label="Позвонить на Адмиралтейскую" title="Позвонить">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </a>
+                        <a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Адмиралтейскую" title="Telegram">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                        </a>
+                    </div>
                     <div class="branch-actions">
                         <a class="button" href="/admiralteyskaya/">Войти в оазис</a>
                         <a class="call-link" href="tel:+79956246808">Позвонить</a>
@@ -532,7 +647,7 @@
                         ул. Аккуратова, 13
                     </a>
                 </div>
-                <div class="slider" aria-label="Слайдер фото филиала Удельная">
+                <div class="slider" aria-label="Слайдер фото филиала Удельная" data-branch="udelnaya">
                     <div class="slide active"><img src="/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Garden Lounge Удельная"></div>
                     <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/garden.webp" alt="Garden Lounge Удельная интерьер"></div>
                     <div class="slide"><img src="/admiralteyskaya/couch/uploads/image/safonovleonid_green_65.webp" alt="Garden Lounge Удельная зал"></div>
@@ -545,6 +660,14 @@
                     <div class="dots" aria-hidden="true"></div>
                 </div>
                 <div class="branch-info">
+                    <div class="branch-contacts">
+                        <a href="tel:+79500473365" class="contact-btn phone" aria-label="Позвонить на Удельную" title="Позвонить">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </a>
+                        <a href="https://t.me/gardenlounge_udelnaya" target="_blank" rel="noopener" class="contact-btn" aria-label="Написать в Telegram на Удельную" title="Telegram">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 18.4 19c-.2 1-1 1.2-1.8.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.9 8.9-8c.4-.4-.1-.6-.6-.3L6.1 12.6 1.4 11.1c-1-.3-1-1 .2-1.5L20 2.5c.8-.3 1.6.2 1.6 2.1Z"/></svg>
+                        </a>
+                    </div>
                     <div class="branch-actions">
                         <a class="button" href="/udelnaya/">Выбрать сад</a>
                         <a class="call-link" href="tel:+79500473365">Позвонить</a>
@@ -575,6 +698,8 @@
         document.querySelectorAll('[data-slider]').forEach((branch) => {
             const slides = Array.from(branch.querySelectorAll('.slide'));
             const dotsWrap = branch.querySelector('.dots');
+            const slider = branch.querySelector('.slider');
+            const branchName = slider?.getAttribute('data-branch');
             let index = 0;
 
             slides.forEach((_, dotIndex) => {
@@ -582,7 +707,10 @@
                 dot.className = `dot${dotIndex === 0 ? ' active' : ''}`;
                 dot.type = 'button';
                 dot.setAttribute('aria-label', `Показать фото ${dotIndex + 1}`);
-                dot.addEventListener('click', () => show(dotIndex));
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    show(dotIndex);
+                });
                 dotsWrap.appendChild(dot);
             });
 
@@ -596,8 +724,29 @@
                 dots[index].classList.add('active');
             }
 
-            branch.querySelector('.prev').addEventListener('click', () => show(index - 1));
-            branch.querySelector('.next').addEventListener('click', () => show(index + 1));
+            const prevBtn = branch.querySelector('.prev');
+            const nextBtn = branch.querySelector('.next');
+
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                show(index - 1);
+            });
+
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                show(index + 1);
+            });
+
+            // Click on slider to open branch
+            slider.addEventListener('click', (e) => {
+                if (!e.target.closest('button')) {
+                    if (branchName === 'admiralteyskaya') {
+                        window.location.href = '/admiralteyskaya/';
+                    } else if (branchName === 'udelnaya') {
+                        window.location.href = '/udelnaya/';
+                    }
+                }
+            });
         });
     </script>
 </body>

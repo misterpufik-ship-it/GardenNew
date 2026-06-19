@@ -65,7 +65,7 @@ require_once $garden_cms;
     <title><cms:if page_title><cms:show page_title /><cms:else /><cms:show global_title /></cms:if></title>
     <meta name="description" content="<cms:if page_desc><cms:show page_desc /><cms:else /><cms:show global_desc /></cms:if>">
 
-    <link rel="icon" type="image/png" href="favicon.png">
+    <cms:embed 'favicon.html' />
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
         <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(min-width: 768px)" fetchpriority="high">
         <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(max-width: 767px)" fetchpriority="high">

@@ -308,12 +308,6 @@
         opacity: 1 !important;
     }
 
-    #contact .gl_map_link_overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-    }
-
     @media (max-width: 767px) {
         #contact .gl_tp_body_wrapper {
             padding: 48px 16px 56px;
@@ -488,8 +482,7 @@
 
             <div class="gl_tp_card">
                 <div class="gl_map_wrapper" style="position: relative;">
-                    <iframe src="<cms:show cont_map_iframe />" class="gl_dark_map_frame" loading="lazy" title="<cms:if is_udelnaya>Garden Lounge Udelnaya map<cms:else />Garden Lounge Admiralteyskaya map</cms:if>"></iframe>
-                    <cms:if is_udelnaya><a href="https://yandex.ru/maps/-/CPtpbQPg" target="_blank" class="gl_map_link_overlay" aria-label="Открыть карту Garden Lounge Удельная"></a></cms:if>
+                    <iframe src="<cms:if is_udelnaya>https://yandex.ru/map-widget/v1/?um=constructor%3A9c01ea252def4e8d3a60d6cdfd40306362e2b0066d801eeb700fd5dd8fd4283f&amp;source=constructor<cms:else />https://yandex.ru/map-widget/v1/?um=constructor%3A86b78088cdeb728323715abfc506cc9bb4ed50969d2f614eda2941d37b52b3c5&amp;source=constructor</cms:if>" class="gl_dark_map_frame" loading="lazy" title="<cms:if is_udelnaya>Garden Lounge Udelnaya map<cms:else />Garden Lounge Admiralteyskaya map</cms:if>"></iframe>
                 </div>
             </div>
         </div>

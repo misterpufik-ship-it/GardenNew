@@ -9,6 +9,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <cms:embed 'favicon.html' />
         <title><cms:if page_title_en><cms:show page_title_en /><cms:else /><cms:show page_title /></cms:if></title>
         
         <script src="https://cdn.tailwindcss.com"></script>

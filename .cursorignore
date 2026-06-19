@@ -1,0 +1,42 @@
+﻿# CouchCMS — ядро и vendor, не наш код
+public_html/admiralteyskaya/couch/includes/
+public_html/admiralteyskaya/couch/theme/
+public_html/admiralteyskaya/couch/auth/
+public_html/admiralteyskaya/couch/lang/
+public_html/admiralteyskaya/couch/parser/
+public_html/admiralteyskaya/couch/addons/
+!public_html/admiralteyskaya/couch/addons/garden-booking/
+public_html/admiralteyskaya/couch/uploads/
+public_html/admiralteyskaya/couch/cache/
+public_html/admiralteyskaya/couch/cache copy/
+public_html/udelnaya/couch/
+
+# CouchCMS core PHP в корне couch/
+public_html/admiralteyskaya/couch/*.php
+!public_html/admiralteyskaya/couch/kfunctions.php
+!public_html/admiralteyskaya/couch/booking-secrets.example.php
+
+# Секреты и конфиги
+public_html/admiralteyskaya/couch/config.php
+public_html/admiralteyskaya/couch/booking-secrets.php
+public_html/udelnaya/couch/config.php
+scripts/deploy.env.ps1
+
+# Разовые maintenance-скрипты
+public_html/_maintenance/
+
+# Медиа и бинарники
+assets/
+**/*.jpg
+**/*.jpeg
+**/*.webp
+**/*.png
+**/*.gif
+**/*.pptx
+**/*.pdf
+**/*.xlsx
+
+# Дампы, логи
+_local_db/
+*.sql
+*.log

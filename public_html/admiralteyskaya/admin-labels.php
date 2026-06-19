@@ -1,6 +1,8 @@
 <?php require_once( 'couch/cms.php' ); ?>
 <cms:template title='Названия разделов' executable='0' order='230'>
-    <cms:editable name='labels_info' label='Как менять названия' type='message' order='1'>
+    <cms:editable name='label_booking_settings' label='Бронирование Telegram (Общие)' type='text' order='2'>Бронирование Telegram</cms:editable>
+
+    <cms:editable name='labels_info' label='Как менять названия' type='message' order='3'>
         Эти поля меняют подписи разделов в левом меню админки. Если поле оставить пустым, будет использовано стандартное название.
     </cms:editable>
 

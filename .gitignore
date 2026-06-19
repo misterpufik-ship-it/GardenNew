@@ -1,5 +1,6 @@
 # Local CMS/database credentials
 public_html/admiralteyskaya/couch/config.php
+public_html/admiralteyskaya/couch/booking-secrets.php
 public_html/admiralteyskaya/couch/config copy*.php
 public_html/admiralteyskaya/couch/confi41g.php
 public_html/udelnaya/couch/config.php
