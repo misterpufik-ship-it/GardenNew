@@ -231,14 +231,22 @@ echo "Syncing home.php editable fields...\n";
 $homeRoot = realpath(__DIR__ . '/..');
 if ($homeRoot) {
     chdir($homeRoot);
-    require_once $homeRoot . '/couch/cms.php';
+    if (!defined('K_COUCH_DIR')) {
+        require_once $homeRoot . '/couch/cms.php';
+    }
     global $AUTH, $DB;
     if (isset($AUTH->user) && is_object($AUTH->user)) {
         $AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
-        $pg = new KWebpage('home.php');
-        if (!empty($pg->error)) {
-            echo "Field sync error: {$pg->err_msg}\n";
-        } elseif (isset($DB)) {
+        $_SERVER['HTTP_HOST'] = 'garden-lounge.pro';
+        $_SERVER['REQUEST_URI'] = '/admiralteyskaya/home.php';
+        $_SERVER['SCRIPT_NAME'] = '/admiralteyskaya/home.php';
+        $_SERVER['SCRIPT_FILENAME'] = $homeRoot . '/home.php';
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        ob_start();
+        require $homeRoot . '/home.php';
+        ob_end_clean();
+        if (isset($DB)) {
             $tplRows = $DB->select(K_TBL_TEMPLATES, array('id'), "name='home.php'");
             if (count($tplRows)) {
                 $fid = $tplRows[0]['id'];

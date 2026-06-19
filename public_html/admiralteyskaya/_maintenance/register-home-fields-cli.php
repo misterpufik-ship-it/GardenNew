@@ -22,7 +22,12 @@ if ($isWeb) {
 
 $root = realpath(__DIR__ . '/..');
 if (!$root) {
-    fwrite(STDERR, "Cannot resolve template root\n");
+    $msg = "Cannot resolve template root\n";
+    if ($isWeb) {
+        echo $msg;
+    } else {
+        fwrite(STDERR, $msg);
+    }
     exit(1);
 }
 
@@ -43,17 +48,17 @@ if (!isset($AUTH->user) || !is_object($AUTH->user)) {
 
 $AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
 
-echo "Loading home.php as super-admin...\n";
-$pg = new KWebpage('home.php');
-if (!empty($pg->error)) {
-    $msg = "ERROR: {$pg->err_msg}\n";
-    if ($isWeb) {
-        echo $msg;
-    } else {
-        fwrite(STDERR, $msg);
-    }
-    exit(1);
-}
+$_SERVER['HTTP_HOST'] = 'garden-lounge.pro';
+$_SERVER['REQUEST_URI'] = '/admiralteyskaya/home.php';
+$_SERVER['SCRIPT_NAME'] = '/admiralteyskaya/home.php';
+$_SERVER['SCRIPT_FILENAME'] = $root . '/home.php';
+$_SERVER['REQUEST_METHOD'] = 'GET';
+$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+
+echo "Parsing home.php as super-admin...\n";
+ob_start();
+require $root . '/home.php';
+ob_end_clean();
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $fields = K_DB_TABLES_PREFIX . 'couch_fields';
@@ -68,7 +73,7 @@ if (!count($tplRows)) {
 $templateId = (int) $tplRows[0]['id'];
 $DB->update(
     $templates,
-    array('executable' => '0', 'hidden' => '0', 'title' => 'Главная'),
+    array('executable' => '0', 'hidden' => '0', 'title' => 'Главная', 'clonable' => '0'),
     "id='" . $DB->sanitize($templateId) . "'"
 );
 
