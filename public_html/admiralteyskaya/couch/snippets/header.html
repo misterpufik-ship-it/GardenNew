@@ -222,7 +222,19 @@
     .mobile-menu-social-link:active {
         color: var(--gold-main) !important;
     }
-    .desktop-call-link { display: inline-flex; align-items: center; line-height: 1; font-size: clamp(8px, 0.68vw, 9px) !important; letter-spacing: clamp(0.08em, 0.12vw, 0.15em) !important; white-space: nowrap; text-decoration: none; }
+    .desktop-call-link {
+        display: inline-flex;
+        align-items: center;
+        line-height: 1;
+        font-size: clamp(8px, 0.72vw, 11px) !important;
+        letter-spacing: clamp(0.08em, 0.12vw, 0.15em) !important;
+        font-weight: 500;
+        text-transform: uppercase;
+        padding: clamp(5px, 0.55vw, 8px) clamp(6px, 0.78vw, 12px);
+        white-space: nowrap;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
     .desktop-call-link:hover { color: var(--gold-main) !important; }
 
     .hero-bottom-content { position: relative; z-index: 60 !important; filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.95)); }
@@ -560,7 +572,7 @@
     </div>
 
     <div class="desktop-nav-zone hidden md:flex gap-6 items-center justify-end flex-1">
-        <a id="desktop-call-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="desktop-call-link text-white hover:text-[#C5A059] transition-all text-[10px] tracking-[0.2em] font-semibold uppercase" title="Позвонить"><span id="desktop-call-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
+        <a id="desktop-call-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="desktop-call-link text-white hover:text-[#C5A059]" title="Позвонить"><span id="desktop-call-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
     </div>
 
     <div class="mobile-nav-zone md:hidden flex items-center justify-between w-full relative">
