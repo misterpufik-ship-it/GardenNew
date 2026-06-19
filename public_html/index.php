@@ -204,14 +204,11 @@
 
         .slider-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: min(92%, 760px);
+            inset: 0;
             display: none;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            text-align: center;
             z-index: 5;
             pointer-events: none;
         }
@@ -221,38 +218,56 @@
         }
 
         .slider-cta {
-            flex: 0 1 auto;
-            padding: 14px 20px;
-            min-width: 220px;
-            border-radius: 999px;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            padding: 0;
+            min-width: auto;
+            border-radius: 0;
             border: none;
-            background: rgba(0, 0, 0, 0.35);
+            background: transparent;
             color: transparent;
             text-decoration: none;
             font-size: 14px;
             font-weight: 700;
             letter-spacing: 0.18em;
+            line-height: 1.2;
             text-align: center;
             text-transform: uppercase;
-            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
+            white-space: nowrap;
+            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 30%, #c5a059 60%, #fff3b2 100%);
             background-clip: text;
             -webkit-background-clip: text;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+            text-shadow: 0 0 18px rgba(197, 160, 89, 0.35);
             transition: transform 0.25s ease, opacity 0.25s ease;
         }
 
         .slider-cta:hover,
         .slider-cta:focus-visible {
-            background: rgba(0, 0, 0, 0.4);
             transform: translateY(-1px);
             opacity: 1;
         }
 
         .slider-overlay .contact-btn {
-            width: 42px;
-            height: 42px;
-            opacity: 0.9;
+            position: absolute;
+            bottom: 18px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid rgba(197, 160, 89, 0.65);
             background: rgba(0, 0, 0, 0.45);
+            display: grid;
+            place-items: center;
+            opacity: 0.95;
+            box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+        }
+
+        .slider-overlay .contact-btn.phone {
+            left: 18px;
+        }
+
+        .slider-overlay .contact-btn:last-of-type {
+            right: 18px;
         }
 
         .slider-overlay .contact-btn:hover,
