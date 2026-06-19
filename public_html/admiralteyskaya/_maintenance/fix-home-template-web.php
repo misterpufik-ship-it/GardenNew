@@ -145,7 +145,7 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
     return $templateId;
 }
 
-ensure_template($db, $templates, $pagesTable, 'home.php', 'Главная', 0, 0, 1, 'header.php');
+ensure_template($db, $templates, $pagesTable, 'home.php', 'Главная', 1, 0, 1, 'header.php');
 
 echo "Ensuring site-home.php...\n";
 $siteRow = fetch_one($db, "SELECT id, executable, hidden, title FROM `{$templates}` WHERE name='site-home.php' LIMIT 1");
