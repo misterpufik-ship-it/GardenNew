@@ -198,9 +198,9 @@
     .mobile-menu-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); opacity: 0.52; filter: brightness(0.55) saturate(0.82) blur(0.8px); }
     .mobile-menu-bg-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.46); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
     .mobile-menu-overlay > :not(.mobile-menu-bg-layer) { position: relative; z-index: 2; }
-    .mobile-menu-links { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 0 12px; width: 100%; }
-    .mobile-link { display: inline-flex; align-items: center; justify-content: center; width: auto; font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 8px 28px; border-radius: 999px; text-align: center; }
-    .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
+    .mobile-menu-links { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 12px; width: 100%; }
+    .mobile-link { display: inline-flex; align-items: center; justify-content: center; width: auto; font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #ffffff !important; margin: 3px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 6px 18px; border-radius: 0; text-align: center; box-sizing: border-box; }
+    .mobile-link.active-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
     .mobile-menu-contact { margin-top: 18px; }
     .mobile-menu-contact-link,
@@ -384,16 +384,16 @@
         .mobile-link {
             width: auto !important;
             min-width: 0 !important;
-            min-height: 48px;
+            min-height: 38px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(20px, 6vw, 26px) !important;
+            font-size: clamp(18px, 5.2vw, 22px) !important;
             line-height: 1.1 !important;
-            margin: 4px 0 !important;
-            padding: 12px 24px !important;
+            margin: 2px 0 !important;
+            padding: 7px 18px !important;
             text-align: center;
-            border-radius: 24px !important;
+            border-radius: 0 !important;
             white-space: nowrap !important;
         }
         .mobile-menu-links img {
@@ -450,7 +450,7 @@
         @media (max-height: 720px) {
             .mobile-menu-top { min-height: 58px; }
             .mobile-menu-links { margin-top: 4px !important; }
-            .mobile-link { min-height: 36px; font-size: clamp(21px, 6.2vw, 24px) !important; }
+            .mobile-link { min-height: 32px; font-size: clamp(17px, 5vw, 20px) !important; }
             .mobile-menu-links img { width: min(42vw, 140px) !important; }
             #menu-address-text { display: none; }
             .mobile-menu-contact-link { min-height: 38px; font-size: 18px !important; }
@@ -606,9 +606,9 @@
         <div class="flex flex-col items-center gap-1 mb-4">
             <a id="menu-address-link" href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else />https://yandex.ru/maps/-/CLBURN0n</cms:if>" target="_blank" rel="noopener" class="mobile-menu-contact-link mobile-menu-address-link font-serif italic text-white text-xs uppercase tracking-[0.2em] text-center shimmer-text">
                 <i class="fas fa-location-dot"></i>
-                <span><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
+                <span id="menu-address-text"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
             </a>
-            <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></a>
+            <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
         </div>
         <div class="flex gap-8">
             <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-vk"></i></a>
@@ -646,8 +646,28 @@
     let previousScrollY = 0;
 
     const branches = {
-        admiral: { name: "Адмиралтейская", slug: "admiralteyskaya", address: "Набережная реки Мойки д.67-69", addrMob: "Moyki 67-69", url: "/admiralteyskaya/" },
-        udelnaya: { name: "Удельная", slug: "udelnaya", address: "Аккуратова д.13", addrMob: "Akkuratova 13", url: "/udelnaya/" }
+        admiral: {
+            name: "Адмиралтейская",
+            slug: "admiralteyskaya",
+            address: "Набережная реки Мойки д.67-69",
+            addressMenu: "Наб. реки Мойки, д. 67-69",
+            addrMob: "Moyki 67-69",
+            phone: "+79956246808",
+            phoneDisplay: "+7 995 624 68 08",
+            mapUrl: "https://yandex.ru/maps/-/CLBURN0n",
+            url: "/admiralteyskaya/"
+        },
+        udelnaya: {
+            name: "Удельная",
+            slug: "udelnaya",
+            address: "Аккуратова д.13",
+            addressMenu: "СПб., ул. Аккуратова, д. 13",
+            addrMob: "Akkuratova 13",
+            phone: "+79500473365",
+            phoneDisplay: "+7 950 047-33-65",
+            mapUrl: "https://yandex.ru/maps/-/CPtpbQPg",
+            url: "/udelnaya/"
+        }
     };
 
     function updateBranchUI(id) {
@@ -660,12 +680,18 @@
         const elMobAddr = document.getElementById('mob-branch-addr');
         const elHeroDesk = document.getElementById('hero-branch-name-desk');
         const elMenuAddr = document.getElementById('menu-address-text');
+        const elMenuAddrLink = document.getElementById('menu-address-link');
+        const elMenuPhoneLink = document.getElementById('menu-phone-link');
+        const elMenuPhoneText = document.getElementById('menu-phone-text');
 
         if (elDesk) elDesk.innerText = data.name;
         if (elMobName) elMobName.innerText = data.slug;
         if (elMobAddr) elMobAddr.innerText = data.addrMob;
         if (elHeroDesk) elHeroDesk.innerText = data.slug;
-        if (elMenuAddr) elMenuAddr.innerText = data.address;
+        if (elMenuAddr) elMenuAddr.innerText = data.addressMenu;
+        if (elMenuAddrLink) elMenuAddrLink.href = data.mapUrl;
+        if (elMenuPhoneLink) elMenuPhoneLink.href = `tel:${data.phone}`;
+        if (elMenuPhoneText) elMenuPhoneText.innerText = data.phoneDisplay;
 
         document.querySelectorAll('.branch-option, .mobile-branch-opt').forEach(opt => {
             opt.classList.toggle('active', opt.dataset.branch === id);
