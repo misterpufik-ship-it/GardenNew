@@ -1,20 +1,4 @@
-<?php
-$garden_cms = null;
-foreach ([
-    __DIR__ . '/admiralteyskaya/couch/cms.php',
-    __DIR__ . '/../admiralteyskaya/couch/cms.php',
-] as $candidate) {
-    if (file_exists($candidate)) {
-        $garden_cms = $candidate;
-        break;
-    }
-}
-if (!$garden_cms) {
-    die('Garden Lounge CMS bootstrap not found');
-}
-require_once $garden_cms;
-?>
-<!DOCTYPE html>
+<?php require_once( 'couch/cms.php' ); ?><!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
