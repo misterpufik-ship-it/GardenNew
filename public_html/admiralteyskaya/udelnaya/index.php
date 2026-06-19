@@ -127,7 +127,7 @@ require_once $garden_cms;
     }
     </script>
     
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css?v=<?php echo @filemtime(__DIR__ . '/main.css'); ?>">
     
    
     

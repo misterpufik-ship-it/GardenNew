@@ -92,7 +92,7 @@
     }
     </script>
     
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="main.css?v=<?php echo @filemtime(__DIR__ . '/main.css'); ?>">
     
    
     

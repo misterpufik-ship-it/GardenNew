@@ -176,12 +176,13 @@
     }
 
     /* --- МОБИЛЬНОЕ МЕНЮ --- */
-    .mobile-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; min-height: 100svh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; overflow: hidden; }
+    .mobile-menu-overlay { position: fixed; inset: 0; width: 100%; height: 100vh; min-height: 100vh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; visibility: hidden; overflow-y: auto; }
     .mobile-menu-overlay.active { transform: translateY(0); visibility: visible; }
     .mobile-menu-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
     .mobile-menu-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); opacity: 0.52; filter: brightness(0.55) saturate(0.82) blur(0.8px); }
     .mobile-menu-bg-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.46); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
     .mobile-menu-overlay > :not(.mobile-menu-bg-layer) { position: relative; z-index: 2; }
+    .mobile-menu-links { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 0 12px; width: 100%; }
     .mobile-link { display: inline-flex; align-items: center; justify-content: center; width: auto; font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #ffffff !important; margin: 6px 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.05em; border: 1px solid transparent; padding: 8px 28px; border-radius: 999px; text-align: center; }
     .mobile-link.active-rect { border-color: rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
