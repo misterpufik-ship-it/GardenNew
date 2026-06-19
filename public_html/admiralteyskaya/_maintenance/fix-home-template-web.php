@@ -30,8 +30,7 @@ if ($db->connect_errno) {
 $db->set_charset('utf8');
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
-$pages = K_DB_TABLES_PREFIX . 'couch_pages';
-$fieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
+$pagesTable = K_DB_TABLES_PREFIX . 'couch_pages';
 
 header('Content-Type: text/plain; charset=utf-8');
 echo "DB: " . K_DB_NAME . "\n";
@@ -143,15 +142,10 @@ function ensure_template($db, $templates, $pages, $name, $title, $executable, $h
         ensure_page($db, $pages, $templateId, $title);
     }
 
-    $fieldCount = fetch_one($db, "SELECT COUNT(*) AS c FROM `{$fieldsTable}` WHERE template_id={$templateId}");
-    if ($fieldCount) {
-        echo "Fields for {$name}: {$fieldCount['c']}\n";
-    }
-
     return $templateId;
 }
 
-ensure_template($db, $templates, $pages, 'home.php', 'Главная', 0, 0, 1, 'header.php');
+ensure_template($db, $templates, $pagesTable, 'home.php', 'Главная', 0, 0, 1, 'header.php');
 
 echo "Ensuring site-home.php...\n";
 $siteRow = fetch_one($db, "SELECT id, executable, hidden, title FROM `{$templates}` WHERE name='site-home.php' LIMIT 1");
@@ -163,7 +157,7 @@ if (!$siteRow) {
         echo "site-home insert failed: {$db->error}\n";
     } else {
         echo "Created site-home.php template #{$db->insert_id}\n";
-        ensure_page($db, $pages, (int)$db->insert_id, 'Главная (сайт)');
+        ensure_page($db, $pagesTable, (int)$db->insert_id, 'Главная (сайт)');
     }
 } else {
     echo "Before site-home.php: executable={$siteRow['executable']} hidden={$siteRow['hidden']}\n";
@@ -173,7 +167,7 @@ if (!$siteRow) {
     if ($db->error) {
         echo "site-home update failed: {$db->error}\n";
     }
-    ensure_page($db, $pages, (int)$siteRow['id'], 'Главная (сайт)');
+    ensure_page($db, $pagesTable, (int)$siteRow['id'], 'Главная (сайт)');
     echo "After site-home.php updated\n";
 }
 
