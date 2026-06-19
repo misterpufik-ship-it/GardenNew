@@ -16,6 +16,7 @@ function garden_admin_label_defaults(){
         'filial.php' => array('field'=>'label_filial', 'title'=>'Филиал', 'weight'=>200),
         'globals.php' => array('field'=>'label_globals', 'title'=>'Футер и SEO', 'weight'=>210),
         'index.php' => array('field'=>'label_index', 'title'=>'Общая страница', 'weight'=>220),
+        'home.php' => array('field'=>'label_home', 'title'=>'Главная', 'weight'=>1),
         'booking-settings.php' => array('field'=>'label_booking_settings', 'title'=>'Бронирование Telegram', 'weight'=>5),
         'admin-labels.php' => array('field'=>'', 'title'=>'Названия разделов', 'weight'=>230),
 
@@ -97,9 +98,14 @@ function garden_admin_menu_header( $name, $title, $weight ){
 }
 
 function garden_alter_admin_menuitems( &$items ){
+    if ( isset($items['site-home.php']) ){
+        unset($items['site-home.php']);
+    }
+
     $defaults = garden_admin_label_defaults();
     $overrides = garden_admin_label_overrides();
 
+    $items['_garden_home_'] = garden_admin_menu_header( '_garden_home_', 'Главная', -1 );
     $items['_garden_admiral_'] = garden_admin_menu_header( '_garden_admiral_', 'Адмиралтейская', 0 );
     $items['_garden_udelnaya_'] = garden_admin_menu_header( '_garden_udelnaya_', 'Удельная', 1 );
 
@@ -116,6 +122,9 @@ function garden_alter_admin_menuitems( &$items ){
             $items[$name]['weight'] = $info['weight'];
             if ( strpos($name, 'udelnaya/') === 0 ){
                 $items[$name]['parent'] = '_garden_udelnaya_';
+            }
+            elseif ( $name === 'home.php' ){
+                $items[$name]['parent'] = '_garden_home_';
             }
             elseif ( $name === 'admin-labels.php' || $name === 'booking-settings.php' ){
                 $items[$name]['parent'] = '_templates_';
