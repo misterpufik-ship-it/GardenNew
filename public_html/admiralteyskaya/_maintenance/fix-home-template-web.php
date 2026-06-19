@@ -30,16 +30,20 @@ $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
 $name = 'home.php';
 
+header('Content-Type: text/plain; charset=utf-8');
+echo "DB: " . K_DB_NAME . " prefix: " . K_DB_TABLES_PREFIX . "\n";
+
 $res = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
 $row = $res ? $res->fetch_assoc() : null;
 if (!$row) {
-    $all = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE name LIKE '%home%' ORDER BY id");
-    header('Content-Type: text/plain; charset=utf-8');
     echo "template {$name} not found\n";
+    $all = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` ORDER BY id LIMIT 30");
     if ($all) {
         while ($t = $all->fetch_assoc()) {
             echo "#{$t['id']} {$t['name']} executable={$t['executable']} hidden={$t['hidden']}\n";
         }
+    } else {
+        echo "query failed: " . $db->error . "\n";
     }
     exit;
 }
