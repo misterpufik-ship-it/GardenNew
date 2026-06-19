@@ -306,12 +306,13 @@
             position: relative;
             display: inline-block;
             max-width: calc(100% - 16px);
+            padding-top: 10px;
             pointer-events: auto;
-            overflow: hidden;
+            overflow: visible;
         }
         .garden-sticky-wrap.is-collapsed .garden-sticky-unit {
             height: 0;
-            overflow: visible;
+            padding-top: 0;
         }
         .garden-sticky-bar {
             transform: translateY(0);
@@ -320,6 +321,7 @@
         }
         .garden-sticky-wrap.is-collapsed .garden-sticky-bar {
             transform: translateY(100%);
+            pointer-events: none;
         }
         .garden-sticky-tag {
             display: block;
@@ -332,8 +334,9 @@
         }
         .garden-sticky-tag img {
             display: block;
-            width: min(300px, calc(100vw - 32px));
+            width: min(calc(100vw - 20px), 520px);
             height: auto;
+            max-width: 100%;
             pointer-events: none;
         }
         .garden-sticky-toggle {
@@ -367,12 +370,10 @@
             border-right: none;
             font-size: 10px;
         }
-        body.has-garden-sticky { padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px)); }
-        body.has-garden-sticky.garden-sticky-collapsed { padding-bottom: env(safe-area-inset-bottom, 0px); }
-        @media (min-width: 769px) {
-            .garden-sticky-tag img { width: 340px; }
-            body.has-garden-sticky { padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px)); }
+        body.has-garden-sticky {
+            padding-bottom: calc((min(100vw - 20px, 520px) * 153 / 741) + 12px + env(safe-area-inset-bottom, 0px));
         }
+        body.has-garden-sticky.garden-sticky-collapsed { padding-bottom: env(safe-area-inset-bottom, 0px); }
         .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 16px; text-align: left; }
         .second-garden-facts { list-style: none; margin: 0 0 20px; padding: 0; text-align: left; }
         .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
