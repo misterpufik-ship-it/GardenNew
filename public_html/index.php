@@ -221,11 +221,11 @@
             display: inline-block;
             position: relative;
             z-index: 1;
-            padding: 0;
+            padding: 12px 22px;
             min-width: auto;
-            border-radius: 0;
+            border-radius: 12px;
             border: none;
-            background: transparent;
+            background: rgba(0, 0, 0, 0.38);
             color: transparent;
             text-decoration: none;
             font-size: 14px;
@@ -235,11 +235,12 @@
             text-align: center;
             text-transform: uppercase;
             white-space: nowrap;
-            background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 30%, #c5a059 60%, #fff3b2 100%);
+            background-image: linear-gradient(90deg, rgba(248, 231, 166, 0.92) 0%, rgba(242, 217, 139, 0.92) 30%, rgba(197, 160, 89, 0.92) 60%, rgba(255, 243, 178, 0.92) 100%);
             background-clip: text;
             -webkit-background-clip: text;
-            text-shadow: 0 0 18px rgba(197, 160, 89, 0.35);
+            text-shadow: 0 0 18px rgba(197, 160, 89, 0.25);
             transition: transform 0.25s ease, opacity 0.25s ease;
+            opacity: 0.92;
         }
 
         .slider-cta:hover,
