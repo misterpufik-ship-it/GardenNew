@@ -233,24 +233,26 @@
             display: inline-block;
             position: relative;
             z-index: 1;
-            padding: 12px 22px;
+            padding: 14px 24px;
             min-width: auto;
-            border-radius: 12px;
+            border-radius: 16px;
             border: none;
-            background: rgba(0, 0, 0, 0.38);
+            background: rgba(0, 0, 0, 0.42);
             color: transparent;
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            line-height: 1.2;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(18px, 4vw, 28px);
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 0.16em;
+            line-height: 1.1;
             text-align: center;
-            text-transform: uppercase;
+            text-transform: none;
             white-space: nowrap;
             background-image: linear-gradient(90deg, rgba(248, 231, 166, 0.92) 0%, rgba(242, 217, 139, 0.92) 30%, rgba(197, 160, 89, 0.92) 60%, rgba(255, 243, 178, 0.92) 100%);
             background-clip: text;
             -webkit-background-clip: text;
-            text-shadow: 0 0 18px rgba(197, 160, 89, 0.25);
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.28);
             transition: transform 0.25s ease, opacity 0.25s ease;
             animation: fadeGoldText 5s ease-in-out infinite;
         }
@@ -632,7 +634,7 @@
             }
 
             .slider {
-                aspect-ratio: 4 / 3;
+                aspect-ratio: 16 / 10;
             }
 
             .slider-btn {
