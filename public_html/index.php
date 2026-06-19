@@ -219,14 +219,19 @@
 
         @keyframes fadeGoldText {
             0%, 100% {
-                opacity: 0.9;
+                opacity: 0.92;
                 transform: translateY(0);
             }
 
             50% {
-                opacity: 0.55;
+                opacity: 0.6;
                 transform: translateY(0);
             }
+        }
+
+        @keyframes fadeBtn {
+            0%, 100% { opacity: 0.92; }
+            50% { opacity: 0.66; }
         }
 
         .slide {
@@ -328,7 +333,7 @@
             position: absolute;
             top: 50%;
             z-index: 3;
-            padding: 6px;
+            padding: 8px;
             background: transparent;
             border: none;
             color: var(--gold-main);
@@ -351,8 +356,8 @@
             stroke-width: 2.2;
         }
 
-        .prev { left: 6px; }
-        .next { right: 6px; }
+        .prev { left: 4px; }
+        .next { right: 4px; }
 
         .dots {
             position: absolute;
@@ -448,17 +453,20 @@
 
         .branch-actions .button {
             flex: 1 1 220px;
-            min-height: 50px;
-            padding: 14px 24px;
-            font-size: 12px;
+            min-height: 52px;
+            padding: 14px 26px;
+            font-size: 13px;
             border: none;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.66);
             color: transparent;
             background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
             background-clip: text;
             -webkit-background-clip: text;
-            box-shadow: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+            text-shadow: 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 8px;
+            animation: fadeBtn 6.5s ease-in-out infinite;
+            transition: transform 0.2s ease, opacity 0.18s ease;
         }
 
         .pin {
@@ -499,7 +507,7 @@
             justify-content: center;
             padding: 16px 28px;
             color: transparent;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0,0,0,0.66);
             background-image: linear-gradient(90deg, #f8e7a6 0%, #f2d98b 35%, #c5a059 65%, #fff3b2 100%);
             background-clip: text;
             -webkit-background-clip: text;
@@ -510,11 +518,12 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             text-align: center;
-            border-radius: 999px;
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: none;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
-            transition: transform 0.25s ease, opacity 0.25s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+            text-shadow: 0 0 8px rgba(0,0,0,0.3);
+            animation: fadeBtn 7.2s ease-in-out infinite;
+            transition: transform 0.25s ease, opacity 0.25s ease, filter 0.18s ease;
         }
 
         .button:hover,
@@ -650,8 +659,8 @@
                 height: 42px;
             }
 
-            .prev { left: 10px; }
-            .next { right: 10px; }
+            .prev { left: 8px; }
+            .next { right: 8px; }
 
             .branch-info {
                 padding: 16px 14px 17px;
