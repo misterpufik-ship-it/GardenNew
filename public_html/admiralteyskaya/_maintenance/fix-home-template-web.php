@@ -36,16 +36,43 @@ echo "DB: " . K_DB_NAME . " prefix: " . K_DB_TABLES_PREFIX . "\n";
 $res = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE name='" . $db->real_escape_string($name) . "' LIMIT 1");
 $row = $res ? $res->fetch_assoc() : null;
 if (!$row) {
-    echo "template {$name} not found\n";
-    $all = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` ORDER BY id LIMIT 30");
-    if ($all) {
-        while ($t = $all->fetch_assoc()) {
-            echo "#{$t['id']} {$t['name']} executable={$t['executable']} hidden={$t['hidden']}\n";
-        }
-    } else {
-        echo "query failed: " . $db->error . "\n";
+    echo "template {$name} not found, attempting register...\n";
+    $ref = $db->query("SELECT * FROM `{$templates}` WHERE name='index.php' LIMIT 1");
+    $refRow = $ref ? $ref->fetch_assoc() : null;
+    if (!$refRow) {
+        echo "reference template index.php not found\n";
+        exit;
     }
-    exit;
+    unset($refRow['id']);
+    $refRow['name'] = $name;
+    $refRow['title'] = 'Главная';
+    $refRow['executable'] = 1;
+    $refRow['hidden'] = 0;
+    $refRow['clonable'] = 0;
+    $refRow['description'] = '';
+    if (isset($refRow['custom_params'])) {
+        $refRow['custom_params'] = '';
+    }
+    $cols = array_keys($refRow);
+    $vals = array_map(function ($v) use ($db) {
+        if ($v === null) return 'NULL';
+        return "'" . $db->real_escape_string((string)$v) . "'";
+    }, array_values($refRow));
+    $sql = "INSERT INTO `{$templates}` (`" . implode('`,`', $cols) . "`) VALUES (" . implode(',', $vals) . ")";
+    if (!$db->query($sql)) {
+        echo "insert failed: " . $db->error . "\n";
+        exit;
+    }
+    $newId = (int)$db->insert_id;
+    echo "Registered template #{$newId}\n";
+    $now = date('Y-m-d H:i:s');
+    $db->query(
+        "INSERT INTO `{$pages}` (template_id, page_title, page_name, creation_date, modification_date, publish_date, status) VALUES (" .
+        $newId . ", 'Главная', 'index', '{$now}', '{$now}', '{$now}', 0)"
+    );
+    echo "Created page for home.php\n";
+    $res = $db->query("SELECT id, name, executable, hidden FROM `{$templates}` WHERE id={$newId} LIMIT 1");
+    $row = $res ? $res->fetch_assoc() : null;
 }
 
 header('Content-Type: text/plain; charset=utf-8');
