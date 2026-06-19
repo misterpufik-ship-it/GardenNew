@@ -219,42 +219,50 @@
 
         @keyframes fadeGoldText {
             0%, 100% {
-                opacity: 0.92;
+                opacity: 0.9;
                 transform: translateY(0);
             }
 
-            40%, 60% {
-                opacity: 0.18;
+            50% {
+                opacity: 0.55;
                 transform: translateY(0);
             }
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity .6s ease;
+            will-change: opacity;
         }
 
         .slider-cta {
             display: inline-block;
             position: relative;
             z-index: 1;
-            padding: 14px 24px;
-            min-width: auto;
-            border-radius: 16px;
+            padding: 10px 20px;
+            min-width: 200px;
+            border-radius: 6px;
             border: none;
-            background: rgba(0, 0, 0, 0.42);
+            background: rgba(0, 0, 0, 0.6);
             color: transparent;
             text-decoration: none;
             font-family: "Cormorant Garamond", Georgia, serif;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 600;
             font-style: italic;
-            letter-spacing: 0.18em;
-            line-height: 1.2;
+            letter-spacing: 0.12em;
+            line-height: 1.1;
             text-align: center;
-            text-transform: uppercase;
+            text-transform: none;
             white-space: nowrap;
-            background-image: linear-gradient(90deg, rgba(248, 231, 166, 0.92) 0%, rgba(242, 217, 139, 0.92) 30%, rgba(197, 160, 89, 0.92) 60%, rgba(255, 243, 178, 0.92) 100%);
+            background-image: linear-gradient(90deg, rgba(248, 231, 166, 1) 0%, rgba(242, 217, 139, 1) 30%, rgba(197, 160, 89, 1) 60%, rgba(255, 243, 178, 1) 100%);
             background-clip: text;
             -webkit-background-clip: text;
-            text-shadow: 0 0 18px rgba(197, 160, 89, 0.28);
+            text-shadow: 0 0 12px rgba(197, 160, 89, 0.22);
             transition: transform 0.25s ease, opacity 0.25s ease;
-            animation: fadeGoldText 5s ease-in-out infinite;
+            animation: fadeGoldText 7s ease-in-out infinite;
         }
 
         .slider-cta:hover,
