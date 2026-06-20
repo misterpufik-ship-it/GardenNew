@@ -6,16 +6,24 @@
   --bg-black: #000;
   --text-main: #EAEAEA;
   --nav-offset: 96px;
+  --gl-section-py: clamp(56px, 7vw, 72px);
+  --gl-gold-gap: 12px;
+  --gl-section-head-mb: 3rem;
 }
 
 @media (max-width: 767px) {
-  :root { --nav-offset: 84px; }
+  :root {
+    --nav-offset: 84px;
+    --gl-section-py: 48px;
+    --gl-section-head-mb: 2.5rem;
+  }
 }
 
 /* Базовые сбросы и стабилизация скролла */
 *, *::before, *::after { box-sizing: border-box; }
 html { 
   scroll-behavior: smooth; 
+  scroll-padding-top: var(--nav-offset);
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
@@ -192,4 +200,5 @@ body.loading {
         width: 40px;
         height: 40px;
     }
+}
 </style>

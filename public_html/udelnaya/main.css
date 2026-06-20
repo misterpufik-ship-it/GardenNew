@@ -8,6 +8,16 @@
     --gold-dark: #8e7037;
     --gold-light: #FFEebb;
     --bg-black: #000000;
+    --gl-section-py: clamp(56px, 7vw, 72px);
+    --gl-gold-gap: 12px;
+    --gl-section-head-mb: 3rem;
+}
+
+@media (max-width: 767px) {
+    :root {
+        --gl-section-py: 48px;
+        --gl-section-head-mb: 2.5rem;
+    }
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
@@ -162,10 +172,14 @@ img { display: block; max-width: 100%; height: auto; }
 /* ============================================================
    4. ЭЛЕМЕНТЫ ДЕКОРА (ЛИНИИ, ШУМ)
    ============================================================ */
-.gold-line, .gold-line-fade, .philosophy-divider, .shimmer-line { 
-    width: 160px; height: 1px; margin: 16px auto; 
-    background: linear-gradient(to right, transparent, var(--gold-main), transparent); 
-    opacity: 0.8; 
+.gold-line, .gold-line-fade, .philosophy-divider, .golden-line, .shimmer-line,
+#menu-block .golden-line, #contact .gl_tp_hr_top, #contact .gl_tp_hr_gold,
+.branch-wrapper .gold-line {
+    width: 160px;
+    height: 1px;
+    margin: var(--gl-gold-gap) auto !important;
+    background: linear-gradient(to right, transparent, var(--gold-main), transparent);
+    opacity: 0.8;
 }
 .shimmer-line { background: linear-gradient(90deg, rgba(197, 160, 89, 0) 0%, rgba(197, 160, 89, 1) 50%, rgba(197, 160, 89, 0) 100%); }
 
@@ -200,7 +214,84 @@ img { display: block; max-width: 100%; height: auto; }
 .nav-booking-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
 
 /* ============================================================
-   6. SECTION-SPECIFIC (ПОД СКРИНШОТЫ)
+   6. SECTION RHYTHM (ЕДИНЫЕ ОТСТУПЫ РАЗДЕЛОВ)
+   ============================================================ */
+.philosophy-section-container {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.philosophy-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--gl-section-py) 20px;
+    position: relative;
+    min-height: auto;
+    box-sizing: border-box;
+}
+
+.philosophy-wrapper .content-limiter,
+#menu-block .content-limiter,
+.taplink-block-wrapper .content-limiter {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+#menu-block {
+    padding: var(--gl-section-py) 0;
+    box-sizing: border-box;
+}
+
+.taplink-block-wrapper {
+    padding: var(--gl-section-py) 0;
+    box-sizing: border-box;
+}
+
+.taplink-block-wrapper .content-limiter {
+    padding: 0 20px !important;
+}
+
+#contact .gl_tp_body_wrapper {
+    padding: var(--gl-section-py) 20px calc(var(--gl-section-py) + 8px) !important;
+}
+
+.branch-wrapper {
+    padding: var(--gl-section-py) 18px !important;
+}
+
+.garden-experience-widget > section.bg-black {
+    padding-top: var(--gl-section-py) !important;
+    padding-bottom: var(--gl-section-py) !important;
+}
+
+.garden-experience-widget .widget-limiter.pt-\[16px\] {
+    padding-top: 0 !important;
+}
+
+.branch-wrapper .gl-section-head {
+    margin-bottom: var(--gl-section-head-mb) !important;
+}
+
+.gl-section-head,
+#menu-block .content-limiter > .text-center.mb-12,
+#special .content-limiter > header,
+#reservation .content-limiter > header,
+.taplink-block-wrapper header.text-center,
+.garden-experience-widget .widget-limiter.text-center {
+    margin-bottom: var(--gl-section-head-mb) !important;
+}
+
+/* ============================================================
+   7. SECTION-SPECIFIC (ПОД СКРИНШОТЫ)
    ============================================================ */
 
 /* --- PHILOSOPHY --- */
@@ -250,6 +341,7 @@ img { display: block; max-width: 100%; height: auto; }
     .ratio-1-1 { width: calc(25% - 12px) !important; }
     .ratio-3-2 { width: calc(25% - 12px) !important; }
     #tab-interior .ratio-3-2 { width: calc((25% - 12px) * 1.5) !important; }
+    #bf-tab-interior .ratio-3-2 { width: calc((25% - 12px) * 1.5) !important; }
 }
 
 .slider-arrow { width: 44px; height: 44px; border-radius: 50%; background: rgba(0,0,0,0.7); border: 1px solid rgba(197,160,89,0.4); color: var(--gold-main); display: flex; align-items: center; justify-content: center; z-index: 40; }

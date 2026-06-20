@@ -9,14 +9,13 @@
         width: 100%;
     position: relative;
     left: 0;
-    margin-left: 0;
+        margin-left: 0;
     margin-right: 0;
     overflow: hidden;
         z-index: 10; 
         background-color: var(--bg-deep);
         color: var(--text-main);
         font-family: 'Montserrat', sans-serif;
-        margin-top: -2px; 
         overflow: hidden;
     }
 
@@ -26,7 +25,7 @@
         width: 100%;
         position: relative;
         z-index: 10;
-        padding: 60px 20px 30px 20px; 
+        padding: 0 20px; 
     }
 
     .font-serif-lux { font-family: 'Cormorant Garamond', serif !important; }
@@ -73,7 +72,7 @@
         width: 160px;
         height: 1px;
         background: linear-gradient(to right, transparent, var(--gold-matte), transparent);
-        margin: 16px auto;
+        margin: var(--gl-gold-gap, 12px) auto;
     }
 
     .bottom-divider {
@@ -159,7 +158,7 @@
     <div class="film-grain"></div>
 
     <div class="content-limiter">
-        <header class="text-center mb-12 fade-up">
+        <header class="gl-section-head text-center mb-12 fade-up">
             <h2 class="font-serif-lux text-3xl text-white font-light italic m-0">
                 <cms:show akzii_main_title />
             </h2>

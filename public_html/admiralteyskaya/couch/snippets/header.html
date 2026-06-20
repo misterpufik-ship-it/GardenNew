@@ -887,11 +887,38 @@
         return navbar.getBoundingClientRect().height + 6;
     }
 
+    function findSectionHead(target) {
+        if (!target) return null;
+        if (target.matches('.branch-scroll-anchor')) {
+            return target.closest('.content-limiter')?.querySelector('.title-branch, h2') || target;
+        }
+        return target.querySelector('.gl-section-head .title-philosophy, .gl-section-head h2, .title-philosophy, .experience-title, .title-branch, .gl_tp_main_title, h2')
+            || target.querySelector('.gl-section-head')
+            || target;
+    }
+
     function scrollToAnchor(target) {
         if (!target) return;
-        const top = target.getBoundingClientRect().top + window.scrollY - getNavOffset();
+        const head = findSectionHead(target);
+        const top = head.getBoundingClientRect().top + window.scrollY - getNavOffset() - 8;
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }
+
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+        const href = link.getAttribute('href');
+        if (!href || href.length < 2 || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const run = () => scrollToAnchor(target);
+        if (link.classList.contains('mobile-link')) {
+            requestAnimationFrame(() => requestAnimationFrame(run));
+        } else {
+            run();
+        }
+    });
 
     // УПРАВЛЕНИЕ МЕНЮ (ОСНОВНОЕ)
     function setMenuState(active, options = {}) {
@@ -933,11 +960,7 @@
 
         if (href.charAt(0) === '#') {
             e.preventDefault();
-            const target = document.querySelector(href);
             setMenuState(false, { keepScroll: true });
-            if (target) {
-                requestAnimationFrame(() => scrollToAnchor(target));
-            }
             return;
         }
 
