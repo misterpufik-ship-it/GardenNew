@@ -214,24 +214,46 @@
     }
 
     /* --- МОБИЛЬНОЕ МЕНЮ --- */
-    .mobile-menu-overlay { position: fixed; inset: 0; width: 100%; height: 100vh; min-height: 100vh; min-height: 100dvh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: center; justify-content: center; visibility: hidden; overflow-y: auto; padding: calc(env(safe-area-inset-top, 0px) + clamp(18px, 4.5vh, 36px)) 0 max(12px, env(safe-area-inset-bottom)); box-sizing: border-box; gap: clamp(8px, 1.6vh, 16px); }
+    .mobile-menu-overlay { position: fixed; inset: 0; width: 100%; height: 100vh; min-height: 100vh; min-height: 100dvh; background-color: #080808; z-index: 100000; transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; visibility: hidden; overflow: hidden; padding: 0; box-sizing: border-box; }
     .mobile-menu-overlay.active { transform: translateY(0); visibility: visible; }
     .mobile-menu-bg-layer { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
     .mobile-menu-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); opacity: 0.52; filter: brightness(0.55) saturate(0.82) blur(0.8px); }
     .mobile-menu-bg-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.46); backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
     .mobile-menu-overlay > :not(.mobile-menu-bg-layer) { position: relative; z-index: 2; }
-    .mobile-menu-links { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(6px, 1.2vh, 10px); padding: 0 12px; width: 100%; flex: 0 1 auto; }
-    .mobile-link { display: inline-flex; align-items: center; justify-content: center; width: auto; max-width: 92vw; font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #ffffff !important; margin: 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.04em; border: 1px solid transparent; padding: 7px 14px; border-radius: 0; text-align: center; box-sizing: border-box; line-height: 1.1; min-height: 38px; }
+    .mobile-menu-shell { display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; flex: 1 1 auto; width: 100%; min-height: 100%; padding: calc(env(safe-area-inset-top, 0px) + 52px) 18px max(18px, env(safe-area-inset-bottom)); box-sizing: border-box; text-align: center; }
+    .mobile-menu-top,
+    .mobile-menu-links,
+    .mobile-menu-contact { width: 100%; max-width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; flex: 0 0 auto; }
+    .mobile-menu-top { padding: 0; }
+    .mobile-menu-top .mobile-menu-logo { display: block !important; width: min(78vw, 320px) !important; max-width: 88vw !important; height: auto !important; margin: 0 auto !important; opacity: 1 !important; transform: none !important; animation: none !important; }
+    .mobile-close-btn { position: fixed !important; top: calc(env(safe-area-inset-top, 0px) + 14px) !important; right: 14px !important; z-index: 1000002 !important; }
+    .mobile-menu-links { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(8px, 1.4vh, 12px); padding: 0; width: 100%; }
+    .mobile-link { display: inline-flex; align-items: center; justify-content: center; align-self: center; width: auto; max-width: 92vw; font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #ffffff !important; margin: 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.04em; border: 1px solid transparent; padding: 7px 14px; border-radius: 0; text-align: center; box-sizing: border-box; line-height: 1.1; min-height: 38px; }
     .mobile-branch-nav-link { font-size: 20px !important; line-height: 1.15 !important; white-space: normal !important; max-width: 88vw; letter-spacing: 0.02em !important; }
     .mobile-link.active-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
-    .mobile-menu-contact { margin-top: 0; flex: 0 0 auto; }
+    .mobile-menu-contact { margin-top: 0; gap: clamp(8px, 1.4vh, 12px); width: min(88vw, 330px) !important; }
+    .mobile-menu-divider { display: block; width: min(46vw, 165px) !important; height: auto !important; margin: 0 auto !important; }
+    .mobile-menu-contact-info { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(4px, 0.8vh, 8px); width: 100%; }
+    .mobile-menu-social-row { display: flex; align-items: center; justify-content: center; gap: 18px; width: 100%; }
+    .mobile-menu-social-link {
+        width: 46px;
+        height: 42px;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        border: none !important;
+        background: none !important;
+        font-size: 21px !important;
+        align-self: center;
+    }
     .mobile-menu-contact-link,
     .mobile-menu-social-link {
         color: #ffffff !important;
         border: none !important;
         background: none !important;
         transition: color 0.25s ease, transform 0.25s ease;
+        align-self: center;
     }
     .mobile-menu-address-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px !important; letter-spacing: 0.12em !important; line-height: 1.35 !important; max-width: 92vw; text-align: center; flex-wrap: nowrap; color: var(--gold-main) !important; text-decoration: none !important; }
     .mobile-menu-address-link .fa-location-dot { color: var(--gold-main) !important; -webkit-text-fill-color: var(--gold-main) !important; font-size: 12px !important; flex-shrink: 0; }
@@ -370,54 +392,41 @@
         }
         #closeBtn.mobile-close-btn {
             position: fixed !important;
-            top: 18px !important;
-            right: 18px !important;
+            top: calc(env(safe-area-inset-top, 0px) + 14px) !important;
+            right: 14px !important;
             z-index: 1000002 !important;
         }
-        .burger-btn {
-            color: var(--gold-main) !important;
-            transition: color 0.25s ease, transform 0.25s ease;
-        }
-        .burger-btn i {
-            color: inherit !important;
-            transition: color 0.25s ease;
+        .mobile-menu-shell {
+            justify-content: space-evenly;
+            padding-top: calc(env(safe-area-inset-top, 0px) + 48px);
+            padding-bottom: max(14px, env(safe-area-inset-bottom));
         }
         .mobile-menu-top {
-            flex: 0 0 auto;
-            min-height: auto;
-            padding: clamp(8px, 2vh, 18px) 18px 0 !important;
-            justify-content: center !important;
-            position: relative !important;
-            width: 100% !important;
+            padding: 0 !important;
         }
         .mobile-menu-top .mobile-menu-logo {
-            display: block !important;
-            width: min(74vw, 310px) !important;
-            max-width: 86vw !important;
+            width: min(78vw, 320px) !important;
+            max-width: 88vw !important;
             margin: 0 auto !important;
-            height: auto !important;
+            opacity: 1 !important;
+            transform: none !important;
+            animation: none !important;
         }
         .mobile-menu-links {
-            flex: 0 1 auto;
             margin-top: 0 !important;
-            padding: 0 18px;
+            padding: 0 !important;
             overflow: visible !important;
-            gap: clamp(5px, 1vh, 9px) !important;
-            justify-content: center !important;
+            gap: clamp(8px, 1.5vh, 12px) !important;
         }
         .mobile-link {
             width: auto !important;
             min-width: 0 !important;
             min-height: 36px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            align-self: center !important;
             font-size: clamp(22px, 6vw, 28px) !important;
             line-height: 1.08 !important;
             margin: 0 !important;
             padding: 6px 14px !important;
-            text-align: center;
-            border-radius: 0 !important;
             white-space: nowrap !important;
         }
         .mobile-branch-nav-link {
@@ -427,20 +436,20 @@
             min-height: 34px !important;
             padding: 5px 12px !important;
         }
-        .mobile-menu-links img {
-            width: min(44vw, 158px) !important;
-            margin-top: clamp(2px, 0.6vh, 6px) !important;
-            margin-bottom: clamp(2px, 0.6vh, 6px) !important;
-        }
         .mobile-menu-contact {
             width: min(88vw, 330px) !important;
             margin-top: 0 !important;
-            padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+            padding-bottom: 0 !important;
+            gap: clamp(8px, 1.5vh, 12px) !important;
         }
-        .mobile-menu-contact > div:first-child {
+        .mobile-menu-divider {
+            width: min(46vw, 165px) !important;
+        }
+        .mobile-menu-contact > div:first-child,
+        .mobile-menu-contact-info {
             width: 100%;
-            gap: 4px !important;
-            margin-bottom: 8px !important;
+            gap: clamp(4px, 0.8vh, 8px) !important;
+            margin-bottom: 0 !important;
         }
         .mobile-menu-address-link {
             width: auto !important;
@@ -457,7 +466,8 @@
             color: var(--gold-main) !important;
         }
         .mobile-menu-contact-link {
-            width: 100%;
+            width: auto !important;
+            max-width: 100%;
             min-height: 42px;
             display: inline-flex !important;
             align-items: center;
@@ -465,36 +475,37 @@
             border: none !important;
             background: none !important;
             margin-top: 0 !important;
+            align-self: center !important;
         }
         #menu-phone-link.mobile-menu-contact-link {
             font-size: 19px !important;
             min-height: 36px !important;
         }
-        .mobile-menu-contact .flex.gap-8 {
-            width: 100%;
-            gap: 10px !important;
+        .mobile-menu-contact .flex.gap-8,
+        .mobile-menu-social-row {
+            width: auto !important;
+            gap: 18px !important;
             justify-content: center;
-        }
-        .mobile-menu-social-link {
-            width: 46px;
-            height: 42px;
-            display: inline-flex !important;
-            align-items: center;
-            justify-content: center;
-            border: none !important;
-            background: none !important;
-            font-size: 21px !important;
+            align-self: center;
         }
         @media (max-height: 720px) {
-            .mobile-menu-overlay { gap: clamp(6px, 1.2vh, 12px); padding-top: calc(env(safe-area-inset-top, 0px) + 12px); }
-            .mobile-menu-top .mobile-menu-logo { width: min(68vw, 270px) !important; }
-            .mobile-menu-links { gap: clamp(4px, 0.8vh, 7px) !important; }
-            .mobile-link { min-height: 30px; font-size: clamp(20px, 5.6vw, 25px) !important; padding: 4px 12px !important; }
+            .mobile-menu-shell { justify-content: space-between; padding-top: calc(env(safe-area-inset-top, 0px) + 42px); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+            .mobile-menu-top .mobile-menu-logo { width: min(72vw, 280px) !important; }
+            .mobile-menu-links { gap: clamp(6px, 1.2vh, 10px) !important; }
+            .mobile-link { min-height: 32px; font-size: clamp(20px, 5.6vw, 25px) !important; padding: 4px 12px !important; }
             .mobile-branch-nav-link { font-size: clamp(17px, 4.8vw, 21px) !important; }
-            .mobile-menu-links img { width: min(38vw, 132px) !important; }
+            .mobile-menu-divider { width: min(40vw, 140px) !important; }
             .mobile-menu-address-link { font-size: 10px !important; min-height: 22px !important; }
             #menu-phone-link.mobile-menu-contact-link { min-height: 30px; font-size: 17px !important; }
             .mobile-menu-social-link { height: 32px; font-size: 18px !important; }
+        }
+        .burger-btn {
+            color: var(--gold-main) !important;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+        .burger-btn i {
+            color: inherit !important;
+            transition: color 0.25s ease;
         }
     }
 
@@ -626,44 +637,46 @@
         <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="mobile-menu-bg-img" loading="lazy" decoding="async" alt="">
         <div class="mobile-menu-bg-shade"></div>
     </div>
-    
-<div class="mobile-menu-top w-full flex justify-center items-center px-6 z-10 relative">
+
+    <div class="mobile-close-btn cursor-pointer text-[#C5A059] p-2" id="closeBtn">
+        <i class="fas fa-times text-3xl"></i>
+    </div>
+
+    <div class="mobile-menu-shell">
+        <div class="mobile-menu-top">
             <img src="couch/uploads/image/logo3.webp"
                 alt="Logo"
-                class="logo-luxe-animate mobile-menu-logo"
-                width="300"
+                class="mobile-menu-logo"
+                width="320"
                 height="140"
                 loading="lazy"
-                decoding="async"
-                style="height:auto;">
-            <div class="mobile-close-btn cursor-pointer text-[#C5A059] p-2 absolute top-6 right-6" id="closeBtn">
-                <i class="fas fa-times text-3xl"></i>
+                decoding="async">
+        </div>
+
+        <div class="mobile-menu-links">
+            <cms:show_repeatable 'nav_menu'>
+                <a href="<cms:show item_link />" class="mobile-link <cms:if is_button>active-rect</cms:if>">
+                    <cms:show item_name />
+                </a>
+            </cms:show_repeatable>
+            <a href="#branch-filial" class="mobile-link mobile-branch-nav-link">
+                <cms:if is_udelnaya>Garden Lounge Admiralteyskaya<cms:else />Garden Lounge Udelnaya</cms:if>
+            </a>
+        </div>
+
+        <div class="mobile-menu-contact">
+            <img src="couch/uploads/image/div.webp" class="mobile-menu-divider" width="165" height="26" loading="lazy" decoding="async" alt="">
+            <div class="mobile-menu-contact-info">
+                <a id="menu-address-link" href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else />https://yandex.ru/maps/-/CLBURN0n</cms:if>" target="_blank" rel="noopener" class="mobile-menu-contact-link mobile-menu-address-link font-serif italic uppercase tracking-[0.2em] text-center">
+                    <i class="fas fa-location-dot"></i>
+                    <span id="menu-address-text"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
+                </a>
+                <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
             </div>
-        </div>
-    
-    <div class="mobile-menu-links flex flex-col items-center justify-center mt-2 w-full z-10 overflow-y-auto">
-        <cms:show_repeatable 'nav_menu'>
-            <a href="<cms:show item_link />" class="mobile-link <cms:if is_button>active-rect</cms:if>">
-                <cms:show item_name />
-            </a>
-        </cms:show_repeatable>
-        <a href="#branch-filial" class="mobile-link mobile-branch-nav-link">
-            <cms:if is_udelnaya>Garden Lounge Admiralteyskaya<cms:else />Garden Lounge Udelnaya</cms:if>
-        </a>
-        <img src="couch/uploads/image/div.webp" class="w-[200px] h-auto my-2" width="200" height="26" loading="lazy" decoding="async" alt="divider">
-    </div>
-    
-    <div class="mobile-menu-contact mt-auto pb-6 flex flex-col items-center w-full z-10">
-        <div class="flex flex-col items-center gap-1 mb-4">
-            <a id="menu-address-link" href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else />https://yandex.ru/maps/-/CLBURN0n</cms:if>" target="_blank" rel="noopener" class="mobile-menu-contact-link mobile-menu-address-link font-serif italic uppercase tracking-[0.2em] text-center">
-                <i class="fas fa-location-dot"></i>
-                <span id="menu-address-text"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
-            </a>
-            <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl mt-1"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
-        </div>
-        <div class="flex gap-8">
-            <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-vk"></i></a>
-            <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-instagram"></i></a>
+            <div class="mobile-menu-social-row">
+                <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-vk"></i></a>
+                <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-instagram"></i></a>
+            </div>
         </div>
     </div>
 </div>
