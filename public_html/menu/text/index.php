@@ -225,8 +225,8 @@
         .subtab-btn { border: 1px solid rgba(197,160,89,0.35); border-radius: 999px; padding: 6px 12px; font-size: 11px; text-transform: uppercase; color: #d0d0d0; cursor:pointer; }
         .subtab-btn.active { color: #000; background: var(--gold); }
         @media (max-width: 767px) {
-            .subtabs-wrap { gap: 4px 5px; padding: 4px 8px 6px; }
-            .subtab-btn { flex: 0 0 calc(25% - 5px); width: calc(25% - 5px); max-width: calc(25% - 5px); box-sizing: border-box; padding: 4px 2px; font-size: 8px; letter-spacing: 0.02em; line-height: 1.15; text-align: center; white-space: normal; }
+            .subtabs-wrap { gap: 6px 8px; padding: 8px 10px 12px; }
+            .subtab-btn { padding: 5px 10px; font-size: 10px; letter-spacing: 0.04em; line-height: 1.2; white-space: nowrap; }
             main.max-w-2xl { padding-top: 0.85rem !important; }
             .gold-divider-nav { margin-top: 4px; }
             .category-title { margin: 1rem 0 0.65rem; font-size: 1.65rem; padding-bottom: 0.35rem; }

@@ -38,8 +38,8 @@
             .subtab-btn{ border: 1px solid rgba(197,160,89,0.3); border-radius: 999px; padding: 6px 12px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; transition: all .25s ease; background: rgba(0,0,0,0.2); cursor:pointer; }
             .subtab-btn.active{ color: #000; background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark) 100%); background-size: 200% auto; animation: shineGold 5s linear infinite; border-color: rgba(197,160,89,0.9); }
             @media (max-width: 767px) {
-                .subtabs-wrap { gap: 5px 6px; padding: 6px 8px 10px; }
-                .subtab-btn { flex: 0 0 calc(25% - 5px); width: calc(25% - 5px); max-width: calc(25% - 5px); box-sizing: border-box; padding: 4px 2px; font-size: 8px; letter-spacing: 0.02em; line-height: 1.15; text-align: center; white-space: normal; }
+                .subtabs-wrap { gap: 6px 8px; padding: 8px 10px 12px; }
+                .subtab-btn { padding: 5px 10px; font-size: 10px; letter-spacing: 0.04em; line-height: 1.2; white-space: nowrap; }
             }
             
             .tab-content { display:none; }
