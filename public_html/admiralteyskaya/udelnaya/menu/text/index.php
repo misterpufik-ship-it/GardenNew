@@ -253,6 +253,10 @@ require_once $garden_cms;
         .subtabs-wrap { display:none; flex-wrap:wrap; justify-content:center; gap:10px 12px; padding: 10px 10px 15px; }
         .subtab-btn { border: 1px solid rgba(197,160,89,0.35); border-radius: 999px; padding: 6px 12px; font-size: 11px; text-transform: uppercase; color: #d0d0d0; cursor:pointer; }
         .subtab-btn.active { color: #000; background: var(--gold); }
+        @media (max-width: 767px) {
+            .subtabs-wrap { gap: 5px 6px; padding: 6px 8px 10px; }
+            .subtab-btn { flex: 0 0 calc(25% - 5px); width: calc(25% - 5px); max-width: calc(25% - 5px); box-sizing: border-box; padding: 4px 2px; font-size: 8px; letter-spacing: 0.02em; line-height: 1.15; text-align: center; white-space: normal; }
+        }
 
         .tab-content { display:none; }
         .tab-content.active { display:block; animation: fadeIn .35s ease-out; }
