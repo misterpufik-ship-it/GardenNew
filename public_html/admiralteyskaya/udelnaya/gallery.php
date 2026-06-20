@@ -34,8 +34,8 @@ require_once $garden_cms;
         <cms:editable name='gallery_img_alt' label='ALT для SEO' type='text' />
     </cms:repeatable>
 
-    <cms:editable name='gallery_grp_menu' label='Menu — меню' type='group' collapsed='1' order='20' />
-    <cms:repeatable name='gallery_menu_items' label='Фото меню' group='gallery_grp_menu'>
+    <cms:editable name='gallery_grp_menu' label='Kitchen — кухня' type='group' collapsed='1' order='20' />
+    <cms:repeatable name='gallery_menu_items' label='Фото кухни' group='gallery_grp_menu'>
         <cms:editable name='gallery_img' label='Фото' type='image' />
         <cms:editable name='gallery_img_title' label='Подпись к фото' type='text' />
         <cms:editable name='gallery_img_alt' label='ALT для SEO' type='text' />

@@ -11,7 +11,7 @@
         display: flex;
         justify-content: center;
         gap: 32px;
-        margin-bottom: 24px;
+        margin-bottom: 32px;
     }
 
     .branch-filial-gallery-widget .bf-tab-btn {
@@ -65,9 +65,17 @@
     .branch-filial-gallery-widget .bf-pane-menu .bf-slide { width: 75%; aspect-ratio: 1 / 1; }
 
     @media (min-width: 768px) {
-        .branch-filial-gallery-widget .bf-slide,
+        .branch-filial-gallery-widget .bf-slide {
+            width: calc(25% - 12px);
+            aspect-ratio: 3 / 2;
+        }
+        .branch-filial-gallery-widget .bf-pane-interior .bf-slide {
+            width: calc((25% - 12px) * 1.5);
+            aspect-ratio: 3 / 2;
+        }
         .branch-filial-gallery-widget .bf-pane-menu .bf-slide {
             width: calc(25% - 12px);
+            aspect-ratio: 1 / 1;
         }
     }
 
@@ -150,7 +158,7 @@
 <div class="branch-filial-gallery-widget" data-bf-gallery>
     <div class="bf-tab-row">
         <button type="button" class="bf-tab-btn active" data-bf-tab="bf-pane-interior">Interior</button>
-        <button type="button" class="bf-tab-btn" data-bf-tab="bf-pane-menu">Menu</button>
+        <button type="button" class="bf-tab-btn" data-bf-tab="bf-pane-menu">Kitchen</button>
         <button type="button" class="bf-tab-btn" data-bf-tab="bf-pane-vibe">Vibe</button>
     </div>
 
@@ -346,9 +354,11 @@
 
     widget.querySelectorAll('[data-bf-scroll]').forEach(function (btn) {
         btn.addEventListener('click', function () {
-            var slider = document.getElementById(btn.getAttribute('data-bf-scroll'));
+            var sliderId = btn.getAttribute('data-bf-scroll');
+            var slider = document.getElementById(sliderId);
             var dir = parseInt(btn.getAttribute('data-bf-dir'), 10) || 1;
-            if (slider) slider.scrollBy({ left: dir * 280, behavior: 'smooth' });
+            var scrollBy = { 'bf-slider-interior': 450, 'bf-slider-menu': 250, 'bf-slider-vibe': 300 };
+            if (slider) slider.scrollBy({ left: dir * (scrollBy[sliderId] || 300), behavior: 'smooth' });
         });
     });
 })();

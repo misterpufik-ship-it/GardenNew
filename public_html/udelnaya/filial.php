@@ -36,7 +36,7 @@ require_once $garden_cms;
         <cms:editable name='final_gallery_title' label='Подпись' type='text' />
         <cms:editable name='final_gallery_alt' label='Alt / SEO' type='text' />
         <cms:editable name='final_gallery_category' label='Вкладка'
-            opt_values='Interior=interior | Menu=menu | Vibe=vibe'
+            opt_values='Interior=interior | Kitchen=menu | Vibe=vibe'
             type='dropdown' />
     </cms:repeatable>
 

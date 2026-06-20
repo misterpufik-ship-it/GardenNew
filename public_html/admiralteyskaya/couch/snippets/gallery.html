@@ -242,7 +242,9 @@
     .ratio-1-1 { width: 75%; aspect-ratio: 1/1; }
 
     @media (min-width: 768px) {
-        .ratio-3-2, .ratio-1-1 { width: calc(25% - 12px); }
+        .ratio-1-1 { width: calc(25% - 12px); }
+        .ratio-3-2 { width: calc(25% - 12px); }
+        #tab-interior .ratio-3-2 { width: calc((25% - 12px) * 1.5); }
     }
 
     .slider-relative-box { position: relative; width: 100%; }
@@ -421,7 +423,7 @@
         <div class="widget-limiter px-4">
             <div class="flex justify-center gap-8 mb-8">
                 <button onclick="changeWidgetTab('tab-interior', this)" class="tab-btn-link active">Interior</button>
-                <button onclick="changeWidgetTab('tab-food', this)" class="tab-btn-link">Menu</button>
+                <button onclick="changeWidgetTab('tab-food', this)" class="tab-btn-link">Kitchen</button>
                 <button onclick="changeWidgetTab('tab-vibe', this)" class="tab-btn-link">Vibe</button>
             </div>
 
