@@ -44,8 +44,15 @@
     }
 
     @media (min-width: 768px) {
-        #bf-tab-interior .ratio-3-2 {
+        #bf-tab-interior .ratio-3-2,
+        #bf-tab-vibe .ratio-3-2 {
             width: calc((25% - 12px) * 1.5);
+        }
+    }
+
+    @media (max-width: 767px) {
+        #bf-tab-vibe .ratio-3-2 {
+            width: calc(75% * 1.5);
         }
     }
 

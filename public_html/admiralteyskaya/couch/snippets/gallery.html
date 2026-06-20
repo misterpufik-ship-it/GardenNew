@@ -242,7 +242,14 @@
     @media (min-width: 768px) {
         .ratio-1-1 { width: calc(25% - 12px); }
         .ratio-3-2 { width: calc(25% - 12px); }
-        #tab-interior .ratio-3-2 { width: calc((25% - 12px) * 1.5); }
+        #tab-interior .ratio-3-2,
+        #tab-vibe .ratio-3-2 { width: calc((25% - 12px) * 1.5); }
+    }
+
+    @media (max-width: 767px) {
+        #tab-vibe .ratio-3-2 {
+            width: calc(75% * 1.5);
+        }
     }
 
     .slider-relative-box { position: relative; width: 100%; }
