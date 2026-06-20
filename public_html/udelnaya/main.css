@@ -8,14 +8,14 @@
     --gold-dark: #8e7037;
     --gold-light: #FFEebb;
     --bg-black: #000000;
-    --gl-section-py: clamp(56px, 7vw, 72px);
+    --gl-section-py: clamp(60px, 7.2vw, 78px);
     --gl-gold-gap: 12px;
     --gl-section-head-mb: 3rem;
 }
 
 @media (max-width: 767px) {
     :root {
-        --gl-section-py: 48px;
+        --gl-section-py: 52px;
         --gl-section-head-mb: 2.5rem;
     }
 }
