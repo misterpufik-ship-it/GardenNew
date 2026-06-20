@@ -349,6 +349,12 @@
             const MAIN_TABS_WITH_SUBTABS = { 'kitchen': 'subtabs-kitchen', 'bar-alc': 'subtabs-bar-alc', 'bar-non': 'subtabs-bar-non' };
             const ACTIVE_SUBTAB = { 'kitchen': 'snacks', 'bar-alc': 'beer', 'bar-non': 'tea_coffee', 'hookahs': 'all', 'promos': 'all' };
 
+            function scrollMenuToTop() {
+                const nav = document.querySelector('.nav-sticky');
+                if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                else window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
             function showSubtabsFor(tabId){
                 document.querySelectorAll('.subtabs-wrap').forEach(el => el.style.display = 'none');
                 if(MAIN_TABS_WITH_SUBTABS[tabId]){
@@ -372,7 +378,7 @@
                 });
             }
 
-            function switchTab(tabId) {
+            function switchTab(tabId, scrollTop = true) {
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 const target = document.getElementById(tabId);
                 if(target) target.classList.add('active');
@@ -383,7 +389,7 @@
 
                 showSubtabsFor(tabId);
                 applySubtabFilter(tabId);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (scrollTop) scrollMenuToTop();
             }
 
             function switchSubtab(tabId, subId){
@@ -396,6 +402,7 @@
                     if(targetBtn) targetBtn.classList.add('active');
                 }
                 applySubtabFilter(tabId);
+                scrollMenuToTop();
             }
 
             function openLoyaltyModal() { 
@@ -408,7 +415,7 @@
             }
 
             document.addEventListener('DOMContentLoaded', () => {
-                switchTab('hookahs');
+                switchTab('hookahs', false);
             });
         </script>
     </body>

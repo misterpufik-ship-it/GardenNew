@@ -548,7 +548,13 @@ require_once $garden_cms;
     const SUBTABS = { 'kitchen': 'subtabs-kitchen', 'bar-alc': 'subtabs-bar-alc', 'bar-non': 'subtabs-bar-non' };
     const ACTIVE = { 'kitchen': 'snacks', 'bar-alc': 'beer', 'bar-non': 'tea_coffee' };
 
-    function switchTab(id) {
+    function scrollMenuToTop() {
+        const nav = document.querySelector('.nav-sticky');
+        if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchTab(id, scrollTop = true) {
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
         const target = document.getElementById(id);
         if(target) target.classList.add('active');
@@ -560,6 +566,7 @@ require_once $garden_cms;
         document.querySelectorAll('.subtabs-wrap').forEach(w => w.style.display = 'none');
         if(SUBTABS[id]) document.getElementById(SUBTABS[id]).style.display = 'flex';
         filter(id);
+        if (scrollTop) scrollMenuToTop();
     }
 
     function switchSubtab(tab, sub) {
@@ -569,6 +576,7 @@ require_once $garden_cms;
         const activeSubBtn = Array.from(wrap.querySelectorAll('.subtab-btn')).find(b => b.getAttribute('data-sub') === sub);
         if(activeSubBtn) activeSubBtn.classList.add('active');
         filter(tab);
+        scrollMenuToTop();
     }
 
     function filter(tab) {
@@ -591,7 +599,7 @@ require_once $garden_cms;
         document.body.style.overflow = 'auto';
     }
 
-    document.addEventListener('DOMContentLoaded', () => { switchTab('hookahs'); });
+    document.addEventListener('DOMContentLoaded', () => { switchTab('hookahs', false); });
 </script>
 
 </body>
