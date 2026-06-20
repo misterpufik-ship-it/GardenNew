@@ -253,6 +253,14 @@
             text-align: center;
         }
 
+        .footer-branch-admiral,
+        .footer-branch-udelnaya {
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            max-width: 330px;
+        }
+
         .footer-description {
             max-width: 330px;
             text-align: center;
@@ -263,12 +271,18 @@
             margin: 0 auto;
         }
 
+        .footer-branch-admiral .footer-heading-wrap,
+        .footer-branch-udelnaya .footer-heading-wrap {
+            margin: 0;
+            max-width: none;
+        }
+
         .footer-info-link,
         .footer-info-row {
-            grid-template-columns: 1fr;
-            justify-items: center;
-            text-align: center;
-            gap: 7px;
+            grid-template-columns: 18px minmax(0, 1fr);
+            justify-items: start;
+            text-align: left;
+            gap: 10px;
         }
 
         .footer-phone-row,
@@ -276,8 +290,30 @@
             justify-content: center;
         }
 
+        .footer-branch-admiral .footer-phone-row {
+            justify-content: flex-start;
+        }
+
+        .footer-branch-udelnaya .footer-phone-row {
+            justify-content: flex-start;
+        }
+
+        .footer-nav-col {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .footer-nav-col .footer-heading-wrap {
+            margin: 0 auto;
+        }
+
         .footer-nav-list {
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px 14px;
+            width: 100%;
+            align-items: start;
+            justify-items: center;
         }
     }
 </style>
