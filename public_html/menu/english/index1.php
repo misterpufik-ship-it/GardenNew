@@ -350,9 +350,13 @@
             const ACTIVE_SUBTAB = { 'kitchen': 'snacks', 'bar-alc': 'beer', 'bar-non': 'tea_coffee', 'hookahs': 'all', 'promos': 'all' };
 
             function scrollMenuToTop() {
-                const nav = document.querySelector('.nav-sticky');
-                if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                else window.scrollTo({ top: 0, behavior: 'smooth' });
+                const target = document.querySelector('main.max-w-2xl') || document.querySelector('.nav-sticky');
+                if (!target) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const y = target.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({ top: Math.max(0, y - 4), behavior: 'smooth' });
             }
 
             function showSubtabsFor(tabId){

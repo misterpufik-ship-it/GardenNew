@@ -549,9 +549,13 @@ require_once $garden_cms;
     const ACTIVE = { 'kitchen': 'snacks', 'bar-alc': 'beer', 'bar-non': 'tea_coffee' };
 
     function scrollMenuToTop() {
-        const nav = document.querySelector('.nav-sticky');
-        if (nav) nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        else window.scrollTo({ top: 0, behavior: 'smooth' });
+        const target = document.querySelector('main.max-w-2xl') || document.querySelector('.nav-sticky');
+        if (!target) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+        const y = target.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: Math.max(0, y - 4), behavior: 'smooth' });
     }
 
     function switchTab(id, scrollTop = true) {

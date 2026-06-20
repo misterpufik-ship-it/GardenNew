@@ -322,14 +322,27 @@
             transform: translateX(6px) !important;
         }
         .mobile-quick-link {
-            width: 30px !important;
-            height: 30px !important;
+            width: 36px !important;
+            height: 36px !important;
             padding: 0 !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            color: var(--gold-main) !important;
-            transition: color 0.25s ease, transform 0.25s ease;
+            border-radius: 50% !important;
+            border: 1px solid rgba(197, 160, 89, 0.55) !important;
+            background: transparent !important;
+            box-sizing: border-box !important;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+        .mobile-quick-link__badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #d4b06a 0%, #C5A059 55%, #a8843f 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 1px 0 rgba(255, 236, 190, 0.28);
         }
         .mobile-quick-link:hover,
         .mobile-quick-link:focus,
@@ -339,20 +352,27 @@
         .burger-btn:active {
             color: var(--gold-main) !important;
         }
+        .mobile-quick-link:hover,
+        .mobile-quick-link:focus,
+        .mobile-quick-link:active {
+            transform: scale(1.04);
+            border-color: rgba(197, 160, 89, 0.85) !important;
+        }
         .burger-btn:hover i,
         .burger-btn:focus i,
         .burger-btn:active i {
             color: var(--gold-main) !important;
         }
-        .mobile-quick-link i {
-            font-size: 17px !important;
+        .mobile-quick-link__badge i {
+            color: #000 !important;
+            font-size: 12px !important;
             line-height: 1 !important;
         }
-        .mobile-quick-link .fa-telegram-plane {
-            font-size: 18px !important;
+        .mobile-quick-link__badge .fa-telegram-plane {
+            font-size: 13px !important;
         }
         .mobile-quick-link + .mobile-quick-link {
-            margin-left: -2px !important;
+            margin-left: 4px !important;
         }
         #mobileBranchTrigger {
             position: absolute !important;
@@ -600,8 +620,8 @@
 
     <div class="mobile-nav-zone md:hidden flex items-center justify-between w-full relative">
         <div class="mobile-quick-links flex items-center gap-0 z-20">
-            <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-quick-link text-[#C5A059] p-2"><i class="fas fa-phone-alt text-lg"></i></a>
-            <a href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if></cms:if>" target="_blank" rel="noopener" class="mobile-quick-link text-[#C5A059] p-2"><i class="fab fa-telegram-plane text-xl"></i></a>
+            <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-quick-link" aria-label="Позвонить" title="Позвонить"><span class="mobile-quick-link__badge"><i class="fas fa-phone-alt"></i></span></a>
+            <a href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if></cms:if>" target="_blank" rel="noopener" class="mobile-quick-link" title="Написать в Telegram" aria-label="Написать в Telegram"><span class="mobile-quick-link__badge"><i class="fab fa-telegram-plane"></i></span></a>
         </div>
 
         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center flex flex-col items-center cursor-pointer" id="mobileBranchTrigger">
