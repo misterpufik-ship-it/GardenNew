@@ -154,3 +154,19 @@ function garden_remove_couch_footer( &$html ){
 }
 
 $FUNCS->add_event_listener( 'alter_final_page_output', 'garden_remove_couch_footer' );
+
+function garden_admin_login_css(){
+    global $FUNCS;
+
+    $css = <<<'CSS'
+#simple-page .garden-admin-brand{padding:22px 16px 20px}
+#simple-page .garden-admin-brand__logo,#simple-page #simple-logo{max-width:340px!important;max-height:110px!important;width:min(78vw,340px)!important}
+#simple-page .garden-admin-brand__subtitle{margin-top:16px;font-size:14px;letter-spacing:.36em}
+#simple-page #simple-wrap .panel-heading.simple-heading{display:flex!important;justify-content:center!important;align-items:center!important;padding:12px 15px!important;color:#fff!important;text-align:center!important;background-image:none!important;text-shadow:none!important;font-weight:600}
+#simple-page #simple-wrap .panel-heading.simple-heading .login-heading{display:block!important;width:100%!important;color:#fff!important;text-align:center!important;text-shadow:none!important;font-size:15px;letter-spacing:.06em}
+CSS;
+
+    $FUNCS->add_css( $css );
+}
+
+$FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_login_css' );
