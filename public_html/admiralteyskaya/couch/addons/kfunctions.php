@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if ( !defined('K_COUCH_DIR') ) die();
 
 function garden_admin_label_defaults(){
@@ -178,6 +178,10 @@ function garden_admin_branding_output( &$html ){
         $html,
         1
     );
+    $fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">';
+    if ( strpos( $html, 'fonts.googleapis.com' ) === false ) {
+        $html = preg_replace( '#</head>#', $fonts . "\n</head>", $html, 1 );
+    }
     if ( defined( 'K_THEME_URL' ) && defined( 'K_THEME_DIR' ) && K_THEME_URL && is_file( K_THEME_DIR . 'styles.css' ) ) {
         $ver = filemtime( K_THEME_DIR . 'styles.css' );
         $html = str_replace( K_THEME_URL . 'styles.css', K_THEME_URL . 'styles.css?v=' . $ver, $html );
@@ -224,6 +228,29 @@ CSS;
 }
 
 $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_sidebar_css' );
+
+function garden_admin_typography_css(){
+    global $FUNCS;
+
+    $css = <<<'CSS'
+body,input,select,textarea,.btn,.label,.field-label,.table,.tab>a{font-family:'Montserrat',Arial,sans-serif}
+#header-title,#header-title a,.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend,#content .panel>.panel-heading:not(.simple-heading):not(.panel-primary){font-family:'Cormorant Garamond',Georgia,serif!important;font-style:italic;font-weight:600;letter-spacing:.02em}
+#header-title,#header-title a{color:#C5A059!important;text-shadow:none!important}
+.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend{color:#C5A059!important;background-color:#1a1a1a!important;background-image:none!important;border-color:rgba(197,160,89,.28)!important;text-shadow:none!important;font-size:22px;line-height:1.2;padding-top:11px;padding-bottom:11px}
+.group-wrapper .panel-heading.panel-toggle:hover,.group-wrapper .panel-heading.panel-toggle:focus{color:#d4b06a!important}
+.group-wrapper .panel-heading.panel-toggle .desc,.group-wrapper .panel-heading.panel-toggle .k_desc{color:rgba(197,160,89,.72)!important;font-family:'Montserrat',Arial,sans-serif!important;font-style:normal!important;font-size:12px;font-weight:500}
+.group-wrapper .panel-heading.panel-toggle:after{color:#C5A059!important;text-shadow:none!important}
+.group-wrapper .panel-heading.panel-toggle:hover:after,.group-wrapper .panel-heading.panel-toggle:focus:after{background-color:#C5A059!important;color:#111!important;box-shadow:none!important}
+fieldset.row_fieldset legend:after{color:#C5A059!important}
+fieldset.row_fieldset legend:hover:after,fieldset.row_fieldset legend:focus:after{background-color:#C5A059!important;color:#111!important}
+.nav-heading,.nav-heading-toggle{font-family:'Cormorant Garamond',Georgia,serif!important;font-style:italic;letter-spacing:.08em}
+CSS;
+
+    $FUNCS->add_css( $css );
+}
+
+$FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_typography_css' );
+
 
 
 require_once K_ADDONS_DIR . 'garden-cache/garden-cache.php';
