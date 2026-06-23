@@ -12,7 +12,7 @@
     <meta name="keywords" content="<cms:show home_seo_keywords />">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://garden-lounge.pro/">
-    <link rel="icon" type="image/png" href="<cms:if home_favicon><cms:show home_favicon /><cms:else />/udelnaya/favicon.png</cms:if>">
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_favicon_render_tags('/favicon.png'); ?>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/">
     <meta property="og:title" content="<cms:show home_seo_title />">
