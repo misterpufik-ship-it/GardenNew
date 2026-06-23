@@ -40,3 +40,18 @@ input[type=text]:focus,input[type=text]:hover:focus,input[type=password]:focus,i
 #simple-wrap .simple-content{background-color:#fafafa}
 #simple-wrap .btn.btn-primary{background-color:var(--gl-gold-dark)}
 #simple-wrap .btn.btn-primary:hover,#simple-wrap .btn.btn-primary:focus{background-color:var(--gl-gold);color:#111}
+
+/* Inner admin: tabs, secondary buttons, panels */
+#header .tab>a{color:#ddd;border-color:transparent}
+#header .tab>a.tab-active,#header .tab>a:hover,#header .tab>a:focus{color:#fff;background-color:rgba(197,160,89,.18);border-color:var(--gl-border)}
+.btn.btn-alt{color:#222;border-color:#bbb;background-color:#f3f3f3}
+.btn.btn-alt:hover,.btn.btn-alt:focus{color:#111;border-color:var(--gl-gold);background-color:#fff}
+#header-inner>.btn-group .btn.btn-alt{color:#f0f0f0;border-color:rgba(197,160,89,.35);background-color:rgba(255,255,255,.06)}
+#header-inner>.btn-group .btn.btn-alt:hover,#header-inner>.btn-group .btn.btn-alt:focus{color:#fff;border-color:var(--gl-gold);background-color:rgba(197,160,89,.2)}
+.panel-heading{color:#222;border-color:#ddd}
+.panel-toggle{color:#333}
+.table>tbody>tr:hover>td{background-color:rgba(197,160,89,.06)}
+#scroll-content{background-color:#ececec}
+#sidebar-toggle{border-color:rgba(197,160,89,.45);fill:var(--gl-gold)}
+#sidebar-toggle:hover,#sidebar-toggle:focus{border-color:var(--gl-gold);fill:#fff}
+.toast-info,.alert-info{border-color:rgba(197,160,89,.45);background-color:#fff8e8;color:#6b5424;fill:#8e7037}
