@@ -106,12 +106,24 @@ img, video { max-width: 100%; height: auto; display: block; }
   visibility: visible;
   transition: opacity 0.8s ease, visibility 0.8s ease;
   pointer-events: all;
+  overflow: hidden;
 }
 
 #preloader-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
+}
+
+@media (max-width: 767px) {
+  #preloader-video {
+    width: auto;
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
 }
 
 .preloader-hidden {

@@ -122,9 +122,13 @@ function gl_preloader_video_url()
 
 function gl_preloader_render_styles()
 {
+    $settings = garden_preloader_get_settings();
+    $mobile_fit = $settings['mobile_object_fit'] === 'cover' ? 'cover' : 'contain';
+
     echo '<style>
-#preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:10001;opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease;pointer-events:all}
-#preloader-video{width:100%;height:100%;object-fit:cover}
+#preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:10001;opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease;pointer-events:all;overflow:hidden}
+#preloader-video{width:100%;height:100%;object-fit:cover;object-position:center center}
+@media (max-width:767px){#preloader-video{width:auto;max-width:100%;height:100%;object-fit:' . $mobile_fit . ';object-position:center center}}
 .preloader-hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 body.loading{overflow:hidden!important;height:100vh}
 </style>' . "\n";
@@ -136,9 +140,7 @@ function gl_preloader_render_head($include_styles = false)
         return;
     }
 
-    if ($include_styles) {
-        gl_preloader_render_styles();
-    }
+    gl_preloader_render_styles();
 
     $video = htmlspecialchars(gl_preloader_video_url(), ENT_QUOTES, 'UTF-8');
     echo '<link rel="preload" as="video" href="' . $video . '" type="video/mp4">' . "\n";
@@ -154,6 +156,7 @@ function gl_preloader_render()
     $video = htmlspecialchars(gl_preloader_video_url(), ENT_QUOTES, 'UTF-8');
     $min_time = (int)$settings['min_time'];
     $max_time = (int)$settings['max_time'];
+    $playback_rate = (float)$settings['playback_rate'];
 
     echo '<div id="preloader" aria-hidden="true"><video id="preloader-video" src="' . $video . '" autoplay muted playsinline preload="auto"></video></div>' . "\n";
     echo '<script>
@@ -163,7 +166,7 @@ function gl_preloader_render()
     var video=document.getElementById("preloader-video");
     if(!preloader)return;
     var hidden=false,pageLoaded=false,videoDone=false;
-    var minTime=' . $min_time . ',maxTime=' . $max_time . ',start=Date.now();
+    var minTime=' . $min_time . ',maxTime=' . $max_time . ',playbackRate=' . $playback_rate . ',start=Date.now();
     function doHide(){
         if(hidden)return;
         hidden=true;
@@ -180,6 +183,8 @@ function gl_preloader_render()
     }
     window.addEventListener("load",function(){pageLoaded=true;tryHide();});
     if(video){
+        video.defaultPlaybackRate=playbackRate;
+        video.playbackRate=playbackRate;
         video.addEventListener("ended",function(){videoDone=true;tryHide();});
         video.addEventListener("error",function(){videoDone=true;tryHide();});
         var p=video.play();

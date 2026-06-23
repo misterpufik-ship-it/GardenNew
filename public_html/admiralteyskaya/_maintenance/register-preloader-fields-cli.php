@@ -26,6 +26,8 @@ $fields = array(
     array('name' => 'preloader_video', 'label' => 'Видео (путь или URL)', 'type' => 'text', 'group' => 'group_preloader', 'order' => 6, 'default' => '/video/preloader.mp4'),
     array('name' => 'preloader_min_time', 'label' => 'Минимальное время показа (мс)', 'type' => 'text', 'group' => 'group_preloader', 'order' => 7, 'default' => '1200'),
     array('name' => 'preloader_max_time', 'label' => 'Максимальное время показа (мс)', 'type' => 'text', 'group' => 'group_preloader', 'order' => 8, 'default' => '8000'),
+    array('name' => 'preloader_playback_rate', 'label' => 'Скорость воспроизведения', 'type' => 'text', 'group' => 'group_preloader', 'order' => 9, 'default' => '1.3'),
+    array('name' => 'preloader_mobile_object_fit', 'label' => 'Видео на мобильных', 'type' => 'dropdown', 'group' => 'group_preloader', 'order' => 10, 'opt_values' => 'Вписать без обрезки=contain | На весь экран=cover', 'default' => 'contain'),
 );
 
 $tpl = $DB->select(K_DB_TABLES_PREFIX . 'couch_templates', array('id'), "name = '" . $DB->sanitize($template_name) . "'");

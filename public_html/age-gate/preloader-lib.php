@@ -98,6 +98,8 @@ function garden_preloader_default_settings()
         'video' => '/video/preloader.mp4',
         'min_time' => 1200,
         'max_time' => 8000,
+        'playback_rate' => 1.3,
+        'mobile_object_fit' => 'contain',
     );
 }
 
@@ -163,6 +165,16 @@ function garden_preloader_get_settings()
         $max_time = $defaults['max_time'];
     }
 
+    $playback_rate = (float)str_replace(',', '.', garden_preloader_get_field_value('preloader_playback_rate'));
+    if ($playback_rate < 0.5 || $playback_rate > 3) {
+        $playback_rate = $defaults['playback_rate'];
+    }
+
+    $mobile_object_fit = garden_preloader_get_field_value('preloader_mobile_object_fit');
+    if (!in_array($mobile_object_fit, array('contain', 'cover'), true)) {
+        $mobile_object_fit = $defaults['mobile_object_fit'];
+    }
+
     $settings = array(
         'enabled' => $enabled,
         'scope_mode' => $scope_mode,
@@ -170,6 +182,8 @@ function garden_preloader_get_settings()
         'video' => $video,
         'min_time' => $min_time,
         'max_time' => $max_time,
+        'playback_rate' => $playback_rate,
+        'mobile_object_fit' => $mobile_object_fit,
     );
 
     return $settings;
