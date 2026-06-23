@@ -1,7 +1,19 @@
 ﻿<?php require_once( 'couch/cms.php' ); ?>
 <cms:template title='Общая страница' order='220'>
+
+    <cms:editable name='group_preloader' label='Прелоадер при загрузке' type='group' order='1' />
+    <cms:editable name='preloader_intro' label='Справка' group='group_preloader' type='message' order='2'>
+        Видео-прелоадер показывается при открытии страницы до полной загрузки сайта. Если отключён — видео и скрипт не подключаются.
+        Разделы: home — главная garden-lounge.pro; admiral — /admiralteyskaya/; udelnaya — /udelnaya/; admiral_udelnaya — /admiralteyskaya/udelnaya/.
+    </cms:editable>
+    <cms:editable name='preloader_enabled' label='Включить прелоадер' group='group_preloader' type='dropdown' opt_values='Нет=0 | Да=1' order='3'>1</cms:editable>
+    <cms:editable name='preloader_scope_mode' label='Режим показа' group='group_preloader' type='dropdown' opt_values='На всех выбранных разделах=all | Только на выбранных=include | Везде, кроме выбранных=exclude' order='4'>all</cms:editable>
+    <cms:editable name='preloader_sections' label='Разделы сайта' group='group_preloader' type='text' order='5' desc='Через запятую: home, admiral, udelnaya, admiral_udelnaya'>home, admiral, udelnaya, admiral_udelnaya</cms:editable>
+    <cms:editable name='preloader_video' label='Видео (путь или URL)' group='group_preloader' type='text' order='6' desc='По умолчанию /video/preloader.mp4. Можно указать полный URL или путь от корня сайта.'>/video/preloader.mp4</cms:editable>
+    <cms:editable name='preloader_min_time' label='Минимальное время показа (мс)' group='group_preloader' type='text' order='7' desc='Чтобы прелоадер не мигал при быстрой загрузке.'>1200</cms:editable>
+    <cms:editable name='preloader_max_time' label='Максимальное время показа (мс)' group='group_preloader' type='text' order='8' desc='Принудительно скрыть, если видео или страница зависли.'>8000</cms:editable>
     
-    <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text'>Philosophy</cms:editable>
+    <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text' order='20'>Philosophy</cms:editable>
     <cms:editable name='phil_concept' label='Текст концепции (надпись)' type='text'>Концепция</cms:editable>
     <cms:editable name='phil_content' label='Основной текст (Редактор)' type='richtext'>
         Магический вечнозеленый сад, скрытый от городской суеты в самом сердце Петербурга.
@@ -42,7 +54,7 @@
     <title><cms:if page_title><cms:show page_title /><cms:else /><cms:show global_title /></cms:if></title>
     <meta name="description" content="<cms:if page_desc><cms:show page_desc /><cms:else /><cms:show global_desc /></cms:if>">
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='header.php' limit='1'>
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(min-width: 768px)" fetchpriority="high">
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(max-width: 767px)" fetchpriority="high">
@@ -119,6 +131,8 @@
     </style>
 </head>
 <body>
+
+    <?php gl_preloader_render(); ?>
 
     <cms:pages masterpage='header.php' limit='1'><cms:embed 'header.html' /></cms:pages>
     <cms:pages masterpage='about.php' limit='1'><cms:embed 'about.html' /></cms:pages>

@@ -12,7 +12,7 @@
     <meta name="keywords" content="<cms:show home_seo_keywords />">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://garden-lounge.pro/">
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_favicon_render_tags('/favicon.png'); ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_favicon_render_tags('/favicon.png'); gl_age_gate_render_assets(); gl_preloader_render_head(true); ?>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/">
     <meta property="og:title" content="<cms:show home_seo_title />">
@@ -741,6 +741,7 @@
     </cms:pages>
 </head>
 <body class="<cms:show home_body_class />">
+    <?php gl_preloader_render(); ?>
     <main class="page">
         <cms:pages masterpage='home.php' limit='1'>
         <cms:embed 'home-page.html' />

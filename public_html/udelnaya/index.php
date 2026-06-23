@@ -65,7 +65,7 @@ require_once $garden_cms;
     <title><cms:if page_title><cms:show page_title /><cms:else /><cms:show global_title /></cms:if></title>
     <meta name="description" content="<cms:if page_desc><cms:show page_desc /><cms:else /><cms:show global_desc /></cms:if>">
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
         <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(min-width: 768px)" fetchpriority="high">
         <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(max-width: 767px)" fetchpriority="high">
@@ -154,6 +154,8 @@ require_once $garden_cms;
     </style>
 </head>
 <body>
+
+    <?php gl_preloader_render(); ?>
 
     <cms:set is_udelnaya='1' 'global' />
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
