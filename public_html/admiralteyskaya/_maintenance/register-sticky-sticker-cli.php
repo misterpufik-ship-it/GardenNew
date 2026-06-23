@@ -4,11 +4,30 @@
  *
  * CLI:
  *   php _maintenance/register-sticky-sticker-cli.php
+ *
+ * HTTP:
+ *   /admiralteyskaya/_maintenance/register-sticky-sticker-cli.php?key=<md5>
+ *   key = md5('garden-lounge-register-sticky')
  */
+
+$isWeb = (PHP_SAPI !== 'cli');
+if ($isWeb) {
+    $expectedKey = md5('garden-lounge-register-sticky');
+    if ((isset($_GET['key']) ? $_GET['key'] : '') !== $expectedKey) {
+        http_response_code(403);
+        exit("Forbidden\n");
+    }
+    header('Content-Type: text/plain; charset=utf-8');
+}
 
 $root = realpath(__DIR__ . '/..');
 if (!$root) {
-    fwrite(STDERR, "Cannot resolve template root\n");
+    $msg = "Cannot resolve template root\n";
+    if ($isWeb) {
+        echo $msg;
+    } else {
+        fwrite(STDERR, $msg);
+    }
     exit(1);
 }
 
@@ -18,7 +37,12 @@ require_once $root . '/couch/cms.php';
 global $AUTH, $DB;
 
 if (!isset($AUTH->user) || !is_object($AUTH->user)) {
-    fwrite(STDERR, "Couch auth not initialized\n");
+    $msg = "Couch auth not initialized\n";
+    if ($isWeb) {
+        echo $msg;
+    } else {
+        fwrite(STDERR, $msg);
+    }
     exit(1);
 }
 
@@ -28,14 +52,14 @@ $targets = [
     [
         'file' => $root . '/sticky-sticker.php',
         'uri' => '/admiralteyskaya/sticky-sticker.php',
-        'name' => 'sticky-sticker.php',
+        'name' => 'sticky_sticker',
         'page_title' => 'Липкий стикер',
     ],
     [
         'file' => dirname($root) . '/udelnaya/sticky-sticker.php',
         'uri' => '/udelnaya/sticky-sticker.php',
-        'name' => 'udelnaya/sticky-sticker.php',
-        'page_title' => 'Липкий стикер (Удельная)',
+        'name' => 'sticky_sticker_udel',
+        'page_title' => 'Липкий стикер',
     ],
 ];
 
@@ -45,7 +69,12 @@ $pages = K_DB_TABLES_PREFIX . 'couch_pages';
 
 foreach ($targets as $target) {
     if (!is_file($target['file'])) {
-        fwrite(STDERR, "Missing file: {$target['file']}\n");
+        $msg = "Missing file: {$target['file']}\n";
+        if ($isWeb) {
+            echo $msg;
+        } else {
+            fwrite(STDERR, $msg);
+        }
         exit(1);
     }
 
@@ -63,7 +92,12 @@ foreach ($targets as $target) {
 
     $tplRows = $DB->select($templates, array('id', 'name', 'title'), "name='" . $DB->sanitize($target['name']) . "'");
     if (!count($tplRows)) {
-        echo "Template {$target['name']} not found in DB\n";
+        $msg = "Template {$target['name']} not found in DB\n";
+        if ($isWeb) {
+            echo $msg;
+        } else {
+            fwrite(STDERR, $msg);
+        }
         exit(1);
     }
 
