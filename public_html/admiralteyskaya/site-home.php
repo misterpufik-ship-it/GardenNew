@@ -801,6 +801,7 @@
             });
         });
     </script>
+    <cms:embed 'age-gate.html' />
 </body>
 </html>
 <?php COUCH::invoke(); ?>
