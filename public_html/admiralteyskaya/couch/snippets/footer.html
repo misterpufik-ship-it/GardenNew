@@ -244,7 +244,7 @@
     @media (max-width: 767px) {
         .footer-inner {
             grid-template-columns: 1fr;
-            gap: 34px;
+            gap: 26px;
             padding: 38px 18px 62px;
         }
 
@@ -254,11 +254,11 @@
         }
 
         .footer-branch-admiral,
-        .footer-branch-udelnaya {
-            align-items: flex-start;
-            text-align: left;
+        .footer-branch-udelnaya,
+        .footer-nav-col {
             width: 100%;
-            max-width: 330px;
+            max-width: 340px;
+            margin: 0 auto;
         }
 
         .footer-description {
@@ -271,18 +271,25 @@
             margin: 0 auto;
         }
 
-        .footer-branch-admiral .footer-heading-wrap,
-        .footer-branch-udelnaya .footer-heading-wrap {
-            margin: 0;
-            max-width: none;
+        .footer-list {
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-list > li {
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
 
         .footer-info-link,
         .footer-info-row {
+            display: inline-grid;
             grid-template-columns: 18px minmax(0, 1fr);
             justify-items: start;
             text-align: left;
             gap: 10px;
+            max-width: 100%;
         }
 
         .footer-phone-row,
@@ -290,27 +297,11 @@
             justify-content: center;
         }
 
-        .footer-branch-admiral .footer-phone-row {
-            justify-content: flex-start;
-        }
-
-        .footer-branch-udelnaya .footer-phone-row {
-            justify-content: flex-start;
-        }
-
-        .footer-nav-col {
-            width: 100%;
-            max-width: 360px;
-        }
-
-        .footer-nav-col .footer-heading-wrap {
-            margin: 0 auto;
-        }
-
         .footer-nav-list {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 10px 14px;
+            grid-template-rows: repeat(2, auto);
+            gap: 10px 12px;
             width: 100%;
             align-items: start;
             justify-items: center;
