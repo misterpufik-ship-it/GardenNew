@@ -1,4 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; ?>
 <cms:template title='Главная (сайт)' order='0' hidden='1' />
 
 <!DOCTYPE html>
@@ -6,13 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php gl_favicon_render_tags('/favicon.png'); gl_age_gate_render_assets(); gl_preloader_render_head(true); ?>
     <cms:pages masterpage='home.php' limit='1'>
     <title><cms:show home_seo_title /></title>
     <meta name="description" content="<cms:show home_seo_desc />">
     <meta name="keywords" content="<cms:show home_seo_keywords />">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://garden-lounge.pro/">
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_favicon_render_tags('/favicon.png'); gl_age_gate_render_assets(); gl_preloader_render_head(true); ?>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/">
     <meta property="og:title" content="<cms:show home_seo_title />">
