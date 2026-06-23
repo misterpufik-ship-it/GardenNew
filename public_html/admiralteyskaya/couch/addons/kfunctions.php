@@ -170,3 +170,6 @@ CSS;
 }
 
 $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_login_css' );
+
+require_once K_ADDONS_DIR . 'garden-cache/garden-cache.php';
+
