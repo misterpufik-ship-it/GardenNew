@@ -2,19 +2,7 @@
 RewriteEngine On
 
 # -------------------------------------------------
-# 1. Редирект http -> https
-# -------------------------------------------------
-RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-# -------------------------------------------------
-# 2. Приводим www -> без www (одно зеркало)
-# -------------------------------------------------
-RewriteCond %{HTTP_HOST} ^www\.garden-lounge\.pro$ [NC]
-RewriteRule ^ https://garden-lounge.pro%{REQUEST_URI} [R=301,L]
-
-# -------------------------------------------------
-# 3. Убираем index.php из URL (красивые адреса)
+# 1. Убираем index.php из URL (красивые адреса)
 # -------------------------------------------------
 RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.php[\s?] [NC]
 RewriteRule ^(.*/)?index\.php$ https://%{HTTP_HOST}/$1 [R=301,L]
@@ -70,10 +58,10 @@ RewriteRule ^(.*/)?index\.php$ https://%{HTTP_HOST}/$1 [R=301,L]
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
     
-    # Защита от кликджекинга и XSS (безопасность)
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
-    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 </IfModule>
 
 # -------------------------------------------------

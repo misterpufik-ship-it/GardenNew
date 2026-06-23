@@ -190,8 +190,6 @@ require_once $garden_cms;
             btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
         })();
     </script>
-    <link rel="stylesheet" href="/age-gate/age-gate.css?v=2">
-    <script src="/age-gate/age-gate.js?v=2" defer></script>
 </body>
 </html>
 <?php COUCH::invoke(); ?>

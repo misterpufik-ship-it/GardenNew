@@ -801,8 +801,7 @@
             });
         });
     </script>
-    <link rel="stylesheet" href="/age-gate/age-gate.css?v=2">
-    <script src="/age-gate/age-gate.js?v=2" defer></script>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_age_gate_render_assets(); ?>
 </body>
 </html>
 <?php COUCH::invoke(); ?>
