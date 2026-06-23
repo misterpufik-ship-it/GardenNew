@@ -28,20 +28,22 @@ require_once $garden_cms;
     <cms:editable name='appear_delay' label='Задержка появления (сек)' group='grp_sticker' type='text'>10</cms:editable>
 
     <cms:editable name='grp_modal' label='Всплывающее окно' type='group' order='2' />
-    <cms:editable name='modal_logo' label='Логотип филиала (слева)' group='grp_modal' type='image' show_preview='1' preview_width='120'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
+    <cms:editable name='modal_logo' label='Логотип филиала (сверху)' group='grp_modal' type='image' show_preview='1' preview_width='120'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
     <cms:editable name='modal_title' label='Заголовок' group='grp_modal' type='text'>Garden Lounge — Адмиралтейская</cms:editable>
     <cms:editable name='modal_lead' label='Текст' group='grp_modal' type='textarea'>Флагманский лаунж в центре Петербурга на набережной Мойки. Кальяны, авторская кухня, бар, VIP-комнаты и атмосфера Garden в самом сердце города.</cms:editable>
     <cms:editable name='modal_site_url' label='Ссылка на сайт филиала' group='grp_modal' type='text'>https://garden-lounge.pro/admiralteyskaya/</cms:editable>
-    <cms:editable name='modal_site_label' label='Подпись кнопки сайта' group='grp_modal' type='text'>Сайт филиала</cms:editable>
+    <cms:editable name='modal_site_label' label='Текст кнопки на слайдере' group='grp_modal' type='text'>Войти в оазис</cms:editable>
+    <cms:editable name='modal_btn_animation' label='Анимация кнопки (как «Войти в оазис»)' group='grp_modal' type='dropdown' opt_values='Да=1 | Нет=0'>1</cms:editable>
 
-    <cms:editable name='grp_facts' label='Факты (иконка + текст)' type='group' order='3' />
-    <cms:repeatable name='modal_facts' label='Пункты' group='grp_facts'>
-        <cms:editable name='fact_icon' label='Иконка' type='dropdown' opt_values='Адрес=location-dot | Часы=clock | Телефон=phone | Метро=train-subway | Звезда=star' />
-        <cms:editable name='fact_text' label='Текст' type='textarea' />
+    <cms:editable name='grp_gallery' label='Слайдер (Interior / Vibe)' type='group' order='3' />
+    <cms:editable name='sticker_grp_interior' label='Interior — интерьер' type='group' collapsed='1' group='grp_gallery' order='10' />
+    <cms:repeatable name='modal_interior_items' label='Фото интерьера' group='sticker_grp_interior'>
+        <cms:editable name='slide_image' label='Фото' type='image' show_preview='1' preview_width='160' />
+        <cms:editable name='slide_caption' label='Подпись (alt)' type='text' />
     </cms:repeatable>
 
-    <cms:editable name='grp_gallery' label='Слайдер фото' type='group' order='4' />
-    <cms:repeatable name='modal_gallery' label='Слайды' group='grp_gallery'>
+    <cms:editable name='sticker_grp_vibe' label='Vibe — атмосфера' type='group' collapsed='1' group='grp_gallery' order='20' />
+    <cms:repeatable name='modal_vibe_items' label='Фото атмосферы' group='sticker_grp_vibe'>
         <cms:editable name='slide_image' label='Фото' type='image' show_preview='1' preview_width='160' />
         <cms:editable name='slide_caption' label='Подпись (alt)' type='text' />
     </cms:repeatable>

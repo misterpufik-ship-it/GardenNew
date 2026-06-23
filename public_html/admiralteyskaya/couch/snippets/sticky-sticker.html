@@ -1,26 +1,71 @@
 <cms:pages masterpage="<cms:show sticky_masterpage />" limit='1'>
 <cms:if sticker_enabled='1'>
+<cms:set bss_gallery_fallback='udelnaya/gallery.php' />
+<cms:if sticky_masterpage='udelnaya/sticky-sticker.php'><cms:set bss_gallery_fallback='gallery.php' /></cms:if>
+<cms:set bss_btn_animate='bss-btn-animate-on' />
+<cms:if modal_btn_animation='0'><cms:set bss_btn_animate='bss-btn-animate-off' /></cms:if>
 <style>
     #second-garden-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
     .modal-content--branch { max-width: 440px; text-align: left; padding: 28px 22px 24px; }
-    .branch-modal-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
-    .branch-modal-logo { width: 58px; height: auto; flex-shrink: 0; object-fit: contain; }
-    .branch-modal-intro .modal-title { text-align: left; font-size: 20px; margin-bottom: 8px; }
-    .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0; text-align: left; }
-    .second-garden-facts { list-style: none; margin: 12px 0 0; padding: 0; text-align: left; }
-    .second-garden-facts li { display: flex; gap: 10px; align-items: flex-start; color: #c8c0aa; font-size: 12px; line-height: 1.5; margin-bottom: 8px; }
-    .second-garden-facts i { color: var(--gold); margin-top: 2px; width: 14px; text-align: center; flex-shrink: 0; }
-    .branch-sticker-slider { position: relative; margin: 16px 0 14px; }
-    .branch-sticker-slider.is-empty { display: none; }
-    .bss-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 10px; scrollbar-width: none; padding: 0 2px; }
+    .branch-modal-top { text-align: center; margin-bottom: 14px; }
+    .branch-modal-logo-top { width: 46px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 12px; }
+    .branch-modal-intro .modal-title { text-align: center; font-size: 20px; margin-bottom: 8px; }
+    .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0; text-align: center; }
+    .bss-gallery-widget { margin-top: 16px; }
+    .bss-tabs { display: flex; justify-content: center; gap: 24px; margin-bottom: 10px; }
+    .bss-tab {
+        font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em;
+        color: rgba(255,255,255,0.45); background: none; border: none; border-bottom: 1px solid transparent;
+        padding: 0 0 6px; cursor: pointer; transition: color 0.25s ease, border-color 0.25s ease;
+    }
+    .bss-tab.active { color: #C5A059; border-bottom-color: #C5A059; }
+    .bss-slider-stage { position: relative; }
+    .bss-pane { display: none; opacity: 0; transition: opacity 0.35s ease; }
+    .bss-pane.active { display: block; opacity: 1; }
+    .bss-slider-box { position: relative; }
+    .bss-track {
+        display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+        gap: 10px; scrollbar-width: none; padding: 0 2px 2px; aspect-ratio: 16/10;
+    }
     .bss-track::-webkit-scrollbar { display: none; }
-    .bss-slide { flex: 0 0 88%; scroll-snap-align: start; border-radius: 4px; overflow: hidden; aspect-ratio: 16/10; background: #111; border: 1px solid rgba(197,160,89,0.2); }
+    .bss-slide {
+        flex: 0 0 88%; scroll-snap-align: start; border-radius: 4px; overflow: hidden;
+        aspect-ratio: 16/10; background: #111; border: 1px solid rgba(197,160,89,0.2);
+    }
     .bss-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .bss-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(197,160,89,0.45); background: rgba(8,8,8,0.92); color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; z-index: 2; }
+    .bss-nav {
+        position: absolute; top: 50%; transform: translateY(-50%); width: 28px; height: 28px;
+        border-radius: 50%; border: 1px solid rgba(197,160,89,0.45); background: rgba(8,8,8,0.92);
+        color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center;
+        font-size: 10px; z-index: 3;
+    }
     .bss-prev { left: -6px; }
     .bss-next { right: -6px; }
-    .modal-btn.branch-site-link { justify-content: flex-start; gap: 12px; padding: 0 16px; }
-    .branch-site-logo { width: 28px; height: 28px; object-fit: contain; flex-shrink: 0; }
+    .bss-slider-overlay {
+        position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+        z-index: 4; pointer-events: none;
+    }
+    .bss-slider-overlay > * { pointer-events: auto; }
+    @keyframes bssBreatheBtn {
+        0%, 100% { opacity: 0.42; }
+        50% { opacity: 0.88; }
+    }
+    .bss-cta {
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 14px 28px; min-width: 200px; min-height: 48px;
+        border: 1px solid rgba(166, 138, 92, 0.75); border-radius: 0;
+        background: rgba(18, 16, 14, 0.55); color: #a68a5c;
+        text-decoration: none; font-family: Montserrat, Arial, sans-serif;
+        font-size: 11px; font-weight: 600; letter-spacing: 0.18em; line-height: 1.2;
+        text-align: center; text-transform: uppercase; white-space: nowrap;
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    }
+    .bss-btn-animate-on .bss-cta { animation: bssBreatheBtn 4.5s ease-in-out infinite; }
+    .bss-btn-animate-off .bss-cta { opacity: 1; animation: none; }
+    .bss-cta:hover, .bss-cta:focus-visible {
+        border-color: rgba(197, 160, 89, 0.95); background: rgba(18, 16, 14, 0.78); color: #c5a059;
+        transform: translateY(-1px);
+    }
     .garden-sticky-wrap {
         position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
         padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -66,39 +111,84 @@
 </div>
 
 <div id="second-garden-modal" onclick="closeSecondGardenModal(event)">
-    <div class="modal-content modal-content--branch" onclick="event.stopPropagation()">
+    <div class="modal-content modal-content--branch <cms:show bss_btn_animate />" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeSecondGardenModal()">&times;</span>
-        <div class="branch-modal-head">
-            <cms:if modal_logo><img class="branch-modal-logo" src="<cms:show modal_logo />" alt="<cms:show modal_title />"></cms:if>
-            <div class="branch-modal-intro">
-                <div class="modal-title gold-shimmer"><cms:show modal_title /></div>
-                <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
-                <ul class="second-garden-facts">
-                    <cms:show_repeatable 'modal_facts'>
-                        <cms:if fact_text>
-                            <li><i class="fa-solid fa-<cms:show fact_icon />"></i><span><cms:show fact_text /></span></li>
-                        </cms:if>
-                    </cms:show_repeatable>
-                </ul>
+
+        <div class="branch-modal-top">
+            <cms:if modal_logo><img class="branch-modal-logo-top" src="<cms:show modal_logo />" alt="<cms:show modal_title />"></cms:if>
+        </div>
+
+        <div class="branch-modal-intro">
+            <div class="modal-title gold-shimmer"><cms:show modal_title /></div>
+            <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
+        </div>
+
+        <div class="bss-gallery-widget" id="bss-gallery-widget">
+            <div class="bss-tabs" role="tablist" aria-label="Фото филиала">
+                <button type="button" class="bss-tab active" role="tab" aria-selected="true" onclick="bssChangeTab('bss-interior', this)">Interior</button>
+                <button type="button" class="bss-tab" role="tab" aria-selected="false" onclick="bssChangeTab('bss-vibe', this)">Vibe</button>
+            </div>
+
+            <div class="bss-slider-stage">
+                <div id="bss-interior" class="bss-pane active" role="tabpanel">
+                    <div class="bss-slider-box">
+                        <button type="button" class="bss-nav bss-prev" onclick="branchStickerSlide('bss-track-interior', -1)" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div class="bss-track" id="bss-track-interior">
+                            <cms:set bss_interior_empty='1' scope='global' />
+                            <cms:show_repeatable 'modal_interior_items'>
+                                <cms:if slide_image>
+                                    <cms:set bss_interior_empty='0' scope='global' />
+                                    <div class="bss-slide"><img src="<cms:show slide_image />" alt="<cms:show slide_caption />" loading="lazy"></div>
+                                </cms:if>
+                            </cms:show_repeatable>
+                            <cms:if bss_interior_empty='1'>
+                                <cms:pages masterpage="<cms:show bss_gallery_fallback />" limit='1'>
+                                    <cms:show_repeatable 'gallery_interior_items'>
+                                        <cms:if gallery_img>
+                                            <cms:set bss_interior_empty='0' scope='global' />
+                                            <div class="bss-slide"><img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" loading="lazy"></div>
+                                        </cms:if>
+                                    </cms:show_repeatable>
+                                </cms:pages>
+                            </cms:if>
+                        </div>
+                        <button type="button" class="bss-nav bss-next" onclick="branchStickerSlide('bss-track-interior', 1)" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div id="bss-vibe" class="bss-pane" role="tabpanel">
+                    <div class="bss-slider-box">
+                        <button type="button" class="bss-nav bss-prev" onclick="branchStickerSlide('bss-track-vibe', -1)" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div class="bss-track" id="bss-track-vibe">
+                            <cms:set bss_vibe_empty='1' scope='global' />
+                            <cms:show_repeatable 'modal_vibe_items'>
+                                <cms:if slide_image>
+                                    <cms:set bss_vibe_empty='0' scope='global' />
+                                    <div class="bss-slide"><img src="<cms:show slide_image />" alt="<cms:show slide_caption />" loading="lazy"></div>
+                                </cms:if>
+                            </cms:show_repeatable>
+                            <cms:if bss_vibe_empty='1'>
+                                <cms:pages masterpage="<cms:show bss_gallery_fallback />" limit='1'>
+                                    <cms:show_repeatable 'gallery_vibe_items'>
+                                        <cms:if gallery_img>
+                                            <cms:set bss_vibe_empty='0' scope='global' />
+                                            <div class="bss-slide"><img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" loading="lazy"></div>
+                                        </cms:if>
+                                    </cms:show_repeatable>
+                                </cms:pages>
+                            </cms:if>
+                        </div>
+                        <button type="button" class="bss-nav bss-next" onclick="branchStickerSlide('bss-track-vibe', 1)" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <cms:if modal_site_url>
+                    <div class="bss-slider-overlay">
+                        <a href="<cms:show modal_site_url />" class="bss-cta"><cms:show modal_site_label /></a>
+                    </div>
+                </cms:if>
             </div>
         </div>
-        <div class="branch-sticker-slider" id="branch-sticker-slider">
-            <button type="button" class="bss-nav bss-prev" onclick="branchStickerSlide(-1)" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
-            <div class="bss-track" id="bss-track">
-                <cms:show_repeatable 'modal_gallery'>
-                    <cms:if slide_image>
-                        <div class="bss-slide"><img src="<cms:show slide_image />" alt="<cms:show slide_caption />" loading="lazy"></div>
-                    </cms:if>
-                </cms:show_repeatable>
-            </div>
-            <button type="button" class="bss-nav bss-next" onclick="branchStickerSlide(1)" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-        <cms:if modal_site_url>
-            <a href="<cms:show modal_site_url />" target="_blank" rel="noopener" class="modal-btn branch-site-link">
-                <cms:if modal_logo><img class="branch-site-logo" src="<cms:show modal_logo />" alt=""></cms:if>
-                <span><cms:show modal_site_label /></span>
-            </a>
-        </cms:if>
     </div>
 </div>
 
@@ -131,19 +221,28 @@
         document.getElementById('second-garden-modal').style.display = 'none';
         document.body.style.overflow = 'auto';
     };
-    window.branchStickerSlide = function(dir) {
-        const track = document.getElementById('bss-track');
+    window.bssChangeTab = function(tabId, btn) {
+        document.querySelectorAll('#bss-gallery-widget .bss-pane').forEach(function(el) {
+            el.classList.remove('active');
+        });
+        document.querySelectorAll('#bss-gallery-widget .bss-tab').forEach(function(el) {
+            el.classList.remove('active');
+            el.setAttribute('aria-selected', 'false');
+        });
+        const pane = document.getElementById(tabId);
+        if (pane) pane.classList.add('active');
+        if (btn) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+        }
+    };
+    window.branchStickerSlide = function(trackId, dir) {
+        const track = typeof trackId === 'string' ? document.getElementById(trackId) : document.getElementById('bss-track-interior');
         if (!track) return;
         const slide = track.querySelector('.bss-slide');
         const step = slide ? slide.offsetWidth + 10 : 280;
         track.scrollBy({ left: dir * step, behavior: 'smooth' });
     };
-    function initBranchStickerSlider() {
-        const track = document.getElementById('bss-track');
-        const box = document.getElementById('branch-sticker-slider');
-        if (!track || !box) return;
-        if (!track.querySelector('.bss-slide')) box.classList.add('is-empty');
-    }
     function initGardenSticky() {
         const wrap = document.getElementById('garden-sticky-wrap');
         if (!wrap) return;
@@ -156,10 +255,7 @@
             } catch (_) {}
         }, delay);
     }
-    document.addEventListener('DOMContentLoaded', function() {
-        initBranchStickerSlider();
-        initGardenSticky();
-    });
+    document.addEventListener('DOMContentLoaded', initGardenSticky);
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeSecondGardenModal();
     });
