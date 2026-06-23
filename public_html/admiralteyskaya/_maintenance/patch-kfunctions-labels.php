@@ -24,6 +24,7 @@ function garden_admin_label_defaults(){
         'index.php' => array('field'=>'label_index', 'title'=>'Общая страница', 'weight'=>220),
         'home.php' => array('field'=>'label_home', 'title'=>'Главная', 'weight'=>1),
         'booking-settings.php' => array('field'=>'label_booking_settings', 'title'=>'Бронирование Telegram', 'weight'=>5),
+        'age-gate-settings.php' => array('field'=>'label_age_gate_settings', 'title'=>'Заглушка 18+', 'weight'=>4),
         'admin-labels.php' => array('field'=>'', 'title'=>'Названия разделов', 'weight'=>230),
 
         'udelnaya/header.php' => array('field'=>'label_u_header', 'title'=>'Шапка сайта (Header)', 'weight'=>100),

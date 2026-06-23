@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     padding: clamp(16px, 4vw, 32px);
-    background: radial-gradient(ellipse at center, rgba(18, 16, 14, 0.92) 0%, rgba(0, 0, 0, 0.98) 70%);
+    background: radial-gradient(ellipse at center, var(--ag-overlay-inner, rgba(18, 16, 14, 0.92)) 0%, var(--ag-overlay-outer, rgba(0, 0, 0, 0.98)) 70%);
     font-family: Montserrat, Arial, sans-serif;
     color: #fff;
     -webkit-font-smoothing: antialiased;

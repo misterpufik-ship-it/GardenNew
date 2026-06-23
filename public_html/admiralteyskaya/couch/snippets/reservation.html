@@ -69,38 +69,99 @@
     letter-spacing: 0.28em !important;
   }
 }
-/* ===== FIX SELECT: центр + тёмный список ===== */
+/* ===== Дата, время, гости ===== */
+.res-booking-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px 20px;
+  align-items: end;
+}
+@media (min-width: 520px) {
+  .res-booking-row {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr) minmax(0, 0.8fr);
+  }
+}
+.res-field-block { min-width: 0; }
 
-/* ВАЖНО: усиливаем приоритет, потому что Tailwind и браузер могут перебивать */
-select.day-select,
-select.month-select,
-select.guest-select{
+.res-date-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent !important;
+  border: none;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+  padding: 12px 0 10px;
+  color: #fff !important;
+  color-scheme: dark;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.4s;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+.res-date-input:focus { border-bottom-color: var(--gold-matte); }
+.res-date-input::-webkit-calendar-picker-indicator {
+  filter: invert(72%) sepia(28%) saturate(520%) hue-rotate(6deg) brightness(95%);
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.res-time-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+  padding: 12px 0 10px;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+.res-time-segment {
+  width: 2.4ch;
+  min-width: 28px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  text-align: center;
+  outline: none;
+  padding: 0;
+  caret-color: var(--gold-matte);
+}
+.res-time-segment::placeholder { color: rgba(255,255,255,0.22); font-size: 13px; }
+.res-time-colon {
+  color: var(--gold-matte);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1;
+  user-select: none;
+}
+
+select.guest-select {
   width: 100%;
   text-align: center !important;
   text-align-last: center !important;
   -moz-text-align-last: center !important;
-
   color: #fff !important;
   background: transparent !important;
-
   appearance: none;
   -webkit-appearance: none;
+  border: none;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+  padding: 12px 0 10px;
+  min-height: 44px;
+  font-size: 15px;
+  outline: none;
 }
-
-/* Варианты в выпадающем списке (на десктопе/андроиде обычно сработает) */
-select.day-select option,
-select.month-select option,
-select.guest-select option{
+select.guest-select option {
   background-color: #0c0c0c !important;
   color: #ffffff !important;
 }
-
-/* Иногда помогает, если браузер рисует “своё” */
-select.day-select:focus,
-select.month-select:focus,
-select.guest-select:focus{
-  outline: none;
-}
+select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte); }
 
 </style>
 
@@ -124,26 +185,25 @@ select.guest-select:focus{
                 <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Номер телефона</span></label>
                 <input class="gl-input-line text-center !text-lg phone-mask" name="phone" placeholder="+7 (___) ___-__-__" required>
             </div>
-            <div class="flex items-end justify-center gap-4 md:gap-8">
-                <div class="flex-1">
-                    <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Дата визита</span></label>
-                    <div class="flex justify-center items-center gap-1 border-b border-[#C5A059]/25 pb-2">
-                        <select class="bg-transparent text-white outline-none day-select text-base" name="visit_day" required>
-                            <option value="" disabled selected>ДД</option>
-                        </select>
-                        <span class="font-light shimmer-text-gold">/</span>
-                        <select class="bg-transparent text-white outline-none month-select text-base" name="visit_month" required>
-                            <option value="" disabled selected>ММ</option>
-                        </select>
-                    </div>
+            <div class="res-booking-row">
+                <div class="res-field-block space-y-2">
+                    <label class="gl-label-mini text-center" for="visit_date"><span class="shimmer-text-gold">Дата визита</span></label>
+                    <input class="res-date-input" type="date" id="visit_date" name="visit_date" required>
                 </div>
-                <div class="flex-1">
-                    <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Гости</span></label>
-                    <div class="border-b border-[#C5A059]/25 pb-2">
-                        <select class="w-full bg-transparent text-white guest-select text-center text-base outline-none" name="guests" required>
-                            <option value="" disabled selected>Кол-во</option>
-                        </select>
+                <div class="res-field-block space-y-2">
+                    <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Время</span></label>
+                    <div class="res-time-wrap" aria-label="Время визита">
+                        <input class="res-time-segment time-hours" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="ЧЧ" aria-label="Часы" autocomplete="off">
+                        <span class="res-time-colon" aria-hidden="true">:</span>
+                        <input class="res-time-segment time-minutes" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="ММ" aria-label="Минуты" autocomplete="off">
                     </div>
+                    <input type="hidden" name="visit_time" class="visit-time-hidden" value="">
+                </div>
+                <div class="res-field-block space-y-2">
+                    <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Гости</span></label>
+                    <select class="guest-select outline-none" name="guests" required>
+                        <option value="" disabled selected>Кол-во</option>
+                    </select>
                 </div>
             </div>
             <div class="pt-4">
@@ -172,48 +232,161 @@ select.guest-select:focus{
 <div class="gl-toast" id="glToast"></div>
 
 <script>
-    /* Весь JS скрипт из исходника без изменений */
     (function() {
         const TOAST = document.getElementById('glToast');
         const MODAL = document.getElementById('glModal');
         const MODAL_OK = document.getElementById('glModalOk');
         function showToast(msg) { TOAST.textContent = msg; TOAST.style.display = 'block'; setTimeout(() => TOAST.style.display = 'none', 3500); }
         MODAL_OK.onclick = () => MODAL.classList.remove('is-open');
-        const form = document.querySelector('form');
+
+        const form = document.querySelector('#reservation form');
+        if (!form) return;
+
         const phoneInput = form.querySelector('.phone-mask');
-        const daySelect = form.querySelector('.day-select');
-        const monthSelect = form.querySelector('.month-select');
+        const dateInput = form.querySelector('#visit_date');
+        const hoursInput = form.querySelector('.time-hours');
+        const minutesInput = form.querySelector('.time-minutes');
+        const timeHidden = form.querySelector('.visit-time-hidden');
         const guestSelect = form.querySelector('.guest-select');
         const btn = form.querySelector('button');
-        for (let i = 1; i <= 31; i++) { const val = String(i).padStart(2, '0'); daySelect.add(new Option(val, val)); }
-        for (let i = 1; i <= 12; i++) { const val = String(i).padStart(2, '0'); monthSelect.add(new Option(val, val)); }
-        for (let i = 1; i <= 20; i++) { guestSelect.add(new Option(i + (i < 5 ? ' гостя' : ' гостей'), i)); }
+
+        const today = new Date();
+        const minDate = today.toISOString().slice(0, 10);
+        dateInput.min = minDate;
+
+        for (let i = 1; i <= 20; i++) {
+            guestSelect.add(new Option(i + (i < 5 ? ' гостя' : ' гостей'), i));
+        }
+
         phoneInput.addEventListener('input', (e) => {
             let x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
             if (!x[2]) { e.target.value = x[1] ? '+7' : ''; return; }
             e.target.value = '+7 (' + x[2] + (x[3] ? ') ' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
         });
+
+        function onlyDigits(value, maxLen) {
+            return value.replace(/\D/g, '').slice(0, maxLen);
+        }
+
+        function padTimePart(value) {
+            if (value.length === 1) return '0' + value;
+            return value;
+        }
+
+        function syncTimeHidden() {
+            const h = hoursInput.value.trim();
+            const m = minutesInput.value.trim();
+            timeHidden.value = (h && m) ? (padTimePart(h) + ':' + padTimePart(m)) : '';
+        }
+
+        hoursInput.addEventListener('input', (e) => {
+            let v = onlyDigits(e.target.value, 2);
+            if (v.length === 2) {
+                const h = parseInt(v, 10);
+                if (h > 23) v = '23';
+            }
+            e.target.value = v;
+            syncTimeHidden();
+            if (v.length === 2) minutesInput.focus();
+        });
+
+        hoursInput.addEventListener('blur', () => {
+            if (hoursInput.value.length === 1) {
+                hoursInput.value = '0' + hoursInput.value;
+                syncTimeHidden();
+            }
+        });
+
+        minutesInput.addEventListener('input', (e) => {
+            let v = onlyDigits(e.target.value, 2);
+            if (v.length === 2) {
+                const m = parseInt(v, 10);
+                if (m > 59) v = '59';
+            }
+            e.target.value = v;
+            syncTimeHidden();
+        });
+
+        minutesInput.addEventListener('blur', () => {
+            if (minutesInput.value.length === 1) {
+                minutesInput.value = '0' + minutesInput.value;
+                syncTimeHidden();
+            }
+        });
+
+        minutesInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && minutesInput.value === '') hoursInput.focus();
+        });
+
+        hoursInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && hoursInput.value === '') hoursInput.value = '';
+        });
+
+        function formatDateForApi(isoDate) {
+            const [y, m, d] = isoDate.split('-');
+            return d + '.' + m + '.' + y;
+        }
+
+        function isValidTime(h, m) {
+            if (!/^\d{1,2}$/.test(h) || !/^\d{1,2}$/.test(m)) return false;
+            const hi = parseInt(h, 10);
+            const mi = parseInt(m, 10);
+            return hi >= 0 && hi <= 23 && mi >= 0 && mi <= 59;
+        }
+
         form.onsubmit = async (e) => {
             e.preventDefault();
             const fd = new FormData(form);
             if (fd.get('website')) return;
+
             const p = (fd.get('phone') || '').replace(/\D/g, '');
             if (p.length < 11) { showToast('Введите верный номер телефона'); return; }
-            if (!daySelect.value || !monthSelect.value || !guestSelect.value) { showToast('Пожалуйста, заполните все поля'); return; }
-            btn.disabled = true; const originalText = btn.textContent; btn.textContent = 'ОТПРАВКА...';
+            if (!dateInput.value) { showToast('Выберите дату визита'); return; }
+
+            const hRaw = hoursInput.value.trim();
+            const mRaw = minutesInput.value.trim();
+            if (!isValidTime(hRaw, mRaw)) { showToast('Укажите время визита'); return; }
+
+            syncTimeHidden();
+            if (!guestSelect.value) { showToast('Пожалуйста, заполните все поля'); return; }
+
+            btn.disabled = true;
+            const originalText = btn.textContent;
+            btn.textContent = 'ОТПРАВКА...';
+
             try {
                 const params = new URLSearchParams();
-                for (const [key, value] of fd.entries()) params.append(key, value);
-                const year = new Date().getFullYear();
-                params.append('date', `${daySelect.value}.${monthSelect.value}.${year}`);
-                params.append('visit_time', '19:00');
-                const resp = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: params.toString() });
+                for (const [key, value] of fd.entries()) {
+                    if (key === 'visit_date') continue;
+                    params.append(key, value);
+                }
+                const [y, m, d] = dateInput.value.split('-');
+                params.append('visit_day', d);
+                params.append('visit_month', m);
+                params.append('date', formatDateForApi(dateInput.value));
+                params.set('visit_time', timeHidden.value);
+
+                const resp = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params.toString()
+                });
                 let data = null;
-                try { data = await resp.json(); } catch (e) {}
-                if (resp.ok && data && data.ok) { MODAL.classList.add('is-open'); form.reset(); }
-                else { showToast((data && data.message) ? data.message : 'Ошибка. Попробуйте позже.'); }
-            } catch (err) { showToast('Проверьте интернет-соединение'); } finally { btn.disabled = false; btn.textContent = originalText; }
+                try { data = await resp.json(); } catch (err) {}
+                if (resp.ok && data && data.ok) {
+                    MODAL.classList.add('is-open');
+                    form.reset();
+                    dateInput.min = minDate;
+                    timeHidden.value = '';
+                } else {
+                    showToast((data && data.message) ? data.message : 'Ошибка. Попробуйте позже.');
+                }
+            } catch (err) {
+                showToast('Проверьте интернет-соединение');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
         };
     })();
-
 </script>

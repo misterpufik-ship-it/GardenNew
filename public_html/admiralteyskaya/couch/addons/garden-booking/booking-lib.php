@@ -110,13 +110,12 @@ function garden_booking_secrets_fallback() {
 }
 
 function garden_booking_default_message_template() {
-    return "🆕 Новая бронь — {branch_label}\n\n" .
-        "👤 Имя: {name}\n" .
-        "📞 Телефон: {phone}\n" .
-        "📅 Дата: {date}\n" .
-        "🕐 Время: {time}\n" .
-        "👥 Гости: {guests}\n" .
-        "🌐 Страница: {source_url}";
+    return "🍃 Garden Lounge — {branch_label} Новое бронирование 🍃\n\n" .
+        "Имя: {name}\n" .
+        "Тел: {phone}\n" .
+        "Дата: {date}\n" .
+        "Время: {time}\n" .
+        "Гостей: {guests}";
 }
 
 function garden_booking_get_branch_settings( $branch ) {
