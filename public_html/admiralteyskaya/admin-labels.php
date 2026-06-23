@@ -17,7 +17,7 @@
     <cms:editable name='label_menu_text' label='Меню RU' group='group_a' type='text' order='15'>Меню RU</cms:editable>
     <cms:editable name='label_menu_en' label='Меню EN' group='group_a' type='text' order='16'>Меню EN</cms:editable>
     <cms:editable name='label_menu_visual' label='Меню визуальное' group='group_a' type='text' order='17'>Меню визуальное</cms:editable>
-    <cms:editable name='label_sticky_sticker' label='Липкий стикер' group='group_a' type='text' order='18'>Липкий стикер</cms:editable>
+    <cms:editable name='label_sticky_sticker' label='Липкий стикер — Адмиралтейская' group='group_a' type='text' order='18'>Липкий стикер — Адмиралтейская</cms:editable>
     <cms:editable name='label_gallery' label='Галерея' group='group_a' type='text' order='19'>Галерея</cms:editable>
     <cms:editable name='label_reservation' label='Бронирование' group='group_a' type='text' order='20'>Бронирование</cms:editable>
     <cms:editable name='label_contacts' label='Контакты' group='group_a' type='text' order='21'>Контакты</cms:editable>
@@ -33,7 +33,7 @@
     <cms:editable name='label_u_menu_text' label='Меню RU' group='group_u' type='text' order='45'>Меню RU</cms:editable>
     <cms:editable name='label_u_menu_en' label='Меню EN' group='group_u' type='text' order='46'>Меню EN</cms:editable>
     <cms:editable name='label_u_menu_visual' label='Меню визуальное' group='group_u' type='text' order='47'>Меню визуальное</cms:editable>
-    <cms:editable name='label_u_sticky_sticker' label='Липкий стикер' group='group_u' type='text' order='48'>Липкий стикер</cms:editable>
+    <cms:editable name='label_u_sticky_sticker' label='Липкий стикер — Удельная' group='group_u' type='text' order='48'>Липкий стикер — Удельная</cms:editable>
     <cms:editable name='label_u_gallery' label='Галерея' group='group_u' type='text' order='49'>Галерея</cms:editable>
     <cms:editable name='label_u_reservation' label='Бронирование' group='group_u' type='text' order='50'>Бронирование</cms:editable>
     <cms:editable name='label_u_contacts' label='Контакты' group='group_u' type='text' order='51'>Контакты</cms:editable>
