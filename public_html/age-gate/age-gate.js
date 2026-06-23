@@ -38,6 +38,18 @@
         document.body.classList.toggle('gl-age-gate-open', lock);
     }
 
+    function isUdelnayaBranch() {
+        return /\/udelnaya(?:\/|$)/i.test(window.location.pathname);
+    }
+
+    function getWelcomeText() {
+        if (isUdelnayaBranch()) {
+            return 'Добро пожаловать в Garden Lounge на Удельной.';
+        }
+
+        return 'Добро пожаловать в Garden Lounge.';
+    }
+
     function buildGate() {
         var overlay = document.createElement('div');
         overlay.id = 'gl-age-gate';
@@ -50,7 +62,7 @@
                 '<img class="gl-age-gate__logo" src="/admiralteyskaya/couch/uploads/image/logo3.webp" alt="Garden Lounge" width="260" height="80" decoding="async">' +
                 '<div class="gl-age-gate__badge">18+</div>' +
                 '<h1 class="gl-age-gate__title" id="gl-age-gate-title">Вам уже исполнилось 18 лет?</h1>' +
-                '<p class="gl-age-gate__welcome">Добро пожаловать в Garden Lounge.</p>' +
+                '<p class="gl-age-gate__welcome">' + getWelcomeText() + '</p>' +
                 '<p class="gl-age-gate__text">Перед входом подтвердите возраст, чтобы продолжить знакомство с нашим садом. Сайт содержит информацию о заведении, где представлены кальяны и табачная продукция.</p>' +
                 '<div class="gl-age-gate__actions" id="gl-age-gate-actions">' +
                     '<button type="button" class="gl-age-gate__btn gl-age-gate__btn--yes" id="gl-age-gate-yes">Да, войти</button>' +
