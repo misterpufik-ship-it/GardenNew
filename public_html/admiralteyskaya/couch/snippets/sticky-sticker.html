@@ -2,14 +2,27 @@
 <cms:if sticker_enabled='1'>
 <cms:set bss_gallery_fallback='udelnaya/gallery.php' />
 <cms:if sticky_masterpage='udelnaya/sticky-sticker.php'><cms:set bss_gallery_fallback='gallery.php' /></cms:if>
-<cms:set bss_btn_animate='bss-btn-animate-on' />
-<cms:if modal_btn_animation='0'><cms:set bss_btn_animate='bss-btn-animate-off' /></cms:if>
+<cms:set bss_branch_name='Удельная' />
+<cms:if sticky_masterpage='udelnaya/sticky-sticker.php'><cms:set bss_branch_name='Адмиралтейская' /></cms:if>
 <style>
-    #second-garden-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
-    .modal-content--branch { max-width: 440px; text-align: left; padding: 28px 22px 24px; }
+    #second-garden-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; --gold:#C5A059; --gold-dark:#8e7037; }
+    #second-garden-modal .modal-content--branch { max-width: 440px; text-align: left; padding: 28px 22px 24px; }
+    #second-garden-modal .close-modal { position: absolute; top: 10px; right: 15px; font-size: 28px; color: var(--gold); cursor: pointer; line-height: 1; transition: color 0.25s ease, opacity 0.25s ease; }
+    #second-garden-modal .close-modal:hover { color: #FFEebb; opacity: 0.9; }
+    @keyframes bssShineGold { to { background-position: 200% center; } }
+    #second-garden-modal .gold-shimmer {
+        background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, #FFEebb 50%, var(--gold) 60%, var(--gold-dark) 100%);
+        background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+        color: transparent; animation: bssShineGold 5s linear infinite;
+    }
     .branch-modal-top { text-align: center; margin-bottom: 14px; }
-    .branch-modal-logo-top { width: 46px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 12px; }
-    .branch-modal-intro .modal-title { text-align: center; font-size: 20px; margin-bottom: 8px; }
+    .branch-modal-logo-top { width: 88px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 14px; }
+    .branch-modal-title {
+        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; line-height: 1.25;
+        text-align: center; margin: 0 0 10px; color: #fff;
+    }
+    .branch-modal-brand { display: block; font-size: 0.92em; letter-spacing: 0.04em; color: #fff; }
+    .branch-modal-branch { display: block; margin-top: 2px; font-size: 1em; letter-spacing: 0.02em; }
     .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0; text-align: center; }
     .bss-gallery-widget { margin-top: 16px; }
     .bss-tabs { display: flex; justify-content: center; gap: 24px; margin-bottom: 10px; }
@@ -41,31 +54,16 @@
     }
     .bss-prev { left: -6px; }
     .bss-next { right: -6px; }
-    .bss-slider-overlay {
-        position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-        z-index: 4; pointer-events: none;
+    .bss-modal-action { margin-top: 16px; display: flex; justify-content: center; }
+    .bss-modal-action .btn-base {
+        display: flex; align-items: center; justify-content: center;
+        width: 100%; max-width: 100%; height: 52px;
+        border: 1px solid rgba(197,160,89,0.3); text-transform: uppercase;
+        font-size: 10px; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s;
+        font-family: Montserrat, Arial, sans-serif; cursor: pointer;
     }
-    .bss-slider-overlay > * { pointer-events: auto; }
-    @keyframes bssBreatheBtn {
-        0%, 100% { opacity: 0.42; }
-        50% { opacity: 0.88; }
-    }
-    .bss-cta {
-        display: inline-flex; align-items: center; justify-content: center;
-        padding: 14px 28px; min-width: 200px; min-height: 48px;
-        border: 1px solid rgba(166, 138, 92, 0.75); border-radius: 0;
-        background: rgba(18, 16, 14, 0.55); color: #a68a5c;
-        text-decoration: none; font-family: Montserrat, Arial, sans-serif;
-        font-size: 11px; font-weight: 600; letter-spacing: 0.18em; line-height: 1.2;
-        text-align: center; text-transform: uppercase; white-space: nowrap;
-        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
-    }
-    .bss-btn-animate-on .bss-cta { animation: bssBreatheBtn 4.5s ease-in-out infinite; }
-    .bss-btn-animate-off .bss-cta { opacity: 1; animation: none; }
-    .bss-cta:hover, .bss-cta:focus-visible {
-        border-color: rgba(197, 160, 89, 0.95); background: rgba(18, 16, 14, 0.78); color: #c5a059;
-        transform: translateY(-1px);
-    }
+    .bss-modal-action .btn-gold-fill { background: var(--gold); color: #000; font-weight: 700; border: none; }
+    .bss-modal-action .btn-gold-fill:hover { background: #d4b06a; color: #000; }
     .garden-sticky-wrap {
         position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
         padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -111,15 +109,18 @@
 </div>
 
 <div id="second-garden-modal" onclick="closeSecondGardenModal(event)">
-    <div class="modal-content modal-content--branch <cms:show bss_btn_animate />" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeSecondGardenModal()">&times;</span>
+    <div class="modal-content modal-content--branch" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeSecondGardenModal()" aria-label="Закрыть">&times;</span>
 
         <div class="branch-modal-top">
-            <cms:if modal_logo><img class="branch-modal-logo-top" src="<cms:show modal_logo />" alt="<cms:show modal_title />"></cms:if>
+            <cms:if modal_logo><img class="branch-modal-logo-top" src="<cms:show modal_logo />" alt="Garden Lounge"></cms:if>
         </div>
 
         <div class="branch-modal-intro">
-            <div class="modal-title gold-shimmer"><cms:show modal_title /></div>
+            <h2 class="branch-modal-title">
+                <span class="branch-modal-brand">GARDEN LOUNGE</span>
+                <span class="branch-modal-branch gold-shimmer"><cms:if modal_title_branch><cms:show modal_title_branch /><cms:else /><cms:show bss_branch_name /></cms:if></span>
+            </h2>
             <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
         </div>
 
@@ -181,13 +182,13 @@
                         <button type="button" class="bss-nav bss-next" onclick="branchStickerSlide('bss-track-vibe', 1)" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                 </div>
-
-                <cms:if modal_site_url>
-                    <div class="bss-slider-overlay">
-                        <a href="<cms:show modal_site_url />" class="bss-cta"><cms:show modal_site_label /></a>
-                    </div>
-                </cms:if>
             </div>
+
+            <cms:if modal_site_url>
+                <div class="bss-modal-action">
+                    <a href="<cms:show modal_site_url />" class="btn-base btn-gold-fill"><cms:show modal_site_label /></a>
+                </div>
+            </cms:if>
         </div>
     </div>
 </div>

@@ -29,11 +29,10 @@ require_once $garden_cms;
 
     <cms:editable name='grp_modal' label='Всплывающее окно' type='group' order='2' />
     <cms:editable name='modal_logo' label='Логотип филиала (сверху)' group='grp_modal' type='image' show_preview='1' preview_width='120'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
-    <cms:editable name='modal_title' label='Заголовок' group='grp_modal' type='text'>Garden Lounge — Адмиралтейская</cms:editable>
+    <cms:editable name='modal_title_branch' label='Название филиала в заголовке' group='grp_modal' type='text'>Адмиралтейская</cms:editable>
     <cms:editable name='modal_lead' label='Текст' group='grp_modal' type='textarea'>Флагманский лаунж в центре Петербурга на набережной Мойки. Кальяны, авторская кухня, бар, VIP-комнаты и атмосфера Garden в самом сердце города.</cms:editable>
     <cms:editable name='modal_site_url' label='Ссылка на сайт филиала' group='grp_modal' type='text'>https://garden-lounge.pro/admiralteyskaya/</cms:editable>
-    <cms:editable name='modal_site_label' label='Текст кнопки на слайдере' group='grp_modal' type='text'>Войти в оазис</cms:editable>
-    <cms:editable name='modal_btn_animation' label='Анимация кнопки (как «Войти в оазис»)' group='grp_modal' type='dropdown' opt_values='Да=1 | Нет=0'>1</cms:editable>
+    <cms:editable name='modal_site_label' label='Текст кнопки' group='grp_modal' type='text'>Войти в оазис</cms:editable>
 
     <cms:editable name='grp_gallery' label='Слайдер (Interior / Vibe)' type='group' order='3' />
     <cms:editable name='sticker_grp_interior' label='Interior — интерьер' type='group' collapsed='1' group='grp_gallery' order='10' />
