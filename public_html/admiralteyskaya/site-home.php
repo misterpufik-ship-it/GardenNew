@@ -801,7 +801,8 @@
             });
         });
     </script>
-    <cms:embed 'age-gate.html' />
+    <link rel="stylesheet" href="/age-gate/age-gate.css?v=1">
+    <script src="/age-gate/age-gate.js?v=1" defer></script>
 </body>
 </html>
 <?php COUCH::invoke(); ?>
