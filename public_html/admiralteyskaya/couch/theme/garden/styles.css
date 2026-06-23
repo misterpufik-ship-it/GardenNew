@@ -5,8 +5,6 @@
 .garden-admin-brand__logo,#logo,#simple-logo{display:block;width:auto;max-width:190px;height:auto!important;max-height:52px;margin:0 auto;object-fit:contain}
 .garden-admin-brand__subtitle{margin-top:8px;color:var(--gl-gold);font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase}
 #logo-wrap{display:block;border-bottom:1px solid var(--gl-border)}
-#scroll-sidebar{top:132px}
-@media (max-height:540px){#scroll-sidebar{top:108px}}
 #sidebar{background-color:var(--gl-black);border-right-color:#000}
 #sidebar-top{border-bottom-color:#000;box-shadow:0 1px 0 rgba(197,160,89,.08)}
 #sidebar-btns{background-color:var(--gl-panel);border-top-color:#000}
@@ -55,3 +53,13 @@ input[type=text]:focus,input[type=text]:hover:focus,input[type=password]:focus,i
 #sidebar-toggle{border-color:rgba(197,160,89,.45);fill:var(--gl-gold)}
 #sidebar-toggle:hover,#sidebar-toggle:focus{border-color:var(--gl-gold);fill:#fff}
 .toast-info,.alert-info{border-color:rgba(197,160,89,.45);background-color:#fff8e8;color:#6b5424;fill:#8e7037}
+
+/* Sidebar stack: logo + greeting + menu — prevent overlap */
+#menu-wrap{background-color:var(--gl-panel)}
+#sidebar-top{position:relative;z-index:2;min-height:35px;background-color:var(--gl-panel)}
+#sidebar-top>p{color:var(--gl-muted)}
+#sidebar-top>p>a{color:var(--gl-text)}
+#scroll-sidebar{top:182px!important}
+@media (max-height:540px){#scroll-sidebar{top:152px!important}}
+#nav>.nav-heading:first-child{margin-top:6px}
+#nav>.nav-heading:first-child:before{padding-top:0;border-top:0}
