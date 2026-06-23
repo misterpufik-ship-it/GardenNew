@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if ( !defined('K_COUCH_DIR') ) die();
 
 function garden_admin_label_defaults(){
@@ -170,6 +170,57 @@ CSS;
 }
 
 $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_login_css' );
+function garden_admin_branding_output( &$html ){
+    $html = preg_replace( '#<title>[^<]*</title>#', '<title>Garden Lounge</title>', $html, 1 );
+    $html = preg_replace(
+        '#<link href="[^"]*favicon\.ico" rel="shortcut icon"/>#',
+        '<link rel="icon" type="image/png" href="/favicon.png">' . "\n    " . '<link rel="shortcut icon" type="image/png" href="/favicon.png">',
+        $html,
+        1
+    );
+}
+
+$FUNCS->add_event_listener( 'alter_final_page_output', 'garden_admin_branding_output' );
+
+function garden_admin_sidebar_js(){
+    global $FUNCS;
+
+    $js = <<<'JS'
+(function($){
+    $(function(){
+        if ( typeof COUCH === 'undefined' || !COUCH.state ) return;
+        if ( $.hasCookie('collapsed_groups') ) return;
+
+        var ids = [];
+        $('#sidebar .nav-heading-toggle').each(function(){
+            ids.push(String($(this).data('id')));
+        });
+        COUCH.state.collapsedGroups = ids;
+    });
+})(jQuery);
+JS;
+
+    $FUNCS->add_js( $js );
+}
+
+$FUNCS->add_event_listener( 'add_admin_js', 'garden_admin_sidebar_js' );
+
+function garden_admin_sidebar_css(){
+    global $FUNCS;
+
+    $css = <<<'CSS'
+#menu-wrap .garden-admin-brand{padding:10px 8px 6px}
+#menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:198px!important;max-height:74px!important;width:100%!important}
+.garden-admin-brand__subtitle{display:none!important}
+#scroll-sidebar{top:158px!important}
+@media (max-height:540px){#scroll-sidebar{top:138px!important}}
+CSS;
+
+    $FUNCS->add_css( $css );
+}
+
+$FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_sidebar_css' );
+
 
 require_once K_ADDONS_DIR . 'garden-cache/garden-cache.php';
 
