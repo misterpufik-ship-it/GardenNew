@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
     if ( !defined('K_COUCH_DIR') ) die(); // cannot be loaded directly
 
@@ -25,7 +25,7 @@
     // +8.75  Australia (UTC+08:45)
     // +5.5   India (UTC+05:30)
     // +1     Germany (UTC+01:00)
-    // 0      United Kingdom (UTC±0)
+    // 0      United Kingdom (UTCВ±0)
     // -2     Brazil (UTC-02:00)
     // -4.5   Venezuela (UTC-04:30)
     // -6     United States (Central Time) (UTC-06:00)
@@ -134,7 +134,7 @@
     // 22.
     // Language used for localization of admin panel. Needs to have a corresponding language file in couch folder.
     // Change to 'DE' for German or 'FR' for French.
-    define( 'K_ADMIN_LANG', 'EN' );
+    define( 'K_ADMIN_LANG', 'RU' );
 
     // 23.
     // Uncomment the following line if you wish to format self-closing HTML tags the old way e.g. as <br> instead of <br/>
@@ -151,7 +151,7 @@
     // 26.
     // If the admin-panel uses a custom theme, set the following to the folder-name of the theme.
     // Theme folder is expected to be within the 'couch/theme' folder. No leading or trailing slashes please.
-    //define( 'K_ADMIN_THEME', 'sample' );
+    define( 'K_ADMIN_THEME', 'garden' );
 
     // 27.
     // Google reCAPTCHA API Keys.
@@ -195,3 +195,4 @@
     //
     // Failing to do so will constitute a violation of the CPAL license this software is provided under.
     define( 'K_REMOVE_FOOTER_LINK', 0 );
+
