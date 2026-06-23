@@ -1,4 +1,4 @@
-<?php require_once( '../../couch/cms.php' ); ?>
+﻿<?php require_once( '../../couch/cms.php' ); ?>
 
 <cms:template title='Меню RU' icon='restaurant' order='140'>
 
@@ -203,6 +203,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <cms:embed 'favicon.html' />
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_age_gate_render_assets(); ?>
     <title><cms:show page_title /></title>
     <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения в лаунж-баре на наб. реки Мойки 67-69.</cms:if>">
     <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/text/">

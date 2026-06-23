@@ -1,4 +1,4 @@
-<?php require_once( '../../couch/cms.php' ); ?>
+﻿<?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Меню визуальное' name='menu_visual' executable='1' order='160'>
 
     <cms:editable name='group_main_settings' label='Настройки логотипа' type='group' collapsed='1' order='1' />
@@ -44,6 +44,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <cms:embed 'favicon.html' />
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_age_gate_render_assets(); ?>
     <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
     <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар и акции лаунж-бара в центре Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/visual/">

@@ -1,4 +1,4 @@
-<?php require_once( '../../couch/cms.php' ); ?>
+﻿<?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Меню EN' icon='globe' order='150' />
 
 <cms:pages masterpage='menu/text/index.php' limit='1'>
@@ -10,6 +10,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <cms:embed 'favicon.html' />
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_age_gate_render_assets(); ?>
         <title><cms:if page_title_en><cms:show page_title_en /><cms:else /><cms:show page_title /></cms:if></title>
         <meta name="description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar, drinks and special offers in central Saint Petersburg.</cms:if>">
         <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/english/">

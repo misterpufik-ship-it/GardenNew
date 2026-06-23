@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 define('K_TEMPLATE_NAME', 'udelnaya/menu/visual/index.php');
 $garden_cms = null;
 foreach ([
@@ -67,6 +67,7 @@ require_once $garden_cms;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <cms:embed 'favicon.html' />
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_age_gate_render_assets(); ?>
     <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
     <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар, десерты и акции лаунж-бара в центре Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/visual/">
