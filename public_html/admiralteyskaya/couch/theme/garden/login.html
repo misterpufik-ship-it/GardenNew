@@ -1,11 +1,14 @@
-﻿<cms:capture into='my_content' >
+<cms:capture into='my_content' >
     <noscript>
         <cms:show_warning>
             <cms:localize 'javascript_msg' />
         </cms:show_warning>
     </noscript>
 
-    <div class="simple-box simple-box--no-heading">
+    <div class="simple-box">
+        <div class="panel-heading simple-heading">
+            <span class="login-heading"><cms:localize 'admin_panel' /></span>
+        </div>
         <div class="simple-content">
             <div class="login-form">
 

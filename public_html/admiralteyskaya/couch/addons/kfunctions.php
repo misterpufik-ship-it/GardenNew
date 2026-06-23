@@ -159,11 +159,11 @@ function garden_admin_login_css(){
     global $FUNCS;
 
     $css = <<<'CSS'
-#simple-page .garden-admin-brand{padding:22px 16px 16px}
+#simple-page .garden-admin-brand--logo-only{padding:22px 16px 10px}
+#simple-page .garden-admin-brand__subtitle{display:none!important}
 #simple-page .garden-admin-brand__logo,#simple-page #simple-logo{max-width:340px!important;max-height:110px!important;width:min(78vw,340px)!important}
-#simple-page .garden-admin-brand__subtitle{margin-top:14px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:none;color:#C5A059}
-#simple-page #simple-wrap .simple-box--no-heading{border-radius:3px;overflow:hidden}
-#simple-page #simple-wrap .simple-box--no-heading>.simple-content{border-top:0}
+#simple-page #simple-wrap .panel-heading.simple-heading{display:flex!important;justify-content:center!important;align-items:center!important;padding:12px 15px!important;color:#C5A059!important;text-align:center!important;background-color:#141414!important;background-image:none!important;text-shadow:none!important;font-weight:600;border-color:rgba(197,160,89,.28)!important}
+#simple-page #simple-wrap .panel-heading.simple-heading .login-heading{display:block!important;width:100%!important;color:#C5A059!important;text-align:center!important;text-shadow:none!important;font-size:15px;letter-spacing:.04em}
 CSS;
 
     $FUNCS->add_css( $css );
@@ -172,5 +172,6 @@ CSS;
 $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_login_css' );
 
 require_once K_ADDONS_DIR . 'garden-cache/garden-cache.php';
+
 
 

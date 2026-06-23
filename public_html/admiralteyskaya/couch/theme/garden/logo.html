@@ -1,12 +1,11 @@
-﻿<cms:capture into='my_logo'>
-    <div class="garden-admin-brand">
+<cms:capture into='my_logo'>
+    <div class="garden-admin-brand garden-admin-brand--logo-only">
         <img
             <cms:if k_logo_id >id="<cms:show k_logo_id />"</cms:if>
             class="garden-admin-brand__logo<cms:if k_logo_class> <cms:show k_logo_class /></cms:if>"
             src="<cms:show k_admin_link />uploads/image/logo3.webp"
             alt="Garden Lounge"
         />
-        <div class="garden-admin-brand__subtitle">Панель управления</div>
     </div>
 </cms:capture>
 
@@ -17,4 +16,3 @@
 <cms:else />
     <cms:show my_logo />
 </cms:if>
-
