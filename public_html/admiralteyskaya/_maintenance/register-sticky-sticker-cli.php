@@ -88,7 +88,10 @@ function gl_ensure_template($db, $templates, $pages, $name, $title, $order, $clo
     if (!$row) {
         $sample = gl_fetch_one($db, "SELECT * FROM `{$templates}` WHERE name='" . $db->real_escape_string($cloneFrom) . "' LIMIT 1");
         if (!$sample) {
-            echo "Template {$name} missing and clone source {$cloneFrom} not found\n";
+            $sample = gl_fetch_one($db, "SELECT * FROM `{$templates}` WHERE name='menu.php' LIMIT 1");
+        }
+        if (!$sample) {
+            echo "Template {$name} missing and no clone source found\n";
             return 0;
         }
         unset($sample['id']);
@@ -153,16 +156,18 @@ $targets = [
     [
         'file' => $root . '/sticky-sticker.php',
         'uri' => '/admiralteyskaya/sticky-sticker.php',
-        'name' => 'sticky_sticker',
+        'names' => array('sticky-sticker.php', 'sticky_sticker'),
         'page_title' => 'Липкий стикер',
         'order' => 165,
+        'clone_from' => 'gallery.php',
     ],
     [
         'file' => dirname($root) . '/udelnaya/sticky-sticker.php',
         'uri' => '/udelnaya/sticky-sticker.php',
-        'name' => 'sticky_sticker_udel',
+        'names' => array('udelnaya/sticky-sticker.php', 'sticky_sticker_udel'),
         'page_title' => 'Липкий стикер',
         'order' => 165,
+        'clone_from' => 'udelnaya/gallery.php',
     ],
 ];
 
@@ -176,7 +181,7 @@ foreach ($targets as $target) {
         }
         exit(1);
     }
-    gl_ensure_template($db, $templates, $pages, $target['name'], $target['page_title'], $target['order'], 'gallery_section');
+    gl_ensure_template($db, $templates, $pages, $target['names'][0], $target['page_title'], $target['order'], $target['clone_from']);
 }
 
 chdir($root);
@@ -205,14 +210,20 @@ foreach ($targets as $target) {
     $_SERVER['REQUEST_METHOD'] = 'GET';
     $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-    echo "Parsing {$target['name']} as super-admin...\n";
+    echo "Parsing {$target['names'][0]} as super-admin...\n";
     ob_start();
     require $target['file'];
     ob_end_clean();
 
-    $tplRows = $DB->select($templates, array('id', 'name', 'title'), "name='" . $DB->sanitize($target['name']) . "'");
+    $tplRows = array();
+    foreach ($target['names'] as $candidateName) {
+        $tplRows = $DB->select($templates, array('id', 'name', 'title'), "name='" . $DB->sanitize($candidateName) . "'");
+        if (count($tplRows)) {
+            break;
+        }
+    }
     if (!count($tplRows)) {
-        $msg = "Template {$target['name']} not found in DB after parse\n";
+        $msg = "Template not found in DB after parse (" . implode(', ', $target['names']) . ")\n";
         if ($isWeb) {
             echo $msg;
         } else {
@@ -229,7 +240,7 @@ foreach ($targets as $target) {
     );
 
     $fieldRows = $DB->select($fields, array('id', 'name'), "template_id='" . $DB->sanitize($templateId) . "'");
-    echo "{$target['name']} fields in DB: " . count($fieldRows) . "\n";
+    echo "{$tplRows[0]['name']} fields in DB: " . count($fieldRows) . "\n";
 }
 
 define('GL_SKIP_CLI_CHECK', true);
