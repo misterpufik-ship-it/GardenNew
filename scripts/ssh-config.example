@@ -1,0 +1,16 @@
+# Copy useful blocks into: C:\Users\<YOU>\.ssh\config
+# Then in Cursor: Ctrl+Shift+P -> Remote-SSH: Connect to Host...
+
+Host garden-vps
+    HostName 82.202.129.7
+    User root
+    IdentityFile C:/Users/<YOU>/.ssh/codex_beget_vps_ed25519
+    IdentitiesOnly yes
+
+# Optional: hosting SSH (fill from scripts/deploy.env.ps1)
+Host garden-hosting
+    HostName your-hosting.example.com
+    User your_ssh_user
+    Port 22
+    IdentityFile C:/Users/<YOU>/.ssh/your_hosting_key
+    IdentitiesOnly yes
