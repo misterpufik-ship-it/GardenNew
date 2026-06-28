@@ -1,10 +1,10 @@
 <?php
 $path = dirname( __DIR__ ) . '/couch/addons/kfunctions.php';
-$src = dirname( __DIR__ ) . '/_maintenance/kfunctions-eff576a.php';
-if ( !file_exists( $src ) ) {
-    $src = $path;
+$content = file_get_contents( $path );
+if ( $content === false ) {
+    fwrite( STDERR, "Cannot read kfunctions.php\n" );
+    exit( 1 );
 }
-$content = file_get_contents( $src );
 
 $labels = <<<'PHP'
 function garden_admin_label_defaults(){
@@ -96,16 +96,21 @@ if ( !$c1 || !$c2 ) {
     exit( 1 );
 }
 
-// Cache-bust theme CSS in admin HTML
+// Cache-bust theme CSS in admin HTML; keep PNG favicon replacement.
 $branding = <<<'PHP'
 function garden_admin_branding_output( &$html ){
     $html = preg_replace( '#<title>[^<]*</title>#', '<title>Garden Lounge</title>', $html, 1 );
-    $html = preg_replace(
-        '#<link href="[^"]*favicon\.ico" rel="shortcut icon"/>#',
-        '<link rel="icon" type="image/png" href="/favicon.png">' . "\n    " . '<link rel="shortcut icon" type="image/png" href="/favicon.png">',
-        $html,
-        1
-    );
+    $favicon = '<link rel="icon" type="image/png" href="/favicon.png">' . "\n    "
+        . '<link rel="shortcut icon" type="image/png" href="/favicon.png">';
+    if ( preg_match( '#<link[^>]+rel=["\'](?:shortcut )?icon["\'][^>]*/>#i', $html ) ) {
+        $html = preg_replace( '#<link[^>]+rel=["\'](?:shortcut )?icon["\'][^>]*/>#i', $favicon, $html, 1 );
+    } else {
+        $html = preg_replace( '#</head>#', $favicon . "\n</head>", $html, 1 );
+    }
+    $fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">';
+    if ( strpos( $html, 'fonts.googleapis.com' ) === false ) {
+        $html = preg_replace( '#</head>#', $fonts . "\n</head>", $html, 1 );
+    }
     if ( defined( 'K_THEME_URL' ) && defined( 'K_THEME_DIR' ) && K_THEME_URL && is_file( K_THEME_DIR . 'styles.css' ) ) {
         $ver = filemtime( K_THEME_DIR . 'styles.css' );
         $html = str_replace( K_THEME_URL . 'styles.css', K_THEME_URL . 'styles.css?v=' . $ver, $html );

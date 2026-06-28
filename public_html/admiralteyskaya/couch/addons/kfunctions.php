@@ -3,40 +3,40 @@ if ( !defined('K_COUCH_DIR') ) die();
 
 function garden_admin_label_defaults(){
     return array(
-        'header.php' => array('field'=>'label_header', 'title'=>'РЁР°РїРєР° СЃР°Р№С‚Р° (Header)', 'weight'=>100),
-        'about.php' => array('field'=>'label_about', 'title'=>'РљРѕРЅС†РµРїС†РёСЏ', 'weight'=>110),
-        'akzii.php' => array('field'=>'label_akzii', 'title'=>'РђРєС†РёРё', 'weight'=>120),
-        'menu.php' => array('field'=>'label_menu', 'title'=>'РњРµРЅСЋ (РѕР±С‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё)', 'weight'=>130),
-        'menu/text/index.php' => array('field'=>'label_menu_text', 'title'=>'РњРµРЅСЋ RU', 'weight'=>140),
-        'menu/english/index.php' => array('field'=>'label_menu_en', 'title'=>'РњРµРЅСЋ EN', 'weight'=>150),
-        'menu/visual/index.php' => array('field'=>'label_menu_visual', 'title'=>'РњРµРЅСЋ РІРёР·СѓР°Р»СЊРЅРѕРµ', 'weight'=>160),
-        'sticky-sticker.php' => array('field'=>'label_sticky_sticker', 'title'=>'Р›РёРїРєРёР№ СЃС‚РёРєРµСЂ вЂ” РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ', 'weight'=>165),
-        'gallery.php' => array('field'=>'label_gallery', 'title'=>'Р“Р°Р»РµСЂРµСЏ', 'weight'=>170),
-        'reservation.php' => array('field'=>'label_reservation', 'title'=>'Р‘СЂРѕРЅРёСЂРѕРІР°РЅРёРµ', 'weight'=>180),
-        'contacts.php' => array('field'=>'label_contacts', 'title'=>'РљРѕРЅС‚Р°РєС‚С‹', 'weight'=>190),
-        'filial.php' => array('field'=>'label_filial', 'title'=>'Р¤РёР»РёР°Р»', 'weight'=>200),
-        'globals.php' => array('field'=>'label_globals', 'title'=>'Р¤СѓС‚РµСЂ Рё SEO', 'weight'=>210),
-        'index.php' => array('field'=>'label_index', 'title'=>'РћР±С‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°', 'weight'=>220),
-        'home.php' => array('field'=>'label_home', 'title'=>'Р“Р»Р°РІРЅР°СЏ', 'weight'=>1),
-        'booking-settings.php' => array('field'=>'label_booking_settings', 'title'=>'Р‘СЂРѕРЅРёСЂРѕРІР°РЅРёРµ Telegram', 'weight'=>5),
-        'preloader-settings.php' => array('field'=>'label_preloader_settings', 'title'=>'РџСЂРµР»РѕР°РґРµСЂ', 'weight'=>3),
-        'age-gate-settings.php' => array('field'=>'label_age_gate_settings', 'title'=>'Р—Р°РіР»СѓС€РєР° 18+', 'weight'=>4),
-        'admin-labels.php' => array('field'=>'', 'title'=>'РќР°Р·РІР°РЅРёСЏ СЂР°Р·РґРµР»РѕРІ', 'weight'=>230),
+        'header.php' => array('field'=>'label_header', 'title'=>'Шапка сайта (Header)', 'weight'=>100),
+        'about.php' => array('field'=>'label_about', 'title'=>'Концепция', 'weight'=>110),
+        'akzii.php' => array('field'=>'label_akzii', 'title'=>'Акции', 'weight'=>120),
+        'menu.php' => array('field'=>'label_menu', 'title'=>'Меню (общие настройки)', 'weight'=>130),
+        'menu/text/index.php' => array('field'=>'label_menu_text', 'title'=>'Меню RU', 'weight'=>140),
+        'menu/english/index.php' => array('field'=>'label_menu_en', 'title'=>'Меню EN', 'weight'=>150),
+        'menu/visual/index.php' => array('field'=>'label_menu_visual', 'title'=>'Меню визуальное', 'weight'=>160),
+        'sticky-sticker.php' => array('field'=>'label_sticky_sticker', 'title'=>'Липкий стикер — Адмиралтейская', 'weight'=>165),
+        'gallery.php' => array('field'=>'label_gallery', 'title'=>'Галерея', 'weight'=>170),
+        'reservation.php' => array('field'=>'label_reservation', 'title'=>'Бронирование', 'weight'=>180),
+        'contacts.php' => array('field'=>'label_contacts', 'title'=>'Контакты', 'weight'=>190),
+        'filial.php' => array('field'=>'label_filial', 'title'=>'Филиал', 'weight'=>200),
+        'globals.php' => array('field'=>'label_globals', 'title'=>'Футер и SEO', 'weight'=>210),
+        'index.php' => array('field'=>'label_index', 'title'=>'Общая страница', 'weight'=>220),
+        'home.php' => array('field'=>'label_home', 'title'=>'Главная', 'weight'=>1),
+        'booking-settings.php' => array('field'=>'label_booking_settings', 'title'=>'Бронирование Telegram', 'weight'=>5),
+        'preloader-settings.php' => array('field'=>'label_preloader_settings', 'title'=>'Прелоадер', 'weight'=>3),
+        'age-gate-settings.php' => array('field'=>'label_age_gate_settings', 'title'=>'Заглушка 18+', 'weight'=>4),
+        'admin-labels.php' => array('field'=>'', 'title'=>'Названия разделов', 'weight'=>230),
 
-        'udelnaya/header.php' => array('field'=>'label_u_header', 'title'=>'РЁР°РїРєР° СЃР°Р№С‚Р° (Header)', 'weight'=>100),
-        'udelnaya/about.php' => array('field'=>'label_u_about', 'title'=>'РљРѕРЅС†РµРїС†РёСЏ', 'weight'=>110),
-        'udelnaya/akzii.php' => array('field'=>'label_u_akzii', 'title'=>'РђРєС†РёРё', 'weight'=>120),
-        'udelnaya/menu.php' => array('field'=>'label_u_menu', 'title'=>'РњРµРЅСЋ (РѕР±С‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё)', 'weight'=>130),
-        'udelnaya/menu/text/index.php' => array('field'=>'label_u_menu_text', 'title'=>'РњРµРЅСЋ RU', 'weight'=>140),
-        'udelnaya/menu/english/index.php' => array('field'=>'label_u_menu_en', 'title'=>'РњРµРЅСЋ EN', 'weight'=>150),
-        'udelnaya/menu/visual/index.php' => array('field'=>'label_u_menu_visual', 'title'=>'РњРµРЅСЋ РІРёР·СѓР°Р»СЊРЅРѕРµ', 'weight'=>160),
-        'udelnaya/sticky-sticker.php' => array('field'=>'label_u_sticky_sticker', 'title'=>'Р›РёРїРєРёР№ СЃС‚РёРєРµСЂ вЂ” РЈРґРµР»СЊРЅР°СЏ', 'weight'=>165),
-        'udelnaya/gallery.php' => array('field'=>'label_u_gallery', 'title'=>'Р“Р°Р»РµСЂРµСЏ', 'weight'=>170),
-        'udelnaya/reservation.php' => array('field'=>'label_u_reservation', 'title'=>'Р‘СЂРѕРЅРёСЂРѕРІР°РЅРёРµ', 'weight'=>180),
-        'udelnaya/contacts.php' => array('field'=>'label_u_contacts', 'title'=>'РљРѕРЅС‚Р°РєС‚С‹', 'weight'=>190),
-        'udelnaya/filial.php' => array('field'=>'label_u_filial', 'title'=>'Р¤РёР»РёР°Р»', 'weight'=>200),
-        'udelnaya/globals.php' => array('field'=>'label_u_globals', 'title'=>'Р¤СѓС‚РµСЂ Рё SEO', 'weight'=>210),
-        'udelnaya/index.php' => array('field'=>'label_u_index', 'title'=>'РћР±С‰Р°СЏ СЃС‚СЂР°РЅРёС†Р°', 'weight'=>220),
+        'udelnaya/header.php' => array('field'=>'label_u_header', 'title'=>'Шапка сайта (Header)', 'weight'=>100),
+        'udelnaya/about.php' => array('field'=>'label_u_about', 'title'=>'Концепция', 'weight'=>110),
+        'udelnaya/akzii.php' => array('field'=>'label_u_akzii', 'title'=>'Акции', 'weight'=>120),
+        'udelnaya/menu.php' => array('field'=>'label_u_menu', 'title'=>'Меню (общие настройки)', 'weight'=>130),
+        'udelnaya/menu/text/index.php' => array('field'=>'label_u_menu_text', 'title'=>'Меню RU', 'weight'=>140),
+        'udelnaya/menu/english/index.php' => array('field'=>'label_u_menu_en', 'title'=>'Меню EN', 'weight'=>150),
+        'udelnaya/menu/visual/index.php' => array('field'=>'label_u_menu_visual', 'title'=>'Меню визуальное', 'weight'=>160),
+        'udelnaya/sticky-sticker.php' => array('field'=>'label_u_sticky_sticker', 'title'=>'Липкий стикер — Удельная', 'weight'=>165),
+        'udelnaya/gallery.php' => array('field'=>'label_u_gallery', 'title'=>'Галерея', 'weight'=>170),
+        'udelnaya/reservation.php' => array('field'=>'label_u_reservation', 'title'=>'Бронирование', 'weight'=>180),
+        'udelnaya/contacts.php' => array('field'=>'label_u_contacts', 'title'=>'Контакты', 'weight'=>190),
+        'udelnaya/filial.php' => array('field'=>'label_u_filial', 'title'=>'Филиал', 'weight'=>200),
+        'udelnaya/globals.php' => array('field'=>'label_u_globals', 'title'=>'Футер и SEO', 'weight'=>210),
+        'udelnaya/index.php' => array('field'=>'label_u_index', 'title'=>'Общая страница', 'weight'=>220),
     );
 }
 
@@ -109,12 +109,12 @@ function garden_alter_admin_menuitems( &$items ){
     $defaults = garden_admin_label_defaults();
     $overrides = garden_admin_label_overrides();
 
-    $items['_garden_home_'] = garden_admin_menu_header( '_garden_home_', 'Р“Р»Р°РІРЅР°СЏ', -1 );
-    $items['_garden_admiral_'] = garden_admin_menu_header( '_garden_admiral_', 'РђРґРјРёСЂР°Р»С‚РµР№СЃРєР°СЏ', 0 );
-    $items['_garden_udelnaya_'] = garden_admin_menu_header( '_garden_udelnaya_', 'РЈРґРµР»СЊРЅР°СЏ', 1 );
+    $items['_garden_home_'] = garden_admin_menu_header( '_garden_home_', 'Главная', -1 );
+    $items['_garden_admiral_'] = garden_admin_menu_header( '_garden_admiral_', 'Адмиралтейская', 0 );
+    $items['_garden_udelnaya_'] = garden_admin_menu_header( '_garden_udelnaya_', 'Удельная', 1 );
 
     if ( isset($items['_templates_']) ){
-        $items['_templates_']['title'] = 'РћР±С‰РёРµ';
+        $items['_templates_']['title'] = 'Общие';
         $items['_templates_']['weight'] = 2;
         $items['_templates_']['class'] = 'separator';
     }
