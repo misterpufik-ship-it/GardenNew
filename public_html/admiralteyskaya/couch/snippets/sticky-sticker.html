@@ -16,7 +16,7 @@
         color: transparent; animation: bssShineGold 5s linear infinite;
     }
     .branch-modal-top { text-align: center; margin-bottom: 14px; }
-    .branch-modal-logo-top { width: 100px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 12px; }
+    .branch-modal-logo-top { width: 100px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 8px; }
     .branch-modal-title {
         font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; line-height: 1.25;
         text-align: center; margin: 0 0 10px; color: #fff;
@@ -112,7 +112,7 @@
         <span class="close-modal" onclick="closeSecondGardenModal()" aria-label="Закрыть">&times;</span>
 
         <div class="branch-modal-top">
-            <cms:if modal_logo><img class="branch-modal-logo-top" src="<cms:show modal_logo />" alt="Garden Lounge"></cms:if>
+            <img class="branch-modal-logo-top" src="<cms:if modal_logo><cms:show modal_logo /><cms:else />/img/logo-gl.webp</cms:if>" alt="" width="100" height="94" decoding="async">
         </div>
 
         <div class="branch-modal-intro">

@@ -56,17 +56,20 @@ input[type=text]:focus,input[type=text]:hover:focus,input[type=password]:focus,i
 
 /* Sidebar: keep Couch absolute layout, greeting above footer buttons */
 #menu-content{position:relative;height:100%}
-#scroll-sidebar{position:absolute!important;top:124px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
-@media (max-height:540px){#scroll-sidebar{top:96px!important;bottom:124px!important}}
+/* Sidebar: logo block + menu closer together */
+#menu-wrap .garden-admin-brand{padding:8px 8px 4px}
+#menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:198px!important;max-height:74px!important;width:100%!important}
+.garden-admin-brand__subtitle{display:none!important}
+#menu-content{position:relative;height:100%}
+#scroll-sidebar{position:absolute!important;top:88px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
+@media (max-height:540px){#scroll-sidebar{top:80px!important;bottom:124px!important}}
 #sidebar-greeting,#sidebar-top{position:absolute;right:0;bottom:84px;left:0;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:var(--gl-panel);box-shadow:0 -1px 0 rgba(197,160,89,.08)}
 #sidebar-greeting>p,#sidebar-top>p{color:var(--gl-muted);margin:0;font-size:12px;line-height:1.45}
 #sidebar-greeting>p>a,#sidebar-top>p>a{color:var(--gl-text)}
-
-/* KCFinder browse popup */
 div.kcfinder-iframe .mfp-content{max-width:968px;width:96vw;height:auto!important;max-height:90vh}
 .kcfinder-iframe .mfp-iframe-scaler{padding-top:0!important;height:min(72vh,640px)!important;position:relative;overflow:hidden}
 .kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}
-#nav>.nav-heading:first-child{margin-top:6px}
+#nav>.nav-heading:first-child{margin-top:2px}
 #nav>.nav-heading:first-child:before{padding-top:0;border-top:0}
 
 /* Login page: larger logo, clean centered heading */

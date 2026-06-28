@@ -176,6 +176,10 @@ CSS;
 
 $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_login_css' );
 function garden_admin_branding_output( &$html ){
+    if ( !defined( 'K_ADMIN' ) ) {
+        return;
+    }
+
     $html = preg_replace( '#<title>[^<]*</title>#', '<title>Garden Lounge</title>', $html, 1 );
     $favicon = '<link rel="icon" type="image/png" href="/favicon.png">' . "\n    "
         . '<link rel="shortcut icon" type="image/png" href="/favicon.png">';
@@ -230,12 +234,12 @@ function garden_admin_sidebar_css(){
     global $FUNCS;
 
     $css = <<<'CSS'
-#menu-wrap .garden-admin-brand{padding:10px 8px 6px}
-#menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:110px!important;max-height:74px!important;width:100%!important}
+#menu-wrap .garden-admin-brand{padding:8px 8px 4px}
+#menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:198px!important;max-height:74px!important;width:100%!important}
 .garden-admin-brand__subtitle{display:none!important}
 #menu-content{position:relative;height:100%}
-#scroll-sidebar{position:absolute!important;top:124px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
-@media (max-height:540px){#scroll-sidebar{top:96px!important;bottom:124px!important}}
+#scroll-sidebar{position:absolute!important;top:88px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
+@media (max-height:540px){#scroll-sidebar{top:80px!important;bottom:124px!important}}
 #sidebar-greeting,#sidebar-top{position:absolute;right:0;bottom:84px;left:0;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:#1a1a1a;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
 #sidebar-greeting>p,#sidebar-top>p{color:#999;margin:0;font-size:12px;line-height:1.45}
 #sidebar-greeting>p>a,#sidebar-top>p>a{color:#ddd}

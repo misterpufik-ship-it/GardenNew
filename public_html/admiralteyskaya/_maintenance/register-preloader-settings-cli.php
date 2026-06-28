@@ -23,15 +23,17 @@ $fields = array(
     array('name' => 'preloader_enabled', 'label' => 'Включить прелоадер', 'type' => 'dropdown', 'group' => 'group_preloader_main', 'order' => 11, 'opt_values' => 'Нет=0 | Да=1', 'default' => '1'),
     array('name' => 'preloader_scope_mode', 'label' => 'Режим показа', 'type' => 'dropdown', 'group' => 'group_preloader_main', 'order' => 12, 'opt_values' => 'На всех выбранных разделах=all | Только на выбранных=include | Везде, кроме выбранных=exclude', 'default' => 'all'),
     array('name' => 'preloader_sections', 'label' => 'Разделы сайта', 'type' => 'text', 'group' => 'group_preloader_main', 'order' => 13, 'default' => 'home, admiral, udelnaya, admiral_udelnaya'),
-    array('name' => 'preloader_video', 'label' => 'Видео (путь или URL)', 'type' => 'text', 'group' => 'group_preloader_main', 'order' => 14, 'default' => '/video/preloader.mp4'),
+    array('name' => 'preloader_video', 'label' => 'Видео (общее, устар.)', 'type' => 'text', 'group' => 'group_preloader_main', 'order' => 14, 'default' => '/video/preloader.mp4'),
     array('name' => 'group_preloader_timing', 'label' => 'Скорость и тайминги', 'type' => 'group', 'order' => 20),
     array('name' => 'preloader_min_time', 'label' => 'Минимальное время показа (мс)', 'type' => 'text', 'group' => 'group_preloader_timing', 'order' => 21, 'default' => '1200'),
     array('name' => 'preloader_max_time', 'label' => 'Максимальное время показа (мс)', 'type' => 'text', 'group' => 'group_preloader_timing', 'order' => 22, 'default' => '8000'),
     array('name' => 'preloader_playback_rate', 'label' => 'Скорость воспроизведения', 'type' => 'text', 'group' => 'group_preloader_timing', 'order' => 23, 'default' => '1.3'),
     array('name' => 'group_preloader_desktop', 'label' => 'Десктоп (от 768px)', 'type' => 'group', 'order' => 30),
-    array('name' => 'preloader_desktop_object_fit', 'label' => 'Как вписать видео', 'type' => 'dropdown', 'group' => 'group_preloader_desktop', 'order' => 31, 'opt_values' => 'На весь экран=cover | Вписать без обрезки=contain', 'default' => 'cover'),
+    array('name' => 'preloader_video_desktop', 'label' => 'Видео для десктопа', 'type' => 'text', 'group' => 'group_preloader_desktop', 'order' => 31, 'default' => '/video/preloader.mp4'),
+    array('name' => 'preloader_desktop_object_fit', 'label' => 'Как вписать видео', 'type' => 'dropdown', 'group' => 'group_preloader_desktop', 'order' => 32, 'opt_values' => 'На весь экран=cover | Вписать без обрезки=contain', 'default' => 'cover'),
     array('name' => 'group_preloader_mobile', 'label' => 'Мобильные (до 767px)', 'type' => 'group', 'order' => 40),
-    array('name' => 'preloader_mobile_object_fit', 'label' => 'Как вписать видео', 'type' => 'dropdown', 'group' => 'group_preloader_mobile', 'order' => 41, 'opt_values' => 'Вписать без обрезки=contain | На весь экран=cover', 'default' => 'contain'),
+    array('name' => 'preloader_video_mobile', 'label' => 'Видео для мобильных', 'type' => 'text', 'group' => 'group_preloader_mobile', 'order' => 41, 'default' => '/video/preloader.mp4'),
+    array('name' => 'preloader_mobile_object_fit', 'label' => 'Как вписать видео', 'type' => 'dropdown', 'group' => 'group_preloader_mobile', 'order' => 42, 'opt_values' => 'Вписать без обрезки=contain | На весь экран=cover', 'default' => 'contain'),
 );
 
 $tpl = $DB->select(K_DB_TABLES_PREFIX . 'couch_templates', array('id'), "name = '" . $DB->sanitize($template_name) . "'");

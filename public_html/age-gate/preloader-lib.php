@@ -107,6 +107,8 @@ function garden_preloader_default_settings()
         'scope_mode' => 'all',
         'sections' => array('home', 'admiral', 'udelnaya', 'admiral_udelnaya'),
         'video' => '/video/preloader.mp4',
+        'video_desktop' => '/video/preloader.mp4',
+        'video_mobile' => '/video/preloader.mp4',
         'min_time' => 1200,
         'max_time' => 8000,
         'playback_rate' => 1.3,
@@ -167,6 +169,16 @@ function garden_preloader_get_settings()
     $video_raw = garden_preloader_get_field_value('preloader_video');
     $video = garden_preloader_resolve_video_url($video_raw);
 
+    $video_desktop_raw = garden_preloader_get_field_value('preloader_video_desktop');
+    $video_desktop = garden_preloader_resolve_video_url($video_desktop_raw !== '' ? $video_desktop_raw : $video);
+
+    $video_mobile_raw = garden_preloader_get_field_value('preloader_video_mobile');
+    if ($video_mobile_raw !== '') {
+        $video_mobile = garden_preloader_resolve_video_url($video_mobile_raw);
+    } else {
+        $video_mobile = $video_desktop;
+    }
+
     $min_time = (int)garden_preloader_get_field_value('preloader_min_time');
     if ($min_time < 0) {
         $min_time = $defaults['min_time'];
@@ -197,6 +209,8 @@ function garden_preloader_get_settings()
         'scope_mode' => $scope_mode,
         'sections' => $sections,
         'video' => $video,
+        'video_desktop' => $video_desktop,
+        'video_mobile' => $video_mobile,
         'min_time' => $min_time,
         'max_time' => $max_time,
         'playback_rate' => $playback_rate,
