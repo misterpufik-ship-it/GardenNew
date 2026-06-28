@@ -278,7 +278,8 @@ body #tabs-page #content{background:#fff;padding-bottom:28px}
 .gl-admin-dump-link a{color:#C5A059}
 div.kcfinder-iframe .mfp-content{max-width:968px;width:96vw;height:auto!important;max-height:90vh}
 .kcfinder-iframe .mfp-iframe-scaler{padding-top:0!important;height:min(72vh,640px)!important;position:relative;overflow:hidden}
-.kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}CSS;
+.kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}
+CSS;
 
     $FUNCS->add_css( $css );
 }

@@ -58,7 +58,7 @@ $kfnCss = str_replace(
 );
 $kfnCss .= "\ndiv.kcfinder-iframe .mfp-content{max-width:968px;width:96vw;height:auto!important;max-height:90vh}\n";
 $kfnCss .= ".kcfinder-iframe .mfp-iframe-scaler{padding-top:0!important;height:min(72vh,640px)!important;position:relative;overflow:hidden}\n";
-$kfnCss .= ".kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}";
+$kfnCss .= ".kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}\n";
 
 $kfn = file_get_contents($kfnPath);
 $replacement = "function garden_admin_sidebar_css(){\n    global \$FUNCS;\n\n    \$css = <<<'CSS'\n" . $kfnCss . "CSS;\n\n    \$FUNCS->add_css( \$css );\n}";
