@@ -16,11 +16,12 @@
         color: transparent; animation: bssShineGold 5s linear infinite;
     }
     .branch-modal-top { text-align: center; margin-bottom: 14px; }
-    .branch-modal-logo-top { width: 100px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 8px; }
+    .branch-modal-logo-top { width: 120px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 8px; }
     .branch-modal-title {
-        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; line-height: 1.25;
+        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; line-height: 1.3;
         text-align: center; margin: 0 0 10px; color: #fff;
     }
+    .branch-modal-brand { display: block; font-size: 15px; letter-spacing: 0.04em; margin-bottom: 2px; }
     .branch-modal-branch { display: block; letter-spacing: 0.02em; }
     .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0; text-align: center; }
     .bss-gallery-widget { margin-top: 16px; }
@@ -34,15 +35,15 @@
     .bss-slider-stage { position: relative; }
     .bss-pane { display: none; opacity: 0; transition: opacity 0.35s ease; }
     .bss-pane.active { display: block; opacity: 1; }
-    .bss-slider-box { position: relative; }
+    .bss-slider-box { position: relative; overflow: hidden; border-radius: 4px; }
     .bss-track {
         display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-        gap: 10px; scrollbar-width: none; padding: 0 2px 2px; aspect-ratio: 16/10;
+        gap: 0; scrollbar-width: none; padding: 0; aspect-ratio: 4/3;
     }
     .bss-track::-webkit-scrollbar { display: none; }
     .bss-slide {
-        flex: 0 0 88%; scroll-snap-align: start; border-radius: 4px; overflow: hidden;
-        aspect-ratio: 16/10; background: #111; border: 1px solid rgba(197,160,89,0.2);
+        flex: 0 0 100%; scroll-snap-align: start; border-radius: 0; overflow: hidden;
+        aspect-ratio: 4/3; background: #111; border: 0;
     }
     .bss-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .bss-nav {
@@ -112,11 +113,12 @@
         <span class="close-modal" onclick="closeSecondGardenModal()" aria-label="Закрыть">&times;</span>
 
         <div class="branch-modal-top">
-            <img class="branch-modal-logo-top" src="<cms:if modal_logo><cms:show modal_logo /><cms:else />/img/logo-gl.webp</cms:if>" alt="" width="100" height="94" decoding="async">
+            <img class="branch-modal-logo-top" src="/img/logo-gl.webp" alt="Garden Lounge" width="120" height="113" decoding="async">
         </div>
 
         <div class="branch-modal-intro">
             <h2 class="branch-modal-title">
+                <span class="branch-modal-brand gold-shimmer">Garden Lounge</span>
                 <span class="branch-modal-branch gold-shimmer"><cms:if modal_title_branch><cms:show modal_title_branch /><cms:else /><cms:show bss_branch_name /></cms:if></span>
             </h2>
             <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
@@ -239,7 +241,7 @@
         const track = typeof trackId === 'string' ? document.getElementById(trackId) : document.getElementById('bss-track-interior');
         if (!track) return;
         const slide = track.querySelector('.bss-slide');
-        const step = slide ? slide.offsetWidth + 10 : 280;
+        const step = track.clientWidth || (slide ? slide.offsetWidth : 280);
         track.scrollBy({ left: dir * step, behavior: 'smooth' });
     };
     function initGardenSticky() {
