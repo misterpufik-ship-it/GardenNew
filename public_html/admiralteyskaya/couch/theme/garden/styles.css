@@ -13,7 +13,7 @@
 #sidebar-btns>.btn-primary:hover,#sidebar-btns>.btn-primary:focus,#sidebar-btns>#log-out:hover,#sidebar-btns>#log-out:focus,#sidebar-btns>#view-site:hover,#sidebar-btns>#view-site:focus{background-color:var(--gl-gold);border-color:var(--gl-gold);color:#111}
 #nav>li>a,.nav-group>ul>li>a{color:var(--gl-muted)}
 #nav>li>a:hover,#nav>li>a:focus,.nav-group>ul>li>a:hover,.nav-group>ul>li>a:focus{color:#fff;background-color:rgba(197,160,89,.08)}
-.nav-heading-toggle{color:var(--gl-gold)}
+.nav-heading-toggle{color:transparent}
 #nav>li>.nav-active,#nav>li>.nav-active:hover,#nav>li>.nav-active:focus,.nav-group>ul>li>.nav-active,.nav-group>ul>li>.nav-active:hover,.nav-group>ul>li>.nav-active:focus{background-color:var(--gl-gold-dark);border-color:var(--gl-gold);color:#fff}
 .nav-count{background-color:var(--gl-gold);color:#111}
 #sidebar-bot{color:#666;font-size:0}
@@ -70,6 +70,21 @@ div.kcfinder-iframe .mfp-content{max-width:968px;width:96vw;height:auto!importan
 .kcfinder-iframe .mfp-iframe-scaler{padding-top:0!important;height:min(72vh,640px)!important;position:relative;overflow:hidden}
 .kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}
 #nav>.nav-heading:first-child{margin-top:2px}
+@keyframes glGoldShine{to{background-position:200% center}}
+.gl-gold-shimmer,#header-title,#header-title a,.nav-heading-toggle,.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend{
+background:linear-gradient(to right,#8e7037 0%,#C5A059 40%,#FFEebb 50%,#C5A059 60%,#8e7037 100%);
+background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent!important;
+animation:glGoldShine 5s linear infinite;text-shadow:none!important}
+.nav-heading-toggle .nav-heading-btn{-webkit-text-fill-color:#aaa;color:#aaa!important;background:none!important;animation:none!important}
+#header-title{font-size:20px!important;height:auto!important;line-height:1.25!important;padding:4px 0}
+.nav-heading,.nav-heading-toggle{font-size:10px!important;font-weight:600!important;letter-spacing:.14em!important;text-transform:uppercase!important}
+.nav-heading-toggle:hover,.nav-heading-toggle:focus,.group-wrapper .panel-heading.panel-toggle:hover,.group-wrapper .panel-heading.panel-toggle:focus{
+-webkit-text-fill-color:transparent;color:transparent!important}
+.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend{font-size:18px!important}
+.group-wrapper .panel-heading.panel-toggle:after,fieldset.row_fieldset legend:after{
+-webkit-text-fill-color:initial;color:var(--gl-gold)!important;background:none!important;animation:none!important}
+.group-wrapper .panel-heading.panel-toggle:hover:after,.group-wrapper .panel-heading.panel-toggle:focus:after,
+fieldset.row_fieldset legend:hover:after,fieldset.row_fieldset legend:focus:after{background-color:var(--gl-gold)!important;color:#111!important}
 #nav>.nav-heading:first-child:before{padding-top:0;border-top:0}
 
 /* Login page: larger logo, clean centered heading */
@@ -94,15 +109,3 @@ div.kcfinder-iframe .mfp-content{max-width:968px;width:96vw;height:auto!importan
 #simple-page #simple-wrap .panel-heading.simple-heading{display:flex!important;justify-content:center!important;align-items:center!important;padding:12px 15px!important;color:#C5A059!important;text-align:center!important;background-color:#141414!important;background-image:none!important;text-shadow:none!important;font-weight:600;border-color:rgba(197,160,89,.28)!important}
 #simple-page #simple-wrap .panel-heading.simple-heading .login-heading{display:block!important;width:100%!important;color:#C5A059!important;text-align:center!important;text-shadow:none!important;font-size:15px;letter-spacing:.04em}
 
-/* Site typography: gold headings */
-body,input,select,textarea,.btn,.label,.field-label,.table,.tab>a{font-family:'Montserrat',Arial,sans-serif}
-#header-title,#header-title a,.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend,#content .panel>.panel-heading:not(.simple-heading):not(.panel-primary){font-family:'Cormorant Garamond',Georgia,serif!important;font-style:italic;font-weight:600;letter-spacing:.02em}
-#header-title,#header-title a{color:var(--gl-gold)!important;text-shadow:none!important}
-.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend{color:var(--gl-gold)!important;background-color:var(--gl-panel)!important;background-image:none!important;border-color:var(--gl-border)!important;text-shadow:none!important;font-size:22px;line-height:1.2;padding-top:11px;padding-bottom:11px}
-.group-wrapper .panel-heading.panel-toggle:hover,.group-wrapper .panel-heading.panel-toggle:focus{color:#d4b06a!important}
-.group-wrapper .panel-heading.panel-toggle .desc,.group-wrapper .panel-heading.panel-toggle .k_desc{color:rgba(197,160,89,.72)!important;font-family:'Montserrat',Arial,sans-serif!important;font-style:normal!important;font-size:12px;font-weight:500}
-.group-wrapper .panel-heading.panel-toggle:after{color:var(--gl-gold)!important;text-shadow:none!important}
-.group-wrapper .panel-heading.panel-toggle:hover:after,.group-wrapper .panel-heading.panel-toggle:focus:after{background-color:var(--gl-gold)!important;color:#111!important;box-shadow:none!important}
-fieldset.row_fieldset legend:after{color:var(--gl-gold)!important}
-fieldset.row_fieldset legend:hover:after,fieldset.row_fieldset legend:focus:after{background-color:var(--gl-gold)!important;color:#111!important}
-.nav-heading,.nav-heading-toggle{font-family:'Cormorant Garamond',Georgia,serif!important;font-style:italic;letter-spacing:.08em}
