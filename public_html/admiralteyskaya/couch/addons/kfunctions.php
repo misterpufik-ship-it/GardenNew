@@ -252,11 +252,11 @@ function garden_admin_sidebar_css(){
 :root{--gl-admin-header:66px;--gl-admin-sidebar-footer:119px}
 #sidebar,#menu-wrap,#logo-wrap{background-color:#0a0a0a!important;background-image:none!important}
 #logo-wrap{border-bottom:1px solid rgba(197,160,89,.28)}
-#menu-wrap .garden-admin-brand{padding:10px 10px 6px}
+#menu-wrap .garden-admin-brand{padding:8px 10px 4px}
 #menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:210px!important;max-height:82px!important;width:100%!important}
 #menu-content{position:relative;height:100%}
-#scroll-sidebar{position:absolute!important;top:76px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
-@media (max-height:540px){#scroll-sidebar{top:70px!important;bottom:124px!important}}
+#scroll-sidebar{position:absolute!important;top:0!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
+@media (max-height:540px){#scroll-sidebar{top:0!important;bottom:124px!important}}
 #nav-links{display:none!important}
 #sidebar-greeting,#sidebar-top{position:absolute!important;right:0;bottom:84px;left:0;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:#0a0a0a!important;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
 #sidebar-greeting>p,#sidebar-top>p{color:#999;margin:0;font-size:12px;line-height:1.45}
