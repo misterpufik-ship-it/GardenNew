@@ -101,7 +101,8 @@ require_once $garden_cms;
         }
         .badge-chef { background: var(--gold); color: #000; border: 1px solid var(--gold); }
         .badge-spicy { height: 18px; border: 1px solid rgba(197,160,89,0.34); background: linear-gradient(180deg, rgba(197,160,89,0.14), rgba(197,160,89,0.04)); font-size: 10px; padding: 0 5px; margin-left: 2px; border-radius: 999px; gap: 3px; display: inline-flex; align-items: center; line-height: 1; box-shadow: inset 0 0 8px rgba(197,160,89,0.08); }
-        .badge-spicy i { color: #C5A059; filter: drop-shadow(0 0 4px rgba(197,160,89,0.28)); }
+        .badge-spicy i { color: #C5A059; filter: drop-shadow(0 0 4px rgba(197,160,89,0.28)); font-family: "Font Awesome 6 Free" !important; font-weight: 900; font-style: normal; }
+        .badge-spicy .fa-solid::before { font-family: "Font Awesome 6 Free" !important; font-weight: 900; }
 
         .taplink-block-wrapper { width:100vw; position:relative; left:50%; margin-left:-50vw; background-color: #000; padding: 40px 0; overflow: hidden; }
         .content-limiter { max-width:600px; margin:0 auto; padding: 0 20px; position: relative; z-index: 10; }
@@ -185,9 +186,9 @@ require_once $garden_cms;
                                             <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
                                             <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
                                         </div>
                                     </div>
                                     <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
@@ -218,9 +219,9 @@ require_once $garden_cms;
                                             <cms:if item_tags='Hit' || item_tags='Hit + 🌶️'><span class="badge-item">Hit</span></cms:if>
                                             <cms:if item_tags='Special'><span class="badge-item">Special</span></cms:if>
                                             <cms:if item_tags='Chef’s Choice'><span class="badge-item badge-chef">Chef</span></cms:if>
-                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
-                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i><i class="fa-solid fa-fire-flame-curved"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️' || item_tags='New + 🌶️' || item_tags='Hit + 🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
+                                            <cms:if item_tags='🌶️🌶️🌶️'><span class="badge-spicy"><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i><i class="fa-solid fa-pepper-hot"></i></span></cms:if>
                                         </div>
                                     </div>
                                     <span class="price-tag gold-shimmer"><cms:show kit_price /> ₽</span>
