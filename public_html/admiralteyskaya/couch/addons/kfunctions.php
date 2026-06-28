@@ -249,7 +249,7 @@ function garden_admin_sidebar_css(){
 
     $css = <<<'CSS'
 /* === Garden admin shell v2 === */
-:root{--gl-admin-header:66px;--gl-admin-sidebar-footer:119px}
+:root{--gl-admin-header:0;--gl-admin-sidebar-footer:119px}
 #sidebar,#menu-wrap,#logo-wrap{background-color:#0a0a0a!important;background-image:none!important}
 #logo-wrap{border-bottom:1px solid rgba(197,160,89,.28)}
 #menu-wrap .garden-admin-brand{padding:8px 10px 4px}
@@ -265,13 +265,14 @@ function garden_admin_sidebar_css(){
 #sidebar-btns>.btn{flex:1 1 0;width:auto!important;min-width:0;float:none!important}
 #sidebar-btns>#log-out,#sidebar-btns>#view-site{width:auto!important}
 #sidebar-bot{display:block!important;position:absolute!important;right:0;bottom:0;left:0;height:24px!important;visibility:hidden;overflow:hidden;padding:0!important;margin:0!important;border:0!important}
-#header{background:#0a0a0a!important;border-bottom:1px solid rgba(197,160,89,.28)!important;padding:14px 24px 0!important}
-#header-inner{padding-bottom:14px!important;min-height:38px}
+#header{display:none!important;padding:0!important;border:0!important;background:transparent!important}
+#header:has(.btn-group a.btn){display:block!important;padding:10px 24px 8px!important;background:#0a0a0a!important;border-bottom:1px solid rgba(197,160,89,.28)!important}
+#header-inner{padding:0!important;min-height:0!important}
 #header-title,#header ul#tabs,#tabs{display:none!important}
 #header .subtitle{display:none!important}
 #gl-header-user{display:none!important}
 #scroll-content{background:#f3f3f3}
-#content{background:#fff;min-height:calc(100vh - var(--gl-admin-header) - var(--gl-admin-sidebar-footer));padding:18px 24px 28px;border-top:0}
+#content{background:#fff;min-height:calc(100vh - var(--gl-admin-sidebar-footer));padding:18px 24px 28px;border-top:0}
 body #tabs-page #content{background:#fff;padding-bottom:28px}
 .panel,.group-wrapper .panel{border-color:rgba(197,160,89,.28)}
 .gl-admin-dump-link{margin:0 0 12px;font-size:12px}
@@ -289,12 +290,90 @@ function garden_admin_form_css(){
 
     $css = <<<'CSS'
 /* Advanced settings next to bottom action buttons */
-.ctrl-bot{display:flex!important;flex-wrap:wrap;align-items:center;gap:10px 12px}
-.ctrl-bot>#top{position:absolute!important;top:21px;right:0;margin:0}
-.ctrl-bot #settings-panel{position:relative;flex:0 0 auto;margin:0;padding:0}
-.ctrl-bot #settings-panel-toggle{position:static;top:auto;right:auto;margin:0}
-.ctrl-bot #settings-panel>.panel-body{position:absolute;right:0;bottom:calc(100% + 6px);top:auto;float:none;width:min(440px,calc(100vw - 320px));z-index:5}
-.ctrl-bot .ctrl-right{margin-left:auto}
+.ctrl-bot .ctrl-right{
+  position:static!important;
+  top:auto!important;
+  bottom:auto!important;
+  right:auto!important;
+  display:inline-flex!important;
+  align-items:center;
+}
+.ctrl-bot:not(:has(#settings-panel)) .ctrl-right{
+  margin-left:auto!important;
+}
+.ctrl-bot .ctrl-right>.btn-group{
+  display:inline-flex!important;
+  align-items:center;
+  margin:0!important;
+  vertical-align:middle!important;
+}
+.ctrl-bot:has(#settings-panel){
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center!important;
+  gap:0 12px;
+  font-size:12px!important;
+  min-height:38px;
+}
+.ctrl-bot:has(#settings-panel)>#top{
+  position:absolute!important;
+  top:21px!important;
+  right:0;
+  margin:0;
+}
+.ctrl-bot:has(#settings-panel) #settings-panel{
+  position:relative!important;
+  grid-column:1;
+  justify-self:start;
+  margin:0!important;
+  padding:0!important;
+}
+.ctrl-bot:has(#settings-panel) #settings-panel-toggle{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
+  margin:0!important;
+  height:38px;
+  line-height:36px;
+  display:inline-flex;
+  align-items:center;
+}
+.ctrl-bot:has(#settings-panel) #settings-panel>.panel-body{
+  position:absolute!important;
+  right:0;
+  bottom:calc(100% + 6px);
+  top:auto!important;
+  float:none!important;
+  width:min(440px,calc(100vw - 320px));
+  z-index:5;
+}
+.ctrl-bot:has(#settings-panel)>#btn_submit{
+  grid-column:2;
+  justify-self:center;
+  margin:0!important;
+  height:38px;
+  line-height:36px;
+  vertical-align:middle!important;
+}
+.ctrl-bot:has(#settings-panel)>#btn_view{
+  grid-column:3;
+  justify-self:end;
+  margin:0!important;
+  height:38px;
+  line-height:36px;
+  vertical-align:middle!important;
+}
+.ctrl-bot:has(#settings-panel)>.ctrl-right{
+  grid-column:3;
+  justify-self:end;
+  margin:0!important;
+}
+.ctrl-bot:has(#settings-panel)>.btn:not(#top),
+.ctrl-bot:has(#settings-panel)>a.btn{
+  align-self:center;
+  margin-top:0!important;
+  margin-bottom:0!important;
+}
 CSS;
 
     $FUNCS->add_css( $css );
