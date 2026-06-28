@@ -272,7 +272,7 @@ function garden_admin_sidebar_css(){
 #header .subtitle{display:none!important}
 #gl-header-user{display:none!important}
 #scroll-content{background:#fff}
-#content{background:#fff;min-height:100vh;padding:18px 24px 0;border-top:0}
+#content{background:#fff;padding:18px 24px 0;border-top:0}
 body #tabs-page #content{background:#fff;padding-bottom:28px}
 .panel,.group-wrapper .panel{border-color:rgba(197,160,89,.28)}
 .gl-admin-dump-link{margin:0 0 12px;font-size:12px}
@@ -291,17 +291,24 @@ function garden_admin_form_css(){
     $css = <<<'CSS'
 
 /* Full-height main panel + scroll-to-top placement */
+html,body{
+  overflow:hidden!important;
+  height:100%!important;
+}
 #scroll-content{
   display:flex!important;
   flex-direction:column!important;
-  min-height:100vh!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
   background:#fff!important;
 }
 #content{
   flex:1 1 auto!important;
   display:flex!important;
   flex-direction:column!important;
-  min-height:100vh!important;
+  min-height:0!important;
   background:#fff!important;
   padding:18px 24px 0!important;
   box-sizing:border-box;
@@ -314,7 +321,7 @@ body #tabs-page #content{
   flex:1 1 auto!important;
   display:flex!important;
   flex-direction:column!important;
-  min-height:100%!important;
+  min-height:0!important;
   background:#fff!important;
 }
 #content form,
@@ -324,7 +331,7 @@ body #tabs-page #content{
   flex:1 1 auto!important;
   display:flex!important;
   flex-direction:column!important;
-  min-height:100%!important;
+  min-height:0!important;
 }
 #content .ctrl-bot,
 #tabs-page .ctrl-bot{
