@@ -271,8 +271,8 @@ function garden_admin_sidebar_css(){
 #header-title,#header ul#tabs,#tabs{display:none!important}
 #header .subtitle{display:none!important}
 #gl-header-user{display:none!important}
-#scroll-content{background:#f3f3f3}
-#content{background:#fff;min-height:calc(100vh - var(--gl-admin-sidebar-footer));padding:18px 24px 28px;border-top:0}
+#scroll-content{background:#fff}
+#content{background:#fff;min-height:100vh;padding:18px 24px 0;border-top:0}
 body #tabs-page #content{background:#fff;padding-bottom:28px}
 .panel,.group-wrapper .panel{border-color:rgba(197,160,89,.28)}
 .gl-admin-dump-link{margin:0 0 12px;font-size:12px}
@@ -289,6 +289,60 @@ function garden_admin_form_css(){
     global $FUNCS;
 
     $css = <<<'CSS'
+
+/* Full-height main panel + scroll-to-top placement */
+#scroll-content{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:100vh!important;
+  background:#fff!important;
+}
+#content{
+  flex:1 1 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:100vh!important;
+  background:#fff!important;
+  padding:18px 24px 0!important;
+  box-sizing:border-box;
+}
+body #tabs-page #content{
+  padding-bottom:0!important;
+  background:#fff!important;
+}
+#tabs-page{
+  flex:1 1 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:100%!important;
+  background:#fff!important;
+}
+#content form,
+#content>.tab-pane.active,
+#tabs-page>.tab-pane.active,
+#tabs-page>form{
+  flex:1 1 auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:100%!important;
+}
+#content .ctrl-bot,
+#tabs-page .ctrl-bot{
+  margin-top:auto!important;
+}
+.ctrl-bot>#top{
+  position:fixed!important;
+  top:12px!important;
+  right:24px!important;
+  bottom:auto!important;
+  left:auto!important;
+  z-index:25;
+  margin:0!important;
+}
+.ctrl-bot:has(#settings-panel)>#top{
+  top:12px!important;
+  right:24px!important;
+}
 /* Advanced settings next to bottom action buttons */
 .ctrl-bot .ctrl-right{
   position:static!important;
