@@ -22,7 +22,7 @@
     <cms:editable name='preloader_desktop_object_fit' label='Как вписать видео' group='group_preloader_desktop' type='dropdown' opt_values='На весь экран=cover | Вписать без обрезки=contain' order='32'>cover</cms:editable>
 
     <cms:editable name='group_preloader_mobile' label='Мобильные (до 767px)' type='group' order='40' />
-    <cms:editable name='preloader_video_mobile' label='Видео для мобильных' group='group_preloader_mobile' type='text' order='41' desc='Отдельный ролик для телефонов. Пусто — видео десктопа или общее.'>/video/preloader.mp4</cms:editable>
+    <cms:editable name='preloader_video_mobile' label='Видео для мобильных' group='group_preloader_mobile' type='text' order='41' desc='Отдельный ролик для телефонов. Пусто — видео десктопа или общее.'>/video/preloader-mobile.mp4</cms:editable>
     <cms:editable name='preloader_mobile_object_fit' label='Как вписать видео' group='group_preloader_mobile' type='dropdown' opt_values='Вписать без обрезки=contain | На весь экран=cover' order='42' desc='«Вписать без обрезки» убирает слишком широкий кадр на телефонах.'>contain</cms:editable>
 
 </cms:template>
