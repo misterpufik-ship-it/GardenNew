@@ -16,13 +16,15 @@
         color: transparent; animation: bssShineGold 5s linear infinite;
     }
     .branch-modal-top { text-align: center; margin-bottom: 14px; }
-    .branch-modal-logo-top { width: 120px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 8px; }
+    .branch-modal-logo-top { width: 92px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 8px; }
     .branch-modal-title {
-        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; line-height: 1.3;
+        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; line-height: 1.35;
         text-align: center; margin: 0 0 10px; color: #fff;
     }
-    .branch-modal-brand { display: block; font-size: 15px; letter-spacing: 0.04em; margin-bottom: 2px; }
-    .branch-modal-branch { display: block; letter-spacing: 0.02em; }
+    .branch-modal-brand, .branch-modal-branch {
+        display: block; font: inherit; letter-spacing: 0.02em;
+    }
+    .branch-modal-brand { margin-bottom: 2px; }
     .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0; text-align: center; }
     .bss-gallery-widget { margin-top: 16px; }
     .bss-tabs { display: flex; justify-content: center; gap: 24px; margin-bottom: 10px; }
@@ -113,7 +115,7 @@
         <span class="close-modal" onclick="closeSecondGardenModal()" aria-label="Закрыть">&times;</span>
 
         <div class="branch-modal-top">
-            <img class="branch-modal-logo-top" src="/img/logo-gl.webp" alt="Garden Lounge" width="120" height="113" decoding="async">
+            <img class="branch-modal-logo-top" src="/img/logo-gl.webp" alt="Garden Lounge" width="92" height="87" decoding="async">
         </div>
 
         <div class="branch-modal-intro">
