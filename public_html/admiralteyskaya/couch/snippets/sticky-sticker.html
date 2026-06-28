@@ -15,17 +15,23 @@
         background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
         color: transparent; animation: bssShineGold 5s linear infinite;
     }
-    .branch-modal-top { text-align: center; margin-bottom: 14px; }
-    .branch-modal-logo-top { width: 92px; height: auto; object-fit: contain; display: inline-block; margin-bottom: 8px; }
+    .branch-modal-head {
+        display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
+    }
+    .branch-modal-logo-top {
+        flex: 0 0 auto; width: auto; height: calc(22px * 1.35 * 2 + 2px); max-height: 62px;
+        object-fit: contain; display: block; margin: 0;
+    }
     .branch-modal-title {
+        flex: 1 1 auto; min-width: 0;
         font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; line-height: 1.35;
-        text-align: center; margin: 0 0 10px; color: #fff;
+        text-align: left; margin: 0; color: #fff;
     }
     .branch-modal-brand, .branch-modal-branch {
         display: block; font: inherit; letter-spacing: 0.02em;
     }
     .branch-modal-brand { margin-bottom: 2px; }
-    .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0; text-align: center; }
+    .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 4px; text-align: center; }
     .bss-gallery-widget { margin-top: 16px; }
     .bss-tabs { display: flex; justify-content: center; gap: 24px; margin-bottom: 10px; }
     .bss-tab {
@@ -54,8 +60,8 @@
         color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center;
         font-size: 10px; z-index: 3;
     }
-    .bss-prev { left: -6px; }
-    .bss-next { right: -6px; }
+    .bss-prev { left: 10px; }
+    .bss-next { right: 10px; }
     .bss-modal-action { margin-top: 16px; display: flex; justify-content: center; }
     .bss-modal-action .btn-base {
         display: flex; align-items: center; justify-content: center;
@@ -114,17 +120,15 @@
     <div class="modal-content modal-content--branch" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeSecondGardenModal()" aria-label="Закрыть">&times;</span>
 
-        <div class="branch-modal-top">
-            <img class="branch-modal-logo-top" src="/img/logo-gl.webp" alt="Garden Lounge" width="92" height="87" decoding="async">
-        </div>
-
-        <div class="branch-modal-intro">
+        <div class="branch-modal-head">
+            <img class="branch-modal-logo-top" src="/img/logo-gl.webp" alt="Garden Lounge" width="66" height="62" decoding="async">
             <h2 class="branch-modal-title">
                 <span class="branch-modal-brand gold-shimmer">Garden Lounge</span>
                 <span class="branch-modal-branch gold-shimmer"><cms:if modal_title_branch><cms:show modal_title_branch /><cms:else /><cms:show bss_branch_name /></cms:if></span>
             </h2>
-            <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
         </div>
+
+        <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
 
         <div class="bss-gallery-widget" id="bss-gallery-widget">
             <div class="bss-tabs" role="tablist" aria-label="Фото филиала">
