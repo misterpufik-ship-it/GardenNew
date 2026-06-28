@@ -284,7 +284,23 @@ CSS;
     $FUNCS->add_css( $css );
 }
 
-$FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_sidebar_css' );
+function garden_admin_form_css(){
+    global $FUNCS;
+
+    $css = <<<'CSS'
+/* Advanced settings next to bottom action buttons */
+.ctrl-bot{display:flex!important;flex-wrap:wrap;align-items:center;gap:10px 12px}
+.ctrl-bot>#top{position:absolute!important;top:21px;right:0;margin:0}
+.ctrl-bot #settings-panel{position:relative;flex:0 0 auto;margin:0;padding:0}
+.ctrl-bot #settings-panel-toggle{position:static;top:auto;right:auto;margin:0}
+.ctrl-bot #settings-panel>.panel-body{position:absolute;right:0;bottom:calc(100% + 6px);top:auto;float:none;width:min(440px,calc(100vw - 320px));z-index:5}
+.ctrl-bot .ctrl-right{margin-left:auto}
+CSS;
+
+    $FUNCS->add_css( $css );
+}
+
+$FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_form_css' );
 
 function garden_admin_typography_css(){
     global $FUNCS;
