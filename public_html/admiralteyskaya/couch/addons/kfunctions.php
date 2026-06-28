@@ -258,12 +258,12 @@ function garden_admin_sidebar_css(){
 #scroll-sidebar{position:absolute!important;top:0!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
 @media (max-height:540px){#scroll-sidebar{top:0!important;bottom:124px!important}}
 #nav-links{display:none!important}
-#sidebar-greeting,#sidebar-top{position:absolute!important;right:0;bottom:84px;left:0;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:#0a0a0a!important;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
+#sidebar-greeting,#sidebar-top{position:absolute!important;right:0;bottom:84px;left:0;z-index:2;box-sizing:border-box;border-top:1px solid #000;border-bottom:none;padding:10px 12px 8px;background-color:var(--gl-black)!important;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
 #sidebar-greeting>p,#sidebar-top>p{color:#999;margin:0;font-size:12px;line-height:1.45}
 #sidebar-greeting>p>a,#sidebar-top>p>a{color:#ddd}
-#sidebar-btns{position:absolute!important;right:0;bottom:24px;left:0;height:60px!important;padding:11px 10px 10px!important;border-top:1px solid #000!important;background-color:#0a0a0a!important}
-#sidebar-btns>#log-out{width:110px!important}
-#sidebar-btns>#view-site{width:109px!important}
+#sidebar-btns{position:absolute!important;right:0;bottom:24px;left:0;box-sizing:border-box;display:flex!important;align-items:stretch;height:60px!important;padding:11px 12px 10px!important;border-top:1px solid #000!important;background-color:var(--gl-black)!important}
+#sidebar-btns>.btn{flex:1 1 0;width:auto!important;min-width:0;float:none!important}
+#sidebar-btns>#log-out,#sidebar-btns>#view-site{width:auto!important}
 #sidebar-bot{display:block!important;position:absolute!important;right:0;bottom:0;left:0;height:24px!important;visibility:hidden;overflow:hidden;padding:0!important;margin:0!important;border:0!important}
 #header{background:#0a0a0a!important;border-bottom:1px solid rgba(197,160,89,.28)!important;padding:14px 24px 0!important}
 #header-inner{padding-bottom:14px!important;min-height:38px}
