@@ -54,14 +54,18 @@ input[type=text]:focus,input[type=text]:hover:focus,input[type=password]:focus,i
 #sidebar-toggle:hover,#sidebar-toggle:focus{border-color:var(--gl-gold);fill:#fff}
 .toast-info,.alert-info{border-color:rgba(197,160,89,.45);background-color:#fff8e8;color:#6b5424;fill:#8e7037}
 
-/* Sidebar stack: logo + menu + greeting at bottom */
-#menu-wrap{background-color:var(--gl-panel)}
-#menu-content{display:flex;flex-direction:column;height:calc(100% - 96px)}
-#scroll-sidebar{position:relative!important;top:auto!important;flex:1 1 auto;min-height:0}
-#sidebar-greeting,#sidebar-top{border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;flex:0 0 auto}
+/* Sidebar: keep Couch absolute layout, greeting above footer buttons */
+#menu-content{position:relative;height:100%}
+#scroll-sidebar{position:absolute!important;top:124px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
+@media (max-height:540px){#scroll-sidebar{top:96px!important;bottom:124px!important}}
+#sidebar-greeting,#sidebar-top{position:absolute;right:0;bottom:84px;left:0;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:var(--gl-panel);box-shadow:0 -1px 0 rgba(197,160,89,.08)}
 #sidebar-greeting>p,#sidebar-top>p{color:var(--gl-muted);margin:0;font-size:12px;line-height:1.45}
 #sidebar-greeting>p>a,#sidebar-top>p>a{color:var(--gl-text)}
-#sidebar-btns{flex:0 0 auto}
+
+/* KCFinder browse popup */
+div.kcfinder-iframe .mfp-content{max-width:968px;width:96vw;height:auto!important;max-height:90vh}
+.kcfinder-iframe .mfp-iframe-scaler{padding-top:0!important;height:min(72vh,640px)!important;position:relative;overflow:hidden}
+.kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}
 #nav>.nav-heading:first-child{margin-top:6px}
 #nav>.nav-heading:first-child:before{padding-top:0;border-top:0}
 
