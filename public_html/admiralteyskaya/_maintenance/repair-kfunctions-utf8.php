@@ -25,6 +25,8 @@ function garden_admin_label_defaults(){
         'index.php' => array('field'=>'label_index', 'title'=>'Общая страница', 'weight'=>220),
         'home.php' => array('field'=>'label_home', 'title'=>'Главная', 'weight'=>1),
         'booking-settings.php' => array('field'=>'label_booking_settings', 'title'=>'Бронирование Telegram', 'weight'=>5),
+        'preloader-settings.php' => array('field'=>'label_preloader_settings', 'title'=>'Прелоадер', 'weight'=>3),
+        'age-gate-settings.php' => array('field'=>'label_age_gate_settings', 'title'=>'Заглушка 18+', 'weight'=>4),
         'admin-labels.php' => array('field'=>'', 'title'=>'Названия разделов', 'weight'=>230),
 
         'udelnaya/header.php' => array('field'=>'label_u_header', 'title'=>'Шапка сайта (Header)', 'weight'=>100),
@@ -75,7 +77,7 @@ function garden_alter_admin_menuitems( &$items ){
             elseif ( $name === 'home.php' ){
                 $items[$name]['parent'] = '_garden_home_';
             }
-            elseif ( $name === 'admin-labels.php' || $name === 'booking-settings.php' ){
+            elseif ( in_array( $name, array( 'admin-labels.php', 'booking-settings.php', 'age-gate-settings.php', 'preloader-settings.php' ), true ) ){
                 $items[$name]['parent'] = '_templates_';
             }
             else{

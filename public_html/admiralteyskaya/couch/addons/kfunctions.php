@@ -19,6 +19,7 @@ function garden_admin_label_defaults(){
         'index.php' => array('field'=>'label_index', 'title'=>'Общая страница', 'weight'=>220),
         'home.php' => array('field'=>'label_home', 'title'=>'Главная', 'weight'=>1),
         'booking-settings.php' => array('field'=>'label_booking_settings', 'title'=>'Бронирование Telegram', 'weight'=>5),
+        'preloader-settings.php' => array('field'=>'label_preloader_settings', 'title'=>'Прелоадер', 'weight'=>3),
         'age-gate-settings.php' => array('field'=>'label_age_gate_settings', 'title'=>'Заглушка 18+', 'weight'=>4),
         'admin-labels.php' => array('field'=>'', 'title'=>'Названия разделов', 'weight'=>230),
 
@@ -129,7 +130,7 @@ function garden_alter_admin_menuitems( &$items ){
             elseif ( $name === 'home.php' ){
                 $items[$name]['parent'] = '_garden_home_';
             }
-            elseif ( $name === 'admin-labels.php' || $name === 'booking-settings.php' || $name === 'age-gate-settings.php' ){
+            elseif ( in_array( $name, array( 'admin-labels.php', 'booking-settings.php', 'age-gate-settings.php', 'preloader-settings.php' ), true ) ){
                 $items[$name]['parent'] = '_templates_';
             }
             else{
@@ -173,12 +174,13 @@ CSS;
 $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_login_css' );
 function garden_admin_branding_output( &$html ){
     $html = preg_replace( '#<title>[^<]*</title>#', '<title>Garden Lounge</title>', $html, 1 );
-    $html = preg_replace(
-        '#<link href="[^"]*favicon\.ico" rel="shortcut icon"/>#',
-        '<link rel="icon" type="image/png" href="/favicon.png">' . "\n    " . '<link rel="shortcut icon" type="image/png" href="/favicon.png">',
-        $html,
-        1
-    );
+    $favicon = '<link rel="icon" type="image/png" href="/favicon.png">' . "\n    "
+        . '<link rel="shortcut icon" type="image/png" href="/favicon.png">';
+    if ( preg_match( '#<link[^>]+rel=["\'](?:shortcut )?icon["\'][^>]*/>#i', $html ) ) {
+        $html = preg_replace( '#<link[^>]+rel=["\'](?:shortcut )?icon["\'][^>]*/>#i', $favicon, $html, 1 );
+    } else {
+        $html = preg_replace( '#</head>#', $favicon . "\n</head>", $html, 1 );
+    }
     $fonts = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">';
     if ( strpos( $html, 'fonts.googleapis.com' ) === false ) {
         $html = preg_replace( '#</head>#', $fonts . "\n</head>", $html, 1 );
@@ -197,6 +199,13 @@ function garden_admin_sidebar_js(){
     $js = <<<'JS'
 (function($){
     $(function(){
+        var $greeting = $('#sidebar-top');
+        var $btns = $('#sidebar-btns');
+        if ($greeting.length && $btns.length) {
+            $greeting.attr('id', 'sidebar-greeting');
+            $greeting.insertBefore($btns);
+        }
+
         if ( typeof COUCH === 'undefined' || !COUCH.state ) return;
         if ( $.hasCookie('collapsed_groups') ) return;
 
@@ -206,6 +215,10 @@ function garden_admin_sidebar_js(){
         });
         COUCH.state.collapsedGroups = ids;
     });
+})(jQuery);
+JS;
+
+    $FUNCS->add_js( $js );
 })(jQuery);
 JS;
 
@@ -221,8 +234,15 @@ function garden_admin_sidebar_css(){
 #menu-wrap .garden-admin-brand{padding:10px 8px 6px}
 #menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:198px!important;max-height:74px!important;width:100%!important}
 .garden-admin-brand__subtitle{display:none!important}
-#scroll-sidebar{top:158px!important}
-@media (max-height:540px){#scroll-sidebar{top:138px!important}}
+#menu-content{display:flex;flex-direction:column;height:calc(100% - 96px)}
+#scroll-sidebar{position:relative!important;top:auto!important;flex:1 1 auto;min-height:0}
+#sidebar-greeting,#sidebar-top{border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;flex:0 0 auto}
+#sidebar-greeting>p,#sidebar-top>p{color:#999;margin:0;font-size:12px;line-height:1.45}
+#sidebar-greeting>p>a,#sidebar-top>p>a{color:#ddd}
+#sidebar-btns{flex:0 0 auto}
+#simple-page .login-remember{margin:0 0 14px;text-align:left}
+#simple-page .login-remember label{display:inline-flex;align-items:center;gap:8px;color:#bbb;font-size:12px;font-weight:500;cursor:pointer;margin:0}
+#simple-page .login-remember input[type=checkbox]{margin:0}
 CSS;
 
     $FUNCS->add_css( $css );

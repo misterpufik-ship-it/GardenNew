@@ -109,6 +109,7 @@
 
     $t['user_name'] = 'Логин';
     $t['password'] = 'Пароль';
+    $t['user_remember'] = 'Запомнить меня';
     $t['login'] = 'Войти';
     $t['forgot_password'] = 'Забыли пароль?';
     $t['prompt_cookies'] = 'Для работы CMS необходимы cookies';

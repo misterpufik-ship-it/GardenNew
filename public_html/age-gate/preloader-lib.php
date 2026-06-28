@@ -61,32 +61,43 @@ function garden_preloader_db()
 
 function garden_preloader_get_field_value($field_name)
 {
+    static $cache = array();
+    if (array_key_exists($field_name, $cache)) {
+        return $cache[$field_name];
+    }
+
     $db = garden_preloader_db();
     if (!$db) {
+        $cache[$field_name] = '';
         return '';
     }
 
     $prefix = defined('K_DB_TABLES_PREFIX') ? K_DB_TABLES_PREFIX : '';
-    $template = 'index.php';
-    $field_name = $db->real_escape_string($field_name);
-    $template = $db->real_escape_string($template);
+    $field_name_esc = $db->real_escape_string($field_name);
 
-    $sql =
-        "SELECT dt.value " .
-        "FROM {$prefix}couch_templates t " .
-        "INNER JOIN {$prefix}couch_pages p ON p.template_id=t.id AND p.is_master='1' " .
-        "INNER JOIN {$prefix}couch_fields f ON f.template_id=t.id AND f.name='{$field_name}' " .
-        "INNER JOIN {$prefix}couch_data_text dt ON dt.page_id=p.id AND dt.field_id=f.id " .
-        "WHERE t.name='{$template}' " .
-        "LIMIT 1";
+    foreach (array('preloader-settings.php', 'index.php') as $template) {
+        $template_esc = $db->real_escape_string($template);
+        $sql =
+            "SELECT dt.value " .
+            "FROM {$prefix}couch_templates t " .
+            "INNER JOIN {$prefix}couch_pages p ON p.template_id=t.id AND p.is_master='1' " .
+            "INNER JOIN {$prefix}couch_fields f ON f.template_id=t.id AND f.name='{$field_name_esc}' " .
+            "INNER JOIN {$prefix}couch_data_text dt ON dt.page_id=p.id AND dt.field_id=f.id " .
+            "WHERE t.name='{$template_esc}' " .
+            "LIMIT 1";
 
-    $res = $db->query($sql);
-    if (!$res) {
-        return '';
+        $res = $db->query($sql);
+        if ($res) {
+            $row = $res->fetch_assoc();
+            if ($row && trim((string)$row['value']) !== '') {
+                $cache[$field_name] = trim((string)$row['value']);
+                return $cache[$field_name];
+            }
+        }
     }
 
-    $row = $res->fetch_assoc();
-    return $row ? trim((string)$row['value']) : '';
+    $cache[$field_name] = '';
+    return '';
 }
 
 function garden_preloader_default_settings()
@@ -99,6 +110,7 @@ function garden_preloader_default_settings()
         'min_time' => 1200,
         'max_time' => 8000,
         'playback_rate' => 1.3,
+        'desktop_object_fit' => 'cover',
         'mobile_object_fit' => 'contain',
     );
 }
@@ -175,6 +187,11 @@ function garden_preloader_get_settings()
         $mobile_object_fit = $defaults['mobile_object_fit'];
     }
 
+    $desktop_object_fit = garden_preloader_get_field_value('preloader_desktop_object_fit');
+    if (!in_array($desktop_object_fit, array('contain', 'cover'), true)) {
+        $desktop_object_fit = $defaults['desktop_object_fit'];
+    }
+
     $settings = array(
         'enabled' => $enabled,
         'scope_mode' => $scope_mode,
@@ -183,6 +200,7 @@ function garden_preloader_get_settings()
         'min_time' => $min_time,
         'max_time' => $max_time,
         'playback_rate' => $playback_rate,
+        'desktop_object_fit' => $desktop_object_fit,
         'mobile_object_fit' => $mobile_object_fit,
     );
 

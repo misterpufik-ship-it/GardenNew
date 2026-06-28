@@ -54,13 +54,14 @@ input[type=text]:focus,input[type=text]:hover:focus,input[type=password]:focus,i
 #sidebar-toggle:hover,#sidebar-toggle:focus{border-color:var(--gl-gold);fill:#fff}
 .toast-info,.alert-info{border-color:rgba(197,160,89,.45);background-color:#fff8e8;color:#6b5424;fill:#8e7037}
 
-/* Sidebar stack: logo + greeting + menu — prevent overlap */
+/* Sidebar stack: logo + menu + greeting at bottom */
 #menu-wrap{background-color:var(--gl-panel)}
-#sidebar-top{position:relative;z-index:2;min-height:35px;background-color:var(--gl-panel)}
-#sidebar-top>p{color:var(--gl-muted)}
-#sidebar-top>p>a{color:var(--gl-text)}
-#scroll-sidebar{top:182px!important}
-@media (max-height:540px){#scroll-sidebar{top:152px!important}}
+#menu-content{display:flex;flex-direction:column;height:calc(100% - 96px)}
+#scroll-sidebar{position:relative!important;top:auto!important;flex:1 1 auto;min-height:0}
+#sidebar-greeting,#sidebar-top{border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;flex:0 0 auto}
+#sidebar-greeting>p,#sidebar-top>p{color:var(--gl-muted);margin:0;font-size:12px;line-height:1.45}
+#sidebar-greeting>p>a,#sidebar-top>p>a{color:var(--gl-text)}
+#sidebar-btns{flex:0 0 auto}
 #nav>.nav-heading:first-child{margin-top:6px}
 #nav>.nav-heading:first-child:before{padding-top:0;border-top:0}
 
@@ -75,10 +76,12 @@ input[type=text]:focus,input[type=text]:hover:focus,input[type=password]:focus,i
 #menu-wrap .garden-admin-brand{padding:10px 8px 6px}
 #menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:198px!important;max-height:74px!important;width:100%!important}
 .garden-admin-brand__subtitle{display:none!important}
-#scroll-sidebar{top:158px!important}
-@media (max-height:540px){#scroll-sidebar{top:138px!important}}
+
 
 /* Login page */
+#simple-page .login-remember{margin:0 0 14px;text-align:left}
+#simple-page .login-remember label{display:inline-flex;align-items:center;gap:8px;color:#bbb;font-size:12px;font-weight:500;cursor:pointer;margin:0}
+#simple-page .login-remember input[type=checkbox]{margin:0}
 #simple-page .garden-admin-brand--logo-only{padding:22px 16px 10px}
 #simple-page .garden-admin-brand__logo,#simple-page #simple-logo{max-width:340px!important;max-height:110px!important;width:min(78vw,340px)!important}
 #simple-page #simple-wrap .panel-heading.simple-heading{display:flex!important;justify-content:center!important;align-items:center!important;padding:12px 15px!important;color:#C5A059!important;text-align:center!important;background-color:#141414!important;background-image:none!important;text-shadow:none!important;font-weight:600;border-color:rgba(197,160,89,.28)!important}

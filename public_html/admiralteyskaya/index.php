@@ -1,20 +1,6 @@
 ﻿<?php require_once( 'couch/cms.php' ); ?>
 <cms:template title='Общая страница' order='220'>
 
-    <cms:editable name='group_preloader' label='Прелоадер при загрузке' type='group' order='1' />
-    <cms:editable name='preloader_intro' label='Справка' group='group_preloader' type='message' order='2'>
-        Видео-прелоадер показывается при открытии страницы до полной загрузки сайта. Если отключён — видео и скрипт не подключаются.
-        Разделы: home — главная garden-lounge.pro; admiral — /admiralteyskaya/; udelnaya — /udelnaya/; admiral_udelnaya — /admiralteyskaya/udelnaya/.
-    </cms:editable>
-    <cms:editable name='preloader_enabled' label='Включить прелоадер' group='group_preloader' type='dropdown' opt_values='Нет=0 | Да=1' order='3'>1</cms:editable>
-    <cms:editable name='preloader_scope_mode' label='Режим показа' group='group_preloader' type='dropdown' opt_values='На всех выбранных разделах=all | Только на выбранных=include | Везде, кроме выбранных=exclude' order='4'>all</cms:editable>
-    <cms:editable name='preloader_sections' label='Разделы сайта' group='group_preloader' type='text' order='5' desc='Через запятую: home, admiral, udelnaya, admiral_udelnaya'>home, admiral, udelnaya, admiral_udelnaya</cms:editable>
-    <cms:editable name='preloader_video' label='Видео (путь или URL)' group='group_preloader' type='text' order='6' desc='По умолчанию /video/preloader.mp4. Можно указать полный URL или путь от корня сайта.'>/video/preloader.mp4</cms:editable>
-    <cms:editable name='preloader_min_time' label='Минимальное время показа (мс)' group='group_preloader' type='text' order='7' desc='Чтобы прелоадер не мигал при быстрой загрузке.'>1200</cms:editable>
-    <cms:editable name='preloader_max_time' label='Максимальное время показа (мс)' group='group_preloader' type='text' order='8' desc='Принудительно скрыть, если видео или страница зависли.'>8000</cms:editable>
-    <cms:editable name='preloader_playback_rate' label='Скорость воспроизведения' group='group_preloader' type='text' order='9' desc='1 — обычная скорость. Рекомендуется 1.3. Допустимо от 0.5 до 3.'>1.3</cms:editable>
-    <cms:editable name='preloader_mobile_object_fit' label='Видео на мобильных' group='group_preloader' type='dropdown' opt_values='Вписать без обрезки=contain | На весь экран=cover' order='10' desc='На телефонах «Вписать без обрезки» убирает слишком широкий кадр.'>contain</cms:editable>
-    
     <cms:editable name='phil_title' label='Заголовок (тот, что Philosophy)' type='text' order='20'>Philosophy</cms:editable>
     <cms:editable name='phil_concept' label='Текст концепции (надпись)' type='text'>Концепция</cms:editable>
     <cms:editable name='phil_content' label='Основной текст (Редактор)' type='richtext'>

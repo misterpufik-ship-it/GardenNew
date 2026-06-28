@@ -123,11 +123,12 @@ function gl_preloader_video_url()
 function gl_preloader_render_styles()
 {
     $settings = garden_preloader_get_settings();
+    $desktop_fit = $settings['desktop_object_fit'] === 'contain' ? 'contain' : 'cover';
     $mobile_fit = $settings['mobile_object_fit'] === 'cover' ? 'cover' : 'contain';
 
     echo '<style>
 #preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:10001;opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease;pointer-events:all;overflow:hidden}
-#preloader-video{width:100%;height:100%;object-fit:cover;object-position:center center}
+#preloader-video{width:100%;height:100%;object-fit:' . $desktop_fit . ';object-position:center center}
 @media (max-width:767px){#preloader-video{width:auto;max-width:100%;height:100%;object-fit:' . $mobile_fit . ';object-position:center center}}
 .preloader-hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 body.loading{overflow:hidden!important;height:100vh}
