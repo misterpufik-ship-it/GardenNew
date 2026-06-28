@@ -16,17 +16,19 @@
         color: transparent; animation: bssShineGold 5s linear infinite;
     }
     .branch-modal-head {
-        display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+        padding-right: 0;
     }
     .branch-modal-logo-top {
-        flex: 0 0 auto; width: auto; height: calc(22px * 1.35 * 2 + 2px); max-height: 62px;
+        flex: 0 0 66px; width: 66px; height: calc(22px * 1.35 * 2 + 2px); max-height: 62px;
         object-fit: contain; display: block; margin: 0;
     }
     .branch-modal-title {
         flex: 1 1 auto; min-width: 0;
         font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; line-height: 1.35;
-        text-align: left; margin: 0; color: #fff;
+        text-align: center; margin: 0; color: #fff;
     }
+    .branch-modal-head-spacer { flex: 0 0 36px; width: 36px; height: 1px; }
     .branch-modal-brand, .branch-modal-branch {
         display: block; font: inherit; letter-spacing: 0.02em;
     }
@@ -126,6 +128,7 @@
                 <span class="branch-modal-brand gold-shimmer">Garden Lounge</span>
                 <span class="branch-modal-branch gold-shimmer"><cms:if modal_title_branch><cms:show modal_title_branch /><cms:else /><cms:show bss_branch_name /></cms:if></span>
             </h2>
+            <span class="branch-modal-head-spacer" aria-hidden="true"></span>
         </div>
 
         <cms:if modal_lead><p class="second-garden-lead"><cms:show modal_lead /></p></cms:if>
