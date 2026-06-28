@@ -248,33 +248,37 @@ function garden_admin_sidebar_css(){
     global $FUNCS;
 
     $css = <<<'CSS'
-#sidebar,#menu-wrap,#logo-wrap{background-color:#0a0a0a!important;background-image:none!important}
+/* === Garden admin shell v2 === */
+:root{--gl-admin-header:66px;--gl-admin-sidebar-footer:119px}
+#sidebar{display:flex!important;flex-direction:column;background-color:#0a0a0a!important;background-image:none!important}
+#menu-wrap,#logo-wrap{flex:0 0 auto;background-color:#0a0a0a!important;background-image:none!important}
+#logo-wrap{border-bottom:1px solid rgba(197,160,89,.28)}
 #menu-wrap .garden-admin-brand{padding:10px 10px 6px}
 #menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:210px!important;max-height:82px!important;width:100%!important}
-.garden-admin-brand__subtitle{display:none!important}
-#menu-content{position:relative;height:100%}
-#scroll-sidebar{position:absolute!important;top:76px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
-@media (max-height:540px){#scroll-sidebar{top:70px!important;bottom:124px!important}}
-#nav-links,#sidebar-bot{display:none!important}
-#sidebar-greeting,#sidebar-top{position:absolute!important;right:0;bottom:84px;left:0;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:#0a0a0a!important;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
+#menu-content{display:flex!important;flex-direction:column;flex:1 1 auto;min-height:0;position:relative;height:auto!important}
+#scroll-sidebar{position:relative!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;flex:1 1 auto;min-height:0;overflow-y:auto}
+#nav-links{display:none!important}
+#sidebar-greeting,#sidebar-top{position:static!important;flex:0 0 auto;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:#0a0a0a!important;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
 #sidebar-greeting>p,#sidebar-top>p{color:#999;margin:0;font-size:12px;line-height:1.45}
 #sidebar-greeting>p>a,#sidebar-top>p>a{color:#ddd}
-#sidebar-btns{position:absolute!important;right:0;bottom:24px;left:0;height:60px!important;padding:11px 10px 10px!important;border-top:1px solid #000!important;background-color:#0a0a0a!important}
+#sidebar-btns{position:static!important;flex:0 0 60px;height:60px!important;padding:11px 10px 10px!important;border-top:1px solid #000!important;background-color:#0a0a0a!important}
 #sidebar-btns>#log-out{width:110px!important}
 #sidebar-btns>#view-site{width:109px!important}
-#header{background:#0a0a0a!important;border-bottom:1px solid rgba(197,160,89,.28)!important}
+#sidebar-bot{display:block!important;flex:0 0 24px;height:24px!important;visibility:hidden;overflow:hidden;padding:0!important;margin:0!important;border:0!important}
+#header{background:#0a0a0a!important;border-bottom:1px solid rgba(197,160,89,.28)!important;padding:14px 24px 0!important}
+#header-inner{padding-bottom:14px!important;min-height:38px}
 #header-title,#header ul#tabs,#tabs{display:none!important}
 #header .subtitle{display:none!important}
 #gl-header-user{display:none!important}
 #scroll-content{background:#f3f3f3}
-#content{background:#fff;min-height:calc(100vh - 58px);padding:18px 24px 28px;border-top:0}
+#content{background:#fff;min-height:calc(100vh - var(--gl-admin-header) - var(--gl-admin-sidebar-footer));padding:18px 24px 28px;border-top:0}
 body #tabs-page #content{background:#fff;padding-bottom:28px}
+.panel,.group-wrapper .panel{border-color:rgba(197,160,89,.28)}
 .gl-admin-dump-link{margin:0 0 12px;font-size:12px}
 .gl-admin-dump-link a{color:#C5A059}
 div.kcfinder-iframe .mfp-content{max-width:968px;width:96vw;height:auto!important;max-height:90vh}
 .kcfinder-iframe .mfp-iframe-scaler{padding-top:0!important;height:min(72vh,640px)!important;position:relative;overflow:hidden}
-.kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}
-CSS;
+.kcfinder-iframe .mfp-iframe-scaler iframe{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff}CSS;
 
     $FUNCS->add_css( $css );
 }
