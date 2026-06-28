@@ -207,22 +207,6 @@ function garden_admin_sidebar_js(){
 
     $js = <<<'JS'
 (function($){
-    function moveUserBar(){
-        var $headerInner = $('#header-inner');
-        var $toolbar = $headerInner.children('.btn-group').first();
-        var $greeting = $('#sidebar-top, #sidebar-greeting').first();
-        var $btns = $('#sidebar-btns');
-        if (!$headerInner.length || !$toolbar.length) return;
-
-        var $bar = $('#gl-header-user');
-        if (!$bar.length) {
-            $bar = $('<div id="gl-header-user" class="gl-header-user"></div>');
-            $headerInner.prepend($bar);
-        }
-        if ($greeting.length) $greeting.appendTo($bar);
-        if ($btns.length) $btns.appendTo($bar);
-    }
-
     function addDumpLink(){
         var $adv = $('.group-wrapper').filter(function(){
             return $(this).find('[name="k_publish_date"], [name="k_access_level"], [name="k_show_in_menu"]').length > 0;
@@ -234,7 +218,14 @@ function garden_admin_sidebar_js(){
     }
 
     $(function(){
-        moveUserBar();
+        var $greeting = $('#sidebar-top');
+        var $btns = $('#sidebar-btns');
+        if ($greeting.length && $btns.length) {
+            $greeting.attr('id', 'sidebar-greeting');
+            $greeting.insertBefore($btns);
+        }
+        $('#gl-header-user').remove();
+
         addDumpLink();
 
         if ( typeof COUCH === 'undefined' || !COUCH.state ) return;
@@ -245,6 +236,10 @@ function garden_admin_sidebar_js(){
         });
         COUCH.state.collapsedGroups = ids;
     });
+})(jQuery);
+JS;
+
+    $FUNCS->add_js( $js );
 })(jQuery);
 JS;
 
@@ -262,19 +257,19 @@ function garden_admin_sidebar_css(){
 #menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:210px!important;max-height:82px!important;width:100%!important}
 .garden-admin-brand__subtitle{display:none!important}
 #menu-content{position:relative;height:100%}
-#scroll-sidebar{position:absolute!important;top:76px!important;right:0;left:0;bottom:8px!important;overflow-y:auto}
-@media (max-height:540px){#scroll-sidebar{top:70px!important}}
+#scroll-sidebar{position:absolute!important;top:76px!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
+@media (max-height:540px){#scroll-sidebar{top:70px!important;bottom:124px!important}}
 #nav-links,#sidebar-bot{display:none!important}
-#sidebar-top,#sidebar-greeting,#sidebar-btns{position:static!important;width:auto!important;height:auto!important;padding:0!important;margin:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
-#sidebar-btns>.btn{height:34px;line-height:32px;padding:0 12px;font-size:11px}
-#sidebar-btns>#log-out,#sidebar-btns>#view-site{width:auto!important;min-width:88px}
-#sidebar-greeting>p,#sidebar-top>p{margin:0;font-size:12px;white-space:nowrap}
+#sidebar-greeting,#sidebar-top{position:absolute!important;right:0;bottom:84px;left:0;z-index:2;border-top:1px solid #000;border-bottom:none;padding:10px 14px 8px;background-color:#0a0a0a!important;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
+#sidebar-greeting>p,#sidebar-top>p{color:#999;margin:0;font-size:12px;line-height:1.45}
+#sidebar-greeting>p>a,#sidebar-top>p>a{color:#ddd}
+#sidebar-btns{position:absolute!important;right:0;bottom:24px;left:0;height:60px!important;padding:11px 10px 10px!important;border-top:1px solid #000!important;background-color:#0a0a0a!important}
+#sidebar-btns>#log-out{width:110px!important}
+#sidebar-btns>#view-site{width:109px!important}
 #header{background:#0a0a0a!important;border-bottom:1px solid rgba(197,160,89,.28)!important}
-#header-inner{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;padding:10px 16px!important;min-height:54px!important}
-#header-inner>.btn-group{position:static!important;top:auto!important;right:auto!important;margin:0!important}
 #header-title,#header ul#tabs,#tabs{display:none!important}
 #header .subtitle{display:none!important}
-#gl-header-user{display:flex;align-items:center;gap:10px;margin-right:auto;flex:1 1 auto;min-width:0}
+#gl-header-user{display:none!important}
 #scroll-content{background:#f3f3f3}
 #content{background:#fff;min-height:calc(100vh - 58px);padding:18px 24px 28px;border-top:0}
 body #tabs-page #content{background:#fff;padding-bottom:28px}
