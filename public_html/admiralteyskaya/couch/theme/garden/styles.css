@@ -108,4 +108,28 @@ fieldset.row_fieldset legend:hover:after,fieldset.row_fieldset legend:focus:afte
 #simple-page .garden-admin-brand__logo,#simple-page #simple-logo{max-width:340px!important;max-height:110px!important;width:min(78vw,340px)!important}
 #simple-page #simple-wrap .panel-heading.simple-heading{display:flex!important;justify-content:center!important;align-items:center!important;padding:12px 15px!important;color:#C5A059!important;text-align:center!important;background-color:#141414!important;background-image:none!important;text-shadow:none!important;font-weight:600;border-color:rgba(197,160,89,.28)!important}
 #simple-page #simple-wrap .panel-heading.simple-heading .login-heading{display:block!important;width:100%!important;color:#C5A059!important;text-align:center!important;text-shadow:none!important;font-size:15px;letter-spacing:.04em}
-
+/* === Garden admin shell v2 === */
+#sidebar,#menu-wrap,#logo-wrap{background-color:var(--gl-black)!important;background-image:none!important}
+#logo-wrap{border-bottom:1px solid var(--gl-border)}
+#menu-wrap .garden-admin-brand{padding:10px 10px 6px}
+#menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:210px!important;max-height:82px!important;width:100%!important}
+#menu-content{position:relative;height:100%}
+#scroll-sidebar{position:absolute!important;top:76px!important;right:0;left:0;bottom:8px!important;overflow-y:auto}
+@media (max-height:540px){#scroll-sidebar{top:70px!important}}
+#nav-links,#sidebar-bot{display:none!important}
+#sidebar-top,#sidebar-greeting,#sidebar-btns{position:static!important;width:auto!important;height:auto!important;padding:0!important;margin:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+#sidebar-btns>.btn{height:34px;line-height:32px;padding:0 12px;font-size:11px}
+#sidebar-btns>#log-out,#sidebar-btns>#view-site{width:auto!important;min-width:88px}
+#sidebar-greeting>p,#sidebar-top>p{margin:0;font-size:12px;white-space:nowrap}
+#header{background:var(--gl-black)!important;border-bottom:1px solid var(--gl-border)!important}
+#header-inner{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;padding:10px 16px!important;min-height:54px!important}
+#header-inner>.btn-group{position:static!important;top:auto!important;right:auto!important;margin:0!important;flex:0 0 auto}
+#header-title,#header ul#tabs,#tabs{display:none!important}
+#header .subtitle{display:none!important}
+#gl-header-user{display:flex;align-items:center;gap:10px;margin-right:auto;flex:1 1 auto;min-width:0}
+#scroll-content{background:#f3f3f3}
+#content{background:#fff;min-height:calc(100vh - 58px);padding:18px 24px 28px;border-top:0}
+body #tabs-page #content{background:#fff;padding-bottom:28px}
+.panel,.group-wrapper .panel{border-color:var(--gl-border)}
+.gl-admin-dump-link{margin:0 0 12px;font-size:12px}
+.gl-admin-dump-link a{color:var(--gl-gold)}
