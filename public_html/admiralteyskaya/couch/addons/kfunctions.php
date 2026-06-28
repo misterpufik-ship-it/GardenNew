@@ -240,10 +240,6 @@ function garden_admin_sidebar_js(){
 JS;
 
     $FUNCS->add_js( $js );
-})(jQuery);
-JS;
-
-    $FUNCS->add_js( $js );
 }
 
 $FUNCS->add_event_listener( 'add_admin_js', 'garden_admin_sidebar_js' );

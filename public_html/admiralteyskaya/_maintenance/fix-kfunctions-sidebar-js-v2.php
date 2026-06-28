@@ -8,22 +8,6 @@ function garden_admin_sidebar_js(){
 
     $js = <<<'JS'
 (function($){
-    function moveUserBar(){
-        var $headerInner = $('#header-inner');
-        var $toolbar = $headerInner.children('.btn-group').first();
-        var $greeting = $('#sidebar-top, #sidebar-greeting').first();
-        var $btns = $('#sidebar-btns');
-        if (!$headerInner.length || !$toolbar.length) return;
-
-        var $bar = $('#gl-header-user');
-        if (!$bar.length) {
-            $bar = $('<div id="gl-header-user" class="gl-header-user"></div>');
-            $headerInner.prepend($bar);
-        }
-        if ($greeting.length) $greeting.appendTo($bar);
-        if ($btns.length) $btns.appendTo($bar);
-    }
-
     function addDumpLink(){
         var $adv = $('.group-wrapper').filter(function(){
             return $(this).find('[name="k_publish_date"], [name="k_access_level"], [name="k_show_in_menu"]').length > 0;
@@ -35,7 +19,14 @@ function garden_admin_sidebar_js(){
     }
 
     $(function(){
-        moveUserBar();
+        var $greeting = $('#sidebar-top');
+        var $btns = $('#sidebar-btns');
+        if ($greeting.length && $btns.length) {
+            $greeting.attr('id', 'sidebar-greeting');
+            $greeting.insertBefore($btns);
+        }
+        $('#gl-header-user').remove();
+
         addDumpLink();
 
         if ( typeof COUCH === 'undefined' || !COUCH.state ) return;
@@ -53,7 +44,13 @@ JS;
 }
 PHP;
 
-$content = preg_replace('/function garden_admin_sidebar_js\(\)\{.*?\n\}\s*\n\$FUNCS->add_event_listener\( \'add_admin_js\', \'garden_admin_sidebar_js\' \);/s', trim($fixed) . "\n\n\$FUNCS->add_event_listener( 'add_admin_js', 'garden_admin_sidebar_js' );", $content, 1, $count);
+$content = preg_replace(
+    '/function garden_admin_sidebar_js\(\)\{.*?\n\}\s*\n\$FUNCS->add_event_listener\( \'add_admin_js\', \'garden_admin_sidebar_js\' \);/s',
+    trim($fixed) . "\n\n\$FUNCS->add_event_listener( 'add_admin_js', 'garden_admin_sidebar_js' );",
+    $content,
+    1,
+    $count
+);
 if (!$count) {
     fwrite(STDERR, "sidebar_js fix failed\n");
     exit(1);
