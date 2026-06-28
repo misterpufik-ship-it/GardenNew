@@ -1,4 +1,4 @@
-﻿<?php
+?php
 if ((isset($_GET['token']) ? $_GET['token'] : '') !== 'gl-cache-clear-20260623') { http_response_code(404); exit; }
 ini_set('display_errors', '1');
 error_reporting(E_ALL);
