@@ -249,12 +249,44 @@ function garden_admin_sidebar_css(){
 
     $css = <<<'CSS'
 /* === Garden admin shell v2 === */
+
+/* Sidebar column: footer visible, aligned to bottom */
+#sidebar{
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
+#menu-wrap{
+  flex:0 0 auto!important;
+}
+#menu-content{
+  flex:1 1 auto!important;
+  position:relative!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
+}
+#sidebar-greeting,#sidebar-top{
+  display:block!important;
+  visibility:visible!important;
+}
+#sidebar-btns{
+  display:flex!important;
+  visibility:visible!important;
+}
+#sidebar-toggle{
+  display:block!important;
+  z-index:30!important;
+}
+@media (max-height:540px){
+  #sidebar-greeting{display:block!important}
+}
 :root{--gl-admin-header:0;--gl-admin-sidebar-footer:119px}
 #sidebar,#menu-wrap,#logo-wrap{background-color:#0a0a0a!important;background-image:none!important}
 #logo-wrap{border-bottom:1px solid rgba(197,160,89,.28)}
 #menu-wrap .garden-admin-brand{padding:8px 10px 4px}
 #menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:210px!important;max-height:82px!important;width:100%!important}
-#menu-content{position:relative;height:100%}
+#menu-content{flex:1 1 auto!important;position:relative!important;height:auto!important;min-height:0!important}
 #scroll-sidebar{position:absolute!important;top:0!important;right:0;left:0;bottom:132px!important;overflow-y:auto}
 @media (max-height:540px){#scroll-sidebar{top:0!important;bottom:124px!important}}
 #nav-links{display:none!important}
@@ -337,19 +369,7 @@ body #tabs-page #content{
 #tabs-page .ctrl-bot{
   margin-top:auto!important;
 }
-.ctrl-bot>#top{
-  position:fixed!important;
-  top:12px!important;
-  right:24px!important;
-  bottom:auto!important;
-  left:auto!important;
-  z-index:25;
-  margin:0!important;
-}
-.ctrl-bot:has(#settings-panel)>#top{
-  top:12px!important;
-  right:24px!important;
-}
+
 /* Advanced settings next to bottom action buttons */
 .ctrl-bot .ctrl-right{
   position:static!important;
@@ -369,23 +389,29 @@ body #tabs-page #content{
   vertical-align:middle!important;
 }
 .ctrl-bot:has(#settings-panel){
-  display:grid!important;
-  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
   align-items:center!important;
-  gap:0 12px;
+  justify-content:flex-start!important;
+  gap:12px;
   font-size:12px!important;
-  min-height:38px;
+  min-height:60px;
+  position:relative!important;
 }
+.ctrl-bot>#top,
 .ctrl-bot:has(#settings-panel)>#top{
-  position:absolute!important;
-  top:21px!important;
-  right:0;
-  margin:0;
+  position:fixed!important;
+  top:12px!important;
+  right:24px!important;
+  bottom:auto!important;
+  left:auto!important;
+  margin:0!important;
+  z-index:30!important;
 }
 .ctrl-bot:has(#settings-panel) #settings-panel{
   position:relative!important;
-  grid-column:1;
-  justify-self:start;
+  flex:0 0 auto!important;
   margin:0!important;
   padding:0!important;
 }
@@ -409,25 +435,24 @@ body #tabs-page #content{
   z-index:5;
 }
 .ctrl-bot:has(#settings-panel)>#btn_submit{
-  grid-column:2;
-  justify-self:center;
+  position:absolute!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
   margin:0!important;
   height:38px;
   line-height:36px;
   vertical-align:middle!important;
 }
 .ctrl-bot:has(#settings-panel)>#btn_view{
-  grid-column:3;
-  justify-self:end;
-  margin:0!important;
+  margin-left:auto!important;
+  margin-right:0!important;
   height:38px;
   line-height:36px;
   vertical-align:middle!important;
 }
 .ctrl-bot:has(#settings-panel)>.ctrl-right{
-  grid-column:3;
-  justify-self:end;
-  margin:0!important;
+  margin-left:auto!important;
+  margin-right:0!important;
 }
 .ctrl-bot:has(#settings-panel)>.btn:not(#top),
 .ctrl-bot:has(#settings-panel)>a.btn{
