@@ -378,6 +378,117 @@ function passFilter(status) {
   return status === currentFilter;
 }
 
+function buildDetailRows(expenses, statements, matches) {
+  const expMap = Object.fromEntries(expenses.map((e) => [e.id, e]));
+  const stmtMap = Object.fromEntries(statements.map((s) => [s.id, s]));
+  const rows = [];
+
+  for (const m of matches) {
+    const stmt = stmtMap[m.statementId];
+    m.expenseIds.forEach((eid, i) => {
+      const exp = expMap[eid];
+      rows.push({
+        kind: m.type,
+        status: m.type,
+        groupNum: m.groupNum,
+        matchId: m.id,
+        date: exp.date || stmt.date,
+        reportSheet: exp.sheet,
+        category: exp.category,
+        reportAmount: exp.amount,
+        comment: exp.comment,
+        counterparty: i === 0 ? stmt.counterparty : '',
+        statementAmount: i === 0 ? stmt.amount : null,
+        purpose: i === 0 ? stmt.purpose : '',
+        opNum: i === 0 ? stmt.opNum : '',
+      });
+    });
+  }
+
+  for (const exp of expenses) {
+    if (exp.status !== 'unmatched') continue;
+    rows.push({
+      kind: 'unmatched',
+      status: 'unmatched',
+      groupNum: null,
+      matchId: null,
+      date: exp.date,
+      reportSheet: exp.sheet,
+      category: exp.category,
+      reportAmount: exp.amount,
+      comment: exp.comment,
+      counterparty: null,
+      statementAmount: null,
+      purpose: null,
+      opNum: null,
+    });
+  }
+
+  for (const stmt of statements) {
+    if (stmt.status !== 'unmatched') continue;
+    rows.push({
+      kind: 'unmatched_stmt',
+      status: 'unmatched',
+      groupNum: null,
+      matchId: null,
+      date: stmt.date,
+      reportSheet: null,
+      category: null,
+      reportAmount: null,
+      comment: null,
+      counterparty: stmt.counterparty,
+      statementAmount: stmt.amount,
+      purpose: stmt.purpose,
+      opNum: stmt.opNum,
+    });
+  }
+
+  rows.sort((a, b) => (a.date || '').localeCompare(b.date || '') || (a.status || '').localeCompare(b.status || ''));
+  return rows;
+}
+
+function amountPairHtml(reportAmount, statementAmount) {
+  const ra = reportAmount != null ? reportAmount : null;
+  const sa = statementAmount != null ? statementAmount : null;
+  let cls = 'cell-missing';
+  let diff = '';
+  if (ra != null && sa != null) {
+    cls = rub(ra) === rub(sa) ? 'cell-match' : 'cell-mismatch';
+    const d = Math.round((sa - ra) * 100) / 100;
+    if (d !== 0) diff = `<span class="diff">Δ ${fmt(d)}</span>`;
+  } else if (ra != null || sa != null) {
+    cls = 'cell-mismatch';
+  }
+  return `<td class="${cls}">
+    <div class="val-pair">
+      <span class="side-a">Отчёт: ${fmt(ra)}</span>
+      <span class="side-b">Выписка: ${fmt(sa)}</span>
+      ${diff}
+    </div>
+  </td>`;
+}
+
+function renderDetailTable() {
+  if (!DATA || !DATA.detailRows) return;
+  const tbody = $('#detailTable tbody');
+  tbody.innerHTML = DATA.detailRows
+    .filter((r) => passFilter(r.status))
+    .map((r) => {
+      const label = r.category || r.counterparty || '—';
+      const note = r.comment || r.purpose || '—';
+      const sheet = r.reportSheet || (r.opNum ? `№ ${r.opNum}` : '—');
+      return `<tr class="row-${r.status}">
+        <td>${r.date || '—'}</td>
+        <td>${statusBadge(r.status)}</td>
+        <td>${r.groupNum || '—'}</td>
+        <td>${label}</td>
+        ${amountPairHtml(r.reportAmount, r.statementAmount)}
+        <td>${note}</td>
+        <td>${sheet}</td>
+      </tr>`;
+    }).join('');
+}
+
 function renderSummary() {
   if (!DATA) return;
   const s = DATA.stats;
@@ -425,6 +536,7 @@ function renderTables() {
 
 function renderAll() {
   renderSummary();
+  renderDetailTable();
   renderTables();
 }
 
@@ -440,6 +552,9 @@ async function loadInitial() {
 
   if (saved && saved.expenses && saved.expenses.length) {
     DATA = saved;
+    if (!DATA.detailRows) {
+      DATA.detailRows = buildDetailRows(DATA.expenses, DATA.statements, DATA.matches || []);
+    }
     renderAll();
     $('#actionMsg').textContent = 'Загружены сохранённые данные с сервера';
     $('#actionMsg').className = 'msg ok';
@@ -495,6 +610,7 @@ async function runReconciliation() {
       statementFile: stmtInput.files[0].name,
       ...result,
     };
+    DATA.detailRows = buildDetailRows(DATA.expenses, DATA.statements, DATA.matches);
 
     renderAll();
     msg.textContent = `Сверка выполнена: ${reportInput.files[0].name} + ${stmtInput.files[0].name}`;
@@ -558,6 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $$('#filters button').forEach((b) => b.classList.remove('active'));
     e.target.classList.add('active');
     currentFilter = e.target.dataset.f;
+    renderDetailTable();
     renderTables();
   });
 

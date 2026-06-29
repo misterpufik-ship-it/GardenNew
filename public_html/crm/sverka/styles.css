@@ -161,9 +161,22 @@ table.data-table td {
   vertical-align: top;
 }
 
-tr.row-exact { background: var(--green-bg); }
-tr.row-group { background: var(--yellow-bg); }
-tr.row-unmatched { background: var(--orange-bg); }
+tr.row-exact,
+tr.row-exact td { background: var(--green-bg); }
+tr.row-group,
+tr.row-group td { background: var(--yellow-bg); }
+tr.row-unmatched,
+tr.row-unmatched td { background: var(--orange-bg); }
+
+.val-pair { display: flex; flex-direction: column; gap: 1px; }
+.val-pair .side-a { font-size: 0.75rem; color: var(--muted); }
+.val-pair .side-b { font-weight: 600; }
+.cell-match { color: var(--green-text); }
+.cell-mismatch { color: var(--orange-text); }
+.cell-missing { color: var(--muted); font-style: italic; }
+.diff { font-size: 0.72rem; color: var(--orange-text); }
+
+.detail-table th { position: sticky; top: 0; z-index: 2; }
 
 .badge {
   display: inline-block;
