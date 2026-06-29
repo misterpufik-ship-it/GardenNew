@@ -290,9 +290,15 @@
         0%, 100% { opacity: 0.22; }
         50% { opacity: 1; }
     }
-    @keyframes heroGoldFlow {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 200% 50%; }
+    @keyframes phoneIconRing {
+        0%, 72%, 100% { transform: scale(1) rotate(0deg); }
+        8% { transform: scale(1.14) rotate(-10deg); }
+        16% { transform: scale(1.18) rotate(10deg); }
+        24% { transform: scale(1.14) rotate(-8deg); }
+        32% { transform: scale(1.16) rotate(8deg); }
+        40% { transform: scale(1.1) rotate(-4deg); }
+        48% { transform: scale(1.12) rotate(4deg); }
+        56% { transform: scale(1.06) rotate(0deg); }
     }
     .hero-mobile-btn {
         display: flex;
@@ -308,20 +314,10 @@
         letter-spacing: 0.18em;
         font-weight: 700;
         font-family: Montserrat, Arial, sans-serif;
-        animation: heroBtnBreathe 3.2s ease-in-out infinite;
-    }
-    .hero-mobile-btn--call {
         border: 1px solid rgba(166, 138, 92, 0.78);
         background: rgba(18, 16, 14, 0.38);
         color: #c5a059;
-    }
-    .hero-mobile-btn--book {
-        border: none;
-        color: #000;
-        background: linear-gradient(135deg, #8e7037 0%, #C5A059 30%, #FFEebb 50%, #C5A059 70%, #8e7037 100%);
-        background-size: 200% auto;
-        animation: heroGoldFlow 5s linear infinite, heroBtnBreathe 3.2s ease-in-out infinite;
-        box-shadow: 0 4px 18px rgba(197, 160, 89, 0.22);
+        animation: heroBtnBreathe 3.2s ease-in-out infinite;
     }
 
     /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
@@ -359,46 +355,45 @@
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            gap: 12px;
-            position: absolute;
-            left: 50%;
-            top: 56%;
-            transform: translateX(-50%);
-            z-index: 20;
             width: min(78vw, 268px);
+            margin: 0 auto 10px;
         }
         .mobile-quick-links {
-            gap: 0 !important;
+            gap: 4px !important;
             margin-left: 0 !important;
             transform: translateX(6px) !important;
         }
         .mobile-quick-link {
-            width: 34px !important;
-            height: 34px !important;
+            width: 40px !important;
+            height: 40px !important;
             padding: 0 !important;
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            border-radius: 50% !important;
-            border: 1.5px solid rgba(197, 160, 89, 0.82) !important;
+            border-radius: 0 !important;
+            border: none !important;
             background: transparent !important;
             box-shadow: none !important;
             box-sizing: border-box !important;
             color: var(--gold-main) !important;
-            transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+            transition: color 0.25s ease, opacity 0.25s ease;
         }
         .mobile-quick-link__icon {
-            width: 16px;
-            height: 16px;
+            width: 24px;
+            height: 24px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             color: var(--gold-main);
         }
         .mobile-quick-link__icon svg {
-            width: 15px;
-            height: 15px;
+            width: 22px;
+            height: 22px;
             display: block;
+        }
+        .mobile-quick-link--phone .mobile-quick-link__icon {
+            animation: phoneIconRing 2.8s ease-in-out infinite;
+            transform-origin: center center;
         }
         .mobile-quick-link--phone .mobile-quick-link__icon svg {
             stroke: currentColor;
@@ -422,8 +417,6 @@
         .mobile-quick-link:hover,
         .mobile-quick-link:focus,
         .mobile-quick-link:active {
-            transform: translateY(-1px);
-            border-color: var(--gold-light) !important;
             color: var(--gold-light) !important;
             background: transparent !important;
             box-shadow: none !important;
@@ -775,13 +768,11 @@
     </div>
     
     <img src="couch/uploads/image/logo3.webp" alt="Logo" class="logo-luxe-animate w-64 md:w-96 h-auto" width="384" height="162" fetchpriority="high" decoding="async">
-
-    <div class="hero-mobile-actions" aria-label="Быстрые действия">
-        <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="hero-mobile-btn hero-mobile-btn--call">Позвонить</a>
-        <a href="#reservation" class="hero-mobile-btn hero-mobile-btn--book">Забронировать</a>
-    </div>
     
     <div class="hero-bottom-content flex flex-col items-center z-10 w-full px-4 text-center mt-auto">
+        <div class="hero-mobile-actions" aria-label="Быстрое бронирование">
+            <a href="#reservation" class="hero-mobile-btn">Забронировать</a>
+        </div>
         <p class="tagline-premium shimmer-text uppercase tracking-[0.2em] text-[11px] md:text-[13px] mb-6 m-0"><cms:show hero_tagline /></p>
         
         <div class="hero-branch-row hidden md:flex items-center gap-4">
