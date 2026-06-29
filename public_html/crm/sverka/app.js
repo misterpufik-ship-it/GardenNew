@@ -604,20 +604,19 @@ function statusExportLabel(s) {
   return map[s] || s;
 }
 
-function downloadExcel() {
+async function downloadExcel() {
   if (!DATA || !DATA.expenses?.length) return;
 
   if (!DATA.pairRows) {
     DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
   }
 
-  const wb = XLSX.utils.book_new();
-
+  const entityLabel = DATA.entity === 'vympel' ? 'Вымпел' : 'Лаундж';
   const pairHeaders = [
     '№ связки', 'Статус', 'Тип', 'Группа', 'Дата отчёт', 'Категория', 'Сумма отчёт',
     'Комментарий', 'Лист', 'Дата выписки', '№ операции', 'Контрагент', 'Сумма выписки', 'Назначение',
   ];
-  const pairData = DATA.pairRows.map((r) => [
+  const pairRows = DATA.pairRows.map((r) => [
     r.linkNum ?? '',
     statusExportLabel(r.status),
     r.matchType ?? '',
@@ -633,22 +632,51 @@ function downloadExcel() {
     r.statementAmount ?? '',
     r.purpose ?? '',
   ]);
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([pairHeaders, ...pairData]), 'Сверка');
 
   const expHeaders = ['Дата', 'Лист', 'Категория', 'Сумма', 'Комментарий', 'Статус', 'Группа'];
-  const expData = DATA.expenses.map((e) => [
-    e.date ?? '', e.sheet ?? '', e.category ?? '', e.amount ?? '', e.comment ?? '', e.status ?? '', e.groupNum ?? '',
+  const expRows = DATA.expenses.map((e) => [
+    e.date ?? '', e.sheet ?? '', e.category ?? '', e.amount ?? '', e.comment ?? '',
+    statusExportLabel(e.status), e.groupNum ?? '',
   ]);
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([expHeaders, ...expData]), 'Расходы');
 
   const stmtHeaders = ['Дата', '№', 'Контрагент', 'Назначение', 'Дебет', 'Статус', 'Группа'];
-  const stmtData = DATA.statements.map((s) => [
-    s.date ?? '', s.opNum ?? '', s.counterparty ?? '', s.purpose ?? '', s.amount ?? '', s.status ?? '', s.groupNum ?? '',
+  const stmtRows = DATA.statements.map((s) => [
+    s.date ?? '', s.opNum ?? '', s.counterparty ?? '', s.purpose ?? '', s.amount ?? '',
+    statusExportLabel(s.status), s.groupNum ?? '',
   ]);
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([stmtHeaders, ...stmtData]), 'Выписка');
 
   const entity = DATA.entity === 'vympel' ? 'vympel' : 'lounge';
-  XLSX.writeFile(wb, `sverka-rs-${entity}-${new Date().toISOString().slice(0, 10)}.xlsx`);
+  await CrmExport.download(`sverka-rs-${entity}-${new Date().toISOString().slice(0, 10)}.xlsx`, [
+    {
+      name: 'Сверка',
+      title: 'Сверка расходов БН с выпиской',
+      subtitle: `${entityLabel} · ${DATA.reportFile || 'без файла отчёта'}`,
+      headers: pairHeaders,
+      rows: pairRows,
+      rowStatus: (_, i) => DATA.pairRows[i].status,
+      numberCols: [6, 12],
+      wrapCols: [7, 13],
+      colWidths: [10, 16, 12, 8, 12, 20, 14, 32, 14, 12, 10, 24, 14, 40],
+    },
+    {
+      name: 'Расходы',
+      title: 'Расходы отчёта (БН)',
+      headers: expHeaders,
+      rows: expRows,
+      rowStatus: (_, i) => DATA.expenses[i].status,
+      numberCols: [3],
+      wrapCols: [4],
+    },
+    {
+      name: 'Выписка',
+      title: 'Дебетовые операции выписки',
+      headers: stmtHeaders,
+      rows: stmtRows,
+      rowStatus: (_, i) => DATA.statements[i].status,
+      numberCols: [4],
+      wrapCols: [3],
+    },
+  ]);
 }
 
 function updateDownloadBtn() {

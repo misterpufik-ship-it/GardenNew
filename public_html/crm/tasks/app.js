@@ -150,7 +150,7 @@ async function saveTasks() {
   }
 }
 
-function downloadExcel() {
+async function downloadExcel() {
   if (!TASKS.length) return;
   const headers = ['Задача', 'Ответственный', 'Срок', 'Статус', 'Примечание', 'Создана', 'Обновлена'];
   const rows = TASKS.map((t) => [
@@ -162,9 +162,14 @@ function downloadExcel() {
     t.createdAt ?? '',
     t.updatedAt ?? '',
   ]);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([headers, ...rows]), 'Задачи');
-  XLSX.writeFile(wb, `tasks-${new Date().toISOString().slice(0, 10)}.xlsx`);
+  await CrmExport.download(`tasks-${new Date().toISOString().slice(0, 10)}.xlsx`, [{
+    name: 'Задачи',
+    title: 'Список задач AI-CRM',
+    headers,
+    rows,
+    rowStatus: (_, i) => TASKS[i].status,
+    wrapCols: [0, 4],
+  }]);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

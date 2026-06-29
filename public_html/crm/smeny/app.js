@@ -239,10 +239,9 @@ function renderAll() {
   updateDownloadBtn();
 }
 
-function downloadExcel() {
+async function downloadExcel() {
   if (!DATA || !DATA.rows?.length) return;
 
-  const wb = XLSX.utils.book_new();
   const cmpOrder = ['nal1', 'card1', 'bonus1', 'nal2', 'card2', 'bonus2'];
   const cmpLabels = {};
   if (ALGO?.mappings) ALGO.mappings.forEach((m) => { cmpLabels[m.id] = m.label; });
@@ -251,6 +250,12 @@ function downloadExcel() {
   cmpOrder.forEach((id) => {
     const lbl = cmpLabels[id] || id;
     headers.push(`${lbl} АДМИР`, `${lbl} смена`, `${lbl} Δ`);
+  });
+
+  const numberCols = [];
+  cmpOrder.forEach((_, idx) => {
+    const base = 5 + idx * 3;
+    numberCols.push(base, base + 1, base + 2);
   });
 
   const rows = DATA.rows.map((r) => {
@@ -267,11 +272,9 @@ function downloadExcel() {
     });
     return row;
   });
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([headers, ...rows]), 'Сверка');
 
   const s = DATA.day_stats || {};
-  const summary = [
-    ['Показатель', 'Значение'],
+  const summaryRows = [
     ['Файл', DATA.file ?? ''],
     ['Лист АДМИР', DATA.sheets?.admir ?? ''],
     ['1 смена', DATA.sheets?.s1 ?? ''],
@@ -282,9 +285,25 @@ function downloadExcel() {
     ['Расхождение', s.mismatch ?? 0],
     ['Нет в АДМИР', s.no_admir ?? 0],
   ];
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(summary), 'Сводка');
 
-  XLSX.writeFile(wb, `sverka-smen-${new Date().toISOString().slice(0, 10)}.xlsx`);
+  await CrmExport.download(`sverka-smen-${new Date().toISOString().slice(0, 10)}.xlsx`, [
+    {
+      name: 'Сверка',
+      title: 'Сверка листа АДМИР со сменами',
+      subtitle: DATA.file || '',
+      headers,
+      rows,
+      rowStatus: (_, i) => DATA.rows[i].row_status,
+      numberCols,
+    },
+    {
+      name: 'Сводка',
+      title: 'Сводка по сверке смен',
+      headers: ['Показатель', 'Значение'],
+      rows: summaryRows,
+      numberCols: [1],
+    },
+  ]);
 }
 
 function updateDownloadBtn() {

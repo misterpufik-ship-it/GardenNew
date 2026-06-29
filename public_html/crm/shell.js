@@ -1,4 +1,4 @@
-const TAB_IDS = ['sverka', 'smeny', 'odr', 'marketing', 'tasks'];
+const TAB_IDS = ['sverka', 'smeny', 'odr', 'marketing', 'tasks', 'reglament'];
 const tabs = document.querySelectorAll('.crm-tab');
 const frames = Object.fromEntries(
   TAB_IDS.map((id) => [id, document.getElementById(`frame-${id}`)]).filter(([, f]) => f)

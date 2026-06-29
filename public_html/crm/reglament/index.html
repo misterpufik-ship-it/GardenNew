@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Регламенты</title>
+  <link rel="stylesheet" href="../theme.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1 class="shimmer-gold">Регламенты</h1>
+  <p class="subtitle" id="subtitle">Загрузка…</p>
+
+  <details class="panel collapsible">
+    <summary>Загрузить регламент</summary>
+    <div class="collapsible-body">
+      <label for="docCategory">Категория</label>
+      <select id="docCategory">
+        <option value="operations">Операционные</option>
+        <option value="finance">Финансы</option>
+        <option value="hr">Персонал</option>
+        <option value="safety">Безопасность</option>
+        <option value="service">Сервис</option>
+        <option value="other">Прочее</option>
+      </select>
+
+      <label for="docVersion" class="field-gap">Версия / дата документа</label>
+      <input type="text" id="docVersion" placeholder="v1.0 или 01.06.2026">
+
+      <label for="docFile" class="field-gap">Файл (PDF, Word, Excel)</label>
+      <input type="file" id="docFile" accept=".pdf,.doc,.docx,.xlsx,.xls">
+
+      <label for="docNote" class="field-gap">Примечание</label>
+      <input type="text" id="docNote" placeholder="Краткое описание">
+
+      <div class="btn-row">
+        <button type="button" class="btn" id="uploadBtn">Загрузить</button>
+      </div>
+      <p class="msg" id="uploadMsg"></p>
+    </div>
+  </details>
+
+  <div class="section-actions btn-row">
+    <button type="button" class="btn secondary" id="downloadRegistry" disabled>Скачать реестр Excel</button>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filters" id="filters">
+      <button type="button" class="active" data-f="all">Все</button>
+      <button type="button" data-f="operations">Операционные</button>
+      <button type="button" data-f="finance">Финансы</button>
+      <button type="button" data-f="hr">Персонал</button>
+      <button type="button" data-f="safety">Безопасность</button>
+      <button type="button" data-f="service">Сервис</button>
+      <button type="button" data-f="other">Прочее</button>
+    </div>
+    <span class="filter-bar-label">Фильтры</span>
+  </div>
+
+  <div class="panel">
+    <h2>Документы</h2>
+    <div class="wrap">
+      <table class="data-table" id="docsTable">
+        <thead>
+          <tr>
+            <th>Категория</th>
+            <th>Документ</th>
+            <th>Версия</th>
+            <th>Примечание</th>
+            <th>Загружен</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="msg" id="emptyMsg">Регламентов пока нет</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+  <script src="../export-xlsx.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

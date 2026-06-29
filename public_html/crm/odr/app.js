@@ -122,7 +122,7 @@ async function deleteReport(id) {
   }
 }
 
-function downloadRegistry() {
+async function downloadRegistry() {
   if (!REPORTS.length) return;
   const headers = ['Месяц', 'Файл', 'Примечание', 'Размер (байт)', 'Загружен', 'Путь'];
   const rows = REPORTS.map((r) => [
@@ -133,9 +133,14 @@ function downloadRegistry() {
     r.uploadedAt ?? '',
     r.path ?? '',
   ]);
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([headers, ...rows]), 'ОДР');
-  XLSX.writeFile(wb, `odr-reestr-${new Date().toISOString().slice(0, 10)}.xlsx`);
+  await CrmExport.download(`odr-reestr-${new Date().toISOString().slice(0, 10)}.xlsx`, [{
+    name: 'ОДР',
+    title: 'Реестр отчётов ОДР',
+    headers,
+    rows,
+    wrapCols: [1, 2, 5],
+    numberCols: [3],
+  }]);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
