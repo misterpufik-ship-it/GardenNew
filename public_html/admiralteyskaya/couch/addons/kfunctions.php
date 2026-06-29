@@ -201,7 +201,7 @@ function garden_admin_branding_output( &$html ){
     }
 
     $html = preg_replace( '#<title>[^<]*</title>#', '<title>Garden Lounge</title>', $html, 1 );
-    $html = preg_replace( '#<link[^>]+rel=["\'](?:shortcut )?icon["\'][^>]*/>#i', '', $html );
+    $html = preg_replace( '#<link[^>]*\brel\s*=\s*["\'](?:shortcut\s+)?icon["\'][^>]*/?>#i', '', $html );
     $verPng = @filemtime( $_SERVER['DOCUMENT_ROOT'] . '/favicon.png' ) ?: time();
     $favicon = '<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=' . $verPng . '">' . "\n    "
         . '<link rel="shortcut icon" type="image/png" href="/favicon.png?v=' . $verPng . '">' . "\n    "
