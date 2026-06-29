@@ -283,7 +283,7 @@ a.btn {
 .filter-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 14px;
@@ -291,16 +291,26 @@ a.btn {
   border-bottom: 1px solid var(--border);
 }
 
+.filter-bar-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .filter-bar-right {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .filter-bar-right--solo {
-  margin-left: auto;
-  width: 100%;
+  width: auto;
   justify-content: flex-end;
 }
 

@@ -55,16 +55,18 @@
   </div>
 
   <div class="filter-bar">
-    <div class="filters color-filters" id="filters">
+    <div class="filter-bar-left">
+      <span class="filter-bar-label">Фильтры</span>
+      <div class="filters color-filters" id="filters">
       <button type="button" class="active" data-f="all">Все</button>
       <button type="button" class="filter-green" data-f="exact"><span class="dot g"></span> Зелёный — точное</button>
       <button type="button" class="filter-yellow" data-f="group"><span class="dot y"></span> Жёлтый — группа</button>
       <button type="button" class="filter-orange" data-f="unmatched"><span class="dot o"></span> Оранжевый — без пары</button>
       <button type="button" class="filter-orange" data-f="unmatched_exp">Только расход без выписки</button>
       <button type="button" class="filter-orange" data-f="unmatched_stmt">Только выписка без расхода</button>
+      </div>
     </div>
     <div class="filter-bar-right">
-      <span class="filter-bar-label">Фильтры</span>
       <button type="button" class="btn secondary btn-sm" id="downloadExcel" disabled>Скачать Excel</button>
     </div>
   </div>

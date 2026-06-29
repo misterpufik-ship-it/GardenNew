@@ -78,14 +78,16 @@
   <div class="field-stats" id="fieldStats"></div>
 
   <div class="filter-bar">
-    <div class="filters color-filters" id="filters">
+    <div class="filter-bar-left">
+      <span class="filter-bar-label">Фильтры</span>
+      <div class="filters color-filters" id="filters">
       <button type="button" class="active" data-f="all">Все дни</button>
       <button type="button" class="filter-green" data-f="match"><span class="dot g"></span> Совпадения</button>
       <button type="button" class="filter-yellow" data-f="partial"><span class="dot y"></span> Частичные</button>
       <button type="button" class="filter-red" data-f="mismatch"><span class="dot r"></span> Расхождения</button>
+      </div>
     </div>
     <div class="filter-bar-right">
-      <span class="filter-bar-label">Фильтры</span>
       <button type="button" class="btn secondary btn-sm" id="downloadExcel" disabled>Скачать Excel</button>
     </div>
   </div>
