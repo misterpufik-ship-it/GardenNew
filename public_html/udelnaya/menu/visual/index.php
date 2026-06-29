@@ -94,6 +94,9 @@ require_once $garden_cms;
         .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; padding: 0 0 6px; }
         .tab-btn.active { color: var(--gold); }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
+        @media (min-width: 768px) {
+            .tabs-wrap .tab-btn { font-size: 14px; letter-spacing: 0.24em; padding-bottom: 8px; }
+        }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
         
         .main-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
