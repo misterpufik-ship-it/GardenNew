@@ -1,0 +1,48 @@
+{
+  "tolerance": 0.01,
+  "dateMatch": "day_month",
+  "notes": "Сопоставление по дню и месяцу (год игнорируется)",
+  "sheets": {
+    "admir": {
+      "index": 0,
+      "startRow": 3,
+      "dateCol": 1,
+      "columns": {
+        "nal1": 6,
+        "nal2": 7,
+        "card1": 8,
+        "card2": 9,
+        "bonus1": 10,
+        "bonus2": 11
+      }
+    },
+    "s1": {
+      "index": 1,
+      "startRow": 7,
+      "dateCol": 1,
+      "columns": {
+        "nal": 3,
+        "card": 4,
+        "bonus": 5
+      }
+    },
+    "s2": {
+      "index": 2,
+      "startRow": 5,
+      "dateCol": 1,
+      "columns": {
+        "nal": 3,
+        "card": 4,
+        "bonus": 5
+      }
+    }
+  },
+  "mappings": [
+    { "id": "nal1", "label": "Нал 1", "admKey": "nal1", "shiftSheet": "s1", "shiftKey": "nal", "description": "→ Выручка нал (лист «1 смена»)" },
+    { "id": "card1", "label": "Карта 1", "admKey": "card1", "shiftSheet": "s1", "shiftKey": "card", "description": "→ Выручка безнал (лист «1 смена»)" },
+    { "id": "bonus1", "label": "Бонусы 1", "admKey": "bonus1", "shiftSheet": "s1", "shiftKey": "bonus", "description": "→ Баллы (лист «1 смена»)" },
+    { "id": "nal2", "label": "Нал 2", "admKey": "nal2", "shiftSheet": "s2", "shiftKey": "nal", "description": "→ Выручка нал (лист «2 смена»)" },
+    { "id": "card2", "label": "Карта 2", "admKey": "card2", "shiftSheet": "s2", "shiftKey": "card", "description": "→ Выручка безнал (лист «2 смена»)" },
+    { "id": "bonus2", "label": "Бонусы 2", "admKey": "bonus2", "shiftSheet": "s2", "shiftKey": "bonus", "description": "→ Баллы (лист «2 смена»)" }
+  ]
+}

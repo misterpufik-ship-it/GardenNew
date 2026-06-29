@@ -1,0 +1,2182 @@
+{
+  "file": "ОДР май 2026 — копия.xlsx",
+  "sheets": {
+    "admir": "АДМИР",
+    "s1": "1 смена",
+    "s2": "2 смена"
+  },
+  "day_stats": {
+    "match": 18,
+    "partial": 13,
+    "mismatch": 0,
+    "no_admir": 0
+  },
+  "field_stats": {
+    "nal1": {
+      "match": 29,
+      "mismatch": 1
+    },
+    "card1": {
+      "match": 29,
+      "mismatch": 1
+    },
+    "bonus1": {
+      "match": 28,
+      "mismatch": 1
+    },
+    "nal2": {
+      "match": 28,
+      "mismatch": 2
+    },
+    "card2": {
+      "match": 28,
+      "mismatch": 3
+    },
+    "bonus2": {
+      "match": 24,
+      "mismatch": 0
+    }
+  },
+  "total_days": 31,
+  "rows": [
+    {
+      "dm": "01.05",
+      "adm_date": "2026-05-01",
+      "s1_date": "2025-05-01",
+      "s2_date": "2025-05-01",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 41937.0,
+          "shift": 41937.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 125356.0,
+          "shift": 125356.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1263.0,
+          "shift": 1263.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 27785.0,
+          "shift": 27785.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 28725.0,
+          "shift": 28725.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "02.05",
+      "adm_date": "2026-05-02",
+      "s1_date": "2025-05-02",
+      "s2_date": "2025-05-02",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 56898.5,
+          "shift": 56898.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 97895.5,
+          "shift": 97895.75,
+          "diff": 0.25,
+          "source": "1 смена → Выручка безнал",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 2392.0,
+          "shift": 2392.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 14305.0,
+          "shift": 14305.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 22060.0,
+          "shift": 22060.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "03.05",
+      "adm_date": "2026-05-03",
+      "s1_date": "2025-05-03",
+      "s2_date": "2025-05-03",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 8860.0,
+          "shift": 8860.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 132142.0,
+          "shift": 132142.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 3987.0,
+          "shift": 3987.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 595.0,
+          "shift": 595.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 20577.0,
+          "shift": 20577.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 673.0,
+          "shift": 673.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "04.05",
+      "adm_date": "2026-05-04",
+      "s1_date": "2025-05-04",
+      "s2_date": "2025-05-04",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 12909.0,
+          "shift": 12909.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 108463.0,
+          "shift": 108463.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 2142.0,
+          "shift": 2142.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 740.0,
+          "shift": 750.0,
+          "diff": 10.0,
+          "source": "2 смена → Выручка нал",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 18430.0,
+          "shift": 18430.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "05.05",
+      "adm_date": "2026-05-05",
+      "s1_date": "2025-05-05",
+      "s2_date": "2025-05-05",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 12067.0,
+          "shift": 12067.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 117834.0,
+          "shift": 117834.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1694.0,
+          "shift": 1694.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 2280.0,
+          "shift": 2280.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 28826.0,
+          "shift": 28826.5,
+          "diff": 0.5,
+          "source": "2 смена → Выручка безнал",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 405.0,
+          "shift": 405.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "06.05",
+      "adm_date": "2026-05-06",
+      "s1_date": "2025-05-06",
+      "s2_date": "2025-05-06",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 24430.0,
+          "shift": 24430.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 65896.0,
+          "shift": 65896.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1123.0,
+          "shift": 1123.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 405.0,
+          "shift": 405.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 7250.0,
+          "shift": 7250.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "07.05",
+      "adm_date": "2026-05-07",
+      "s1_date": "2025-05-07",
+      "s2_date": "2025-05-07",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 11921.0,
+          "shift": 11921.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 90581.0,
+          "shift": 90581.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 130.0,
+          "shift": 130.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 2625.0,
+          "shift": 2625.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 4220.0,
+          "shift": 4220.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "08.05",
+      "adm_date": "2026-05-08",
+      "s1_date": "2025-05-08",
+      "s2_date": "2025-05-08",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 21036.0,
+          "shift": 21036.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 165733.5,
+          "shift": 165733.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 903.0,
+          "shift": 903.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 4610.0,
+          "shift": 4610.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 97489.5,
+          "shift": 97489.5,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "09.05",
+      "adm_date": "2026-05-09",
+      "s1_date": "2025-05-09",
+      "s2_date": "2025-05-09",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 25363.0,
+          "shift": 25363.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 151683.0,
+          "shift": 151683.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 4671.0,
+          "shift": 4671.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 8288.0,
+          "shift": 8299.0,
+          "diff": 11.0,
+          "source": "2 смена → Выручка нал",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 40185.0,
+          "shift": 40185.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 600.0,
+          "shift": 600.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "10.05",
+      "adm_date": "2026-05-10",
+      "s1_date": "2025-05-10",
+      "s2_date": "2025-05-10",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 17549.0,
+          "shift": 17549.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 96499.0,
+          "shift": 96499.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 748.0,
+          "shift": 748.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 9565.0,
+          "shift": 9565.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 27830.0,
+          "shift": 27830.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 300.0,
+          "shift": 300.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "11.05",
+      "adm_date": "2026-05-11",
+      "s1_date": "2025-05-11",
+      "s2_date": "2025-05-11",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 13734.0,
+          "shift": 13734.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 59556.0,
+          "shift": 59556.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 3197.0,
+          "shift": 3197.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 3370.0,
+          "shift": 3370.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 5600.0,
+          "shift": 5600.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": null,
+          "diff": null,
+          "source": "2 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "dm": "12.05",
+      "adm_date": "2026-05-12",
+      "s1_date": "2025-05-12",
+      "s2_date": "2025-05-12",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 11150.0,
+          "shift": 11150.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 79701.0,
+          "shift": 79701.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1442.0,
+          "shift": 1442.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 2140.0,
+          "shift": 2140.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 13224.0,
+          "shift": 13224.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "13.05",
+      "adm_date": "2026-05-13",
+      "s1_date": "2025-05-13",
+      "s2_date": "2025-05-13",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 14546.0,
+          "shift": 14546.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 92118.0,
+          "shift": 92118.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 772.0,
+          "shift": 772.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 710.0,
+          "shift": 710.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 16490.0,
+          "shift": 16490.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 450.0,
+          "shift": 450.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "14.05",
+      "adm_date": "2026-05-14",
+      "s1_date": "2025-05-14",
+      "s2_date": "2025-05-14",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 1904.0,
+          "shift": 1904.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 129279.0,
+          "shift": 129279.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1128.0,
+          "shift": 1128.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 23867.0,
+          "shift": 23867.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "15.05",
+      "adm_date": "2026-05-15",
+      "s1_date": "2025-05-15",
+      "s2_date": "2025-05-15",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 18811.0,
+          "shift": 18811.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 189677.0,
+          "shift": 189677.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 4771.0,
+          "shift": 4771.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 6125.0,
+          "shift": 6125.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 48150.0,
+          "shift": 48150.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 600.0,
+          "shift": 600.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "16.05",
+      "adm_date": "2026-05-16",
+      "s1_date": "2025-05-16",
+      "s2_date": "2025-05-16",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 10412.0,
+          "shift": 10412.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 173286.0,
+          "shift": 173286.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1929.0,
+          "shift": 1929.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 1025.0,
+          "shift": 1025.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 34959.0,
+          "shift": 34959.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": null,
+          "shift": 0.0,
+          "diff": null,
+          "source": "2 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "dm": "17.05",
+      "adm_date": "2026-05-17",
+      "s1_date": "2025-05-17",
+      "s2_date": "2025-05-17",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 9389.0,
+          "shift": 9389.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 90280.0,
+          "shift": 90280.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 2692.0,
+          "shift": 2692.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 3220.0,
+          "shift": 3220.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 26288.0,
+          "shift": 26288.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 600.0,
+          "shift": 600.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "18.05",
+      "adm_date": "2026-05-18",
+      "s1_date": "2025-05-18",
+      "s2_date": "2025-05-18",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 7024.0,
+          "shift": 7024.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 92489.5,
+          "shift": 92489.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 600.0,
+          "shift": 600.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 5485.0,
+          "shift": 5485.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "19.05",
+      "adm_date": "2026-05-19",
+      "s1_date": "2025-05-19",
+      "s2_date": "2025-05-19",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 13484.0,
+          "shift": 13484.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 118431.0,
+          "shift": 118431.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 2540.0,
+          "shift": 2540.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 1815.0,
+          "shift": 1815.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 11115.0,
+          "shift": 11115.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "20.05",
+      "adm_date": "2026-05-20",
+      "s1_date": "2025-05-20",
+      "s2_date": "2025-05-20",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 8077.5,
+          "shift": 8077.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 78998.0,
+          "shift": 78998.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1197.0,
+          "shift": 1197.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 373.5,
+          "shift": 373.5,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 6220.0,
+          "shift": 6220.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 0.0,
+          "shift": 0.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "21.05",
+      "adm_date": "2026-05-21",
+      "s1_date": "2025-05-21",
+      "s2_date": "2025-05-21",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 20303.0,
+          "shift": 20303.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 152051.5,
+          "shift": 152051.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 3563.0,
+          "shift": 3563.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 3990.0,
+          "shift": 3990.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 14751.0,
+          "shift": 14751.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 299.0,
+          "shift": 299.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "22.05",
+      "adm_date": "2026-05-22",
+      "s1_date": "2025-05-22",
+      "s2_date": "2025-05-22",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 26428.0,
+          "shift": 26428.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 143281.5,
+          "shift": 143281.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1380.0,
+          "shift": 1380.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 7795.0,
+          "shift": 7795.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 26171.0,
+          "shift": 26171.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 252.0,
+          "shift": 252.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "23.05",
+      "adm_date": "2026-05-23",
+      "s1_date": "2025-05-23",
+      "s2_date": "2025-05-23",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 31023.0,
+          "shift": 31023.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 132442.0,
+          "shift": 132442.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 5276.0,
+          "shift": 5276.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 8710.0,
+          "shift": 8710.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 23383.0,
+          "shift": 23383.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 1197.0,
+          "shift": 1197.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "24.05",
+      "adm_date": "2026-05-24",
+      "s1_date": "2025-05-24",
+      "s2_date": "2025-05-24",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 18260.0,
+          "shift": 18260.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 119415.0,
+          "shift": 119415.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 300.0,
+          "shift": 3223.0,
+          "diff": 2923.0,
+          "source": "1 смена → Баллы",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": null,
+          "shift": 0.0,
+          "diff": null,
+          "source": "2 смена → Выручка нал",
+          "status": "missing",
+          "ok": false
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 18320.0,
+          "shift": 18320.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": null,
+          "shift": 300.0,
+          "diff": null,
+          "source": "2 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "dm": "25.05",
+      "adm_date": "2026-05-25",
+      "s1_date": "2025-05-25",
+      "s2_date": "2025-05-25",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 14936.0,
+          "shift": 14396.0,
+          "diff": -540.0,
+          "source": "1 смена → Выручка нал",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 98751.5,
+          "shift": 98751.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": null,
+          "shift": 0.0,
+          "diff": null,
+          "source": "1 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 350.0,
+          "shift": 350.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 4400.0,
+          "shift": 4400.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": null,
+          "shift": 0.0,
+          "diff": null,
+          "source": "2 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "dm": "26.05",
+      "adm_date": "2026-05-26",
+      "s1_date": "2025-05-26",
+      "s2_date": "2025-05-26",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 9638.5,
+          "shift": 9638.5,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 97776.0,
+          "shift": 97776.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1886.0,
+          "shift": 1886.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 700.0,
+          "shift": 700.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 13740.0,
+          "shift": 13740.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": null,
+          "shift": 0.0,
+          "diff": null,
+          "source": "2 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "dm": "27.05",
+      "adm_date": "2026-05-27",
+      "s1_date": "2025-05-27",
+      "s2_date": "2025-05-27",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 17597.5,
+          "shift": null,
+          "diff": null,
+          "source": "1 смена → Выручка нал",
+          "status": "missing",
+          "ok": false
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 142051.5,
+          "shift": null,
+          "diff": null,
+          "source": "1 смена → Выручка безнал",
+          "status": "missing",
+          "ok": false
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1947.0,
+          "shift": null,
+          "diff": null,
+          "source": "1 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 1239.0,
+          "shift": 1239.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 26364.5,
+          "shift": 26364.5,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 500.0,
+          "shift": 500.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "28.05",
+      "adm_date": "2026-05-28",
+      "s1_date": "2025-05-28",
+      "s2_date": "2025-05-28",
+      "row_status": "match",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 16383.0,
+          "shift": 16383.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 118115.0,
+          "shift": 118115.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 1213.0,
+          "shift": 1213.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 2990.0,
+          "shift": 2990.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 36098.0,
+          "shift": 36098.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 702.0,
+          "shift": 702.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "29.05",
+      "adm_date": "2026-05-29",
+      "s1_date": "2025-05-29",
+      "s2_date": "2025-05-29",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 23229.0,
+          "shift": 23229.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 209002.0,
+          "shift": 209002.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 3008.0,
+          "shift": 3008.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 945.0,
+          "shift": 945.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 54475.0,
+          "shift": 54457.0,
+          "diff": -18.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": 137.0,
+          "shift": 137.0,
+          "diff": 0.0,
+          "source": "2 смена → Баллы",
+          "status": "match",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "dm": "30.05",
+      "adm_date": "2026-05-30",
+      "s1_date": "2025-05-30",
+      "s2_date": "2025-05-30",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 41544.0,
+          "shift": 41544.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 150007.0,
+          "shift": 150007.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 2609.0,
+          "shift": 2609.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 5410.0,
+          "shift": 5410.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 58549.0,
+          "shift": 58543.0,
+          "diff": -6.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "mismatch",
+          "ok": false
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": null,
+          "shift": 0.0,
+          "diff": null,
+          "source": "2 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        }
+      ]
+    },
+    {
+      "dm": "31.05",
+      "adm_date": "2026-05-31",
+      "s1_date": "2025-05-31",
+      "s2_date": "2025-05-31",
+      "row_status": "partial",
+      "comparisons": [
+        {
+          "id": "nal1",
+          "label": "Нал 1",
+          "adm": 20412.0,
+          "shift": 20412.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card1",
+          "label": "Карта 1",
+          "adm": 100706.0,
+          "shift": 100706.0,
+          "diff": 0.0,
+          "source": "1 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus1",
+          "label": "Бонусы 1",
+          "adm": 3482.0,
+          "shift": 3482.0,
+          "diff": 0.0,
+          "source": "1 смена → Баллы",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "nal2",
+          "label": "Нал 2",
+          "adm": 6230.0,
+          "shift": 6230.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка нал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "card2",
+          "label": "Карта 2",
+          "adm": 12236.0,
+          "shift": 12236.0,
+          "diff": 0.0,
+          "source": "2 смена → Выручка безнал",
+          "status": "match",
+          "ok": true
+        },
+        {
+          "id": "bonus2",
+          "label": "Бонусы 2",
+          "adm": null,
+          "shift": 0.0,
+          "diff": null,
+          "source": "2 смена → Баллы",
+          "status": "missing",
+          "ok": false
+        }
+      ]
+    }
+  ]
+}
