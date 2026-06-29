@@ -1,18 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap");
 
 :root {
-  --bg: #080809;
-  --surface: #111114;
-  --surface-2: #17171c;
-  --border: #2e2618;
-  --border-gold: rgba(201, 162, 39, 0.45);
+  --gold-main: #C5A059;
+  --gold-dark: #8e7037;
+  --gold-light: #FFEebb;
+  --bg-black: #000000;
+  --bg: var(--bg-black);
+  --surface: #0a0a0a;
+  --surface-2: #111111;
+  --border: rgba(197, 160, 89, 0.22);
+  --border-gold: rgba(197, 160, 89, 0.45);
   --text: #f3efe4;
   --muted: #9c958a;
-  --gold: #c9a227;
-  --gold-light: #e4c04a;
-  --gold-dim: #7a6320;
-  --accent: var(--gold);
-  --shadow-gold: 0 0 24px rgba(201, 162, 39, 0.08);
+  --gold: var(--gold-main);
+  --gold-dim: var(--gold-dark);
+  --accent: var(--gold-main);
+  --shadow-gold: 0 0 24px rgba(197, 160, 89, 0.06);
   --green-bg: #1e3a24;
   --green-text: #81c784;
   --yellow-bg: #3a321e;
@@ -23,48 +26,96 @@
   --red-text: #ef9a9a;
 }
 
+@keyframes shineGold {
+  to { background-position: 200% center; }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: Inter, "Segoe UI", system-ui, sans-serif;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201, 162, 39, 0.07), transparent 55%),
-    var(--bg);
+  font-family: Montserrat, "Segoe UI", system-ui, sans-serif;
+  background: var(--bg-black);
   color: var(--text);
   padding: 22px 24px;
-  line-height: 1.45;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    to right,
+    var(--gold-dark) 0%,
+    var(--gold-main) 40%,
+    var(--gold-light) 50%,
+    var(--gold-main) 60%,
+    var(--gold-dark) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shineGold 5s linear infinite;
 }
 
 h1 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.75rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.04em;
   padding-bottom: 10px;
   margin-bottom: 6px;
-  border-bottom: 1px solid var(--border-gold);
-  background: linear-gradient(90deg, var(--gold-light), var(--gold-dim));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  border-bottom: none;
 }
 
-h2 { font-size: 0.92rem; font-weight: 600; color: var(--gold-light); margin-bottom: 10px; }
+h1::after {
+  content: "";
+  display: block;
+  width: 160px;
+  height: 1px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, transparent, var(--gold-main), transparent);
+  opacity: 0.8;
+}
 
-.subtitle { color: var(--muted); font-size: 0.88rem; margin-bottom: 18px; }
+h1.shimmer-gold {
+  display: block;
+}
+
+h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-main);
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+}
 
 .panel {
-  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 14px 16px;
   margin-bottom: 16px;
   box-shadow: var(--shadow-gold);
 }
 
 .panel > h2 {
-  font-size: 0.92rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  color: var(--gold-light);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-main);
   margin-bottom: 10px;
 }
 
@@ -77,8 +128,11 @@ details.collapsible > summary {
   list-style: none;
   cursor: pointer;
   padding: 14px 16px;
-  font-size: 0.9rem;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--gold-light);
   border-bottom: 1px solid transparent;
   user-select: none;
@@ -89,7 +143,7 @@ details.collapsible > summary::-webkit-details-marker { display: none; }
 details.collapsible > summary::after {
   content: "▾";
   float: right;
-  color: var(--gold);
+  color: var(--gold-main);
   transition: transform 0.2s;
 }
 
@@ -105,7 +159,15 @@ details.collapsible .collapsible-body {
   padding: 14px 16px 16px;
 }
 
-label { display: block; font-size: 0.76rem; color: var(--muted); margin-bottom: 4px; }
+label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
 
 .field-gap { margin-top: 12px; }
 
@@ -115,31 +177,36 @@ input[type="file"],
 select,
 textarea {
   width: 100%;
-  background: #0c0c0f;
+  background: #000;
   border: 1px solid var(--border);
   color: var(--text);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 0.85rem;
+  border-radius: 0;
+  padding: 9px 10px;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
 }
 
 textarea { min-height: 60px; resize: vertical; }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(201, 162, 39, 0.15);
+  border-color: var(--gold-main);
+  box-shadow: 0 0 0 1px rgba(197, 160, 89, 0.25);
 }
 
 .btn {
-  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-main), var(--gold-light), var(--gold-main));
   border: none;
-  color: #1a1408;
-  padding: 8px 16px;
-  border-radius: 8px;
+  color: #000;
+  padding: 10px 18px;
+  border-radius: 0;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .btn.secondary {
@@ -151,9 +218,10 @@ input:focus, select:focus, textarea:focus {
 .btn.danger {
   background: linear-gradient(180deg, #c62828 0%, #8e0000 100%);
   color: #fff;
+  letter-spacing: 0.1em;
 }
 
-.btn:hover { filter: brightness(1.06); }
+.btn:hover { filter: brightness(1.08); }
 
 .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 
@@ -167,13 +235,20 @@ input:focus, select:focus, textarea:focus {
 .card {
   background: var(--surface-2);
   border: 1px solid var(--border);
-  border-top: 2px solid var(--gold-dim);
-  border-radius: 10px;
+  border-top: 1px solid var(--gold-dark);
+  border-radius: 0;
   padding: 12px 14px;
 }
 
-.card .num { font-size: 1.6rem; font-weight: 700; }
-.card .lbl { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+.card .num { font-size: 1.6rem; font-weight: 600; font-family: "Cormorant Garamond", serif; }
+.card .lbl {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
 .card.green .num { color: var(--green-text); }
 .card.yellow .num { color: var(--yellow-text); }
 .card.orange .num { color: var(--orange-text); }
@@ -185,12 +260,13 @@ input:focus, select:focus, textarea:focus {
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 14px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
+  font-weight: 400;
 }
 
 .legend span { display: flex; align-items: center; gap: 6px; }
 
-.dot { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+.dot { width: 11px; height: 11px; border-radius: 0; flex-shrink: 0; }
 .dot.g { background: var(--green-text); }
 .dot.y { background: var(--yellow-text); }
 .dot.o { background: var(--orange-text); }
@@ -203,29 +279,35 @@ input:focus, select:focus, textarea:focus {
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
 }
 
 .filters { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .filters button {
-  background: var(--surface-2);
+  background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 6px 12px;
-  border-radius: 8px;
+  padding: 7px 12px;
+  border-radius: 0;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   transition: border-color 0.15s, background 0.15s, color 0.15s;
 }
 
 .filters button.active {
-  border-color: var(--gold);
+  border-color: var(--gold-main);
   color: var(--gold-light);
-  background: rgba(201, 162, 39, 0.1);
+  background: rgba(197, 160, 89, 0.1);
 }
 
 .filters button:hover {
-  border-color: var(--gold-dim);
+  border-color: var(--gold-dark);
 }
 
 .color-filters button {
@@ -259,31 +341,35 @@ input:focus, select:focus, textarea:focus {
 }
 
 .filter-bar-label {
-  font-size: 0.78rem;
+  font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--gold-dim);
+  color: var(--gold-dark);
   white-space: nowrap;
 }
 
 table.data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   background: var(--surface);
-  border-radius: 10px;
+  border-radius: 0;
   overflow: hidden;
   border: 1px solid var(--border);
 }
 
 table.data-table th {
-  background: #0e0e12;
-  padding: 8px;
+  background: #000;
+  padding: 9px 8px;
   text-align: left;
+  font-family: Montserrat, sans-serif;
+  font-size: 0.65rem;
   font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   border-bottom: 1px solid var(--border-gold);
-  color: var(--gold-light);
+  color: var(--gold-main);
   white-space: nowrap;
 }
 
@@ -297,30 +383,32 @@ table.data-table tr:last-child td { border-bottom: none; }
 
 .wrap { overflow-x: auto; }
 
-.msg { font-size: 0.8rem; color: var(--muted); margin-top: 8px; }
+.msg { font-size: 0.78rem; color: var(--muted); margin-top: 8px; font-weight: 300; }
 .msg.ok { color: var(--green-text); }
 .msg.err { color: var(--red-text); }
 
 .panel-lead { margin-top: 0; margin-bottom: 10px; }
 
 .sub-table-title {
-  font-size: 0.88rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  font-style: italic;
   margin: 16px 0 8px;
-  color: var(--gold-dim);
+  color: var(--gold-main);
 }
 
 .sub-table-title:first-child { margin-top: 0; }
 
 .pairs-table .th-report { background: #152a1f !important; color: var(--green-text) !important; text-align: center; }
-.pairs-table .th-stmt { background: #1a2030 !important; color: var(--gold-light) !important; text-align: center; }
-.pairs-table .th-link { color: var(--gold) !important; text-align: center; vertical-align: middle; width: 42px; }
+.pairs-table .th-stmt { background: #1a2030 !important; color: var(--gold-main) !important; text-align: center; }
+.pairs-table .th-link { color: var(--gold-main) !important; text-align: center; vertical-align: middle; width: 42px; }
 
 .mapping .adm { color: var(--gold-light); }
 
 .algo-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   margin-top: 10px;
 }
 
@@ -331,18 +419,24 @@ table.data-table tr:last-child td { border-bottom: none; }
   text-align: left;
 }
 
-.algo-table th { background: #0e0e12; color: var(--gold-dim); }
+.algo-table th {
+  background: #000;
+  color: var(--gold-dark);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 
 .algo-table input,
 .algo-table select {
   padding: 4px 6px;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
 }
 
 .sheet-params {
   display: grid;
   gap: 10px;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
 }
 
 .sheet-params .inline-num {
