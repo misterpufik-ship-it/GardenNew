@@ -48,10 +48,6 @@
 
   <div class="cards" id="summary"></div>
 
-  <div class="section-actions btn-row">
-    <button type="button" class="btn secondary" id="downloadExcel" disabled>Скачать Excel</button>
-  </div>
-
   <div class="legend">
     <span><span class="dot g"></span> Точное совпадение</span>
     <span><span class="dot y"></span> Групповое совпадение</span>
@@ -67,7 +63,10 @@
       <button type="button" class="filter-orange" data-f="unmatched_exp">Только расход без выписки</button>
       <button type="button" class="filter-orange" data-f="unmatched_stmt">Только выписка без расхода</button>
     </div>
-    <span class="filter-bar-label">Фильтры</span>
+    <div class="filter-bar-right">
+      <span class="filter-bar-label">Фильтры</span>
+      <button type="button" class="btn secondary btn-sm" id="downloadExcel" disabled>Скачать Excel</button>
+    </div>
   </div>
 
   <div class="panel">
