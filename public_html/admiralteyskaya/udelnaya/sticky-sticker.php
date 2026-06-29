@@ -28,7 +28,7 @@ require_once $garden_cms;
     <cms:editable name='appear_delay' label='Задержка появления (сек)' group='grp_sticker' type='text'>10</cms:editable>
 
     <cms:editable name='grp_modal' label='Всплывающее окно' type='group' order='2' />
-    <cms:editable name='modal_logo' label='Логотип филиала (сверху)' group='grp_modal' type='image' show_preview='1' preview_width='120'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
+    <cms:editable name='modal_logo' label='Монограмма GL (сверху)' group='grp_modal' type='image' show_preview='1' preview_width='120'>https://garden-lounge.pro/img/logo-gl.webp</cms:editable>
     <cms:editable name='modal_title_branch' label='Название филиала в заголовке' group='grp_modal' type='text'>Адмиралтейская</cms:editable>
     <cms:editable name='modal_lead' label='Текст' group='grp_modal' type='textarea'>Флагманский лаунж в центре Петербурга на набережной Мойки. Кальяны, авторская кухня, бар, VIP-комнаты и атмосфера Garden в самом сердце города.</cms:editable>
     <cms:editable name='modal_site_url' label='Ссылка на сайт филиала' group='grp_modal' type='text'>https://garden-lounge.pro/admiralteyskaya/</cms:editable>

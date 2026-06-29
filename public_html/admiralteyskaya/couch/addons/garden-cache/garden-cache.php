@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if ( !defined('K_COUCH_DIR') ) die();
 
 require_once K_ADDONS_DIR . 'garden-cache/cache-lib.php';

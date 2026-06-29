@@ -9,7 +9,7 @@
     <cms:editable name='appear_delay' label='Задержка появления (сек)' group='grp_sticker' type='text'>10</cms:editable>
 
     <cms:editable name='grp_modal' label='Всплывающее окно' type='group' order='2' />
-    <cms:editable name='modal_logo' label='Логотип филиала (сверху)' group='grp_modal' type='image' show_preview='1' preview_width='120'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
+    <cms:editable name='modal_logo' label='Монограмма GL (сверху)' group='grp_modal' type='image' show_preview='1' preview_width='120'>https://garden-lounge.pro/img/logo-gl.webp</cms:editable>
     <cms:editable name='modal_title_branch' label='Название филиала в заголовке' group='grp_modal' type='text'>Удельная</cms:editable>
     <cms:editable name='modal_lead' label='Текст' group='grp_modal' type='textarea'>Второй филиал сети — камерный лаунж у метро Удельная. Тот же Garden по духу: кальяны, авторская кухня, бар и VIP-зоны, но в более уютном формате.</cms:editable>
     <cms:editable name='modal_site_url' label='Ссылка на сайт филиала' group='grp_modal' type='text'>https://garden-lounge.pro/udelnaya/</cms:editable>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if ( !defined('K_COUCH_DIR') ) die();
 
 function garden_clear_couch_cache(){

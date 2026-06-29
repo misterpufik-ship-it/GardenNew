@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if ( !defined('GARDEN_BOOKING_LIB') ) {
     define('GARDEN_BOOKING_LIB', 1);
 }
