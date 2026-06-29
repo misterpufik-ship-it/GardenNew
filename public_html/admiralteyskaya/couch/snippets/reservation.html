@@ -327,9 +327,10 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
         <p class="text-sm text-gray-400 font-light mb-8 text-center leading-relaxed">
             <cms:show res_modal_text />
         </p>
-        <cms:if res_modal_notice>
-        <p class="gl-modal__notice text-center"><cms:show res_modal_notice /></p>
-        </cms:if>
+        <cms:set res_notice_default='На компании от 6 человек взимается сервисный сбор 10%.
+
+Посещение Garden Lounge строго с 18 лет.' />
+        <p class="gl-modal__notice text-center"><cms:if res_modal_notice><cms:show res_modal_notice /><cms:else /><cms:show res_notice_default /></cms:if></p>
         <button class="gl-btn-luxe !py-3 mt-8" id="glModalOk">ОК</button>
     </div>
 </div>
