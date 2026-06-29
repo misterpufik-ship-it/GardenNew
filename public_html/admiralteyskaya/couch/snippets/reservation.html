@@ -72,57 +72,76 @@
 /* ===== Дата, время, гости ===== */
 .res-booking-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 20px 12px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr) minmax(0, 0.85fr);
+  gap: 16px 10px;
   align-items: end;
-}
-.res-booking-row .res-field-block:nth-child(3) {
-  grid-column: 1 / -1;
-}
-@media (max-width: 519px) {
-  .res-date-input {
-    font-size: 14px;
-    padding: 12px 0 10px;
-  }
-  .res-time-wrap {
-    padding: 12px 0 10px;
-  }
 }
 @media (min-width: 520px) {
   .res-booking-row {
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr) minmax(0, 0.8fr);
     gap: 28px 20px;
   }
-  .res-booking-row .res-field-block:nth-child(3) {
-    grid-column: auto;
-  }
 }
 .res-field-block { min-width: 0; }
 
-.res-date-input {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-  background: transparent !important;
-  border: none;
+.res-date-wrap {
+  position: relative;
   border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+  min-height: 44px;
   padding: 12px 0 10px;
-  color: #fff !important;
-  color-scheme: dark;
+  box-sizing: border-box;
+  cursor: pointer;
   text-align: center;
+  transition: border-color 0.4s;
+}
+.res-date-wrap:focus-within { border-bottom-color: var(--gold-matte); }
+.res-date-label {
+  display: block;
   font-size: 15px;
   font-weight: 300;
+  color: #fff;
+  line-height: 20px;
+  pointer-events: none;
+  user-select: none;
+}
+.res-date-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent !important;
+  color: transparent !important;
+  color-scheme: dark;
+  opacity: 0;
+  cursor: pointer;
   outline: none;
-  transition: border-color 0.4s;
   -webkit-appearance: none;
   appearance: none;
-  min-height: 44px;
+  min-height: 0;
 }
-.res-date-input:focus { border-bottom-color: var(--gold-matte); }
 .res-date-input::-webkit-calendar-picker-indicator {
-  filter: invert(72%) sepia(28%) saturate(520%) hue-rotate(6deg) brightness(95%);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
   cursor: pointer;
-  opacity: 0.85;
+}
+
+@media (max-width: 519px) {
+  .res-date-label,
+  .res-time-segment,
+  select.guest-select {
+    font-size: 14px;
+  }
+  .res-booking-row {
+    gap: 14px 8px;
+  }
 }
 
 .res-time-wrap {
@@ -204,7 +223,10 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
             <div class="res-booking-row">
                 <div class="res-field-block space-y-2">
                     <label class="gl-label-mini text-center" for="visit_date"><span class="shimmer-text-gold">Дата визита</span></label>
-                    <input class="res-date-input" type="date" id="visit_date" name="visit_date" required>
+                    <div class="res-date-wrap is-empty">
+                        <span class="res-date-label" id="visit_date_label">календарь</span>
+                        <input class="res-date-input" type="date" id="visit_date" name="visit_date" required aria-label="Дата визита">
+                    </div>
                 </div>
                 <div class="res-field-block space-y-2">
                     <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Время</span></label>
@@ -260,6 +282,8 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
 
         const phoneInput = form.querySelector('.phone-mask');
         const dateInput = form.querySelector('#visit_date');
+        const dateWrap = form.querySelector('.res-date-wrap');
+        const dateLabel = form.querySelector('#visit_date_label');
         const hoursInput = form.querySelector('.time-hours');
         const minutesInput = form.querySelector('.time-minutes');
         const timeHidden = form.querySelector('.visit-time-hidden');
@@ -269,6 +293,33 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
         const today = new Date();
         const minDate = today.toISOString().slice(0, 10);
         dateInput.min = minDate;
+
+        function formatDateLabel(isoDate) {
+            const [y, m, d] = isoDate.split('-');
+            return d + '.' + m + '.' + y;
+        }
+
+        function syncDateLabel() {
+            if (!dateLabel || !dateWrap) return;
+            if (dateInput.value) {
+                dateLabel.textContent = formatDateLabel(dateInput.value);
+                dateWrap.classList.remove('is-empty');
+            } else {
+                dateLabel.textContent = 'календарь';
+                dateWrap.classList.add('is-empty');
+            }
+        }
+
+        if (dateWrap) {
+            dateWrap.addEventListener('click', () => {
+                if (typeof dateInput.showPicker === 'function') {
+                    try { dateInput.showPicker(); return; } catch (err) {}
+                }
+                dateInput.focus();
+            });
+        }
+        dateInput.addEventListener('change', syncDateLabel);
+        syncDateLabel();
 
         for (let i = 1; i <= 20; i++) {
             guestSelect.add(new Option(i + (i < 5 ? ' гостя' : ' гостей'), i));
@@ -393,6 +444,7 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
                     MODAL.classList.add('is-open');
                     form.reset();
                     dateInput.min = minDate;
+                    syncDateLabel();
                     timeHidden.value = '';
                 } else {
                     showToast((data && data.message) ? data.message : 'Ошибка. Попробуйте позже.');
