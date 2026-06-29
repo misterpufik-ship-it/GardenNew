@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow, noarchive">
   <title>Сверка по р/с</title>
+  <link rel="stylesheet" href="../theme.css">
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
@@ -12,19 +13,19 @@
   <h1>Сверка расходов БН с выпиской</h1>
   <p class="subtitle" id="subtitle">Загрузка…</p>
 
-  <div class="panel-grid">
-    <div class="panel">
-      <h2>Юрлицо и файлы</h2>
+  <details class="panel collapsible">
+    <summary>Юрлицо и файлы</summary>
+    <div class="collapsible-body">
       <label for="entity">Юрлицо</label>
       <select id="entity">
         <option value="lounge">Лаундж</option>
         <option value="vympel">Вымпел</option>
       </select>
 
-      <label for="reportFile" style="margin-top:10px">Отчёт (.xlsx)</label>
+      <label for="reportFile" class="field-gap">Отчёт (.xlsx)</label>
       <input type="file" id="reportFile" accept=".xlsx">
 
-      <label for="statementFile" style="margin-top:10px">Выписка (.xlsx)</label>
+      <label for="statementFile" class="field-gap">Выписка (.xlsx)</label>
       <input type="file" id="statementFile" accept=".xlsx">
 
       <div class="btn-row">
@@ -33,16 +34,18 @@
       </div>
       <p class="msg" id="actionMsg"></p>
     </div>
+  </details>
 
-    <div class="panel">
-      <h2>Настройки колонок</h2>
+  <details class="panel collapsible">
+    <summary>Настройки колонок</summary>
+    <div class="collapsible-body">
       <div id="configForm" class="config-form"></div>
       <div class="btn-row">
         <button type="button" class="btn secondary" id="saveConfigBtn">Сохранить настройки</button>
       </div>
       <p class="msg" id="configMsg"></p>
     </div>
-  </div>
+  </details>
 
   <div class="cards" id="summary"></div>
 
@@ -52,18 +55,21 @@
     <span><span class="dot o"></span> Не найдено</span>
   </div>
 
-  <div class="filters color-filters" id="filters">
-    <button type="button" class="active" data-f="all">Все</button>
-    <button type="button" class="filter-green" data-f="exact"><span class="dot g"></span> Зелёный — точное</button>
-    <button type="button" class="filter-yellow" data-f="group"><span class="dot y"></span> Жёлтый — группа</button>
-    <button type="button" class="filter-orange" data-f="unmatched"><span class="dot o"></span> Оранжевый — без пары</button>
-    <button type="button" class="filter-orange" data-f="unmatched_exp">Только расход без выписки</button>
-    <button type="button" class="filter-orange" data-f="unmatched_stmt">Только выписка без расхода</button>
+  <div class="filter-bar">
+    <div class="filters color-filters" id="filters">
+      <button type="button" class="active" data-f="all">Все</button>
+      <button type="button" class="filter-green" data-f="exact"><span class="dot g"></span> Зелёный — точное</button>
+      <button type="button" class="filter-yellow" data-f="group"><span class="dot y"></span> Жёлтый — группа</button>
+      <button type="button" class="filter-orange" data-f="unmatched"><span class="dot o"></span> Оранжевый — без пары</button>
+      <button type="button" class="filter-orange" data-f="unmatched_exp">Только расход без выписки</button>
+      <button type="button" class="filter-orange" data-f="unmatched_stmt">Только выписка без расхода</button>
+    </div>
+    <span class="filter-bar-label">Фильтры</span>
   </div>
 
   <div class="panel">
     <h2>Сверка — связки «отчёт ↔ выписка»</h2>
-    <p class="msg" style="margin-top:0;margin-bottom:10px">Как в исходном дашборде: слева расход отчёта, справа операция выписки, между ними номер связки.</p>
+    <p class="msg panel-lead">Слева расход отчёта, справа операция выписки, между ними номер связки.</p>
     <div class="wrap">
       <table class="data-table pairs-table" id="pairsTable">
         <thead>
@@ -91,41 +97,43 @@
     </div>
   </div>
 
-  <details class="panel extra-tables">
+  <details class="panel collapsible extra-tables">
     <summary>Расходы и выписка отдельными таблицами</summary>
-    <h2 style="margin-top:12px">Расходы отчёта</h2>
-    <div class="wrap">
-      <table class="data-table" id="expTable">
-        <thead>
-          <tr>
-            <th>Дата</th>
-            <th>Лист</th>
-            <th>Категория</th>
-            <th>Сумма</th>
-            <th>Комментарий</th>
-            <th>Статус</th>
-            <th>Группа</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <h2 style="margin-top:16px">Дебет выписки</h2>
-    <div class="wrap">
-      <table class="data-table" id="stmtTable">
-        <thead>
-          <tr>
-            <th>Дата</th>
-            <th>№</th>
-            <th>Контрагент</th>
-            <th>Назначение</th>
-            <th>Дебет</th>
-            <th>Статус</th>
-            <th>Группа</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <div class="collapsible-body">
+      <h2 class="sub-table-title">Расходы отчёта</h2>
+      <div class="wrap">
+        <table class="data-table" id="expTable">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>Лист</th>
+              <th>Категория</th>
+              <th>Сумма</th>
+              <th>Комментарий</th>
+              <th>Статус</th>
+              <th>Группа</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <h2 class="sub-table-title">Дебет выписки</h2>
+      <div class="wrap">
+        <table class="data-table" id="stmtTable">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>№</th>
+              <th>Контрагент</th>
+              <th>Назначение</th>
+              <th>Дебет</th>
+              <th>Статус</th>
+              <th>Группа</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </details>
 
