@@ -38,3 +38,7 @@ public_html/crm/storage/**/*
 _local_db/
 *.sql
 *.sql.zip
+
+__pycache__/
+*.pyc
+
