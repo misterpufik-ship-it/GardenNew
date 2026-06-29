@@ -29,6 +29,11 @@ scripts/deploy.env.ps1
 *.tmp
 *.bak
 
+# CRM runtime data on hosting (persisted outside deploy)
+public_html/crm/storage/**/*
+!public_html/crm/storage/**/.gitkeep
+!public_html/crm/storage/.htaccess
+
 # Local database dumps/imports
 _local_db/
 *.sql

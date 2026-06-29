@@ -30,7 +30,7 @@ function monthLabel(ym) {
 }
 
 async function loadReports() {
-  const res = await fetch('reports.json');
+  const res = await fetch('api/manifest.php');
   const data = await res.json();
   REPORTS = data.reports || [];
   render();
@@ -54,7 +54,7 @@ function render() {
       <td>${fmtDate(r.uploadedAt)}</td>
       <td>
         <div class="table-actions">
-          <a class="btn secondary btn-sm" href="${r.path}" download="${r.originalName || 'report.xlsx'}">Скачать</a>
+          <a class="btn secondary btn-sm" href="api/file.php?id=${r.id}">Скачать</a>
           <button type="button" class="btn danger btn-sm" data-del="${r.id}">Удалить</button>
         </div>
       </td>

@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+require dirname(__DIR__, 2) . '/_lib/storage.php';
+
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
 if (!is_array($data)) {
@@ -16,17 +18,11 @@ if (!is_array($data)) {
     exit;
 }
 
-$path = dirname(__DIR__) . '/data.json';
-$encoded = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-if ($encoded === false) {
+try {
+    crm_write_json('sverka', 'data.json', $data);
+} catch (RuntimeException $e) {
     http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Encode failed']);
-    exit;
-}
-
-if (file_put_contents($path, $encoded . "\n") === false) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Write failed']);
+    echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
     exit;
 }
 

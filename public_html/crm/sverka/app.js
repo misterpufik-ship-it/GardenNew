@@ -686,8 +686,8 @@ function updateDownloadBtn() {
 
 async function loadInitial() {
   const [cfgRes, dataRes] = await Promise.all([
-    fetch('config.json'),
-    fetch('data.json'),
+    fetch('api/config.php'),
+    fetch('api/data.php'),
   ]);
   CONFIG = await cfgRes.json();
   const saved = await dataRes.json();

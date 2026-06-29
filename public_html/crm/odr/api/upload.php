@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+require dirname(__DIR__, 2) . '/_lib/storage.php';
+
 $month = $_POST['month'] ?? '';
 if (!preg_match('/^\d{4}-\d{2}$/', $month)) {
     http_response_code(400);
@@ -28,11 +30,11 @@ if (!preg_match('/\.xlsx$/i', $name)) {
     exit;
 }
 
-$base = dirname(__DIR__);
-$uploadDir = $base . '/uploads/' . $month;
-if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true)) {
+try {
+    $uploadDir = crm_uploads_dir('odr', $month);
+} catch (RuntimeException $e) {
     http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Не удалось создать папку']);
+    echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
     exit;
 }
 
@@ -47,13 +49,10 @@ if (!move_uploaded_file($_FILES['file']['tmp_name'], $dest)) {
     exit;
 }
 
-$manifestPath = $base . '/reports.json';
-$manifest = ['reports' => []];
-if (is_file($manifestPath)) {
-    $decoded = json_decode(file_get_contents($manifestPath), true);
-    if (is_array($decoded['reports'] ?? null)) {
-        $manifest['reports'] = $decoded['reports'];
-    }
+$relativePath = 'storage/odr/uploads/' . $month . '/' . $stored;
+$manifest = crm_read_json('odr', 'reports.json', ['reports' => []]);
+if (!is_array($manifest['reports'])) {
+    $manifest['reports'] = [];
 }
 
 $note = trim($_POST['note'] ?? '');
@@ -62,7 +61,7 @@ $entry = [
     'month' => $month,
     'originalName' => $name,
     'storedName' => $stored,
-    'path' => 'uploads/' . $month . '/' . $stored,
+    'path' => $relativePath,
     'size' => filesize($dest),
     'note' => $note,
     'uploadedAt' => date('c'),
@@ -74,10 +73,11 @@ usort($manifest['reports'], function ($a, $b) {
     return $cmp !== 0 ? $cmp : strcmp($b['uploadedAt'], $a['uploadedAt']);
 });
 
-$encoded = json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-if ($encoded === false || file_put_contents($manifestPath, $encoded . "\n") === false) {
+try {
+    crm_write_json('odr', 'reports.json', $manifest);
+} catch (RuntimeException $e) {
     http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Ошибка записи реестра']);
+    echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
     exit;
 }
 

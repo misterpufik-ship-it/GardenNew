@@ -31,7 +31,7 @@ function filteredTasks() {
 }
 
 async function loadTasks() {
-  const res = await fetch('tasks.json');
+  const res = await fetch('api/manifest.php');
   const data = await res.json();
   TASKS = data.tasks || [];
   render();

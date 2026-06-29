@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+require dirname(__DIR__, 2) . '/_lib/storage.php';
+
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
 $id = is_array($data) ? ($data['id'] ?? '') : '';
@@ -18,16 +20,7 @@ if (!preg_match('/^[a-f0-9]{16}$/', $id)) {
     exit;
 }
 
-$base = dirname(__DIR__);
-$manifestPath = $base . '/reports.json';
-$manifest = ['reports' => []];
-if (is_file($manifestPath)) {
-    $decoded = json_decode(file_get_contents($manifestPath), true);
-    if (is_array($decoded['reports'] ?? null)) {
-        $manifest['reports'] = $decoded['reports'];
-    }
-}
-
+$manifest = crm_read_json('odr', 'reports.json', ['reports' => []]);
 $found = null;
 $manifest['reports'] = array_values(array_filter(
     $manifest['reports'],
@@ -46,12 +39,23 @@ if (!$found) {
     exit;
 }
 
-$filePath = $base . '/' . ($found['path'] ?? '');
-if (is_file($filePath)) {
-    unlink($filePath);
+$paths = [
+    crm_root() . '/' . ltrim($found['path'] ?? '', '/'),
+    crm_root() . '/odr/' . ltrim($found['legacyPath'] ?? $found['path'] ?? '', '/'),
+];
+foreach ($paths as $filePath) {
+    if ($filePath && is_file($filePath)) {
+        unlink($filePath);
+        break;
+    }
 }
 
-$encoded = json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-file_put_contents($manifestPath, $encoded . "\n");
+try {
+    crm_write_json('odr', 'reports.json', $manifest);
+} catch (RuntimeException $e) {
+    http_response_code(500);
+    echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
+    exit;
+}
 
 echo json_encode(['ok' => true]);
