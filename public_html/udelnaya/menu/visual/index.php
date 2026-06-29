@@ -158,11 +158,16 @@ require_once $garden_cms;
 
         #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; justify-content: center; align-items: center; z-index: 2000; }
         #lightbox img { max-width: 95%; max-height: 85vh; border: 1px solid var(--gold-dark); }
+        .lightbox-close { position: fixed; top: 12px; right: 16px; z-index: 2001; width: 44px; height: 44px; border: none; background: transparent; color: #fff; font-size: 36px; line-height: 1; cursor: pointer; transition: color 0.2s; }
+        .lightbox-close:hover { color: var(--gold); }
     </style>
 </head>
 <body class="antialiased">
 
-    <div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
+    <div id="lightbox" onclick="closeLightbox()">
+        <button type="button" class="lightbox-close" onclick="event.stopPropagation(); closeLightbox();" aria-label="Закрыть">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
 
     <header class="py-8 text-center bg-black">
         <a href="https://garden-lounge.pro/udelnaya/menu">

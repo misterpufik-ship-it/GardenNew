@@ -1,14 +1,12 @@
 ﻿<?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Меню визуальное' name='menu_visual' executable='1' order='160'>
 
-    <cms:editable name='group_main_settings' label='Настройки логотипа' type='group' collapsed='1' order='1' />
-    <cms:editable name='visual_logo' label='Логотип меню' group='group_main_settings' type='image'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
-    <cms:editable name='visual_divider' label='Разделитель (линия)' group='group_main_settings' type='image'>https://garden-lounge.pro/img/div.png</cms:editable>
+    <cms:editable name='visual_logo' label='Логотип меню' type='image' order='1'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
+    <cms:editable name='visual_divider' label='Разделитель (линия)' type='image' order='2'>https://garden-lounge.pro/img/div.png</cms:editable>
 
     <cms:set tag_options = 'Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
 
-    <cms:editable name='group_shisha' label='Кальяны' type='group' collapsed='1' order='2' />
-    <cms:repeatable name='menu_shisha' label='Список блюд: Кальяны' group='group_shisha'>
+    <cms:repeatable name='menu_shisha' label='Кальяны — список блюд' order='3'>
         <cms:editable name='item_title' label='Название' type='text' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
@@ -17,8 +15,7 @@
         <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:editable name='group_kitchen' label='Кухня' type='group' collapsed='1' order='3' />
-    <cms:repeatable name='menu_kitchen' label='Список блюд: Кухня' group='group_kitchen'>
+    <cms:repeatable name='menu_kitchen' label='Кухня — список блюд' order='4'>
         <cms:editable name='item_title' label='Название' type='text' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
@@ -27,8 +24,7 @@
         <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:editable name='group_bar' label='Бар' type='group' collapsed='1' order='4' />
-    <cms:repeatable name='menu_bar' label='Список блюд: Бар' group='group_bar'>
+    <cms:repeatable name='menu_bar' label='Бар — список блюд' order='5'>
         <cms:editable name='item_title' label='Название' type='text' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
@@ -135,11 +131,16 @@
 
         #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; justify-content: center; align-items: center; z-index: 2000; }
         #lightbox img { max-width: 95%; max-height: 85vh; border: 1px solid var(--gold-dark); }
+        .lightbox-close { position: fixed; top: 12px; right: 16px; z-index: 2001; width: 44px; height: 44px; border: none; background: transparent; color: #fff; font-size: 36px; line-height: 1; cursor: pointer; transition: color 0.2s; }
+        .lightbox-close:hover { color: var(--gold); }
     </style>
 </head>
 <body class="antialiased">
 
-    <div id="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src=""></div>
+    <div id="lightbox" onclick="closeLightbox()">
+        <button type="button" class="lightbox-close" onclick="event.stopPropagation(); closeLightbox();" aria-label="Закрыть">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
 
     <header class="py-8 text-center bg-black">
         <a href="https://garden-lounge.pro/admiralteyskaya/menu">

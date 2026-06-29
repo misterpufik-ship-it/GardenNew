@@ -1,18 +1,5 @@
 <?php require_once( '../../couch/cms.php' ); ?>
-
-<cms:template title='Мастер Импорта Меню' icon='upload' />
-
-<div style="padding:30px; background:#1a1a1a; color:#fff; font-family:sans-serif; min-height: 100vh;">
-    <h1 style="color:#C5A059;">✨ Импорт меню (Исправленный)</h1>
-
-  <?php 
-    // 1. Устанавливаем кодировку, чтобы не было "белиберды"
-    header('Content-Type: text/html; charset=utf-8');
-    
-    // 2. ПОДКЛЮЧАЕМ ЯДРО (ОБЯЗАТЕЛЬНО ПЕРВОЙ СТРОКОЙ)
-    require_once( '../../couch/cms.php' ); 
-?>
-<cms:template title='Мастер Импорта Меню' icon='upload' />
+<cms:template title='Мастер Импорта Меню' icon='upload' hidden='1' executable='0' />
 
 <div style="padding:30px; background:#1a1a1a; color:#fff; font-family:sans-serif; min-height: 100vh;">
     <h1 style="color:#C5A059;">⚙️ Финальный импорт (Адмиралтейская)</h1>

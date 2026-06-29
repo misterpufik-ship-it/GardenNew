@@ -253,7 +253,11 @@ body #tabs-page #content{
   margin-top:auto!important;
 }
 
-/* Advanced settings next to bottom action buttons */
+/* Advanced settings + actions bar */
+.ctrl-bot{
+  box-sizing:border-box!important;
+  padding:11px 24px!important;
+}
 .ctrl-bot .ctrl-right{
   position:static!important;
   top:auto!important;
@@ -281,16 +285,19 @@ body #tabs-page #content{
   font-size:12px!important;
   min-height:60px;
   position:relative!important;
+  padding-left:24px!important;
+  padding-right:24px!important;
 }
-.ctrl-bot>#top,
-.ctrl-bot:has(#settings-panel)>#top{
-  position:fixed!important;
-  top:12px!important;
-  right:24px!important;
+.ctrl-bot:has(#settings-panel)>#top,
+.ctrl-bot>#top{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
   bottom:auto!important;
   left:auto!important;
-  margin:0!important;
-  z-index:30!important;
+  margin:0 0 0 auto!important;
+  flex:0 0 auto!important;
+  z-index:1!important;
 }
 .ctrl-bot:has(#settings-panel) #settings-panel{
   position:relative!important;
@@ -310,32 +317,27 @@ body #tabs-page #content{
 }
 .ctrl-bot:has(#settings-panel) #settings-panel>.panel-body{
   position:absolute!important;
-  right:0;
+  left:0;
+  right:auto;
   bottom:calc(100% + 6px);
   top:auto!important;
   float:none!important;
   width:min(440px,calc(100vw - 320px));
   z-index:5;
 }
-.ctrl-bot:has(#settings-panel)>#btn_submit{
-  position:absolute!important;
-  left:50%!important;
-  transform:translateX(-50%)!important;
-  margin:0!important;
-  height:38px;
-  line-height:36px;
-  vertical-align:middle!important;
-}
+.ctrl-bot:has(#settings-panel)>#btn_submit,
 .ctrl-bot:has(#settings-panel)>#btn_view{
-  margin-left:auto!important;
-  margin-right:0!important;
+  position:static!important;
+  left:auto!important;
+  transform:none!important;
+  margin:0!important;
+  flex:0 0 auto!important;
   height:38px;
   line-height:36px;
   vertical-align:middle!important;
 }
 .ctrl-bot:has(#settings-panel)>.ctrl-right{
-  margin-left:auto!important;
-  margin-right:0!important;
+  margin:0 0 0 auto!important;
 }
 .ctrl-bot:has(#settings-panel)>.btn:not(#top),
 .ctrl-bot:has(#settings-panel)>a.btn{

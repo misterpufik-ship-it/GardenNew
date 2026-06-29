@@ -3,7 +3,9 @@ if ( !defined('K_COUCH_DIR') ) die();
 
 function garden_admin_label_defaults(){
     return array(
-        'header.php' => array('field'=>'label_header', 'title'=>'Шапка сайта (Header)', 'weight'=>100),
+        
+        'admin-instructions.php' => array('field'=>'', 'title'=>'Инструкции', 'weight'=>-10),
+'header.php' => array('field'=>'label_header', 'title'=>'Шапка сайта (Header)', 'weight'=>100),
         'about.php' => array('field'=>'label_about', 'title'=>'Концепция', 'weight'=>110),
         'akzii.php' => array('field'=>'label_akzii', 'title'=>'Акции', 'weight'=>120),
         'menu.php' => array('field'=>'label_menu', 'title'=>'Меню (общие настройки)', 'weight'=>130),
@@ -105,10 +107,17 @@ function garden_alter_admin_menuitems( &$items ){
     if ( isset($items['site-home.php']) ){
         unset($items['site-home.php']);
     }
+    if ( isset($items['menu/text/import.php']) ){
+        unset($items['menu/text/import.php']);
+    }
+    if ( isset($items['menu/import.php']) ){
+        unset($items['menu/import.php']);
+    }
 
     $defaults = garden_admin_label_defaults();
     $overrides = garden_admin_label_overrides();
 
+    $items['_garden_instructions_'] = garden_admin_menu_header( '_garden_instructions_', 'Инструкции', -2 );
     $items['_garden_home_'] = garden_admin_menu_header( '_garden_home_', 'Главная', -1 );
     $items['_garden_admiral_'] = garden_admin_menu_header( '_garden_admiral_', 'Адмиралтейская', 0 );
     $items['_garden_udelnaya_'] = garden_admin_menu_header( '_garden_udelnaya_', 'Удельная', 1 );
@@ -124,7 +133,10 @@ function garden_alter_admin_menuitems( &$items ){
             $field = $info['field'];
             $items[$name]['title'] = ( $field && isset($overrides[$field]) ) ? $overrides[$field] : $info['title'];
             $items[$name]['weight'] = $info['weight'];
-            if ( strpos($name, 'udelnaya/') === 0 ){
+            if ( $name === 'admin-instructions.php' ){
+                $items[$name]['parent'] = '_garden_instructions_';
+            }
+            elseif ( strpos($name, 'udelnaya/') === 0 ){
                 $items[$name]['parent'] = '_garden_udelnaya_';
             }
             elseif ( $name === 'home.php' ){
@@ -226,7 +238,15 @@ function garden_admin_sidebar_js(){
         }
     }
 
-    $(function(){
+    
+    function gardenAdminLandingRedirect(){
+        var path = window.location.pathname || '';
+        if ( !/\/couch\/admin\.php$/i.test(path) ) return;
+        var params = new URLSearchParams(window.location.search || '');
+        if ( params.has('o') ) return;
+        window.location.replace(path + '?o=admin-instructions.php&q=list');
+    }
+$(function(){
         ensureSidebarVisible();
 
         var $greeting = $('#sidebar-top');
@@ -246,6 +266,7 @@ function garden_admin_sidebar_js(){
             ids.push(String($(this).data('id')));
         });
         COUCH.state.collapsedGroups = ids;
+        gardenAdminLandingRedirect();
     });
 })(jQuery);
 JS;
@@ -415,7 +436,11 @@ body #tabs-page #content{
   margin-top:auto!important;
 }
 
-/* Advanced settings next to bottom action buttons */
+/* Advanced settings + actions bar */
+.ctrl-bot{
+  box-sizing:border-box!important;
+  padding:11px 24px!important;
+}
 .ctrl-bot .ctrl-right{
   position:static!important;
   top:auto!important;
@@ -443,16 +468,19 @@ body #tabs-page #content{
   font-size:12px!important;
   min-height:60px;
   position:relative!important;
+  padding-left:24px!important;
+  padding-right:24px!important;
 }
-.ctrl-bot>#top,
-.ctrl-bot:has(#settings-panel)>#top{
-  position:fixed!important;
-  top:12px!important;
-  right:24px!important;
+.ctrl-bot:has(#settings-panel)>#top,
+.ctrl-bot>#top{
+  position:static!important;
+  top:auto!important;
+  right:auto!important;
   bottom:auto!important;
   left:auto!important;
-  margin:0!important;
-  z-index:30!important;
+  margin:0 0 0 auto!important;
+  flex:0 0 auto!important;
+  z-index:1!important;
 }
 .ctrl-bot:has(#settings-panel) #settings-panel{
   position:relative!important;
@@ -472,32 +500,27 @@ body #tabs-page #content{
 }
 .ctrl-bot:has(#settings-panel) #settings-panel>.panel-body{
   position:absolute!important;
-  right:0;
+  left:0;
+  right:auto;
   bottom:calc(100% + 6px);
   top:auto!important;
   float:none!important;
   width:min(440px,calc(100vw - 320px));
   z-index:5;
 }
-.ctrl-bot:has(#settings-panel)>#btn_submit{
-  position:absolute!important;
-  left:50%!important;
-  transform:translateX(-50%)!important;
-  margin:0!important;
-  height:38px;
-  line-height:36px;
-  vertical-align:middle!important;
-}
+.ctrl-bot:has(#settings-panel)>#btn_submit,
 .ctrl-bot:has(#settings-panel)>#btn_view{
-  margin-left:auto!important;
-  margin-right:0!important;
+  position:static!important;
+  left:auto!important;
+  transform:none!important;
+  margin:0!important;
+  flex:0 0 auto!important;
   height:38px;
   line-height:36px;
   vertical-align:middle!important;
 }
 .ctrl-bot:has(#settings-panel)>.ctrl-right{
-  margin-left:auto!important;
-  margin-right:0!important;
+  margin:0 0 0 auto!important;
 }
 .ctrl-bot:has(#settings-panel)>.btn:not(#top),
 .ctrl-bot:has(#settings-panel)>a.btn{
@@ -505,6 +528,7 @@ body #tabs-page #content{
   margin-top:0!important;
   margin-bottom:0!important;
 }
+
 CSS;
 
     $FUNCS->add_css( $css );
