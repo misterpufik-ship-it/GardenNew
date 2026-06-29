@@ -2,10 +2,15 @@
 <cms:template title='Бронирование — уведомления' executable='0' order='5'>
 
     <cms:editable name='booking_intro' label='Справка' type='message' order='1'>
-        Настройки отправки заявок с формы «Бронирование» в Telegram и VK. У каждого филиала — свои токены и получатели.
-        В тексте сообщения можно использовать переменные: {branch}, {branch_label}, {name}, {phone}, {date}, {time}, {guests}.
-        VK: нужен ключ доступа сообщества (Сообщения → Настройки → Работа с API) и peer_id получателя (ID пользователя или беседы).
+        Настройки отправки заявок с формы «Бронирование» в Telegram и VK.
+        Telegram — у каждого филиала свой бот и Chat ID.
+        VK — одно сообщество Garden Lounge; заявки уходят в личные сообщения на рабочий VK-аккаунт администратора филиала (у каждого филиала свой ID пользователя).
+        Переменные в тексте: {branch}, {branch_label}, {name}, {phone}, {date}, {time}, {guests}.
     </cms:editable>
+
+    <cms:editable name='group_vk_shared' label='VK — общие настройки' type='group' order='5' />
+    <cms:editable name='vk_link' label='VK — ссылка на сообщество' group='group_vk_shared' type='text' order='6'>https://vk.com/loungegarden</cms:editable>
+    <cms:editable name='vk_access_token' label='VK — ключ доступа сообщества' group='group_vk_shared' type='text' order='7' desc='Один ключ для всех филиалов. Сообщество → Управление → Сообщения → Работа с API, право «Сообщения сообщества».' />
 
     <cms:editable name='group_admiral_booking' label='Адмиралтейская — отправка' type='group' order='10' />
     <cms:editable name='adm_booking_enabled' label='Включить отправку' group='group_admiral_booking' type='dropdown' opt_values='Нет=0 | Да=1' order='11'>1</cms:editable>
@@ -21,11 +26,9 @@
 Время: {time}
 Гостей: {guests}</cms:editable>
 
-    <cms:editable name='adm_vk_enabled' label='VK — включить отправку' group='group_admiral_booking' type='dropdown' opt_values='Нет=0 | Да=1' order='17'>0</cms:editable>
-    <cms:editable name='adm_vk_link' label='VK — ссылка (для справки)' group='group_admiral_booking' type='text' order='18'>https://vk.com/loungegarden</cms:editable>
-    <cms:editable name='adm_vk_access_token' label='VK — ключ доступа сообщества' group='group_admiral_booking' type='text' order='19' desc='Ключ с правом messages. Создаётся в настройках сообщества VK → Работа с API.' />
-    <cms:editable name='adm_vk_peer_id' label='VK — peer_id получателя' group='group_admiral_booking' type='text' order='20' desc='ID пользователя или беседы, куда приходят заявки. Для беседы — отрицательное число.' />
-    <cms:editable name='adm_vk_message_template' label='VK — текст сообщения' group='group_admiral_booking' type='textarea' height='180' order='21' desc='Пусто — используется тот же текст, что и для Telegram.' />
+    <cms:editable name='adm_vk_enabled' label='VK — включить отправку' group='group_admiral_booking' type='dropdown' opt_values='Нет=0 | Да=1' order='17'>1</cms:editable>
+    <cms:editable name='adm_vk_user_id' label='VK — ID пользователя (личка)' group='group_admiral_booking' type='text' order='18' desc='Числовой ID рабочего VK-аккаунта администратора Адмиралтейской. Узнать: vk.com/id123 или через vk.com/dev. Аккаунт должен один раз написать сообществу, чтобы ему можно было писать.'>868619211</cms:editable>
+    <cms:editable name='adm_vk_message_template' label='VK — текст сообщения' group='group_admiral_booking' type='textarea' height='180' order='19' desc='Пусто — используется тот же текст, что и для Telegram.' />
 
     <cms:editable name='group_udelnaya_booking' label='Удельная — отправка' type='group' order='30' />
     <cms:editable name='udel_booking_enabled' label='Включить отправку' group='group_udelnaya_booking' type='dropdown' opt_values='Нет=0 | Да=1' order='31'>1</cms:editable>
@@ -42,10 +45,8 @@
 Гостей: {guests}</cms:editable>
 
     <cms:editable name='udel_vk_enabled' label='VK — включить отправку' group='group_udelnaya_booking' type='dropdown' opt_values='Нет=0 | Да=1' order='37'>0</cms:editable>
-    <cms:editable name='udel_vk_link' label='VK — ссылка (для справки)' group='group_udelnaya_booking' type='text' order='38'>https://vk.com/loungegarden</cms:editable>
-    <cms:editable name='udel_vk_access_token' label='VK — ключ доступа сообщества' group='group_udelnaya_booking' type='text' order='39' desc='Ключ с правом messages. Создаётся в настройках сообщества VK → Работа с API.' />
-    <cms:editable name='udel_vk_peer_id' label='VK — peer_id получателя' group='group_udelnaya_booking' type='text' order='40' desc='ID пользователя или беседы, куда приходят заявки. Для беседы — отрицательное число.' />
-    <cms:editable name='udel_vk_message_template' label='VK — текст сообщения' group='group_udelnaya_booking' type='textarea' height='180' order='41' desc='Пусто — используется тот же текст, что и для Telegram.' />
+    <cms:editable name='udel_vk_user_id' label='VK — ID пользователя (личка)' group='group_udelnaya_booking' type='text' order='38' desc='Числовой ID рабочего VK-аккаунта администратора Удельной. Узнать: vk.com/id123 или через vk.com/dev. Аккаунт должен один раз написать сообществу, чтобы ему можно было писать.' />
+    <cms:editable name='udel_vk_message_template' label='VK — текст сообщения' group='group_udelnaya_booking' type='textarea' height='180' order='39' desc='Пусто — используется тот же текст, что и для Telegram.' />
 
 </cms:template>
 <?php COUCH::invoke(); ?>

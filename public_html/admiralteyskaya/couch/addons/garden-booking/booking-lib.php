@@ -57,9 +57,7 @@ function garden_booking_field_map( $branch ) {
             'chat_id' => 'udel_chat_id',
             'message_template' => 'udel_message_template',
             'vk_enabled' => 'udel_vk_enabled',
-            'vk_link' => 'udel_vk_link',
-            'vk_access_token' => 'udel_vk_access_token',
-            'vk_peer_id' => 'udel_vk_peer_id',
+            'vk_user_id' => 'udel_vk_user_id',
             'vk_message_template' => 'udel_vk_message_template',
         );
     }
@@ -72,9 +70,7 @@ function garden_booking_field_map( $branch ) {
         'chat_id' => 'adm_chat_id',
         'message_template' => 'adm_message_template',
         'vk_enabled' => 'adm_vk_enabled',
-        'vk_link' => 'adm_vk_link',
-        'vk_access_token' => 'adm_vk_access_token',
-        'vk_peer_id' => 'adm_vk_peer_id',
+        'vk_user_id' => 'adm_vk_user_id',
         'vk_message_template' => 'adm_vk_message_template',
     );
 }
@@ -102,6 +98,47 @@ function garden_booking_get_field_value( $field_name ) {
 
     $row = $res->fetch_assoc();
     return $row ? trim((string)$row['value']) : '';
+}
+
+
+function garden_booking_get_vk_access_token() {
+    static $token = null;
+    if ( $token !== null ) return $token;
+
+    $token = garden_booking_get_field_value('vk_access_token');
+    if ( $token ) return $token;
+
+    $fallback = garden_booking_secrets_fallback();
+    if ( !empty($fallback['vk_access_token']) ) {
+        $token = trim((string)$fallback['vk_access_token']);
+        return $token;
+    }
+
+    $token = '';
+    return $token;
+}
+
+function garden_booking_get_vk_user_id( $branch, $map, $fallback_branch ) {
+    $user_id = garden_booking_get_field_value($map['vk_user_id']);
+    if ( !$user_id ) {
+        $legacy_fields = ($branch === 'udelnaya')
+            ? array('udel_vk_peer_id', 'udel_vk_user_id')
+            : array('adm_vk_peer_id', 'adm_vk_user_id');
+        foreach ( $legacy_fields as $legacy_field ) {
+            if ( $legacy_field === $map['vk_user_id'] ) {
+                continue;
+            }
+            $user_id = garden_booking_get_field_value($legacy_field);
+            if ( $user_id ) break;
+        }
+    }
+    if ( !$user_id && !empty($fallback_branch['vk_user_id']) ) {
+        $user_id = trim((string)$fallback_branch['vk_user_id']);
+    }
+    if ( !$user_id && !empty($fallback_branch['vk_peer_id']) ) {
+        $user_id = trim((string)$fallback_branch['vk_peer_id']);
+    }
+    return $user_id;
 }
 
 function garden_booking_secrets_fallback() {
@@ -166,17 +203,14 @@ function garden_booking_get_branch_settings( $branch ) {
     }
 
     $vk_enabled = garden_booking_get_field_value($map['vk_enabled']);
+    if ( $vk_enabled === '' && !empty($fallback_branch['vk_enabled']) ) {
+        $vk_enabled = $fallback_branch['vk_enabled'] ? '1' : '0';
+    }
     if ( $vk_enabled === '' ) $vk_enabled = '0';
 
-    $vk_access_token = garden_booking_get_field_value($map['vk_access_token']);
-    if ( !$vk_access_token && !empty($fallback_branch['vk_access_token']) ) {
-        $vk_access_token = trim((string)$fallback_branch['vk_access_token']);
-    }
+    $vk_access_token = garden_booking_get_vk_access_token();
 
-    $vk_peer_id = garden_booking_get_field_value($map['vk_peer_id']);
-    if ( !$vk_peer_id && !empty($fallback_branch['vk_peer_id']) ) {
-        $vk_peer_id = trim((string)$fallback_branch['vk_peer_id']);
-    }
+    $vk_user_id = garden_booking_get_vk_user_id($branch, $map, $fallback_branch);
 
     $vk_message_template = garden_booking_get_field_value($map['vk_message_template']);
     if ( !$vk_message_template && !empty($fallback_branch['vk_message_template']) ) {
@@ -192,9 +226,9 @@ function garden_booking_get_branch_settings( $branch ) {
         'chat_id' => $chat_id,
         'message_template' => $message_template,
         'vk_enabled' => ($vk_enabled === '1'),
-        'vk_link' => garden_booking_get_field_value($map['vk_link']),
+        'vk_link' => garden_booking_get_field_value('vk_link'),
         'vk_access_token' => $vk_access_token,
-        'vk_peer_id' => $vk_peer_id,
+        'vk_user_id' => $vk_user_id,
         'vk_message_template' => $vk_message_template,
     );
 }
@@ -394,13 +428,13 @@ function garden_booking_send_vk( $settings, $message ) {
     if ( empty($settings['vk_enabled']) ) {
         return array(true, '');
     }
-    if ( !$settings['vk_access_token'] || !$settings['vk_peer_id'] ) {
-        return array(false, 'Не настроены VK Access Token или peer_id.');
+    if ( !$settings['vk_access_token'] || !$settings['vk_user_id'] ) {
+        return array(false, 'Не настроены общий VK-ключ или ID пользователя филиала.');
     }
 
-    $peer_id = (int)$settings['vk_peer_id'];
-    if ( $peer_id === 0 ) {
-        return array(false, 'Некорректный VK peer_id.');
+    $peer_id = (int)$settings['vk_user_id'];
+    if ( $peer_id <= 0 ) {
+        return array(false, 'Некорректный VK ID пользователя.');
     }
 
     $payload = array(
