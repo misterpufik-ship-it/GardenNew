@@ -58,6 +58,10 @@ function crm_write_json(string $module, string $filename, array $data): void
 {
     crm_ensure_storage($module);
     $path = crm_storage_path($module, $filename);
+    $dir = dirname($path);
+    if (!is_dir($dir) && !mkdir($dir, 0755, true)) {
+        throw new RuntimeException('Не удалось создать каталог хранения');
+    }
     $encoded = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     if ($encoded === false || file_put_contents($path, $encoded . "\n") === false) {
         throw new RuntimeException('Ошибка записи данных');

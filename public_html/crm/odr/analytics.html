@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>ОДР — аналитика</title>
+  <link rel="stylesheet" href="../theme.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="analytics.css">
+</head>
+<body>
+  <header class="analytics-header">
+    <div>
+      <a href="index.html" class="back-link">← Реестр ОДР</a>
+      <h1 class="shimmer-gold">Финансовая аналитика ОДР</h1>
+      <p class="subtitle" id="pageSubtitle">Выберите месяц или запустите анализ</p>
+    </div>
+    <div class="header-actions">
+      <label class="compare-toggle"><input type="checkbox" id="compareMode"> Сравнить с прошлым месяцем</label>
+      <button type="button" class="btn" id="runAnalysisBtn" disabled>Анализировать</button>
+    </div>
+  </header>
+
+  <nav class="month-tabs" id="monthTabs"></nav>
+  <p class="msg" id="statusMsg"></p>
+
+  <div id="dashboard" class="dashboard hidden"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="analyzer/utils.js"></script>
+  <script src="analyzer/pnl-analysis.js"></script>
+  <script src="analyzer/daily-sales-analysis.js"></script>
+  <script src="analyzer/inventory-analysis.js"></script>
+  <script src="analyzer/recommendations.js"></script>
+  <script src="analyzer/main.js"></script>
+  <script src="analytics-ui.js"></script>
+</body>
+</html>

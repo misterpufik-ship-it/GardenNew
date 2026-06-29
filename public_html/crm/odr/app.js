@@ -54,6 +54,7 @@ function render() {
       <td>${fmtDate(r.uploadedAt)}</td>
       <td>
         <div class="table-actions">
+          <a class="btn secondary btn-sm" href="analytics.html?month=${r.month}">Анализировать</a>
           <a class="btn secondary btn-sm" href="api/file.php?id=${r.id}">Скачать</a>
           <button type="button" class="btn danger btn-sm" data-del="${r.id}">Удалить</button>
         </div>
