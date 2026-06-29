@@ -1,8 +1,8 @@
+const TAB_IDS = ['sverka', 'smeny', 'odr', 'marketing', 'tasks'];
 const tabs = document.querySelectorAll('.crm-tab');
-const frames = {
-  sverka: document.getElementById('frame-sverka'),
-  smeny: document.getElementById('frame-smeny'),
-};
+const frames = Object.fromEntries(
+  TAB_IDS.map((id) => [id, document.getElementById(`frame-${id}`)]).filter(([, f]) => f)
+);
 
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => {
@@ -29,6 +29,6 @@ tabs.forEach((tab) => {
 
 const params = new URLSearchParams(location.search);
 const initial = params.get('tab');
-if (initial === 'smeny') {
-  document.querySelector('.crm-tab[data-tab="smeny"]')?.click();
+if (initial && frames[initial]) {
+  document.querySelector(`.crm-tab[data-tab="${initial}"]`)?.click();
 }

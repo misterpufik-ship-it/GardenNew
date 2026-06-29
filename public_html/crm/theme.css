@@ -64,23 +64,17 @@ h1 {
   font-weight: 500;
   font-style: italic;
   letter-spacing: 0.04em;
-  padding-bottom: 10px;
+  padding-bottom: 0;
   margin-bottom: 6px;
   border-bottom: none;
 }
 
-h1::after {
-  content: "";
-  display: block;
-  width: 160px;
-  height: 1px;
-  margin-top: 10px;
-  background: linear-gradient(90deg, transparent, var(--gold-main), transparent);
-  opacity: 0.8;
-}
-
 h1.shimmer-gold {
   display: block;
+}
+
+.section-actions {
+  margin-bottom: 16px;
 }
 
 h2 {
@@ -222,6 +216,24 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn:hover { filter: brightness(1.08); }
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+
+a.btn {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.table-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
 
 .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 

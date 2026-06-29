@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Задачи</title>
+  <link rel="stylesheet" href="../theme.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <h1 class="shimmer-gold">Задачи</h1>
+  <p class="subtitle" id="subtitle">Загрузка…</p>
+
+  <details class="panel collapsible">
+    <summary>Новая задача</summary>
+    <div class="collapsible-body task-form">
+      <label for="taskTitle">Задача</label>
+      <input type="text" id="taskTitle" placeholder="Что нужно сделать">
+
+      <div class="form-row">
+        <div>
+          <label for="taskAssignee">Ответственный</label>
+          <input type="text" id="taskAssignee" placeholder="Имя">
+        </div>
+        <div>
+          <label for="taskDue">Срок</label>
+          <input type="date" id="taskDue">
+        </div>
+        <div>
+          <label for="taskStatus">Статус</label>
+          <select id="taskStatus">
+            <option value="todo">К выполнению</option>
+            <option value="progress">В работе</option>
+            <option value="done">Готово</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="taskNotes" class="field-gap">Примечание</label>
+      <textarea id="taskNotes" rows="2" placeholder="Детали задачи"></textarea>
+
+      <div class="btn-row">
+        <button type="button" class="btn" id="addTaskBtn">Добавить</button>
+        <button type="button" class="btn secondary" id="saveTasksBtn">Сохранить на сервере</button>
+      </div>
+      <p class="msg" id="formMsg"></p>
+    </div>
+  </details>
+
+  <div class="section-actions btn-row">
+    <button type="button" class="btn secondary" id="downloadExcel" disabled>Скачать Excel</button>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filters" id="filters">
+      <button type="button" class="active" data-f="all">Все</button>
+      <button type="button" data-f="todo">К выполнению</button>
+      <button type="button" data-f="progress">В работе</button>
+      <button type="button" data-f="done">Готово</button>
+    </div>
+    <span class="filter-bar-label">Фильтры</span>
+  </div>
+
+  <div class="cards" id="summary"></div>
+
+  <div class="panel">
+    <h2>Список задач</h2>
+    <div class="wrap">
+      <table class="data-table" id="tasksTable">
+        <thead>
+          <tr>
+            <th>Задача</th>
+            <th>Ответственный</th>
+            <th>Срок</th>
+            <th>Статус</th>
+            <th>Примечание</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="msg" id="emptyMsg">Задач пока нет</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

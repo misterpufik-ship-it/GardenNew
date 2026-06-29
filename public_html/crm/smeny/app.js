@@ -236,6 +236,60 @@ function renderAll() {
   renderMapping();
   renderSummary();
   renderTable();
+  updateDownloadBtn();
+}
+
+function downloadExcel() {
+  if (!DATA || !DATA.rows?.length) return;
+
+  const wb = XLSX.utils.book_new();
+  const cmpOrder = ['nal1', 'card1', 'bonus1', 'nal2', 'card2', 'bonus2'];
+  const cmpLabels = {};
+  if (ALGO?.mappings) ALGO.mappings.forEach((m) => { cmpLabels[m.id] = m.label; });
+
+  const headers = ['Дата', 'Статус', 'Дата АДМИР', 'Дата 1 смена', 'Дата 2 смена'];
+  cmpOrder.forEach((id) => {
+    const lbl = cmpLabels[id] || id;
+    headers.push(`${lbl} АДМИР`, `${lbl} смена`, `${lbl} Δ`);
+  });
+
+  const rows = DATA.rows.map((r) => {
+    const row = [
+      r.dm ?? '',
+      statusLabel(r.row_status),
+      r.adm_date ?? '',
+      r.s1_date ?? '',
+      r.s2_date ?? '',
+    ];
+    cmpOrder.forEach((id) => {
+      const c = (r.comparisons || []).find((x) => x.id === id);
+      row.push(c?.adm ?? '', c?.shift ?? '', c?.diff ?? '');
+    });
+    return row;
+  });
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([headers, ...rows]), 'Сверка');
+
+  const s = DATA.day_stats || {};
+  const summary = [
+    ['Показатель', 'Значение'],
+    ['Файл', DATA.file ?? ''],
+    ['Лист АДМИР', DATA.sheets?.admir ?? ''],
+    ['1 смена', DATA.sheets?.s1 ?? ''],
+    ['2 смена', DATA.sheets?.s2 ?? ''],
+    ['Всего дней', DATA.total_days ?? ''],
+    ['Совпало', s.match ?? 0],
+    ['Частично', s.partial ?? 0],
+    ['Расхождение', s.mismatch ?? 0],
+    ['Нет в АДМИР', s.no_admir ?? 0],
+  ];
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(summary), 'Сводка');
+
+  XLSX.writeFile(wb, `sverka-smen-${new Date().toISOString().slice(0, 10)}.xlsx`);
+}
+
+function updateDownloadBtn() {
+  const btn = $('#downloadExcel');
+  if (btn) btn.disabled = !(DATA && DATA.rows && DATA.rows.length);
 }
 
 function collectAlgoFromForm() {
@@ -394,4 +448,5 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#saveAlgo').addEventListener('click', saveAlgorithm);
   $('#addMapping').addEventListener('click', addMappingRow);
   $('#applyAlgo').addEventListener('click', rerunWithAlgo);
+  $('#downloadExcel').addEventListener('click', downloadExcel);
 });

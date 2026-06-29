@@ -591,6 +591,69 @@ function renderAll() {
   renderSummary();
   renderPairsTable();
   renderTables();
+  updateDownloadBtn();
+}
+
+function statusExportLabel(s) {
+  const map = {
+    exact: 'Точное',
+    group: 'Группа',
+    unmatched: 'Без пары',
+    unmatched_stmt: 'Выписка без расхода',
+  };
+  return map[s] || s;
+}
+
+function downloadExcel() {
+  if (!DATA || !DATA.expenses?.length) return;
+
+  if (!DATA.pairRows) {
+    DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
+  }
+
+  const wb = XLSX.utils.book_new();
+
+  const pairHeaders = [
+    '№ связки', 'Статус', 'Тип', 'Группа', 'Дата отчёт', 'Категория', 'Сумма отчёт',
+    'Комментарий', 'Лист', 'Дата выписки', '№ операции', 'Контрагент', 'Сумма выписки', 'Назначение',
+  ];
+  const pairData = DATA.pairRows.map((r) => [
+    r.linkNum ?? '',
+    statusExportLabel(r.status),
+    r.matchType ?? '',
+    r.groupNum ?? '',
+    r.expDate ?? '',
+    r.category ?? '',
+    r.reportAmount ?? '',
+    r.comment ?? '',
+    r.sheet ?? '',
+    r.stmtDate ?? '',
+    r.opNum ?? '',
+    r.counterparty ?? '',
+    r.statementAmount ?? '',
+    r.purpose ?? '',
+  ]);
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([pairHeaders, ...pairData]), 'Сверка');
+
+  const expHeaders = ['Дата', 'Лист', 'Категория', 'Сумма', 'Комментарий', 'Статус', 'Группа'];
+  const expData = DATA.expenses.map((e) => [
+    e.date ?? '', e.sheet ?? '', e.category ?? '', e.amount ?? '', e.comment ?? '', e.status ?? '', e.groupNum ?? '',
+  ]);
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([expHeaders, ...expData]), 'Расходы');
+
+  const stmtHeaders = ['Дата', '№', 'Контрагент', 'Назначение', 'Дебет', 'Статус', 'Группа'];
+  const stmtData = DATA.statements.map((s) => [
+    s.date ?? '', s.opNum ?? '', s.counterparty ?? '', s.purpose ?? '', s.amount ?? '', s.status ?? '', s.groupNum ?? '',
+  ]);
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([stmtHeaders, ...stmtData]), 'Выписка');
+
+  const entity = DATA.entity === 'vympel' ? 'vympel' : 'lounge';
+  XLSX.writeFile(wb, `sverka-rs-${entity}-${new Date().toISOString().slice(0, 10)}.xlsx`);
+}
+
+function updateDownloadBtn() {
+  const btn = $('#downloadExcel');
+  if (btn) btn.disabled = !(DATA && DATA.expenses && DATA.expenses.length);
 }
 
 async function loadInitial() {
@@ -735,4 +798,5 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#runBtn').addEventListener('click', runReconciliation);
   $('#saveConfigBtn').addEventListener('click', saveConfig);
   $('#saveDataBtn').addEventListener('click', saveData);
+  $('#downloadExcel').addEventListener('click', downloadExcel);
 });

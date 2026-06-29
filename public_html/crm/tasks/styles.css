@@ -1,0 +1,38 @@
+.task-form .form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+}
+
+.status-pill.todo { color: var(--gold-light); border-color: var(--gold-dark); }
+.status-pill.progress { color: #90caf9; border-color: #1565c0; }
+.status-pill.done { color: var(--green-text); border-color: var(--green-text); }
+
+tr.row-done td { opacity: 0.65; }
+
+.task-title-input {
+  width: 100%;
+  min-width: 140px;
+}

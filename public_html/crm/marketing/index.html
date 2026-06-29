@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Маркетинг</title>
+  <link rel="stylesheet" href="../theme.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <h1 class="shimmer-gold">Маркетинг</h1>
+  <p class="subtitle" id="subtitle">Загрузка…</p>
+
+  <details class="panel collapsible">
+    <summary>Загрузить отчёт</summary>
+    <div class="collapsible-body">
+      <label for="reportMonth">Месяц</label>
+      <input type="month" id="reportMonth">
+
+      <label for="reportCategory" class="field-gap">Категория</label>
+      <select id="reportCategory">
+        <option value="ads">Реклама</option>
+        <option value="social">Соцсети</option>
+        <option value="analytics">Аналитика</option>
+        <option value="other">Другое</option>
+      </select>
+
+      <label for="reportFile" class="field-gap">Файл Excel (.xlsx)</label>
+      <input type="file" id="reportFile" accept=".xlsx">
+
+      <label for="reportNote" class="field-gap">Примечание</label>
+      <input type="text" id="reportNote" placeholder="Кампания, канал, комментарий">
+
+      <div class="btn-row">
+        <button type="button" class="btn" id="uploadBtn">Загрузить</button>
+      </div>
+      <p class="msg" id="uploadMsg"></p>
+    </div>
+  </details>
+
+  <div class="section-actions btn-row">
+    <button type="button" class="btn secondary" id="downloadRegistry" disabled>Скачать реестр Excel</button>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filters" id="filters">
+      <button type="button" class="active" data-f="all">Все</button>
+      <button type="button" data-f="ads">Реклама</button>
+      <button type="button" data-f="social">Соцсети</button>
+      <button type="button" data-f="analytics">Аналитика</button>
+      <button type="button" data-f="other">Другое</button>
+    </div>
+    <span class="filter-bar-label">Фильтры</span>
+  </div>
+
+  <div class="panel">
+    <h2>Маркетинговые отчёты</h2>
+    <div class="wrap">
+      <table class="data-table" id="reportsTable">
+        <thead>
+          <tr>
+            <th>Месяц</th>
+            <th>Категория</th>
+            <th>Файл</th>
+            <th>Примечание</th>
+            <th>Загружен</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="msg" id="emptyMsg">Отчётов пока нет</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

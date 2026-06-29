@@ -13,19 +13,27 @@
     <div class="crm-brand">
       <img src="logo-gl.png" alt="Garden Lounge" class="crm-logo" width="58" height="58">
       <div class="crm-brand-text">
-        <h1 class="shimmer-gold">AI-CRM GARDEN LOUNGE</h1>
-        <span class="crm-brand-line" aria-hidden="true"></span>
+        <h1 class="shimmer-gold">
+          <span class="brand-line brand-line-top">AI-CRM</span>
+          <span class="brand-line brand-line-sub">GARDEN LOUNGE</span>
+        </h1>
       </div>
     </div>
     <nav class="crm-tabs" role="tablist">
       <button type="button" class="crm-tab active" role="tab" data-tab="sverka" aria-selected="true">Сверка по р/с</button>
       <button type="button" class="crm-tab" role="tab" data-tab="smeny" aria-selected="false">Сверка смен</button>
+      <button type="button" class="crm-tab" role="tab" data-tab="odr" aria-selected="false">ОДР</button>
+      <button type="button" class="crm-tab" role="tab" data-tab="marketing" aria-selected="false">Маркетинг</button>
+      <button type="button" class="crm-tab" role="tab" data-tab="tasks" aria-selected="false">Задачи</button>
     </nav>
   </header>
 
   <main class="crm-main">
     <iframe id="frame-sverka" class="crm-frame active" src="sverka/" title="Сверка по расчётному счёту"></iframe>
     <iframe id="frame-smeny" class="crm-frame" src="smeny/" title="Сверка смен" hidden></iframe>
+    <iframe id="frame-odr" class="crm-frame" src="odr/" title="ОДР" hidden></iframe>
+    <iframe id="frame-marketing" class="crm-frame" src="marketing/" title="Маркетинг" hidden></iframe>
+    <iframe id="frame-tasks" class="crm-frame" src="tasks/" title="Задачи" hidden></iframe>
   </main>
 
   <script src="shell.js"></script>
