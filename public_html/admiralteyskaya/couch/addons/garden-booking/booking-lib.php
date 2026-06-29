@@ -56,6 +56,11 @@ function garden_booking_field_map( $branch ) {
             'bot_token' => 'udel_bot_token',
             'chat_id' => 'udel_chat_id',
             'message_template' => 'udel_message_template',
+            'vk_enabled' => 'udel_vk_enabled',
+            'vk_link' => 'udel_vk_link',
+            'vk_access_token' => 'udel_vk_access_token',
+            'vk_peer_id' => 'udel_vk_peer_id',
+            'vk_message_template' => 'udel_vk_message_template',
         );
     }
 
@@ -66,6 +71,11 @@ function garden_booking_field_map( $branch ) {
         'bot_token' => 'adm_bot_token',
         'chat_id' => 'adm_chat_id',
         'message_template' => 'adm_message_template',
+        'vk_enabled' => 'adm_vk_enabled',
+        'vk_link' => 'adm_vk_link',
+        'vk_access_token' => 'adm_vk_access_token',
+        'vk_peer_id' => 'adm_vk_peer_id',
+        'vk_message_template' => 'adm_vk_message_template',
     );
 }
 
@@ -110,7 +120,7 @@ function garden_booking_secrets_fallback() {
 }
 
 function garden_booking_default_message_template() {
-    return "🍃 Garden Lounge — {branch_label} Новое бронирование 🍃\n\n" .
+    return "🆕 Garden Lounge — {branch_label} новая бронь 🆕\n\n" .
         "Имя: {name}\n" .
         "Тел: {phone}\n" .
         "Дата: {date}\n" .
@@ -155,6 +165,24 @@ function garden_booking_get_branch_settings( $branch ) {
         $message_template = garden_booking_default_message_template();
     }
 
+    $vk_enabled = garden_booking_get_field_value($map['vk_enabled']);
+    if ( $vk_enabled === '' ) $vk_enabled = '0';
+
+    $vk_access_token = garden_booking_get_field_value($map['vk_access_token']);
+    if ( !$vk_access_token && !empty($fallback_branch['vk_access_token']) ) {
+        $vk_access_token = trim((string)$fallback_branch['vk_access_token']);
+    }
+
+    $vk_peer_id = garden_booking_get_field_value($map['vk_peer_id']);
+    if ( !$vk_peer_id && !empty($fallback_branch['vk_peer_id']) ) {
+        $vk_peer_id = trim((string)$fallback_branch['vk_peer_id']);
+    }
+
+    $vk_message_template = garden_booking_get_field_value($map['vk_message_template']);
+    if ( !$vk_message_template && !empty($fallback_branch['vk_message_template']) ) {
+        $vk_message_template = trim((string)$fallback_branch['vk_message_template']);
+    }
+
     return array(
         'branch' => $branch,
         'enabled' => ($enabled === '1'),
@@ -163,6 +191,11 @@ function garden_booking_get_branch_settings( $branch ) {
         'bot_token' => $bot_token,
         'chat_id' => $chat_id,
         'message_template' => $message_template,
+        'vk_enabled' => ($vk_enabled === '1'),
+        'vk_link' => garden_booking_get_field_value($map['vk_link']),
+        'vk_access_token' => $vk_access_token,
+        'vk_peer_id' => $vk_peer_id,
+        'vk_message_template' => $vk_message_template,
     );
 }
 
@@ -268,7 +301,7 @@ function garden_booking_render_template( $template, $vars ) {
     return str_replace($search, $replace, (string)$template);
 }
 
-function garden_booking_build_message( $settings, $data ) {
+function garden_booking_build_message( $settings, $data, $template_override = '' ) {
     $vars = array(
         'branch' => $settings['branch'],
         'branch_label' => $settings['branch_label'],
@@ -280,25 +313,12 @@ function garden_booking_build_message( $settings, $data ) {
         'source_url' => $data['source_url'],
     );
 
-    return garden_booking_render_template($settings['message_template'], $vars);
+    $template = $template_override !== '' ? $template_override : $settings['message_template'];
+    return garden_booking_render_template($template, $vars);
 }
 
-function garden_booking_send_telegram( $settings, $message ) {
-    if ( !$settings['enabled'] ) {
-        return array(false, 'Отправка для этого филиала отключена в настройках.');
-    }
-    if ( !$settings['bot_token'] || !$settings['chat_id'] ) {
-        return array(false, 'Не настроены Bot Token или Chat ID в CouchCMS → Общие → Бронирование Telegram.');
-    }
-
-    $url = 'https://api.telegram.org/bot' . $settings['bot_token'] . '/sendMessage';
-    $payload = array(
-        'chat_id' => $settings['chat_id'],
-        'text' => $message,
-        'disable_web_page_preview' => true,
-    );
-
-    $body = http_build_query($payload);
+function garden_booking_http_post_form( $url, $payload ) {
+    $body = is_array($payload) ? http_build_query($payload) : (string)$payload;
     $response = false;
     $http_code = 0;
 
@@ -331,8 +351,28 @@ function garden_booking_send_telegram( $settings, $message ) {
         }
     }
 
+    return array($response, $http_code);
+}
+
+function garden_booking_send_telegram( $settings, $message ) {
+    if ( !$settings['enabled'] ) {
+        return array(false, 'Отправка для этого филиала отключена в настройках.');
+    }
+    if ( !$settings['bot_token'] || !$settings['chat_id'] ) {
+        return array(false, 'Не настроены Bot Token или Chat ID в CouchCMS.');
+    }
+
+    $url = 'https://api.telegram.org/bot' . $settings['bot_token'] . '/sendMessage';
+    $payload = array(
+        'chat_id' => $settings['chat_id'],
+        'text' => $message,
+        'disable_web_page_preview' => true,
+    );
+
+    list($response, $http_code) = garden_booking_http_post_form($url, $payload);
+
     if ( $response === false ) {
-        return array(false, 'Не удалось связаться с Telegram API.');
+        return array(false, 'Не удалось соединиться с Telegram API.');
     }
 
     $json = json_decode($response, true);
@@ -346,6 +386,48 @@ function garden_booking_send_telegram( $settings, $message ) {
     }
     if ( !$description ) {
         $description = 'Telegram API вернул ошибку.';
+    }
+    return array(false, $description);
+}
+
+function garden_booking_send_vk( $settings, $message ) {
+    if ( empty($settings['vk_enabled']) ) {
+        return array(true, '');
+    }
+    if ( !$settings['vk_access_token'] || !$settings['vk_peer_id'] ) {
+        return array(false, 'Не настроены VK Access Token или peer_id.');
+    }
+
+    $peer_id = (int)$settings['vk_peer_id'];
+    if ( $peer_id === 0 ) {
+        return array(false, 'Некорректный VK peer_id.');
+    }
+
+    $payload = array(
+        'access_token' => $settings['vk_access_token'],
+        'v' => '5.199',
+        'peer_id' => $peer_id,
+        'random_id' => random_int(1, 2147483647),
+        'message' => $message,
+    );
+
+    list($response, $http_code) = garden_booking_http_post_form('https://api.vk.com/method/messages.send', $payload);
+
+    if ( $response === false ) {
+        return array(false, 'Не удалось соединиться с VK API.');
+    }
+
+    $json = json_decode($response, true);
+    if ( $http_code >= 200 && $http_code < 300 && is_array($json) && empty($json['error']) ) {
+        return array(true, '');
+    }
+
+    $description = '';
+    if ( is_array($json) && !empty($json['error']['error_msg']) ) {
+        $description = (string)$json['error']['error_msg'];
+    }
+    if ( !$description ) {
+        $description = 'VK API вернул ошибку.';
     }
     return array(false, $description);
 }
@@ -424,19 +506,25 @@ function garden_booking_handle_request() {
         ? 'https://garden-lounge.pro/udelnaya/#reservation'
         : 'https://garden-lounge.pro/admiralteyskaya/#reservation';
 
-    $message = garden_booking_build_message($settings, array(
+    $booking_data = array(
         'name' => $name,
         'phone_display' => garden_booking_format_phone($phone_digits),
         'date' => $date,
         'visit_time' => $visit_time,
         'guests' => (string)(int)$guests,
         'source_url' => $source_url,
-    ));
+    );
+
+    $message = garden_booking_build_message($settings, $booking_data);
 
     list($sent, $error) = garden_booking_send_telegram($settings, $message);
     if ( !$sent ) {
         garden_booking_json_response('error', array('message' => $error), 502);
     }
+
+    $vk_template = $settings['vk_message_template'] !== '' ? $settings['vk_message_template'] : $settings['message_template'];
+    $vk_message = garden_booking_build_message($settings, $booking_data, $vk_template);
+    garden_booking_send_vk($settings, $vk_message);
 
     garden_booking_json_response('ok', array(
         'message' => 'Бронирование отправлено.',

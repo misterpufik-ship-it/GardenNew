@@ -8,10 +8,14 @@ return array(
         'bot_token' => '',
         'chat_id' => '',
         'branch_label' => 'Адмиралтейская',
+        'vk_access_token' => '',
+        'vk_peer_id' => '',
     ),
     'udelnaya' => array(
         'bot_token' => '',
         'chat_id' => '',
         'branch_label' => 'Удельная',
+        'vk_access_token' => '',
+        'vk_peer_id' => '',
     ),
 );

@@ -31,6 +31,9 @@ require_once $garden_cms;
     <cms:editable name='res_group_modal' label='Тексты после отправки' type='group' />
     <cms:editable name='res_modal_title' label='Заголовок модального окна' group='res_group_modal' type='text'>Спасибо!</cms:editable>
     <cms:editable name='res_modal_text' label='Текст подтверждения' group='res_group_modal' type='textarea'>Ваше бронирование принято. Администратор свяжется с Вами для подтверждения.</cms:editable>
+    <cms:editable name='res_modal_notice' label='Дополнительный текст после бронирования' group='res_group_modal' type='textarea' desc='Показывается под основным текстом в окне после нажатия «Забронировать». Можно менять в любой момент.'>На компании от 6 человек взимается сервисный сбор 10%.
+
+Посещение Garden Lounge строго с 18 лет.</cms:editable>
 
     <cms:editable name='res_group_decor' label='Декор' type='group' />
     <cms:editable name='res_sep' label='Картинка разделителя' group='res_group_decor' type='image'>:div.webp</cms:editable>

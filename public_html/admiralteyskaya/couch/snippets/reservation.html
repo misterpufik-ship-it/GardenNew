@@ -62,6 +62,7 @@
     .gl-modal.is-open { display: flex; }
     .gl-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); }
     .gl-modal__card { position: relative; background: #000000; border: 1px solid rgba(197, 160, 89, 0.2); padding: 40px 24px; text-align: center; max-width: 420px; width: 100%; z-index: 2; }
+    .gl-modal__notice { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(197, 160, 89, 0.15); font-size: 12px; line-height: 1.7; color: rgba(197, 160, 89, 0.85); white-space: pre-line; }
     .gl-toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #0c0c0c; color: #C5A059; border: 1px solid rgba(197, 160, 89, 0.3); padding: 10px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; z-index: 10001; display: none; text-align: center; }
     .divider-container{
   width: 100%;
@@ -326,7 +327,10 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
         <p class="text-sm text-gray-400 font-light mb-8 text-center leading-relaxed">
             <cms:show res_modal_text />
         </p>
-        <button class="gl-btn-luxe !py-3" id="glModalOk">ОК</button>
+        <cms:if res_modal_notice>
+        <p class="gl-modal__notice text-center"><cms:show res_modal_notice /></p>
+        </cms:if>
+        <button class="gl-btn-luxe !py-3 mt-8" id="glModalOk">ОК</button>
     </div>
 </div>
 
