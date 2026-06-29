@@ -20,19 +20,20 @@
         padding-right: 0;
     }
     .branch-modal-logo-top {
-        flex: 0 0 66px; width: 66px; height: calc(22px * 1.35 * 2 + 2px); max-height: 62px;
+        flex: 0 0 52px; width: 52px; height: auto; max-height: 48px;
         object-fit: contain; display: block; margin: 0;
     }
     .branch-modal-title {
         flex: 1 1 auto; min-width: 0;
-        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; line-height: 1.35;
+        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; line-height: 1.2;
         text-align: center; margin: 0; color: #fff;
+        white-space: nowrap;
     }
-    .branch-modal-head-spacer { flex: 0 0 36px; width: 36px; height: 1px; }
+    .branch-modal-head-spacer { flex: 0 0 52px; width: 52px; height: 1px; }
     .branch-modal-brand, .branch-modal-branch {
-        display: block; font: inherit; letter-spacing: 0.02em;
+        display: inline; font: inherit; letter-spacing: 0.02em;
     }
-    .branch-modal-brand { margin-bottom: 2px; }
+    .branch-modal-branch::before { content: '\00a0'; }
     .second-garden-lead { color: #dcd4be; font-size: 13px; line-height: 1.65; margin: 0 0 4px; text-align: center; }
     .bss-gallery-widget { margin-top: 16px; }
     .bss-tabs { display: flex; justify-content: center; gap: 24px; margin-bottom: 10px; }
@@ -123,7 +124,7 @@
         <span class="close-modal" onclick="closeSecondGardenModal()" aria-label="Закрыть">&times;</span>
 
         <div class="branch-modal-head">
-            <img class="branch-modal-logo-top" src="/img/logo-gl.webp" alt="Garden Lounge" width="66" height="62" decoding="async">
+            <img class="branch-modal-logo-top" src="/img/logo-gl.webp" alt="Garden Lounge" width="52" height="48" decoding="async">
             <h2 class="branch-modal-title">
                 <span class="branch-modal-brand gold-shimmer">Garden Lounge</span>
                 <span class="branch-modal-branch gold-shimmer"><cms:if modal_title_branch><cms:show modal_title_branch /><cms:else /><cms:show bss_branch_name /></cms:if></span>
