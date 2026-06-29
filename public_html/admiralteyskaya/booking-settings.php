@@ -44,8 +44,8 @@
 Время: {time}
 Гостей: {guests}</cms:editable>
 
-    <cms:editable name='udel_vk_enabled' label='VK — включить отправку' group='group_udelnaya_booking' type='dropdown' opt_values='Нет=0 | Да=1' order='37'>0</cms:editable>
-    <cms:editable name='udel_vk_user_id' label='VK — ID пользователя (личка)' group='group_udelnaya_booking' type='text' order='38' desc='Числовой ID рабочего VK-аккаунта администратора Удельной. Узнать: vk.com/id123 или через vk.com/dev. Аккаунт должен один раз написать сообществу, чтобы ему можно было писать.' />
+    <cms:editable name='udel_vk_enabled' label='VK — включить отправку' group='group_udelnaya_booking' type='dropdown' opt_values='Нет=0 | Да=1' order='37'>1</cms:editable>
+    <cms:editable name='udel_vk_user_id' label='VK — ID пользователя (личка)' group='group_udelnaya_booking' type='text' order='38' desc='Числовой ID рабочего VK-аккаунта администратора Удельной. Узнать: vk.com/id123 или через vk.com/dev. Аккаунт должен один раз написать сообществу, чтобы ему можно было писать.'>868620727</cms:editable>
     <cms:editable name='udel_vk_message_template' label='VK — текст сообщения' group='group_udelnaya_booking' type='textarea' height='180' order='39' desc='Пусто — используется тот же текст, что и для Telegram.' />
 
 </cms:template>
