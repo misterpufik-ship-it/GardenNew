@@ -41,28 +41,52 @@ $fieldEsc = $db->real_escape_string($fieldName);
 $tplEsc = $db->real_escape_string($templateName);
 $videoEsc = $db->real_escape_string($videoPath);
 
-$sql =
-    "SELECT dt.id, dt.value " .
-    "FROM {$prefix}couch_templates t " .
-    "INNER JOIN {$prefix}couch_pages p ON p.template_id=t.id AND p.is_master='1' " .
-    "INNER JOIN {$prefix}couch_fields f ON f.template_id=t.id AND f.name='{$fieldEsc}' " .
-    "INNER JOIN {$prefix}couch_data_text dt ON dt.page_id=p.id AND dt.field_id=f.id " .
-    "WHERE t.name='{$tplEsc}' " .
-    "LIMIT 1";
+$tpl = $db->query("SELECT id FROM {$prefix}couch_templates WHERE name='{$tplEsc}' LIMIT 1");
+if (!$tpl || !($tplRow = $tpl->fetch_assoc())) {
+    exit("Template not found: {$templateName}\n");
+}
+$templateId = (int)$tplRow['id'];
 
-$res = $db->query($sql);
-if (!$res || !($row = $res->fetch_assoc())) {
-    exit("Field {$fieldName} not found for {$templateName}\n");
+$pageRes = $db->query(
+    "SELECT id FROM {$prefix}couch_pages WHERE template_id={$templateId} ORDER BY is_master DESC, id ASC LIMIT 1"
+);
+if (!$pageRes || !($pageRow = $pageRes->fetch_assoc())) {
+    exit("Page not found for {$templateName}\n");
+}
+$pageId = (int)$pageRow['id'];
+
+$fieldRes = $db->query(
+    "SELECT id FROM {$prefix}couch_fields WHERE template_id={$templateId} AND name='{$fieldEsc}' LIMIT 1"
+);
+if (!$fieldRes || !($fieldRow = $fieldRes->fetch_assoc())) {
+    exit("Field not found: {$fieldName}\n");
+}
+$fieldId = (int)$fieldRow['id'];
+
+$dataRes = $db->query(
+    "SELECT id, value FROM {$prefix}couch_data_text WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
+);
+$old = '';
+if ($dataRes && ($dataRow = $dataRes->fetch_assoc())) {
+    $old = (string)$dataRow['value'];
+    $db->query("UPDATE {$prefix}couch_data_text SET value='{$videoEsc}' WHERE id=" . (int)$dataRow['id'] . " LIMIT 1");
+    echo "Updated {$fieldName} on page #{$pageId}\n";
+} else {
+    $db->query(
+        "INSERT INTO {$prefix}couch_data_text (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$videoEsc}')"
+    );
+    echo "Inserted {$fieldName} on page #{$pageId}\n";
 }
 
-$old = (string)$row['value'];
-$id = (int)$row['id'];
-$db->query("UPDATE {$prefix}couch_data_text SET value='{$videoEsc}' WHERE id={$id} LIMIT 1");
-
 $disk = dirname($root) . '/video/preloader-mobile.mp4';
-$diskOk = is_file($disk) ? 'yes' : 'no';
-
-echo "Updated {$fieldName}\n";
 echo "Old: {$old}\n";
 echo "New: {$videoPath}\n";
-echo "File on disk (site root): {$diskOk}\n";
+echo "File on disk: " . (is_file($disk) ? 'yes' : 'no') . "\n";
+
+$cacheDir = $root . '/couch/cache';
+if (is_dir($cacheDir)) {
+    foreach (glob($cacheDir . '/*.dat') as $file) {
+        @unlink($file);
+    }
+    echo "Cleared couch cache\n";
+}
