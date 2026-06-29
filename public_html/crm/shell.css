@@ -1,0 +1,88 @@
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --border: #2a2f3d;
+  --text: #e8eaed;
+  --muted: #9aa0a6;
+  --accent: #5c9ded;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.crm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.crm-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.crm-brand h1 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.crm-sub {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.crm-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.crm-tab {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.crm-tab:hover {
+  border-color: var(--accent);
+}
+
+.crm-tab.active {
+  background: rgba(92, 157, 237, 0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.crm-main {
+  height: calc(100vh - 57px);
+}
+
+.crm-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+  background: var(--bg);
+}
+
+.crm-frame.active {
+  display: block;
+}

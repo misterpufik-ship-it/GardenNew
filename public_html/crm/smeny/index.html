@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Сверка смен</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <h1>Сверка листа АДМИР со сменами</h1>
+  <p class="subtitle" id="subtitle">Загрузка данных…</p>
+
+  <div class="panel-grid">
+    <div class="panel">
+      <h2>Загрузка файла</h2>
+      <label for="xlsxFile">Excel (.xlsx) с листами АДМИР, 1 смена, 2 смена</label>
+      <input type="file" id="xlsxFile" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+      <p class="msg" id="uploadMsg">Выберите файл для новой сверки или используйте данные ниже</p>
+    </div>
+
+    <div class="panel">
+      <h2>Параметры листов</h2>
+      <div style="display:grid;gap:8px;font-size:0.82rem">
+        <div><strong>АДМИР</strong> — индекс <input type="number" id="sheet-admir-index" min="0" style="width:50px">, строка <input type="number" id="sheet-admir-start" min="1" style="width:50px">, дата col <input type="number" id="sheet-admir-date" min="1" style="width:50px"></div>
+        <div><strong>1 смена</strong> — индекс <input type="number" id="sheet-s1-index" min="0" style="width:50px">, строка <input type="number" id="sheet-s1-start" min="1" style="width:50px">, дата col <input type="number" id="sheet-s1-date" min="1" style="width:50px"></div>
+        <div><strong>2 смена</strong> — индекс <input type="number" id="sheet-s2-index" min="0" style="width:50px">, строка <input type="number" id="sheet-s2-start" min="1" style="width:50px">, дата col <input type="number" id="sheet-s2-date" min="1" style="width:50px"></div>
+        <div><label>Допуск (₽)</label><input type="number" id="tol" step="0.01" min="0"></div>
+        <div><label>Примечание</label><textarea id="notes"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Алгоритм сопоставления полей</h2>
+    <p class="msg">Строки ниже задают, какие колонки АДМИР сравниваются с какими полями смен</p>
+    <table class="algo-table" id="mappingTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Название</th>
+          <th>Ключ АДМИР</th>
+          <th>Лист смены</th>
+          <th>Ключ смены</th>
+          <th>Описание</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="btn-row">
+      <button type="button" class="btn secondary" id="addMapping">+ Добавить правило</button>
+      <button type="button" class="btn" id="saveAlgo">Сохранить алгоритм</button>
+      <button type="button" class="btn secondary" id="applyAlgo">Пересчитать</button>
+    </div>
+    <p class="msg" id="saveMsg"></p>
+    <p class="msg" id="applyMsg"></p>
+  </div>
+
+  <div class="cards" id="summary"></div>
+
+  <div class="panel mapping">
+    <h2>Сопоставление полей (активный алгоритм)</h2>
+    <div id="mappingRows"></div>
+    <div style="margin-top:8px;color:var(--muted);font-size:0.8rem" id="mappingNote"></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot g"></span> Совпало</span>
+    <span><span class="dot r"></span> Не совпало</span>
+  </div>
+
+  <div class="field-stats" id="fieldStats"></div>
+
+  <div class="filters" id="filters">
+    <button class="active" data-f="all">Все дни</button>
+    <button data-f="match">Только совпадения</button>
+    <button data-f="partial">Частичные</button>
+    <button data-f="mismatch">Расхождения</button>
+  </div>
+
+  <div class="wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Статус</th>
+          <th>Нал 1</th>
+          <th>Карта 1</th>
+          <th>Бонусы 1</th>
+          <th>Нал 2</th>
+          <th>Карта 2</th>
+          <th>Бонусы 2</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

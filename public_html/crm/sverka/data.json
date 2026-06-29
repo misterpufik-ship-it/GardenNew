@@ -1,0 +1,9 @@
+{
+  "entity": "lounge",
+  "reportFile": null,
+  "statementFile": null,
+  "stats": { "exact": 0, "group": 0, "unmatchedExp": 0, "unmatchedStmt": 0 },
+  "expenses": [],
+  "statements": [],
+  "matches": []
+}

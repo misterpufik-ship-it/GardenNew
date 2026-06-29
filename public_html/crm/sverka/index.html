@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Сверка по р/с</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <h1>Сверка расходов БН с выпиской</h1>
+  <p class="subtitle" id="subtitle">Загрузка…</p>
+
+  <div class="panel-grid">
+    <div class="panel">
+      <h2>Юрлицо и файлы</h2>
+      <label for="entity">Юрлицо</label>
+      <select id="entity">
+        <option value="lounge">Лаундж</option>
+        <option value="vympel">Вымпел</option>
+      </select>
+
+      <label for="reportFile" style="margin-top:10px">Отчёт (.xlsx)</label>
+      <input type="file" id="reportFile" accept=".xlsx">
+
+      <label for="statementFile" style="margin-top:10px">Выписка (.xlsx)</label>
+      <input type="file" id="statementFile" accept=".xlsx">
+
+      <div class="btn-row">
+        <button type="button" class="btn" id="runBtn">Сверить</button>
+        <button type="button" class="btn secondary" id="saveDataBtn">Сохранить на сервере</button>
+      </div>
+      <p class="msg" id="actionMsg"></p>
+    </div>
+
+    <div class="panel">
+      <h2>Настройки колонок</h2>
+      <div id="configForm" class="config-form"></div>
+      <div class="btn-row">
+        <button type="button" class="btn secondary" id="saveConfigBtn">Сохранить настройки</button>
+      </div>
+      <p class="msg" id="configMsg"></p>
+    </div>
+  </div>
+
+  <div class="cards" id="summary"></div>
+
+  <div class="legend">
+    <span><span class="dot g"></span> Точное совпадение</span>
+    <span><span class="dot y"></span> Групповое совпадение</span>
+    <span><span class="dot o"></span> Не найдено</span>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="active" data-f="all">Все</button>
+    <button data-f="exact">Точные</button>
+    <button data-f="group">Групповые</button>
+    <button data-f="unmatched">Без пары</button>
+  </div>
+
+  <div class="panel">
+    <h2>Расходы отчёта</h2>
+    <div class="wrap">
+      <table class="data-table" id="expTable">
+        <thead>
+          <tr>
+            <th>Дата</th>
+            <th>Лист</th>
+            <th>Категория</th>
+            <th>Сумма</th>
+            <th>Комментарий</th>
+            <th>Статус</th>
+            <th>Группа</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Дебет выписки</h2>
+    <div class="wrap">
+      <table class="data-table" id="stmtTable">
+        <thead>
+          <tr>
+            <th>Дата</th>
+            <th>№</th>
+            <th>Контрагент</th>
+            <th>Назначение</th>
+            <th>Дебет</th>
+            <th>Статус</th>
+            <th>Группа</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
