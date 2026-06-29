@@ -217,7 +217,18 @@ function garden_admin_sidebar_js(){
         $adv.prepend('<p class="gl-admin-dump-link"><a href="' + href + '">Download Dump</a></p>');
     }
 
+    function ensureSidebarVisible(){
+        var $sidebar = $('#sidebar');
+        if (!$sidebar.length) return;
+        $sidebar.removeClass('collapsed');
+        if (typeof $.removeCookie === 'function') {
+            $.removeCookie('collapsed_sidebar');
+        }
+    }
+
     $(function(){
+        ensureSidebarVisible();
+
         var $greeting = $('#sidebar-top');
         var $btns = $('#sidebar-btns');
         if ($greeting.length && $btns.length) {
@@ -254,7 +265,20 @@ function garden_admin_sidebar_css(){
 #sidebar{
   display:flex!important;
   flex-direction:column!important;
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  bottom:0!important;
+  width:240px!important;
+  min-width:240px!important;
+  max-width:240px!important;
+  height:100%!important;
+  z-index:200!important;
   overflow:hidden!important;
+  visibility:visible!important;
+}
+#sidebar.collapsed{
+  left:-240px!important;
 }
 #menu-wrap{
   flex:0 0 auto!important;
@@ -276,10 +300,23 @@ function garden_admin_sidebar_css(){
 }
 #sidebar-toggle{
   display:block!important;
-  z-index:30!important;
+  z-index:210!important;
 }
 @media (max-height:540px){
   #sidebar-greeting{display:block!important}
+}
+@media (min-width:762px){
+  #menu-content,#sidebar-toggle,#sidebar-top,#sidebar-greeting,#sidebar-btns{display:block!important}
+  #sidebar-btns{display:flex!important}
+  #scroll-content{
+    position:absolute!important;
+    top:0!important;
+    right:0!important;
+    bottom:0!important;
+    left:240px!important;
+    width:auto!important;
+  }
+  #sidebar.collapsed+#scroll-content{left:0!important}
 }
 :root{--gl-admin-header:0;--gl-admin-sidebar-footer:119px}
 #sidebar,#menu-wrap,#logo-wrap{background-color:#0a0a0a!important;background-image:none!important}
@@ -330,12 +367,20 @@ html,body{
 #scroll-content{
   display:flex!important;
   flex-direction:column!important;
+  position:absolute!important;
+  top:0!important;
+  right:0!important;
+  bottom:0!important;
+  left:240px!important;
+  width:auto!important;
   height:100%!important;
   min-height:0!important;
   overflow-x:hidden!important;
   overflow-y:auto!important;
   background:#fff!important;
+  z-index:1!important;
 }
+#sidebar.collapsed+#scroll-content{left:0!important}
 #content{
   flex:1 1 auto!important;
   display:flex!important;
