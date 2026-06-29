@@ -187,17 +187,23 @@ CSS;
 }
 
 $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_login_css' );
+function garden_is_couch_admin_context(){
+    if ( defined( 'K_ADMIN' ) ) {
+        return true;
+    }
+    $uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
+    return ( strpos( $uri, '/couch/' ) !== false );
+}
+
 function garden_admin_branding_output( &$html ){
-    if ( !defined( 'K_ADMIN' ) ) {
+    if ( !garden_is_couch_admin_context() ) {
         return;
     }
 
     $html = preg_replace( '#<title>[^<]*</title>#', '<title>Garden Lounge</title>', $html, 1 );
     $html = preg_replace( '#<link[^>]+rel=["\'](?:shortcut )?icon["\'][^>]*/>#i', '', $html );
     $verPng = @filemtime( $_SERVER['DOCUMENT_ROOT'] . '/favicon.png' ) ?: time();
-    $verIco = @filemtime( $_SERVER['DOCUMENT_ROOT'] . '/favicon.ico' ) ?: $verPng;
-    $favicon = '<link rel="icon" href="/favicon.ico?v=' . $verIco . '" sizes="any">' . "\n    "
-        . '<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=' . $verPng . '">' . "\n    "
+    $favicon = '<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=' . $verPng . '">' . "\n    "
         . '<link rel="shortcut icon" type="image/png" href="/favicon.png?v=' . $verPng . '">' . "\n    "
         . '<link rel="apple-touch-icon" href="/favicon.png?v=' . $verPng . '">';
     $html = preg_replace( '#</head>#', $favicon . "\n</head>", $html, 1 );
