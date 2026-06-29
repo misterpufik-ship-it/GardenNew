@@ -136,6 +136,64 @@ select {
 
 .filters button.active { border-color: var(--accent); color: var(--accent); }
 
+.color-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.color-filters button.filter-green.active {
+  border-color: var(--green-text);
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.color-filters button.filter-yellow.active {
+  border-color: var(--yellow-text);
+  background: var(--yellow-bg);
+  color: var(--yellow-text);
+}
+
+.color-filters button.filter-orange.active {
+  border-color: var(--orange-text);
+  background: var(--orange-bg);
+  color: var(--orange-text);
+}
+
+.pairs-table .th-report { background: #152a1f; color: var(--green-text); text-align: center; }
+.pairs-table .th-stmt { background: #1a2840; color: var(--accent); text-align: center; }
+.pairs-table .th-link {
+  background: #12151c;
+  color: var(--muted);
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.1rem;
+  width: 42px;
+}
+
+.pairs-table td.link-cell {
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.pairs-table td.link-cell.sub { color: var(--muted); font-size: 0.72rem; }
+
+.extra-tables summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.extra-tables[open] summary { margin-bottom: 8px; color: var(--text); }
+
+.pairs-table th { position: sticky; top: 0; z-index: 2; }
+.head-groups th { top: 0; z-index: 3; }
+.pairs-table thead tr:nth-child(2) th { top: 33px; }
+
 table.data-table {
   width: 100%;
   border-collapse: collapse;

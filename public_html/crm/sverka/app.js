@@ -372,82 +372,105 @@ function statusBadge(status) {
   return `<span class="badge ${status}">${labels[status] || status}</span>`;
 }
 
-function passFilter(status) {
+function passFilter(row) {
+  const s = typeof row === 'string' ? row : row.status;
   if (currentFilter === 'all') return true;
-  if (currentFilter === 'unmatched') return status === 'unmatched';
-  return status === currentFilter;
+  if (currentFilter === 'unmatched') return s === 'unmatched' || s === 'unmatched_stmt';
+  if (currentFilter === 'unmatched_exp') return s === 'unmatched';
+  if (currentFilter === 'unmatched_stmt') return s === 'unmatched_stmt';
+  return s === currentFilter;
 }
 
-function buildDetailRows(expenses, statements, matches) {
+function buildPairRows(expenses, statements, matches) {
   const expMap = Object.fromEntries(expenses.map((e) => [e.id, e]));
   const stmtMap = Object.fromEntries(statements.map((s) => [s.id, s]));
   const rows = [];
+  let linkNum = 0;
 
   for (const m of matches) {
+    linkNum += 1;
     const stmt = stmtMap[m.statementId];
     m.expenseIds.forEach((eid, i) => {
       const exp = expMap[eid];
       rows.push({
-        kind: m.type,
+        linkNum: i === 0 ? linkNum : null,
+        matchId: m.id,
         status: m.type,
         groupNum: m.groupNum,
-        matchId: m.id,
-        date: exp.date || stmt.date,
-        reportSheet: exp.sheet,
+        matchType: m.type === 'exact' ? 'Точное' : 'Группа',
+        groupSize: m.expenseIds.length,
+        isFirstInGroup: i === 0,
+        expDate: exp.date,
         category: exp.category,
         reportAmount: exp.amount,
         comment: exp.comment,
-        counterparty: i === 0 ? stmt.counterparty : '',
+        sheet: exp.sheet,
+        stmtDate: i === 0 ? stmt.date : null,
+        opNum: i === 0 ? stmt.opNum : null,
+        counterparty: i === 0 ? stmt.counterparty : null,
         statementAmount: i === 0 ? stmt.amount : null,
-        purpose: i === 0 ? stmt.purpose : '',
-        opNum: i === 0 ? stmt.opNum : '',
+        purpose: i === 0 ? stmt.purpose : null,
       });
     });
   }
 
   for (const exp of expenses) {
     if (exp.status !== 'unmatched') continue;
+    linkNum += 1;
     rows.push({
-      kind: 'unmatched',
+      linkNum,
+      matchId: null,
       status: 'unmatched',
       groupNum: null,
-      matchId: null,
-      date: exp.date,
-      reportSheet: exp.sheet,
+      matchType: 'Не найдено',
+      groupSize: 1,
+      isFirstInGroup: true,
+      expDate: exp.date,
       category: exp.category,
       reportAmount: exp.amount,
       comment: exp.comment,
+      sheet: exp.sheet,
+      stmtDate: null,
+      opNum: null,
       counterparty: null,
       statementAmount: null,
       purpose: null,
-      opNum: null,
     });
   }
 
   for (const stmt of statements) {
     if (stmt.status !== 'unmatched') continue;
+    linkNum += 1;
     rows.push({
-      kind: 'unmatched_stmt',
-      status: 'unmatched',
-      groupNum: null,
+      linkNum,
       matchId: null,
-      date: stmt.date,
-      reportSheet: null,
+      status: 'unmatched_stmt',
+      groupNum: null,
+      matchType: 'Не найдено',
+      groupSize: 1,
+      isFirstInGroup: true,
+      expDate: null,
       category: null,
       reportAmount: null,
       comment: null,
+      sheet: null,
+      stmtDate: stmt.date,
+      opNum: stmt.opNum,
       counterparty: stmt.counterparty,
       statementAmount: stmt.amount,
       purpose: stmt.purpose,
-      opNum: stmt.opNum,
     });
   }
 
-  rows.sort((a, b) => (a.date || '').localeCompare(b.date || '') || (a.status || '').localeCompare(b.status || ''));
+  rows.sort((a, b) => {
+    const da = a.expDate || a.stmtDate || '';
+    const db = b.expDate || b.stmtDate || '';
+    return da.localeCompare(db) || (a.linkNum || 9999) - (b.linkNum || 9999);
+  });
   return rows;
 }
 
-function amountPairHtml(reportAmount, statementAmount) {
+function amountPairCell(reportAmount, statementAmount) {
   const ra = reportAmount != null ? reportAmount : null;
   const sa = statementAmount != null ? statementAmount : null;
   let cls = 'cell-missing';
@@ -468,25 +491,55 @@ function amountPairHtml(reportAmount, statementAmount) {
   </td>`;
 }
 
-function renderDetailTable() {
-  if (!DATA || !DATA.detailRows) return;
-  const tbody = $('#detailTable tbody');
-  tbody.innerHTML = DATA.detailRows
-    .filter((r) => passFilter(r.status))
-    .map((r) => {
-      const label = r.category || r.counterparty || '—';
-      const note = r.comment || r.purpose || '—';
-      const sheet = r.reportSheet || (r.opNum ? `№ ${r.opNum}` : '—');
-      return `<tr class="row-${r.status}">
-        <td>${r.date || '—'}</td>
-        <td>${statusBadge(r.status)}</td>
-        <td>${r.groupNum || '—'}</td>
-        <td>${label}</td>
-        ${amountPairHtml(r.reportAmount, r.statementAmount)}
-        <td>${note}</td>
-        <td>${sheet}</td>
+function renderPairsTable() {
+  if (!DATA || !DATA.pairRows) return;
+  const filtered = DATA.pairRows.filter(passFilter);
+
+  $('#pairsTable tbody').innerHTML = filtered.map((r) => {
+    const rowCls = `row-${r.status === 'unmatched_stmt' ? 'unmatched' : r.status}`;
+    const badge = statusBadge(r.status === 'unmatched_stmt' ? 'unmatched' : r.status);
+
+    if (r.status === 'unmatched_stmt') {
+      return `<tr class="${rowCls}">
+        <td>—</td><td>—</td>${amountPairCell(null, r.statementAmount)}<td>—</td><td>—</td>
+        <td class="link-cell">${r.linkNum}</td>
+        <td>${r.stmtDate || '—'}</td><td>${r.opNum || '—'}</td><td>${r.counterparty || '—'}</td>
+        <td class="cell-mismatch">${fmt(r.statementAmount)}</td><td>${r.purpose || '—'}</td>
+        <td>${badge}</td><td>—</td>
       </tr>`;
-    }).join('');
+    }
+
+    if (r.status === 'group' && !r.isFirstInGroup) {
+      return `<tr class="${rowCls}">
+        <td>${r.expDate || '—'}</td><td>${r.category || '—'}</td>${amountPairCell(r.reportAmount, null)}
+        <td>${r.comment || '—'}</td><td>${r.sheet || '—'}</td>
+        <td class="link-cell sub">↳</td>
+        <td colspan="5" class="cell-missing" style="font-size:0.75rem">↳ часть группы ${r.groupNum || ''}</td>
+        <td>${badge}</td><td>${r.groupNum || '—'}</td>
+      </tr>`;
+    }
+
+    const stmtPart = r.statementAmount != null
+      ? `<td>${r.stmtDate || '—'}</td><td>${r.opNum || '—'}</td><td>${r.counterparty || '—'}</td>
+         <td class="${rub(r.reportAmount) === rub(r.statementAmount) ? 'cell-match' : 'cell-mismatch'}">${fmt(r.statementAmount)}</td>
+         <td>${r.purpose || '—'}</td>`
+      : `<td>—</td><td>—</td><td>—</td><td class="cell-missing">—</td><td>—</td>`;
+
+    const linkLabel = `${r.linkNum}${r.groupNum ? `<div class="link-cell sub">гр.${r.groupNum}</div>` : ''}`;
+
+    return `<tr class="${rowCls}">
+      <td>${r.expDate || '—'}</td><td>${r.category || '—'}</td>${amountPairCell(r.reportAmount, r.statementAmount)}
+      <td>${r.comment || '—'}</td><td>${r.sheet || '—'}</td>
+      <td class="link-cell">${linkLabel}</td>
+      ${stmtPart}
+      <td>${badge}</td><td>${r.groupNum || '—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+/** @deprecated kept as alias */
+function buildDetailRows(expenses, statements, matches) {
+  return buildPairRows(expenses, statements, matches);
 }
 
 function renderSummary() {
@@ -536,7 +589,7 @@ function renderTables() {
 
 function renderAll() {
   renderSummary();
-  renderDetailTable();
+  renderPairsTable();
   renderTables();
 }
 
@@ -552,8 +605,8 @@ async function loadInitial() {
 
   if (saved && saved.expenses && saved.expenses.length) {
     DATA = saved;
-    if (!DATA.detailRows) {
-      DATA.detailRows = buildDetailRows(DATA.expenses, DATA.statements, DATA.matches || []);
+    if (!DATA.pairRows) {
+      DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
     }
     renderAll();
     $('#actionMsg').textContent = 'Загружены сохранённые данные с сервера';
@@ -610,7 +663,7 @@ async function runReconciliation() {
       statementFile: stmtInput.files[0].name,
       ...result,
     };
-    DATA.detailRows = buildDetailRows(DATA.expenses, DATA.statements, DATA.matches);
+    DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches);
 
     renderAll();
     msg.textContent = `Сверка выполнена: ${reportInput.files[0].name} + ${stmtInput.files[0].name}`;
@@ -670,11 +723,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   $('#filters').addEventListener('click', (e) => {
-    if (e.target.tagName !== 'BUTTON') return;
+    const btn = e.target.closest('button[data-f]');
+    if (!btn) return;
     $$('#filters button').forEach((b) => b.classList.remove('active'));
-    e.target.classList.add('active');
-    currentFilter = e.target.dataset.f;
-    renderDetailTable();
+    btn.classList.add('active');
+    currentFilter = btn.dataset.f;
+    renderPairsTable();
     renderTables();
   });
 

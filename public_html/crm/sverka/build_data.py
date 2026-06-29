@@ -211,70 +211,86 @@ def reconcile(expenses, statements):
     return expenses, statements, matches, stats
 
 
-def build_detail_rows(expenses, statements, matches):
+def build_pair_rows(expenses, statements, matches):
     exp_map = {e["id"]: e for e in expenses}
     stmt_map = {s["id"]: s for s in statements}
     rows = []
+    link_num = 0
 
     for m in matches:
+        link_num += 1
         stmt = stmt_map[m["statementId"]]
         for i, eid in enumerate(m["expenseIds"]):
             exp = exp_map[eid]
             rows.append({
-                "kind": m["type"],
+                "linkNum": link_num if i == 0 else None,
+                "matchId": m["id"],
                 "status": m["type"],
                 "groupNum": m.get("groupNum"),
-                "matchId": m["id"],
-                "date": exp.get("date") or stmt.get("date"),
-                "reportSheet": exp.get("sheet"),
+                "matchType": "Точное" if m["type"] == "exact" else "Группа",
+                "groupSize": len(m["expenseIds"]),
+                "isFirstInGroup": i == 0,
+                "expDate": exp.get("date"),
                 "category": exp.get("category"),
                 "reportAmount": exp.get("amount"),
                 "comment": exp.get("comment"),
-                "counterparty": stmt.get("counterparty") if i == 0 else "",
+                "sheet": exp.get("sheet"),
+                "stmtDate": stmt.get("date") if i == 0 else None,
+                "opNum": stmt.get("opNum") if i == 0 else None,
+                "counterparty": stmt.get("counterparty") if i == 0 else None,
                 "statementAmount": stmt.get("amount") if i == 0 else None,
-                "purpose": stmt.get("purpose") if i == 0 else "",
-                "opNum": stmt.get("opNum") if i == 0 else "",
+                "purpose": stmt.get("purpose") if i == 0 else None,
             })
 
     for exp in expenses:
         if exp["status"] != "unmatched":
             continue
+        link_num += 1
         rows.append({
-            "kind": "unmatched",
+            "linkNum": link_num,
+            "matchId": None,
             "status": "unmatched",
             "groupNum": None,
-            "matchId": None,
-            "date": exp.get("date"),
-            "reportSheet": exp.get("sheet"),
+            "matchType": "Не найдено",
+            "groupSize": 1,
+            "isFirstInGroup": True,
+            "expDate": exp.get("date"),
             "category": exp.get("category"),
             "reportAmount": exp.get("amount"),
             "comment": exp.get("comment"),
+            "sheet": exp.get("sheet"),
+            "stmtDate": None,
+            "opNum": None,
             "counterparty": None,
             "statementAmount": None,
             "purpose": None,
-            "opNum": None,
         })
 
     for stmt in statements:
         if stmt["status"] != "unmatched":
             continue
+        link_num += 1
         rows.append({
-            "kind": "unmatched_stmt",
-            "status": "unmatched",
-            "groupNum": None,
+            "linkNum": link_num,
             "matchId": None,
-            "date": stmt.get("date"),
-            "reportSheet": None,
+            "status": "unmatched_stmt",
+            "groupNum": None,
+            "matchType": "Не найдено",
+            "groupSize": 1,
+            "isFirstInGroup": True,
+            "expDate": None,
             "category": None,
             "reportAmount": None,
             "comment": None,
+            "sheet": None,
+            "stmtDate": stmt.get("date"),
+            "opNum": stmt.get("opNum"),
             "counterparty": stmt.get("counterparty"),
             "statementAmount": stmt.get("amount"),
             "purpose": stmt.get("purpose"),
-            "opNum": stmt.get("opNum"),
         })
 
-    rows.sort(key=lambda r: (r.get("date") or "", r.get("status") or ""))
+    rows.sort(key=lambda r: (r.get("expDate") or r.get("stmtDate") or "", r.get("linkNum") or 9999))
     return rows
 
 
@@ -285,7 +301,7 @@ def main():
     expenses = read_report_lounge(report_wb, cfg)
     statements = read_statement_lounge(stmt_wb, cfg)
     expenses, statements, matches, stats = reconcile(expenses, statements)
-    detail = build_detail_rows(expenses, statements, matches)
+    detail = build_pair_rows(expenses, statements, matches)
 
     data = {
         "entity": "lounge",
@@ -295,12 +311,12 @@ def main():
         "statements": statements,
         "matches": matches,
         "stats": stats,
-        "detailRows": detail,
+        "pairRows": detail,
     }
     OUT_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Saved {OUT_PATH}")
     print("Stats:", stats)
-    print("Expenses:", len(expenses), "Statements:", len(statements), "Detail rows:", len(detail))
+    print("Expenses:", len(expenses), "Statements:", len(statements), "Pair rows:", len(detail))
 
 
 if __name__ == "__main__":

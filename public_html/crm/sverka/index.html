@@ -52,27 +52,38 @@
     <span><span class="dot o"></span> Не найдено</span>
   </div>
 
-  <div class="filters" id="filters">
-    <button class="active" data-f="all">Все</button>
-    <button data-f="exact">Точные</button>
-    <button data-f="group">Групповые</button>
-    <button data-f="unmatched">Без пары</button>
+  <div class="filters color-filters" id="filters">
+    <button type="button" class="active" data-f="all">Все</button>
+    <button type="button" class="filter-green" data-f="exact"><span class="dot g"></span> Зелёный — точное</button>
+    <button type="button" class="filter-yellow" data-f="group"><span class="dot y"></span> Жёлтый — группа</button>
+    <button type="button" class="filter-orange" data-f="unmatched"><span class="dot o"></span> Оранжевый — без пары</button>
+    <button type="button" class="filter-orange" data-f="unmatched_exp">Только расход без выписки</button>
+    <button type="button" class="filter-orange" data-f="unmatched_stmt">Только выписка без расхода</button>
   </div>
 
   <div class="panel">
-    <h2>Детальная сверка</h2>
-    <p class="msg" style="margin-top:0;margin-bottom:10px">Две строки в ячейке суммы: отчёт и выписка. Зелёный — точное, жёлтый — группа, оранжевый — без пары.</p>
+    <h2>Сверка — связки «отчёт ↔ выписка»</h2>
+    <p class="msg" style="margin-top:0;margin-bottom:10px">Как в исходном дашборде: слева расход отчёта, справа операция выписки, между ними номер связки.</p>
     <div class="wrap">
-      <table class="data-table detail-table" id="detailTable">
+      <table class="data-table pairs-table" id="pairsTable">
         <thead>
+          <tr class="head-groups">
+            <th colspan="5" class="th-report">Расход отчёта</th>
+            <th rowspan="2" class="th-link">↔</th>
+            <th colspan="5" class="th-stmt">Операция выписки</th>
+            <th colspan="2" rowspan="2">Сверка</th>
+          </tr>
           <tr>
             <th>Дата</th>
-            <th>Статус</th>
-            <th>Гр.</th>
-            <th>Категория / контрагент</th>
+            <th>Категория</th>
             <th>Сумма</th>
-            <th>Комментарий / назначение</th>
+            <th>Комментарий</th>
             <th>Лист</th>
+            <th>Дата</th>
+            <th>№</th>
+            <th>Контрагент</th>
+            <th>Дебет</th>
+            <th>Назначение</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -80,8 +91,9 @@
     </div>
   </div>
 
-  <div class="panel">
-    <h2>Расходы отчёта</h2>
+  <details class="panel extra-tables">
+    <summary>Расходы и выписка отдельными таблицами</summary>
+    <h2 style="margin-top:12px">Расходы отчёта</h2>
     <div class="wrap">
       <table class="data-table" id="expTable">
         <thead>
@@ -98,10 +110,7 @@
         <tbody></tbody>
       </table>
     </div>
-  </div>
-
-  <div class="panel">
-    <h2>Дебет выписки</h2>
+    <h2 style="margin-top:16px">Дебет выписки</h2>
     <div class="wrap">
       <table class="data-table" id="stmtTable">
         <thead>
@@ -118,7 +127,7 @@
         <tbody></tbody>
       </table>
     </div>
-  </div>
+  </details>
 
   <script src="app.js"></script>
 </body>
