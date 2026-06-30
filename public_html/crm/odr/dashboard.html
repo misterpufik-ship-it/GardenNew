@@ -2,85 +2,11 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow, noarchive">
-  <title>ОДР — дашборд</title>
-  <link rel="stylesheet" href="../theme.css">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="analytics.css">
-  <link rel="stylesheet" href="dashboard.css">
+  <meta http-equiv="refresh" content="0;url=analytics.html">
+  <title>Перенаправление…</title>
+  <script>location.replace('analytics.html' + location.search);</script>
 </head>
 <body>
-  <header class="analytics-header">
-    <div>
-      <a href="index.html" class="back-link">← Реестр ОДР</a>
-      <a href="analytics.html" class="back-link dash-link">Отчёт и рекомендации</a>
-      <h1 class="shimmer-gold">Дашборд ОДР</h1>
-      <p class="subtitle" id="pageSubtitle">Загрузка…</p>
-    </div>
-    <div class="header-actions">
-      <button type="button" class="btn" id="runAnalysisBtn" disabled>Обновить анализ</button>
-    </div>
-  </header>
-
-  <nav class="month-tabs" id="monthTabs"></nav>
-  <p class="msg" id="statusMsg"></p>
-
-  <div id="dashboard" class="dashboard hidden">
-    <section class="panel branch-hero" id="branchHero"></section>
-
-    <section class="panel">
-      <h2>KPI — нажмите для детализации</h2>
-      <div class="kpi-grid kpi-grid--clickable" id="kpiGrid"></div>
-      <div class="kpi-detail hidden" id="kpiDetail"></div>
-    </section>
-
-    <section class="panel">
-      <div class="chart-toolbar">
-        <h2>Структура выручки и фудкост</h2>
-        <div class="view-tabs" id="structureViewTabs">
-          <button type="button" class="view-tab active" data-view="branches">По филиалам</button>
-          <button type="button" class="view-tab" data-view="categories">По категориям</button>
-        </div>
-      </div>
-      <div class="dataset-toggles" id="datasetToggles"></div>
-      <div class="chart-box chart-box--tall">
-        <canvas id="chartStructure"></canvas>
-      </div>
-    </section>
-
-    <section class="panel flow-section">
-      <div class="flow-columns">
-        <div>
-          <h2>Доходы</h2>
-          <div class="flow-view-tabs" id="incomeViewTabs">
-            <button type="button" class="view-tab active" data-loc="total">Всего</button>
-            <button type="button" class="view-tab" data-loc="moyka">Мойка</button>
-            <button type="button" class="view-tab" data-loc="akku">Аккуратова</button>
-          </div>
-          <div id="incomeBlocks"></div>
-        </div>
-        <div>
-          <h2>Расходы</h2>
-          <div class="flow-view-tabs" id="expenseViewTabs">
-            <button type="button" class="view-tab active" data-loc="total">Всего</button>
-            <button type="button" class="view-tab" data-loc="moyka">Мойка</button>
-            <button type="button" class="view-tab" data-loc="akku">Аккуратова</button>
-          </div>
-          <div id="expenseBlocks"></div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="analyzer/utils.js"></script>
-  <script src="analyzer/pnl-analysis.js"></script>
-  <script src="analyzer/daily-sales-analysis.js"></script>
-  <script src="analyzer/inventory-analysis.js"></script>
-  <script src="analyzer/recommendations.js"></script>
-  <script src="analyzer/main.js"></script>
-  <script src="dashboard-ui.js"></script>
+  <p><a href="analytics.html">Финансовая аналитика</a></p>
 </body>
 </html>
