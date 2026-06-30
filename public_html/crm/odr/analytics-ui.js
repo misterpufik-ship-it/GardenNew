@@ -174,9 +174,12 @@
       <section class="panel charts-row">
         <div class="chart-box"><h3>Выручка по точкам</h3><canvas id="chartRevenue"></canvas></div>
         <div class="chart-box"><h3>Структура выручки</h3><canvas id="chartMix"></canvas></div>
-        <div class="chart-box wide"><h3>Дневная выручка (чистая)</h3><canvas id="chartDaily"></canvas></div>
         <div class="chart-box"><h3>Выручка по дням недели</h3><canvas id="chartWeekday"></canvas></div>
         <div class="chart-box"><h3>Списания по причинам</h3><canvas id="chartWriteoffs"></canvas></div>
+      </section>
+
+      <section class="panel">
+        <p class="msg">Интерактивный дашборд с филиалами, фудкостом и статьями доходов/расходов: <a href="dashboard.html?month=${data.meta?.month || CURRENT}" class="back-link">открыть дашборд →</a></p>
       </section>
 
       ${comparison ? renderComparison(comparison) : ''}
@@ -340,22 +343,6 @@
           }],
         },
         options: { plugins: { legend: { labels: { color: '#c5a059' } } } },
-      }));
-    }
-
-    const days = data.daily?.moyka?.days || [];
-    const c3 = document.getElementById('chartDaily');
-    if (c3 && days.length) {
-      charts.push(new Chart(c3, {
-        type: 'line',
-        data: {
-          labels: days.map((d) => d.date.slice(5)),
-          datasets: [
-            { label: 'Мойка', data: days.map((d) => d.netRevenue), borderColor: gold, tension: 0.2 },
-            { label: 'Аккуратова', data: (data.daily?.akkuartova?.days || []).map((d) => d.netRevenue), borderColor: '#6b8e4e', tension: 0.2 },
-          ],
-        },
-        options: chartOpts(),
       }));
     }
 
