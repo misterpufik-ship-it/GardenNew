@@ -73,26 +73,69 @@
     return `${names[parseInt(m, 10)] || m} ${y}`;
   };
 
+  OdrAnalyzer.isValidDate = function (d) {
+    return d instanceof Date && !Number.isNaN(d.getTime());
+  };
+
+  OdrAnalyzer.formatDateISO = function (d) {
+    if (!OdrAnalyzer.isValidDate(d)) return null;
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
   OdrAnalyzer.parseDate = function (v) {
-    if (!v) return null;
-    if (v instanceof Date && !Number.isNaN(v)) return v;
-    if (typeof v === 'number') {
-      const epoch = new Date(Date.UTC(1899, 11, 30));
-      const d = new Date(epoch.getTime() + v * 86400000);
-      return Number.isNaN(d) ? null : d;
+    if (v == null || v === '') return null;
+
+    if (v instanceof Date) {
+      return OdrAnalyzer.isValidDate(v) ? v : null;
     }
-    const d = new Date(v);
-    return Number.isNaN(d) ? null : d;
+
+    if (typeof v === 'object') {
+      if (v.error) return null;
+      if (v.result != null) return OdrAnalyzer.parseDate(v.result);
+      if (v.year != null && v.month != null && v.day != null) {
+        const d = new Date(v.year, v.month - 1, v.day);
+        return OdrAnalyzer.isValidDate(d) ? d : null;
+      }
+      return null;
+    }
+
+    if (typeof v === 'number') {
+      const epoch = Date.UTC(1899, 11, 30);
+      const d = new Date(epoch + v * 86400000);
+      return OdrAnalyzer.isValidDate(d) ? d : null;
+    }
+
+    const s = String(v).trim();
+    if (!s || /^итого$/i.test(s)) return null;
+
+    const dmY = s.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+    if (dmY) {
+      const d = new Date(+dmY[3], +dmY[2] - 1, +dmY[1]);
+      return OdrAnalyzer.isValidDate(d) ? d : null;
+    }
+
+    const d = new Date(s);
+    return OdrAnalyzer.isValidDate(d) ? d : null;
+  };
+
+  OdrAnalyzer.unwrapCell = function (v) {
+    if (v == null) return null;
+    if (v instanceof Date) return OdrAnalyzer.isValidDate(v) ? v : null;
+    if (typeof v === 'object' && v.error) return null;
+    if (typeof v === 'object' && v.result != null) return OdrAnalyzer.unwrapCell(v.result);
+    if (typeof v === 'object' && v.richText) return v.richText.map((t) => t.text).join('');
+    if (typeof v === 'object' && v.text) return v.text;
+    return v;
   };
 
   OdrAnalyzer.cellVal = function (ws, r, c) {
     try {
       const cell = ws.getCell(r, c);
       if (!cell || cell.value == null) return null;
-      const v = cell.value;
-      if (typeof v === 'object' && v.result != null) return v.result;
-      if (typeof v === 'object' && v.richText) return v.richText.map((t) => t.text).join('');
-      return v;
+      return OdrAnalyzer.unwrapCell(cell.value);
     } catch (_) {
       return null;
     }

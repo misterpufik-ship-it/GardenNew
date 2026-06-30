@@ -14,6 +14,8 @@
       if (!d) continue;
       const fact = A.toNum(A.cellVal(ws, r, 4));
       if (fact == null) continue;
+      const dateStr = A.formatDateISO(d);
+      if (!dateStr) continue;
       const bonus1 = A.toNum(A.cellVal(ws, r, 10)) || 0;
       const bonus2 = A.toNum(A.cellVal(ws, r, 11)) || 0;
       const bonuses = bonus1 + bonus2;
@@ -25,7 +27,7 @@
       const card = (A.toNum(A.cellVal(ws, r, 8)) || 0) + (A.toNum(A.cellVal(ws, r, 9)) || 0);
       const netRevenue = fact - bonuses;
       days.push({
-        date: d.toISOString().slice(0, 10),
+        date: dateStr,
         weekday: A.cellVal(ws, r, 2) || WEEKDAYS[d.getDay()],
         plan: A.toNum(A.cellVal(ws, r, 3)),
         fact,
@@ -45,7 +47,16 @@
     const byWeekday = {};
     WEEKDAYS.forEach((w) => { byWeekday[w] = { revenue: 0, guests: 0, count: 0, avgCheck: 0 }; });
     days.forEach((day) => {
-      const w = day.weekday || WEEKDAYS[new Date(day.date).getDay()];
+      let w = day.weekday;
+      if (!w || !byWeekday[w]) {
+        const parts = (day.date || '').split('-');
+        if (parts.length === 3) {
+          const wd = new Date(+parts[0], +parts[1] - 1, +parts[2]).getDay();
+          w = WEEKDAYS[Number.isNaN(wd) ? 0 : wd];
+        } else {
+          w = 'пн';
+        }
+      }
       if (!byWeekday[w]) byWeekday[w] = { revenue: 0, guests: 0, count: 0 };
       byWeekday[w].revenue += day.netRevenue || 0;
       byWeekday[w].guests += day.guests || 0;

@@ -84,15 +84,16 @@
     try {
       const buf = await fetch(`api/file.php?id=${encodeURIComponent(rep.id)}`).then((r) => r.arrayBuffer());
       const analysis = await A.runAnalysis(buf, { fileName: rep.originalName, month: rep.month });
+      const safeAnalysis = JSON.parse(JSON.stringify(analysis));
       await fetch('api/analyze-save.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ month: rep.month, reportId: rep.id, analysis }),
+        body: JSON.stringify({ month: rep.month, reportId: rep.id, analysis: safeAnalysis }),
       });
       ANALYSES[rep.month] = { month: rep.month, generatedAt: new Date().toISOString() };
       renderTabs();
       selectMonth(rep.month);
-      renderDashboard(analysis);
+      renderDashboard(safeAnalysis);
       setStatus('Анализ сохранён на сервере', 'ok');
     } catch (e) {
       setStatus(e.message || 'Ошибка анализа', 'err');
