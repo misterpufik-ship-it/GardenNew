@@ -267,21 +267,47 @@
         if (btnElement) btnElement.classList.add('active');
     }
 
+    function getBfSlidePositions(slider, items) {
+        var sliderLeft = slider.getBoundingClientRect().left;
+        return Array.prototype.map.call(items, function(item) {
+            return item.getBoundingClientRect().left - sliderLeft + slider.scrollLeft;
+        });
+    }
+
     function scrollBfSlider(sliderId, direction) {
         var slider = document.getElementById(sliderId);
         if (!slider) return;
         var items = slider.querySelectorAll('.gallery-slide-item');
         if (!items.length) return;
 
+        var positions = getBfSlidePositions(slider, items);
         var scrollLeft = slider.scrollLeft;
-        var pad = parseFloat(getComputedStyle(slider).scrollPaddingLeft) || 0;
-        var current = 0;
-        for (var i = 0; i < items.length; i++) {
-            if (items[i].offsetLeft <= scrollLeft + 3) current = i;
+        var closest = 0;
+        var best = Infinity;
+        for (var i = 0; i < positions.length; i++) {
+            var dist = Math.abs(positions[i] - scrollLeft);
+            if (dist < best) {
+                best = dist;
+                closest = i;
+            }
         }
-        var targetIndex = Math.max(0, Math.min(items.length - 1, current + direction));
+
+        var aligned = best < 6;
+        var targetIndex = closest;
+        if (direction > 0) {
+            targetIndex = aligned
+                ? Math.min(closest + 1, items.length - 1)
+                : closest;
+        } else {
+            targetIndex = aligned
+                ? Math.max(closest - 1, 0)
+                : closest;
+        }
+
+        if (Math.abs(positions[targetIndex] - scrollLeft) < 1) return;
+
         slider.scrollTo({
-            left: Math.max(0, items[targetIndex].offsetLeft - pad),
+            left: positions[targetIndex],
             behavior: 'smooth'
         });
     }

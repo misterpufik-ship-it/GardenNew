@@ -84,7 +84,6 @@
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        scroll-padding-left: 0.5rem;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none; 
         scroll-behavior: smooth;
@@ -541,21 +540,47 @@
         if(btnElement) btnElement.classList.add('active');
     }
 
+    function getGallerySlidePositions(slider, items) {
+        const sliderLeft = slider.getBoundingClientRect().left;
+        return Array.from(items).map((item) => (
+            item.getBoundingClientRect().left - sliderLeft + slider.scrollLeft
+        ));
+    }
+
     function scrollWidgetSlider(sliderId, direction) {
         const slider = document.getElementById(sliderId);
         if (!slider) return;
         const items = slider.querySelectorAll('.gallery-slide-item');
         if (!items.length) return;
 
+        const positions = getGallerySlidePositions(slider, items);
         const scrollLeft = slider.scrollLeft;
-        const pad = parseFloat(getComputedStyle(slider).scrollPaddingLeft) || 0;
-        let current = 0;
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].offsetLeft <= scrollLeft + 3) current = i;
+        let closest = 0;
+        let best = Infinity;
+        for (let i = 0; i < positions.length; i++) {
+            const dist = Math.abs(positions[i] - scrollLeft);
+            if (dist < best) {
+                best = dist;
+                closest = i;
+            }
         }
-        const targetIndex = Math.max(0, Math.min(items.length - 1, current + direction));
+
+        const aligned = best < 6;
+        let targetIndex = closest;
+        if (direction > 0) {
+            targetIndex = aligned
+                ? Math.min(closest + 1, items.length - 1)
+                : closest;
+        } else {
+            targetIndex = aligned
+                ? Math.max(closest - 1, 0)
+                : closest;
+        }
+
+        if (Math.abs(positions[targetIndex] - scrollLeft) < 1) return;
+
         slider.scrollTo({
-            left: Math.max(0, items[targetIndex].offsetLeft - pad),
+            left: positions[targetIndex],
             behavior: 'smooth'
         });
     }

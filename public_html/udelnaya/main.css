@@ -332,7 +332,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* --- EXPERIENCE & GALLERY --- */
-.slider-snap-area { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 0.5rem; scrollbar-width: none; scroll-behavior: smooth; }
+.slider-snap-area { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; }
 .slider-snap-area::-webkit-scrollbar { display: none; }
 .gallery-slide-item { flex: 0 0 auto; scroll-snap-align: start; }
 .ratio-1-1 { aspect-ratio: 1/1; width: 75%; }
