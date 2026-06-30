@@ -1,0 +1,70 @@
+<div style="background: #f0f0f0; padding: 15px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 20px;">
+    <button type="button" id="auto-translate-btn" style="padding:10px 20px; background:#C5A059; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size: 14px;">
+        ✨ Перевести всё на английский автоматически
+    </button>
+    <p style="margin: 5px 0 0; font-size: 12px; color: #666;">Пустые английские поля заполняются автоматически при открытии страницы. Кнопка — повторить перевод для всех пустых EN-полей.</p>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const translateBtn = document.getElementById('auto-translate-btn');
+    if (!translateBtn) return;
+
+    async function translateText(text) {
+        if (!text || text.trim().length < 2) return '';
+        try {
+            const res = await fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=ru|en');
+            const data = await res.json();
+            return data.responseData && data.responseData.translatedText ? data.responseData.translatedText : text;
+        } catch (e) {
+            return text;
+        }
+    }
+
+    async function fillEmptyEnFields(showStatus) {
+        const inputs = document.querySelectorAll('input:not([type="hidden"]), textarea');
+        let filled = 0;
+
+        for (const input of inputs) {
+            if (input.id.endsWith('_en')) continue;
+            const enInput = document.getElementById(input.id + '_en');
+            if (enInput && (!enInput.value || enInput.value.trim() === '')) {
+                const ruVal = input.value;
+                if (!ruVal || ruVal.trim().length < 2) continue;
+                enInput.value = await translateText(ruVal);
+                enInput.dispatchEvent(new Event('change', { bubbles: true }));
+                filled++;
+            }
+        }
+
+        if (showStatus && filled > 0) {
+            const originalText = translateBtn.innerText;
+            translateBtn.innerText = '✅ Готово! (' + filled + ')';
+            translateBtn.style.background = '#4CAF50';
+            setTimeout(function() {
+                translateBtn.innerText = originalText;
+                translateBtn.style.background = '#C5A059';
+                translateBtn.style.opacity = '1';
+                translateBtn.disabled = false;
+            }, 3000);
+        }
+
+        return filled;
+    }
+
+    fillEmptyEnFields(false);
+
+    translateBtn.onclick = async function() {
+        const btn = this;
+        const originalText = btn.innerText;
+        btn.innerText = '⏳ Перевожу...';
+        btn.style.opacity = '0.7';
+        btn.disabled = true;
+        await fillEmptyEnFields(true);
+        if (btn.disabled) {
+            btn.innerText = originalText;
+            btn.style.opacity = '1';
+            btn.disabled = false;
+        }
+    };
+});
+</script>

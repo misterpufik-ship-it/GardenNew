@@ -1,0 +1,40 @@
+<header class="text-center <cms:if promos_variant='visual'>mb-10<cms:else />mb-12</cms:if>">
+    <h1 class="font-serif-lux text-3xl text-white font-light italic m-0">
+        <cms:if akzii_main_title_en><cms:show akzii_main_title_en /><cms:else /><cms:show akzii_main_title /></cms:if>
+    </h1>
+    <div class="gold-line-fade"></div>
+    <p class="text-[12px] uppercase tracking-[0.4em] <cms:if promos_variant='visual'>subtitle-gold<cms:else />shimmer-gold</cms:if> font-medium m-0">
+        <cms:if akzii_sub_title_en><cms:show akzii_sub_title_en /><cms:else /><cms:show akzii_sub_title /></cms:if>
+    </p>
+</header>
+
+<div class="<cms:if promos_variant='visual'>space-y-4<cms:else />space-y-3</cms:if>">
+    <cms:show_repeatable 'promo_list'>
+        <div class="promo-card">
+            <h2 class="font-serif-lux text-2xl text-white italic mb-1">
+                <cms:if promo_name_en><cms:show promo_name_en /><cms:else /><cms:show promo_name /></cms:if>
+            </h2>
+            <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3<cms:if promos_variant!='visual'> tracking-wide</cms:if>">
+                <cms:if promo_desc_en><cms:show promo_desc_en /><cms:else /><cms:show promo_desc /></cms:if>
+            </p>
+            <cms:if promos_variant!='visual'>
+                <div class="w-6 h-px bg-[#C5A059]/30 mx-auto mb-3"></div>
+            </cms:if>
+            <p class="text-[9px] uppercase tracking-[0.2em] <cms:if promos_variant='visual'>subtitle-gold<cms:else />shimmer-gold</cms:if> font-medium">
+                <cms:if promo_offer_en><cms:show promo_offer_en /><cms:else /><cms:show promo_offer /></cms:if>
+            </p>
+        </div>
+    </cms:show_repeatable>
+</div>
+
+<cms:if promos_variant!='visual'>
+    <footer class="mt-8 text-center">
+        <p class="text-[10px] uppercase tracking-[0.3em] font-medium m-0 italic shimmer-gold">
+            <cms:if akzii_footer_en><cms:show akzii_footer_en /><cms:else /><cms:show akzii_footer /></cms:if>
+        </p>
+    </footer>
+
+    <div style="margin-top: 40px; text-align: center; opacity: 0.7;">
+        <img src="/admiralteyskaya/couch/uploads/image/div.webp" alt="Separator" style="max-width:280px; margin:0 auto;" loading="lazy" decoding="async">
+    </div>
+</cms:if>

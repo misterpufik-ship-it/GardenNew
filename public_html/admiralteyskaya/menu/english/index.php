@@ -275,31 +275,9 @@
                 <div class="taplink-block-wrapper">
                     <div class="film-grain"></div>
                     <div class="content-limiter">
-                        <header class="text-center mb-12">
-                            <h1 class="font-serif-lux text-3xl text-white font-light italic m-0">
-                                <cms:if promo_title_en><cms:show promo_title_en /><cms:else /><cms:show promo_title /></cms:if>
-                            </h1>
-                            <div class="gold-line-fade"></div>
-                            <p class="text-[12px] uppercase tracking-[0.4em] shimmer-gold font-medium m-0">
-                                <cms:if promo_subtitle_en><cms:show promo_subtitle_en /><cms:else /><cms:show promo_subtitle /></cms:if>
-                            </p>
-                        </header>
-                        <div class="space-y-3">
-                            <cms:show_repeatable 'list_promos_v2'>
-                                <div class="promo-card">
-                                    <h2 class="font-serif-lux text-2xl text-white italic mb-1"><cms:if p_title_en><cms:show p_title_en /><cms:else /><cms:show p_title /></cms:if></h2>
-                                    <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3 tracking-wide"><cms:if p_desc_en><cms:show p_desc_en /><cms:else /><cms:show p_desc /></cms:if></p>
-                                    <div class="w-6 h-px bg-[#C5A059]/30 mx-auto mb-3"></div>
-                                    <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium"><cms:if p_tag_en><cms:show p_tag_en /><cms:else /><cms:show p_tag /></cms:if></p>
-                                </div>
-                            </cms:show_repeatable>
-                        </div>
-                        <footer class="mt-8 text-center">
-                            <p class="text-[10px] uppercase tracking-[0.3em] font-medium m-0 italic shimmer-gold"><cms:if promo_footer_en><cms:show promo_footer_en /><cms:else /><cms:show promo_footer /></cms:if></p>
-                        </footer>
-                        <div style="margin-top: 40px; text-align: center; opacity: 0.7;">
-                            <img src="https://garden-lounge.pro/img/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
-                        </div>
+                        <cms:pages masterpage='akzii.php' limit='1'>
+                            <cms:embed 'promos-menu-block-en.html' />
+                        </cms:pages>
                     </div>
                 </div>
             </div>

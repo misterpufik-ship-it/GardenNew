@@ -26,57 +26,7 @@ require_once $garden_cms;
 <cms:template title='Меню RU' icon='restaurant' order='140'>
 
     <cms:editable name='translation_script' type='message' order='0'>
-        <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 20px;">
-            <button type="button" id="auto-translate-btn" style="padding:10px 20px; background:#C5A059; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size: 14px;">
-                ✨ Перевести всё на английский автоматически
-            </button>
-            <p style="margin: 5px 0 0; font-size: 12px; color: #666;">Нажмите, чтобы автоматически заполнить пустые английские поля на основе русских.</p>
-        </div>
-
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const translateBtn = document.getElementById('auto-translate-btn');
-            if(translateBtn) {
-                translateBtn.onclick = async function() {
-                    const btn = this;
-                    const originalText = btn.innerText;
-                    btn.innerText = '⏳ Перевожу...';
-                    btn.style.opacity = '0.7';
-                    btn.disabled = true;
-
-                    async function translateText(text) {
-                        if(!text || text.trim().length < 2) return '';
-                        try {
-                            const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=ru|en`);
-                            const data = await res.json();
-                            return data.responseData.translatedText;
-                        } catch (e) { return text; }
-                    }
-
-                    const selector = 'input:not([type="hidden"]), textarea';
-                    const inputs = document.querySelectorAll(selector);
-
-                    for (let input of inputs) {
-                        if(input.id.endsWith('_en')) continue;
-                        const enInput = document.getElementById(input.id + '_en');
-                        if (enInput && (!enInput.value || enInput.value.trim() === '')) {
-                            enInput.value = await translateText(input.value);
-                            enInput.dispatchEvent(new Event('change', { bubbles: true }));
-                        }
-                    }
-
-                    btn.innerText = `✅ Готово!`;
-                    btn.style.background = '#4CAF50';
-                    setTimeout(() => {
-                        btn.innerText = originalText;
-                        btn.style.background = '#C5A059';
-                        btn.style.opacity = '1';
-                        btn.disabled = false;
-                    }, 3000);
-                };
-            }
-        });
-        </script>
+        <cms:embed 'auto-translate-admin.html' />
     </cms:editable>
 
     <cms:editable name='seo_group' label='SEO Настройки' type='group' order='1' collapsed='1' />
@@ -198,19 +148,25 @@ require_once $garden_cms;
         <cms:editable name='note_after_ru_en' label='Примечание EN' type='textarea' height='30' />
     </cms:repeatable>
 
-    <cms:editable name='grp_promo' label='Акции (English menu)' type='group' order='8' collapsed='1' />
-    <cms:editable name='promo_title' type='text' group='grp_promo' label='Заголовок RU (fallback EN)'>Привилегии Garden Lounge</cms:editable>
-    <cms:editable name='promo_title_en' type='text' group='grp_promo' label='Заголовок EN'>Garden Lounge Privileges</cms:editable>
-    <cms:editable name='promo_subtitle' type='text' group='grp_promo' label='Подзаголовок RU (fallback EN)'>Специальные предложения</cms:editable>
-    <cms:editable name='promo_subtitle_en' type='text' group='grp_promo' label='Подзаголовок EN'>Special Offers</cms:editable>
-    <cms:editable name='promo_footer' type='text' group='grp_promo' label='Подвал RU (fallback EN)'>Идеальное место для ценителей прекрасного.</cms:editable>
-    <cms:editable name='promo_footer_en' type='text' group='grp_promo' label='Подвал EN'>Ideal place for connoisseurs.</cms:editable>
+    <cms:editable name='grp_promo' label='Акции (English menu)' type='group' order='8' collapsed='1' hidden='1' />
+    <cms:editable name='promo_title' type='text' group='grp_promo' label='Заголовок RU (fallback EN)' hidden='1'>Привилегии Garden Lounge</cms:editable>
+    <cms:editable name='promo_title_en' type='text' group='grp_promo' label='Заголовок EN' hidden='1'>Garden Lounge Privileges</cms:editable>
+    <cms:editable name='promo_subtitle' type='text' group='grp_promo' label='Подзаголовок RU (fallback EN)' hidden='1'>Специальные предложения</cms:editable>
+    <cms:editable name='promo_subtitle_en' type='text' group='grp_promo' label='Подзаголовок EN' hidden='1'>Special Offers</cms:editable>
+    <cms:editable name='promo_footer' type='text' group='grp_promo' label='Подвал RU (fallback EN)' hidden='1'>Идеальное место для ценителей прекрасного.</cms:editable>
+    <cms:editable name='promo_footer_en' type='text' group='grp_promo' label='Подвал EN' hidden='1'>Ideal place for connoisseurs.</cms:editable>
 
-    <cms:repeatable name='list_promos_v2' label='Список акций (English menu)' group='grp_promo'>
-        <cms:editable name='p_title' type='text' label='Название RU (fallback EN)' /> <cms:editable name='p_title_en' type='text' label='Название EN' />
-        <cms:editable name='p_desc' type='textarea' label='Описание RU (fallback EN)' /> <cms:editable name='p_desc_en' type='textarea' label='Описание EN' />
-        <cms:editable name='p_tag' type='text' label='Тег RU (fallback EN)' /> <cms:editable name='p_tag_en' type='text' label='Тег EN' />
+    <cms:repeatable name='list_promos_v2' label='Список акций (English menu)' group='grp_promo' hidden='1'>
+        <cms:editable name='p_title' type='text' label='Название RU (fallback EN)' hidden='1' /> <cms:editable name='p_title_en' type='text' label='Название EN' hidden='1' />
+        <cms:editable name='p_desc' type='textarea' label='Описание RU (fallback EN)' hidden='1' /> <cms:editable name='p_desc_en' type='textarea' label='Описание EN' hidden='1' />
+        <cms:editable name='p_tag' type='text' label='Тег RU (fallback EN)' hidden='1' /> <cms:editable name='p_tag_en' type='text' label='Тег EN' hidden='1' />
     </cms:repeatable>
+
+    <cms:editable name='akzii_promo_note' type='message' order='7.5'>
+        <p style="margin:0;padding:12px 15px;background:#f9f6ef;border:1px solid #C5A059;border-radius:4px;font-size:13px;color:#444;">
+            Акции для RU и EN меню редактируются в разделе <strong>«Акции»</strong>. Английский перевод заполняется автоматически при открытии страницы акций (кнопка «Перевести» — повторить).
+        </p>
+    </cms:editable>
 
 </cms:template>
 <!DOCTYPE html>
