@@ -34,20 +34,6 @@
         border-bottom-color: #C5A059;
     }
 
-    .ratio-vibe {
-        width: calc(85% * 4 / 9);
-        aspect-ratio: 2 / 3;
-    }
-
-    @media (min-width: 768px) {
-        #bf-tab-interior .ratio-3-2 {
-            width: calc((25% - 12px) * 1.5);
-        }
-        #bf-tab-vibe .ratio-vibe {
-            width: calc((25% - 12px) * 1.5 * 4 / 9);
-        }
-    }
-
 </style>
 
 <cms:set bf_img_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/' />
@@ -74,7 +60,7 @@
                     <cms:show_repeatable 'final_gallery_items'>
                         <cms:if final_gallery_img>
                             <cms:if final_gallery_category='interior'>
-                                <div class="gallery-slide-item ratio-3-2">
+                                <div class="gallery-slide-item ratio-1-1">
                                     <img src="<cms:show final_gallery_img />"
                                          loading="lazy"
                                          decoding="async"
@@ -89,40 +75,40 @@
                     </cms:show_repeatable>
 
                     <cms:if bf_show_admiral='1'>
-                        <div class="gallery-slide-item ratio-3-2">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />garden-main.webp" alt="Интерьер Garden Lounge на Адмиралтейской" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>Garden Lounge</h3></div>
                         </div>
-                        <div class="gallery-slide-item ratio-3-2">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />garden.webp" alt="Интерьер лаунж-бара Garden Lounge" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>Вечнозелёный сад</h3></div>
                         </div>
-                        <div class="gallery-slide-item ratio-3-2">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />garden-2.webp" alt="VIP-зона Garden Lounge на Мойке" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>VIP-зона</h3></div>
                         </div>
                         <cms:repeat count='6'>
-                            <div class="gallery-slide-item ratio-3-2">
+                            <div class="gallery-slide-item ratio-1-1">
                                 <img src="<cms:show bf_img_base />ga<cms:show k_count />.webp" alt="Интерьер Garden Lounge Admiralteyskaya" loading="lazy" decoding="async">
                                 <div class="gallery-slide-shade"></div>
                                 <div class="gallery-slide-caption"><h3>Interior <cms:show k_count /></h3></div>
                             </div>
                         </cms:repeat>
                     <cms:else />
-                        <div class="gallery-slide-item ratio-3-2">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Интерьер Garden Lounge на Удельной" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>Вечнозелёный сад</h3></div>
                         </div>
-                        <div class="gallery-slide-item ratio-3-2">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />garden.webp" alt="Интерьер лаунж-бара Garden Lounge Удельная" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>Интерьер лаунжа</h3></div>
                         </div>
-                        <div class="gallery-slide-item ratio-3-2">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />safonovleonid_green_65.webp" alt="VIP-зона Garden Lounge на Удельной" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>VIP-зона</h3></div>
@@ -218,7 +204,7 @@
                     <cms:show_repeatable 'final_gallery_items'>
                         <cms:if final_gallery_img>
                             <cms:if final_gallery_category='vibe'>
-                                <div class="gallery-slide-item ratio-vibe">
+                                <div class="gallery-slide-item ratio-1-1">
                                     <img src="<cms:show final_gallery_img />"
                                          loading="lazy"
                                          decoding="async"
@@ -234,19 +220,19 @@
 
                     <cms:if bf_show_admiral='1'>
                         <cms:repeat count='6'>
-                            <div class="gallery-slide-item ratio-vibe">
+                            <div class="gallery-slide-item ratio-1-1">
                                 <img src="<cms:show bf_img_base />gf<cms:show k_count />.webp" alt="Атмосфера Garden Lounge Admiralteyskaya" loading="lazy" decoding="async">
                                 <div class="gallery-slide-shade"></div>
                                 <div class="gallery-slide-caption"><h3>Vibe <cms:show k_count /></h3></div>
                             </div>
                         </cms:repeat>
                     <cms:else />
-                        <div class="gallery-slide-item ratio-vibe">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />safonovleonid_green_65.webp" alt="Атмосфера Garden Lounge на Удельной" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>Atmosphere</h3></div>
                         </div>
-                        <div class="gallery-slide-item ratio-vibe">
+                        <div class="gallery-slide-item ratio-1-1">
                             <img src="<cms:show bf_img_base />garden.webp" alt="Вечер в Garden Lounge Удельная" loading="lazy" decoding="async">
                             <div class="gallery-slide-shade"></div>
                             <div class="gallery-slide-caption"><h3>Evening Vibe</h3></div>
