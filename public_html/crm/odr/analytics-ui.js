@@ -44,6 +44,27 @@
     });
   }
 
+  function unwrapAnalysis(payload) {
+    if (!payload) return null;
+    if (payload.analysis && (payload.analysis.pnl || payload.analysis.executive)) {
+      return payload.analysis;
+    }
+    if (payload.pnl || payload.executive) return payload;
+    return payload.analysis || null;
+  }
+
+  async function fetchCachedAnalysis(month) {
+    try {
+      const res = await fetch(`api/analyze-get.php?month=${encodeURIComponent(month)}`);
+      if (!res.ok) return null;
+      const json = await res.json();
+      if (!json.ok) return null;
+      return unwrapAnalysis(json.data);
+    } catch (_) {
+      return null;
+    }
+  }
+
   function reportForMonth(month) {
     return REPORTS.find((r) => r.month === month);
   }
@@ -57,13 +78,14 @@
       ? `${A.monthLabel(month)} · ${rep.originalName}`
       : A.monthLabel(month);
 
-    const cached = await fetch(`api/analyze-get.php?month=${encodeURIComponent(month)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .catch(() => null);
+    const cached = await fetchCachedAnalysis(month);
 
-    if (cached?.ok) {
-      renderDashboard(cached.data.analysis || cached.data);
+    if (cached) {
+      await renderDashboard(cached);
       setStatus('Анализ загружен с сервера', 'ok');
+    } else if (ANALYSES[month]) {
+      setStatus('Кэш найден, но не читается — нажмите «Анализировать» ещё раз', 'err');
+      $('#dashboard').classList.add('hidden');
     } else {
       $('#dashboard').classList.add('hidden');
       setStatus('Анализ ещё не выполнен — нажмите «Анализировать»', '');
@@ -85,15 +107,19 @@
       const buf = await fetch(`api/file.php?id=${encodeURIComponent(rep.id)}`).then((r) => r.arrayBuffer());
       const analysis = await A.runAnalysis(buf, { fileName: rep.originalName, month: rep.month });
       const safeAnalysis = JSON.parse(JSON.stringify(analysis));
-      await fetch('api/analyze-save.php', {
+      const saveRes = await fetch('api/analyze-save.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ month: rep.month, reportId: rep.id, analysis: safeAnalysis }),
       });
+      const saveOut = await saveRes.json().catch(() => ({}));
+      if (!saveRes.ok || !saveOut.ok) {
+        throw new Error(saveOut.error || 'Не удалось сохранить анализ на сервере');
+      }
       ANALYSES[rep.month] = { month: rep.month, generatedAt: new Date().toISOString() };
       renderTabs();
-      selectMonth(rep.month);
-      renderDashboard(safeAnalysis);
+      $$('.month-tab').forEach((b) => b.classList.toggle('active', b.dataset.month === rep.month));
+      await renderDashboard(safeAnalysis);
       setStatus('Анализ сохранён на сервере', 'ok');
     } catch (e) {
       setStatus(e.message || 'Ошибка анализа', 'err');
@@ -114,19 +140,21 @@
     const res = await fetch(`api/analyze-get.php?month=${encodeURIComponent(prev)}`);
     if (!res.ok) return null;
     const json = await res.json();
-    return json.data?.analysis || json.data;
+    return unwrapAnalysis(json.data);
   }
 
   async function renderDashboard(data) {
+    if (!data) return;
     destroyCharts();
     let comparison = null;
-    if ($('#compareMode').checked) {
-      PREVIOUS = await loadPrevious(data.meta?.month || CURRENT);
-      if (PREVIOUS) comparison = A.compareMonths(data, PREVIOUS);
-    }
+    try {
+      if ($('#compareMode').checked) {
+        PREVIOUS = await loadPrevious(data.meta?.month || CURRENT);
+        if (PREVIOUS) comparison = A.compareMonths(data, PREVIOUS);
+      }
 
-    const ex = data.executive || {};
-    const rec = data.recommendations || {};
+      const ex = data.executive || {};
+      const rec = data.recommendations || {};
     const html = `
       <section class="panel exec-summary">
         <h2>Executive Summary</h2>
@@ -188,7 +216,12 @@
 
     $('#dashboard').innerHTML = html;
     $('#dashboard').classList.remove('hidden');
-    renderCharts(data);
+      renderCharts(data);
+    } catch (err) {
+      console.error('renderDashboard', err);
+      $('#dashboard').innerHTML = `<section class="panel"><h2>Ошибка отображения</h2><p class="msg err">${err.message || err}</p></section>`;
+      $('#dashboard').classList.remove('hidden');
+    }
   }
 
   function kpiCard(label, value, cmp, isPct) {
@@ -359,12 +392,10 @@
   document.addEventListener('DOMContentLoaded', () => {
     loadData();
     $('#runAnalysisBtn').addEventListener('click', runAnalysis);
-    $('#compareMode').addEventListener('change', () => {
-      if (!$('#dashboard').classList.contains('hidden')) {
-        fetch(`api/analyze-get.php?month=${encodeURIComponent(CURRENT)}`)
-          .then((r) => r.json())
-          .then((j) => renderDashboard(j.data?.analysis || j.data));
-      }
+    $('#compareMode').addEventListener('change', async () => {
+      if ($('#dashboard').classList.contains('hidden') || !CURRENT) return;
+      const cached = await fetchCachedAnalysis(CURRENT);
+      if (cached) await renderDashboard(cached);
     });
   });
 })();
