@@ -22,14 +22,15 @@ if (!$garden_cms) {
 }
 require_once $garden_cms;
 ?>
-<cms:template title='Меню визуальное' name='menu_visual' executable='1' order='160'>
+<cms:template title='Меню визуальное' name='menu_visual_udel' executable='1' order='160'>
 
-    <cms:editable name='visual_logo' label='Логотип меню' type='image' order='1'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
-    <cms:editable name='visual_divider' label='Разделитель (линия)' type='image' order='2'>https://garden-lounge.pro/img/div.png</cms:editable>
+    <cms:editable name='visual_logo' label='Логотип меню' type='image' hidden='1' order='1'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
+    <cms:editable name='visual_divider' label='Разделитель (линия)' type='image' hidden='1' order='2'>https://garden-lounge.pro/img/div.png</cms:editable>
 
     <cms:set tag_options = 'Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
 
-    <cms:repeatable name='menu_shisha' label='Кальяны — список блюд' order='3'>
+    <cms:editable name='group_shisha' label='Кальяны' type='group' collapsed='1' order='10' />
+    <cms:repeatable name='menu_shisha' label='Блюда' group='group_shisha'>
         <cms:editable name='item_title' label='Название' type='text' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
@@ -38,7 +39,8 @@ require_once $garden_cms;
         <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:repeatable name='menu_kitchen' label='Кухня — список блюд' order='4'>
+    <cms:editable name='group_kitchen' label='Кухня' type='group' collapsed='1' order='20' />
+    <cms:repeatable name='menu_kitchen' label='Блюда' group='group_kitchen'>
         <cms:editable name='item_title' label='Название' type='text' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
@@ -47,7 +49,8 @@ require_once $garden_cms;
         <cms:editable name='item_desc' label='Описание' type='textarea' />
     </cms:repeatable>
 
-    <cms:repeatable name='menu_bar' label='Бар — список блюд' order='5'>
+    <cms:editable name='group_bar' label='Бар' type='group' collapsed='1' order='30' />
+    <cms:repeatable name='menu_bar' label='Блюда' group='group_bar'>
         <cms:editable name='item_title' label='Название' type='text' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
