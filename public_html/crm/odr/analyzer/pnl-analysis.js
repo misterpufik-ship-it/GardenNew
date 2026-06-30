@@ -17,8 +17,34 @@
     return { key: key || label, label, amount, pct: pct(revenue, amount), group };
   }
 
+  const FLOW_SKIP_KEYS = new Set(['fot_uk', 'fot_acc', 'fot_shift', 'fot_var', 'rent_room']);
+
+  function buildExpenseFlowItems(cogsTotal, overheadTotal, revenueTotal) {
+    const items = [];
+    if (cogsTotal != null) {
+      items.push({
+        key: 'cogs',
+        label: 'Себестоимость (факт)',
+        amount: cogsTotal,
+        pct: pct(revenueTotal, cogsTotal),
+        group: 'cogs',
+      });
+    }
+    if (overheadTotal != null) {
+      items.push({
+        key: 'overheads',
+        label: 'Накладные затраты',
+        amount: overheadTotal,
+        pct: pct(revenueTotal, overheadTotal),
+        group: 'overhead',
+      });
+    }
+    return items;
+  }
+
   function buildLoc(ws, loc) {
     const revenueTotal = readLoc(ws, 5, loc);
+    const totalExpenses = readLoc(ws, 13, loc);
     const bar = readLoc(ws, 7, loc);
     const kitchen = readLoc(ws, 8, loc);
     const shisha = readLoc(ws, 9, loc);
@@ -134,9 +160,16 @@
         marketing,
         maintenance,
         taxes,
-        items: expenseItems.filter((e) => e.group !== 'cogs'),
+        items: expenseItems.filter((e) => e.group !== 'cogs' && !FLOW_SKIP_KEYS.has(e.key)),
       },
-      expenses: { total: overhead, items: expenseItems },
+      expenses: {
+        total: totalExpenses,
+        cogsTotal,
+        overheadTotal: overhead,
+        items: expenseItems,
+        flowItems: buildExpenseFlowItems(cogsTotal, overhead, revenueTotal),
+        detailItems: expenseItems.filter((e) => !FLOW_SKIP_KEYS.has(e.key)),
+      },
       profit: {
         gross: grossProfit,
         net: netProfit,
@@ -189,7 +222,24 @@
       },
       profit: { net, margin: rev ? net / rev : null },
       analytics: { guests, avgCheck: guests ? rev / guests : null },
-      expenses: { items: sumItems(a.expenses?.items, b.expenses?.items) },
+      cogs: {
+        total: (a.cogs?.total || 0) + (b.cogs?.total || 0),
+      },
+      overheads: {
+        total: (a.overheads?.total || 0) + (b.overheads?.total || 0),
+      },
+      expenses: {
+        total: (a.expenses?.total || 0) + (b.expenses?.total || 0),
+        cogsTotal: (a.cogs?.total || 0) + (b.cogs?.total || 0),
+        overheadTotal: (a.overheads?.total || 0) + (b.overheads?.total || 0),
+        flowItems: buildExpenseFlowItems(
+          (a.cogs?.total || 0) + (b.cogs?.total || 0),
+          (a.overheads?.total || 0) + (b.overheads?.total || 0),
+          rev,
+        ),
+        detailItems: sumItems(a.expenses?.detailItems || a.expenses?.items, b.expenses?.detailItems || b.expenses?.items),
+        items: sumItems(a.expenses?.items, b.expenses?.items),
+      },
     };
   }
 

@@ -64,6 +64,47 @@
     </details>`;
   }
 
+  function ensureExpenseFlow(pnl) {
+    if (!pnl) return;
+    const skip = new Set(['fot_uk', 'fot_acc', 'fot_shift', 'fot_var', 'rent_room']);
+    const fix = (loc) => {
+      if (!loc) return;
+      const rev = loc.revenue?.total;
+      const cogs = loc.cogs?.total ?? loc.expenses?.cogsTotal;
+      const oh = loc.overheads?.total ?? loc.expenses?.overheadTotal;
+      if (!loc.expenses) loc.expenses = {};
+      if (loc.expenses.total == null && cogs != null && oh != null) {
+        loc.expenses.total = cogs + oh;
+      }
+      if (!loc.expenses.flowItems && cogs != null && oh != null) {
+        loc.expenses.flowItems = [
+          { key: 'cogs', label: 'Себестоимость (факт)', amount: cogs, pct: rev ? cogs / rev : null },
+          { key: 'overheads', label: 'Накладные затраты', amount: oh, pct: rev ? oh / rev : null },
+        ];
+      }
+      if (!loc.expenses.detailItems && loc.expenses.items) {
+        loc.expenses.detailItems = loc.expenses.items.filter((it) => !skip.has(it.key));
+      }
+    };
+    fix(pnl.moyka);
+    fix(pnl.akkuartova);
+    if (pnl.total) {
+      if (!pnl.total.expenses) pnl.total.expenses = {};
+      if (pnl.total.expenses.total == null) {
+        pnl.total.expenses.total = (pnl.moyka?.expenses?.total || 0) + (pnl.akkuartova?.expenses?.total || 0);
+      }
+      if (!pnl.total.expenses.flowItems) {
+        const rev = pnl.total.revenue?.total;
+        const cogs = (pnl.moyka?.cogs?.total || 0) + (pnl.akkuartova?.cogs?.total || 0);
+        const oh = (pnl.moyka?.overheads?.total || 0) + (pnl.akkuartova?.overheads?.total || 0);
+        pnl.total.expenses.flowItems = [
+          { key: 'cogs', label: 'Себестоимость (факт)', amount: cogs, pct: rev ? cogs / rev : null },
+          { key: 'overheads', label: 'Накладные затраты', amount: oh, pct: rev ? oh / rev : null },
+        ];
+      }
+    }
+  }
+
   function ensureStockFlow(data) {
     if (!data?.stock?.rows?.length || !data.pnl || !data.meta?.month) return;
     if (!data.stock.columns && data.stock.months) {
@@ -285,10 +326,11 @@
     add(cogs, 'Отклонение факт − ТТК', m.foodcost?.variance, a.foodcost?.variance);
 
     const overhead = mk('Накладные расходы');
+    add(overhead, 'РАСХОДЫ ВСЕГО', m.expenses?.total, a.expenses?.total, { header: true, force: true });
     add(overhead, 'НАКЛАДНЫЕ ЗАТРАТЫ', m.overheads?.total, a.overheads?.total, { header: true, force: true });
     const expenseKeys = [];
     const seen = new Set();
-    [...(m.expenses?.items || []), ...(a.expenses?.items || [])].forEach((it) => {
+    [...(m.expenses?.detailItems || m.expenses?.items || []), ...(a.expenses?.detailItems || a.expenses?.items || [])].forEach((it) => {
       if (it.key === 'cogs' || seen.has(it.key)) return;
       seen.add(it.key);
       expenseKeys.push(it.key);
@@ -349,19 +391,51 @@
   function renderFlowColumn(type, locKey) {
     const loc = locData(locKey);
     if (!loc) return '<p class="msg">—</p>';
-    const items = type === 'income'
-      ? (loc.revenue?.items || [])
-      : (loc.expenses?.items || []);
-    const total = type === 'income' ? loc.revenue?.total : items.reduce((s, i) => s + (i.amount || 0), 0);
-    const maxPct = Math.max(...items.map((i) => (i.pct || 0) * 100), 0.01);
-    return items.map((it) => {
+    if (type === 'income') {
+      const items = loc.revenue?.items || [];
+      const total = loc.revenue?.total;
+      const maxPct = Math.max(...items.map((i) => (i.pct || 0) * 100), 0.01);
+      return items.map((it) => {
+        const w = ((it.pct || 0) * 100 / maxPct * 100).toFixed(1);
+        return `<div class="flow-block ${type}">
+          <div class="flow-block-head"><span class="name">${it.label}</span><span class="pct">${pct(it.pct)}</span></div>
+          <div class="flow-bar-track"><div class="flow-bar-fill" style="width:${w}%"></div></div>
+          <div class="flow-amount">${fmt(it.amount)}</div>
+        </div>`;
+      }).join('') + `<div class="flow-total"><span>Итого</span><span>${fmt(total)}</span></div>`;
+    }
+
+    const mainItems = loc.expenses?.flowItems || [];
+    const detailItems = loc.expenses?.detailItems || loc.overheads?.items || [];
+    const total = loc.expenses?.total;
+    const rev = loc.revenue?.total;
+    const maxPct = Math.max(...mainItems.map((i) => (i.pct || 0) * 100), 0.01);
+
+    const main = mainItems.map((it) => {
       const w = ((it.pct || 0) * 100 / maxPct * 100).toFixed(1);
       return `<div class="flow-block ${type}">
         <div class="flow-block-head"><span class="name">${it.label}</span><span class="pct">${pct(it.pct)}</span></div>
         <div class="flow-bar-track"><div class="flow-bar-fill" style="width:${w}%"></div></div>
         <div class="flow-amount">${fmt(it.amount)}</div>
       </div>`;
-    }).join('') + `<div class="flow-total"><span>Итого</span><span>${fmt(total)}</span></div>`;
+    }).join('');
+
+    const detail = detailItems.length
+      ? subSection('Детализация накладных (без двойного счёта)', (() => {
+        const maxD = Math.max(...detailItems.map((i) => (i.pct || 0) * 100), 0.01);
+        return detailItems.filter((it) => it.key !== 'cogs').map((it) => {
+          const p = it.pct ?? (rev && it.amount != null ? it.amount / rev : null);
+          const w = ((p || 0) * 100 / maxD * 100).toFixed(1);
+          return `<div class="flow-block ${type} flow-block--detail">
+            <div class="flow-block-head"><span class="name">${it.label}</span><span class="pct">${pct(p)}</span></div>
+            <div class="flow-bar-track"><div class="flow-bar-fill" style="width:${w}%"></div></div>
+            <div class="flow-amount">${fmt(it.amount)}</div>
+          </div>`;
+        }).join('');
+      })())
+      : '';
+
+    return main + detail + `<div class="flow-total"><span>Расходы всего (как в ОДР)</span><span>${fmt(total)}</span></div>`;
   }
 
   function flowTabs(id, active) {
@@ -520,6 +594,7 @@
       const rec = data.recommendations || {};
       const details = A.buildKpiDetails(data.pnl, ex, data.writeoffs, data.inventories);
 
+      ensureExpenseFlow(data.pnl);
       ensureStockFlow(data);
 
       const html = [

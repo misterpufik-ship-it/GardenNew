@@ -468,6 +468,10 @@ details.collapsible.nested .collapsible-body {
   color: var(--text);
 }
 
+.flow-block--detail .flow-bar-fill { opacity: 0.75; }
+
+.flow-block--detail .flow-block-head .name { font-size: 0.8rem; }
+
 .stock-flow-table td:first-child {
   color: var(--muted);
   width: 55%;
