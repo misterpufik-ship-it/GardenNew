@@ -337,17 +337,14 @@ img { display: block; max-width: 100%; height: auto; }
 .gallery-slide-item { flex: 0 0 auto; scroll-snap-align: start; }
 .ratio-3-2 { aspect-ratio: 3/2; width: 85%; }
 .ratio-1-1 { aspect-ratio: 1/1; width: 75%; }
+.ratio-vibe { aspect-ratio: 2/3; width: calc(85% * 4 / 9); }
 @media (min-width: 768px) {
     .ratio-1-1 { width: calc(25% - 12px) !important; }
     .ratio-3-2 { width: calc(25% - 12px) !important; }
     #tab-interior .ratio-3-2,
-    #tab-vibe .ratio-3-2,
-    #bf-tab-interior .ratio-3-2,
-    #bf-tab-vibe .ratio-3-2 { width: calc((25% - 12px) * 1.5) !important; }
-}
-@media (max-width: 767px) {
-    #tab-vibe .ratio-3-2,
-    #bf-tab-vibe .ratio-3-2 { width: calc(75% * 1.5) !important; }
+    #bf-tab-interior .ratio-3-2 { width: calc((25% - 12px) * 1.5) !important; }
+    #tab-vibe .ratio-vibe,
+    #bf-tab-vibe .ratio-vibe { width: calc((25% - 12px) * 1.5 * 4 / 9) !important; }
 }
 
 .slider-arrow { width: 44px; height: 44px; border-radius: 50%; background: rgba(0,0,0,0.7); border: 1px solid rgba(197,160,89,0.4); color: var(--gold-main); display: flex; align-items: center; justify-content: center; z-index: 40; }

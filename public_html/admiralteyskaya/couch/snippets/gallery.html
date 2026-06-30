@@ -227,29 +227,18 @@
         }
     }
 
-    #tab-vibe .gallery-slide-item img {
-        filter: grayscale(1);
-    }
-
-    #tab-vibe .gallery-slide-item:hover img {
-        filter: grayscale(0);
-        transform: scale(1.05);
-    }
-    
     .ratio-3-2 { width: 85%; aspect-ratio: 3/2; }
     .ratio-1-1 { width: 75%; aspect-ratio: 1/1; }
+    .ratio-vibe {
+        width: calc(85% * 4 / 9);
+        aspect-ratio: 2 / 3;
+    }
 
     @media (min-width: 768px) {
         .ratio-1-1 { width: calc(25% - 12px); }
         .ratio-3-2 { width: calc(25% - 12px); }
-        #tab-interior .ratio-3-2,
-        #tab-vibe .ratio-3-2 { width: calc((25% - 12px) * 1.5); }
-    }
-
-    @media (max-width: 767px) {
-        #tab-vibe .ratio-3-2 {
-            width: calc(75% * 1.5);
-        }
+        #tab-interior .ratio-3-2 { width: calc((25% - 12px) * 1.5); }
+        #tab-vibe .ratio-vibe { width: calc((25% - 12px) * 1.5 * 4 / 9); }
     }
 
     .slider-relative-box { position: relative; width: 100%; }
@@ -489,7 +478,7 @@
                         <div id="slider-vibe" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                             <cms:show_repeatable 'gallery_vibe_items'>
                                 <cms:if gallery_img>
-                                    <div class="gallery-slide-item ratio-3-2" onclick="openWidgetModal(this)">
+                                    <div class="gallery-slide-item ratio-vibe" onclick="openWidgetModal(this)">
                                         <img src="<cms:show gallery_img />"
                                              loading="lazy"
                                              decoding="async"
