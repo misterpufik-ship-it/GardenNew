@@ -205,18 +205,18 @@ require_once $garden_cms;
         <cms:editable name='note_after_ru_en' label='Примечание EN' type='textarea' height='30' />
     </cms:repeatable>
 
-    <cms:editable name='grp_promo' label='Вкладка: Акции' type='group' order='8' collapsed='1' />
-    <cms:editable name='promo_title' type='text' group='grp_promo'>Привилегии Garden Lounge</cms:editable>
-    <cms:editable name='promo_title_en' type='text' group='grp_promo'>Garden Lounge Privileges</cms:editable>
-    <cms:editable name='promo_subtitle' type='text' group='grp_promo'>Специальные предложения</cms:editable>
-    <cms:editable name='promo_subtitle_en' type='text' group='grp_promo'>Special Offers</cms:editable>
-    <cms:editable name='promo_footer' type='text' group='grp_promo'>Идеальное место для ценителей прекрасного.</cms:editable>
-    <cms:editable name='promo_footer_en' type='text' group='grp_promo'>Ideal place for connoisseurs.</cms:editable>
+    <cms:editable name='grp_promo' label='Акции (English menu)' type='group' order='8' collapsed='1' />
+    <cms:editable name='promo_title' type='text' group='grp_promo' label='Заголовок RU (fallback EN)'>Привилегии Garden Lounge</cms:editable>
+    <cms:editable name='promo_title_en' type='text' group='grp_promo' label='Заголовок EN'>Garden Lounge Privileges</cms:editable>
+    <cms:editable name='promo_subtitle' type='text' group='grp_promo' label='Подзаголовок RU (fallback EN)'>Специальные предложения</cms:editable>
+    <cms:editable name='promo_subtitle_en' type='text' group='grp_promo' label='Подзаголовок EN'>Special Offers</cms:editable>
+    <cms:editable name='promo_footer' type='text' group='grp_promo' label='Подвал RU (fallback EN)'>Идеальное место для ценителей прекрасного.</cms:editable>
+    <cms:editable name='promo_footer_en' type='text' group='grp_promo' label='Подвал EN'>Ideal place for connoisseurs.</cms:editable>
 
-    <cms:repeatable name='list_promos_v2' label='Список акций' group='grp_promo'>
-        <cms:editable name='p_title' type='text' /> <cms:editable name='p_title_en' type='text' />
-        <cms:editable name='p_desc' type='textarea' /> <cms:editable name='p_desc_en' type='textarea' />
-        <cms:editable name='p_tag' type='text' /> <cms:editable name='p_tag_en' type='text' />
+    <cms:repeatable name='list_promos_v2' label='Список акций (English menu)' group='grp_promo'>
+        <cms:editable name='p_title' type='text' label='Название RU (fallback EN)' /> <cms:editable name='p_title_en' type='text' label='Название EN' />
+        <cms:editable name='p_desc' type='textarea' label='Описание RU (fallback EN)' /> <cms:editable name='p_desc_en' type='textarea' label='Описание EN' />
+        <cms:editable name='p_tag' type='text' label='Тег RU (fallback EN)' /> <cms:editable name='p_tag_en' type='text' label='Тег EN' />
     </cms:repeatable>
 
 </cms:template>
@@ -494,42 +494,9 @@ require_once $garden_cms;
         <div class="taplink-block-wrapper">
             <div class="film-grain"></div>
             <div class="content-limiter">
-                <header class="text-center mb-12">
-                    <h1 class="font-serif-lux text-3xl text-white font-light italic m-0">
-                        <cms:show promo_title />
-                    </h1>
-                    <div class="gold-line-fade"></div>
-                    <p class="text-[12px] uppercase tracking-[0.4em] shimmer-gold font-medium m-0">
-                        <cms:show promo_subtitle />
-                    </p>
-                </header>
-
-                <div class="space-y-3">
-                    <cms:show_repeatable 'list_promos_v2'>
-                        <div class="promo-card">
-                            <h2 class="font-serif-lux text-2xl text-white italic mb-1">
-                                <cms:show p_title />
-                            </h2>
-                            <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3 tracking-wide">
-                                <cms:show p_desc />
-                            </p>
-                            <div class="w-6 h-px bg-[#C5A059]/30 mx-auto mb-3"></div>
-                            <p class="text-[9px] uppercase tracking-[0.2em] shimmer-gold font-medium">
-                                <cms:show p_tag />
-                            </p>
-                        </div>
-                    </cms:show_repeatable>
-                </div>
-
-                <footer class="mt-8 text-center">
-                    <p class="text-[10px] uppercase tracking-[0.3em] font-medium m-0 italic shimmer-gold">
-                        <cms:show promo_footer />
-                    </p>
-                </footer>
-
-                <div style="margin-top: 40px; text-align: center; opacity: 0.7;">
-                    <img src="https://garden-lounge.pro/img/div.png" alt="Separator" style="max-width:280px; margin:0 auto;">
-                </div>
+                <cms:pages masterpage='udelnaya/akzii.php' limit='1'>
+                    <cms:embed 'promos-menu-block.html' />
+                </cms:pages>
             </div>
         </div>
     </div>

@@ -38,18 +38,8 @@ require_once $garden_cms;
     <cms:editable name='modal_site_url' label='Ссылка на сайт филиала' group='grp_modal' type='text'>https://garden-lounge.pro/admiralteyskaya/</cms:editable>
     <cms:editable name='modal_site_label' label='Текст кнопки' group='grp_modal' type='text'>Войти в оазис</cms:editable>
 
-    <cms:editable name='grp_gallery' label='Слайдер (Interior / Vibe)' type='group' order='3' />
-    <cms:editable name='sticker_grp_interior' label='Interior — интерьер' type='group' collapsed='1' group='grp_gallery' order='10' />
-    <cms:repeatable name='modal_interior_items' label='Фото интерьера' group='sticker_grp_interior'>
-        <cms:editable name='slide_image' label='Фото' type='image' show_preview='1' preview_width='160' />
-        <cms:editable name='slide_caption' label='Подпись (alt)' type='text' />
-    </cms:repeatable>
-
-    <cms:editable name='sticker_grp_vibe' label='Vibe — атмосфера' type='group' collapsed='1' group='grp_gallery' order='20' />
-    <cms:repeatable name='modal_vibe_items' label='Фото атмосферы' group='sticker_grp_vibe'>
-        <cms:editable name='slide_image' label='Фото' type='image' show_preview='1' preview_width='160' />
-        <cms:editable name='slide_caption' label='Подпись (alt)' type='text' />
-    </cms:repeatable>
+    <cms:editable name='grp_gallery' label='Слайдер (из Галереи другого филиала)' type='group' order='3' />
+    <cms:editable name='sticker_gallery_note' label='Источник фото' group='grp_gallery' type='textarea' hidden='1'>Слайдер подтягивается автоматически из раздела «Галерея» филиала Адмиралтейская.</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

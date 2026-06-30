@@ -1,0 +1,50 @@
+<cms:if gallery_tab='interior'>
+    <cms:show_repeatable 'gallery_interior_items'>
+        <cms:if gallery_img>
+            <div class="gallery-slide-item ratio-3-2">
+                <img src="<cms:show gallery_img />"
+                     loading="lazy"
+                     decoding="async"
+                     alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>">
+                <div class="gallery-slide-shade"></div>
+                <div class="gallery-slide-caption">
+                    <h3><cms:show gallery_img_title /></h3>
+                </div>
+            </div>
+        </cms:if>
+    </cms:show_repeatable>
+</cms:if>
+
+<cms:if gallery_tab='menu'>
+    <cms:show_repeatable 'gallery_menu_items'>
+        <cms:if gallery_img>
+            <div class="gallery-slide-item ratio-1-1">
+                <img src="<cms:show gallery_img />"
+                     loading="lazy"
+                     decoding="async"
+                     alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>">
+                <div class="gallery-slide-shade"></div>
+                <div class="gallery-slide-caption">
+                    <h3><cms:show gallery_img_title /></h3>
+                </div>
+            </div>
+        </cms:if>
+    </cms:show_repeatable>
+</cms:if>
+
+<cms:if gallery_tab='vibe'>
+    <cms:show_repeatable 'gallery_vibe_items'>
+        <cms:if gallery_img>
+            <div class="gallery-slide-item ratio-1-1">
+                <img src="<cms:show gallery_img />"
+                     loading="lazy"
+                     decoding="async"
+                     alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>">
+                <div class="gallery-slide-shade"></div>
+                <div class="gallery-slide-caption">
+                    <h3><cms:show gallery_img_title /></h3>
+                </div>
+            </div>
+        </cms:if>
+    </cms:show_repeatable>
+</cms:if>

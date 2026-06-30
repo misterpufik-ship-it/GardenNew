@@ -34,19 +34,18 @@
         border-bottom-color: #C5A059;
     }
 
+    .ratio-1-1 { width: 75%; aspect-ratio: 1/1; }
     .ratio-3-2 { width: calc(75% * 1.5); aspect-ratio: 3/2; }
 
     @media (min-width: 768px) {
+        .ratio-1-1 { width: calc(25% - 12px); }
         #bf-tab-interior .ratio-3-2 { width: calc((25% - 12px) * 1.5); }
     }
-
 </style>
 
-<cms:set bf_img_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/' />
-<cms:set bf_menu_base='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/menu-visual/' />
-<cms:set bf_show_admiral='0' />
+<cms:set bf_gallery_source='udelnaya/gallery.php' />
 <cms:if k_template_name='udelnaya/filial.php'>
-    <cms:set bf_show_admiral='1' />
+    <cms:set bf_gallery_source='gallery.php' />
 </cms:if>
 
 <div class="branch-filial-gallery" data-bf-gallery>
@@ -63,63 +62,10 @@
                 <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-interior', 1)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                 <div id="bf-slider-interior" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
-                    <cms:show_repeatable 'final_gallery_items'>
-                        <cms:if final_gallery_img>
-                            <cms:if final_gallery_category='interior'>
-                                <div class="gallery-slide-item ratio-3-2">
-                                    <img src="<cms:show final_gallery_img />"
-                                         loading="lazy"
-                                         decoding="async"
-                                         alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_gallery_title /></cms:if>">
-                                    <div class="gallery-slide-shade"></div>
-                                    <div class="gallery-slide-caption">
-                                        <h3><cms:show final_gallery_title /></h3>
-                                    </div>
-                                </div>
-                            </cms:if>
-                        </cms:if>
-                    </cms:show_repeatable>
-
-                    <cms:if bf_show_admiral='1'>
-                        <div class="gallery-slide-item ratio-3-2">
-                            <img src="<cms:show bf_img_base />garden-main.webp" alt="Интерьер Garden Lounge на Адмиралтейской" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>Garden Lounge</h3></div>
-                        </div>
-                        <div class="gallery-slide-item ratio-3-2">
-                            <img src="<cms:show bf_img_base />garden.webp" alt="Интерьер лаунж-бара Garden Lounge" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>Вечнозелёный сад</h3></div>
-                        </div>
-                        <div class="gallery-slide-item ratio-3-2">
-                            <img src="<cms:show bf_img_base />garden-2.webp" alt="VIP-зона Garden Lounge на Мойке" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>VIP-зона</h3></div>
-                        </div>
-                        <cms:repeat count='6'>
-                            <div class="gallery-slide-item ratio-3-2">
-                                <img src="<cms:show bf_img_base />ga<cms:show k_count />.webp" alt="Интерьер Garden Lounge Admiralteyskaya" loading="lazy" decoding="async">
-                                <div class="gallery-slide-shade"></div>
-                                <div class="gallery-slide-caption"><h3>Interior <cms:show k_count /></h3></div>
-                            </div>
-                        </cms:repeat>
-                    <cms:else />
-                        <div class="gallery-slide-item ratio-3-2">
-                            <img src="<cms:show bf_img_base />kalyannaya-garden-lounge-udelnaya-interer-spb.webp" alt="Интерьер Garden Lounge на Удельной" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>Вечнозелёный сад</h3></div>
-                        </div>
-                        <div class="gallery-slide-item ratio-3-2">
-                            <img src="<cms:show bf_img_base />garden.webp" alt="Интерьер лаунж-бара Garden Lounge Удельная" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>Интерьер лаунжа</h3></div>
-                        </div>
-                        <div class="gallery-slide-item ratio-3-2">
-                            <img src="<cms:show bf_img_base />safonovleonid_green_65.webp" alt="VIP-зона Garden Lounge на Удельной" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>VIP-зона</h3></div>
-                        </div>
-                    </cms:if>
+                    <cms:pages masterpage="<cms:show bf_gallery_source />" limit='1'>
+                        <cms:set gallery_tab='interior' />
+                        <cms:embed 'gallery-slides-block.html' />
+                    </cms:pages>
                 </div>
             </div>
         </div>
@@ -130,73 +76,10 @@
                 <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-menu', 1)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                 <div id="bf-slider-menu" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
-                    <cms:show_repeatable 'final_gallery_items'>
-                        <cms:if final_gallery_img>
-                            <cms:if final_gallery_category='menu'>
-                                <div class="gallery-slide-item ratio-1-1">
-                                    <img src="<cms:show final_gallery_img />"
-                                         loading="lazy"
-                                         decoding="async"
-                                         alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_gallery_title /></cms:if>">
-                                    <div class="gallery-slide-shade"></div>
-                                    <div class="gallery-slide-caption">
-                                        <h3><cms:show final_gallery_title /></h3>
-                                    </div>
-                                </div>
-                            </cms:if>
-                        </cms:if>
-                    </cms:show_repeatable>
-
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />summer-spritz.webp" alt="Summer Spritz — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Summer Spritz</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />opalennyi-roll-s-lososem-tuntsom-i-grebeshkom.webp" alt="Опаленный ролл с лососем, тунцом и гребешком" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Опаленный ролл</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />chizkeik-matcha.webp" alt="Чизкейк Матча — десерт Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Чизкейк Матча</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />elder-bloom.webp" alt="Elder Bloom — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Elder Bloom</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />ramen-katsu.webp" alt="Рамен Кацу — горячее блюдо Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Рамен Кацу</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />aperol-spritz.webp" alt="Aperol Spritz — коктейль Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Aperol Spritz</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />poke-s-lososem.webp" alt="Поке с лососем — блюдо кухни Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Поке с лососем</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />fruktovyi-roll.webp" alt="Фруктовый ролл — десерт Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Фруктовый ролл</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />cherry-smoke.webp" alt="Cherry Smoke — авторский коктейль Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Cherry Smoke</h3></div>
-                    </div>
-                    <div class="gallery-slide-item ratio-1-1">
-                        <img src="<cms:show bf_menu_base />tom-iam-s-moreproduktami.webp" alt="Том Ям с морепродуктами — блюдо кухни Garden Lounge" loading="lazy" decoding="async">
-                        <div class="gallery-slide-shade"></div>
-                        <div class="gallery-slide-caption"><h3>Том Ям</h3></div>
-                    </div>
+                    <cms:pages masterpage="<cms:show bf_gallery_source />" limit='1'>
+                        <cms:set gallery_tab='menu' />
+                        <cms:embed 'gallery-slides-block.html' />
+                    </cms:pages>
                 </div>
             </div>
         </div>
@@ -207,43 +90,10 @@
                 <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-vibe', 1)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                 <div id="bf-slider-vibe" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
-                    <cms:show_repeatable 'final_gallery_items'>
-                        <cms:if final_gallery_img>
-                            <cms:if final_gallery_category='vibe'>
-                                <div class="gallery-slide-item ratio-1-1">
-                                    <img src="<cms:show final_gallery_img />"
-                                         loading="lazy"
-                                         decoding="async"
-                                         alt="<cms:if final_gallery_alt><cms:show final_gallery_alt /><cms:else /><cms:show final_gallery_title /></cms:if>">
-                                    <div class="gallery-slide-shade"></div>
-                                    <div class="gallery-slide-caption">
-                                        <h3><cms:show final_gallery_title /></h3>
-                                    </div>
-                                </div>
-                            </cms:if>
-                        </cms:if>
-                    </cms:show_repeatable>
-
-                    <cms:if bf_show_admiral='1'>
-                        <cms:repeat count='6'>
-                            <div class="gallery-slide-item ratio-1-1">
-                                <img src="<cms:show bf_img_base />gf<cms:show k_count />.webp" alt="Атмосфера Garden Lounge Admiralteyskaya" loading="lazy" decoding="async">
-                                <div class="gallery-slide-shade"></div>
-                                <div class="gallery-slide-caption"><h3>Vibe <cms:show k_count /></h3></div>
-                            </div>
-                        </cms:repeat>
-                    <cms:else />
-                        <div class="gallery-slide-item ratio-1-1">
-                            <img src="<cms:show bf_img_base />safonovleonid_green_65.webp" alt="Атмосфера Garden Lounge на Удельной" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>Atmosphere</h3></div>
-                        </div>
-                        <div class="gallery-slide-item ratio-1-1">
-                            <img src="<cms:show bf_img_base />garden.webp" alt="Вечер в Garden Lounge Удельная" loading="lazy" decoding="async">
-                            <div class="gallery-slide-shade"></div>
-                            <div class="gallery-slide-caption"><h3>Evening Vibe</h3></div>
-                        </div>
-                    </cms:if>
+                    <cms:pages masterpage="<cms:show bf_gallery_source />" limit='1'>
+                        <cms:set gallery_tab='vibe' />
+                        <cms:embed 'gallery-slides-block.html' />
+                    </cms:pages>
                 </div>
             </div>
         </div>

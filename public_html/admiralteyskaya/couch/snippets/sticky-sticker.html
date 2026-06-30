@@ -142,23 +142,13 @@
                     <div class="bss-slider-box">
                         <button type="button" class="bss-nav bss-prev" onclick="branchStickerSlide('bss-track-interior', -1)" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
                         <div class="bss-track" id="bss-track-interior">
-                            <cms:set bss_interior_empty='1' scope='global' />
-                            <cms:show_repeatable 'modal_interior_items'>
-                                <cms:if slide_image>
-                                    <cms:set bss_interior_empty='0' scope='global' />
-                                    <div class="bss-slide"><img src="<cms:show slide_image />" alt="<cms:show slide_caption />" loading="lazy"></div>
-                                </cms:if>
-                            </cms:show_repeatable>
-                            <cms:if bss_interior_empty='1'>
-                                <cms:pages masterpage="<cms:show bss_gallery_fallback />" limit='1'>
-                                    <cms:show_repeatable 'gallery_interior_items'>
-                                        <cms:if gallery_img>
-                                            <cms:set bss_interior_empty='0' scope='global' />
-                                            <div class="bss-slide"><img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" loading="lazy"></div>
-                                        </cms:if>
-                                    </cms:show_repeatable>
-                                </cms:pages>
-                            </cms:if>
+                            <cms:pages masterpage="<cms:show bss_gallery_fallback />" limit='1'>
+                                <cms:show_repeatable 'gallery_interior_items'>
+                                    <cms:if gallery_img>
+                                        <div class="bss-slide"><img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" loading="lazy"></div>
+                                    </cms:if>
+                                </cms:show_repeatable>
+                            </cms:pages>
                         </div>
                         <button type="button" class="bss-nav bss-next" onclick="branchStickerSlide('bss-track-interior', 1)" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
@@ -168,23 +158,13 @@
                     <div class="bss-slider-box">
                         <button type="button" class="bss-nav bss-prev" onclick="branchStickerSlide('bss-track-vibe', -1)" aria-label="Назад"><i class="fa-solid fa-chevron-left"></i></button>
                         <div class="bss-track" id="bss-track-vibe">
-                            <cms:set bss_vibe_empty='1' scope='global' />
-                            <cms:show_repeatable 'modal_vibe_items'>
-                                <cms:if slide_image>
-                                    <cms:set bss_vibe_empty='0' scope='global' />
-                                    <div class="bss-slide"><img src="<cms:show slide_image />" alt="<cms:show slide_caption />" loading="lazy"></div>
-                                </cms:if>
-                            </cms:show_repeatable>
-                            <cms:if bss_vibe_empty='1'>
-                                <cms:pages masterpage="<cms:show bss_gallery_fallback />" limit='1'>
-                                    <cms:show_repeatable 'gallery_vibe_items'>
-                                        <cms:if gallery_img>
-                                            <cms:set bss_vibe_empty='0' scope='global' />
-                                            <div class="bss-slide"><img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" loading="lazy"></div>
-                                        </cms:if>
-                                    </cms:show_repeatable>
-                                </cms:pages>
-                            </cms:if>
+                            <cms:pages masterpage="<cms:show bss_gallery_fallback />" limit='1'>
+                                <cms:show_repeatable 'gallery_vibe_items'>
+                                    <cms:if gallery_img>
+                                        <div class="bss-slide"><img src="<cms:show gallery_img />" alt="<cms:if gallery_img_alt><cms:show gallery_img_alt /><cms:else /><cms:show gallery_img_title /></cms:if>" loading="lazy"></div>
+                                    </cms:if>
+                                </cms:show_repeatable>
+                            </cms:pages>
                         </div>
                         <button type="button" class="bss-nav bss-next" onclick="branchStickerSlide('bss-track-vibe', 1)" aria-label="Вперёд"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>

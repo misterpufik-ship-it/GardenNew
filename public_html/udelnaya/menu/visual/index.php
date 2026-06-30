@@ -191,25 +191,12 @@ require_once $garden_cms;
     <main class="main-wrapper flex flex-col items-center pb-20">
         <div class="menu-grid" id="menu-items"></div>
 
-        <cms:pages masterpage='udelnaya/menu/text/index.php' limit='1'> 
+        <cms:pages masterpage='udelnaya/akzii.php' limit='1'>
         <div id="promos-container" style="display: none; width: 100%; position: relative;">
             <div class="film-grain"></div>
             <div class="max-w-[600px] mx-auto px-5 relative z-10">
-                <header class="text-center mb-10">
-                    <h1 class="font-serif-lux text-3xl text-white font-light italic m-0"><cms:show promo_title /></h1>
-                    <div class="gold-line-fade"></div>
-                    <p class="text-[12px] uppercase tracking-[0.4em] subtitle-gold font-medium m-0"><cms:show promo_subtitle /></p>
-                </header>
-
-                <div class="space-y-4">
-                    <cms:show_repeatable 'list_promos_v2'>
-                        <div class="promo-card">
-                            <h2 class="font-serif-lux text-2xl text-white italic mb-1"><cms:show p_title /></h2>
-                            <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3"><cms:show p_desc /></p>
-                            <p class="text-[9px] uppercase tracking-[0.2em] subtitle-gold font-medium"><cms:show p_tag /></p>
-                        </div>
-                    </cms:show_repeatable>
-                </div>
+                <cms:set promos_variant='visual' />
+                <cms:embed 'promos-menu-block.html' />
             </div>
         </div>
         </cms:pages>
