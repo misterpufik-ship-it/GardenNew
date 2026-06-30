@@ -13,25 +13,21 @@
   let DATA = null;
   let charts = [];
   let activeKpi = null;
-  let structureView = 'branches';
+  let structureMetric = 'revenue';
   let incomeLoc = 'total';
   let expenseLoc = 'total';
-  let enabledDatasets = {};
 
-  const DATASETS = {
-    branches: [
-      { id: 'revenue', label: 'Выручка', color: '#C5A059', default: true },
-      { id: 'profit', label: 'Чистая прибыль', color: '#81c784', default: true },
-      { id: 'ttk', label: 'Фудкост по ТТК', color: '#5a7a9a', default: true },
-      { id: 'actual', label: 'Фудкост факт', color: '#a05252', default: true },
-    ],
-    categories: [
-      { id: 'rev_m', label: 'Выручка Мойка', color: '#C5A059', default: true },
-      { id: 'rev_a', label: 'Выручка Аккуратова', color: '#8e7037', default: true },
-      { id: 'ttk', label: 'ТТК (сумма)', color: '#5a7a9a', default: true },
-      { id: 'actual', label: 'Факт (сумма)', color: '#a05252', default: true },
-    ],
-  };
+  const DIVISIONS = [
+    { key: 'bar', label: 'Бар', color: '#C5A059' },
+    { key: 'kitchen', label: 'Кухня', color: '#c49a6a' },
+    { key: 'shisha', label: 'Кальяны', color: '#8e7037' },
+  ];
+
+  const STRUCTURE_METRICS = [
+    { id: 'revenue', label: 'Выручка' },
+    { id: 'ttk', label: 'Расход по ТТК' },
+    { id: 'actual', label: 'Факт COGS' },
+  ];
 
   function fmt(n) { return A.fmtMoney(n); }
   function pct(n) { return A.fmtPct(n); }
@@ -59,6 +55,42 @@
       <summary>${title}</summary>
       <div class="collapsible-body">${body}</div>
     </details>`;
+  }
+
+  function subSection(title, body, open) {
+    return `<details class="collapsible nested"${open ? ' open' : ''}>
+      <summary>${title}</summary>
+      <div class="collapsible-body">${body}</div>
+    </details>`;
+  }
+
+  function ensureStockFlow(data) {
+    if (!data?.stock?.rows?.length || !data.pnl || !data.meta?.month) return;
+    if (!data.stock.columns && data.stock.months) {
+      data.stock.columns = data.stock.months.map((label, i) => ({
+        col: i + 2,
+        label,
+        date: A.parseStockDateLabel(label),
+      }));
+    }
+    if (data.stock.rows) {
+      data.stock.rows.forEach((row) => {
+        if (!row.balances && row.values && data.stock.columns) {
+          row.balances = data.stock.columns.map((c, i) => ({ ...c, value: row.values[i] ?? null }));
+        }
+        if (!row.branch || !row.division) {
+          const meta = A.parseStockRowMeta(row.name);
+          row.branch = row.branch || meta.branch;
+          row.division = row.division || meta.division;
+        }
+      });
+    }
+    if (!data.stock.flow && data.stock.columns) {
+      const flow = A.buildStockFlow(data.stock.rows, data.stock.columns, data.meta.month);
+      data.stock.flow = A.enrichStockFlow(flow, data.pnl);
+    } else if (data.stock.flow && !data.stock.flow.lines?.[0]?.ttk) {
+      data.stock.flow = A.enrichStockFlow(data.stock.flow, data.pnl);
+    }
   }
 
   function locData(loc) {
@@ -223,35 +255,37 @@
       <div class="kpi-detail hidden" id="kpiDetail"></div>`;
   }
 
-  function buildPnlRows(pnl) {
+  function buildPnlSections(pnl) {
     const m = pnl.moyka || {};
     const a = pnl.akkuartova || {};
-    const rows = [];
-    const add = (label, vm, va, opts = {}) => {
+    const mk = (title, open) => ({ title, open: !!open, rows: [] });
+    const add = (sec, label, vm, va, opts = {}) => {
       if (!opts.force && vm == null && va == null) return;
-      rows.push({ label, vm, va, ...opts });
+      sec.rows.push({ label, vm, va, ...opts });
     };
 
-    add('ДОХОДЫ ВСЕГО', m.revenue?.total, a.revenue?.total, { header: true, force: true });
-    add('Бар', m.revenue?.bar, a.revenue?.bar);
-    add('Кухня', m.revenue?.kitchen, a.revenue?.kitchen);
-    add('Кальяны', m.revenue?.shisha, a.revenue?.shisha);
-    add('Банкеты', m.revenue?.banquets, a.revenue?.banquets);
-    add('Прочее', m.revenue?.other, a.revenue?.other);
+    const income = mk('Доходы', true);
+    add(income, 'ДОХОДЫ ВСЕГО', m.revenue?.total, a.revenue?.total, { header: true, force: true });
+    add(income, 'Бар', m.revenue?.bar, a.revenue?.bar);
+    add(income, 'Кухня', m.revenue?.kitchen, a.revenue?.kitchen);
+    add(income, 'Кальяны', m.revenue?.shisha, a.revenue?.shisha);
+    add(income, 'Банкеты', m.revenue?.banquets, a.revenue?.banquets);
+    add(income, 'Прочее', m.revenue?.other, a.revenue?.other);
 
-    add('СЕБЕСТОИМОСТЬ (факт)', m.cogs?.total, a.cogs?.total, { header: true, force: true });
-    add('  Себест. бар', m.cogs?.bar, a.cogs?.bar);
-    add('  Себест. кухня', m.cogs?.kitchen, a.cogs?.kitchen);
-    add('  Себест. кальяны', m.cogs?.shisha, a.cogs?.shisha);
-    add('Факт себест., %', m.cogs?.pct, a.cogs?.pct, { isMargin: true });
-    add('ПО ТТК', m.foodcost?.ttk?.total, a.foodcost?.ttk?.total, { header: true });
-    add('  ТТК бар', m.foodcost?.ttk?.bar, a.foodcost?.ttk?.bar);
-    add('  ТТК кухня', m.foodcost?.ttk?.kitchen, a.foodcost?.ttk?.kitchen);
-    add('  ТТК кальяны', m.foodcost?.ttk?.shisha, a.foodcost?.ttk?.shisha);
-    add('Отклонение факт − ТТК', m.foodcost?.variance, a.foodcost?.variance);
+    const cogs = mk('Себестоимость и ТТК');
+    add(cogs, 'СЕБЕСТОИМОСТЬ (факт)', m.cogs?.total, a.cogs?.total, { header: true, force: true });
+    add(cogs, '  Себест. бар', m.cogs?.bar, a.cogs?.bar);
+    add(cogs, '  Себест. кухня', m.cogs?.kitchen, a.cogs?.kitchen);
+    add(cogs, '  Себест. кальяны', m.cogs?.shisha, a.cogs?.shisha);
+    add(cogs, 'Факт себест., %', m.cogs?.pct, a.cogs?.pct, { isMargin: true });
+    add(cogs, 'ПО ТТК', m.foodcost?.ttk?.total, a.foodcost?.ttk?.total, { header: true });
+    add(cogs, '  ТТК бар', m.foodcost?.ttk?.bar, a.foodcost?.ttk?.bar);
+    add(cogs, '  ТТК кухня', m.foodcost?.ttk?.kitchen, a.foodcost?.ttk?.kitchen);
+    add(cogs, '  ТТК кальяны', m.foodcost?.ttk?.shisha, a.foodcost?.ttk?.shisha);
+    add(cogs, 'Отклонение факт − ТТК', m.foodcost?.variance, a.foodcost?.variance);
 
-    add('НАКЛАДНЫЕ ЗАТРАТЫ', m.overheads?.total, a.overheads?.total, { header: true, force: true });
-
+    const overhead = mk('Накладные расходы');
+    add(overhead, 'НАКЛАДНЫЕ ЗАТРАТЫ', m.overheads?.total, a.overheads?.total, { header: true, force: true });
     const expenseKeys = [];
     const seen = new Set();
     [...(m.expenses?.items || []), ...(a.expenses?.items || [])].forEach((it) => {
@@ -262,16 +296,17 @@
     expenseKeys.forEach((key) => {
       const lm = m.expenses?.items?.find((i) => i.key === key);
       const la = a.expenses?.items?.find((i) => i.key === key);
-      add(lm?.label || la?.label || key, lm?.amount, la?.amount);
+      add(overhead, lm?.label || la?.label || key, lm?.amount, la?.amount);
     });
 
-    add('Валовая прибыль', m.profit?.gross, a.profit?.gross, { header: true });
-    add('Чистая прибыль', m.profit?.net, a.profit?.net, { header: true, force: true });
-    add('Маржа', m.profit?.margin, a.profit?.margin, { isMargin: true, force: true });
-    add('Гости', m.analytics?.guests, a.analytics?.guests, { isGuests: true, force: true });
-    add('Средний чек', m.analytics?.avgCheck, a.analytics?.avgCheck);
+    const profit = mk('Прибыль и гости');
+    add(profit, 'Валовая прибыль', m.profit?.gross, a.profit?.gross, { header: true });
+    add(profit, 'Чистая прибыль', m.profit?.net, a.profit?.net, { header: true, force: true });
+    add(profit, 'Маржа', m.profit?.margin, a.profit?.margin, { isMargin: true, force: true });
+    add(profit, 'Гости', m.analytics?.guests, a.analytics?.guests, { isGuests: true, force: true });
+    add(profit, 'Средний чек', m.analytics?.avgCheck, a.analytics?.avgCheck);
 
-    return rows;
+    return [income, cogs, overhead, profit];
   }
 
   function pnlCell(val, row) {
@@ -286,9 +321,7 @@
     return '—';
   }
 
-  function renderPnlTable(pnl) {
-    if (!pnl) return '<p class="msg">Нет данных ОДР</p>';
-    const rows = buildPnlRows(pnl);
+  function renderPnlRowsTable(rows, pnl) {
     const revM = pnl.moyka?.revenue?.total;
     const revA = pnl.akkuartova?.revenue?.total;
     return `<div class="wrap"><table class="data-table pnl-table">
@@ -304,6 +337,13 @@
           <td>${pnlCell(r.va, r)}</td><td class="pnl-pct">${pnlPctCell(revA, r.va, r)}</td>
         </tr>`).join('')}
       </tbody></table></div>`;
+  }
+
+  function renderPnlTable(pnl) {
+    if (!pnl) return '<p class="msg">Нет данных ОДР</p>';
+    return buildPnlSections(pnl).map((sec) =>
+      subSection(sec.title, renderPnlRowsTable(sec.rows, pnl), sec.open)
+    ).join('');
   }
 
   function renderFlowColumn(type, locKey) {
@@ -366,14 +406,102 @@
       <h3 class="section-gap">План на 30 дней</h3><ul class="bullet-list">${(rec.action30 || []).map((t) => `<li>${t}</li>`).join('') || '<li>—</li>'}</ul>`;
   }
 
+  function renderInvSheet(inv) {
+    const top = inv.topAbs || [];
+    if (!top.length && !inv.totals?.surplusSum && !inv.totals?.shortageSum) {
+      return `<p class="msg">Нет расхождений по позициям · лист «${inv.sheet}»</p>`;
+    }
+    return `<p class="inv-totals">Позиций: <strong>${inv.itemCount || top.length}</strong> · Излишки: ${fmt(inv.totals?.surplusSum)} · Недостача: ${fmt(inv.totals?.shortageSum)} · Абс.: ${fmt(inv.absoluteVariance)}</p>
+      <table class="data-table compact"><thead><tr><th>Позиция</th><th>Факт</th><th>Излишек</th><th>Недостача</th></tr></thead><tbody>
+        ${top.slice(0, 15).map((i) => `<tr><td>${i.name}</td><td>${fmt(i.factSum)}</td><td>${fmt(i.surplus)}</td><td>${fmt(i.shortage)}</td></tr>`).join('')}
+      </tbody></table>`;
+  }
+
   function renderInventory(invs) {
-    if (!invs?.length) return '<p class="msg">—</p>';
-    return invs.map((inv) => `
-      <h3>${inv.sheet} · ${inv.location}</h3>
-      <p>Излишки: ${fmt(inv.totals?.surplusSum)} · Недостача: ${fmt(inv.totals?.shortageSum)} · Абс.: ${fmt(inv.absoluteVariance)}</p>
-      <table class="data-table compact"><thead><tr><th>Позиция</th><th>Излишек</th><th>Недостача</th></tr></thead><tbody>
-        ${inv.topAbs.slice(0, 10).map((i) => `<tr><td>${i.name}</td><td>${fmt(i.surplus)}</td><td>${fmt(i.shortage)}</td></tr>`).join('')}
-      </tbody></table>`).join('');
+    if (!invs?.length) return '<p class="msg">Нет листов инвентаризации — нажмите «Анализировать»</p>';
+
+    const branches = [
+      { key: 'moyka', label: 'Адмиралтейская · Мойка', loc: 'Мойка' },
+      { key: 'akku', label: 'Удельная · Аккуратова', loc: 'Аккуратова' },
+    ];
+    const divOrder = [
+      { key: 'bar', label: 'Бар' },
+      { key: 'kitchen', label: 'Кухня' },
+      { key: 'shisha', label: 'Кальяны (КМ)' },
+    ];
+
+    return branches.map((br) => {
+      const sheets = divOrder.map((div) => {
+        const inv = invs.find((i) => i.location === br.loc && (i.division === div.key || i.category === div.label || (div.key === 'shisha' && /кальян|км/i.test(i.sheet))));
+        if (!inv) return subSection(div.label, '<p class="msg">Лист не найден в файле</p>');
+        return subSection(`${div.label} · ${inv.sheet}`, renderInvSheet(inv));
+      }).join('');
+      return subSection(br.label, sheets, true);
+    }).join('');
+  }
+
+  function renderWriteoffsSection() {
+    return [
+      subSection('Общие списания', '<div class="chart-box"><canvas id="chartWriteoffsTotal"></canvas></div>', true),
+      subSection('Мойка · Адмиралтейская', '<div class="chart-box"><canvas id="chartWriteoffsMoyka"></canvas></div>'),
+      subSection('Удельная · Аккуратова', '<div class="chart-box"><canvas id="chartWriteoffsAkku"></canvas></div>'),
+    ].join('');
+  }
+
+  function renderStockBalances(stock) {
+    if (!stock?.rows?.length) return '<p class="msg">Лист «Остатки на складах» не найден</p>';
+    const period = stock.flow?.period;
+    const header = period?.openLabel && period?.closeLabel
+      ? `<p class="stock-period">Период: ${period.openLabel} → ${period.closeLabel}</p>` : '';
+    return `${header}<div class="wrap"><table class="data-table compact">
+      <thead><tr><th>Склад</th>${(stock.columns || []).map((c) => `<th>${c.label.replace('На ', '').replace(', руб', '')}</th>`).join('')}</tr></thead>
+      <tbody>${stock.rows.map((r) => `<tr>
+        <td>${r.name}</td>
+        ${(stock.columns || []).map((c) => {
+          const b = r.balances?.find((x) => x.col === c.col);
+          return `<td>${fmt(b?.value)}</td>`;
+        }).join('')}
+      </tr>`).join('')}
+      </tbody></table></div>`;
+  }
+
+  function renderStockFlow(stock) {
+    const flow = stock?.flow;
+    if (!flow?.lines?.length) return '<p class="msg">Нет данных для расчёта движения запасов</p>';
+
+    const branches = [
+      { key: 'moyka', label: 'Адмиралтейская · Мойка' },
+      { key: 'akku', label: 'Удельная · Аккуратова' },
+    ];
+    const divOrder = ['bar', 'kitchen', 'shisha'];
+    const divLabel = { bar: 'Бар', kitchen: 'Кухня', shisha: 'Кальяны' };
+
+    return branches.map((br) => {
+      const blocks = divOrder.map((div) => {
+        const line = flow.lines.find((l) => l.branch === br.key && l.division === div);
+        if (!line) return subSection(divLabel[div], '<p class="msg">—</p>');
+        const body = `<table class="data-table compact stock-flow-table">
+          <tbody>
+            <tr><td>Остаток на начало месяца</td><td>${fmt(line.opening)}</td></tr>
+            <tr><td>Расход по ТТК</td><td>${fmt(line.ttk)}</td></tr>
+            <tr><td>Оценка закупок (конец − начало + ТТК)</td><td>${fmt(line.purchases)}</td></tr>
+            <tr><td>Остаток на конец периода</td><td>${fmt(line.closing)}</td></tr>
+            <tr><td>Факт COGS (ОДР)</td><td>${fmt(line.fact)}</td></tr>
+            <tr><td>Изменение запаса</td><td>${fmt(line.delta)}</td></tr>
+          </tbody>
+        </table>
+        <p class="stock-insight">${line.insight || ''}</p>`;
+        return subSection(divLabel[div], body);
+      }).join('');
+      return subSection(br.label, blocks);
+    }).join('');
+  }
+
+  function renderStockDashboard(stock) {
+    return [
+      subSection('Остатки по месяцам (из листа)', renderStockBalances(stock)),
+      subSection('Движение запасов: начало → ТТК → закупки → конец', renderStockFlow(stock), true),
+    ].join('');
   }
 
   async function renderDashboard(data) {
@@ -392,17 +520,18 @@
       const rec = data.recommendations || {};
       const details = A.buildKpiDetails(data.pnl, ex, data.writeoffs, data.inventories);
 
+      ensureStockFlow(data);
+
       const html = [
         section('Сводка и KPI', renderKpiGrid(ex, comparison, details), true),
         section('Филиалы — выручка и чистая прибыль', renderBranchHero(data.pnl || {})),
-        section('Структура выручки и фудкост', `
+        section('Структура выручки и фудкост (бар / кухня / кальяны)', `
           <div class="chart-toolbar">
-            <div class="view-tabs" id="structureViewTabs">
-              <button type="button" class="view-tab active" data-view="branches">По филиалам</button>
-              <button type="button" class="view-tab" data-view="categories">По категориям</button>
+            <div class="view-tabs" id="structureMetricTabs">
+              ${STRUCTURE_METRICS.map((m) => `<button type="button" class="view-tab${structureMetric === m.id ? ' active' : ''}" data-metric="${m.id}">${m.label}</button>`).join('')}
             </div>
           </div>
-          <div class="dataset-toggles" id="datasetToggles"></div>
+          <p class="chart-hint">Столбец = филиал, внутри — три подразделения: бар, кухня, кальяны</p>
           <div class="chart-box chart-box--tall"><canvas id="chartStructure"></canvas></div>
         `, true),
         section('Доходы и расходы (% от выручки)', `
@@ -418,18 +547,18 @@
             <div><h3>Что хорошо</h3><ul class="bullet-list good">${(data.good || []).map((t) => `<li>${t}</li>`).join('') || '<li>—</li>'}</ul></div>
             <div><h3>Главные проблемы</h3><ul class="bullet-list bad">${(data.problems || []).map((t) => `<li>${t}</li>`).join('') || '<li>—</li>'}</ul></div>
           </div>`),
-        section('Списания', '<div class="chart-box"><canvas id="chartWriteoffs"></canvas></div>'),
+        section('Списания', renderWriteoffsSection()),
+        section('Инвентаризации', renderInventory(data.inventories)),
+        section('Остатки на складах и движение запасов', renderStockDashboard(data.stock)),
         section('Качество данных', renderDataQuality(data.dataQuality)),
         section('Рекомендации', renderRecommendations(rec)),
-        section('Инвентаризации', renderInventory(data.inventories)),
       ].join('');
 
       $('#dashboard').innerHTML = html;
       $('#dashboard').classList.remove('hidden');
       bindDashboardEvents(details);
-      initDatasetToggles();
       renderStructureChart();
-      renderWriteoffsChart(data);
+      renderWriteoffsCharts(data);
     } catch (err) {
       console.error(err);
       $('#dashboard').innerHTML = section('Ошибка', `<p class="msg err">${err.message || err}</p>`, true);
@@ -444,13 +573,12 @@
       card.addEventListener('keydown', (e) => { if (e.key === 'Enter') open(); });
     });
 
-    $('#structureViewTabs')?.addEventListener('click', (e) => {
+    $('#structureMetricTabs')?.addEventListener('click', (e) => {
       const btn = e.target.closest('.view-tab');
       if (!btn) return;
-      $$('#structureViewTabs .view-tab').forEach((b) => b.classList.remove('active'));
+      $$('#structureMetricTabs .view-tab').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
-      structureView = btn.dataset.view;
-      initDatasetToggles();
+      structureMetric = btn.dataset.metric;
       renderStructureChart();
     });
 
@@ -513,36 +641,25 @@
       <div class="kpi-detail-card"><div class="title">Итого</div><div class="big">${totalVal}</div></div></div>`;
   }
 
-  function initDatasetToggles() {
-    const defs = DATASETS[structureView];
-    enabledDatasets = {};
-    defs.forEach((d) => { enabledDatasets[d.id] = d.default; });
-    const el = $('#datasetToggles');
-    if (!el) return;
-    el.innerHTML = defs.map((d) => `
-      <label class="dataset-toggle"><input type="checkbox" data-ds="${d.id}" ${d.default ? 'checked' : ''}>
-      <span style="color:${d.color}">■</span> ${d.label}</label>`).join('');
-    el.querySelectorAll('input').forEach((inp) => {
-      inp.addEventListener('change', () => {
-        enabledDatasets[inp.dataset.ds] = inp.checked;
-        renderStructureChart();
-      });
-    });
-  }
-
-  function chartOpts() {
+  function chartOpts(stacked) {
     return {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
+        legend: { display: stacked, position: 'bottom', labels: { color: '#9c958a', boxWidth: 12 } },
         tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${fmt(ctx.raw)}` } },
       },
       scales: {
-        x: { ticks: { color: '#9c958a' }, grid: { color: 'rgba(197,160,89,0.08)' } },
-        y: { ticks: { color: '#9c958a', callback: (v) => (Math.abs(v) >= 1000 ? (v / 1000).toFixed(0) + 'k' : v) }, grid: { color: 'rgba(197,160,89,0.08)' } },
+        x: { stacked, ticks: { color: '#9c958a' }, grid: { color: 'rgba(197,160,89,0.08)' } },
+        y: { stacked, ticks: { color: '#9c958a', callback: (v) => (Math.abs(v) >= 1000 ? (v / 1000).toFixed(0) + 'k' : v) }, grid: { color: 'rgba(197,160,89,0.08)' } },
       },
     };
+  }
+
+  function metricValue(loc, metric, divKey) {
+    if (metric === 'revenue') return loc.revenue?.[divKey] || 0;
+    if (metric === 'ttk') return loc.foodcost?.ttk?.[divKey] || 0;
+    return loc.cogs?.[divKey] || 0;
   }
 
   function renderStructureChart() {
@@ -551,42 +668,36 @@
     const pnl = DATA?.pnl || {};
     const m = pnl.moyka || {};
     const a = pnl.akkuartova || {};
-    const t = pnl.total || {};
-    const datasets = [];
-
-    if (structureView === 'branches') {
-      const labels = ['Мойка', 'Аккуратова', 'Всего'];
-      const locs = [m, a, t];
-      if (enabledDatasets.revenue) datasets.push({ label: 'Выручка', data: locs.map((l) => l.revenue?.total || 0), backgroundColor: '#C5A059' });
-      if (enabledDatasets.profit) datasets.push({ label: 'Чистая прибыль', data: locs.map((l) => l.profit?.net || 0), backgroundColor: '#81c784' });
-      if (enabledDatasets.ttk) datasets.push({ label: 'Фудкост ТТК', data: locs.map((l) => l.foodcost?.ttk?.total || 0), backgroundColor: '#5a7a9a' });
-      if (enabledDatasets.actual) datasets.push({ label: 'Фудкост факт', data: locs.map((l) => l.foodcost?.actual?.total || l.cogs?.total || 0), backgroundColor: '#a05252' });
-      const canvas = document.getElementById('chartStructure');
-      if (canvas) charts.push(new Chart(canvas, { type: 'bar', data: { labels, datasets }, options: chartOpts() }));
-      return;
-    }
-
-    const labels = ['Бар', 'Кухня', 'Кальяны'];
-    if (enabledDatasets.rev_m) datasets.push({ label: 'Выручка Мойка', data: [m.revenue?.bar, m.revenue?.kitchen, m.revenue?.shisha], backgroundColor: '#C5A059' });
-    if (enabledDatasets.rev_a) datasets.push({ label: 'Выручка Аккуратова', data: [a.revenue?.bar, a.revenue?.kitchen, a.revenue?.shisha], backgroundColor: '#8e7037' });
-    if (enabledDatasets.ttk) datasets.push({ label: 'ТТК', data: [m.foodcost?.ttk?.bar, m.foodcost?.ttk?.kitchen, m.foodcost?.ttk?.shisha].map((v, i) => (v || 0) + [a.foodcost?.ttk?.bar, a.foodcost?.ttk?.kitchen, a.foodcost?.ttk?.shisha][i] || 0), backgroundColor: '#5a7a9a' });
-    if (enabledDatasets.actual) datasets.push({ label: 'Факт', data: [m.cogs?.bar, m.cogs?.kitchen, m.cogs?.shisha].map((v, i) => (v || 0) + [a.cogs?.bar, a.cogs?.kitchen, a.cogs?.shisha][i] || 0), backgroundColor: '#a05252' });
+    const labels = ['Мойка', 'Аккуратова'];
+    const locs = [m, a];
+    const datasets = DIVISIONS.map((div) => ({
+      label: div.label,
+      data: locs.map((loc) => metricValue(loc, structureMetric, div.key)),
+      backgroundColor: div.color,
+      stack: 'divisions',
+    }));
     const canvas = document.getElementById('chartStructure');
-    if (canvas) charts.push(new Chart(canvas, { type: 'bar', data: { labels, datasets }, options: chartOpts() }));
+    if (canvas) charts.push(new Chart(canvas, { type: 'bar', data: { labels, datasets }, options: chartOpts(true) }));
   }
 
-  function renderWriteoffsChart(data) {
-    const wo = data.writeoffs?.byReason?.slice(0, 8) || [];
-    const canvas = document.getElementById('chartWriteoffs');
-    if (!canvas || !wo.length) return;
+  function makeWriteoffChart(canvasId, items, valueKey) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas || !items.length) return;
     charts.push(new Chart(canvas, {
       type: 'bar',
       data: {
-        labels: wo.map((w) => w.reason.slice(0, 28)),
-        datasets: [{ label: 'Списания', data: wo.map((w) => w.total), backgroundColor: '#a05252' }],
+        labels: items.map((w) => w.reason.slice(0, 32)),
+        datasets: [{ label: 'Списания', data: items.map((w) => w[valueKey]), backgroundColor: '#a05252' }],
       },
-      options: { ...chartOpts(), indexAxis: 'y' },
+      options: { ...chartOpts(false), indexAxis: 'y' },
     }));
+  }
+
+  function renderWriteoffsCharts(data) {
+    const wo = data.writeoffs?.byReason || [];
+    makeWriteoffChart('chartWriteoffsTotal', wo.slice(0, 10), 'total');
+    makeWriteoffChart('chartWriteoffsMoyka', wo.filter((w) => w.moyka > 0).slice(0, 10), 'moyka');
+    makeWriteoffChart('chartWriteoffsAkku', wo.filter((w) => w.akku > 0).slice(0, 10), 'akku');
   }
 
   document.addEventListener('DOMContentLoaded', () => {

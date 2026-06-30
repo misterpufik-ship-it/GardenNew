@@ -19,20 +19,21 @@
     if (sheets.dailyAkku) daily.akkuartova = A.parseDailySheet(sheets.dailyAkku, 'Аккуратова');
 
     const writeoffs = sheets.writeoffs ? A.parseWriteoffs(sheets.writeoffs) : null;
-    const stock = sheets.stock ? A.parseStock(sheets.stock) : null;
+    const stock = sheets.stock ? A.parseStock(sheets.stock, meta.month) : null;
+    if (stock?.flow) A.enrichStockFlow(stock.flow, pnl);
     const transfers = sheets.transfers ? A.parseTransfers(sheets.transfers) : null;
 
     const inventories = [];
     const invMap = [
-      ['invBarMoyka', 'Мойка', 'Бар б/а'],
-      ['invBarAkku', 'Аккуратова', 'Бар б/а'],
-      ['invKmMoyka', 'Мойка', 'Кальяны'],
-      ['invKmAkku', 'Аккуратова', 'Кальяны'],
-      ['invKitchenMoyka', 'Мойка', 'Кухня'],
-      ['invKitchenAkku', 'Аккуратова', 'Кухня'],
+      ['invBarMoyka', 'Мойка', 'Бар', 'bar'],
+      ['invBarAkku', 'Аккуратова', 'Бар', 'bar'],
+      ['invKmMoyka', 'Мойка', 'Кальяны', 'shisha'],
+      ['invKmAkku', 'Аккуратова', 'Кальяны', 'shisha'],
+      ['invKitchenMoyka', 'Мойка', 'Кухня', 'kitchen'],
+      ['invKitchenAkku', 'Аккуратова', 'Кухня', 'kitchen'],
     ];
-    invMap.forEach(([key, loc, cat]) => {
-      if (sheets[key]) inventories.push(A.parseInventorySheet(sheets[key], loc, cat));
+    invMap.forEach(([key, loc, cat, div]) => {
+      if (sheets[key]) inventories.push(A.parseInventorySheet(sheets[key], loc, cat, div));
     });
 
     const analysis = {

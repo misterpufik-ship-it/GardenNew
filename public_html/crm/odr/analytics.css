@@ -429,3 +429,46 @@ td.bad { color: var(--red-text); }
 }
 
 .dashboard .collapsible { margin-bottom: 16px; }
+
+details.collapsible.nested {
+  margin-bottom: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+details.collapsible.nested > summary {
+  padding: 10px 14px;
+  font-size: 0.85rem;
+}
+
+details.collapsible.nested .collapsible-body {
+  padding: 0 14px 14px;
+}
+
+.chart-hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.inv-totals, .stock-period {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.stock-insight {
+  margin-top: 12px;
+  padding: 12px;
+  background: rgba(197, 160, 89, 0.06);
+  border-left: 3px solid var(--gold-main);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.stock-flow-table td:first-child {
+  color: var(--muted);
+  width: 55%;
+}
