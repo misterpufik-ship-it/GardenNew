@@ -59,8 +59,8 @@
     <div class="relative w-full">
         <div id="bf-tab-interior" class="bf-category-pane active">
             <div class="slider-relative-box">
-                <button type="button" class="slider-arrow arrow-left" onclick="scrollBfSlider('bf-slider-interior', -300)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-                <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-interior', 300)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                <button type="button" class="slider-arrow arrow-left" onclick="scrollBfSlider('bf-slider-interior', -1)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-interior', 1)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                 <div id="bf-slider-interior" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                     <cms:show_repeatable 'final_gallery_items'>
@@ -126,8 +126,8 @@
 
         <div id="bf-tab-menu" class="bf-category-pane">
             <div class="slider-relative-box">
-                <button type="button" class="slider-arrow arrow-left" onclick="scrollBfSlider('bf-slider-menu', -250)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-                <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-menu', 250)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                <button type="button" class="slider-arrow arrow-left" onclick="scrollBfSlider('bf-slider-menu', -1)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-menu', 1)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                 <div id="bf-slider-menu" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                     <cms:show_repeatable 'final_gallery_items'>
@@ -203,8 +203,8 @@
 
         <div id="bf-tab-vibe" class="bf-category-pane">
             <div class="slider-relative-box">
-                <button type="button" class="slider-arrow arrow-left" onclick="scrollBfSlider('bf-slider-vibe', -300)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-                <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-vibe', 300)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+                <button type="button" class="slider-arrow arrow-left" onclick="scrollBfSlider('bf-slider-vibe', -1)" aria-label="Предыдущее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                <button type="button" class="slider-arrow arrow-right" onclick="scrollBfSlider('bf-slider-vibe', 1)" aria-label="Следующее фото"><svg class="gallery-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 
                 <div id="bf-slider-vibe" class="slider-snap-area gap-3 px-2 pb-6 no-scroll">
                     <cms:show_repeatable 'final_gallery_items'>
@@ -267,9 +267,23 @@
         if (btnElement) btnElement.classList.add('active');
     }
 
-    function scrollBfSlider(sliderId, amount) {
+    function scrollBfSlider(sliderId, direction) {
         var slider = document.getElementById(sliderId);
-        if (slider) slider.scrollBy({ left: amount, behavior: 'smooth' });
+        if (!slider) return;
+        var items = slider.querySelectorAll('.gallery-slide-item');
+        if (!items.length) return;
+
+        var scrollLeft = slider.scrollLeft;
+        var pad = parseFloat(getComputedStyle(slider).scrollPaddingLeft) || 0;
+        var current = 0;
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].offsetLeft <= scrollLeft + 3) current = i;
+        }
+        var targetIndex = Math.max(0, Math.min(items.length - 1, current + direction));
+        slider.scrollTo({
+            left: Math.max(0, items[targetIndex].offsetLeft - pad),
+            behavior: 'smooth'
+        });
     }
 
     window.changeBfTab = changeBfTab;
