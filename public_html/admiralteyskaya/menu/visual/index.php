@@ -147,7 +147,7 @@
 
     <header class="py-8 text-center bg-black">
         <a href="https://garden-lounge.pro/admiralteyskaya/menu">
-            <img src="<cms:if visual_logo><cms:show visual_logo /><cms:else />/admiralteyskaya/couch/uploads/image/logo3.webp</cms:if>" alt="Logo" class="h-28 mx-auto">
+            <img src="<cms:set asset_field='visual_logo' /><cms:set asset_default='/admiralteyskaya/couch/uploads/image/logo3.webp' /><cms:embed 'gl-resolve-asset-src.html' />" alt="Logo" class="h-28 mx-auto">
         </a>
     </header>
 
@@ -175,7 +175,7 @@
         </cms:pages>
 
         <div class="flex justify-center mt-12 mb-6">
-            <img src="<cms:if visual_divider><cms:show visual_divider /><cms:else />/admiralteyskaya/couch/uploads/image/div.webp</cms:if>" class="max-w-[200px] opacity-50">
+            <img src="<cms:set asset_field='visual_divider' /><cms:set asset_default='/admiralteyskaya/couch/uploads/image/div.webp' /><cms:embed 'gl-resolve-asset-src.html' />" class="max-w-[200px] opacity-50" alt="">
         </div>
 
         <div class="action-area">
