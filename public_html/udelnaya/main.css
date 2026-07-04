@@ -383,6 +383,16 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* --- PRIVILEGES (AKZII) --- */
 .promo-card { border: 1px solid rgba(197, 160, 89, 0.2); background: rgba(20, 20, 20, 0.4); padding: 20px; text-align: center; }
+.promo-card .promo-offer,
+#special .promo-offer {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 11px !important;
+    line-height: 1.8 !important;
+    letter-spacing: 0.4em !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    margin: 0 !important;
+}
 
 /* --- RESERVATION FORM --- */
 .gl-input-line { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(197, 160, 89, 0.25); padding: 12px 0; color: #fff; font-weight: 300; outline: none; }
