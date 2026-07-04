@@ -52,6 +52,24 @@ function gl_fetch_one($db, $sql)
     return $res ? $res->fetch_assoc() : null;
 }
 
+function gl_get_field_value($db, $dataText, $pageId, $fieldId)
+{
+    $row = gl_fetch_one(
+        $db,
+        "SELECT value FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
+    );
+    return $row ? (string)$row['value'] : '';
+}
+
+function gl_get_field_id($db, $fields, $templateId, $name)
+{
+    $row = gl_fetch_one(
+        $db,
+        "SELECT id FROM `{$fields}` WHERE template_id={$templateId} AND name='" . $db->real_escape_string($name) . "' LIMIT 1"
+    );
+    return $row ? (int)$row['id'] : 0;
+}
+
 $templateName = 'layout-spacing.php';
 $title = 'Отступы между блоками';
 $order = 6;
@@ -128,26 +146,74 @@ if (!$page) {
 }
 $pageId = (int)$page['id'];
 
+$sectionLabels = array(
+    'philosophy' => 'Концепция',
+    'experience' => 'Experience (Интерьер)',
+    'menu' => 'Меню',
+    'akzii' => 'Акции',
+    'reservation' => 'Бронирование',
+    'contacts' => 'Контакты',
+    'filial' => 'Филиал',
+);
+
 $fieldDefs = array(
     array('name' => 'spacing_info', 'label' => 'Справка', 'type' => 'message', 'order' => 1),
-    array('name' => 'spacing_sync_all', 'label' => 'Применить ко всем блокам', 'type' => 'checkbox', 'order' => 2, 'opt_values' => 'Да=1', 'default' => '1'),
-    array('name' => 'spacing_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'order' => 3, 'default' => '20'),
-    array('name' => 'spacing_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'order' => 4, 'default' => '14'),
-    array('name' => 'spacing_philosophy_desk', 'label' => 'Концепция — десктоп (px)', 'type' => 'text', 'order' => 10, 'default' => '20', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_philosophy_mob', 'label' => 'Концепция — мобильный (px)', 'type' => 'text', 'order' => 11, 'default' => '14', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_experience_desk', 'label' => 'Experience (Интерьер) — десктоп (px)', 'type' => 'text', 'order' => 12, 'default' => '20', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_experience_mob', 'label' => 'Experience (Интерьер) — мобильный (px)', 'type' => 'text', 'order' => 13, 'default' => '14', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_menu_desk', 'label' => 'Меню — десктоп (px)', 'type' => 'text', 'order' => 14, 'default' => '20', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_menu_mob', 'label' => 'Меню — мобильный (px)', 'type' => 'text', 'order' => 15, 'default' => '14', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_akzii_desk', 'label' => 'Акции — десктоп (px)', 'type' => 'text', 'order' => 16, 'default' => '20', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_akzii_mob', 'label' => 'Акции — мобильный (px)', 'type' => 'text', 'order' => 17, 'default' => '14', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_reservation_desk', 'label' => 'Бронирование — десктоп (px)', 'type' => 'text', 'order' => 18, 'default' => '20', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_reservation_mob', 'label' => 'Бронирование — мобильный (px)', 'type' => 'text', 'order' => 19, 'default' => '14', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_contacts_desk', 'label' => 'Контакты — десктоп (px)', 'type' => 'text', 'order' => 20, 'default' => '20', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_contacts_mob', 'label' => 'Контакты — мобильный (px)', 'type' => 'text', 'order' => 21, 'default' => '14', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_filial_desk', 'label' => 'Филиал — десктоп (px)', 'type' => 'text', 'order' => 22, 'default' => '20', 'not_active' => 'spacing_sync_all=1'),
-    array('name' => 'spacing_filial_mob', 'label' => 'Филиал — мобильный (px)', 'type' => 'text', 'order' => 23, 'default' => '14', 'not_active' => 'spacing_sync_all=1'),
+    array('name' => 'group_spacing_adm', 'label' => 'Адмиралтейская', 'type' => 'group', 'order' => 10),
+    array('name' => 'spacing_adm_sync_all', 'label' => 'Применить ко всем блокам', 'type' => 'checkbox', 'group' => 'group_spacing_adm', 'order' => 11, 'opt_values' => 'Да=1', 'default' => '1', 'not_active' => '', 'legacy' => 'spacing_sync_all'),
+    array('name' => 'spacing_adm_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_spacing_adm', 'order' => 12, 'default' => '20', 'legacy' => 'spacing_all_desk'),
+    array('name' => 'spacing_adm_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_spacing_adm', 'order' => 13, 'default' => '14', 'legacy' => 'spacing_all_mob'),
+    array('name' => 'group_spacing_udel', 'label' => 'Удельная', 'type' => 'group', 'order' => 40),
+    array('name' => 'spacing_udel_sync_all', 'label' => 'Применить ко всем блокам', 'type' => 'checkbox', 'group' => 'group_spacing_udel', 'order' => 41, 'opt_values' => 'Да=1', 'default' => '1', 'copy_from' => 'spacing_adm_sync_all', 'legacy' => 'spacing_sync_all'),
+    array('name' => 'spacing_udel_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_spacing_udel', 'order' => 42, 'default' => '20', 'copy_from' => 'spacing_adm_all_desk', 'legacy' => 'spacing_all_desk'),
+    array('name' => 'spacing_udel_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_spacing_udel', 'order' => 43, 'default' => '14', 'copy_from' => 'spacing_adm_all_mob', 'legacy' => 'spacing_all_mob'),
 );
+
+$orderAdm = 20;
+$orderUdel = 50;
+foreach ($sectionLabels as $section => $label) {
+    $fieldDefs[] = array(
+        'name' => 'spacing_adm_' . $section . '_desk',
+        'label' => $label . ' — десктоп (px)',
+        'type' => 'text',
+        'group' => 'group_spacing_adm',
+        'order' => $orderAdm++,
+        'default' => '20',
+        'not_active' => 'spacing_adm_sync_all=1',
+        'legacy' => 'spacing_' . $section . '_desk',
+    );
+    $fieldDefs[] = array(
+        'name' => 'spacing_adm_' . $section . '_mob',
+        'label' => $label . ' — мобильный (px)',
+        'type' => 'text',
+        'group' => 'group_spacing_adm',
+        'order' => $orderAdm++,
+        'default' => '14',
+        'not_active' => 'spacing_adm_sync_all=1',
+        'legacy' => 'spacing_' . $section . '_mob',
+    );
+    $fieldDefs[] = array(
+        'name' => 'spacing_udel_' . $section . '_desk',
+        'label' => $label . ' — десктоп (px)',
+        'type' => 'text',
+        'group' => 'group_spacing_udel',
+        'order' => $orderUdel++,
+        'default' => '20',
+        'not_active' => 'spacing_udel_sync_all=1',
+        'copy_from' => 'spacing_adm_' . $section . '_desk',
+        'legacy' => 'spacing_' . $section . '_desk',
+    );
+    $fieldDefs[] = array(
+        'name' => 'spacing_udel_' . $section . '_mob',
+        'label' => $label . ' — мобильный (px)',
+        'type' => 'text',
+        'group' => 'group_spacing_udel',
+        'order' => $orderUdel++,
+        'default' => '14',
+        'not_active' => 'spacing_udel_sync_all=1',
+        'copy_from' => 'spacing_adm_' . $section . '_mob',
+        'legacy' => 'spacing_' . $section . '_mob',
+    );
+}
 
 $added = 0;
 $migrated = 0;
@@ -159,6 +225,24 @@ foreach ($fieldDefs as $field) {
     );
     if ($row) {
         $fieldId = (int)$row['id'];
+        $updates = array();
+        if (!empty($field['label'])) {
+            $updates[] = "label='" . $db->real_escape_string($field['label']) . "'";
+        }
+        if (!empty($field['group'])) {
+            $updates[] = "group='" . $db->real_escape_string($field['group']) . "'";
+        }
+        if (isset($field['order'])) {
+            $updates[] = "k_order='" . (int)$field['order'] . "'";
+        }
+        if (!empty($field['not_active'])) {
+            $updates[] = "not_active='" . $db->real_escape_string($field['not_active']) . "'";
+        } else {
+            $updates[] = "not_active=''";
+        }
+        if (!empty($updates)) {
+            $db->query("UPDATE `{$fields}` SET " . implode(', ', $updates) . " WHERE id={$fieldId} LIMIT 1");
+        }
         echo "Field exists: {$name}\n";
     } else {
         $cols = array(
@@ -170,6 +254,9 @@ foreach ($fieldDefs as $field) {
             'search_type' => 'text',
             'k_order' => (string)(int)$field['order'],
         );
+        if (!empty($field['group'])) {
+            $cols['group'] = $field['group'];
+        }
         if (!empty($field['opt_values'])) {
             $cols['opt_values'] = $field['opt_values'];
         }
@@ -191,7 +278,7 @@ foreach ($fieldDefs as $field) {
         echo "Added field: {$name} (#{$fieldId})\n";
     }
 
-    if ($field['type'] === 'message') {
+    if ($field['type'] === 'message' || $field['type'] === 'group') {
         continue;
     }
 
@@ -200,7 +287,22 @@ foreach ($fieldDefs as $field) {
         continue;
     }
 
-    $value = !empty($field['default']) ? $field['default'] : '';
+    $value = '';
+    if (!empty($field['copy_from'])) {
+        $copyFieldId = gl_get_field_id($db, $fields, $templateId, $field['copy_from']);
+        if ($copyFieldId) {
+            $value = gl_get_field_value($db, $dataText, $pageId, $copyFieldId);
+        }
+    }
+    if ($value === '' && !empty($field['legacy'])) {
+        $legacyFieldId = gl_get_field_id($db, $fields, $templateId, $field['legacy']);
+        if ($legacyFieldId) {
+            $value = gl_get_field_value($db, $dataText, $pageId, $legacyFieldId);
+        }
+    }
+    if ($value === '' && !empty($field['default'])) {
+        $value = $field['default'];
+    }
     if ($value === '') {
         continue;
     }

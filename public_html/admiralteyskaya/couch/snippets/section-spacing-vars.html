@@ -2,11 +2,68 @@
 <cms:php>
 global $CTX;
 
-$syncRaw = (string) $CTX->get('spacing_sync_all');
+$branchPrefix = 'spacing_adm_';
+
+if (defined('K_TEMPLATE_NAME')) {
+    $tpl = strtolower((string) K_TEMPLATE_NAME);
+    if (strpos($tpl, 'udelnaya') !== false) {
+        $branchPrefix = 'spacing_udel_';
+    }
+} elseif (!empty($_SERVER['REQUEST_URI']) && stripos((string) $_SERVER['REQUEST_URI'], '/udelnaya') !== false) {
+    $branchPrefix = 'spacing_udel_';
+}
+
+$legacyMap = array(
+    'spacing_adm_' => '',
+    'spacing_udel_' => 'spacing_adm_',
+);
+
+function gl_spacing_get($CTX, $field, $fallbackFields = array())
+{
+    $value = (string) $CTX->get($field);
+    if ($value !== '') {
+        return $value;
+    }
+    foreach ($fallbackFields as $fallbackField) {
+        if ($fallbackField === '') {
+            continue;
+        }
+        $fallbackValue = (string) $CTX->get($fallbackField);
+        if ($fallbackValue !== '') {
+            return $fallbackValue;
+        }
+    }
+    return '';
+}
+
+$fallbackPrefix = isset($legacyMap[$branchPrefix]) ? $legacyMap[$branchPrefix] : '';
+$legacyPrefix = ($branchPrefix === 'spacing_adm_') ? 'spacing_' : '';
+
+$syncRaw = gl_spacing_get(
+    $CTX,
+    $branchPrefix . 'sync_all',
+    array($fallbackPrefix . 'sync_all', $legacyPrefix . 'sync_all')
+);
 $sync = ($syncRaw === '' || $syncRaw === '1');
 
-$deskDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_desk'));
-$mobDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_mob'));
+$deskDefault = (int) preg_replace(
+    '/\D+/',
+    '',
+    gl_spacing_get(
+        $CTX,
+        $branchPrefix . 'all_desk',
+        array($fallbackPrefix . 'all_desk', $legacyPrefix . 'all_desk')
+    )
+);
+$mobDefault = (int) preg_replace(
+    '/\D+/',
+    '',
+    gl_spacing_get(
+        $CTX,
+        $branchPrefix . 'all_mob',
+        array($fallbackPrefix . 'all_mob', $legacyPrefix . 'all_mob')
+    )
+);
 
 if ($deskDefault <= 0) {
     $deskDefault = 20;
@@ -16,25 +73,41 @@ if ($mobDefault <= 0) {
 }
 
 $sections = array(
-    'philosophy' => 'spacing_philosophy',
-    'experience' => 'spacing_experience',
-    'menu' => 'spacing_menu',
-    'akzii' => 'spacing_akzii',
-    'reservation' => 'spacing_reservation',
-    'contacts' => 'spacing_contacts',
-    'filial' => 'spacing_filial',
+    'philosophy' => 'philosophy',
+    'experience' => 'experience',
+    'menu' => 'menu',
+    'akzii' => 'akzii',
+    'reservation' => 'reservation',
+    'contacts' => 'contacts',
+    'filial' => 'filial',
 );
 
 $desk = array();
 $mob = array();
 
-foreach ($sections as $key => $prefix) {
+foreach ($sections as $key => $section) {
     if ($sync) {
         $desk[$key] = $deskDefault;
         $mob[$key] = $mobDefault;
     } else {
-        $deskVal = (int) preg_replace('/\D+/', '', (string) $CTX->get($prefix . '_desk'));
-        $mobVal = (int) preg_replace('/\D+/', '', (string) $CTX->get($prefix . '_mob'));
+        $deskVal = (int) preg_replace(
+            '/\D+/',
+            '',
+            gl_spacing_get(
+                $CTX,
+                $branchPrefix . $section . '_desk',
+                array($fallbackPrefix . $section . '_desk', $legacyPrefix . $section . '_desk')
+            )
+        );
+        $mobVal = (int) preg_replace(
+            '/\D+/',
+            '',
+            gl_spacing_get(
+                $CTX,
+                $branchPrefix . $section . '_mob',
+                array($fallbackPrefix . $section . '_mob', $legacyPrefix . $section . '_mob')
+            )
+        );
         $desk[$key] = $deskVal > 0 ? $deskVal : $deskDefault;
         $mob[$key] = $mobVal > 0 ? $mobVal : $mobDefault;
     }
