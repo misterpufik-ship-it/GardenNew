@@ -52,6 +52,24 @@ function gl_fetch_one($db, $sql)
     return $res ? $res->fetch_assoc() : null;
 }
 
+function gl_get_field_value($db, $dataText, $pageId, $fieldId)
+{
+    $row = gl_fetch_one(
+        $db,
+        "SELECT value FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
+    );
+    return $row ? (string)$row['value'] : '';
+}
+
+function gl_get_field_id($db, $fields, $templateId, $name)
+{
+    $row = gl_fetch_one(
+        $db,
+        "SELECT id FROM `{$fields}` WHERE template_id={$templateId} AND name='" . $db->real_escape_string($name) . "' LIMIT 1"
+    );
+    return $row ? (int)$row['id'] : 0;
+}
+
 $templateName = 'layout-scroll.php';
 $title = 'Прокрутка по меню';
 $order = 7;
@@ -131,26 +149,74 @@ if (!$page) {
 }
 $pageId = (int)$page['id'];
 
+$sectionLabels = array(
+    'philosophy' => 'Концепция (#about-us)',
+    'experience' => 'Интерьер (#photo)',
+    'menu' => 'Меню (#menu-block)',
+    'akzii' => 'Акции (#special)',
+    'reservation' => 'Бронирование (#reservation)',
+    'contacts' => 'Контакты (#contact)',
+    'filial' => 'Филиал (#branch-filial)',
+);
+
 $fieldDefs = array(
     array('name' => 'scroll_info', 'label' => 'Справка', 'type' => 'message', 'order' => 1),
-    array('name' => 'scroll_sync_all', 'label' => 'Применить ко всем пунктам', 'type' => 'checkbox', 'order' => 2, 'opt_values' => 'Да=1', 'default' => '1'),
-    array('name' => 'scroll_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'order' => 3, 'default' => '72'),
-    array('name' => 'scroll_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'order' => 4, 'default' => '64'),
-    array('name' => 'scroll_philosophy_desk', 'label' => 'Концепция (#about-us) — десктоп (px)', 'type' => 'text', 'order' => 10, 'default' => '72', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_philosophy_mob', 'label' => 'Концепция (#about-us) — мобильный (px)', 'type' => 'text', 'order' => 11, 'default' => '64', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_experience_desk', 'label' => 'Интерьер (#photo) — десктоп (px)', 'type' => 'text', 'order' => 12, 'default' => '72', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_experience_mob', 'label' => 'Интерьер (#photo) — мобильный (px)', 'type' => 'text', 'order' => 13, 'default' => '64', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_menu_desk', 'label' => 'Меню (#menu-block) — десктоп (px)', 'type' => 'text', 'order' => 14, 'default' => '72', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_menu_mob', 'label' => 'Меню (#menu-block) — мобильный (px)', 'type' => 'text', 'order' => 15, 'default' => '64', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_akzii_desk', 'label' => 'Акции (#special) — десктоп (px)', 'type' => 'text', 'order' => 16, 'default' => '72', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_akzii_mob', 'label' => 'Акции (#special) — мобильный (px)', 'type' => 'text', 'order' => 17, 'default' => '64', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_reservation_desk', 'label' => 'Бронирование (#reservation) — десктоп (px)', 'type' => 'text', 'order' => 18, 'default' => '72', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_reservation_mob', 'label' => 'Бронирование (#reservation) — мобильный (px)', 'type' => 'text', 'order' => 19, 'default' => '64', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_contacts_desk', 'label' => 'Контакты (#contact) — десктоп (px)', 'type' => 'text', 'order' => 20, 'default' => '72', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_contacts_mob', 'label' => 'Контакты (#contact) — мобильный (px)', 'type' => 'text', 'order' => 21, 'default' => '64', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_filial_desk', 'label' => 'Филиал (#branch-filial) — десктоп (px)', 'type' => 'text', 'order' => 22, 'default' => '72', 'not_active' => 'scroll_sync_all=1'),
-    array('name' => 'scroll_filial_mob', 'label' => 'Филиал (#branch-filial) — мобильный (px)', 'type' => 'text', 'order' => 23, 'default' => '64', 'not_active' => 'scroll_sync_all=1'),
+    array('name' => 'group_scroll_adm', 'label' => 'Адмиралтейская', 'type' => 'group', 'order' => 10, 'collapsed' => '1'),
+    array('name' => 'scroll_adm_sync_all', 'label' => 'Применить ко всем пунктам', 'type' => 'checkbox', 'group' => 'group_scroll_adm', 'order' => 11, 'opt_values' => 'Да=1', 'default' => '1', 'not_active' => '', 'legacy' => 'scroll_sync_all'),
+    array('name' => 'scroll_adm_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_scroll_adm', 'order' => 12, 'default' => '72', 'legacy' => 'scroll_all_desk'),
+    array('name' => 'scroll_adm_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_scroll_adm', 'order' => 13, 'default' => '64', 'legacy' => 'scroll_all_mob'),
+    array('name' => 'group_scroll_udel', 'label' => 'Удельная', 'type' => 'group', 'order' => 40, 'collapsed' => '1'),
+    array('name' => 'scroll_udel_sync_all', 'label' => 'Применить ко всем пунктам', 'type' => 'checkbox', 'group' => 'group_scroll_udel', 'order' => 41, 'opt_values' => 'Да=1', 'default' => '1', 'copy_from' => 'scroll_adm_sync_all', 'legacy' => 'scroll_sync_all'),
+    array('name' => 'scroll_udel_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_scroll_udel', 'order' => 42, 'default' => '72', 'copy_from' => 'scroll_adm_all_desk', 'legacy' => 'scroll_all_desk'),
+    array('name' => 'scroll_udel_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_scroll_udel', 'order' => 43, 'default' => '64', 'copy_from' => 'scroll_adm_all_mob', 'legacy' => 'scroll_all_mob'),
 );
+
+$orderAdm = 20;
+$orderUdel = 50;
+foreach ($sectionLabels as $section => $label) {
+    $fieldDefs[] = array(
+        'name' => 'scroll_adm_' . $section . '_desk',
+        'label' => $label . ' — десктоп (px)',
+        'type' => 'text',
+        'group' => 'group_scroll_adm',
+        'order' => $orderAdm++,
+        'default' => '72',
+        'not_active' => 'scroll_adm_sync_all=1',
+        'legacy' => 'scroll_' . $section . '_desk',
+    );
+    $fieldDefs[] = array(
+        'name' => 'scroll_adm_' . $section . '_mob',
+        'label' => $label . ' — мобильный (px)',
+        'type' => 'text',
+        'group' => 'group_scroll_adm',
+        'order' => $orderAdm++,
+        'default' => '64',
+        'not_active' => 'scroll_adm_sync_all=1',
+        'legacy' => 'scroll_' . $section . '_mob',
+    );
+    $fieldDefs[] = array(
+        'name' => 'scroll_udel_' . $section . '_desk',
+        'label' => $label . ' — десктоп (px)',
+        'type' => 'text',
+        'group' => 'group_scroll_udel',
+        'order' => $orderUdel++,
+        'default' => '72',
+        'not_active' => 'scroll_udel_sync_all=1',
+        'copy_from' => 'scroll_adm_' . $section . '_desk',
+        'legacy' => 'scroll_' . $section . '_desk',
+    );
+    $fieldDefs[] = array(
+        'name' => 'scroll_udel_' . $section . '_mob',
+        'label' => $label . ' — мобильный (px)',
+        'type' => 'text',
+        'group' => 'group_scroll_udel',
+        'order' => $orderUdel++,
+        'default' => '64',
+        'not_active' => 'scroll_udel_sync_all=1',
+        'copy_from' => 'scroll_adm_' . $section . '_mob',
+        'legacy' => 'scroll_' . $section . '_mob',
+    );
+}
 
 $added = 0;
 $migrated = 0;
@@ -162,39 +228,118 @@ foreach ($fieldDefs as $field) {
     );
     if ($row) {
         $fieldId = (int)$row['id'];
-        echo "Field exists: {$name}\n";
-    } else {
-        $cols = array(
-            'template_id' => (string)$templateId,
-            'name' => $name,
-            'label' => $field['label'],
-            'k_type' => $field['type'],
-            'hidden' => '0',
-            'search_type' => 'text',
-            'k_order' => (string)(int)$field['order'],
-        );
-        if (!empty($field['opt_values'])) {
-            $cols['opt_values'] = $field['opt_values'];
+        $updates = array();
+        if (!empty($field['label'])) {
+            $updates[] = "label='" . $db->real_escape_string($field['label']) . "'";
+        }
+        if (!empty($field['group'])) {
+            $updates[] = "k_group='" . $db->real_escape_string($field['group']) . "'";
+        }
+        if (isset($field['order'])) {
+            $updates[] = "k_order='" . (int)$field['order'] . "'";
         }
         if (!empty($field['not_active'])) {
-            $cols['not_active'] = $field['not_active'];
+            $updates[] = "not_active='" . $db->real_escape_string($field['not_active']) . "'";
+        } else {
+            $updates[] = "not_active=''";
         }
-        $colNames = array_keys($cols);
-        $vals = array();
-        foreach (array_values($cols) as $v) {
-            $vals[] = gl_qval($db, $v);
+        if (!empty($updates)) {
+            $db->query("UPDATE `{$fields}` SET " . implode(', ', $updates) . " WHERE id={$fieldId} LIMIT 1");
         }
-        $sql = "INSERT INTO `{$fields}` (`" . implode('`,`', $colNames) . "`) VALUES (" . implode(',', $vals) . ")";
-        if (!$db->query($sql)) {
-            echo "Failed to insert field {$name}: {$db->error}\n";
-            continue;
+        echo "Field exists: {$name}\n";
+    } else {
+        if ($field['type'] === 'group') {
+            $sample = gl_fetch_one($db, "SELECT * FROM `{$fields}` WHERE template_id={$templateId} AND k_type='group' LIMIT 1");
+            if (!$sample) {
+                $sample = gl_fetch_one($db, "SELECT * FROM `{$fields}` WHERE k_type='group' LIMIT 1");
+            }
+            if ($sample) {
+                unset($sample['id']);
+                $sample['template_id'] = (string)$templateId;
+                $sample['name'] = $name;
+                $sample['label'] = $field['label'];
+                $sample['k_group'] = '';
+                $sample['k_order'] = (string)(int)$field['order'];
+                $sample['k_type'] = 'group';
+                $sample['_html'] = '';
+                $colNames = array_keys($sample);
+                $vals = array();
+                foreach (array_values($sample) as $v) {
+                    $vals[] = gl_qval($db, $v);
+                }
+                $sql = "INSERT INTO `{$fields}` (`" . implode('`,`', $colNames) . "`) VALUES (" . implode(',', $vals) . ")";
+                if (!$db->query($sql)) {
+                    echo "Failed to insert group {$name}: {$db->error}\n";
+                    continue;
+                }
+                $fieldId = (int)$db->insert_id;
+                $added++;
+                echo "Added group: {$name} (#{$fieldId})\n";
+            } else {
+                echo "Failed to insert group {$name}: no sample group field\n";
+                continue;
+            }
+        } else {
+            $sample = gl_fetch_one(
+                $db,
+                "SELECT * FROM `{$fields}` WHERE template_id={$templateId} AND k_type='" .
+                $db->real_escape_string($field['type']) . "' LIMIT 1"
+            );
+            if (!$sample) {
+                $sample = gl_fetch_one(
+                    $db,
+                    "SELECT * FROM `{$fields}` WHERE template_id={$templateId} AND k_type='text' LIMIT 1"
+                );
+            }
+            if (!$sample) {
+                $sample = gl_fetch_one($db, "SELECT * FROM `{$fields}` WHERE template_id={$templateId} LIMIT 1");
+            }
+            if (!$sample) {
+                echo "Failed to insert field {$name}: no sample field\n";
+                continue;
+            }
+            unset($sample['id']);
+            $sample['template_id'] = (string)$templateId;
+            $sample['name'] = $name;
+            $sample['label'] = $field['label'];
+            $sample['k_type'] = $field['type'];
+            $sample['k_group'] = !empty($field['group']) ? $field['group'] : '';
+            $sample['k_order'] = (string)(int)$field['order'];
+            $sample['_html'] = '';
+            if (!empty($field['opt_values'])) {
+                $sample['opt_values'] = $field['opt_values'];
+            }
+            if (!empty($field['not_active'])) {
+                $sample['not_active'] = $field['not_active'];
+            } else {
+                $sample['not_active'] = '';
+            }
+            if (!empty($field['default'])) {
+                $sample['default_data'] = $field['default'];
+            }
+            $colNames = array_keys($sample);
+            $vals = array();
+            foreach (array_values($sample) as $v) {
+                $vals[] = gl_qval($db, $v);
+            }
+            $sql = "INSERT INTO `{$fields}` (`" . implode('`,`', $colNames) . "`) VALUES (" . implode(',', $vals) . ")";
+            if (!$db->query($sql)) {
+                echo "Failed to insert field {$name}: {$db->error}\n";
+                continue;
+            }
+            $fieldId = (int)$db->insert_id;
+            $added++;
+            echo "Added field: {$name} (#{$fieldId})\n";
         }
-        $fieldId = (int)$db->insert_id;
-        $added++;
-        echo "Added field: {$name} (#{$fieldId})\n";
     }
 
-    if ($field['type'] === 'message') {
+    if ($field['type'] === 'group' && !empty($field['collapsed'])) {
+        $html = "<cms:editable name='" . $name . "' label='" . $db->real_escape_string($field['label']) .
+            "' type='group' collapsed='1' order='" . (int)$field['order'] . "' />";
+        $db->query("UPDATE `{$fields}` SET _html='" . $db->real_escape_string($html) . "' WHERE id={$fieldId} LIMIT 1");
+    }
+
+    if ($field['type'] === 'message' || $field['type'] === 'group') {
         continue;
     }
 
@@ -203,7 +348,22 @@ foreach ($fieldDefs as $field) {
         continue;
     }
 
-    $value = !empty($field['default']) ? $field['default'] : '';
+    $value = '';
+    if (!empty($field['copy_from'])) {
+        $copyFieldId = gl_get_field_id($db, $fields, $templateId, $field['copy_from']);
+        if ($copyFieldId) {
+            $value = gl_get_field_value($db, $dataText, $pageId, $copyFieldId);
+        }
+    }
+    if ($value === '' && !empty($field['legacy'])) {
+        $legacyFieldId = gl_get_field_id($db, $fields, $templateId, $field['legacy']);
+        if ($legacyFieldId) {
+            $value = gl_get_field_value($db, $dataText, $pageId, $legacyFieldId);
+        }
+    }
+    if ($value === '' && !empty($field['default'])) {
+        $value = $field['default'];
+    }
     if ($value === '') {
         continue;
     }
