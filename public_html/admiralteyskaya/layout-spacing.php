@@ -7,7 +7,7 @@
         Для каждого филиала можно задать свои значения. Включите «Применить ко всем блокам», чтобы задать одно значение сразу для всех разделов.
     </cms:editable>
 
-    <cms:editable name='group_spacing_adm' label='Адмиралтейская' type='group' order='10' />
+    <cms:editable name='group_spacing_adm' label='Адмиралтейская' type='group' collapsed='1' order='10' />
 
     <cms:editable name='spacing_adm_sync_all' label='Применить ко всем блокам' group='group_spacing_adm' type='checkbox' opt_values='Да=1' order='11'>1</cms:editable>
     <cms:editable name='spacing_adm_all_desk' label='Общий отступ — десктоп (px)' group='group_spacing_adm' type='text' order='12'>20</cms:editable>
@@ -28,7 +28,7 @@
     <cms:editable name='spacing_adm_filial_desk' label='Филиал — десктоп (px)' group='group_spacing_adm' type='text' not_active='spacing_adm_sync_all=1' order='32'>20</cms:editable>
     <cms:editable name='spacing_adm_filial_mob' label='Филиал — мобильный (px)' group='group_spacing_adm' type='text' not_active='spacing_adm_sync_all=1' order='33'>14</cms:editable>
 
-    <cms:editable name='group_spacing_udel' label='Удельная' type='group' order='40' />
+    <cms:editable name='group_spacing_udel' label='Удельная' type='group' collapsed='1' order='40' />
 
     <cms:editable name='spacing_udel_sync_all' label='Применить ко всем блокам' group='group_spacing_udel' type='checkbox' opt_values='Да=1' order='41'>1</cms:editable>
     <cms:editable name='spacing_udel_all_desk' label='Общий отступ — десктоп (px)' group='group_spacing_udel' type='text' order='42'>20</cms:editable>
