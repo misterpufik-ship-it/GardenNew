@@ -45,7 +45,8 @@
     .hero-bg { position: absolute; inset: 0; z-index: 1; }
     .hero-bg img { 
         position: absolute; inset: 0;
-        width: 100%; height: 100%; 
+        width: 100%; height: 100%;
+        min-width: 100%; min-height: 100%;
         object-fit: cover; 
         object-position: center center;
         opacity: 0.7; /* Фото видно четко */
@@ -326,18 +327,37 @@
     /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
     @media (max-width: 767px) {
         .hero-section {
+            /* svh = stable viewport; dvh resizes when mobile browser chrome hides/shows and causes scroll jitter */
+            height: 100vh;
             height: 100svh;
-            height: 100dvh;
+            min-height: 100vh;
             min-height: 100svh;
-            min-height: 100dvh;
+            max-height: 100vh;
             max-height: 100svh;
-            max-height: 100dvh;
             padding: calc(env(safe-area-inset-top, 0px) + 68px) 16px max(12px, env(safe-area-inset-bottom));
+            contain: layout style;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
         }
         .hero-bg img {
             object-position: center center !important;
             transform: translateZ(0);
+            backface-visibility: hidden;
             will-change: auto;
+        }
+        .mobile-menu-overlay {
+            height: 100vh;
+            height: 100svh;
+            min-height: 100vh;
+            min-height: 100svh;
+            max-height: 100vh;
+            max-height: 100svh;
+        }
+        .logo-luxe-animate {
+            animation: glFadeInOnly 1.5s ease-out forwards;
         }
         .mobile-menu-bg-img {
             object-position: center center !important;
@@ -799,9 +819,9 @@
 </header>
     <script>
     function syncGlViewportHeight() {
-        var height = window.visualViewport && window.visualViewport.height
-            ? window.visualViewport.height
-            : window.innerHeight;
+        /* Mobile hero/menu use fixed 100svh in CSS; JS viewport sync only for desktop fallbacks */
+        if (window.matchMedia('(max-width: 767px)').matches) return;
+        var height = window.innerHeight;
         document.documentElement.style.setProperty('--gl-vh', (height * 0.01) + 'px');
     }
     syncGlViewportHeight();
