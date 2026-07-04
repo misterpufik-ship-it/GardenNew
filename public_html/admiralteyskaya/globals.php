@@ -7,10 +7,10 @@
 
     <!-- ГРУППА: СОЦ СЕТИ -->
     <cms:editable name='group_socials' label='Социальные сети' type='group' />
-        <cms:editable name='link_instagram' label='Instagram (ссылка)' group='group_socials' type='text'>https://instagram.com/garden_lounge_spb/</cms:editable>
+        <cms:editable name='link_instagram' label='Instagram (ссылка)' group='group_socials' type='text'>https://www.instagram.com/garden_lounge_spb/</cms:editable>
         <cms:editable name='link_telegram' label='Telegram канал (ссылка)' group='group_socials' type='text'>https://t.me/gardenlounge_admiral</cms:editable>
         <cms:editable name='link_vk' label='VK (ссылка)' group='group_socials' type='text'>https://vk.com/loungegarden</cms:editable>
-        <cms:editable name='link_youtube' label='YouTube (ссылка)' group='group_socials' type='text'>https://youtube.com/@garden.lounge</cms:editable>
+        <cms:editable name='link_youtube' label='YouTube (ссылка)' group='group_socials' type='text'>https://www.youtube.com/@garden.lounge</cms:editable>
 
     <!-- ГРУППА: ФИЛИАЛ АДМИРАЛТЕЙСКАЯ -->
     <cms:editable name='group_admiral' label='Филиал: Адмиралтейская' type='group' />

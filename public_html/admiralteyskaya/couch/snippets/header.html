@@ -675,9 +675,9 @@
 
 <nav class="gl-navbar flex justify-between items-center px-6 md:px-8" id="navbar">
     <div class="desktop-nav-zone hidden md:flex gap-4 items-center flex-1">
-        <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="desktop-social-link"><i class="fab fa-vk"></i></a>
-        <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="desktop-social-link"><i class="fab fa-instagram"></i></a>
-        <a href="<cms:if link_yt><cms:show link_yt /><cms:else />https://youtube.com/@garden.lounge</cms:if>" target="_blank" rel="noopener" class="desktop-social-link" title="YouTube" aria-label="YouTube Garden Lounge"><i class="fab fa-youtube"></i></a>
+        <a href="<cms:if social_vk><cms:show social_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener noreferrer" class="desktop-social-link"><i class="fab fa-vk"></i></a>
+        <a href="<cms:if social_instagram><cms:show social_instagram /><cms:else />https://www.instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener noreferrer" class="desktop-social-link" title="Instagram" aria-label="Instagram Garden Lounge"><i class="fab fa-instagram"></i></a>
+        <a href="<cms:if social_youtube><cms:show social_youtube /><cms:else />https://www.youtube.com/@garden.lounge</cms:if>" target="_blank" rel="noopener noreferrer" class="desktop-social-link" title="YouTube" aria-label="YouTube Garden Lounge"><i class="fab fa-youtube"></i></a>
     </div>
 
     <div class="desktop-nav-zone hidden md:flex items-center gap-1 flex-none">
@@ -785,8 +785,9 @@
                 <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
             </div>
             <div class="mobile-menu-social-row">
-                <a href="<cms:if link_vk><cms:show link_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-vk"></i></a>
-                <a href="<cms:if link_inst><cms:show link_inst /><cms:else />https://instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener" class="mobile-menu-social-link text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="<cms:if social_vk><cms:show social_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener noreferrer" class="mobile-menu-social-link text-2xl" title="VK" aria-label="VK Garden Lounge"><i class="fab fa-vk"></i></a>
+                <a href="<cms:if social_instagram><cms:show social_instagram /><cms:else />https://www.instagram.com/garden_lounge_spb/</cms:if>" target="_blank" rel="noopener noreferrer" class="mobile-menu-social-link text-2xl" title="Instagram" aria-label="Instagram Garden Lounge"><i class="fab fa-instagram"></i></a>
+                <a href="<cms:if social_youtube><cms:show social_youtube /><cms:else />https://www.youtube.com/@garden.lounge</cms:if>" target="_blank" rel="noopener noreferrer" class="mobile-menu-social-link text-2xl" title="YouTube" aria-label="YouTube Garden Lounge"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </div>
