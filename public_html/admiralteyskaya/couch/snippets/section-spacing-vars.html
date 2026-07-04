@@ -2,16 +2,17 @@
 <cms:php>
 global $CTX;
 
-$sync = ((string) $CTX->get('spacing_sync_all')) !== '0' && ((string) $CTX->get('spacing_sync_all')) !== '';
+$syncRaw = (string) $CTX->get('spacing_sync_all');
+$sync = ($syncRaw === '' || $syncRaw === '1');
 
 $deskDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_desk'));
 $mobDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_mob'));
 
 if ($deskDefault <= 0) {
-    $deskDefault = 48;
+    $deskDefault = 28;
 }
 if ($mobDefault <= 0) {
-    $mobDefault = 36;
+    $mobDefault = 20;
 }
 
 $sections = array(

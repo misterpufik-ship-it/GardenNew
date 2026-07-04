@@ -9,23 +9,23 @@
             Включите галочку «Применить ко всем блокам», чтобы задать одно значение сразу для всех разделов.
         </cms:editable>
         <cms:editable name='spacing_sync_all' label='Применить ко всем блокам' group='group_spacing' type='checkbox' opt_values='Да=1' order='7'>1</cms:editable>
-        <cms:editable name='spacing_all_desk' label='Общий отступ — десктоп (px)' group='group_spacing' type='text' order='8'>48</cms:editable>
-        <cms:editable name='spacing_all_mob' label='Общий отступ — мобильный (px)' group='group_spacing' type='text' order='9'>36</cms:editable>
+        <cms:editable name='spacing_all_desk' label='Общий отступ — десктоп (px)' group='group_spacing' type='text' order='8'>28</cms:editable>
+        <cms:editable name='spacing_all_mob' label='Общий отступ — мобильный (px)' group='group_spacing' type='text' order='9'>20</cms:editable>
 
-        <cms:editable name='spacing_philosophy_desk' label='Концепция — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='10'>48</cms:editable>
-        <cms:editable name='spacing_philosophy_mob' label='Концепция — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='11'>36</cms:editable>
-        <cms:editable name='spacing_experience_desk' label='Experience (Интерьер) — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='12'>48</cms:editable>
-        <cms:editable name='spacing_experience_mob' label='Experience (Интерьер) — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='13'>36</cms:editable>
-        <cms:editable name='spacing_menu_desk' label='Меню — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='14'>48</cms:editable>
-        <cms:editable name='spacing_menu_mob' label='Меню — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='15'>36</cms:editable>
-        <cms:editable name='spacing_akzii_desk' label='Акции — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='16'>48</cms:editable>
-        <cms:editable name='spacing_akzii_mob' label='Акции — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='17'>36</cms:editable>
-        <cms:editable name='spacing_reservation_desk' label='Бронирование — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='18'>48</cms:editable>
-        <cms:editable name='spacing_reservation_mob' label='Бронирование — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='19'>36</cms:editable>
-        <cms:editable name='spacing_contacts_desk' label='Контакты — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='20'>48</cms:editable>
-        <cms:editable name='spacing_contacts_mob' label='Контакты — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='21'>36</cms:editable>
-        <cms:editable name='spacing_filial_desk' label='Филиал — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='22'>48</cms:editable>
-        <cms:editable name='spacing_filial_mob' label='Филиал — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='23'>36</cms:editable>
+        <cms:editable name='spacing_philosophy_desk' label='Концепция — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='10'>28</cms:editable>
+        <cms:editable name='spacing_philosophy_mob' label='Концепция — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='11'>20</cms:editable>
+        <cms:editable name='spacing_experience_desk' label='Experience (Интерьер) — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='12'>28</cms:editable>
+        <cms:editable name='spacing_experience_mob' label='Experience (Интерьер) — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='13'>20</cms:editable>
+        <cms:editable name='spacing_menu_desk' label='Меню — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='14'>28</cms:editable>
+        <cms:editable name='spacing_menu_mob' label='Меню — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='15'>20</cms:editable>
+        <cms:editable name='spacing_akzii_desk' label='Акции — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='16'>28</cms:editable>
+        <cms:editable name='spacing_akzii_mob' label='Акции — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='17'>20</cms:editable>
+        <cms:editable name='spacing_reservation_desk' label='Бронирование — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='18'>28</cms:editable>
+        <cms:editable name='spacing_reservation_mob' label='Бронирование — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='19'>20</cms:editable>
+        <cms:editable name='spacing_contacts_desk' label='Контакты — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='20'>28</cms:editable>
+        <cms:editable name='spacing_contacts_mob' label='Контакты — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='21'>20</cms:editable>
+        <cms:editable name='spacing_filial_desk' label='Филиал — десктоп (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='22'>28</cms:editable>
+        <cms:editable name='spacing_filial_mob' label='Филиал — мобильный (px)' group='group_spacing' type='text' not_active='spacing_sync_all=1' order='23'>20</cms:editable>
 
     <!-- ГРУППА: ОБЩАЯ ИНФОРМАЦИЯ -->
     <cms:editable name='group_general' label='Общая информация' type='group' />

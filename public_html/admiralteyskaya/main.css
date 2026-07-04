@@ -236,7 +236,7 @@ img { display: block; max-width: 100%; height: auto; }
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: var(--gl-py-philosophy, var(--gl-section-py, 48px)) 20px;
+    padding: var(--gl-py-philosophy, var(--gl-section-py, 28px)) 20px;
     position: relative;
     min-height: auto;
     box-sizing: border-box;
@@ -253,17 +253,17 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 #menu-block {
-    padding: var(--gl-py-menu, var(--gl-section-py, 48px)) 0;
+    padding: var(--gl-py-menu, var(--gl-section-py, 28px)) 0;
     box-sizing: border-box;
 }
 
 #special.taplink-block-wrapper {
-    padding: var(--gl-py-akzii, var(--gl-section-py, 48px)) 0;
+    padding: var(--gl-py-akzii, var(--gl-section-py, 28px)) 0;
     box-sizing: border-box;
 }
 
 #reservation.taplink-block-wrapper {
-    padding: var(--gl-py-reservation, var(--gl-section-py, 48px)) 0;
+    padding: var(--gl-py-reservation, var(--gl-section-py, 28px)) 0;
     box-sizing: border-box;
 }
 
@@ -276,16 +276,16 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 #contact .gl_tp_body_wrapper {
-    padding: var(--gl-py-contacts, var(--gl-section-py, 48px)) 20px calc(var(--gl-py-contacts, var(--gl-section-py, 48px)) + 8px) !important;
+    padding: var(--gl-py-contacts, var(--gl-section-py, 28px)) 20px calc(var(--gl-py-contacts, var(--gl-section-py, 28px)) + 8px) !important;
 }
 
 .branch-wrapper {
-    padding: var(--gl-py-filial, var(--gl-section-py, 48px)) 18px !important;
+    padding: var(--gl-py-filial, var(--gl-section-py, 28px)) 18px !important;
 }
 
 .garden-experience-widget > section.bg-black {
-    padding-top: var(--gl-py-experience, var(--gl-section-py, 48px)) !important;
-    padding-bottom: var(--gl-py-experience, var(--gl-section-py, 48px)) !important;
+    padding-top: var(--gl-py-experience, var(--gl-section-py, 28px)) !important;
+    padding-bottom: var(--gl-py-experience, var(--gl-section-py, 28px)) !important;
 }
 
 .garden-experience-widget .widget-limiter.pt-\[16px\] {

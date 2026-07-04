@@ -1,5 +1,4 @@
 <style>
-<cms:embed 'section-spacing-vars.html' />
 :root {
   --gold-main: #C5A059;
   --gold-dark: #8e7037;
@@ -8,20 +7,38 @@
   --text-main: #EAEAEA;
   --nav-offset: 96px;
   --gl-gold-gap: 12px;
-  --gl-section-head-mb: 2.5rem;
-  --gl-section-footer-mt: 1.75rem;
+  --gl-section-head-mb: 1.75rem;
+  --gl-section-footer-mt: 1.25rem;
   --gl-divider-max-w: 220px;
-  --gl-divider-mt: 24px;
+  --gl-divider-mt: 16px;
+  --gl-section-py: 28px;
+  --gl-py-philosophy: 28px;
+  --gl-py-experience: 28px;
+  --gl-py-menu: 28px;
+  --gl-py-akzii: 28px;
+  --gl-py-reservation: 28px;
+  --gl-py-contacts: 28px;
+  --gl-py-filial: 28px;
 }
 
 @media (max-width: 767px) {
   :root {
     --nav-offset: 84px;
-    --gl-section-head-mb: 1.75rem;
-    --gl-section-footer-mt: 1.25rem;
-    --gl-divider-mt: 20px;
+    --gl-section-head-mb: 1.25rem;
+    --gl-section-footer-mt: 1rem;
+    --gl-divider-mt: 12px;
+    --gl-section-py: 20px;
+    --gl-py-philosophy: 20px;
+    --gl-py-experience: 20px;
+    --gl-py-menu: 20px;
+    --gl-py-akzii: 20px;
+    --gl-py-reservation: 20px;
+    --gl-py-contacts: 20px;
+    --gl-py-filial: 20px;
   }
 }
+
+<cms:embed 'section-spacing-vars.html' />
 
 /* Базовые сбросы и стабилизация скролла */
 *, *::before, *::after { box-sizing: border-box; }
