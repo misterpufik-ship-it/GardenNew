@@ -496,7 +496,7 @@
         }
         .mobile-menu-shell {
             justify-content: flex-start;
-            gap: 12px;
+            gap: 0;
             padding-top: calc(env(safe-area-inset-top, 0px) + 48px);
             padding-bottom: max(14px, env(safe-area-inset-bottom));
         }
@@ -512,7 +512,7 @@
             animation: none !important;
         }
         .mobile-menu-links {
-            margin-top: 0 !important;
+            margin-top: 28px !important;
             padding: 0 !important;
             overflow: visible !important;
             gap: 6px !important;
@@ -537,12 +537,13 @@
         }
         .mobile-menu-contact {
             width: min(88vw, 330px) !important;
-            margin-top: auto !important;
+            margin-top: 28px !important;
             padding-bottom: 0 !important;
             gap: 10px !important;
         }
         .mobile-menu-divider {
             width: min(46vw, 165px) !important;
+            margin-top: 0 !important;
         }
         .mobile-menu-contact > div:first-child,
         .mobile-menu-contact-info {
@@ -588,9 +589,10 @@
             align-self: center;
         }
         @media (max-height: 720px) {
-            .mobile-menu-shell { justify-content: flex-start; gap: 8px; padding-top: calc(env(safe-area-inset-top, 0px) + 42px); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+            .mobile-menu-shell { justify-content: flex-start; gap: 0; padding-top: calc(env(safe-area-inset-top, 0px) + 42px); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
             .mobile-menu-top .mobile-menu-logo { width: min(72vw, 280px) !important; }
-            .mobile-menu-links { gap: 4px !important; }
+            .mobile-menu-links { margin-top: 22px !important; gap: 4px !important; }
+            .mobile-menu-contact { margin-top: 22px !important; }
             .mobile-link { min-height: 32px; font-size: clamp(20px, 5.6vw, 25px) !important; padding: 4px 12px !important; }
             .mobile-branch-nav-link { font-size: clamp(17px, 4.8vw, 21px) !important; }
             .mobile-menu-divider { width: min(40vw, 140px) !important; }
