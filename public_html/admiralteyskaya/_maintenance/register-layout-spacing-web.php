@@ -158,11 +158,11 @@ $sectionLabels = array(
 
 $fieldDefs = array(
     array('name' => 'spacing_info', 'label' => 'Справка', 'type' => 'message', 'order' => 1),
-    array('name' => 'group_spacing_adm', 'label' => 'Адмиралтейская', 'type' => 'group', 'order' => 10),
+    array('name' => 'group_spacing_adm', 'label' => 'Адмиралтейская', 'type' => 'group', 'order' => 10, 'collapsed' => '1'),
     array('name' => 'spacing_adm_sync_all', 'label' => 'Применить ко всем блокам', 'type' => 'checkbox', 'group' => 'group_spacing_adm', 'order' => 11, 'opt_values' => 'Да=1', 'default' => '1', 'not_active' => '', 'legacy' => 'spacing_sync_all'),
     array('name' => 'spacing_adm_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_spacing_adm', 'order' => 12, 'default' => '20', 'legacy' => 'spacing_all_desk'),
     array('name' => 'spacing_adm_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_spacing_adm', 'order' => 13, 'default' => '14', 'legacy' => 'spacing_all_mob'),
-    array('name' => 'group_spacing_udel', 'label' => 'Удельная', 'type' => 'group', 'order' => 40),
+    array('name' => 'group_spacing_udel', 'label' => 'Удельная', 'type' => 'group', 'order' => 40, 'collapsed' => '1'),
     array('name' => 'spacing_udel_sync_all', 'label' => 'Применить ко всем блокам', 'type' => 'checkbox', 'group' => 'group_spacing_udel', 'order' => 41, 'opt_values' => 'Да=1', 'default' => '1', 'copy_from' => 'spacing_adm_sync_all', 'legacy' => 'spacing_sync_all'),
     array('name' => 'spacing_udel_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_spacing_udel', 'order' => 42, 'default' => '20', 'copy_from' => 'spacing_adm_all_desk', 'legacy' => 'spacing_all_desk'),
     array('name' => 'spacing_udel_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_spacing_udel', 'order' => 43, 'default' => '14', 'copy_from' => 'spacing_adm_all_mob', 'legacy' => 'spacing_all_mob'),
@@ -230,7 +230,7 @@ foreach ($fieldDefs as $field) {
             $updates[] = "label='" . $db->real_escape_string($field['label']) . "'";
         }
         if (!empty($field['group'])) {
-            $updates[] = "group='" . $db->real_escape_string($field['group']) . "'";
+            $updates[] = "k_group='" . $db->real_escape_string($field['group']) . "'";
         }
         if (isset($field['order'])) {
             $updates[] = "k_order='" . (int)$field['order'] . "'";
@@ -245,37 +245,95 @@ foreach ($fieldDefs as $field) {
         }
         echo "Field exists: {$name}\n";
     } else {
-        $cols = array(
-            'template_id' => (string)$templateId,
-            'name' => $name,
-            'label' => $field['label'],
-            'k_type' => $field['type'],
-            'hidden' => '0',
-            'search_type' => 'text',
-            'k_order' => (string)(int)$field['order'],
-        );
-        if (!empty($field['group'])) {
-            $cols['group'] = $field['group'];
+        if ($field['type'] === 'group') {
+            $sample = gl_fetch_one($db, "SELECT * FROM `{$fields}` WHERE template_id={$templateId} AND k_type='group' LIMIT 1");
+            if (!$sample) {
+                $sample = gl_fetch_one($db, "SELECT * FROM `{$fields}` WHERE k_type='group' LIMIT 1");
+            }
+            if ($sample) {
+                unset($sample['id']);
+                $sample['template_id'] = (string)$templateId;
+                $sample['name'] = $name;
+                $sample['label'] = $field['label'];
+                $sample['k_group'] = '';
+                $sample['k_order'] = (string)(int)$field['order'];
+                $sample['k_type'] = 'group';
+                $sample['_html'] = '';
+                $colNames = array_keys($sample);
+                $vals = array();
+                foreach (array_values($sample) as $v) {
+                    $vals[] = gl_qval($db, $v);
+                }
+                $sql = "INSERT INTO `{$fields}` (`" . implode('`,`', $colNames) . "`) VALUES (" . implode(',', $vals) . ")";
+                if (!$db->query($sql)) {
+                    echo "Failed to insert group {$name}: {$db->error}\n";
+                    continue;
+                }
+                $fieldId = (int)$db->insert_id;
+                $added++;
+                echo "Added group: {$name} (#{$fieldId})\n";
+            } else {
+                echo "Failed to insert group {$name}: no sample group field\n";
+                continue;
+            }
+        } else {
+            $sample = gl_fetch_one(
+                $db,
+                "SELECT * FROM `{$fields}` WHERE template_id={$templateId} AND k_type='" .
+                $db->real_escape_string($field['type']) . "' LIMIT 1"
+            );
+            if (!$sample) {
+                $sample = gl_fetch_one(
+                    $db,
+                    "SELECT * FROM `{$fields}` WHERE template_id={$templateId} AND k_type='text' LIMIT 1"
+                );
+            }
+            if (!$sample) {
+                $sample = gl_fetch_one($db, "SELECT * FROM `{$fields}` WHERE template_id={$templateId} LIMIT 1");
+            }
+            if (!$sample) {
+                echo "Failed to insert field {$name}: no sample field\n";
+                continue;
+            }
+            unset($sample['id']);
+            $sample['template_id'] = (string)$templateId;
+            $sample['name'] = $name;
+            $sample['label'] = $field['label'];
+            $sample['k_type'] = $field['type'];
+            $sample['k_group'] = !empty($field['group']) ? $field['group'] : '';
+            $sample['k_order'] = (string)(int)$field['order'];
+            $sample['_html'] = '';
+            if (!empty($field['opt_values'])) {
+                $sample['opt_values'] = $field['opt_values'];
+            }
+            if (!empty($field['not_active'])) {
+                $sample['not_active'] = $field['not_active'];
+            } else {
+                $sample['not_active'] = '';
+            }
+            if (!empty($field['default'])) {
+                $sample['default_data'] = $field['default'];
+            }
+            $colNames = array_keys($sample);
+            $vals = array();
+            foreach (array_values($sample) as $v) {
+                $vals[] = gl_qval($db, $v);
+            }
+            $sql = "INSERT INTO `{$fields}` (`" . implode('`,`', $colNames) . "`) VALUES (" . implode(',', $vals) . ")";
+            if (!$db->query($sql)) {
+                echo "Failed to insert field {$name}: {$db->error}\n";
+                continue;
+            }
+            $fieldId = (int)$db->insert_id;
+            $added++;
+            echo "Added field: {$name} (#{$fieldId})\n";
         }
-        if (!empty($field['opt_values'])) {
-            $cols['opt_values'] = $field['opt_values'];
-        }
-        if (!empty($field['not_active'])) {
-            $cols['not_active'] = $field['not_active'];
-        }
-        $colNames = array_keys($cols);
-        $vals = array();
-        foreach (array_values($cols) as $v) {
-            $vals[] = gl_qval($db, $v);
-        }
-        $sql = "INSERT INTO `{$fields}` (`" . implode('`,`', $colNames) . "`) VALUES (" . implode(',', $vals) . ")";
-        if (!$db->query($sql)) {
-            echo "Failed to insert field {$name}: {$db->error}\n";
-            continue;
-        }
-        $fieldId = (int)$db->insert_id;
-        $added++;
-        echo "Added field: {$name} (#{$fieldId})\n";
+    }
+
+    if ($field['type'] === 'group' && !empty($field['collapsed'])) {
+        $html = "<cms:editable name='" . $name . "' label='" . $db->real_escape_string($field['label']) .
+            "' type='group' collapsed='1' order='" . (int)$field['order'] . "' />";
+        $db->query("UPDATE `{$fields}` SET _html='" . $db->real_escape_string($html) . "' WHERE id={$fieldId} LIMIT 1");
     }
 
     if ($field['type'] === 'message' || $field['type'] === 'group') {
