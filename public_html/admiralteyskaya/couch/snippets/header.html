@@ -228,6 +228,22 @@
     .mobile-menu-contact { margin-top: auto; gap: 10px; width: min(88vw, 330px) !important; }
     .mobile-menu-divider { display: block; width: min(46vw, 165px) !important; height: auto !important; margin: 0 auto !important; }
     .mobile-menu-contact-info { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(4px, 0.8vh, 8px); width: 100%; }
+    .mobile-menu-phone-row { display: inline-flex; align-items: center; justify-content: center; gap: calc(14px * var(--mm-scale, 1)); width: 100%; flex-wrap: nowrap; }
+    .mobile-menu-tg-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(36px * var(--mm-scale, 1));
+        height: calc(36px * var(--mm-scale, 1));
+        color: var(--gold-main) !important;
+        text-decoration: none !important;
+        flex-shrink: 0;
+        transition: color 0.25s ease, transform 0.25s ease;
+    }
+    .mobile-menu-tg-link i { font-size: calc(21px * var(--mm-scale, 1)) !important; line-height: 1 !important; }
+    .mobile-menu-tg-link:hover,
+    .mobile-menu-tg-link:focus,
+    .mobile-menu-tg-link:active { color: var(--gold-light) !important; transform: scale(1.06); }
     .mobile-menu-social-row { display: flex; align-items: center; justify-content: center; gap: 18px; width: 100%; }
     .mobile-menu-social-link {
         width: calc(46px * var(--mm-scale, 1));
@@ -346,15 +362,17 @@
         }
         .logo-luxe-animate {
             animation: glFadeInOnly 1.5s ease-out forwards;
-            transform: translateY(0) !important;
+            transform: none !important;
         }
         .mobile-menu-bg-img {
             object-position: center center !important;
         }
-        .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: auto; }
+        .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: 4px !important; padding-top: 10px; }
         .hero-section > .logo-luxe-animate {
             width: min(76vw, 320px) !important;
             max-width: 320px !important;
+            margin-bottom: 4px !important;
+            padding-top: 10px;
         }
         .tagline-premium { font-size: 10.8px !important; letter-spacing: 0.15em; margin-bottom: 12px !important; }
         .hero-branch-row {
@@ -378,8 +396,8 @@
             flex-direction: column;
             align-items: stretch;
             width: min(78vw, 268px);
-            margin: 0 auto 14px;
-            transform: translateY(-10px);
+            margin: -10px auto 10px;
+            transform: none;
         }
         .mobile-quick-links {
             gap: 0 !important;
@@ -604,6 +622,8 @@
             .mobile-menu-divider { width: min(40vw, 140px) !important; }
             .mobile-menu-address-link { font-size: calc(10px * var(--mm-scale, 1)) !important; min-height: calc(22px * var(--mm-scale, 1)) !important; }
             #menu-phone-link.mobile-menu-contact-link { min-height: calc(30px * var(--mm-scale, 1)); font-size: calc(17px * var(--mm-scale, 1)) !important; }
+            .mobile-menu-tg-link { width: calc(30px * var(--mm-scale, 1)); height: calc(30px * var(--mm-scale, 1)); }
+            .mobile-menu-tg-link i { font-size: calc(18px * var(--mm-scale, 1)) !important; }
             .mobile-menu-social-link { height: calc(32px * var(--mm-scale, 1)); font-size: calc(18px * var(--mm-scale, 1)) !important; }
         }
         .burger-btn {
@@ -782,7 +802,10 @@
                     <i class="fas fa-location-dot"></i>
                     <span id="menu-address-text"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
                 </a>
-                <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
+                <div class="mobile-menu-phone-row">
+                    <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
+                    <a id="menu-tg-link" href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if></cms:if>" target="_blank" rel="noopener noreferrer" class="mobile-menu-tg-link" title="Написать в Telegram" aria-label="Написать в Telegram"><i class="fab fa-telegram-plane"></i></a>
+                </div>
             </div>
             <div class="mobile-menu-social-row">
                 <a href="<cms:if social_vk><cms:show social_vk /><cms:else />https://vk.com/loungegarden</cms:if>" target="_blank" rel="noopener noreferrer" class="mobile-menu-social-link text-2xl" title="VK" aria-label="VK Garden Lounge"><i class="fab fa-vk"></i></a>
@@ -873,6 +896,7 @@
         const elMenuAddrLink = document.getElementById('menu-address-link');
         const elMenuPhoneLink = document.getElementById('menu-phone-link');
         const elMenuPhoneText = document.getElementById('menu-phone-text');
+        const elMenuTgLink = document.getElementById('menu-tg-link');
         const elDesktopCallLink = document.getElementById('desktop-call-link');
         const elDesktopCallText = document.getElementById('desktop-call-text');
         const elDesktopTgLink = document.getElementById('desktop-tg-link');
@@ -885,6 +909,7 @@
         if (elMenuAddrLink) elMenuAddrLink.href = data.mapUrl;
         if (elMenuPhoneLink) elMenuPhoneLink.href = `tel:${data.phone}`;
         if (elMenuPhoneText) elMenuPhoneText.innerText = data.phoneDisplay;
+        if (elMenuTgLink) elMenuTgLink.href = data.telegram;
         if (elDesktopCallLink) elDesktopCallLink.href = `tel:${data.phone}`;
         if (elDesktopCallText) elDesktopCallText.innerText = data.phoneDisplay;
         if (elDesktopTgLink) elDesktopTgLink.href = data.telegram;
