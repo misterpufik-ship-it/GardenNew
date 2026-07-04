@@ -244,7 +244,7 @@
     .mobile-menu-tg-link:hover,
     .mobile-menu-tg-link:focus,
     .mobile-menu-tg-link:active { color: var(--gold-light) !important; transform: scale(1.06); }
-    .mobile-menu-social-row { display: flex; align-items: center; justify-content: center; gap: 18px; width: 100%; }
+    .mobile-menu-social-row { display: flex; align-items: center; justify-content: center; gap: calc(10px * var(--mm-scale, 1)); width: 100%; }
     .mobile-menu-social-link {
         width: calc(46px * var(--mm-scale, 1));
         height: calc(42px * var(--mm-scale, 1));
@@ -613,7 +613,7 @@
         .mobile-menu-contact .flex.gap-8,
         .mobile-menu-social-row {
             width: auto !important;
-            gap: 18px !important;
+            gap: calc(10px * var(--mm-scale, 1)) !important;
             justify-content: center;
             align-self: center;
         }
@@ -801,7 +801,6 @@
         </div>
 
         <div class="mobile-menu-contact">
-            <img src="couch/uploads/image/div.webp" class="mobile-menu-divider" width="165" height="26" loading="lazy" decoding="async" alt="">
             <div class="mobile-menu-contact-info">
                 <a id="menu-address-link" href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else />https://yandex.ru/maps/-/CLBURN0n</cms:if>" target="_blank" rel="noopener" class="mobile-menu-contact-link mobile-menu-address-link font-serif italic uppercase tracking-[0.2em] text-center">
                     <i class="fas fa-location-dot"></i>
