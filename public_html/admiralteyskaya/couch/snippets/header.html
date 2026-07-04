@@ -258,22 +258,27 @@
     }
     .mobile-menu-contact-link,
     .mobile-menu-social-link {
-        color: #ffffff !important;
         border: none !important;
         background: none !important;
         transition: color 0.25s ease, transform 0.25s ease;
         align-self: center;
     }
-    .mobile-menu-address-link { display: inline-flex; align-items: center; justify-content: center; gap: calc(8px * var(--mm-scale, 1)); font-size: calc(11px * var(--mm-scale, 1)) !important; letter-spacing: 0.12em !important; line-height: 1.35 !important; max-width: 92vw; text-align: center; flex-wrap: nowrap; color: var(--gold-main) !important; text-decoration: none !important; }
+    .mobile-menu-contact-link { color: #ffffff !important; }
+    .mobile-menu-social-link { color: var(--gold-main) !important; }
+    .mobile-menu-address-link { display: inline-flex; align-items: center; justify-content: center; gap: calc(8px * var(--mm-scale, 1)); font-size: calc(11px * var(--mm-scale, 1)) !important; letter-spacing: 0.12em !important; line-height: 1.35 !important; max-width: 92vw; text-align: center; flex-wrap: nowrap; text-decoration: none !important; }
     .mobile-menu-address-link .fa-location-dot { color: var(--gold-main) !important; -webkit-text-fill-color: var(--gold-main) !important; font-size: calc(12px * var(--mm-scale, 1)) !important; flex-shrink: 0; }
-    #menu-address-text { display: inline !important; color: var(--gold-main) !important; -webkit-text-fill-color: var(--gold-main) !important; background: none !important; animation: none !important; opacity: 1 !important; visibility: visible !important; white-space: normal; }
+    #menu-address-text { display: inline !important; opacity: 1 !important; visibility: visible !important; white-space: normal; }
+    #menu-phone-link.mobile-menu-contact-link { font-size: calc(16px * var(--mm-scale, 1)) !important; }
     .mobile-menu-contact-link:hover,
     .mobile-menu-contact-link:focus,
-    .mobile-menu-contact-link:active,
+    .mobile-menu-contact-link:active {
+        color: var(--gold-main) !important;
+    }
     .mobile-menu-social-link:hover,
     .mobile-menu-social-link:focus,
     .mobile-menu-social-link:active {
-        color: var(--gold-main) !important;
+        color: var(--gold-light) !important;
+        transform: scale(1.06);
     }
 
     .hero-bottom-content { position: relative; z-index: 60 !important; filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.95)); }
@@ -367,12 +372,12 @@
         .mobile-menu-bg-img {
             object-position: center center !important;
         }
-        .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: 4px !important; padding-top: 10px; }
+        .logo-luxe-animate { width: 320px !important; margin-top: auto; margin-bottom: 0 !important; padding-top: var(--hero-logo-down-mob, 18px); }
         .hero-section > .logo-luxe-animate {
             width: min(76vw, 320px) !important;
             max-width: 320px !important;
-            margin-bottom: 4px !important;
-            padding-top: 10px;
+            margin-bottom: 0 !important;
+            padding-top: var(--hero-logo-down-mob, 18px);
         }
         .tagline-premium { font-size: 10.8px !important; letter-spacing: 0.15em; margin-bottom: 12px !important; }
         .hero-branch-row {
@@ -396,7 +401,7 @@
             flex-direction: column;
             align-items: stretch;
             width: min(78vw, 268px);
-            margin: -10px auto 10px;
+            margin: var(--hero-logo-btn-gap-mob, 8px) auto 10px;
             transform: none;
         }
         .mobile-quick-links {
@@ -596,11 +601,11 @@
             align-self: center !important;
         }
         #menu-phone-link.mobile-menu-contact-link {
-            font-size: calc(19px * var(--mm-scale, 1)) !important;
-            min-height: calc(36px * var(--mm-scale, 1)) !important;
+            font-size: calc(16px * var(--mm-scale, 1)) !important;
+            min-height: calc(32px * var(--mm-scale, 1)) !important;
         }
         #menu-phone-link.mobile-menu-contact-link.text-xl {
-            font-size: calc(19px * var(--mm-scale, 1)) !important;
+            font-size: calc(16px * var(--mm-scale, 1)) !important;
         }
         .mobile-menu-social-link.text-2xl {
             font-size: calc(21px * var(--mm-scale, 1)) !important;
@@ -621,7 +626,7 @@
             .mobile-branch-nav-link { font-size: clamp(calc(17px * var(--mm-scale, 1)), calc(4.8vw * var(--mm-scale, 1)), calc(21px * var(--mm-scale, 1))) !important; }
             .mobile-menu-divider { width: min(40vw, 140px) !important; }
             .mobile-menu-address-link { font-size: calc(10px * var(--mm-scale, 1)) !important; min-height: calc(22px * var(--mm-scale, 1)) !important; }
-            #menu-phone-link.mobile-menu-contact-link { min-height: calc(30px * var(--mm-scale, 1)); font-size: calc(17px * var(--mm-scale, 1)) !important; }
+            #menu-phone-link.mobile-menu-contact-link { min-height: calc(28px * var(--mm-scale, 1)); font-size: calc(14px * var(--mm-scale, 1)) !important; }
             .mobile-menu-tg-link { width: calc(30px * var(--mm-scale, 1)); height: calc(30px * var(--mm-scale, 1)); }
             .mobile-menu-tg-link i { font-size: calc(18px * var(--mm-scale, 1)) !important; }
             .mobile-menu-social-link { height: calc(32px * var(--mm-scale, 1)); font-size: calc(18px * var(--mm-scale, 1)) !important; }
@@ -800,10 +805,10 @@
             <div class="mobile-menu-contact-info">
                 <a id="menu-address-link" href="<cms:if is_udelnaya>https://yandex.ru/maps/-/CPtpbQPg<cms:else />https://yandex.ru/maps/-/CLBURN0n</cms:if>" target="_blank" rel="noopener" class="mobile-menu-contact-link mobile-menu-address-link font-serif italic uppercase tracking-[0.2em] text-center">
                     <i class="fas fa-location-dot"></i>
-                    <span id="menu-address-text"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
+                    <span id="menu-address-text" class="shimmer-text"><cms:if is_udelnaya>СПб., ул. Аккуратова, д. 13<cms:else />Наб. реки Мойки, д. 67-69</cms:if></span>
                 </a>
                 <div class="mobile-menu-phone-row">
-                    <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white text-xl"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
+                    <a id="menu-phone-link" href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:if header_phone_link><cms:show header_phone_link /><cms:else />+79956246808</cms:if></cms:if>" class="mobile-menu-contact-link font-serif italic text-white"><span id="menu-phone-text"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:if header_phone><cms:show header_phone /><cms:else />+7 995 624 68 08</cms:if></cms:if></span></a>
                     <a id="menu-tg-link" href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:if link_tg><cms:show link_tg /><cms:else />https://t.me/gardenlounge_admiral</cms:if></cms:if>" target="_blank" rel="noopener noreferrer" class="mobile-menu-tg-link" title="Написать в Telegram" aria-label="Написать в Telegram"><i class="fab fa-telegram-plane"></i></a>
                 </div>
             </div>
