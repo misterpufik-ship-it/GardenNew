@@ -1,0 +1,54 @@
+<cms:pages masterpage='globals.php' limit='1'>
+<cms:php>
+global $CTX;
+
+$sync = ((string) $CTX->get('spacing_sync_all')) !== '0' && ((string) $CTX->get('spacing_sync_all')) !== '';
+
+$deskDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_desk'));
+$mobDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_mob'));
+
+if ($deskDefault <= 0) {
+    $deskDefault = 48;
+}
+if ($mobDefault <= 0) {
+    $mobDefault = 36;
+}
+
+$sections = array(
+    'philosophy' => 'spacing_philosophy',
+    'experience' => 'spacing_experience',
+    'menu' => 'spacing_menu',
+    'akzii' => 'spacing_akzii',
+    'reservation' => 'spacing_reservation',
+    'contacts' => 'spacing_contacts',
+    'filial' => 'spacing_filial',
+);
+
+$desk = array();
+$mob = array();
+
+foreach ($sections as $key => $prefix) {
+    if ($sync) {
+        $desk[$key] = $deskDefault;
+        $mob[$key] = $mobDefault;
+    } else {
+        $deskVal = (int) preg_replace('/\D+/', '', (string) $CTX->get($prefix . '_desk'));
+        $mobVal = (int) preg_replace('/\D+/', '', (string) $CTX->get($prefix . '_mob'));
+        $desk[$key] = $deskVal > 0 ? $deskVal : $deskDefault;
+        $mob[$key] = $mobVal > 0 ? $mobVal : $mobDefault;
+    }
+}
+
+echo ":root {\n";
+echo "  --gl-section-py: {$desk['philosophy']}px;\n";
+foreach ($desk as $key => $val) {
+    echo "  --gl-py-{$key}: {$val}px;\n";
+}
+echo "}\n\n@media (max-width: 767px) {\n  :root {\n";
+echo "    --gl-section-py: {$mob['philosophy']}px;\n";
+foreach ($mob as $key => $val) {
+    echo "    --gl-py-{$key}: {$val}px;\n";
+}
+echo "  }\n}\n";
+</cms:php>
+</cms:pages>

@@ -76,6 +76,7 @@
     <cms:editable name='group_common' label='Раздел «Общие»' type='group' collapsed='1' order='60' />
     <cms:editable name='guide_common' label='Содержание' group='group_common' type='textarea' order='61'><![CDATA[
 Общие настройки для всего сайта:
+• Футер и SEO — отступы между блоками, соцсети, контакты филиалов, SEO по умолчанию.
 • Бронирование Telegram — уведомления и тексты формы.
 • Прелоадер — экран загрузки.
 • Заглушка 18+ — возрастное окно.

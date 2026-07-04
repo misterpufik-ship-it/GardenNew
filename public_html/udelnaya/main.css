@@ -8,14 +8,12 @@
     --gold-dark: #8e7037;
     --gold-light: #FFEebb;
     --bg-black: #000000;
-    --gl-section-py: clamp(60px, 7.2vw, 78px);
     --gl-gold-gap: 12px;
     --gl-section-head-mb: 3rem;
 }
 
 @media (max-width: 767px) {
     :root {
-        --gl-section-py: 52px;
         --gl-section-head-mb: 2.5rem;
     }
 }
@@ -238,7 +236,7 @@ img { display: block; max-width: 100%; height: auto; }
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: var(--gl-section-py) 20px;
+    padding: var(--gl-py-philosophy, var(--gl-section-py, 48px)) 20px;
     position: relative;
     min-height: auto;
     box-sizing: border-box;
@@ -255,12 +253,21 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 #menu-block {
-    padding: var(--gl-section-py) 0;
+    padding: var(--gl-py-menu, var(--gl-section-py, 48px)) 0;
+    box-sizing: border-box;
+}
+
+#special.taplink-block-wrapper {
+    padding: var(--gl-py-akzii, var(--gl-section-py, 48px)) 0;
+    box-sizing: border-box;
+}
+
+#reservation.taplink-block-wrapper {
+    padding: var(--gl-py-reservation, var(--gl-section-py, 48px)) 0;
     box-sizing: border-box;
 }
 
 .taplink-block-wrapper {
-    padding: var(--gl-section-py) 0;
     box-sizing: border-box;
 }
 
@@ -269,16 +276,16 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 #contact .gl_tp_body_wrapper {
-    padding: var(--gl-section-py) 20px calc(var(--gl-section-py) + 8px) !important;
+    padding: var(--gl-py-contacts, var(--gl-section-py, 48px)) 20px calc(var(--gl-py-contacts, var(--gl-section-py, 48px)) + 8px) !important;
 }
 
 .branch-wrapper {
-    padding: var(--gl-section-py) 18px !important;
+    padding: var(--gl-py-filial, var(--gl-section-py, 48px)) 18px !important;
 }
 
 .garden-experience-widget > section.bg-black {
-    padding-top: var(--gl-section-py) !important;
-    padding-bottom: var(--gl-section-py) !important;
+    padding-top: var(--gl-py-experience, var(--gl-section-py, 48px)) !important;
+    padding-bottom: var(--gl-py-experience, var(--gl-section-py, 48px)) !important;
 }
 
 .garden-experience-widget .widget-limiter.pt-\[16px\] {
