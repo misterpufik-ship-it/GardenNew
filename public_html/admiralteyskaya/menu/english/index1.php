@@ -1,4 +1,4 @@
-﻿<?php require_once( '../../couch/cms.php' ); ?>
+<?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Меню EN' icon='globe' order='150' />
 
 <cms:pages masterpage='menu/text/index.php' limit='1'>
@@ -286,7 +286,7 @@
 
             <div id="promos" class="tab-content">
                 <div class="taplink-block-wrapper">
-                    <div class="film-grain" style="position:absolute; top:0; left:0; width:100%; height:100%; background:url('https://grainy-gradients.vercel.app/noise.svg'); opacity:.04; pointer-events:none; z-index:1;"></div>
+                    <div class="film-grain" style="position:absolute; top:0; left:0; width:100%; height:100%; background:url('/img/noise.svg'); opacity:.04; pointer-events:none; z-index:1;"></div>
                     <div class="content-limiter">
                         <header class="text-center mb-12">
                             <h1 class="font-serif-lux text-3xl text-white font-light italic m-0">

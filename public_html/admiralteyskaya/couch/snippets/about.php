@@ -42,7 +42,7 @@
     @keyframes shineGold { to { background-position: 200% center; } }
     .fade-up { animation: fadeUpEffect 1.2s ease; }
     @keyframes fadeUpEffect { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .film-grain { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.04; pointer-events: none; z-index: 1; }
+    .film-grain { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('/img/noise.svg'); opacity: 0.04; pointer-events: none; z-index: 1; }
     .separator-img { max-width: 256px; width: 100%; height: auto; opacity: 0.9; margin: 0 auto; display: block; }
 </style>
 

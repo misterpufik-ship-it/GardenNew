@@ -103,7 +103,7 @@ function garden_preloader_get_field_value($field_name)
 function garden_preloader_default_settings()
 {
     return array(
-        'enabled' => true,
+        'enabled' => false,
         'scope_mode' => 'all',
         'sections' => array('home', 'admiral', 'udelnaya', 'admiral_udelnaya'),
         'video' => '/video/preloader.mp4',
@@ -270,8 +270,17 @@ function garden_preloader_section_allowed($settings, $section)
     return true;
 }
 
+function garden_preloader_temporarily_disabled()
+{
+    return true;
+}
+
 function garden_preloader_should_show($path = null)
 {
+    if (garden_preloader_temporarily_disabled()) {
+        return false;
+    }
+
     $settings = garden_preloader_get_settings();
     if (!$settings['enabled']) {
         return false;

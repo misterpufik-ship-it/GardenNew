@@ -185,7 +185,7 @@ function gl_preloader_render()
     $max_time = (int)$settings['max_time'];
     $playback_rate = (float)$settings['playback_rate'];
 
-    echo '<div id="preloader" aria-hidden="true"><video id="preloader-video" autoplay muted playsinline preload="auto" data-desktop-src="' . $video_desktop . '" data-mobile-src="' . $video_mobile . '"></video></div>' . "\n";
+    echo '<div id="preloader" aria-hidden="true"><video id="preloader-video" autoplay muted playsinline preload="metadata" data-desktop-src="' . $video_desktop . '" data-mobile-src="' . $video_mobile . '"></video></div>' . "\n";
     echo '<script>
 (function(){
     document.body.classList.add("loading");
@@ -197,7 +197,7 @@ function gl_preloader_render()
         var mobile=video.getAttribute("data-mobile-src")||desktop;
         video.src=(window.matchMedia&&window.matchMedia("(max-width:767px)").matches)?mobile:desktop;
     }
-    var hidden=false,pageLoaded=false,videoDone=false;
+    var hidden=false,domReady=false,videoDone=false,forceHide=false;
     var minTime=' . $min_time . ',maxTime=' . $max_time . ',playbackRate=' . $playback_rate . ',start=Date.now();
     function doHide(){
         if(hidden)return;
@@ -211,9 +211,17 @@ function gl_preloader_render()
         setTimeout(doHide,wait);
     }
     function tryHide(){
-        if(pageLoaded&&(videoDone||(Date.now()-start)>=maxTime))hide();
+        if(hidden)return;
+        if(forceHide||(domReady&&videoDone))hide();
     }
-    window.addEventListener("load",function(){pageLoaded=true;tryHide();});
+    function markDomReady(){domReady=true;tryHide();}
+    if(document.readyState==="loading"){
+        document.addEventListener("DOMContentLoaded",markDomReady,{once:true});
+    }else{
+        markDomReady();
+    }
+    window.addEventListener("load",markDomReady,{once:true});
+    setTimeout(function(){forceHide=true;tryHide();},maxTime);
     if(video){
         video.defaultPlaybackRate=playbackRate;
         video.playbackRate=playbackRate;
@@ -221,8 +229,10 @@ function gl_preloader_render()
         video.addEventListener("error",function(){videoDone=true;tryHide();});
         var p=video.play();
         if(p&&p.catch)p.catch(function(){videoDone=true;tryHide();});
-    }else{videoDone=true;}
-    setTimeout(function(){videoDone=true;tryHide();},maxTime);
+    }else{
+        videoDone=true;
+        tryHide();
+    }
 })();
 </script>' . "\n";
 }

@@ -1,4 +1,4 @@
-﻿<?php require_once( '../../couch/cms.php' ); ?>
+<?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Адмирал Меню Визуальное' name='menu_visual' executable='1'>
     <cms:editable name='visual_group_assets' label='Логотип и разделители' type='group' />
     <cms:editable name='visual_logo' label='Логотип меню' group='visual_group_assets' type='image'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
@@ -81,7 +81,7 @@
         /* СТИЛИ АКЦИЙ (ИЗ ТЕКСТОВОГО МЕНЮ) */
         .promo-card { border:1px solid rgba(197,160,89,0.2); background-color: rgba(20,20,20,0.4); padding:20px; text-align:center; margin-bottom: 15px; }
         .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
-        .film-grain { position:absolute; top:0; left:0; width:100%; height:100%; background:url('https://grainy-gradients.vercel.app/noise.svg'); opacity:.04; pointer-events:none; z-index:1; }
+        .film-grain { position:absolute; top:0; left:0; width:100%; height:100%; background:url('/img/noise.svg'); opacity:.04; pointer-events:none; z-index:1; }
 
         .action-area { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 50px; width: 100%; }
         @media (min-width: 768px) { .action-area { flex-direction: row; justify-content: center; gap: 15px; } }

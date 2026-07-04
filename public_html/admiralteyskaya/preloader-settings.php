@@ -7,7 +7,7 @@
     </cms:editable>
 
     <cms:editable name='group_preloader_main' label='Включение и показ' type='group' order='10' />
-    <cms:editable name='preloader_enabled' label='Включить прелоадер' group='group_preloader_main' type='dropdown' opt_values='Нет=0 | Да=1' order='11'>1</cms:editable>
+    <cms:editable name='preloader_enabled' label='Включить прелоадер' group='group_preloader_main' type='dropdown' opt_values='Нет=0 | Да=1' order='11'>0</cms:editable>
     <cms:editable name='preloader_scope_mode' label='Режим показа' group='group_preloader_main' type='dropdown' opt_values='На всех выбранных разделах=all | Только на выбранных=include | Везде, кроме выбранных=exclude' order='12'>all</cms:editable>
     <cms:editable name='preloader_sections' label='Разделы сайта' group='group_preloader_main' type='text' order='13' desc='Через запятую: home, admiral, udelnaya, admiral_udelnaya'>home, admiral, udelnaya, admiral_udelnaya</cms:editable>
     <cms:editable name='preloader_video' label='Видео (общее, устар.)' group='group_preloader_main' type='text' order='14' desc='Используется как запасной вариант, если не задано отдельное видео для десктопа или мобильных.'>/video/preloader.mp4</cms:editable>
