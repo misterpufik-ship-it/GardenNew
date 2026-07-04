@@ -85,20 +85,31 @@ function gl_sync_field($db, $prefix, $templateName, $fieldName, $value)
     }
     $pageId = (int)$pageRow['id'];
 
+    $updated = $db->query(
+        "UPDATE {$prefix}couch_data_text dt " .
+        "INNER JOIN {$prefix}couch_pages p ON p.id = dt.page_id " .
+        "SET dt.value='{$valueEsc}' " .
+        "WHERE p.template_id={$templateId} AND dt.field_id={$fieldId}"
+    );
+    if ($updated && $db->affected_rows > 0) {
+        echo "Updated {$templateName}::{$fieldName} on {$db->affected_rows} row(s)\n";
+        return;
+    }
+
     $dataRes = $db->query(
         "SELECT id, value FROM {$prefix}couch_data_text WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
     );
     if ($dataRes && ($dataRow = $dataRes->fetch_assoc())) {
         $old = (string)$dataRow['value'];
         $db->query("UPDATE {$prefix}couch_data_text SET value='{$valueEsc}' WHERE id=" . (int)$dataRow['id'] . " LIMIT 1");
-        echo "Updated {$templateName}::{$fieldName} (was: {$old})\n";
+        echo "Updated {$templateName}::{$fieldName} on page #{$pageId} (was: {$old})\n";
         return;
     }
 
     $db->query(
         "INSERT INTO {$prefix}couch_data_text (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$valueEsc}')"
     );
-    echo "Inserted {$templateName}::{$fieldName}\n";
+    echo "Inserted {$templateName}::{$fieldName} on page #{$pageId}\n";
 }
 
 foreach ($templates as $templateName) {
