@@ -1,0 +1,134 @@
+<cms:php>
+$GLOBALS['GL_VISUAL_MENU_ITEMS'] = array();
+</cms:php>
+
+<cms:show_repeatable 'menu_shisha'>
+<cms:php>
+global $CTX;
+$GLOBALS['GL_VISUAL_MENU_ITEMS'][] = array(
+    'cat' => 'shisha',
+    'title' => (string) $CTX->get('item_title'),
+    'price' => (string) $CTX->get('item_price'),
+    'weight' => (string) $CTX->get('item_weight'),
+    'img' => (string) $CTX->get('item_img'),
+    'desc' => (string) $CTX->get('item_desc'),
+    'tag' => (string) $CTX->get('item_tag'),
+);
+</cms:php>
+</cms:show_repeatable>
+
+<cms:show_repeatable 'menu_kitchen'>
+<cms:php>
+global $CTX;
+$GLOBALS['GL_VISUAL_MENU_ITEMS'][] = array(
+    'cat' => 'kitchen',
+    'title' => (string) $CTX->get('item_title'),
+    'price' => (string) $CTX->get('item_price'),
+    'weight' => (string) $CTX->get('item_weight'),
+    'img' => (string) $CTX->get('item_img'),
+    'desc' => (string) $CTX->get('item_desc'),
+    'tag' => (string) $CTX->get('item_tag'),
+);
+</cms:php>
+</cms:show_repeatable>
+
+<cms:show_repeatable 'menu_bar'>
+<cms:php>
+global $CTX;
+$GLOBALS['GL_VISUAL_MENU_ITEMS'][] = array(
+    'cat' => 'bar',
+    'title' => (string) $CTX->get('item_title'),
+    'price' => (string) $CTX->get('item_price'),
+    'weight' => (string) $CTX->get('item_weight'),
+    'img' => (string) $CTX->get('item_img'),
+    'desc' => (string) $CTX->get('item_desc'),
+    'tag' => (string) $CTX->get('item_tag'),
+);
+</cms:php>
+</cms:show_repeatable>
+
+<script>
+<cms:php>
+echo 'const menuData = ' . json_encode(
+    $GLOBALS['GL_VISUAL_MENU_ITEMS'],
+    JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+) . ";\n";
+</cms:php>
+const VISUAL_MENU_FALLBACK_IMG = '/admiralteyskaya/couch/uploads/image/sajt-menu-gl.webp';
+
+function getTagHtml(tag) {
+    if (!tag || tag === '-') return '';
+    let html = '<div class="badge-container">';
+    if (tag.includes('New')) html += '<span class="badge-item">New</span>';
+    if (tag.includes('Hit')) html += '<span class="badge-item">Hit</span>';
+    if (tag.includes('Special')) html += '<span class="badge-item">Special</span>';
+    if (tag.includes('Chef') && tag.includes('Choice')) html += '<span class="badge-item badge-chef">Chef</span>';
+    if (tag.includes('🌶️🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️🌶️</span>';
+    else if (tag.includes('🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️</span>';
+    else if (tag.includes('🌶️')) html += '<span class="badge-spicy">🌶️</span>';
+    html += '</div>';
+    return html;
+}
+
+function renderMenu(filter = 'shisha') {
+    const container = document.getElementById('menu-items');
+    container.innerHTML = '';
+    const data = menuData.filter(i => i.cat === filter);
+    data.forEach(item => {
+        const imgSrc = item.img && item.img.trim() ? item.img : VISUAL_MENU_FALLBACK_IMG;
+        const card = document.createElement('div');
+        card.className = 'dish-card';
+        card.innerHTML = `
+            <div class="image-frame" onclick="openLightbox('${imgSrc.replace(/'/g, "\\'")}')">
+                ${getTagHtml(item.tag)}
+                <img src="${imgSrc}" alt="${item.title}" loading="lazy">
+            </div>
+            <h3 class="dish-title subtitle-gold">${item.title}</h3>
+            <div class="dish-bottom">
+                <div class="dish-info">
+                    <span class="price">${item.price} ₽</span>
+                    <span class="weight">${item.weight}</span>
+                </div>
+                <div class="details-trigger" onclick="toggleDetails(this)">Подробнее</div>
+                <div class="details-content">${item.desc}</div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function filterMenu(cat, el) {
+    document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('menu-items').style.display = 'grid';
+    document.getElementById('promos-container').style.display = 'none';
+    renderMenu(cat);
+}
+
+function showPromos(el) {
+    document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('menu-items').style.display = 'none';
+    document.getElementById('promos-container').style.display = 'block';
+}
+
+function openLightbox(src) {
+    if (!src) return;
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; document.body.style.overflow = 'auto'; }
+
+function toggleDetails(btn) {
+    const content = btn.nextElementSibling;
+    content.classList.toggle('is-open');
+    btn.innerText = content.classList.contains('is-open') ? 'Свернуть' : 'Подробнее';
+}
+
+function openLoyaltyModal() { document.getElementById('loyalty-modal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+function closeLoyaltyModal() { document.getElementById('loyalty-modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+
+window.onload = () => renderMenu('shisha');
+</script>

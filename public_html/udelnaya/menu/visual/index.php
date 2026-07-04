@@ -24,8 +24,8 @@ require_once $garden_cms;
 ?>
 <cms:template title='Уделка Меню Визуальное' name='menu_visual_udel' executable='1' order='160'>
 
-    <cms:editable name='visual_logo' label='Логотип меню' type='image' hidden='1' order='1'>https://garden-lounge.pro/img/logo3.webp</cms:editable>
-    <cms:editable name='visual_divider' label='Разделитель (линия)' type='image' hidden='1' order='2'>https://garden-lounge.pro/img/div.png</cms:editable>
+    <cms:editable name='visual_logo' label='Логотип меню' type='image' hidden='1' order='1'>couch/uploads/image/logo3.webp</cms:editable>
+    <cms:editable name='visual_divider' label='Разделитель (линия)' type='image' hidden='1' order='2'>couch/uploads/image/div.webp</cms:editable>
 
     <cms:set tag_options = 'Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
 
@@ -173,7 +173,7 @@ require_once $garden_cms;
 
     <header class="py-8 text-center bg-black">
         <a href="https://garden-lounge.pro/udelnaya/menu">
-            <img src="<cms:show visual_logo />" alt="Logo" class="h-28 mx-auto">
+            <img src="<cms:if visual_logo><cms:show visual_logo /><cms:else />/admiralteyskaya/couch/uploads/image/logo3.webp</cms:if>" alt="Logo" class="h-28 mx-auto">
         </a>
     </header>
 
@@ -201,7 +201,7 @@ require_once $garden_cms;
         </cms:pages>
 
         <div class="flex justify-center mt-12 mb-6">
-            <img src="<cms:show visual_divider />" class="max-w-[200px] opacity-50">
+            <img src="<cms:if visual_divider><cms:show visual_divider /><cms:else />/admiralteyskaya/couch/uploads/image/div.webp</cms:if>" class="max-w-[200px] opacity-50">
         </div>
 
         <div class="action-area">
@@ -232,97 +232,8 @@ require_once $garden_cms;
         </div>
     </div>
 
-    <script>
-        const menuData = [
-            <cms:show_repeatable 'menu_shisha'>
-            { cat: 'shisha', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-            <cms:show_repeatable 'menu_kitchen'>
-            { cat: 'kitchen', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-            <cms:show_repeatable 'menu_bar'>
-            { cat: 'bar', title: '<cms:show item_title />', price: '<cms:show item_price />', weight: '<cms:show item_weight />', img: '<cms:show item_img />', desc: '<cms:show item_desc />', tag: '<cms:show item_tag />' },
-            </cms:show_repeatable>
-        ];
-
-        function getTagHtml(tag) {
-            if (!tag || tag === '-') return '';
-            let html = '<div class="badge-container">';
-            if (tag.includes('New')) html += '<span class="badge-item">New</span>';
-            if (tag.includes('Hit')) html += '<span class="badge-item">Hit</span>';
-            if (tag.includes('Special')) html += '<span class="badge-item">Special</span>';
-            if (tag.includes('Chef’s Choice')) html += '<span class="badge-item badge-chef">Chef</span>';
-            if (tag.includes('🌶️🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️🌶️</span>';
-            else if (tag.includes('🌶️🌶️')) html += '<span class="badge-spicy">🌶️🌶️</span>';
-            else if (tag.includes('🌶️')) html += '<span class="badge-spicy">🌶️</span>';
-            html += '</div>';
-            return html;
-        }
-
-        function renderMenu(filter = 'shisha') {
-            const container = document.getElementById('menu-items');
-            container.innerHTML = '';
-            const data = menuData.filter(i => i.cat === filter);
-            data.forEach(item => {
-                const imgSrc = item.img && item.img.trim() ? item.img : '/admiralteyskaya/couch/uploads/image/sajt-menu-gl.webp';
-                const card = document.createElement('div');
-                card.className = 'dish-card';
-                card.innerHTML = `
-                    <div class="image-frame" onclick="openLightbox('${imgSrc}')">
-                        ${getTagHtml(item.tag)}
-                        ${'<img src="' + imgSrc + '" alt="' + item.title + '" loading="lazy">'}
-                    </div>
-                    <h3 class="dish-title subtitle-gold">${item.title}</h3>
-                    <div class="dish-bottom">
-                        <div class="dish-info">
-                            <span class="price">${item.price} ₽</span>
-                            <span class="weight">${item.weight}</span>
-                        </div>
-                        <div class="details-trigger" onclick="toggleDetails(this)">Подробнее</div>
-                        <div class="details-content">${item.desc}</div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function filterMenu(cat, el) {
-            document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-            document.getElementById('menu-items').style.display = 'grid';
-            document.getElementById('promos-container').style.display = 'none';
-            renderMenu(cat);
-        }
-
-        function showPromos(el) {
-            document.querySelectorAll('.tab-btn').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
-            document.getElementById('menu-items').style.display = 'none';
-            document.getElementById('promos-container').style.display = 'block';
-        }
-
-        function openLightbox(src) {
-            if(!src) return;
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; document.body.style.overflow = 'auto'; }
-        
-        function toggleDetails(btn) {
-            const content = btn.nextElementSibling;
-            content.classList.toggle('is-open');
-            btn.innerText = content.classList.contains('is-open') ? 'Свернуть' : 'Подробнее';
-        }
-
-        function openLoyaltyModal() { document.getElementById('loyalty-modal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-        function closeLoyaltyModal() { document.getElementById('loyalty-modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
-
-        window.onload = () => renderMenu('shisha');
-    </script>
+    <cms:embed 'visual-menu-script.html' />
 </body>
 </html>
 <?php COUCH::invoke(); ?>
-
 

@@ -176,7 +176,7 @@
         <!-- ЛОГОТИП -->
         <header class="mb-8 fade-up" style="animation-delay: 0.1s;">
             <a href="https://garden-lounge.pro/admiralteyskaya/" class="block">
-                <img src="/img/logo3.webp" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500" width="384" height="162" decoding="async">
+                <img src="/admiralteyskaya/couch/uploads/image/logo3.webp" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500" width="384" height="162" decoding="async">
             </a>
         </header>
 
