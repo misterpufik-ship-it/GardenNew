@@ -1,4 +1,4 @@
-<cms:pages masterpage='globals.php' limit='1'>
+<cms:pages masterpage='layout-spacing.php' limit='1'>
 <cms:php>
 global $CTX;
 
@@ -9,10 +9,10 @@ $deskDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_d
 $mobDefault = (int) preg_replace('/\D+/', '', (string) $CTX->get('spacing_all_mob'));
 
 if ($deskDefault <= 0) {
-    $deskDefault = 28;
+    $deskDefault = 20;
 }
 if ($mobDefault <= 0) {
-    $mobDefault = 20;
+    $mobDefault = 14;
 }
 
 $sections = array(
