@@ -5,7 +5,7 @@
   --gold-light: #FFEebb;
   --bg-black: #000;
   --text-main: #EAEAEA;
-  --nav-offset: 96px;
+  --nav-offset: 72px;
   --gl-gold-gap: 12px;
   --gl-section-head-mb: 1.75rem;
   --gl-section-footer-mt: 1.25rem;
@@ -23,7 +23,7 @@
 
 @media (max-width: 767px) {
   :root {
-    --nav-offset: 84px;
+    --nav-offset: 64px;
     --gl-section-head-mb: 1.25rem;
     --gl-section-footer-mt: 1rem;
     --gl-divider-mt: 12px;
@@ -39,6 +39,7 @@
 }
 
 <cms:embed 'section-spacing-vars.html' />
+<cms:embed 'section-scroll-vars.html' />
 
 /* Базовые сбросы и стабилизация скролла */
 *, *::before, *::after { box-sizing: border-box; }
@@ -180,15 +181,13 @@ body.loading {
 }
 
 /* Якоря для скролла */
-#about-us,
-#menu-block,
-#photo,
-#special,
-#reservation,
-#contact,
-#branch-filial {
-  scroll-margin-top: var(--nav-offset);
-}
+#about-us { scroll-margin-top: var(--nav-offset-philosophy, var(--nav-offset)); }
+#photo { scroll-margin-top: var(--nav-offset-experience, var(--nav-offset)); }
+#menu-block { scroll-margin-top: var(--nav-offset-menu, var(--nav-offset)); }
+#special { scroll-margin-top: var(--nav-offset-akzii, var(--nav-offset)); }
+#reservation { scroll-margin-top: var(--nav-offset-reservation, var(--nav-offset)); }
+#contact { scroll-margin-top: var(--nav-offset-contacts, var(--nav-offset)); }
+#branch-filial { scroll-margin-top: var(--nav-offset-filial, var(--nav-offset)); }
 /* Стили кнопки Вверх */
 .scroll-top-btn {
     position: fixed;

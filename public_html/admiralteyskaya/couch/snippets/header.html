@@ -968,9 +968,27 @@
         document.fonts.ready.then(syncResponsiveNav);
     }
 
-    function getNavOffset() {
-        if (!navbar) return 72;
-        return navbar.getBoundingClientRect().height + 6;
+    const ANCHOR_OFFSET_VARS = {
+        'about-us': '--nav-offset-philosophy',
+        'photo': '--nav-offset-experience',
+        'menu-block': '--nav-offset-menu',
+        'special': '--nav-offset-akzii',
+        'reservation': '--nav-offset-reservation',
+        'contact': '--nav-offset-contacts',
+        'branch-filial': '--nav-offset-filial',
+    };
+
+    function readCssPx(varName, fallback) {
+        const raw = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        const parsed = parseInt(raw, 10);
+        return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
+    }
+
+    function getScrollOffset(target) {
+        const id = target && target.id ? target.id : '';
+        const varName = ANCHOR_OFFSET_VARS[id] || '--nav-offset';
+        const fallback = readCssPx('--nav-offset', 72);
+        return readCssPx(varName, fallback);
     }
 
     function findSectionHead(target) {
@@ -986,7 +1004,7 @@
     function scrollToAnchor(target) {
         if (!target) return;
         const head = findSectionHead(target);
-        const top = head.getBoundingClientRect().top + window.scrollY - getNavOffset() - 8;
+        const top = head.getBoundingClientRect().top + window.scrollY - getScrollOffset(target);
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }
 

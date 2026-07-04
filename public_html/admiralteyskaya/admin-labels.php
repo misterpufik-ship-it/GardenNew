@@ -1,5 +1,6 @@
 <?php require_once( 'couch/cms.php' ); ?>
 <cms:template title='Названия разделов' executable='0' order='230'>
+    <cms:editable name='label_layout_scroll' label='Прокрутка по меню (Общие)' type='text' order='7'>Прокрутка по меню</cms:editable>
     <cms:editable name='label_layout_spacing' label='Отступы между блоками (Общие)' type='text' order='6'>Отступы между блоками</cms:editable>
     <cms:editable name='label_booking_settings' label='Бронирование Telegram (Общие)' type='text' order='2'>Бронирование Telegram</cms:editable>
     <cms:editable name='label_preloader_settings' label='Прелоадер (Общие)' type='text' order='3'>Прелоадер</cms:editable>
