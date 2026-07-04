@@ -285,7 +285,7 @@
     }
 
     .gallery-footer-note {
-        margin-top: clamp(42px, 6vw, 82px) !important;
+        margin-top: var(--gl-section-footer-mt, 1.75rem) !important;
     }
 
     .widget-modal-arrow {
@@ -383,10 +383,6 @@
     .widget-modal-arrow-next { right: 10px; }
 
     @media (max-width: 767px) {
-        .gallery-footer-note {
-            margin-top: 34px !important;
-        }
-
         .widget-modal-arrow {
             width: 40px;
             height: 40px;
@@ -490,7 +486,7 @@
                 </div>
             </div>
 
-            <div class="gallery-footer-note widget-limiter text-center mt-48 mb-8 px-6">
+            <div class="gallery-footer-note widget-limiter text-center mb-6 px-6">
                 <p class="shimmer-gold text-[10px] m-0 lowercase tracking-[0.4em] leading-relaxed">
                     <cms:show gallery_footer_text />
                 </p>

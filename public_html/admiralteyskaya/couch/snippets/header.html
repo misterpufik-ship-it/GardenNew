@@ -326,13 +326,18 @@
     /* --- МОБИЛЬНЫЕ ПРАВКИ --- */
     @media (max-width: 767px) {
         .hero-section {
-            height: var(--gl-viewport-height, 100svh);
-            min-height: var(--gl-viewport-height, 100svh);
-            max-height: var(--gl-viewport-height, 100svh);
+            height: 100svh;
+            height: 100dvh;
+            min-height: 100svh;
+            min-height: 100dvh;
+            max-height: 100svh;
+            max-height: 100dvh;
             padding: calc(env(safe-area-inset-top, 0px) + 68px) 16px max(12px, env(safe-area-inset-bottom));
         }
         .hero-bg img {
             object-position: center center !important;
+            transform: translateZ(0);
+            will-change: auto;
         }
         .mobile-menu-bg-img {
             object-position: center center !important;
@@ -800,12 +805,8 @@
         document.documentElement.style.setProperty('--gl-vh', (height * 0.01) + 'px');
     }
     syncGlViewportHeight();
-    window.addEventListener('resize', syncGlViewportHeight, { passive: true });
     window.addEventListener('orientationchange', syncGlViewportHeight, { passive: true });
     window.addEventListener('load', syncGlViewportHeight);
-    if (window.visualViewport) {
-        window.visualViewport.addEventListener('resize', syncGlViewportHeight, { passive: true });
-    }
 
     const navbar = document.getElementById('navbar');
     const burgerBtn = document.getElementById('burgerBtn');
