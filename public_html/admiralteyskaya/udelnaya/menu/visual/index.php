@@ -87,11 +87,23 @@ require_once $garden_cms;
             background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shineGold 5s linear infinite;
         }
+        .shimmer-gold { background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shineGold 5s linear infinite; }
 
         .nav-sticky { position: sticky; top:0; z-index:50; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
         .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; padding: 0 0 6px; }
         .tab-btn.active { color: var(--gold); }
+        .tab-btn.tab-promos.active {
+            background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shineGold 5s linear infinite;
+            font-size: 12px;
+            letter-spacing: 0.4em;
+            font-weight: 500;
+        }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
         
@@ -179,7 +191,7 @@ require_once $garden_cms;
             <button type="button" class="tab-btn active uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">&#1050;&#1072;&#1083;&#1100;&#1103;&#1085;&#1099;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('kitchen', this)">&#1050;&#1091;&#1093;&#1085;&#1103;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('bar', this)">&#1041;&#1072;&#1088;</button>
-            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
+            <button type="button" class="tab-btn tab-promos uppercase font-medium tracking-[0.4em] text-[12px]" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
         </nav>
         <div class="gold-divider-nav"></div>
     </div>

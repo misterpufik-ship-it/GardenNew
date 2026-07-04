@@ -164,11 +164,11 @@ $fieldDefs = array(
     array('name' => 'group_scroll_adm', 'label' => 'Адмиралтейская', 'type' => 'group', 'order' => 10, 'collapsed' => '1'),
     array('name' => 'scroll_adm_sync_all', 'label' => 'Применить ко всем пунктам', 'type' => 'checkbox', 'group' => 'group_scroll_adm', 'order' => 11, 'opt_values' => 'Да=1', 'default' => '1', 'not_active' => '', 'legacy' => 'scroll_sync_all'),
     array('name' => 'scroll_adm_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_scroll_adm', 'order' => 12, 'default' => '72', 'legacy' => 'scroll_all_desk'),
-    array('name' => 'scroll_adm_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_scroll_adm', 'order' => 13, 'default' => '64', 'legacy' => 'scroll_all_mob'),
+    array('name' => 'scroll_adm_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_scroll_adm', 'order' => 13, 'default' => '72', 'legacy' => 'scroll_all_mob'),
     array('name' => 'group_scroll_udel', 'label' => 'Удельная', 'type' => 'group', 'order' => 40, 'collapsed' => '1'),
     array('name' => 'scroll_udel_sync_all', 'label' => 'Применить ко всем пунктам', 'type' => 'checkbox', 'group' => 'group_scroll_udel', 'order' => 41, 'opt_values' => 'Да=1', 'default' => '1', 'copy_from' => 'scroll_adm_sync_all', 'legacy' => 'scroll_sync_all'),
     array('name' => 'scroll_udel_all_desk', 'label' => 'Общий отступ — десктоп (px)', 'type' => 'text', 'group' => 'group_scroll_udel', 'order' => 42, 'default' => '72', 'copy_from' => 'scroll_adm_all_desk', 'legacy' => 'scroll_all_desk'),
-    array('name' => 'scroll_udel_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_scroll_udel', 'order' => 43, 'default' => '64', 'copy_from' => 'scroll_adm_all_mob', 'legacy' => 'scroll_all_mob'),
+    array('name' => 'scroll_udel_all_mob', 'label' => 'Общий отступ — мобильный (px)', 'type' => 'text', 'group' => 'group_scroll_udel', 'order' => 43, 'default' => '72', 'copy_from' => 'scroll_adm_all_mob', 'legacy' => 'scroll_all_mob'),
 );
 
 $orderAdm = 20;
@@ -190,7 +190,7 @@ foreach ($sectionLabels as $section => $label) {
         'type' => 'text',
         'group' => 'group_scroll_adm',
         'order' => $orderAdm++,
-        'default' => '64',
+        'default' => '72',
         'not_active' => 'scroll_adm_sync_all=1',
         'legacy' => 'scroll_' . $section . '_mob',
     );
@@ -211,7 +211,7 @@ foreach ($sectionLabels as $section => $label) {
         'type' => 'text',
         'group' => 'group_scroll_udel',
         'order' => $orderUdel++,
-        'default' => '64',
+        'default' => '72',
         'not_active' => 'scroll_udel_sync_all=1',
         'copy_from' => 'scroll_adm_' . $section . '_mob',
         'legacy' => 'scroll_' . $section . '_mob',
