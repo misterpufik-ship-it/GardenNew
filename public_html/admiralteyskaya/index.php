@@ -137,7 +137,6 @@
     <cms:pages masterpage='menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>
     <cms:pages masterpage='akzii.php' limit='1'><cms:embed 'akzii.html' /></cms:pages>
     <cms:pages masterpage='reservation.php' limit='1'><cms:embed 'reservation.html' /></cms:pages>
-    <cms:embed 'faq.html' />
     <cms:pages masterpage='contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
 

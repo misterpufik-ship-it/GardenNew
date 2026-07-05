@@ -166,7 +166,6 @@ require_once $garden_cms;
     <cms:pages masterpage='udelnaya/menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/akzii.php' limit='1'><cms:embed 'akzii.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/reservation.php' limit='1'><cms:embed 'reservation.html' /></cms:pages>
-    <cms:embed 'faq.html' />
     <cms:pages masterpage='udelnaya/contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
 
