@@ -11,7 +11,11 @@ if (PHP_SAPI !== 'cli' && !defined('GL_SKIP_CLI_CHECK')) {
 $root = realpath(__DIR__ . '/..');
 chdir($root);
 require_once $root . '/couch/cms.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/faq-content.php';
+$faqContent = dirname(__DIR__) . '/../age-gate/faq-content.php';
+if (!is_file($faqContent) && !empty($_SERVER['DOCUMENT_ROOT'])) {
+    $faqContent = rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/age-gate/faq-content.php';
+}
+require_once $faqContent;
 
 global $AUTH, $FUNCS;
 
@@ -120,6 +124,12 @@ try {
     $FUNCS->invalidate_cache();
     echo "FAQ seed complete.\n";
 } catch (Exception $e) {
-    fwrite(STDERR, $e->getMessage() . "\n");
+    $message = $e->getMessage() . "\n";
+    if (defined('GL_SKIP_CLI_CHECK')) {
+        http_response_code(500);
+        echo $message;
+    } else {
+        fwrite(STDERR, $message);
+    }
     exit(1);
 }

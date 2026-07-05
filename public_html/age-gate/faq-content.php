@@ -308,6 +308,17 @@ function gl_render_faq_styles()
     flex-direction: column;
     gap: 8px;
 }
+@media (min-width: 768px) {
+    .gl-faq-inner {
+        max-width: 960px;
+    }
+    .gl-faq-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        align-items: start;
+    }
+}
 .gl-faq-item {
     border: 1px solid rgba(197, 160, 89, 0.2);
     background: rgba(255, 255, 255, 0.02);
