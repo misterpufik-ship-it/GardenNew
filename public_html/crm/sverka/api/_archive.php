@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__DIR__, 2) . '/_lib/storage.php';
+require_once dirname(__DIR__, 2) . '/_lib/storage.php';
 
 function sverka_load_archive(): array
 {

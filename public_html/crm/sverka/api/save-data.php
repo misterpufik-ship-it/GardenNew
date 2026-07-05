@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require dirname(__DIR__, 2) . '/_lib/storage.php';
-require __DIR__ . '/_archive.php';
+require_once dirname(__DIR__, 2) . '/_lib/storage.php';
+require_once __DIR__ . '/_archive.php';
 
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
@@ -32,7 +32,7 @@ try {
         crm_write_json('sverka', 'archive.json', $archive);
     }
     crm_write_json('sverka', 'data.json', $data);
-} catch (RuntimeException $e) {
+} catch (Throwable $e) {
     http_response_code(500);
     echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
     exit;

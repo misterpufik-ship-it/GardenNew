@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require dirname(__DIR__, 2) . '/_lib/storage.php';
-require __DIR__ . '/_archive.php';
+require_once dirname(__DIR__, 2) . '/_lib/storage.php';
+require_once __DIR__ . '/_archive.php';
 
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);

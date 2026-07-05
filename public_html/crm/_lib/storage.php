@@ -2,6 +2,10 @@
 /**
  * Постоянное хранилище CRM на хостинге (папка storage/ исключена из деплоя).
  */
+if (defined('CRM_STORAGE_LOADED')) {
+    return;
+}
+define('CRM_STORAGE_LOADED', true);
 
 function crm_root(): string
 {
