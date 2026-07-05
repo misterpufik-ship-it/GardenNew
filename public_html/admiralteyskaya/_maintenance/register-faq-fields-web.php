@@ -193,10 +193,12 @@ if ($db->connect_errno) {
 $db->set_charset('utf8mb4');
 
 try {
+    $udelnayaFaq = dirname($root) . '/udelnaya/faq.php';
+
     echo "Parsing faq.php...\n";
     gl_faq_parse_template($root . '/faq.php', '/admiralteyskaya/faq.php');
     echo "Parsing udelnaya/faq.php...\n";
-    gl_faq_parse_template($root . '/udelnaya/faq.php', '/udelnaya/faq.php');
+    gl_faq_parse_template($udelnayaFaq, '/udelnaya/faq.php');
 
     $FUNCS->invalidate_cache();
 
