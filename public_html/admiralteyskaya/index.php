@@ -71,6 +71,11 @@
             "addressLocality": "Санкт-Петербург",
             "addressCountry": "RU"
         },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 59.9394,
+            "longitude": 30.3219
+        },
         "openingHoursSpecification": [
             {
                 "@type": "OpeningHoursSpecification",
@@ -89,7 +94,8 @@
             "<cms:show social_vk />",
             "<cms:show social_instagram />",
             "<cms:show social_telegram />",
-            "<cms:show social_youtube />"
+            "<cms:show social_youtube />",
+            "https://maps.app.goo.gl/RdU8xmjNrTsJoVbx7"
         ],
         "hasMap": "<cms:show adm_map />"
     }
@@ -131,6 +137,7 @@
     <cms:pages masterpage='menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>
     <cms:pages masterpage='akzii.php' limit='1'><cms:embed 'akzii.html' /></cms:pages>
     <cms:pages masterpage='reservation.php' limit='1'><cms:embed 'reservation.html' /></cms:pages>
+    <cms:embed 'faq.html' />
     <cms:pages masterpage='contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
 

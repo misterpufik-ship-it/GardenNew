@@ -94,6 +94,11 @@ require_once $garden_cms;
             "addressLocality": "Санкт-Петербург",
             "addressCountry": "RU"
         },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 60.0165,
+            "longitude": 30.3142
+        },
         "openingHoursSpecification": [
             {
                 "@type": "OpeningHoursSpecification",
@@ -112,7 +117,8 @@ require_once $garden_cms;
             "<cms:show social_vk />",
             "<cms:show social_instagram />",
             "<cms:show social_telegram />",
-            "<cms:show social_youtube />"
+            "<cms:show social_youtube />",
+            "https://maps.app.goo.gl/rcwMbaXdfrbSTowd7"
         ],
         "hasMap": "<cms:show adm_map />"
     }
@@ -155,6 +161,7 @@ require_once $garden_cms;
     <cms:pages masterpage='udelnaya/menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/akzii.php' limit='1'><cms:embed 'akzii.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/reservation.php' limit='1'><cms:embed 'reservation.html' /></cms:pages>
+    <cms:embed 'faq.html' />
     <cms:pages masterpage='udelnaya/contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
 
