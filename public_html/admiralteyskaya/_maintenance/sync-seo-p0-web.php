@@ -20,7 +20,10 @@ $fieldUpdates = array(
         'seo_desc_default' => 'Garden Lounge на ул. Аккуратова 13: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Удельная. Тел. +7 950 047-33-65.',
     ),
     'home.php' => array(
-        'home_seo_desc' => 'Garden Lounge — лаунж-пространство с двумя филиалами в Санкт-Петербурге: Адмиралтейская в центре и Удельная на севере. Бронирование, меню, бар, VIP-комнаты и PS5.',
+        'home_seo_title' => 'Garden Lounge — кальянная и лаунж-бар в Санкт-Петербурге',
+        'home_seo_desc' => 'Garden Lounge — два филиала в Санкт-Петербурге: Адмиралтейская в центре и Удельная на севере. Выберите заведение, посмотрите меню или забронируйте столик.',
+        'home_seo_keywords' => 'Garden Lounge, Garden Lounge SPB, кальянная Санкт-Петербург, лаунж бар Санкт-Петербург',
+        'home_seo_sr_text' => 'Garden Lounge — сеть лаунж-баров в Санкт-Петербурге. Филиалы: наб. реки Мойки 67-69 (м. Адмиралтейская) и ул. Аккуратова 13 (м. Удельная).',
     ),
 );
 
@@ -199,7 +202,9 @@ $fixes = array(
     array('like' => '%Удельной%', 'field' => 'seo_title_default', 'tpl' => 'globals.php', 'value' => $fieldUpdates['globals.php']['seo_title_default']),
     array('like' => '%лучшей кальянной%', 'field' => 'seo_desc_default', 'tpl' => 'globals.php', 'value' => $fieldUpdates['globals.php']['seo_desc_default']),
     array('like' => '%995 624%', 'field' => 'seo_desc_default', 'tpl' => 'udelnaya/globals.php', 'value' => $fieldUpdates['udelnaya/globals.php']['seo_desc_default']),
+    array('like' => '%лаунж-пространство%', 'field' => 'home_seo_desc', 'tpl' => 'home.php', 'value' => $fieldUpdates['home.php']['home_seo_desc']),
     array('like' => '%центре города%', 'field' => 'home_seo_desc', 'tpl' => 'home.php', 'value' => $fieldUpdates['home.php']['home_seo_desc']),
+    array('like' => '%Garden Lounge -%', 'field' => 'home_seo_title', 'tpl' => 'home.php', 'value' => $fieldUpdates['home.php']['home_seo_title']),
 );
 foreach ($fixes as $fix) {
     $likeEsc = $db->real_escape_string($fix['like']);

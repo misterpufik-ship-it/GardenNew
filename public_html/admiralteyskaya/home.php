@@ -6,11 +6,11 @@
     </cms:editable>
 
     <cms:editable name='group_seo' label='SEO' type='group' order='10' />
-    <cms:editable name='home_seo_title' label='Заголовок (Title)' group='group_seo' type='text' order='11'>Garden Lounge - кальянная и лаунж-бар в Санкт-Петербурге</cms:editable>
-    <cms:editable name='home_seo_desc' label='Описание (Description)' group='group_seo' type='textarea' order='12'>Garden Lounge — лаунж-пространство с двумя филиалами в Санкт-Петербурге: Адмиралтейская в центре и Удельная на севере. Бронирование, меню, бар, VIP-комнаты и PS5.</cms:editable>
-    <cms:editable name='home_seo_keywords' label='Ключевые слова' group='group_seo' type='textarea' order='13'>Garden Lounge, кальянная спб, лаунж бар спб, кальянная адмиралтейская, кальянная удельная</cms:editable>
+    <cms:editable name='home_seo_title' label='Заголовок (Title)' group='group_seo' type='text' order='11'>Garden Lounge — кальянная и лаунж-бар в Санкт-Петербурге</cms:editable>
+    <cms:editable name='home_seo_desc' label='Описание (Description)' group='group_seo' type='textarea' order='12'>Garden Lounge — два филиала в Санкт-Петербурге: Адмиралтейская в центре и Удельная на севере. Выберите заведение, посмотрите меню или забронируйте столик.</cms:editable>
+    <cms:editable name='home_seo_keywords' label='Ключевые слова' group='group_seo' type='textarea' order='13'>Garden Lounge, Garden Lounge SPB, кальянная Санкт-Петербург, лаунж бар Санкт-Петербург</cms:editable>
     <cms:editable name='home_seo_og_image' label='Картинка для соцсетей (OG Image)' group='group_seo' type='image' order='14'>https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg</cms:editable>
-    <cms:editable name='home_seo_sr_text' label='Скрытый SEO-текст (для роботов)' group='group_seo' type='textarea' order='15'>Garden Lounge работает в двух филиалах Санкт-Петербурга: наб. реки Мойки 67-69 и ул. Аккуратова 13.</cms:editable>
+    <cms:editable name='home_seo_sr_text' label='Скрытый SEO-текст (для роботов)' group='group_seo' type='textarea' order='15'>Garden Lounge — сеть лаунж-баров в Санкт-Петербурге. Филиалы: наб. реки Мойки 67-69 (м. Адмиралтейская) и ул. Аккуратова 13 (м. Удельная).</cms:editable>
 
     <cms:editable name='group_logo' label='Логотип' type='group' order='20' />
     <cms:editable name='home_logo' label='Изображение логотипа' group='group_logo' type='image' order='21'>:logo3.webp</cms:editable>
