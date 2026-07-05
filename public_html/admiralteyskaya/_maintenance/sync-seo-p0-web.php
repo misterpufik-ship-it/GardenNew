@@ -199,6 +199,7 @@ $fixes = array(
     array('like' => '%Удельной%', 'field' => 'seo_title_default', 'tpl' => 'globals.php', 'value' => $fieldUpdates['globals.php']['seo_title_default']),
     array('like' => '%лучшей кальянной%', 'field' => 'seo_desc_default', 'tpl' => 'globals.php', 'value' => $fieldUpdates['globals.php']['seo_desc_default']),
     array('like' => '%995 624%', 'field' => 'seo_desc_default', 'tpl' => 'udelnaya/globals.php', 'value' => $fieldUpdates['udelnaya/globals.php']['seo_desc_default']),
+    array('like' => '%центре города%', 'field' => 'home_seo_desc', 'tpl' => 'home.php', 'value' => $fieldUpdates['home.php']['home_seo_desc']),
 );
 foreach ($fixes as $fix) {
     $likeEsc = $db->real_escape_string($fix['like']);
