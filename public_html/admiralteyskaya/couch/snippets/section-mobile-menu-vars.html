@@ -1,0 +1,74 @@
+<cms:pages masterpage='layout-mobile-menu.php' limit='1'>
+<cms:php>
+global $CTX;
+
+$branchPrefix = 'mm_adm_';
+
+if (defined('K_TEMPLATE_NAME')) {
+    $tpl = strtolower((string) K_TEMPLATE_NAME);
+    if (strpos($tpl, 'udelnaya') !== false) {
+        $branchPrefix = 'mm_udel_';
+    }
+} elseif (!empty($_SERVER['REQUEST_URI']) && stripos((string) $_SERVER['REQUEST_URI'], '/udelnaya') !== false) {
+    $branchPrefix = 'mm_udel_';
+}
+
+$fallbackPrefix = ($branchPrefix === 'mm_adm_') ? 'mm_udel_' : 'mm_adm_';
+
+function gl_mm_get($CTX, $field, $fallbackFields = array())
+{
+    $value = (string) $CTX->get($field);
+    if ($value !== '') {
+        return $value;
+    }
+    foreach ($fallbackFields as $fallbackField) {
+        if ($fallbackField === '') {
+            continue;
+        }
+        $fallbackValue = (string) $CTX->get($fallbackField);
+        if ($fallbackValue !== '') {
+            return $fallbackValue;
+        }
+    }
+    return '';
+}
+
+function gl_mm_px($CTX, $field, $fallbackFields, $default)
+{
+    $raw = gl_mm_get($CTX, $field, $fallbackFields);
+    $val = (int) preg_replace('/\D+/', '', $raw);
+    if ($raw === '' || $val < 0) {
+        return $default;
+    }
+    return $val;
+}
+
+$defaults = array(
+    'shell_pad_top' => 32,
+    'logo_menu_gap' => 12,
+    'menu_contact_gap' => 16,
+    'contact_pad_top' => 36,
+    'contact_push' => 8,
+    'social_gap' => 4,
+);
+
+$vars = array();
+foreach ($defaults as $key => $default) {
+    $vars[$key] = gl_mm_px(
+        $CTX,
+        $branchPrefix . $key,
+        array($fallbackPrefix . $key),
+        $default
+    );
+}
+
+echo ":root {\n";
+echo "  --mm-shell-pad-top: {$vars['shell_pad_top']}px;\n";
+echo "  --mm-logo-menu-gap: {$vars['logo_menu_gap']}px;\n";
+echo "  --mm-menu-contact-gap: {$vars['menu_contact_gap']}px;\n";
+echo "  --mm-contact-pad-top: {$vars['contact_pad_top']}px;\n";
+echo "  --mm-contact-push: {$vars['contact_push']}px;\n";
+echo "  --mm-social-gap: {$vars['social_gap']}px;\n";
+echo "}\n";
+</cms:php>
+</cms:pages>
