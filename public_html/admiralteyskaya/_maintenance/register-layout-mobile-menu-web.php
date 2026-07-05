@@ -160,6 +160,7 @@ function gl_mm_register_legacy_triplet($legacyPx, $kind)
         case 'contact_pad':
             return array((string) max(0, $L - 4), (string) round($L / 6.4, 1), (string) ($L + 12));
         case 'logo_gap':
+            return array((string) $L, (string) round($L / 8, 1), (string) $L);
         case 'menu_contact':
             return array((string) max(0, $L - 4), (string) round($L / 10, 1), (string) ($L + 4));
         case 'contact_push':
@@ -182,9 +183,9 @@ function gl_mm_register_branch_fields($prefix, $group, $startOrder, $copyPrefix 
         array('name' => $prefix . 'shell_top_min', 'label' => 'Отступ сверху до лого — мин (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '28'),
         array('name' => $prefix . 'shell_top_vh', 'label' => 'Отступ сверху до лого — vh', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '5'),
         array('name' => $prefix . 'shell_top_max', 'label' => 'Отступ сверху до лого — макс (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '44'),
-        array('name' => $prefix . 'logo_gap_min', 'label' => 'Лого → пункты меню — мин (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '8'),
-        array('name' => $prefix . 'logo_gap_vh', 'label' => 'Лого → пункты меню — vh', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '1.2'),
-        array('name' => $prefix . 'logo_gap_max', 'label' => 'Лого → пункты меню — макс (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '14'),
+        array('name' => $prefix . 'logo_gap_min', 'label' => 'Лого → пункты меню — мин (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '32'),
+        array('name' => $prefix . 'logo_gap_vh', 'label' => 'Лого → пункты меню — vh', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '4'),
+        array('name' => $prefix . 'logo_gap_max', 'label' => 'Лого → пункты меню — макс (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '32'),
         array('name' => $prefix . 'menu_contact_min', 'label' => 'Меню → контакты — мин (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '10'),
         array('name' => $prefix . 'menu_contact_vh', 'label' => 'Меню → контакты — vh', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '2'),
         array('name' => $prefix . 'menu_contact_max', 'label' => 'Меню → контакты — макс (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '20'),

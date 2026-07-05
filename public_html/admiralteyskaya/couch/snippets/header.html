@@ -559,7 +559,7 @@
         .mobile-menu-top .mobile-menu-logo {
             width: min(calc(78vw * var(--mm-scale, 1)), calc(320px * var(--mm-scale, 1))) !important;
             max-width: min(92vw, calc(384px * var(--mm-scale, 1))) !important;
-            margin: 0 auto var(--mm-logo-menu-gap, clamp(8px, 1.2vh, 14px)) !important;
+            margin: 0 auto var(--mm-logo-menu-gap, clamp(32px, 4vh, 32px)) !important;
             opacity: 1 !important;
             transform: none !important;
             animation: none !important;
@@ -643,7 +643,7 @@
         }
         @media (max-height: 720px) {
             .mobile-menu-shell { justify-content: flex-start; gap: 0; padding-top: calc(env(safe-area-inset-top, 0px) + var(--mm-shell-pad-top, clamp(28px, 5vh, 44px))); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
-            .mobile-menu-top .mobile-menu-logo { width: min(calc(72vw * var(--mm-scale, 1)), calc(280px * var(--mm-scale, 1))) !important; max-width: min(92vw, calc(336px * var(--mm-scale, 1))) !important; margin-bottom: var(--mm-logo-menu-gap, clamp(8px, 1.2vh, 14px)) !important; }
+            .mobile-menu-top .mobile-menu-logo { width: min(calc(72vw * var(--mm-scale, 1)), calc(280px * var(--mm-scale, 1))) !important; max-width: min(92vw, calc(336px * var(--mm-scale, 1))) !important; margin-bottom: var(--mm-logo-menu-gap, clamp(32px, 4vh, 32px)) !important; }
             .mobile-menu-links { margin-top: 0 !important; gap: calc(4px * var(--mm-scale, 1)) !important; }
             .mobile-menu-contact { margin-top: calc(var(--mm-menu-contact-gap, clamp(10px, 2vh, 20px)) + var(--mm-contact-push, clamp(4px, 1vh, 12px))) !important; }
             .mobile-link { min-height: calc(32px * var(--mm-scale, 1)); font-size: clamp(calc(20px * var(--mm-scale, 1)), calc(5.6vw * var(--mm-scale, 1)), calc(25px * var(--mm-scale, 1))) !important; padding: calc(4px * var(--mm-scale, 1)) calc(12px * var(--mm-scale, 1)) !important; }

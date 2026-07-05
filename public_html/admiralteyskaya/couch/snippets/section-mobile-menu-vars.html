@@ -62,6 +62,7 @@ function gl_mm_legacy_triplet($legacyPx, $kind)
         case 'contact_pad':
             return array(max(0, $L - 4), round($L / 6.4, 1), $L + 12);
         case 'logo_gap':
+            return array($L, round($L / 8, 1), $L);
         case 'menu_contact':
             return array(max(0, $L - 4), round($L / 10, 1), $L + 4);
         case 'contact_push':
@@ -78,7 +79,7 @@ function gl_mm_presets()
     return array(
         'standard' => array(
             'shell_top' => array(28, 5, 44),
-            'logo_gap' => array(8, 1.2, 14),
+            'logo_gap' => array(32, 4, 32),
             'menu_contact' => array(10, 2, 20),
             'contact_pad' => array(28, 4.5, 42),
             'contact_push' => array(4, 1, 12),

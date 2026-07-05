@@ -13,9 +13,9 @@
     <cms:editable name='mm_adm_shell_top_vh' label='Отступ сверху до лого — vh' group='group_mm_adm' type='text' order='13'>5</cms:editable>
     <cms:editable name='mm_adm_shell_top_max' label='Отступ сверху до лого — макс (px)' group='group_mm_adm' type='text' order='14'>44</cms:editable>
 
-    <cms:editable name='mm_adm_logo_gap_min' label='Лого → пункты меню — мин (px)' group='group_mm_adm' type='text' order='15'>8</cms:editable>
-    <cms:editable name='mm_adm_logo_gap_vh' label='Лого → пункты меню — vh' group='group_mm_adm' type='text' order='16'>1.2</cms:editable>
-    <cms:editable name='mm_adm_logo_gap_max' label='Лого → пункты меню — макс (px)' group='group_mm_adm' type='text' order='17'>14</cms:editable>
+    <cms:editable name='mm_adm_logo_gap_min' label='Лого → пункты меню — мин (px)' group='group_mm_adm' type='text' order='15'>32</cms:editable>
+    <cms:editable name='mm_adm_logo_gap_vh' label='Лого → пункты меню — vh' group='group_mm_adm' type='text' order='16'>4</cms:editable>
+    <cms:editable name='mm_adm_logo_gap_max' label='Лого → пункты меню — макс (px)' group='group_mm_adm' type='text' order='17'>32</cms:editable>
 
     <cms:editable name='mm_adm_menu_contact_min' label='Меню → контакты — мин (px)' group='group_mm_adm' type='text' order='18'>10</cms:editable>
     <cms:editable name='mm_adm_menu_contact_vh' label='Меню → контакты — vh' group='group_mm_adm' type='text' order='19'>2</cms:editable>
@@ -43,9 +43,9 @@
     <cms:editable name='mm_udel_shell_top_vh' label='Отступ сверху до лого — vh' group='group_mm_udel' type='text' order='43'>5</cms:editable>
     <cms:editable name='mm_udel_shell_top_max' label='Отступ сверху до лого — макс (px)' group='group_mm_udel' type='text' order='44'>44</cms:editable>
 
-    <cms:editable name='mm_udel_logo_gap_min' label='Лого → пункты меню — мин (px)' group='group_mm_udel' type='text' order='45'>8</cms:editable>
-    <cms:editable name='mm_udel_logo_gap_vh' label='Лого → пункты меню — vh' group='group_mm_udel' type='text' order='46'>1.2</cms:editable>
-    <cms:editable name='mm_udel_logo_gap_max' label='Лого → пункты меню — макс (px)' group='group_mm_udel' type='text' order='47'>14</cms:editable>
+    <cms:editable name='mm_udel_logo_gap_min' label='Лого → пункты меню — мин (px)' group='group_mm_udel' type='text' order='45'>32</cms:editable>
+    <cms:editable name='mm_udel_logo_gap_vh' label='Лого → пункты меню — vh' group='group_mm_udel' type='text' order='46'>4</cms:editable>
+    <cms:editable name='mm_udel_logo_gap_max' label='Лого → пункты меню — макс (px)' group='group_mm_udel' type='text' order='47'>32</cms:editable>
 
     <cms:editable name='mm_udel_menu_contact_min' label='Меню → контакты — мин (px)' group='group_mm_udel' type='text' order='48'>10</cms:editable>
     <cms:editable name='mm_udel_menu_contact_vh' label='Меню → контакты — vh' group='group_mm_udel' type='text' order='49'>2</cms:editable>
