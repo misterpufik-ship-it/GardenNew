@@ -114,38 +114,67 @@ function gl_sync_get_repeatable_field_id($db, $fields, $templateName, $repeatabl
     return $row ? (int) $row['id'] : 0;
 }
 
-function gl_sync_read_repeatable_json($db, $dataText, $pageId, $fieldId)
+function gl_sync_decode_rows($raw)
+{
+    $raw = (string) $raw;
+    if ($raw === '') {
+        return array('format' => 'json', 'rows' => array());
+    }
+
+    $decoded = json_decode($raw, true);
+    if (is_array($decoded)) {
+        return array('format' => 'json', 'rows' => $decoded);
+    }
+
+    $un = @unserialize($raw);
+    if (is_array($un)) {
+        return array('format' => 'serialize', 'rows' => $un);
+    }
+
+    return array('format' => 'unknown', 'rows' => array());
+}
+
+function gl_sync_encode_rows($rows, $format)
+{
+    if ($format === 'serialize') {
+        return serialize($rows);
+    }
+
+    return json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+}
+
+function gl_sync_read_repeatable_rows($db, $dataText, $pageId, $fieldId)
 {
     $row = gl_sync_q1(
         $db,
-        "SELECT id, value FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} ORDER BY id DESC LIMIT 1"
+        "SELECT value FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
     );
     if (!$row) {
-        return array(null, array());
+        return array('json', array());
     }
 
-    $decoded = json_decode((string) $row['value'], true);
-    if (!is_array($decoded)) {
-        return array((int) $row['id'], array());
-    }
-
-    return array((int) $row['id'], $decoded);
+    $parsed = gl_sync_decode_rows($row['value']);
+    return array($parsed['format'], $parsed['rows']);
 }
 
-function gl_sync_write_repeatable_json($db, $dataText, $dataId, $pageId, $fieldId, $rows)
+function gl_sync_write_repeatable_rows($db, $dataText, $pageId, $fieldId, $rows, $format)
 {
-    $json = json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($json === false) {
-        throw new RuntimeException('Failed to encode repeatable JSON');
+    $encoded = gl_sync_encode_rows($rows, $format);
+    if ($encoded === false || $encoded === null) {
+        throw new RuntimeException('Failed to encode repeatable data');
     }
-    $jsonEsc = $db->real_escape_string($json);
+    $encodedEsc = $db->real_escape_string($encoded);
 
-    if ($dataId > 0) {
-        $db->query("UPDATE `{$dataText}` SET value='{$jsonEsc}' WHERE id={$dataId} LIMIT 1");
+    $exists = gl_sync_q1(
+        $db,
+        "SELECT 1 AS ok FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
+    );
+    if ($exists) {
+        $db->query("UPDATE `{$dataText}` SET value='{$encodedEsc}' WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1");
         return;
     }
 
-    $db->query("INSERT INTO `{$dataText}` (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$jsonEsc}')");
+    $db->query("INSERT INTO `{$dataText}` (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$encodedEsc}')");
 }
 
 function gl_sync_row_value($row, $key)
@@ -260,8 +289,8 @@ foreach ($branches as $branch => $tpls) {
             continue;
         }
 
-        list($textDataId, $textRows) = gl_sync_read_repeatable_json($db, $dataText, $textPageId, $textFieldId);
-        list($visualDataId, $visualRows) = gl_sync_read_repeatable_json($db, $dataText, $visualPageId, $visualFieldId);
+        list($textFormat, $textRows) = gl_sync_read_repeatable_rows($db, $dataText, $textPageId, $textFieldId);
+        list($visualFormat, $visualRows) = gl_sync_read_repeatable_rows($db, $dataText, $visualPageId, $visualFieldId);
 
         $descMap = gl_sync_build_desc_map($textRows, $cfg['text_name'], $cfg['text_desc']);
         list($visualRows, $updated, $matched, $unchanged, $noMatch) = gl_sync_apply_descriptions(
@@ -276,7 +305,7 @@ foreach ($branches as $branch => $tpls) {
             . ", matched={$matched}, updated={$updated}, unchanged={$unchanged}, no_match={$noMatch}\n";
 
         if ($updated > 0) {
-            gl_sync_write_repeatable_json($db, $dataText, $visualDataId, $visualPageId, $visualFieldId, $visualRows);
+            gl_sync_write_repeatable_rows($db, $dataText, $visualPageId, $visualFieldId, $visualRows, $visualFormat);
             echo "    saved {$updated} update(s) to {$cfg['visual_repeatable']}\n";
         }
 

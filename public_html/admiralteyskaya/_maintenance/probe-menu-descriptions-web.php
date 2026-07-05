@@ -60,30 +60,30 @@ foreach ($tplNames as $label => $tplName) {
         $val = (string) $row['value'];
         echo "  repeatable {$row['name']}: value_len=" . strlen($val);
         if ($val !== '') {
+            $head = mb_substr($val, 0, 100, 'UTF-8');
+            echo "\n    head: {$head}";
             $decoded = @json_decode($val, true);
             if (is_array($decoded)) {
-                echo " json_rows=" . count($decoded);
-                if (isset($decoded[0]) && is_array($decoded[0])) {
-                    $first = $decoded[0];
-                    $preview = array();
-                    foreach ($first as $k => $v) {
-                        if (is_string($k) && $k[0] !== '_' && $v !== '' && $v !== null) {
-                            $preview[] = $k . '=' . mb_substr((string) $v, 0, 40, 'UTF-8');
-                        }
-                    }
-                    if ($preview) {
-                        echo " first={" . implode(', ', array_slice($preview, 0, 4)) . "}";
-                    }
-                }
+                echo "\n    format=json rows=" . count($decoded);
             } else {
-                echo " (not json)";
+                $un = @unserialize($val);
+                if (is_array($un)) {
+                    echo "\n    format=serialize rows=" . count($un);
+                    $first = reset($un);
+                    if (is_array($first)) {
+                        $keys = array_slice(array_keys($first), 0, 6);
+                        echo " keys=" . implode(',', $keys);
+                    }
+                } else {
+                    echo "\n    format=unknown";
+                }
             }
         }
         echo "\n";
     }
 
     $childRes = $db->query(
-        "SELECT f.k_group, f.name, COUNT(dt.id) AS cnt, SUM(LENGTH(dt.value)) AS total_len " .
+        "SELECT f.k_group, f.name, COUNT(*) AS cnt, SUM(LENGTH(dt.value)) AS total_len " .
         "FROM `{$fields}` f " .
         "JOIN `{$dataText}` dt ON dt.field_id=f.id AND dt.page_id={$pageId} " .
         "WHERE f.template_id={$tplId} AND f.k_group IN ('rep_hookahs_v2','rep_kitchen_v2','rep_bar_alc_v2','menu_shisha','menu_kitchen','menu_bar') " .
