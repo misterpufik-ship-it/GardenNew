@@ -18,8 +18,14 @@ if (!is_file($config)) {
 }
 
 define('K_COUCH_DIR', dirname($config) . '/');
-require_once $config;
+require_once $root . '/couch/cms.php';
 require_once dirname($root) . '/age-gate/faq-content.php';
+
+global $AUTH, $FUNCS;
+if (!isset($AUTH->user) || !is_object($AUTH->user)) {
+    exit("Couch auth not initialized\n");
+}
+$AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
 
 $host = K_DB_HOST;
 $port = ini_get('mysqli.default_port') ?: 3306;
@@ -137,14 +143,9 @@ try {
     gl_faq_register_template($db, $templates, $pages, 'faq.php', 'Вопросы и ответы', 205, 'akzii.php');
     gl_faq_register_template($db, $templates, $pages, 'udelnaya/faq.php', 'Уделка Вопросы и ответы', 35, 'udelnaya/akzii.php');
 
-    global $AUTH, $FUNCS;
-    if (!isset($AUTH->user) || !is_object($AUTH->user)) {
-        exit("Couch auth not initialized after register\n");
-    }
-    $AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
     $FUNCS->invalidate_cache();
-
     chdir($root);
+
     foreach (array('faq.php', 'udelnaya/faq.php') as $templateName) {
         $pg = new KWebpage($templateName);
         if (!empty($pg->error)) {
