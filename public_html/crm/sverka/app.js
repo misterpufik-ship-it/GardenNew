@@ -64,7 +64,7 @@ function mergeConfig(stored) {
   const cfg = deepClone(DEFAULT_CONFIG);
   if (!stored || typeof stored !== 'object' || Array.isArray(stored)) return cfg;
   if (stored.entity) cfg.entity = stored.entity;
-  if (stored.paymentFilter) cfg.paymentFilter = stored.paymentFilter;
+  cfg.paymentFilter = sanitizePaymentFilter(stored.paymentFilter);
   if (stored.ignoreKopecks != null) cfg.ignoreKopecks = stored.ignoreKopecks;
   if (stored.lounge) cfg.lounge = { ...cfg.lounge, ...stored.lounge, report: { ...cfg.lounge.report, ...(stored.lounge.report || {}) }, statement: { ...cfg.lounge.statement, ...(stored.lounge.statement || {}) } };
   if (stored.vympel) {
@@ -72,6 +72,12 @@ function mergeConfig(stored) {
     if (Array.isArray(stored.vympel.reportSheets)) cfg.vympel.reportSheets = stored.vympel.reportSheets;
   }
   return cfg;
+}
+
+function sanitizePaymentFilter(value) {
+  const raw = String(value || '').trim().toLowerCase();
+  if (raw === 'бн' || raw === 'bn' || raw === 'б/н' || raw === 'б.н.') return 'бн';
+  return 'бн';
 }
 
 async function readJsonResponse(res) {
@@ -198,7 +204,27 @@ function toNum(v) {
 }
 
 function isBnPayment(v, filter) {
-  return String(v || '').trim().toLowerCase() === String(filter || 'бн').toLowerCase();
+  const p = String(v || '').trim().toLowerCase().replace(/\s/g, '');
+  if (p === 'бн' || p === 'bn' || p === 'б/н' || p === 'б.н.') return true;
+  const f = sanitizePaymentFilter(filter);
+  return p === f;
+}
+
+function scanStatementBlockDate(ws, r) {
+  for (let c = 1; c <= 4; c++) {
+    const raw = cellVal(ws, r, c);
+    if (raw == null) continue;
+    const text = String(raw).trim();
+    const dm = text.match(/Дата:\s*(\d{1,2}[.\-/]\d{1,2}[.\-/]\d{2,4})/i);
+    if (dm) return parseExcelDate(dm[1]);
+    if (/^Дата:/i.test(text)) {
+      const d = parseExcelDate(text.replace(/^Дата:\s*/i, '').trim());
+      if (d) return d;
+    }
+    const d = parseExcelDate(raw);
+    if (d && text.length < 24) return d;
+  }
+  return null;
 }
 
 function readReportLounge(wb, cfg, paymentFilter) {
@@ -287,10 +313,14 @@ function readStatementTable(ws, table, sheetCfg) {
   const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
   const out = [];
   let id = 0;
+  let currentDate = null;
   const debitCol = table.debitCol || sheetCfg.debitCol;
   const creditCol = table.creditCol || sheetCfg.creditCol;
 
   for (let r = table.headerRow + 1; r <= range.e.r; r++) {
+    const blockDate = scanStatementBlockDate(ws, r);
+    if (blockDate) currentDate = blockDate;
+
     const debit = toNum(cellVal(ws, r, debitCol));
     const credit = creditCol ? toNum(cellVal(ws, r, creditCol)) : null;
     if ((debit == null || debit <= 0) && (credit == null || credit <= 0)) continue;
@@ -302,6 +332,7 @@ function readStatementTable(ws, table, sheetCfg) {
 
     let d = parseExcelDate(cellVal(ws, r, sheetCfg.dateCol));
     if (!d) d = parseExcelDate(cellVal(ws, r, 1));
+    if (!d) d = currentDate;
 
     out.push({
       id: 's' + (++id),
@@ -336,7 +367,7 @@ function readStatementLounge(wb, cfg) {
   const creditCol = sheetCfg.creditCol;
 
   for (let r = range.s.r; r <= range.e.r; r++) {
-    for (let c = 1; c <= 3; c++) {
+    for (let c = 1; c <= 4; c++) {
       const raw = cellVal(ws, r, c);
       if (raw == null) continue;
       const text = String(raw);
@@ -345,8 +376,15 @@ function readStatementLounge(wb, cfg) {
         currentDate = parseExcelDate(dm[1]);
         break;
       }
+      if (/^Дата:/i.test(text.trim())) {
+        const d = parseExcelDate(text.replace(/^Дата:\s*/i, '').trim());
+        if (d) {
+          currentDate = d;
+          break;
+        }
+      }
       const d = parseExcelDate(raw);
-      if (d && text.length < 20) {
+      if (d && text.length < 24) {
         currentDate = d;
         break;
       }

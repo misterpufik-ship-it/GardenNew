@@ -54,11 +54,26 @@ function sverka_default_config(): array
     ];
 }
 
+function sverka_normalize_payment_filter($value): string
+{
+    $v = mb_strtolower(trim((string) $value), 'UTF-8');
+    if ($v === 'бн' || $v === 'bn' || $v === 'б/н') {
+        return 'бн';
+    }
+    return 'бн';
+}
+
+function sverka_normalize_config(array $config): array
+{
+    $config['paymentFilter'] = sverka_normalize_payment_filter($config['paymentFilter'] ?? 'бн');
+    return $config;
+}
+
 function sverka_merge_config(array $stored): array
 {
     $defaults = sverka_default_config();
     if (!$stored) {
-        return $defaults;
+        return sverka_normalize_config($defaults);
     }
-    return array_replace_recursive($defaults, $stored);
+    return sverka_normalize_config(array_replace_recursive($defaults, $stored));
 }
