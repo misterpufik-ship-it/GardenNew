@@ -124,6 +124,7 @@ function gl_sync_norm_name($name)
 function gl_sync_norm_loose($name)
 {
     $name = gl_sync_norm_name($name);
+    $name = str_replace(array('&', '＆'), ' ', $name);
     $name = preg_replace('/\([^)]*\)/u', ' ', $name);
     $name = preg_replace('/[^\p{L}\p{N}\s]/u', ' ', $name);
     $name = preg_replace('/\s+/u', ' ', $name);
@@ -476,7 +477,7 @@ function gl_sync_find_desc($visualName, $visualPrice, $items)
     return null;
 }
 
-function gl_sync_apply_descriptions_fuzzy($visualRows, $textItems, $nameField, $descField, $priceField)
+function gl_sync_apply_descriptions_fuzzy($visualRows, $textItems, $nameField, $descField, $priceField, $fillEmptyOnly = false)
 {
     $updated = 0;
     $matched = 0;
@@ -509,6 +510,11 @@ function gl_sync_apply_descriptions_fuzzy($visualRows, $textItems, $nameField, $
             continue;
         }
 
+        if ($fillEmptyOnly && $oldDesc !== '') {
+            $unchanged++;
+            continue;
+        }
+
         gl_sync_set_row_value($visualRows[$idx], $descField, $newDesc);
         $updated++;
         if (count($examples) < 8) {
@@ -537,8 +543,13 @@ $before = array(
     'no_match' => 61,
 );
 
+$fillEmptyOnly = (isset($_GET['fill_empty']) ? $_GET['fill_empty'] : '') === '1';
+
 echo "Sync visual menu descriptions from text menu (DB JSON, fuzzy)\n";
 echo str_repeat('=', 60) . "\n";
+if ($fillEmptyOnly) {
+    echo "Mode: fill_empty=1 (only blank visual descriptions)\n";
+}
 echo "Previous run: matched={$before['matched']}, updated={$before['updated']}, unchanged={$before['unchanged']}, no_match={$before['no_match']}\n";
 
 $admiralTextItems = array();
@@ -581,7 +592,8 @@ foreach ($branches as $branch => $tpls) {
             $textItems,
             $cfg['visual_name'],
             $cfg['visual_desc'],
-            $cfg['visual_price']
+            $cfg['visual_price'],
+            $fillEmptyOnly
         );
 
         echo "  {$section}: text_items_with_desc=" . count($textItems)

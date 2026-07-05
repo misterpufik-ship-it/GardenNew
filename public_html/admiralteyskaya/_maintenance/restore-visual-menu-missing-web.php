@@ -1,8 +1,10 @@
 <?php
 /**
- * Restore missing visual menu rows for Admiralteyskaya from taplink-import-data.json.
- * Merges by item title — keeps existing rows and descriptions, appends only missing items.
+ * Restore missing visual menu rows from taplink-import-data.json (merge by title).
+ * Keeps existing rows, photos and descriptions; appends only missing items.
  * ?token=gl-cache-clear-20260623&confirm=restore
+ * Optional: &branch=admiralteyskaya|udelnaya|both (default both)
+ * Optional: &sections=kitchen,bar (default kitchen,bar)
  */
 $token = isset($_GET['token']) ? (string) $_GET['token'] : '';
 if ($token !== 'gl-cache-clear-20260623') {
@@ -45,16 +47,36 @@ if (!is_array($payload)) {
     exit("Invalid taplink JSON\n");
 }
 
-$visualTpl = 'menu/visual/index.php';
-$visualPageId = gl_sync_get_master_page_id($db, $mmTemplates, $mmPages, $visualTpl);
-if (!$visualPageId) {
-    exit("Visual page not found\n");
+$branchMap = array(
+    'admiralteyskaya' => 'menu/visual/index.php',
+    'udelnaya' => 'udelnaya/menu/visual/index.php',
+);
+
+$branchArg = isset($_GET['branch']) ? (string) $_GET['branch'] : 'both';
+if ($branchArg === 'both') {
+    $targetBranches = array_keys($branchMap);
+} elseif (isset($branchMap[$branchArg])) {
+    $targetBranches = array($branchArg);
+} else {
+    exit("Unknown branch: {$branchArg}\n");
 }
 
-$sections = array(
+$sectionMap = array(
     'kitchen' => array('source' => 'kitchen', 'field' => 'menu_kitchen'),
     'bar' => array('source' => 'bar', 'field' => 'menu_bar'),
 );
+
+$sectionsArg = isset($_GET['sections']) ? (string) $_GET['sections'] : 'kitchen,bar';
+$sectionKeys = array();
+foreach (explode(',', $sectionsArg) as $part) {
+    $part = trim($part);
+    if ($part !== '' && isset($sectionMap[$part])) {
+        $sectionKeys[] = $part;
+    }
+}
+if (!$sectionKeys) {
+    $sectionKeys = array('kitchen', 'bar');
+}
 
 function gl_restore_norm_title($title)
 {
@@ -76,66 +98,78 @@ function gl_restore_row_from_plain($item)
     return $row;
 }
 
-echo "Restore missing Admiral visual menu items from taplink JSON\n";
+echo "Restore missing visual menu items from taplink JSON\n";
 echo str_repeat('=', 60) . "\n";
-echo "visual_page={$visualPageId}\n\n";
+echo "branches=" . implode(',', $targetBranches) . " sections=" . implode(',', $sectionKeys) . "\n\n";
 
 $totalAdded = 0;
 
-foreach ($sections as $label => $cfg) {
-    $sourceRows = isset($payload[$cfg['source']]) ? $payload[$cfg['source']] : array();
-    if (!is_array($sourceRows)) {
-        $sourceRows = array();
-    }
-
-    $fieldId = gl_sync_get_repeatable_field_id($db, $mmFields, $visualTpl, $cfg['field']);
-    if (!$fieldId) {
-        echo "{$label}: field {$cfg['field']} not found\n";
+foreach ($targetBranches as $branchName) {
+    $visualTpl = $branchMap[$branchName];
+    $visualPageId = gl_sync_get_master_page_id($db, $mmTemplates, $mmPages, $visualTpl);
+    if (!$visualPageId) {
+        echo "Branch {$branchName}: visual page not found\n";
         continue;
     }
+    echo "== {$branchName} page={$visualPageId} ==\n";
 
-    list($format, $existingRows) = gl_sync_read_repeatable_rows($db, $mmDataText, $visualPageId, $fieldId);
-    $existingTitles = array();
-    foreach ($existingRows as $row) {
-        if (!is_array($row)) {
-            continue;
+    foreach ($sectionKeys as $label) {
+        $cfg = $sectionMap[$label];
+        $sourceRows = isset($payload[$cfg['source']]) ? $payload[$cfg['source']] : array();
+        if (!is_array($sourceRows)) {
+            $sourceRows = array();
         }
-        $title = gl_sync_row_value($row, 'item_title');
-        if ($title !== '') {
-            $existingTitles[gl_restore_norm_title($title)] = true;
-        }
-    }
 
-    $added = 0;
-    $addedNames = array();
-    foreach ($sourceRows as $item) {
-        if (!is_array($item)) {
-            continue;
-        }
-        $title = trim((string) ($item['item_title'] ?? ''));
-        if ($title === '') {
-            continue;
-        }
-        $norm = gl_restore_norm_title($title);
-        if (isset($existingTitles[$norm])) {
+        $fieldId = gl_sync_get_repeatable_field_id($db, $mmFields, $visualTpl, $cfg['field']);
+        if (!$fieldId) {
+            echo "  {$label}: field {$cfg['field']} not found\n";
             continue;
         }
 
-        $existingRows[] = gl_restore_row_from_plain($item);
-        $existingTitles[$norm] = true;
-        $added++;
-        $addedNames[] = $title;
-    }
+        list($format, $existingRows) = gl_sync_read_repeatable_rows($db, $mmDataText, $visualPageId, $fieldId);
+        $existingTitles = array();
+        foreach ($existingRows as $row) {
+            if (!is_array($row)) {
+                continue;
+            }
+            $title = gl_sync_row_value($row, 'item_title');
+            if ($title !== '') {
+                $existingTitles[gl_restore_norm_title($title)] = true;
+            }
+        }
 
-    echo "{$label}: was=" . (count($existingRows) - $added) . " source=" . count($sourceRows) . " added={$added}\n";
-    foreach ($addedNames as $name) {
-        echo "  + {$name}\n";
-    }
+        $added = 0;
+        $addedNames = array();
+        foreach ($sourceRows as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+            $title = trim((string) ($item['item_title'] ?? ''));
+            if ($title === '') {
+                continue;
+            }
+            $norm = gl_restore_norm_title($title);
+            if (isset($existingTitles[$norm])) {
+                continue;
+            }
 
-    if ($added > 0) {
-        gl_sync_write_repeatable_rows($db, $mmDataText, $visualPageId, $fieldId, $existingRows, $format);
-        $totalAdded += $added;
+            $existingRows[] = gl_restore_row_from_plain($item);
+            $existingTitles[$norm] = true;
+            $added++;
+            $addedNames[] = $title;
+        }
+
+        echo "  {$label}: was=" . (count($existingRows) - $added) . " source=" . count($sourceRows) . " added={$added}\n";
+        foreach ($addedNames as $name) {
+            echo "    + {$name}\n";
+        }
+
+        if ($added > 0) {
+            gl_sync_write_repeatable_rows($db, $mmDataText, $visualPageId, $fieldId, $existingRows, $format);
+            $totalAdded += $added;
+        }
     }
+    echo "\n";
 }
 
 $cacheDir = dirname($config) . '/cache';
