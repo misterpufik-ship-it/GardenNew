@@ -1,0 +1,170 @@
+<?php
+/**
+ * Sync SEO defaults in CouchCMS (globals, home, branch page meta).
+ * ?key=<md5('garden-lounge-sync-seo-p0')>
+ */
+$expectedKey = md5('garden-lounge-sync-seo-p0');
+if ((isset($_GET['key']) ? $_GET['key'] : '') !== $expectedKey) {
+    http_response_code(403);
+    exit("Forbidden\n");
+}
+header('Content-Type: text/plain; charset=utf-8');
+
+$fieldUpdates = array(
+    'globals.php' => array(
+        'seo_title_default' => 'Garden Lounge на Адмиралтейской — кальянная и лаунж-бар в центре СПб',
+        'seo_desc_default' => 'Garden Lounge на наб. реки Мойки 67-69: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Адмиралтейская. Тел. +7 995 624-68-08.',
+    ),
+    'udelnaya/globals.php' => array(
+        'seo_title_default' => 'Garden Lounge на Удельной — кальянная и лаунж-бар у метро Удельная в СПб',
+        'seo_desc_default' => 'Garden Lounge на ул. Аккуратова 13: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Удельная. Тел. +7 950 047-33-65.',
+    ),
+    'home.php' => array(
+        'home_seo_desc' => 'Garden Lounge — лаунж-пространство с двумя филиалами в Санкт-Петербурге: Адмиралтейская в центре и Удельная на севере. Бронирование, меню, бар, VIP-комнаты и PS5.',
+    ),
+);
+
+$pageMetaUpdates = array(
+    'index.php' => array(
+        'page_title' => 'Garden Lounge на Адмиралтейской',
+        'page_desc' => 'Garden Lounge на наб. реки Мойки 67-69: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Адмиралтейская. Тел. +7 995 624-68-08.',
+    ),
+    'udelnaya/index.php' => array(
+        'page_title' => 'Garden Lounge на Удельной',
+        'page_desc' => 'Garden Lounge на ул. Аккуратова 13: премиальные кальяны, кухня, VIP-комнаты и бронь столика рядом с метро Удельная. Тел. +7 950 047-33-65.',
+    ),
+);
+
+$root = realpath(__DIR__ . '/..');
+$config = $root . '/couch/config.php';
+if (!is_file($config)) {
+    exit("CouchCMS config not found\n");
+}
+
+define('K_COUCH_DIR', dirname($config) . '/');
+require_once $config;
+
+$host = K_DB_HOST;
+$port = ini_get('mysqli.default_port') ?: 3306;
+if (strpos($host, ':') !== false) {
+    list($host, $port) = explode(':', $host, 2);
+}
+
+mysqli_report(MYSQLI_REPORT_OFF);
+$db = @new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int)$port);
+if ($db->connect_errno) {
+    exit("DB connection failed: {$db->connect_error}\n");
+}
+$db->set_charset('utf8mb4');
+
+$prefix = K_DB_TABLES_PREFIX;
+
+function gl_seo_sync_field($db, $prefix, $templateName, $fieldName, $value)
+{
+    $tplEsc = $db->real_escape_string($templateName);
+    $fieldEsc = $db->real_escape_string($fieldName);
+    $valueEsc = $db->real_escape_string($value);
+
+    $tpl = $db->query("SELECT id FROM {$prefix}couch_templates WHERE name='{$tplEsc}' LIMIT 1");
+    if (!$tpl || !($tplRow = $tpl->fetch_assoc())) {
+        echo "Skip template (missing): {$templateName}\n";
+        return;
+    }
+    $templateId = (int)$tplRow['id'];
+
+    $fieldRes = $db->query(
+        "SELECT id FROM {$prefix}couch_fields WHERE template_id={$templateId} AND name='{$fieldEsc}' LIMIT 1"
+    );
+    if (!$fieldRes || !($fieldRow = $fieldRes->fetch_assoc())) {
+        echo "Skip field (missing): {$templateName}::{$fieldName}\n";
+        return;
+    }
+    $fieldId = (int)$fieldRow['id'];
+
+    $pageRes = $db->query(
+        "SELECT id FROM {$prefix}couch_pages WHERE template_id={$templateId} ORDER BY is_master DESC, id ASC LIMIT 1"
+    );
+    if (!$pageRes || !($pageRow = $pageRes->fetch_assoc())) {
+        echo "Skip page (missing): {$templateName}\n";
+        return;
+    }
+    $pageId = (int)$pageRow['id'];
+
+    $dataRes = $db->query(
+        "SELECT id, value FROM {$prefix}couch_data_text WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
+    );
+    if ($dataRes && ($dataRow = $dataRes->fetch_assoc())) {
+        $old = (string)$dataRow['value'];
+        $db->query("UPDATE {$prefix}couch_data_text SET value='{$valueEsc}' WHERE id=" . (int)$dataRow['id'] . " LIMIT 1");
+        echo "Updated {$templateName}::{$fieldName} on page #{$pageId}\n";
+        if ($old !== $value) {
+            echo "  was: {$old}\n";
+        }
+        return;
+    }
+
+    $db->query(
+        "INSERT INTO {$prefix}couch_data_text (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$valueEsc}')"
+    );
+    echo "Inserted {$templateName}::{$fieldName} on page #{$pageId}\n";
+}
+
+function gl_seo_sync_page_meta($db, $prefix, $templateName, $pageTitle, $pageDesc)
+{
+    $tplEsc = $db->real_escape_string($templateName);
+    $titleEsc = $db->real_escape_string($pageTitle);
+    $descEsc = $db->real_escape_string($pageDesc);
+
+    $tpl = $db->query("SELECT id FROM {$prefix}couch_templates WHERE name='{$tplEsc}' LIMIT 1");
+    if (!$tpl || !($tplRow = $tpl->fetch_assoc())) {
+        echo "Skip page meta (template missing): {$templateName}\n";
+        return;
+    }
+    $templateId = (int)$tplRow['id'];
+
+    $pageRes = $db->query(
+        "SELECT id, page_title, page_desc FROM {$prefix}couch_pages WHERE template_id={$templateId} ORDER BY is_master DESC, id ASC LIMIT 1"
+    );
+    if (!$pageRes || !($pageRow = $pageRes->fetch_assoc())) {
+        echo "Skip page meta (page missing): {$templateName}\n";
+        return;
+    }
+
+    $pageId = (int)$pageRow['id'];
+    $db->query(
+        "UPDATE {$prefix}couch_pages SET page_title='{$titleEsc}', page_desc='{$descEsc}' WHERE id={$pageId} LIMIT 1"
+    );
+    echo "Updated page meta for {$templateName} page #{$pageId}\n";
+    if ((string)$pageRow['page_title'] !== $pageTitle) {
+        echo "  title was: {$pageRow['page_title']}\n";
+    }
+    if ((string)$pageRow['page_desc'] !== $pageDesc) {
+        echo "  desc was: {$pageRow['page_desc']}\n";
+    }
+}
+
+foreach ($fieldUpdates as $templateName => $fields) {
+    foreach ($fields as $fieldName => $value) {
+        gl_seo_sync_field($db, $prefix, $templateName, $fieldName, $value);
+    }
+}
+
+foreach ($pageMetaUpdates as $templateName => $meta) {
+    gl_seo_sync_page_meta($db, $prefix, $templateName, $meta['page_title'], $meta['page_desc']);
+}
+
+$cacheDir = $root . '/couch/cache';
+if (is_dir($cacheDir)) {
+    $files = glob($cacheDir . '/*');
+    $removed = 0;
+    if ($files) {
+        foreach ($files as $file) {
+            if (is_file($file) && @unlink($file)) {
+                $removed++;
+            }
+        }
+    }
+    echo "Cache cleared: {$removed} file(s)\n";
+}
+
+echo "Done.\n";

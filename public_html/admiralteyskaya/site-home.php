@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php gl_favicon_render_tags('/favicon.png'); gl_age_gate_render_assets(); gl_preloader_render_head(true); ?>
+    <?php gl_favicon_render_tags('/favicon.png'); gl_age_gate_render_assets(); gl_yandex_metrika_render(); gl_preloader_render_head(true); ?>
     <cms:pages masterpage='home.php' limit='1'>
     <title><cms:show home_seo_title /></title>
     <meta name="description" content="<cms:show home_seo_desc />">

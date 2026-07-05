@@ -66,13 +66,13 @@ require_once $garden_cms;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
-    <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
-    <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар, десерты и акции лаунж-бара в центре Санкт-Петербурга.">
+    <title>Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар</title>
+    <meta name="description" content="Визуальное меню Garden Lounge на Удельной: кальяны, блюда кухни, бар, десерты и акции лаунж-бара у метро Удельная, ул. Аккуратова 13.">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/visual/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/udelnaya/menu/visual/">
-    <meta property="og:title" content="Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб">
-    <meta property="og:description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, десерты и акции.">
+    <meta property="og:title" content="Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар">
+    <meta property="og:description" content="Визуальное меню Garden Lounge на Удельной: кальяны, кухня, бар, десерты и акции.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -94,6 +94,9 @@ require_once $garden_cms;
         .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; padding: 0 0 6px; }
         .tab-btn.active { color: var(--gold); }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
+        @media (min-width: 768px) {
+            .tabs-wrap .tab-btn { font-size: 11px; letter-spacing: 0.16em; padding-bottom: 7px; }
+        }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
         
         .main-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }

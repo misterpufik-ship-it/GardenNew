@@ -52,6 +52,9 @@ require_once $garden_cms;
     <cms:pages masterpage='udelnaya/globals.php' limit='1'>
         <cms:set global_title=seo_title_default 'global' />
         <cms:set global_desc=seo_desc_default 'global' />
+        <cms:set seo_keywords=seo_keywords_default scope='global' />
+        <cms:set seo_canonical='https://garden-lounge.pro/udelnaya/' scope='global' />
+        <cms:set seo_og_image='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg' scope='global' />
         <cms:set adm_address=udel_address 'global' />
         <cms:set adm_phone=udel_phone 'global' />
         <cms:set adm_phone_clean=udel_phone_clean 'global' />
@@ -62,8 +65,8 @@ require_once $garden_cms;
         <cms:set social_youtube=link_youtube 'global' />
     </cms:pages>
 
-    <title><cms:if page_title><cms:show page_title /><cms:else /><cms:show global_title /></cms:if></title>
-    <meta name="description" content="<cms:if page_desc><cms:show page_desc /><cms:else /><cms:show global_desc /></cms:if>">
+    <title><cms:show global_title /></title>
+    <meta name="description" content="<cms:show global_desc />">
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
@@ -73,25 +76,13 @@ require_once $garden_cms;
     </cms:pages>
     
     <cms:embed 'styles.html' />
-        <meta name="keywords" content="Garden Lounge, ��������� ��������, ��������� ���, ����� ��� ��������, ��������� � ����� ��������, ��. ���������� 13, VIP-�������, PS5, �����">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://garden-lounge.pro/udelnaya/">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://garden-lounge.pro/udelnaya/">
-    <meta property="og:title" content="Garden Lounge �� �������� � ��������� � �����-��� � ���">
-    <meta property="og:description" content="Garden Lounge �� ��������: �������, �����, �������, VIP-�������, PS5 � ������������ ������� �� ��. ���������� 13.">
-    <meta property="og:image" content="https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://garden-lounge.pro/udelnaya/">
-    <meta property="twitter:title" content="Garden Lounge �� �������� � ��������� � �����-��� � ���">
-    <meta property="twitter:description" content="��������� Garden Lounge � ����� ��������: ����, �����, ���, VIP-������� � ����� �������.">
-    <meta property="twitter:image" content="https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg">
+    <cms:embed 'seo_tags.html' />
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": ["BarOrPub", "Restaurant"],
         "@id": "https://garden-lounge.pro/udelnaya/#localbusiness",
-        "name": "Garden Lounge �� ��������",
+        "name": "Garden Lounge на Удельной",
         "url": "https://garden-lounge.pro/udelnaya/",
         "image": "https://garden-lounge.pro/udelnaya/couch/uploads/image/garden-main.jpg",
         "telephone": "<cms:show adm_phone />",
@@ -158,7 +149,7 @@ require_once $garden_cms;
     <?php gl_preloader_render(); ?>
 
     <cms:pages masterpage='udelnaya/header.php' limit='1'><cms:embed 'header.html' /></cms:pages>
-    <cms:pages masterpage='udelnaya/about.php' limit='1'><cms:embed 'about.html' /></cms:pages>
+    <cms:pages masterpage='udelnaya/about.php' limit='1'><cms:embed 'about-udelnaya.html' /></cms:pages>
     <cms:set is_udelnaya='1' scope='global' />
     <cms:pages masterpage='udelnaya/gallery.php' limit='1'><cms:embed 'gallery.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>

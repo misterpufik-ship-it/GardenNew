@@ -1,18 +1,18 @@
 <!-- SEO TAGS -->
-<meta name="keywords" content="<cms:get_custom_field 'seo_keywords_default' masterpage='globals.php' />">
+<meta name="keywords" content="<cms:if seo_keywords><cms:show seo_keywords /><cms:else /><cms:get_custom_field 'seo_keywords_default' masterpage='globals.php' /></cms:if>">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/">
+<link rel="canonical" href="<cms:show seo_canonical />">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/">
-<meta property="og:title" content="<cms:get_custom_field 'seo_title_default' masterpage='globals.php' />">
-<meta property="og:description" content="<cms:get_custom_field 'seo_desc_default' masterpage='globals.php' />">
-<meta property="og:image" content="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg">
+<meta property="og:url" content="<cms:show seo_canonical />">
+<meta property="og:title" content="<cms:show global_title />">
+<meta property="og:description" content="<cms:show global_desc />">
+<meta property="og:image" content="<cms:show seo_og_image />">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://garden-lounge.pro/admiralteyskaya/">
-<meta property="twitter:title" content="<cms:get_custom_field 'seo_title_default' masterpage='globals.php' />">
-<meta property="twitter:description" content="<cms:get_custom_field 'seo_desc_default' masterpage='globals.php' />">
-<meta property="twitter:image" content="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg">
+<meta property="twitter:url" content="<cms:show seo_canonical />">
+<meta property="twitter:title" content="<cms:show global_title />">
+<meta property="twitter:description" content="<cms:show global_desc />">
+<meta property="twitter:image" content="<cms:show seo_og_image />">

@@ -183,12 +183,12 @@ require_once $garden_cms;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
     <title><cms:show page_title /></title>
-    <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения в лаунж-баре на наб. реки Мойки 67-69.</cms:if>">
+    <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Удельной: кальяны, кухня, бар, напитки и специальные предложения в лаунж-баре на ул. Аккуратова 13.</cms:if>">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/text/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://garden-lounge.pro/udelnaya/menu/text/">
     <meta property="og:title" content="<cms:show page_title />">
-    <meta property="og:description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения.</cms:if>">
+    <meta property="og:description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Удельной: кальяны, кухня, бар, напитки и специальные предложения.</cms:if>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -212,7 +212,7 @@ require_once $garden_cms;
         .tab-btn.active { color: var(--gold); }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
         @media (min-width: 768px) {
-            .tabs-wrap .tab-btn { font-size: 14px; letter-spacing: 0.24em; padding-bottom: 8px; }
+            .tabs-wrap .tab-btn { font-size: 11px; letter-spacing: 0.16em; padding-bottom: 7px; }
         }
 
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
