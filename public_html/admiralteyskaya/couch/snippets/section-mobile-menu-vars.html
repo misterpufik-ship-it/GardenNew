@@ -17,7 +17,7 @@ $fallbackPrefix = ($branchPrefix === 'mm_adm_') ? 'mm_udel_' : 'mm_adm_';
 
 function gl_mm_get($CTX, $field, $fallbackFields = array())
 {
-    $value = (string) $CTX->get($field);
+    $value = trim((string) $CTX->get($field));
     if ($value !== '') {
         return $value;
     }
@@ -25,7 +25,7 @@ function gl_mm_get($CTX, $field, $fallbackFields = array())
         if ($fallbackField === '') {
             continue;
         }
-        $fallbackValue = (string) $CTX->get($fallbackField);
+        $fallbackValue = trim((string) $CTX->get($fallbackField));
         if ($fallbackValue !== '') {
             return $fallbackValue;
         }
@@ -33,42 +33,178 @@ function gl_mm_get($CTX, $field, $fallbackFields = array())
     return '';
 }
 
-function gl_mm_px($CTX, $field, $fallbackFields, $default)
+function gl_mm_num($raw, $allowFloat = false)
 {
-    $raw = gl_mm_get($CTX, $field, $fallbackFields);
-    $val = (int) preg_replace('/\D+/', '', $raw);
-    if ($raw === '' || $val < 0) {
-        return $default;
+    $raw = trim((string) $raw);
+    if ($raw === '') {
+        return null;
     }
-    return $val;
+    if ($allowFloat) {
+        if (!preg_match('/^-?\d+(?:[.,]\d+)?$/', $raw)) {
+            return null;
+        }
+        return (float) str_replace(',', '.', $raw);
+    }
+    if (!preg_match('/^\d+$/', $raw)) {
+        return null;
+    }
+    return (int) $raw;
 }
 
-$defaults = array(
-    'shell_pad_top' => 32,
-    'logo_menu_gap' => 12,
-    'menu_contact_gap' => 16,
-    'contact_pad_top' => 36,
-    'contact_push' => 8,
-    'social_gap' => 4,
-);
+function gl_mm_legacy_triplet($legacyPx, $kind)
+{
+    $L = max(0, (int) $legacyPx);
+    if ($L <= 0) {
+        return null;
+    }
+    switch ($kind) {
+        case 'shell_top':
+        case 'contact_pad':
+            return array(max(0, $L - 4), round($L / 6.4, 1), $L + 12);
+        case 'logo_gap':
+        case 'menu_contact':
+            return array(max(0, $L - 4), round($L / 10, 1), $L + 4);
+        case 'contact_push':
+            return array(max(0, $L - 4), round($L / 8, 1), $L + 4);
+        case 'social':
+            return array(max(0, $L - 2), $L, $L + 2);
+        default:
+            return null;
+    }
+}
 
-$vars = array();
-foreach ($defaults as $key => $default) {
-    $vars[$key] = gl_mm_px(
-        $CTX,
-        $branchPrefix . $key,
-        array($fallbackPrefix . $key),
-        $default
+function gl_mm_presets()
+{
+    return array(
+        'standard' => array(
+            'shell_top' => array(28, 5, 44),
+            'logo_gap' => array(8, 1.2, 14),
+            'menu_contact' => array(10, 2, 20),
+            'contact_pad' => array(28, 4.5, 42),
+            'contact_push' => array(4, 1, 12),
+            'social' => array(2, 4, 6),
+        ),
+        'compact' => array(
+            'shell_top' => array(24, 4, 36),
+            'logo_gap' => array(6, 1, 10),
+            'menu_contact' => array(8, 1.5, 14),
+            'contact_pad' => array(22, 3.5, 32),
+            'contact_push' => array(2, 0.8, 8),
+            'social' => array(2, 3, 5),
+        ),
+        'spacious' => array(
+            'shell_top' => array(32, 6, 52),
+            'logo_gap' => array(10, 1.5, 18),
+            'menu_contact' => array(14, 2.5, 26),
+            'contact_pad' => array(32, 5.5, 48),
+            'contact_push' => array(6, 1.2, 16),
+            'social' => array(3, 5, 8),
+        ),
     );
 }
 
-echo ":root {\n";
-echo "  --mm-shell-pad-top: {$vars['shell_pad_top']}px;\n";
-echo "  --mm-logo-menu-gap: {$vars['logo_menu_gap']}px;\n";
-echo "  --mm-menu-contact-gap: {$vars['menu_contact_gap']}px;\n";
-echo "  --mm-contact-pad-top: {$vars['contact_pad_top']}px;\n";
-echo "  --mm-contact-push: {$vars['contact_push']}px;\n";
-echo "  --mm-social-gap: {$vars['social_gap']}px;\n";
+function gl_mm_triplet($CTX, $branchPrefix, $fallbackPrefix, $key, $legacyField)
+{
+    $min = gl_mm_num(gl_mm_get($CTX, $branchPrefix . $key . '_min', array($fallbackPrefix . $key . '_min')));
+    $vh = gl_mm_num(gl_mm_get($CTX, $branchPrefix . $key . '_vh', array($fallbackPrefix . $key . '_vh')), true);
+    $max = gl_mm_num(gl_mm_get($CTX, $branchPrefix . $key . '_max', array($fallbackPrefix . $key . '_max')));
+
+    if ($min !== null && $vh !== null && $max !== null) {
+        return array($min, $vh, $max);
+    }
+
+    $presetName = gl_mm_get($CTX, $branchPrefix . 'preset', array($fallbackPrefix . 'preset'));
+    if ($presetName === '') {
+        $presetName = 'standard';
+    }
+    $presets = gl_mm_presets();
+    if (isset($presets[$presetName][$key])) {
+        return $presets[$presetName][$key];
+    }
+
+    $legacyRaw = gl_mm_get($CTX, $branchPrefix . $legacyField, array($fallbackPrefix . $legacyField));
+    $legacy = gl_mm_num($legacyRaw);
+    if ($legacy !== null) {
+        $fromLegacy = gl_mm_legacy_triplet($legacy, $key);
+        if ($fromLegacy) {
+            return $fromLegacy;
+        }
+    }
+
+    $presets = gl_mm_presets();
+    return $presets['standard'][$key];
+}
+
+function gl_mm_social_triplet($CTX, $branchPrefix, $fallbackPrefix)
+{
+    $min = gl_mm_num(gl_mm_get($CTX, $branchPrefix . 'social_gap_min', array($fallbackPrefix . 'social_gap_min')));
+    $mid = gl_mm_num(gl_mm_get($CTX, $branchPrefix . 'social_gap_mid', array($fallbackPrefix . 'social_gap_mid')));
+    $max = gl_mm_num(gl_mm_get($CTX, $branchPrefix . 'social_gap_max', array($fallbackPrefix . 'social_gap_max')));
+
+    if ($min !== null && $mid !== null && $max !== null) {
+        return array($min, $mid, $max);
+    }
+
+    $presetName = gl_mm_get($CTX, $branchPrefix . 'preset', array($fallbackPrefix . 'preset'));
+    if ($presetName === '') {
+        $presetName = 'standard';
+    }
+    $presets = gl_mm_presets();
+    if (isset($presets[$presetName]['social'])) {
+        return $presets[$presetName]['social'];
+    }
+
+    $legacyRaw = gl_mm_get($CTX, $branchPrefix . 'social_gap', array($fallbackPrefix . 'social_gap'));
+    $legacy = gl_mm_num($legacyRaw);
+    if ($legacy !== null) {
+        $fromLegacy = gl_mm_legacy_triplet($legacy, 'social');
+        if ($fromLegacy) {
+            return $fromLegacy;
+        }
+    }
+
+    return $presets['standard']['social'];
+}
+
+function gl_mm_clamp_vh($triplet)
+{
+    return 'clamp(' . (int) $triplet[0] . 'px, ' . (float) $triplet[1] . 'vh, ' . (int) $triplet[2] . 'px)';
+}
+
+function gl_mm_clamp_px($triplet)
+{
+    $min = (int) $triplet[0];
+    $mid = (int) $triplet[1];
+    $max = (int) $triplet[2];
+    if ($min === $mid && $mid === $max) {
+        return $mid . 'px';
+    }
+    return 'clamp(' . $min . 'px, ' . $mid . 'px, ' . $max . 'px)';
+}
+
+$legacyMap = array(
+    'shell_top' => 'shell_pad_top',
+    'logo_gap' => 'logo_menu_gap',
+    'menu_contact' => 'menu_contact_gap',
+    'contact_pad' => 'contact_pad_top',
+    'contact_push' => 'contact_push',
+);
+
+$cssVars = array(
+    '--mm-shell-pad-top' => gl_mm_clamp_vh(gl_mm_triplet($CTX, $branchPrefix, $fallbackPrefix, 'shell_top', $legacyMap['shell_top'])),
+    '--mm-logo-menu-gap' => gl_mm_clamp_vh(gl_mm_triplet($CTX, $branchPrefix, $fallbackPrefix, 'logo_gap', $legacyMap['logo_gap'])),
+    '--mm-menu-contact-gap' => gl_mm_clamp_vh(gl_mm_triplet($CTX, $branchPrefix, $fallbackPrefix, 'menu_contact', $legacyMap['menu_contact'])),
+    '--mm-contact-pad-top' => gl_mm_clamp_vh(gl_mm_triplet($CTX, $branchPrefix, $fallbackPrefix, 'contact_pad', $legacyMap['contact_pad'])),
+    '--mm-contact-push' => gl_mm_clamp_vh(gl_mm_triplet($CTX, $branchPrefix, $fallbackPrefix, 'contact_push', $legacyMap['contact_push'])),
+    '--mm-social-gap' => gl_mm_clamp_px(gl_mm_social_triplet($CTX, $branchPrefix, $fallbackPrefix)),
+);
+
+echo "@media (max-width: 767px) {\n";
+echo "  .mobile-menu-overlay {\n";
+foreach ($cssVars as $name => $value) {
+    echo '    ' . $name . ': ' . $value . ";\n";
+}
+echo "  }\n";
 echo "}\n";
 </cms:php>
 </cms:pages>

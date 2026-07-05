@@ -252,7 +252,7 @@
     .mobile-menu-overlay.active .mobile-link { opacity: 1; transform: translateY(0); }
     .mobile-menu-contact { margin-top: auto; gap: 10px; width: min(88vw, 330px) !important; }
     .mobile-menu-divider { display: block; width: min(46vw, 165px) !important; height: auto !important; margin: 0 auto !important; }
-    .mobile-menu-contact-info { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(4px, 0.8vh, 8px); width: 100%; padding-top: calc(var(--mm-contact-pad-top, 36px) * var(--mm-scale, 1)); }
+    .mobile-menu-contact-info { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(4px, 0.8vh, 8px); width: 100%; padding-top: var(--mm-contact-pad-top, clamp(28px, 4.5vh, 42px)); }
     .mobile-menu-phone-row { display: inline-flex; align-items: center; justify-content: center; gap: calc(14px * var(--mm-scale, 1)); width: 100%; flex-wrap: nowrap; }
     .mobile-menu-tg-link {
         display: inline-flex;
@@ -269,7 +269,7 @@
     .mobile-menu-tg-link:hover,
     .mobile-menu-tg-link:focus,
     .mobile-menu-tg-link:active { color: var(--gold-main) !important; transform: scale(1.06); }
-    .mobile-menu-social-row { display: flex; align-items: center; justify-content: center; gap: calc(var(--mm-social-gap, 4px) * var(--mm-scale, 1)); width: 100%; }
+    .mobile-menu-social-row { display: flex; align-items: center; justify-content: center; gap: var(--mm-social-gap, clamp(2px, 4px, 6px)); width: 100%; }
     .mobile-menu-social-link {
         width: calc(46px * var(--mm-scale, 1));
         height: calc(42px * var(--mm-scale, 1));
@@ -550,7 +550,7 @@
         .mobile-menu-shell {
             justify-content: flex-start;
             gap: 0;
-            padding-top: calc(env(safe-area-inset-top, 0px) + var(--mm-shell-pad-top, 32px));
+            padding-top: calc(env(safe-area-inset-top, 0px) + var(--mm-shell-pad-top, clamp(28px, 5vh, 44px)));
             padding-bottom: max(14px, env(safe-area-inset-bottom));
         }
         .mobile-menu-top {
@@ -559,7 +559,7 @@
         .mobile-menu-top .mobile-menu-logo {
             width: min(calc(78vw * var(--mm-scale, 1)), calc(320px * var(--mm-scale, 1))) !important;
             max-width: min(92vw, calc(384px * var(--mm-scale, 1))) !important;
-            margin: 0 auto calc(var(--mm-logo-menu-gap, 12px) * var(--mm-scale, 1)) !important;
+            margin: 0 auto var(--mm-logo-menu-gap, clamp(8px, 1.2vh, 14px)) !important;
             opacity: 1 !important;
             transform: none !important;
             animation: none !important;
@@ -583,7 +583,7 @@
         }
         .mobile-menu-contact {
             width: min(88vw, 330px) !important;
-            margin-top: calc(var(--mm-menu-contact-gap, 16px) * var(--mm-scale, 1) + var(--mm-contact-push, 8px) * var(--mm-scale, 1)) !important;
+            margin-top: calc(var(--mm-menu-contact-gap, clamp(10px, 2vh, 20px)) + var(--mm-contact-push, clamp(4px, 1vh, 12px))) !important;
             padding-bottom: 0 !important;
             gap: 10px !important;
         }
@@ -596,7 +596,7 @@
             width: 100%;
             gap: clamp(4px, 0.8vh, 8px) !important;
             margin-bottom: 0 !important;
-            padding-top: calc(var(--mm-contact-pad-top, 36px) * var(--mm-scale, 1)) !important;
+            padding-top: var(--mm-contact-pad-top, clamp(28px, 4.5vh, 42px)) !important;
         }
         .mobile-menu-address-link {
             width: auto !important;
@@ -637,15 +637,15 @@
         .mobile-menu-contact .flex.gap-8,
         .mobile-menu-social-row {
             width: auto !important;
-            gap: calc(var(--mm-social-gap, 4px) * var(--mm-scale, 1)) !important;
+            gap: var(--mm-social-gap, clamp(2px, 4px, 6px)) !important;
             justify-content: center;
             align-self: center;
         }
         @media (max-height: 720px) {
-            .mobile-menu-shell { justify-content: flex-start; gap: 0; padding-top: calc(env(safe-area-inset-top, 0px) + var(--mm-shell-pad-top, 32px)); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
-            .mobile-menu-top .mobile-menu-logo { width: min(calc(72vw * var(--mm-scale, 1)), calc(280px * var(--mm-scale, 1))) !important; max-width: min(92vw, calc(336px * var(--mm-scale, 1))) !important; margin-bottom: calc(var(--mm-logo-menu-gap, 12px) * var(--mm-scale, 1)) !important; }
+            .mobile-menu-shell { justify-content: flex-start; gap: 0; padding-top: calc(env(safe-area-inset-top, 0px) + var(--mm-shell-pad-top, clamp(28px, 5vh, 44px))); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+            .mobile-menu-top .mobile-menu-logo { width: min(calc(72vw * var(--mm-scale, 1)), calc(280px * var(--mm-scale, 1))) !important; max-width: min(92vw, calc(336px * var(--mm-scale, 1))) !important; margin-bottom: var(--mm-logo-menu-gap, clamp(8px, 1.2vh, 14px)) !important; }
             .mobile-menu-links { margin-top: 0 !important; gap: calc(4px * var(--mm-scale, 1)) !important; }
-            .mobile-menu-contact { margin-top: calc(var(--mm-menu-contact-gap, 14px) * var(--mm-scale, 1) + var(--mm-contact-push, 8px) * var(--mm-scale, 1)) !important; }
+            .mobile-menu-contact { margin-top: calc(var(--mm-menu-contact-gap, clamp(10px, 2vh, 20px)) + var(--mm-contact-push, clamp(4px, 1vh, 12px))) !important; }
             .mobile-link { min-height: calc(32px * var(--mm-scale, 1)); font-size: clamp(calc(20px * var(--mm-scale, 1)), calc(5.6vw * var(--mm-scale, 1)), calc(25px * var(--mm-scale, 1))) !important; padding: calc(4px * var(--mm-scale, 1)) calc(12px * var(--mm-scale, 1)) !important; }
             .mobile-menu-divider { width: min(40vw, 140px) !important; }
             .mobile-menu-address-link { font-size: calc(10px * var(--mm-scale, 1)) !important; min-height: calc(22px * var(--mm-scale, 1)) !important; }
