@@ -222,21 +222,7 @@
     .mobile-close-btn { position: fixed !important; top: calc(env(safe-area-inset-top, 0px) + 14px) !important; right: 14px !important; z-index: 1000002 !important; }
     .mobile-menu-links { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(6px * var(--mm-scale, 1)); padding: 0; width: 100%; }
     .mobile-link { display: inline-flex; align-items: center; justify-content: center; align-self: center; width: auto; max-width: 92vw; font-family: 'Cormorant Garamond', serif; font-size: calc(24px * var(--mm-scale, 1)); color: #ffffff !important; margin: 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.04em; border: 1px solid transparent; padding: calc(7px * var(--mm-scale, 1)) calc(14px * var(--mm-scale, 1)); border-radius: 0; text-align: center; box-sizing: border-box; line-height: 1.1; min-height: calc(38px * var(--mm-scale, 1)); }
-    .mobile-branch-nav-link { font-size: calc(20px * var(--mm-scale, 1)) !important; line-height: 1.15 !important; white-space: normal !important; max-width: 88vw; letter-spacing: 0.02em !important; }
-    .mobile-branch-nav-link.mobile-branch-shimmer {
-        font-family: 'Montserrat', sans-serif !important;
-        font-size: calc(12px * var(--mm-scale, 1)) !important;
-        font-weight: 500 !important;
-        letter-spacing: 0.4em !important;
-        text-transform: uppercase !important;
-        line-height: 1.25 !important;
-        white-space: nowrap !important;
-        max-width: 92vw;
-        border: none !important;
-        background: none !important;
-        color: transparent !important;
-        padding: calc(8px * var(--mm-scale, 1)) calc(14px * var(--mm-scale, 1)) !important;
-    }
+    .mobile-branch-nav-link { /* идентификатор для скрытия на десктопе */ }
     .mm-shimmer-gold {
         background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
         background-size: 200% auto;
@@ -246,6 +232,14 @@
         color: transparent !important;
         animation: goldShimmer 5s linear infinite;
         display: inline;
+    }
+    .mobile-link .mm-shimmer-gold {
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        letter-spacing: inherit;
+        line-height: inherit;
+        text-transform: inherit;
     }
     .mobile-menu-address-link:hover .mm-shimmer-gold,
     .mobile-menu-address-link:focus .mm-shimmer-gold,
@@ -298,7 +292,7 @@
     .mobile-menu-social-link { color: var(--gold-main) !important; }
     .mobile-menu-address-link { display: inline-flex; align-items: center; justify-content: center; gap: calc(8px * var(--mm-scale, 1)); font-size: calc(11px * var(--mm-scale, 1)) !important; letter-spacing: 0.12em !important; line-height: 1.35 !important; max-width: 92vw; text-align: center; flex-wrap: nowrap; text-decoration: none !important; }
     .mobile-menu-address-link .fa-location-dot { color: var(--gold-main) !important; -webkit-text-fill-color: var(--gold-main) !important; font-size: calc(12px * var(--mm-scale, 1)) !important; flex-shrink: 0; }
-    #menu-address-text { display: inline !important; opacity: 1 !important; visibility: visible !important; white-space: normal; background: none !important; }
+    #menu-address-text { display: inline !important; opacity: 1 !important; visibility: visible !important; white-space: normal; }
     #menu-phone-link.mobile-menu-contact-link { font-size: calc(16px * var(--mm-scale, 1)) !important; }
     .mobile-menu-contact-link:hover,
     .mobile-menu-contact-link:focus,
@@ -587,18 +581,6 @@
             padding: calc(6px * var(--mm-scale, 1)) calc(14px * var(--mm-scale, 1)) !important;
             white-space: nowrap !important;
         }
-        .mobile-branch-nav-link:not(.mobile-branch-shimmer) {
-            font-size: clamp(calc(19px * var(--mm-scale, 1)), calc(5.2vw * var(--mm-scale, 1)), calc(24px * var(--mm-scale, 1))) !important;
-            white-space: normal !important;
-            max-width: 88vw;
-            min-height: calc(34px * var(--mm-scale, 1)) !important;
-            padding: calc(5px * var(--mm-scale, 1)) calc(12px * var(--mm-scale, 1)) !important;
-        }
-        .mobile-branch-nav-link.mobile-branch-shimmer {
-            font-size: calc(12px * var(--mm-scale, 1)) !important;
-            min-height: calc(28px * var(--mm-scale, 1)) !important;
-            white-space: nowrap !important;
-        }
         .mobile-menu-contact {
             width: min(88vw, 330px) !important;
             margin-top: calc(var(--mm-menu-contact-gap, 16px) * var(--mm-scale, 1) + var(--mm-contact-push, 8px) * var(--mm-scale, 1)) !important;
@@ -665,7 +647,6 @@
             .mobile-menu-links { margin-top: 0 !important; gap: calc(4px * var(--mm-scale, 1)) !important; }
             .mobile-menu-contact { margin-top: calc(var(--mm-menu-contact-gap, 14px) * var(--mm-scale, 1) + var(--mm-contact-push, 8px) * var(--mm-scale, 1)) !important; }
             .mobile-link { min-height: calc(32px * var(--mm-scale, 1)); font-size: clamp(calc(20px * var(--mm-scale, 1)), calc(5.6vw * var(--mm-scale, 1)), calc(25px * var(--mm-scale, 1))) !important; padding: calc(4px * var(--mm-scale, 1)) calc(12px * var(--mm-scale, 1)) !important; }
-            .mobile-branch-nav-link:not(.mobile-branch-shimmer) { font-size: clamp(calc(17px * var(--mm-scale, 1)), calc(4.8vw * var(--mm-scale, 1)), calc(21px * var(--mm-scale, 1))) !important; }
             .mobile-menu-divider { width: min(40vw, 140px) !important; }
             .mobile-menu-address-link { font-size: calc(10px * var(--mm-scale, 1)) !important; min-height: calc(22px * var(--mm-scale, 1)) !important; }
             #menu-phone-link.mobile-menu-contact-link { min-height: calc(28px * var(--mm-scale, 1)); font-size: calc(14px * var(--mm-scale, 1)) !important; }
@@ -838,7 +819,7 @@
                 </a>
             </cms:show_repeatable>
             <cms:pages masterpage='layout-mobile-menu.php' limit='1'>
-            <a href="#branch-filial" class="mobile-link mobile-branch-nav-link mobile-branch-shimmer">
+            <a href="#branch-filial" class="mobile-link mobile-branch-nav-link">
                 <span class="mm-shimmer-gold"><cms:if is_udelnaya><cms:if mm_udel_branch_label><cms:show mm_udel_branch_label /><cms:else />ВТОРОЙ ФИЛИАЛ</cms:if><cms:else /><cms:if mm_adm_branch_label><cms:show mm_adm_branch_label /><cms:else />ВТОРОЙ ФИЛИАЛ</cms:if></cms:if></span>
             </a>
             </cms:pages>
