@@ -12,7 +12,7 @@
             <p>Премиальная кальянная с изысканной кухней в СПб: авторские кальяны, бар, VIP-комнаты и вечера с PS5. Уютная атмосфера третьего места.</p>
         </cms:editable>
         
-        <cms:editable name='phil_slogan' label='Слоган (внизу)' group='phil_group' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
+        <cms:editable name='phil_slogan' label='Слоган (внизу)' group='phil_group' type='textarea'>Garden Lounge — тайный тропический оазис в сердце города, где время замедляется.</cms:editable>
 
     <cms:editable name='phil_seo_group' label='SEO и Заточка под ИИ' type='group' order='2' />
         <cms:editable name='phil_h1_logic' label='Тип заголовка' group='phil_seo_group' type='dropdown' opt_values='Сделать главным (H1)=h1 | Сделать обычным (H2)=h2' default='h2' desc='H1 должен быть только один на странице!' />
