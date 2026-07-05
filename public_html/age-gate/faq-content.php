@@ -6,7 +6,8 @@ function gl_faq_branch_items($branch)
         return array(
             array(
                 'q' => 'Где кальянная Garden Lounge в Приморском районе?',
-                'a' => 'ул. Аккуратова 13, Приморский район, рядом с метро Удельная. Маршрут — в разделе «Контакты».',
+                'a' => 'СПб, ул. Аккуратова 13, Приморский район, рядом с метро Удельная. Маршрут — в разделе «Контакты» или на карте.',
+                'a_html' => 'СПб, ул. Аккуратова 13, Приморский район, рядом с метро Удельная. Маршрут — в разделе <a href="#contact">«Контакты»</a> или <a href="https://yandex.ru/maps/-/CPtpbQPg" target="_blank" rel="noopener noreferrer">на карте</a>.',
             ),
             array(
                 'q' => 'До скольки работает Garden Lounge на Удельной?',
@@ -14,23 +15,28 @@ function gl_faq_branch_items($branch)
             ),
             array(
                 'q' => 'Сколько стоит кальян?',
-                'a' => 'Цены — в текстовом меню на сайте. Меню общее для обоих филиалов.',
+                'a' => 'Актуальные цены — в текстовом меню на сайте. Меню общее для обоих филиалов.',
+                'a_html' => 'Актуальные цены — в <a href="/udelnaya/menu/text/">текстовом меню</a> на сайте. Меню общее для обоих филиалов.',
             ),
             array(
                 'q' => 'Как забронировать стол?',
-                'a' => 'Форма «Забронировать», телефон +7 950 047-33-65 или Telegram @Garden_lounge_spb.',
+                'a' => 'Через форму «Забронировать», по телефону +7 950 047-33-65 или в Telegram @Garden_lounge_spb.',
+                'a_html' => 'Через <a href="#reservation">форму «Забронировать»</a>, по телефону <a href="tel:+79500473365">+7 950 047-33-65</a> или в Telegram <a href="https://t.me/Garden_lounge_spb" target="_blank" rel="noopener noreferrer">@Garden_lounge_spb</a>.',
             ),
             array(
                 'q' => 'Подойдёт ли для свидания или корпоратива?',
-                'a' => 'Да. Камерная атмосфера и VIP-комнаты — уточните при бронировании.',
+                'a' => 'Да. Камерная атмосфера и VIP-комнаты — забронируйте стол заранее.',
+                'a_html' => 'Да. Камерная атмосфера и VIP-комнаты — <a href="#reservation">забронируйте стол</a> заранее.',
             ),
             array(
                 'q' => 'Можно ли отметить день рождения?',
-                'a' => 'Да: зал или VIP-комната, кальян, кухня и бар. Условия — у администратора.',
+                'a' => 'Да: зал или VIP-комната, кальян, кухня и бар. Детали — при бронировании.',
+                'a_html' => 'Да: зал или VIP-комната, кальян, кухня и бар. Детали — <a href="#reservation">при бронировании</a>.',
             ),
             array(
                 'q' => 'Можно ли принести свой алкоголь или еду?',
-                'a' => 'Нет. Работают собственные бар и кухня — заказы только из меню.',
+                'a' => 'Нет. Работают собственные бар и кухня — заказы только из меню заведения.',
+                'a_html' => 'Нет. Работают собственные бар и кухня — заказы только из <a href="/udelnaya/menu/text/">меню заведения</a>.',
             ),
             array(
                 'q' => 'С какого возраста можно посещать?',
@@ -38,11 +44,13 @@ function gl_faq_branch_items($branch)
             ),
             array(
                 'q' => 'Есть ли VIP-комнаты и PlayStation 5?',
-                'a' => 'Да. Бронь — по телефону или в Telegram.',
+                'a' => 'Да. Бронь — по телефону +7 950 047-33-65 или в Telegram @Garden_lounge_spb.',
+                'a_html' => 'Да. Бронь — по телефону <a href="tel:+79500473365">+7 950 047-33-65</a> или в Telegram <a href="https://t.me/Garden_lounge_spb" target="_blank" rel="noopener noreferrer">@Garden_lounge_spb</a>.',
             ),
             array(
                 'q' => 'Есть ли кухня и бар?',
-                'a' => 'Да. Кальянная с кухней и баром: закуски, горячее, коктейли, чай и кофе.',
+                'a' => 'Да. Кальянная с кухней и баром: закуски, горячее, коктейли, чай и кофе — полное меню на сайте.',
+                'a_html' => 'Да. Кальянная с кухней и баром: закуски, горячее, коктейли, чай и кофе — <a href="/udelnaya/menu/text/">полное меню на сайте</a>.',
             ),
         );
     }
@@ -50,7 +58,8 @@ function gl_faq_branch_items($branch)
     return array(
         array(
             'q' => 'Где кальянная Garden Lounge на Адмиралтейской?',
-            'a' => 'Центр СПб, наб. реки Мойки 67–69, м. Адмиралтейская. Маршрут — в «Контактах».',
+            'a' => 'Центр СПб, наб. реки Мойки 67–69, м. Адмиралтейская. Маршрут — в разделе «Контакты» или на карте.',
+            'a_html' => 'Центр СПб, наб. реки Мойки 67–69, м. Адмиралтейская. Маршрут — в разделе <a href="#contact">«Контакты»</a> или <a href="https://yandex.ru/maps/org/garden_lounge/92097430496/" target="_blank" rel="noopener noreferrer">на карте</a>.',
         ),
         array(
             'q' => 'До скольки работает Garden Lounge?',
@@ -59,22 +68,27 @@ function gl_faq_branch_items($branch)
         array(
             'q' => 'Сколько стоит кальян?',
             'a' => 'Актуальные цены — в текстовом меню на сайте.',
+            'a_html' => 'Актуальные цены — в <a href="/admiralteyskaya/menu/text/">текстовом меню</a> на сайте.',
         ),
         array(
             'q' => 'Как забронировать стол?',
-            'a' => 'Форма «Забронировать», +7 995 624-68-08 или Telegram @gardenlounge_admiral.',
+            'a' => 'Через форму «Забронировать», по телефону +7 995 624-68-08 или в Telegram @gardenlounge_admiral.',
+            'a_html' => 'Через <a href="#reservation">форму «Забронировать»</a>, по телефону <a href="tel:+79956246808">+7 995 624-68-08</a> или в Telegram <a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener noreferrer">@gardenlounge_admiral</a>.',
         ),
         array(
             'q' => 'Подойдёт ли для свидания или корпоратива?',
-            'a' => 'Да. Эстетичный интерьер и VIP-комнаты — по брони.',
+            'a' => 'Да. Эстетичный интерьер и VIP-комнаты — забронируйте стол заранее.',
+            'a_html' => 'Да. Эстетичный интерьер и VIP-комнаты — <a href="#reservation">забронируйте стол</a> заранее.',
         ),
         array(
             'q' => 'Можно ли отметить день рождения?',
             'a' => 'Да: стол или VIP, кальян, кухня и бар. Детали — при бронировании.',
+            'a_html' => 'Да: стол или VIP, кальян, кухня и бар. Детали — <a href="#reservation">при бронировании</a>.',
         ),
         array(
             'q' => 'Можно ли принести свой алкоголь или еду?',
             'a' => 'Нет. Свой алкоголь и еду приносить нельзя — только меню заведения.',
+            'a_html' => 'Нет. Свой алкоголь и еду приносить нельзя — только <a href="/admiralteyskaya/menu/text/">меню заведения</a>.',
         ),
         array(
             'q' => 'С какого возраста можно в Garden Lounge?',
@@ -82,13 +96,24 @@ function gl_faq_branch_items($branch)
         ),
         array(
             'q' => 'Есть ли VIP-комнаты и PlayStation 5?',
-            'a' => 'Да. Наличие и бронь — по телефону или в Telegram.',
+            'a' => 'Да. Наличие и бронь — по телефону +7 995 624-68-08 или в Telegram @gardenlounge_admiral.',
+            'a_html' => 'Да. Наличие и бронь — по телефону <a href="tel:+79956246808">+7 995 624-68-08</a> или в Telegram <a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener noreferrer">@gardenlounge_admiral</a>.',
         ),
         array(
             'q' => 'Есть ли кухня и бар?',
             'a' => 'Да. Кальянная с кухней и баром — полное меню на сайте.',
+            'a_html' => 'Да. Кальянная с кухней и баром — <a href="/admiralteyskaya/menu/text/">полное меню на сайте</a>.',
         ),
     );
+}
+
+function gl_faq_answer_html($item)
+{
+    if (!empty($item['a_html'])) {
+        return $item['a_html'];
+    }
+
+    return htmlspecialchars($item['a'], ENT_QUOTES, 'UTF-8');
 }
 
 function gl_render_faq_schema($branch)
@@ -153,7 +178,7 @@ function gl_render_faq_section($branch)
         echo '<i class="fas fa-chevron-down gl-faq-icon" aria-hidden="true"></i>';
         echo '</button>';
         echo '<div id="' . $id . '" class="gl-faq-answer" hidden>';
-        echo '<p>' . htmlspecialchars($item['a'], ENT_QUOTES, 'UTF-8') . '</p>';
+        echo '<p>' . gl_faq_answer_html($item) . '</p>';
         echo '</div>';
         echo '</article>';
     }
@@ -275,6 +300,22 @@ function gl_render_faq_styles()
     -webkit-text-fill-color: transparent;
     color: transparent;
     animation: shineGold 5s linear infinite;
+}
+.gl-faq-answer p a {
+    background: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: var(--gold-light);
+    color: var(--gold-light);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(197, 160, 89, 0.55);
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+.gl-faq-answer p a:hover {
+    -webkit-text-fill-color: #fff;
+    color: #fff;
+    text-decoration-color: rgba(255, 255, 255, 0.7);
 }
 @media (max-width: 767px) {
     .gl-faq-question { padding: 10px 12px; }
