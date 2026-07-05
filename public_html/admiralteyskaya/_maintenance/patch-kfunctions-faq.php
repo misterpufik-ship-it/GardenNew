@@ -15,12 +15,12 @@ $entries = array(
     array(
         'name' => 'faq.php',
         'insertAfter' => "'filial.php' => array('field'=>'label_filial', 'title'=>'Филиал', 'weight'=>200),",
-        'line' => "'faq.php' => array('field'=>'label_faq', 'title'=>'Вопросы и ответы', 'weight'=>205),",
+        'line' => "'faq.php' => array('field'=>'label_faq', 'title'=>'Адмирал', 'weight'=>26),",
     ),
     array(
         'name' => 'udelnaya/faq.php',
         'insertAfter' => "'udelnaya/filial.php' => array('field'=>'label_u_filial', 'title'=>'Филиал', 'weight'=>200),",
-        'line' => "'udelnaya/faq.php' => array('field'=>'label_u_faq', 'title'=>'Вопросы и ответы', 'weight'=>205),",
+        'line' => "'udelnaya/faq.php' => array('field'=>'label_u_faq', 'title'=>'Уделка', 'weight'=>27),",
     ),
 );
 

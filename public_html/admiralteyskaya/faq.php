@@ -1,6 +1,6 @@
 <?php require_once( 'couch/cms.php' ); ?>
 
-<cms:template title='Вопросы и ответы' name='faq_section' executable='0' order='205'>
+<cms:template title='FAQ — Адмирал' name='faq_section' executable='0' order='205'>
 
     <cms:editable name='faq_admin_help' type='message' order='0'>
         <div style="font-size:13px;line-height:1.6;">

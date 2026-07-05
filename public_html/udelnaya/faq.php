@@ -23,7 +23,7 @@ if (!$garden_cms) {
 require_once $garden_cms;
 ?>
 
-<cms:template title='Уделка Вопросы и ответы' name='faq_section' executable='0' order='35'>
+<cms:template title='FAQ — Уделка' name='faq_section' executable='0' order='35'>
 
     <cms:editable name='faq_admin_help' type='message' order='0'>
         <div style="font-size:13px;line-height:1.6;">
