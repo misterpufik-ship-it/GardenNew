@@ -214,7 +214,10 @@ if ($db->connect_errno) {
 $db->set_charset('utf8mb4');
 
 try {
-    $udelnayaFaq = dirname($root) . '/udelnaya/faq.php';
+    $udelnayaFaq = $root . '/udelnaya/faq.php';
+    if (!is_file($udelnayaFaq)) {
+        $udelnayaFaq = dirname($root) . '/udelnaya/faq.php';
+    }
 
     echo "Parsing faq.php...\n";
     gl_faq_parse_template($root . '/faq.php', '/admiralteyskaya/faq.php');
