@@ -74,6 +74,26 @@ function mergeConfig(stored) {
   return cfg;
 }
 
+async function readJsonResponse(res) {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch (_) {
+    throw new Error(res.ok ? 'Сервер вернул некорректный ответ' : `Ошибка сервера (${res.status})`);
+  }
+}
+
+async function loadServerConfig() {
+  const res = await fetch('api/get-config.php');
+  if (res.ok) return readJsonResponse(res);
+
+  const fallback = await fetch('config.json');
+  if (fallback.ok) return readJsonResponse(fallback);
+
+  console.warn('get-config.php', res.status, 'config.json', fallback.status);
+  return null;
+}
+
 function ensureConfig() {
   if (!CONFIG || typeof CONFIG !== 'object' || Array.isArray(CONFIG)) {
     CONFIG = deepClone(DEFAULT_CONFIG);
@@ -967,11 +987,11 @@ async function saveInstructions() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: ta.value }),
     });
-    const out = await res.json();
+    const out = await readJsonResponse(res);
     msg.textContent = out.ok ? 'Инструкция сохранена на сервере' : (out.error || 'Ошибка');
     msg.className = 'msg ' + (out.ok ? 'ok' : 'err');
   } catch (e) {
-    msg.textContent = 'Сервер недоступен';
+    msg.textContent = e.message || 'Сервер недоступен';
     msg.className = 'msg err';
   }
 }
@@ -994,23 +1014,16 @@ function applySessionData(saved) {
 async function loadInitial() {
   const msg = $('#actionMsg');
   try {
-    const [cfgRes, archiveRes] = await Promise.all([
-      fetch('api/config.php'),
+    const [serverCfg, archiveRes] = await Promise.all([
+      loadServerConfig(),
       fetch('api/archive.php'),
     ]);
-
-    let serverCfg = null;
-    if (cfgRes.ok) {
-      serverCfg = await cfgRes.json();
-    } else {
-      console.warn('config.php', cfgRes.status);
-    }
 
     CONFIG = mergeConfig(serverCfg);
     configReady = true;
 
     if (archiveRes.ok) {
-      const arch = await archiveRes.json();
+      const arch = await readJsonResponse(archiveRes);
       ARCHIVE = { sessions: arch.sessions || [], activeKey: arch.activeKey || null };
     }
     renderSessionTabs();
@@ -1034,7 +1047,7 @@ async function loadInitial() {
     renderConfigForm();
     $('#runBtn').disabled = false;
     $('#subtitle').textContent = 'Загрузите отчёт и выписку для сверки';
-    msg.textContent = 'Настройки с сервера недоступны — используем стандартные колонки';
+    msg.textContent = err.message || 'Не удалось загрузить данные с сервера';
     msg.className = 'msg err';
     await loadInstructions();
   }
@@ -1147,11 +1160,11 @@ async function saveConfig() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(CONFIG),
     });
-    const out = await res.json();
+    const out = await readJsonResponse(res);
     msg.textContent = out.ok ? 'Настройки сохранены' : (out.error || 'Ошибка');
     msg.className = 'msg ' + (out.ok ? 'ok' : 'err');
   } catch (e) {
-    msg.textContent = 'Сервер недоступен';
+    msg.textContent = e.message || 'Сервер недоступен';
     msg.className = 'msg err';
   }
 }
@@ -1180,7 +1193,7 @@ async function saveData(opts = {}) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(DATA),
     });
-    const out = await res.json();
+    const out = await readJsonResponse(res);
     if (out.ok) {
       await loadArchive();
       renderSessionTabs();
@@ -1192,7 +1205,7 @@ async function saveData(opts = {}) {
     return !!out.ok;
   } catch (e) {
     if (!opts.silent) {
-      msg.textContent = 'Сервер недоступен';
+      msg.textContent = e.message || 'Сервер недоступен';
       msg.className = 'msg err';
     }
     throw e;
