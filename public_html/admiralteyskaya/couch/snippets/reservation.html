@@ -273,7 +273,7 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
             <p class="reservation-subtitle uppercase font-medium m-0 shimmer-text-gold"><cms:show res_subtitle /></p>
         </header>
 
-        <form class="gl-form-modern space-y-10 fade-up" style="animation-delay: 0.2s;" action="/admiralteyskaya/api/booking.php" method="POST">
+        <form class="gl-form-modern space-y-10 fade-up" style="animation-delay: 0.2s;" action="/admiralteyskaya/api/booking.php" method="POST" data-gl-goal="<cms:if is_udelnaya>udel_booking_submit<cms:else />adm_booking_submit</cms:if>">
             <input type="text" name="website" class="hp">
             <input type="hidden" name="branch" value="<cms:if is_udelnaya>udelnaya<cms:else />admiral</cms:if>">
             <div class="space-y-2">
@@ -509,6 +509,12 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
                 let data = null;
                 try { data = await resp.json(); } catch (err) {}
                 if (resp.ok && data && data.ok) {
+                    var goal = form.getAttribute('data-gl-goal');
+                    if (goal && typeof window.glMetrikaReachGoal === 'function') {
+                        window.glMetrikaReachGoal(goal);
+                    } else if (goal && typeof ym === 'function') {
+                        ym(110415128, 'reachGoal', goal);
+                    }
                     MODAL.classList.add('is-open');
                     form.reset();
                     dateInput.min = minDate;

@@ -1,7 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /admiralteyskaya/couch/
+Disallow: /admiralteyskaya/couch/uploads/
 Disallow: /udelnaya/couch/
+Disallow: /udelnaya/couch/uploads/
 Disallow: /crm/
 Disallow: /_maintenance/
 Disallow: /*copy*

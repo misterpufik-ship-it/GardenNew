@@ -10,6 +10,12 @@
     RewriteRule ^ https://garden-lounge.pro%{REQUEST_URI} [R=301,L]
 
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
+
+    # Legacy broken server-path URLs from bad CMS link values
+    RewriteRule ^home/m/mrpuffch/garden-lounge\.pro/public_html/admiralteyskaya/menu/?$ https://garden-lounge.pro/admiralteyskaya/menu/ [R=301,L]
+    RewriteRule ^home/m/mrpuffch/garden-lounge\.pro/public_html/udelnaya/menu/?$ https://garden-lounge.pro/udelnaya/menu/ [R=301,L]
+    RewriteRule ^home/m/mrpuffch/garden-lounge\.pro/public_html/admiralteyskaya/menu/(.*)$ https://garden-lounge.pro/admiralteyskaya/menu/$1 [R=301,L]
+    RewriteRule ^home/m/mrpuffch/garden-lounge\.pro/public_html/udelnaya/menu/(.*)$ https://garden-lounge.pro/udelnaya/menu/$1 [R=301,L]
 </IfModule>
 
 <IfModule mod_rewrite.c>

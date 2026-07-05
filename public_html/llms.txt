@@ -7,6 +7,8 @@ Garden Lounge — сеть кальянных и лаунж-баров в Сан
 - https://garden-lounge.pro/ — главная страница бренда и выбор филиала.
 - https://garden-lounge.pro/admiralteyskaya/ — филиал Garden Lounge на Адмиралтейской.
 - https://garden-lounge.pro/udelnaya/ — филиал Garden Lounge на Удельной.
+- https://garden-lounge.pro/admiralteyskaya/menu/ — меню филиала Адмиралтейская (visual, text, english).
+- https://garden-lounge.pro/udelnaya/menu/ — меню филиала Удельная (visual, text, english).
 - https://garden-lounge.pro/admiralteyskaya/menu/text/ — текстовое меню филиала Адмиралтейская.
 - https://garden-lounge.pro/admiralteyskaya/menu/visual/ — визуальное меню филиала Адмиралтейская.
 - https://garden-lounge.pro/admiralteyskaya/menu/english/ — English menu филиала Адмиралтейская.

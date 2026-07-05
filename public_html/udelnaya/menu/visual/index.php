@@ -73,6 +73,16 @@ require_once $garden_cms;
     <meta property="og:url" content="https://garden-lounge.pro/udelnaya/menu/visual/">
     <meta property="og:title" content="Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар">
     <meta property="og:description" content="Визуальное меню Garden Lounge на Удельной: кальяны, кухня, бар, десерты и акции.">
+    <?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    gl_menu_seo_schema_render(array(
+        'branch' => 'udelnaya',
+        'page' => 'visual',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/visual/',
+        'name' => 'Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар',
+        'description' => 'Визуальное меню Garden Lounge на Удельной: кальяны, кухня, бар, десерты и акции.',
+    ));
+    ?>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">

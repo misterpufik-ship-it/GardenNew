@@ -50,6 +50,16 @@
     <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
     <meta property="og:title" content="Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб">
     <meta property="og:description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.">
+    <?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    gl_menu_seo_schema_render(array(
+        'branch' => 'admiralteyskaya',
+        'page' => 'visual',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual/',
+        'name' => 'Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб',
+        'description' => 'Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.',
+    ));
+    ?>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -71,6 +81,9 @@
         .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; padding: 0 0 6px; }
         .tab-btn.active { color: var(--gold); }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
+        @media (min-width: 768px) {
+            .tabs-wrap .tab-btn { font-size: 11px; letter-spacing: 0.16em; padding-bottom: 7px; }
+        }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
         
         .main-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }

@@ -63,6 +63,9 @@ require_once $garden_cms;
         .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; }
         .tab-btn.active { color: var(--gold); }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
+        @media (min-width: 768px) {
+            .tabs-wrap .tab-btn { font-size: 11px; letter-spacing: 0.16em; padding-bottom: 7px; }
+        }
 
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
         .subtabs-wrap { display:none; flex-wrap:wrap; justify-content:center; gap:10px 12px; padding: 10px 10px 15px; }

@@ -123,6 +123,22 @@
 
 </style>
 
+<cms:php>
+global $CTX;
+$branch = $CTX->get('is_udelnaya') ? 'udelnaya' : 'admiralteyskaya';
+$base = 'https://garden-lounge.pro/' . $branch . '/menu/';
+$normalize = function ($url, $fallback) {
+    $url = trim((string)$url);
+    if ($url === '' || strpos($url, '/home/m/') !== false || strpos($url, 'public_html') !== false || strpos($url, 'mrpuffch') !== false) {
+        return $fallback;
+    }
+    return $url;
+};
+$CTX->set('menu_visual_href', $normalize($CTX->get('menu_visual_link'), $base . 'visual/'), 'parent');
+$CTX->set('menu_text_href', $normalize($CTX->get('menu_text_link'), $base . 'text/'), 'parent');
+$CTX->set('menu_eng_href', $normalize($CTX->get('menu_eng_link'), $base . 'english/'), 'parent');
+</cms:php>
+
 <div id="menu-block">
     <div class="film-grain"></div>
 
@@ -135,7 +151,7 @@
 
         <div class="main-card fade-up" style="animation-delay: 0.3s;">
 
-            <a href="<cms:show menu_visual_link />" target="_self" class="card-left">
+            <a href="<cms:show menu_visual_href />" target="_self" class="card-left">
                 <img src="<cms:if menu_visual_img=':gf11.webp'>/admiralteyskaya/couch/uploads/image/gf11.webp<cms:else /><cms:if menu_visual_img='https://misterpufik.ru/gf11.jpg'>/admiralteyskaya/couch/uploads/image/gf11.webp<cms:else /><cms:show menu_visual_img /></cms:if></cms:if>" alt="&#1042;&#1080;&#1079;&#1091;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &#1084;&#1077;&#1085;&#1102;" loading="lazy" decoding="async">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
 
@@ -149,14 +165,14 @@
             </a>
 
             <div class="card-right">
-                <a href="<cms:show menu_text_link />" target="_self" class="menu-btn group">
+                <a href="<cms:show menu_text_href />" target="_self" class="menu-btn group">
                     <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">&#1058;&#1077;&#1082;&#1089;&#1090;&#1086;&#1074;&#1086;&#1077;</h3>
                     <span class="menu-card-caption uppercase shimmer-gold">Classic List</span>
                 </a>
 
                 <div class="card-divider"></div>
 
-                <a href="<cms:show menu_eng_link />" target="_self" class="menu-btn group">
+                <a href="<cms:show menu_eng_href />" target="_self" class="menu-btn group">
                     <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">English menu</h3>
                     <div class="flex items-center gap-1">
                          <span class="menu-card-caption uppercase shimmer-gold">Open</span>

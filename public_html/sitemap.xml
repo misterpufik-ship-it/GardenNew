@@ -2,55 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://garden-lounge.pro/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://garden-lounge.pro/admiralteyskaya/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://garden-lounge.pro/udelnaya/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://garden-lounge.pro/admiralteyskaya/menu/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://garden-lounge.pro/admiralteyskaya/menu/text/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://garden-lounge.pro/admiralteyskaya/menu/visual/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://garden-lounge.pro/admiralteyskaya/menu/english/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://garden-lounge.pro/udelnaya/menu/</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://garden-lounge.pro/udelnaya/menu/text/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://garden-lounge.pro/udelnaya/menu/visual/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://garden-lounge.pro/udelnaya/menu/english/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>

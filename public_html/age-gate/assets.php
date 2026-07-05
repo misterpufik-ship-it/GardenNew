@@ -57,12 +57,16 @@ function gl_favicon_href($href = '/favicon.png')
 function gl_favicon_render_tags($href = '/favicon.png')
 {
     $png = htmlspecialchars(gl_favicon_href($href), ENT_QUOTES, 'UTF-8');
+    $png120 = htmlspecialchars(gl_favicon_href('/favicon-120.png'), ENT_QUOTES, 'UTF-8');
     $ico = htmlspecialchars(gl_favicon_href('/favicon.ico'), ENT_QUOTES, 'UTF-8');
+    $svg = htmlspecialchars(gl_favicon_href('/favicon.svg'), ENT_QUOTES, 'UTF-8');
 
+    echo '<link rel="icon" href="' . $svg . '" type="image/svg+xml">' . "\n";
     echo '<link rel="icon" href="' . $ico . '" sizes="any">' . "\n";
+    echo '<link rel="icon" type="image/png" sizes="120x120" href="' . $png120 . '">' . "\n";
     echo '<link rel="icon" type="image/png" sizes="32x32" href="' . $png . '">' . "\n";
-    echo '<link rel="shortcut icon" type="image/png" href="' . $png . '">' . "\n";
-    echo '<link rel="apple-touch-icon" href="' . $png . '">' . "\n";
+    echo '<link rel="shortcut icon" type="image/png" href="' . $png120 . '">' . "\n";
+    echo '<link rel="apple-touch-icon" sizes="120x120" href="' . $png120 . '">' . "\n";
 }
 
 function gl_age_gate_lib_loaded()
@@ -128,6 +132,45 @@ function gl_yandex_metrika_render()
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110415128', 'ym');
 
     ym(110415128, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<script type="text/javascript">
+(function () {
+    var COUNTER = 110415128;
+    function reach(goal) {
+        if (!goal || typeof ym !== 'function') return;
+        try { ym(COUNTER, 'reachGoal', goal); } catch (e) {}
+    }
+    window.glMetrikaReachGoal = reach;
+    function branchPrefix(el) {
+        if (!el) return '';
+        var explicit = el.getAttribute('data-gl-branch');
+        if (explicit) return explicit;
+        var homeBranch = el.closest('.branch-adm, .branch-udel');
+        if (homeBranch) {
+            if (homeBranch.classList.contains('branch-adm')) return 'home_adm';
+            if (homeBranch.classList.contains('branch-udel')) return 'home_udel';
+        }
+        var path = location.pathname;
+        if (path.indexOf('/udelnaya') !== -1) return 'udel';
+        if (path.indexOf('/admiralteyskaya') !== -1) return 'adm';
+        return '';
+    }
+    document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href]');
+        if (!link) return;
+        var href = link.getAttribute('href') || '';
+        var prefix = branchPrefix(link);
+        if (!prefix) return;
+        if (href.indexOf('tel:') === 0) {
+            reach(prefix + '_phone_click');
+            return;
+        }
+        if (/^https?:\/\/(t\.me|telegram\.me)\//i.test(href) || href.indexOf('t.me/') !== -1) {
+            if (/GardenLounge_Loyalty_Bot/i.test(href)) return;
+            reach(prefix + '_telegram_click');
+        }
+    }, true);
+})();
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/110415128" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->

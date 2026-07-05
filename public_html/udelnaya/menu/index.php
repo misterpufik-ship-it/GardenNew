@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lounge Garden — Меню</title>
-    <!-- Добавление фавикона -->
+    <title>Меню Garden Lounge — Удельная</title>
+    <meta name="description" content="Меню Garden Lounge на Удельной: текстовое, визуальное и английское меню — кальяны, кухня, бар на севере Санкт-Петербурга.">
+    <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://garden-lounge.pro/udelnaya/menu/#webpage",
+        "url": "https://garden-lounge.pro/udelnaya/menu/",
+        "name": "Меню Garden Lounge — Удельная",
+        "description": "Меню Garden Lounge на Удельной: текстовое, визуальное и английское меню — кальяны, кухня, бар на севере Санкт-Петербурга.",
+        "isPartOf": { "@id": "https://garden-lounge.pro/udelnaya/#localbusiness" },
+        "hasPart": [
+            { "@type": "WebPage", "url": "https://garden-lounge.pro/udelnaya/menu/text/", "name": "Текстовое меню" },
+            { "@type": "WebPage", "url": "https://garden-lounge.pro/udelnaya/menu/visual/", "name": "Визуальное меню" },
+            { "@type": "WebPage", "url": "https://garden-lounge.pro/udelnaya/menu/english/", "name": "English menu" }
+        ]
+    }
+    </script>
+    <?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    gl_menu_seo_schema_render(array(
+        'branch' => 'udelnaya',
+        'page' => 'hub',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/',
+        'name' => 'Меню Garden Lounge — Удельная',
+    ));
+    ?>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
     
     <script src="https://cdn.tailwindcss.com"></script>

@@ -10,13 +10,24 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
-        <title><cms:if page_title_en><cms:show page_title_en /><cms:else /><cms:show page_title /></cms:if></title>
+        <title>Menu Garden Lounge Admiralteyskaya — hookahs, kitchen, bar</title>
         <meta name="description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar, drinks and special offers in central Saint Petersburg.</cms:if>">
         <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/english/">
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/english/">
-        <meta property="og:title" content="<cms:if page_title_en><cms:show page_title_en /><cms:else /><cms:show page_title /></cms:if>">
+        <meta property="og:title" content="Menu Garden Lounge Admiralteyskaya — hookahs, kitchen, bar">
         <meta property="og:description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar and drinks.</cms:if>">
+        <?php
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+        gl_menu_seo_schema_render(array(
+            'branch' => 'admiralteyskaya',
+            'page' => 'english',
+            'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/english/',
+            'name' => 'Menu Garden Lounge Admiralteyskaya — hookahs, kitchen, bar',
+            'description' => 'English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar and drinks.',
+            'lang' => 'en-US',
+        ));
+        ?>
 
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -40,6 +51,9 @@
         .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; }
         .tab-btn.active { color: var(--gold); }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
+        @media (min-width: 768px) {
+            .tabs-wrap .tab-btn { font-size: 11px; letter-spacing: 0.16em; padding-bottom: 7px; }
+        }
 
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
         .subtabs-wrap { display:none; flex-wrap:wrap; justify-content:center; gap:10px 12px; padding: 10px 10px 15px; }
