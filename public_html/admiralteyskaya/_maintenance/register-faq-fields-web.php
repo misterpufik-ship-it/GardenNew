@@ -113,11 +113,6 @@ function gl_faq_sql_register_fields($db, $fields, $templateName, $cloneTemplateN
     }
     $cloneId = (int) $cloneTpl['id'];
 
-    if (gl_faq_has_field($db, $fields, $templateId, 'faq_list')) {
-        echo "{$templateName}: faq_list already registered\n";
-        return $templateId;
-    }
-
     $defs = array(
         array('name' => 'faq_admin_help', 'label' => 'Справка', 'type' => 'message', 'group' => '', 'order' => 0, 'html' => '<div>FAQ admin help</div>'),
         array('name' => 'group_titles', 'label' => 'Заголовки секции', 'type' => 'group', 'group' => '', 'order' => 1, 'html' => ''),
@@ -157,12 +152,27 @@ function gl_faq_sql_register_fields($db, $fields, $templateName, $cloneTemplateN
     }
 
     if (!gl_faq_has_field($db, $fields, $templateId, 'faq_list')) {
-        $promo = gl_faq_one(
-            $db,
-            "SELECT * FROM `{$fields}` WHERE template_id={$cloneId} AND name='promo_list' LIMIT 1"
-        );
+        $promo = null;
+        foreach (array($cloneTemplateName, 'akzii.php', 'udelnaya/akzii.php') as $cloneName) {
+            $cloneRow = gl_faq_one(
+                $db,
+                "SELECT id FROM `" . K_DB_TABLES_PREFIX . "couch_templates` WHERE name='" .
+                $db->real_escape_string($cloneName) . "' LIMIT 1"
+            );
+            if (!$cloneRow) {
+                continue;
+            }
+            $promo = gl_faq_one(
+                $db,
+                "SELECT * FROM `{$fields}` WHERE template_id=" . (int) $cloneRow['id'] . " AND name='promo_list' LIMIT 1"
+            );
+            if ($promo) {
+                echo "Using promo_list clone from {$cloneName}\n";
+                break;
+            }
+        }
         if (!$promo) {
-            throw new RuntimeException('promo_list sample missing on ' . $cloneTemplateName);
+            throw new RuntimeException('promo_list sample missing for ' . $templateName);
         }
         $promo['template_id'] = (string) $templateId;
         $promo['name'] = 'faq_list';
@@ -175,6 +185,17 @@ function gl_faq_sql_register_fields($db, $fields, $templateName, $cloneTemplateN
             "<cms:editable name='faq_answer_schema' label='Текст для поисковиков (без HTML)' type='textarea' />";
         $repeatableId = gl_faq_insert_field($db, $fields, $promo);
         echo "Added repeatable faq_list (#{$repeatableId}) for {$templateName}\n";
+    } else {
+        $faqListId = gl_faq_has_field($db, $fields, $templateId, 'faq_list');
+        $faqListHtml =
+            "<cms:editable name='faq_question' label='Вопрос' type='text' />\r\n" .
+            "<cms:editable name='faq_answer_html' label='Ответ на сайте (HTML)' type='textarea' />\r\n" .
+            "<cms:editable name='faq_answer_schema' label='Текст для поисковиков (без HTML)' type='textarea' />";
+        $db->query(
+            "UPDATE `{$fields}` SET _html=" . gl_faq_q($db, $faqListHtml) .
+            ", k_group='group_faq', label='Вопросы и ответы' WHERE id={$faqListId} LIMIT 1"
+        );
+        echo "Synced faq_list (#{$faqListId}) for {$templateName}\n";
     }
 
     return $templateId;
@@ -209,14 +230,10 @@ try {
     echo "faq.php fields after parse: {$faqCount}\n";
     echo "udelnaya/faq.php fields after parse: {$udelCount}\n";
 
-    if (!$faqCount || !gl_faq_has_field($db, $fields, (int) $faqTpl['id'], 'faq_list')) {
-        echo "SQL fallback for faq.php...\n";
-        gl_faq_sql_register_fields($db, $fields, 'faq.php', 'akzii.php');
-    }
-    if (!$udelCount || !gl_faq_has_field($db, $fields, (int) $udelTpl['id'], 'faq_list')) {
-        echo "SQL fallback for udelnaya/faq.php...\n";
-        gl_faq_sql_register_fields($db, $fields, 'udelnaya/faq.php', 'udelnaya/akzii.php');
-    }
+    echo "Ensuring faq.php fields...\n";
+    gl_faq_sql_register_fields($db, $fields, 'faq.php', 'akzii.php');
+    echo "Ensuring udelnaya/faq.php fields...\n";
+    gl_faq_sql_register_fields($db, $fields, 'udelnaya/faq.php', 'udelnaya/akzii.php');
 
     $FUNCS->invalidate_cache();
     $cacheDir = $root . '/couch/cache';
