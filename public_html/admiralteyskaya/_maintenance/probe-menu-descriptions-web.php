@@ -49,9 +49,13 @@ foreach ($tplNames as $label => $tplName) {
         "SELECT f.id, f.name, f.k_type, f.k_group, dt.value " .
         "FROM `{$fields}` f " .
         "LEFT JOIN `{$dataText}` dt ON dt.field_id=f.id AND dt.page_id={$pageId} " .
-        "WHERE f.template_id={$tplId} AND f.k_type='repeatable' " .
+        "WHERE f.template_id={$tplId} AND (f.k_type='repeatable' OR f.name IN ('rep_hookahs_v2','rep_kitchen_v2','rep_bar_alc_v2','menu_shisha','menu_kitchen','menu_bar')) " .
         "ORDER BY f.k_order"
     );
+    if (!$res) {
+        echo "  query error: {$db->error}\n";
+        continue;
+    }
     while ($res && ($row = $res->fetch_assoc())) {
         $val = (string) $row['value'];
         echo "  repeatable {$row['name']}: value_len=" . strlen($val);
@@ -73,5 +77,17 @@ foreach ($tplNames as $label => $tplName) {
     );
     while ($childRes && ($row = $childRes->fetch_assoc())) {
         echo "    {$row['k_group']}.{$row['name']}: records={$row['cnt']} total_len={$row['total_len']}\n";
+    }
+
+    $sampleRes = $db->query(
+        "SELECT f.k_group, f.name, dt.value " .
+        "FROM `{$fields}` f " .
+        "JOIN `{$dataText}` dt ON dt.field_id=f.id AND dt.page_id={$pageId} " .
+        "WHERE f.template_id={$tplId} AND f.name IN ('i_name','kit_name','item_title','i_desc','kit_desc','item_desc','i_subheader') " .
+        "AND dt.value != '' ORDER BY f.k_group, f.id LIMIT 12"
+    );
+    while ($sampleRes && ($row = $sampleRes->fetch_assoc())) {
+        $val = mb_substr((string) $row['value'], 0, 80, 'UTF-8');
+        echo "    sample {$row['k_group']}.{$row['name']}: {$val}\n";
     }
 }
