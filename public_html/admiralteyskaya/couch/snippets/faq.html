@@ -2,6 +2,7 @@
 global $CTX;
 require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/faq-content.php';
 $branch = $CTX->get('is_udelnaya') ? 'udelnaya' : 'admiralteyskaya';
-gl_render_faq_assets();
+gl_render_faq_styles();
 gl_render_faq_section($branch);
+gl_render_faq_script();
 </cms:php>
