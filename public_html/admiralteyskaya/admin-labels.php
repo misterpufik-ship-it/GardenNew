@@ -30,7 +30,7 @@
     <cms:editable name='label_reservation' label='Бронирование' group='group_a' type='text' order='20'>Бронирование</cms:editable>
     <cms:editable name='label_contacts' label='Контакты' group='group_a' type='text' order='21'>Контакты</cms:editable>
     <cms:editable name='label_filial' label='Филиал' group='group_a' type='text' order='22'>Филиал</cms:editable>
-    <cms:editable name='label_faq' label='FAQ — Адмирал' group='group_a' type='text' order='23'>Адмирал</cms:editable>
+    <cms:editable name='label_faq' label='FAQ — Адмирал' group='group_a' type='text' order='23'>Вопросы и ответы</cms:editable>
     <cms:editable name='label_globals' label='Футер и SEO' group='group_a' type='text' order='24'>Футер и SEO</cms:editable>
     <cms:editable name='label_index' label='Общая страница' group='group_a' type='text' order='25'>Общая страница</cms:editable>
 
@@ -47,7 +47,7 @@
     <cms:editable name='label_u_reservation' label='Бронирование' group='group_u' type='text' order='50'>Бронирование</cms:editable>
     <cms:editable name='label_u_contacts' label='Контакты' group='group_u' type='text' order='51'>Контакты</cms:editable>
     <cms:editable name='label_u_filial' label='Филиал' group='group_u' type='text' order='52'>Филиал</cms:editable>
-    <cms:editable name='label_u_faq' label='FAQ — Уделка' group='group_u' type='text' order='53'>Уделка</cms:editable>
+    <cms:editable name='label_u_faq' label='FAQ — Уделка' group='group_u' type='text' order='53'>Вопросы и ответы</cms:editable>
     <cms:editable name='label_u_globals' label='Футер и SEO' group='group_u' type='text' order='54'>Футер и SEO</cms:editable>
     <cms:editable name='label_u_index' label='Общая страница' group='group_u' type='text' order='55'>Общая страница</cms:editable>
 </cms:template>

@@ -11,6 +11,6 @@ if ($token !== 'gl-cache-clear-20260623') {
 
 header('Content-Type: text/plain; charset=utf-8');
 
-require __DIR__ . '/patch-kfunctions-faq-menu.php';
+require __DIR__ . '/patch-kfunctions-faq-branches.php';
 echo "---\n";
 require __DIR__ . '/register-faq-fields-web.php';
