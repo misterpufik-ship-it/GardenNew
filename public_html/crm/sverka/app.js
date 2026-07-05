@@ -3,9 +3,77 @@
 let CONFIG = null;
 let DATA = null;
 let currentFilter = 'all';
+let configReady = false;
+
+const DEFAULT_CONFIG = {
+  entity: 'lounge',
+  ignoreKopecks: true,
+  paymentFilter: 'бн',
+  lounge: {
+    report: {
+      sheetIndex: 0,
+      dateCol: 1,
+      categoryCol: 6,
+      sumCol: 7,
+      paymentCol: 8,
+      commentCol: 9,
+    },
+    statement: {
+      sheetIndex: 0,
+      dateCol: 1,
+      opNumCol: 2,
+      counterpartyCol: 3,
+      purposeCol: 6,
+      debitCol: 10,
+    },
+  },
+  vympel: {
+    reportSheets: [0, 1],
+    dateCol: 1,
+    categoryCol: 6,
+    sumCol: 7,
+    paymentCol: 8,
+    commentCol: 9,
+    statement: {
+      sheetIndex: 0,
+      headerRow: 1,
+      dateCol: 1,
+      accountCol: 2,
+      counterpartyCol: 3,
+      debitCol: 4,
+      docNumCol: 5,
+      purposeCol: 6,
+    },
+  },
+};
 
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
+
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function mergeConfig(stored) {
+  const cfg = deepClone(DEFAULT_CONFIG);
+  if (!stored || typeof stored !== 'object' || Array.isArray(stored)) return cfg;
+  if (stored.entity) cfg.entity = stored.entity;
+  if (stored.paymentFilter) cfg.paymentFilter = stored.paymentFilter;
+  if (stored.ignoreKopecks != null) cfg.ignoreKopecks = stored.ignoreKopecks;
+  if (stored.lounge) cfg.lounge = { ...cfg.lounge, ...stored.lounge, report: { ...cfg.lounge.report, ...(stored.lounge.report || {}) }, statement: { ...cfg.lounge.statement, ...(stored.lounge.statement || {}) } };
+  if (stored.vympel) {
+    cfg.vympel = { ...cfg.vympel, ...stored.vympel, statement: { ...cfg.vympel.statement, ...(stored.vympel.statement || {}) } };
+    if (Array.isArray(stored.vympel.reportSheets)) cfg.vympel.reportSheets = stored.vympel.reportSheets;
+  }
+  return cfg;
+}
+
+function ensureConfig() {
+  if (!CONFIG || typeof CONFIG !== 'object' || Array.isArray(CONFIG)) {
+    CONFIG = deepClone(DEFAULT_CONFIG);
+  }
+  return CONFIG;
+}
 
 function fmt(n) {
   if (n == null || n === '') return '—';
@@ -304,6 +372,7 @@ function reconcile(expenses, statements) {
 }
 
 function renderConfigForm() {
+  ensureConfig();
   const entity = $('#entity').value;
   const box = $('#configForm');
   const fields = entity === 'lounge'
@@ -351,13 +420,13 @@ function renderConfigForm() {
 }
 
 function collectConfigFromForm() {
-  const cfg = JSON.parse(JSON.stringify(CONFIG));
+  const cfg = deepClone(ensureConfig());
   $$('#configForm [data-cfg]').forEach((input) => {
     const parts = input.dataset.cfg.split('.');
     let ref = cfg;
     for (let i = 0; i < parts.length - 1; i++) {
       const p = parts[i];
-      if (!(p in ref)) ref[p] = /^\d+$/.test(parts[i + 1]) ? [] : {};
+      if (ref[p] == null) ref[p] = /^\d+$/.test(parts[i + 1]) ? [] : {};
       ref = ref[p];
     }
     const last = parts[parts.length - 1];
@@ -685,25 +754,53 @@ function updateDownloadBtn() {
 }
 
 async function loadInitial() {
-  const [cfgRes, dataRes] = await Promise.all([
-    fetch('api/config.php'),
-    fetch('api/data.php'),
-  ]);
-  CONFIG = await cfgRes.json();
-  const saved = await dataRes.json();
-  $('#entity').value = CONFIG.entity || 'lounge';
-  renderConfigForm();
+  const msg = $('#actionMsg');
+  try {
+    const [cfgRes, dataRes] = await Promise.all([
+      fetch('api/config.php'),
+      fetch('api/data.php'),
+    ]);
 
-  if (saved && saved.expenses && saved.expenses.length) {
-    DATA = saved;
-    if (!DATA.pairRows) {
-      DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
+    let serverCfg = null;
+    if (cfgRes.ok) {
+      serverCfg = await cfgRes.json();
+    } else {
+      console.warn('config.php', cfgRes.status);
     }
-    renderAll();
-    $('#actionMsg').textContent = 'Загружены сохранённые данные с сервера';
-    $('#actionMsg').className = 'msg ok';
-  } else {
+
+    CONFIG = mergeConfig(serverCfg);
+    configReady = true;
+
+    let saved = null;
+    if (dataRes.ok) {
+      saved = await dataRes.json();
+    }
+
+    $('#entity').value = CONFIG.entity || 'lounge';
+    renderConfigForm();
+    $('#runBtn').disabled = false;
+
+    if (saved && saved.expenses && saved.expenses.length) {
+      DATA = saved;
+      if (!DATA.pairRows) {
+        DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
+      }
+      renderAll();
+      msg.textContent = 'Загружены сохранённые данные с сервера';
+      msg.className = 'msg ok';
+    } else {
+      $('#subtitle').textContent = 'Загрузите отчёт и выписку для сверки';
+    }
+  } catch (err) {
+    console.error(err);
+    CONFIG = deepClone(DEFAULT_CONFIG);
+    configReady = true;
+    $('#entity').value = CONFIG.entity;
+    renderConfigForm();
+    $('#runBtn').disabled = false;
     $('#subtitle').textContent = 'Загрузите отчёт и выписку для сверки';
+    msg.textContent = 'Настройки с сервера недоступны — используем стандартные колонки';
+    msg.className = 'msg err';
   }
 }
 
@@ -716,10 +813,27 @@ function readFileAsArrayBuffer(file) {
   });
 }
 
+async function uploadSourceFiles(entity, reportFile, statementFile) {
+  const fd = new FormData();
+  fd.append('entity', entity);
+  fd.append('report', reportFile);
+  fd.append('statement', statementFile);
+  const res = await fetch('api/upload-files.php', { method: 'POST', body: fd });
+  const out = await res.json().catch(() => ({}));
+  if (!res.ok || !out.ok) throw new Error(out.error || 'Не удалось сохранить файлы на сервере');
+  return out.files;
+}
+
 async function runReconciliation() {
   const msg = $('#actionMsg');
   const reportInput = $('#reportFile');
   const stmtInput = $('#statementFile');
+
+  if (!configReady) {
+    msg.textContent = 'Подождите загрузку настроек…';
+    msg.className = 'msg err';
+    return;
+  }
 
   if (!reportInput.files[0] || !stmtInput.files[0]) {
     msg.textContent = 'Выберите оба файла: отчёт и выписку';
@@ -728,11 +842,16 @@ async function runReconciliation() {
   }
 
   try {
+    $('#runBtn').disabled = true;
+    msg.textContent = 'Сверка и сохранение на сервер…';
+    msg.className = 'msg';
+
     CONFIG = collectConfigFromForm();
     const entity = CONFIG.entity;
-    const [reportBuf, stmtBuf] = await Promise.all([
+    const [reportBuf, stmtBuf, uploaded] = await Promise.all([
       readFileAsArrayBuffer(reportInput.files[0]),
       readFileAsArrayBuffer(stmtInput.files[0]),
+      uploadSourceFiles(entity, reportInput.files[0], stmtInput.files[0]),
     ]);
 
     const reportWb = XLSX.read(reportBuf, { type: 'array', cellDates: true });
@@ -752,16 +871,26 @@ async function runReconciliation() {
       entity,
       reportFile: reportInput.files[0].name,
       statementFile: stmtInput.files[0].name,
+      uploadedFiles: uploaded,
+      reconciledAt: new Date().toISOString(),
       ...result,
     };
     DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches);
 
     renderAll();
-    msg.textContent = `Сверка выполнена: ${reportInput.files[0].name} + ${stmtInput.files[0].name}`;
-    msg.className = 'msg ok';
+    try {
+      await saveData({ silent: true });
+      msg.textContent = `Сверка выполнена и сохранена на сервере: ${reportInput.files[0].name} + ${stmtInput.files[0].name}`;
+      msg.className = 'msg ok';
+    } catch (saveErr) {
+      msg.textContent = `Сверка выполнена, но сохранение не удалось: ${saveErr.message}`;
+      msg.className = 'msg err';
+    }
   } catch (err) {
     msg.textContent = 'Ошибка: ' + err.message;
     msg.className = 'msg err';
+  } finally {
+    $('#runBtn').disabled = false;
   }
 }
 
@@ -783,11 +912,13 @@ async function saveConfig() {
   }
 }
 
-async function saveData() {
+async function saveData(opts = {}) {
   if (!DATA) {
-    $('#actionMsg').textContent = 'Нет данных для сохранения';
-    $('#actionMsg').className = 'msg err';
-    return;
+    if (!opts.silent) {
+      $('#actionMsg').textContent = 'Нет данных для сохранения';
+      $('#actionMsg').className = 'msg err';
+    }
+    return false;
   }
   const msg = $('#actionMsg');
   try {
@@ -797,19 +928,26 @@ async function saveData() {
       body: JSON.stringify(DATA),
     });
     const out = await res.json();
-    msg.textContent = out.ok ? 'Данные сверки сохранены на сервере' : (out.error || 'Ошибка');
-    msg.className = 'msg ' + (out.ok ? 'ok' : 'err');
+    if (!opts.silent) {
+      msg.textContent = out.ok ? 'Данные сверки сохранены на сервере' : (out.error || 'Ошибка');
+      msg.className = 'msg ' + (out.ok ? 'ok' : 'err');
+    }
+    return !!out.ok;
   } catch (e) {
-    msg.textContent = 'Сервер недоступен';
-    msg.className = 'msg err';
+    if (!opts.silent) {
+      msg.textContent = 'Сервер недоступен';
+      msg.className = 'msg err';
+    }
+    throw e;
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  $('#runBtn').disabled = true;
   loadInitial();
 
   $('#entity').addEventListener('change', () => {
-    CONFIG.entity = $('#entity').value;
+    ensureConfig().entity = $('#entity').value;
     renderConfigForm();
   });
 

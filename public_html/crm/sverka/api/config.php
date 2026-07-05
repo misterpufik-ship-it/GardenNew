@@ -3,15 +3,9 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex, nofollow');
 
 require dirname(__DIR__, 2) . '/_lib/storage.php';
+require __DIR__ . '/_defaults.php';
 
-$config = crm_read_json('sverka', 'config.json', []);
-if (!$config) {
-    $fallback = dirname(__DIR__) . '/config.json';
-    if (is_file($fallback)) {
-        $decoded = json_decode(file_get_contents($fallback), true);
-        if (is_array($decoded)) {
-            $config = $decoded;
-        }
-    }
-}
-echo json_encode($config);
+$stored = crm_read_json('sverka', 'config.json', []);
+$config = sverka_merge_config(is_array($stored) ? $stored : []);
+
+echo json_encode($config, JSON_UNESCAPED_UNICODE);

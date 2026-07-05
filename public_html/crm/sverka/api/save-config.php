@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 require dirname(__DIR__, 2) . '/_lib/storage.php';
+require __DIR__ . '/_defaults.php';
 
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
@@ -19,7 +20,7 @@ if (!is_array($data)) {
 }
 
 try {
-    crm_write_json('sverka', 'config.json', $data);
+    crm_write_json('sverka', 'config.json', sverka_merge_config($data));
 } catch (RuntimeException $e) {
     http_response_code(500);
     echo json_encode(['ok' => false, 'error' => $e->getMessage()]);
