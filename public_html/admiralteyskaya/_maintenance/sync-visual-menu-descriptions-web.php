@@ -177,17 +177,50 @@ function gl_sync_write_repeatable_rows($db, $dataText, $pageId, $fieldId, $rows,
     $db->query("INSERT INTO `{$dataText}` (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$encodedEsc}')");
 }
 
+function gl_sync_decode_field_value($value)
+{
+    if (is_array($value)) {
+        return '';
+    }
+
+    $value = (string) $value;
+    if ($value === '') {
+        return '';
+    }
+
+    $decoded = base64_decode($value, true);
+    if ($decoded === false) {
+        return $value;
+    }
+
+    if (function_exists('mb_check_encoding') && !mb_check_encoding($decoded, 'UTF-8')) {
+        return $value;
+    }
+
+    return $decoded;
+}
+
+function gl_sync_encode_field_value($value)
+{
+    return base64_encode((string) $value);
+}
+
 function gl_sync_row_value($row, $key)
 {
     if (!is_array($row) || !isset($row[$key])) {
         return '';
     }
-    $value = $row[$key];
-    if (is_array($value)) {
-        return '';
+
+    return trim(gl_sync_decode_field_value($row[$key]));
+}
+
+function gl_sync_set_row_value(&$row, $key, $value)
+{
+    if (!is_array($row)) {
+        return;
     }
 
-    return trim((string) $value);
+    $row[$key] = gl_sync_encode_field_value($value);
 }
 
 function gl_sync_build_desc_map($rows, $nameField, $descField)
@@ -253,7 +286,7 @@ function gl_sync_apply_descriptions($visualRows, $descMap, $nameField, $descFiel
             continue;
         }
 
-        $visualRows[$idx][$descField] = $newDesc;
+        gl_sync_set_row_value($visualRows[$idx], $descField, $newDesc);
         $updated++;
     }
 
