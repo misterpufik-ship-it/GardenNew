@@ -12,6 +12,20 @@
   <h1 class="shimmer-gold">Сверка расходов БН с выпиской</h1>
   <p class="subtitle" id="subtitle">Загрузка…</p>
 
+  <nav class="session-tabs" id="sessionTabs"></nav>
+
+  <details class="panel collapsible">
+    <summary>Инструкция по сверке</summary>
+    <div class="collapsible-body">
+      <p class="msg panel-lead">Текст хранится на сервере и доступен при каждом открытии страницы.</p>
+      <textarea id="instructionsText" class="instructions-text" rows="14" spellcheck="false"></textarea>
+      <div class="btn-row">
+        <button type="button" class="btn secondary" id="saveInstructionsBtn">Сохранить инструкцию</button>
+      </div>
+      <p class="msg" id="instructionsMsg"></p>
+    </div>
+  </details>
+
   <details class="panel collapsible">
     <summary>Юрлицо и файлы</summary>
     <div class="collapsible-body">
@@ -20,6 +34,9 @@
         <option value="lounge">Лаундж</option>
         <option value="vympel">Вымпел</option>
       </select>
+
+      <label for="sessionMonth" class="field-gap">Месяц сверки</label>
+      <input type="month" id="sessionMonth">
 
       <label for="reportFile" class="field-gap">Отчёт (.xlsx)</label>
       <input type="file" id="reportFile" accept=".xlsx">
@@ -80,7 +97,7 @@
           <tr class="head-groups">
             <th colspan="5" class="th-report">Расход отчёта</th>
             <th rowspan="2" class="th-link">↔</th>
-            <th colspan="5" class="th-stmt">Операция выписки</th>
+            <th colspan="6" class="th-stmt">Операция выписки</th>
             <th colspan="2" rowspan="2">Сверка</th>
           </tr>
           <tr>
@@ -93,6 +110,7 @@
             <th>№</th>
             <th>Контрагент</th>
             <th>Дебет</th>
+            <th>Кредит</th>
             <th>Назначение</th>
           </tr>
         </thead>
@@ -121,7 +139,7 @@
           <tbody></tbody>
         </table>
       </div>
-      <h2 class="sub-table-title">Дебет выписки</h2>
+      <h2 class="sub-table-title">Операции выписки</h2>
       <div class="wrap">
         <table class="data-table" id="stmtTable">
           <thead>
@@ -131,6 +149,7 @@
               <th>Контрагент</th>
               <th>Назначение</th>
               <th>Дебет</th>
+              <th>Кредит</th>
               <th>Статус</th>
               <th>Группа</th>
             </tr>

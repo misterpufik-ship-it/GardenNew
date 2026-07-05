@@ -2,7 +2,15 @@
 header('Content-Type: application/json; charset=utf-8');
 header('X-Robots-Tag: noindex, nofollow');
 
-require dirname(__DIR__, 2) . '/_lib/storage.php';
+require __DIR__ . '/_archive.php';
 
-$data = crm_read_json('sverka', 'data.json', []);
-echo json_encode($data);
+$archive = sverka_load_archive();
+$key = $_GET['key'] ?? $archive['activeKey'];
+$session = ($key && isset($archive['sessions'][$key])) ? $archive['sessions'][$key] : null;
+
+if (!$session) {
+    echo json_encode([]);
+    exit;
+}
+
+echo json_encode($session, JSON_UNESCAPED_UNICODE);

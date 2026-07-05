@@ -9,29 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 require dirname(__DIR__, 2) . '/_lib/storage.php';
-require __DIR__ . '/_archive.php';
 
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
-if (!is_array($data)) {
+if (!is_array($data) || !isset($data['text'])) {
     http_response_code(400);
     echo json_encode(['ok' => false, 'error' => 'Invalid JSON']);
     exit;
 }
 
 try {
-    $month = $data['month'] ?? null;
-    $entity = $data['entity'] ?? 'lounge';
-    if ($month && preg_match('/^\d{4}-\d{2}$/', $month)) {
-        $key = $month . '|' . $entity;
-        $data['month'] = $month;
-        $data['sessionKey'] = $key;
-        $archive = sverka_load_archive();
-        $archive['sessions'][$key] = $data;
-        $archive['activeKey'] = $key;
-        crm_write_json('sverka', 'archive.json', $archive);
-    }
-    crm_write_json('sverka', 'data.json', $data);
+    crm_write_json('sverka', 'instructions.json', [
+        'text' => (string) $data['text'],
+        'updatedAt' => date('c'),
+    ]);
 } catch (RuntimeException $e) {
     http_response_code(500);
     echo json_encode(['ok' => false, 'error' => $e->getMessage()]);

@@ -30,6 +30,7 @@ function sverka_default_config(): array
                 'counterpartyCol' => 3,
                 'purposeCol' => 6,
                 'debitCol' => 10,
+                'creditCol' => 11,
             ],
         ],
         'vympel' => [

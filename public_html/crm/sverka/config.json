@@ -17,7 +17,8 @@
       "opNumCol": 2,
       "counterpartyCol": 3,
       "purposeCol": 6,
-      "debitCol": 10
+      "debitCol": 10,
+      "creditCol": 11
     }
   },
   "vympel": {

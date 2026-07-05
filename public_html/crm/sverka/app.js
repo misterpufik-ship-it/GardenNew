@@ -2,8 +2,12 @@
 
 let CONFIG = null;
 let DATA = null;
+let ARCHIVE = { sessions: [], activeKey: null };
+let ACTIVE_SESSION_KEY = null;
 let currentFilter = 'all';
 let configReady = false;
+
+const MONTH_NAMES = ['', 'январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 
 const DEFAULT_CONFIG = {
   entity: 'lounge',
@@ -25,6 +29,7 @@ const DEFAULT_CONFIG = {
       counterpartyCol: 3,
       purposeCol: 6,
       debitCol: 10,
+      creditCol: 11,
     },
   },
   vympel: {
@@ -41,6 +46,7 @@ const DEFAULT_CONFIG = {
       accountCol: 2,
       counterpartyCol: 3,
       debitCol: 4,
+      creditCol: null,
       docNumCol: 5,
       purposeCol: 6,
     },
@@ -110,7 +116,59 @@ function parseExcelDate(v) {
 
 function isoDate(d) {
   if (!d) return null;
-  return d.toISOString().slice(0, 10);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+function monthLabel(ym) {
+  if (!ym) return '—';
+  const [y, m] = ym.split('-');
+  return `${MONTH_NAMES[parseInt(m, 10)] || m} ${y}`;
+}
+
+function sessionLabel(s) {
+  const ent = s.entity === 'vympel' ? 'Вымпел' : 'Лаундж';
+  return `${monthLabel(s.month)} · ${ent}`;
+}
+
+function guessMonth(expenses, statements) {
+  const dates = [...(expenses || []), ...(statements || [])].map((x) => x.date).filter(Boolean).sort();
+  if (!dates.length) return new Date().toISOString().slice(0, 7);
+  return dates[Math.floor(dates.length / 2)].slice(0, 7);
+}
+
+function isReportSummaryRow(category, dateCell) {
+  const t = `${category || ''} ${dateCell || ''}`.toLowerCase();
+  return /итого|оборот|выручка|на начало|на конец|всего расход|итого расход|сальдо/.test(t);
+}
+
+function stmtDebitAmount(row) {
+  return row.debit != null ? row.debit : row.amount;
+}
+
+function detectStatementColumns(ws) {
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
+  for (let r = range.s.r; r <= Math.min(range.e.r, range.s.r + 30); r++) {
+    let debitCol = null;
+    let creditCol = null;
+    let opNumCol = null;
+    let counterpartyCol = null;
+    let purposeCol = null;
+    for (let c = 1; c <= Math.min(15, range.e.col + 1); c++) {
+      const v = String(cellVal(ws, r, c) || '').trim().toLowerCase();
+      if (v === 'дебет') debitCol = c;
+      if (v === 'кредит') creditCol = c;
+      if (v === 'номер') opNumCol = c;
+      if (v.includes('контрагент') && !counterpartyCol) counterpartyCol = c;
+      if (v.includes('назначение')) purposeCol = c;
+    }
+    if (debitCol && creditCol) {
+      return { headerRow: r, debitCol, creditCol, opNumCol, counterpartyCol, purposeCol };
+    }
+  }
+  return null;
 }
 
 function toNum(v) {
@@ -140,13 +198,16 @@ function readReportLounge(wb, cfg, paymentFilter) {
 
     const sum = toNum(cellVal(ws, r, sheetCfg.sumCol));
     const payment = cellVal(ws, r, sheetCfg.paymentCol);
+    const category = String(cellVal(ws, r, sheetCfg.categoryCol) || '').trim();
+    const dateCell = cellVal(ws, r, sheetCfg.dateCol);
     if (!isBnPayment(payment, paymentFilter) || sum == null) continue;
+    if (isReportSummaryRow(category, dateCell)) continue;
 
     out.push({
       id: 'e' + (++id),
       date: isoDate(currentDate),
       sheet: name,
-      category: String(cellVal(ws, r, sheetCfg.categoryCol) || '').trim(),
+      category,
       amount: sum,
       comment: String(cellVal(ws, r, sheetCfg.commentCol) || '').trim(),
       status: 'unmatched',
@@ -176,13 +237,16 @@ function readReportVympel(wb, cfg, paymentFilter) {
 
       const sum = toNum(cellVal(ws, r, sheetCfg.sumCol));
       const payment = cellVal(ws, r, sheetCfg.paymentCol);
+      const category = String(cellVal(ws, r, sheetCfg.categoryCol) || '').trim();
+      const dateCell = cellVal(ws, r, sheetCfg.dateCol);
       if (!isBnPayment(payment, paymentFilter) || sum == null) continue;
+      if (isReportSummaryRow(category, dateCell)) continue;
 
       out.push({
         id: 'e' + (++id),
         date: isoDate(currentDate),
         sheet: name,
-        category: String(cellVal(ws, r, sheetCfg.categoryCol) || '').trim(),
+        category,
         amount: sum,
         comment: String(cellVal(ws, r, sheetCfg.commentCol) || '').trim(),
         status: 'unmatched',
@@ -194,15 +258,62 @@ function readReportVympel(wb, cfg, paymentFilter) {
   return out;
 }
 
+function isStatementSummaryRow(purpose, counterparty, opNum) {
+  const t = `${purpose || ''} ${counterparty || ''} ${opNum || ''}`.toLowerCase();
+  return /итого|оборот|на конец дня|на начало|сальдо|остаток/.test(t);
+}
+
+function readStatementTable(ws, table, sheetCfg) {
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
+  const out = [];
+  let id = 0;
+  const debitCol = table.debitCol || sheetCfg.debitCol;
+  const creditCol = table.creditCol || sheetCfg.creditCol;
+
+  for (let r = table.headerRow + 1; r <= range.e.r; r++) {
+    const debit = toNum(cellVal(ws, r, debitCol));
+    const credit = creditCol ? toNum(cellVal(ws, r, creditCol)) : null;
+    if ((debit == null || debit <= 0) && (credit == null || credit <= 0)) continue;
+
+    const purpose = String(cellVal(ws, r, table.purposeCol || sheetCfg.purposeCol) || '').trim();
+    const counterparty = String(cellVal(ws, r, table.counterpartyCol || sheetCfg.counterpartyCol) || '').trim();
+    const opNum = String(cellVal(ws, r, table.opNumCol || sheetCfg.opNumCol) || '').trim();
+    if (isStatementSummaryRow(purpose, counterparty, opNum)) continue;
+
+    let d = parseExcelDate(cellVal(ws, r, sheetCfg.dateCol));
+    if (!d) d = parseExcelDate(cellVal(ws, r, 1));
+
+    out.push({
+      id: 's' + (++id),
+      date: isoDate(d),
+      opNum,
+      counterparty,
+      purpose,
+      debit: debit || 0,
+      credit: credit || 0,
+      amount: debit || 0,
+      status: 'unmatched',
+      groupNum: null,
+      matchId: null,
+    });
+  }
+  return out;
+}
+
 function readStatementLounge(wb, cfg) {
   const sheetCfg = cfg.lounge.statement;
   const name = wb.SheetNames[sheetCfg.sheetIndex] || wb.SheetNames[0];
   const ws = wb.Sheets[name];
   if (!ws) return [];
+
+  const table = detectStatementColumns(ws);
+  if (table) return readStatementTable(ws, table, sheetCfg);
+
   const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
   const out = [];
   let currentDate = null;
   let id = 0;
+  const creditCol = sheetCfg.creditCol;
 
   for (let r = range.s.r; r <= range.e.r; r++) {
     for (let c = 1; c <= 3; c++) {
@@ -221,16 +332,23 @@ function readStatementLounge(wb, cfg) {
       }
     }
 
+    const purpose = String(cellVal(ws, r, sheetCfg.purposeCol) || '').trim();
+    const counterparty = String(cellVal(ws, r, sheetCfg.counterpartyCol) || '').trim();
+    const opNum = String(cellVal(ws, r, sheetCfg.opNumCol) || '').trim();
     const debit = toNum(cellVal(ws, r, sheetCfg.debitCol));
-    if (debit == null || debit <= 0) continue;
+    const credit = creditCol ? toNum(cellVal(ws, r, creditCol)) : null;
+    if ((debit == null || debit <= 0) && (credit == null || credit <= 0)) continue;
+    if (isStatementSummaryRow(purpose, counterparty, opNum)) continue;
 
     out.push({
       id: 's' + (++id),
       date: isoDate(currentDate),
-      opNum: String(cellVal(ws, r, sheetCfg.opNumCol) || '').trim(),
-      counterparty: String(cellVal(ws, r, sheetCfg.counterpartyCol) || '').trim(),
-      purpose: String(cellVal(ws, r, sheetCfg.purposeCol) || '').trim(),
-      amount: debit,
+      opNum,
+      counterparty,
+      purpose,
+      debit: debit || 0,
+      credit: credit || 0,
+      amount: debit || 0,
       status: 'unmatched',
       groupNum: null,
       matchId: null,
@@ -244,14 +362,24 @@ function readStatementVympel(wb, cfg) {
   const name = wb.SheetNames[sheetCfg.sheetIndex] || wb.SheetNames[0];
   const ws = wb.Sheets[name];
   if (!ws) return [];
+
+  const table = detectStatementColumns(ws);
+  if (table) return readStatementTable(ws, table, sheetCfg);
+
   const range = XLSX.utils.decode_range(ws['!ref'] || 'A1');
   const out = [];
   let id = 0;
   const startRow = (sheetCfg.headerRow || 1) - 1;
+  const creditCol = sheetCfg.creditCol;
 
   for (let r = Math.max(range.s.r, startRow); r <= range.e.r; r++) {
+    const purpose = String(cellVal(ws, r, sheetCfg.purposeCol) || '').trim();
+    const counterparty = String(cellVal(ws, r, sheetCfg.counterpartyCol) || '').trim();
+    const opNum = String(cellVal(ws, r, sheetCfg.docNumCol) || '').trim();
     const debit = toNum(cellVal(ws, r, sheetCfg.debitCol));
-    if (debit == null || debit <= 0) continue;
+    const credit = creditCol ? toNum(cellVal(ws, r, creditCol)) : null;
+    if ((debit == null || debit <= 0) && (credit == null || credit <= 0)) continue;
+    if (isStatementSummaryRow(purpose, counterparty, opNum)) continue;
 
     const dateRaw = cellVal(ws, r, sheetCfg.dateCol);
     const d = parseExcelDate(dateRaw);
@@ -259,10 +387,12 @@ function readStatementVympel(wb, cfg) {
     out.push({
       id: 's' + (++id),
       date: isoDate(d),
-      opNum: String(cellVal(ws, r, sheetCfg.docNumCol) || '').trim(),
-      counterparty: String(cellVal(ws, r, sheetCfg.counterpartyCol) || '').trim(),
-      purpose: String(cellVal(ws, r, sheetCfg.purposeCol) || '').trim(),
-      amount: debit,
+      opNum,
+      counterparty,
+      purpose,
+      debit: debit || 0,
+      credit: credit || 0,
+      amount: debit || 0,
       status: 'unmatched',
       groupNum: null,
       matchId: null,
@@ -303,7 +433,7 @@ function reconcile(expenses, statements) {
   for (const exp of expSorted) {
     if (usedExp.has(exp.id)) continue;
     const candidates = statements
-      .filter((s) => !usedStmt.has(s.id) && rub(s.amount) === rub(exp.amount))
+      .filter((s) => !usedStmt.has(s.id) && stmtDebitAmount(s) > 0 && rub(stmtDebitAmount(s)) === rub(exp.amount))
       .sort((a, b) => {
         const as = a.date === exp.date ? 0 : 1;
         const bs = b.date === exp.date ? 0 : 1;
@@ -325,6 +455,7 @@ function reconcile(expenses, statements) {
   const stmtByDate = {};
   for (const stmt of statements) {
     if (usedStmt.has(stmt.id)) continue;
+    if (stmtDebitAmount(stmt) <= 0) continue;
     const key = stmt.date || '_';
     if (!stmtByDate[key]) stmtByDate[key] = [];
     stmtByDate[key].push(stmt);
@@ -336,7 +467,7 @@ function reconcile(expenses, statements) {
       const dayExp = expenses.filter((e) => !usedExp.has(e.id) && (e.date || '_') === date);
       if (dayExp.length < 2) continue;
 
-      const combo = findSubset(dayExp, rub(stmt.amount), 2);
+      const combo = findSubset(dayExp, rub(stmtDebitAmount(stmt)), 2);
       if (!combo) continue;
 
       const matchId = 'm' + (matches.length + 1);
@@ -365,7 +496,7 @@ function reconcile(expenses, statements) {
     exact: matches.filter((m) => m.type === 'exact').length,
     group: matches.filter((m) => m.type === 'group').length,
     unmatchedExp: expenses.filter((e) => e.status === 'unmatched').length,
-    unmatchedStmt: statements.filter((s) => s.status === 'unmatched').length,
+    unmatchedStmt: statements.filter((s) => s.status === 'unmatched' && stmtDebitAmount(s) > 0).length,
   };
 
   return { expenses, statements, matches, stats };
@@ -389,6 +520,7 @@ function renderConfigForm() {
       ['Выписка: контрагент col', 'lounge.statement.counterpartyCol'],
       ['Выписка: назначение col', 'lounge.statement.purposeCol'],
       ['Выписка: дебет col', 'lounge.statement.debitCol'],
+      ['Выписка: кредит col', 'lounge.statement.creditCol'],
     ]
     : [
       ['Отчёт: лист 1', 'vympel.reportSheets.0'],
@@ -477,7 +609,8 @@ function buildPairRows(expenses, statements, matches) {
         stmtDate: i === 0 ? stmt.date : null,
         opNum: i === 0 ? stmt.opNum : null,
         counterparty: i === 0 ? stmt.counterparty : null,
-        statementAmount: i === 0 ? stmt.amount : null,
+        statementAmount: i === 0 ? stmtDebitAmount(stmt) : null,
+        statementCredit: i === 0 ? (stmt.credit || 0) : null,
         purpose: i === 0 ? stmt.purpose : null,
       });
     });
@@ -503,12 +636,14 @@ function buildPairRows(expenses, statements, matches) {
       opNum: null,
       counterparty: null,
       statementAmount: null,
+      statementCredit: null,
       purpose: null,
     });
   }
 
   for (const stmt of statements) {
     if (stmt.status !== 'unmatched') continue;
+    if (stmtDebitAmount(stmt) <= 0) continue;
     linkNum += 1;
     rows.push({
       linkNum,
@@ -526,7 +661,8 @@ function buildPairRows(expenses, statements, matches) {
       stmtDate: stmt.date,
       opNum: stmt.opNum,
       counterparty: stmt.counterparty,
-      statementAmount: stmt.amount,
+      statementAmount: stmtDebitAmount(stmt),
+      statementCredit: stmt.credit || 0,
       purpose: stmt.purpose,
     });
   }
@@ -573,7 +709,9 @@ function renderPairsTable() {
         <td>—</td><td>—</td>${amountPairCell(null, r.statementAmount)}<td>—</td><td>—</td>
         <td class="link-cell">${r.linkNum}</td>
         <td>${r.stmtDate || '—'}</td><td>${r.opNum || '—'}</td><td>${r.counterparty || '—'}</td>
-        <td class="cell-mismatch">${fmt(r.statementAmount)}</td><td>${r.purpose || '—'}</td>
+        <td class="cell-mismatch">${fmt(r.statementAmount)}</td>
+        <td>${r.statementCredit ? fmt(r.statementCredit) : '—'}</td>
+        <td>${r.purpose || '—'}</td>
         <td>${badge}</td><td>—</td>
       </tr>`;
     }
@@ -583,7 +721,7 @@ function renderPairsTable() {
         <td>${r.expDate || '—'}</td><td>${r.category || '—'}</td>${amountPairCell(r.reportAmount, null)}
         <td>${r.comment || '—'}</td><td>${r.sheet || '—'}</td>
         <td class="link-cell sub">↳</td>
-        <td colspan="5" class="cell-missing" style="font-size:0.75rem">↳ часть группы ${r.groupNum || ''}</td>
+        <td colspan="6" class="cell-missing" style="font-size:0.75rem">↳ часть группы ${r.groupNum || ''}</td>
         <td>${badge}</td><td>${r.groupNum || '—'}</td>
       </tr>`;
     }
@@ -591,8 +729,9 @@ function renderPairsTable() {
     const stmtPart = r.statementAmount != null
       ? `<td>${r.stmtDate || '—'}</td><td>${r.opNum || '—'}</td><td>${r.counterparty || '—'}</td>
          <td class="${rub(r.reportAmount) === rub(r.statementAmount) ? 'cell-match' : 'cell-mismatch'}">${fmt(r.statementAmount)}</td>
+         <td>${r.statementCredit ? fmt(r.statementCredit) : '—'}</td>
          <td>${r.purpose || '—'}</td>`
-      : `<td>—</td><td>—</td><td>—</td><td class="cell-missing">—</td><td>—</td>`;
+      : `<td>—</td><td>—</td><td>—</td><td class="cell-missing">—</td><td>—</td><td>—</td>`;
 
     const linkLabel = `${r.linkNum}${r.groupNum ? `<div class="link-cell sub">гр.${r.groupNum}</div>` : ''}`;
 
@@ -615,8 +754,9 @@ function renderSummary() {
   if (!DATA) return;
   const s = DATA.stats;
   const entityLabel = DATA.entity === 'vympel' ? 'Вымпел' : 'Лаундж';
+  const monthPart = DATA.month ? ` · ${monthLabel(DATA.month)}` : '';
   $('#subtitle').textContent =
-    `${entityLabel} · Расходов: ${DATA.expenses.length} · Операций: ${DATA.statements.length}` +
+    `${entityLabel}${monthPart} · Расходов: ${DATA.expenses.length} · Операций: ${DATA.statements.length}` +
     (DATA.reportFile ? ` · ${DATA.reportFile}` : '');
 
   $('#summary').innerHTML = `
@@ -650,7 +790,8 @@ function renderTables() {
       <td>${s.opNum || '—'}</td>
       <td>${s.counterparty || '—'}</td>
       <td>${s.purpose || '—'}</td>
-      <td>${fmt(s.amount)}</td>
+      <td>${stmtDebitAmount(s) > 0 ? fmt(stmtDebitAmount(s)) : '—'}</td>
+      <td>${s.credit ? fmt(s.credit) : '—'}</td>
       <td>${statusBadge(s.status)}</td>
       <td>${s.groupNum || '—'}</td>
     </tr>`).join('');
@@ -683,7 +824,7 @@ async function downloadExcel() {
   const entityLabel = DATA.entity === 'vympel' ? 'Вымпел' : 'Лаундж';
   const pairHeaders = [
     '№ связки', 'Статус', 'Тип', 'Группа', 'Дата отчёт', 'Категория', 'Сумма отчёт',
-    'Комментарий', 'Лист', 'Дата выписки', '№ операции', 'Контрагент', 'Сумма выписки', 'Назначение',
+    'Комментарий', 'Лист', 'Дата выписки', '№ операции', 'Контрагент', 'Дебет', 'Кредит', 'Назначение',
   ];
   const pairRows = DATA.pairRows.map((r) => [
     r.linkNum ?? '',
@@ -699,6 +840,7 @@ async function downloadExcel() {
     r.opNum ?? '',
     r.counterparty ?? '',
     r.statementAmount ?? '',
+    r.statementCredit ?? '',
     r.purpose ?? '',
   ]);
 
@@ -708,9 +850,10 @@ async function downloadExcel() {
     statusExportLabel(e.status), e.groupNum ?? '',
   ]);
 
-  const stmtHeaders = ['Дата', '№', 'Контрагент', 'Назначение', 'Дебет', 'Статус', 'Группа'];
+  const stmtHeaders = ['Дата', '№', 'Контрагент', 'Назначение', 'Дебет', 'Кредит', 'Статус', 'Группа'];
   const stmtRows = DATA.statements.map((s) => [
-    s.date ?? '', s.opNum ?? '', s.counterparty ?? '', s.purpose ?? '', s.amount ?? '',
+    s.date ?? '', s.opNum ?? '', s.counterparty ?? '', s.purpose ?? '',
+    stmtDebitAmount(s) || '', s.credit || '',
     statusExportLabel(s.status), s.groupNum ?? '',
   ]);
 
@@ -723,9 +866,9 @@ async function downloadExcel() {
       headers: pairHeaders,
       rows: pairRows,
       rowStatus: (_, i) => DATA.pairRows[i].status,
-      numberCols: [6, 12],
-      wrapCols: [7, 13],
-      colWidths: [10, 16, 12, 8, 12, 20, 14, 32, 14, 12, 10, 24, 14, 40],
+      numberCols: [6, 12, 13],
+      wrapCols: [7, 14],
+      colWidths: [10, 16, 12, 8, 12, 20, 14, 32, 14, 12, 10, 24, 14, 14, 40],
     },
     {
       name: 'Расходы',
@@ -742,7 +885,7 @@ async function downloadExcel() {
       headers: stmtHeaders,
       rows: stmtRows,
       rowStatus: (_, i) => DATA.statements[i].status,
-      numberCols: [4],
+      numberCols: [4, 5],
       wrapCols: [3],
     },
   ]);
@@ -753,12 +896,107 @@ function updateDownloadBtn() {
   if (btn) btn.disabled = !(DATA && DATA.expenses && DATA.expenses.length);
 }
 
+async function loadArchive() {
+  try {
+    const res = await fetch('api/archive.php');
+    if (!res.ok) return;
+    const out = await res.json();
+    ARCHIVE = { sessions: out.sessions || [], activeKey: out.activeKey || null };
+  } catch (e) {
+    console.warn('archive', e);
+  }
+}
+
+function renderSessionTabs() {
+  const el = $('#sessionTabs');
+  if (!el) return;
+  if (!ARCHIVE.sessions.length) {
+    el.innerHTML = '<span class="session-tabs-empty">Нет сохранённых сверок — загрузите файлы и нажмите «Сверить»</span>';
+    return;
+  }
+  el.innerHTML = ARCHIVE.sessions.map((s) => {
+    const active = s.key === ACTIVE_SESSION_KEY ? ' active' : '';
+    const stats = s.stats ? ` · ${(s.stats.exact || 0) + (s.stats.group || 0)}/${(s.stats.exact || 0) + (s.stats.group || 0) + (s.stats.unmatchedExp || 0)}` : '';
+    return `<button type="button" class="session-tab${active}" data-key="${s.key}" title="${s.reportFile || ''}">${sessionLabel(s)}${stats}</button>`;
+  }).join('');
+}
+
+async function loadSession(key) {
+  const msg = $('#actionMsg');
+  try {
+    const res = await fetch('api/archive.php?key=' + encodeURIComponent(key));
+    if (!res.ok) throw new Error('Сессия не найдена');
+    const out = await res.json();
+    DATA = out.session;
+    ACTIVE_SESSION_KEY = key;
+    if (!DATA.pairRows) {
+      DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
+    }
+    $('#entity').value = DATA.entity || 'lounge';
+    const monthEl = $('#sessionMonth');
+    if (monthEl) monthEl.value = DATA.month || key.split('|')[0];
+    renderSessionTabs();
+    renderAll();
+    msg.textContent = 'Загружена сверка: ' + sessionLabel({ month: DATA.month, entity: DATA.entity });
+    msg.className = 'msg ok';
+  } catch (e) {
+    msg.textContent = e.message;
+    msg.className = 'msg err';
+  }
+}
+
+async function loadInstructions() {
+  const ta = $('#instructionsText');
+  if (!ta) return;
+  try {
+    const res = await fetch('api/instructions.php');
+    const out = await res.json();
+    if (out.ok) ta.value = out.text || '';
+  } catch (e) {
+    console.warn('instructions', e);
+  }
+}
+
+async function saveInstructions() {
+  const ta = $('#instructionsText');
+  const msg = $('#instructionsMsg');
+  if (!ta) return;
+  try {
+    const res = await fetch('api/save-instructions.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: ta.value }),
+    });
+    const out = await res.json();
+    msg.textContent = out.ok ? 'Инструкция сохранена на сервере' : (out.error || 'Ошибка');
+    msg.className = 'msg ' + (out.ok ? 'ok' : 'err');
+  } catch (e) {
+    msg.textContent = 'Сервер недоступен';
+    msg.className = 'msg err';
+  }
+}
+
+function applySessionData(saved) {
+  if (!saved || !saved.expenses || !saved.expenses.length) return false;
+  DATA = saved;
+  ACTIVE_SESSION_KEY = saved.sessionKey || saved.month + '|' + (saved.entity || 'lounge');
+  if (!DATA.pairRows) {
+    DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
+  }
+  $('#entity').value = DATA.entity || 'lounge';
+  const monthEl = $('#sessionMonth');
+  if (monthEl) monthEl.value = DATA.month || ACTIVE_SESSION_KEY.split('|')[0];
+  renderSessionTabs();
+  renderAll();
+  return true;
+}
+
 async function loadInitial() {
   const msg = $('#actionMsg');
   try {
-    const [cfgRes, dataRes] = await Promise.all([
+    const [cfgRes, archiveRes] = await Promise.all([
       fetch('api/config.php'),
-      fetch('api/data.php'),
+      fetch('api/archive.php'),
     ]);
 
     let serverCfg = null;
@@ -771,23 +1009,20 @@ async function loadInitial() {
     CONFIG = mergeConfig(serverCfg);
     configReady = true;
 
-    let saved = null;
-    if (dataRes.ok) {
-      saved = await dataRes.json();
+    if (archiveRes.ok) {
+      const arch = await archiveRes.json();
+      ARCHIVE = { sessions: arch.sessions || [], activeKey: arch.activeKey || null };
     }
+    renderSessionTabs();
 
     $('#entity').value = CONFIG.entity || 'lounge';
     renderConfigForm();
     $('#runBtn').disabled = false;
 
-    if (saved && saved.expenses && saved.expenses.length) {
-      DATA = saved;
-      if (!DATA.pairRows) {
-        DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches || []);
-      }
-      renderAll();
-      msg.textContent = 'Загружены сохранённые данные с сервера';
-      msg.className = 'msg ok';
+    await loadInstructions();
+
+    if (ARCHIVE.activeKey) {
+      await loadSession(ARCHIVE.activeKey);
     } else {
       $('#subtitle').textContent = 'Загрузите отчёт и выписку для сверки';
     }
@@ -801,6 +1036,7 @@ async function loadInitial() {
     $('#subtitle').textContent = 'Загрузите отчёт и выписку для сверки';
     msg.textContent = 'Настройки с сервера недоступны — используем стандартные колонки';
     msg.className = 'msg err';
+    await loadInstructions();
   }
 }
 
@@ -866,9 +1102,14 @@ async function runReconciliation() {
       : readStatementLounge(stmtWb, CONFIG);
 
     const result = reconcile(expenses, statements);
+    const monthEl = $('#sessionMonth');
+    const month = (monthEl && monthEl.value) ? monthEl.value : guessMonth(expenses, statements);
+    if (monthEl && !monthEl.value) monthEl.value = month;
 
     DATA = {
       entity,
+      month,
+      sessionKey: month + '|' + entity,
       reportFile: reportInput.files[0].name,
       statementFile: stmtInput.files[0].name,
       uploadedFiles: uploaded,
@@ -877,9 +1118,12 @@ async function runReconciliation() {
     };
     DATA.pairRows = buildPairRows(DATA.expenses, DATA.statements, DATA.matches);
 
+    ACTIVE_SESSION_KEY = DATA.sessionKey;
     renderAll();
     try {
       await saveData({ silent: true });
+      await loadArchive();
+      renderSessionTabs();
       msg.textContent = `Сверка выполнена и сохранена на сервере: ${reportInput.files[0].name} + ${stmtInput.files[0].name}`;
       msg.className = 'msg ok';
     } catch (saveErr) {
@@ -920,6 +1164,15 @@ async function saveData(opts = {}) {
     }
     return false;
   }
+  const monthEl = $('#sessionMonth');
+  if (monthEl && monthEl.value) {
+    DATA.month = monthEl.value;
+  } else if (!DATA.month) {
+    DATA.month = guessMonth(DATA.expenses, DATA.statements);
+  }
+  DATA.sessionKey = DATA.month + '|' + (DATA.entity || 'lounge');
+  ACTIVE_SESSION_KEY = DATA.sessionKey;
+
   const msg = $('#actionMsg');
   try {
     const res = await fetch('api/save-data.php', {
@@ -928,6 +1181,10 @@ async function saveData(opts = {}) {
       body: JSON.stringify(DATA),
     });
     const out = await res.json();
+    if (out.ok) {
+      await loadArchive();
+      renderSessionTabs();
+    }
     if (!opts.silent) {
       msg.textContent = out.ok ? 'Данные сверки сохранены на сервере' : (out.error || 'Ошибка');
       msg.className = 'msg ' + (out.ok ? 'ok' : 'err');
@@ -951,6 +1208,15 @@ document.addEventListener('DOMContentLoaded', () => {
     renderConfigForm();
   });
 
+  const sessionTabs = $('#sessionTabs');
+  if (sessionTabs) {
+    sessionTabs.addEventListener('click', (e) => {
+      const btn = e.target.closest('.session-tab[data-key]');
+      if (!btn) return;
+      loadSession(btn.dataset.key);
+    });
+  }
+
   $('#filters').addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-f]');
     if (!btn) return;
@@ -965,4 +1231,6 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#saveConfigBtn').addEventListener('click', saveConfig);
   $('#saveDataBtn').addEventListener('click', saveData);
   $('#downloadExcel').addEventListener('click', downloadExcel);
+  const saveInstrBtn = $('#saveInstructionsBtn');
+  if (saveInstrBtn) saveInstrBtn.addEventListener('click', saveInstructions);
 });

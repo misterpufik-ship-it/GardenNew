@@ -19,18 +19,23 @@ if (!is_array($data)) {
     exit;
 }
 
+$month = $data['month'] ?? null;
+$entity = $data['entity'] ?? 'lounge';
+if (!$month || !preg_match('/^\d{4}-\d{2}$/', $month)) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'error' => 'Укажите месяц YYYY-MM']);
+    exit;
+}
+
+$key = $month . '|' . $entity;
+$data['month'] = $month;
+$data['sessionKey'] = $key;
+
 try {
-    $month = $data['month'] ?? null;
-    $entity = $data['entity'] ?? 'lounge';
-    if ($month && preg_match('/^\d{4}-\d{2}$/', $month)) {
-        $key = $month . '|' . $entity;
-        $data['month'] = $month;
-        $data['sessionKey'] = $key;
-        $archive = sverka_load_archive();
-        $archive['sessions'][$key] = $data;
-        $archive['activeKey'] = $key;
-        crm_write_json('sverka', 'archive.json', $archive);
-    }
+    $archive = sverka_load_archive();
+    $archive['sessions'][$key] = $data;
+    $archive['activeKey'] = $key;
+    crm_write_json('sverka', 'archive.json', $archive);
     crm_write_json('sverka', 'data.json', $data);
 } catch (RuntimeException $e) {
     http_response_code(500);
@@ -38,4 +43,4 @@ try {
     exit;
 }
 
-echo json_encode(['ok' => true]);
+echo json_encode(['ok' => true, 'key' => $key], JSON_UNESCAPED_UNICODE);
