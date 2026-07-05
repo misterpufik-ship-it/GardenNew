@@ -31,7 +31,7 @@ require_once $garden_cms;
         <br><br>
         Здесь время замедляет свой ход. Роскошный интерьер, утопающий в живых тропиках, мелодичный шум фонтана и уютное тепло камина создают атмосферу абсолютной гармонии и уединения.
     </cms:editable>
-    <cms:editable name='phil_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — место, где рождаются ритуалы, достойные ваших воспоминаний</cms:editable>
+    <cms:editable name='phil_slogan' label='Слоган (внизу)' type='textarea'>Garden Lounge — тайный тропический оазис на севере города, где время замедляется.</cms:editable>
     <cms:editable name='phil_sep' label='Картинка разделителя' type='image'>:div.webp</cms:editable>
 
     <cms:editable name='seo_group' label='SEO и Оптимизация под ИИ' type='group' order='10' />

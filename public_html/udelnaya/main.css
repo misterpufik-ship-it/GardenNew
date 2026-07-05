@@ -361,7 +361,17 @@ img { display: block; max-width: 100%; height: auto; }
     text-align: center !important; 
     line-height: 1.8 !important; 
     margin: var(--gl-divider-mt, 24px) auto 0 !important; 
-    max-width: 500px !important; 
+    max-width: 640px !important; 
+}
+
+@media (max-width: 767px) {
+    .slogan-rituals {
+        font-size: 10px !important;
+        letter-spacing: 0.3em !important;
+        line-height: 1.8 !important;
+        max-width: min(100%, 22rem) !important;
+        padding: 0 12px;
+    }
 }
 
 .gl-section-footer,
