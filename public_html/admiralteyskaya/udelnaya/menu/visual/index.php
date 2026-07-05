@@ -93,17 +93,6 @@ require_once $garden_cms;
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
         .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; padding: 0 0 6px; }
         .tab-btn.active { color: var(--gold); }
-        .tab-btn.tab-promos.active {
-            background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: shineGold 5s linear infinite;
-            font-size: 12px;
-            letter-spacing: 0.4em;
-            font-weight: 500;
-        }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
         
@@ -145,6 +134,7 @@ require_once $garden_cms;
 
         /* СТИЛИ АКЦИЙ (ИЗ ТЕКСТОВОГО МЕНЮ) */
         .promo-card { border:1px solid rgba(197,160,89,0.2); background-color: rgba(20,20,20,0.4); padding:20px; text-align:center; margin-bottom: 15px; }
+        .promo-card .promo-offer { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 500; margin: 0; }
         .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
         .film-grain { position:absolute; top:0; left:0; width:100%; height:100%; background:url('/img/noise.svg'); opacity:.04; pointer-events:none; z-index:1; }
 
@@ -191,7 +181,7 @@ require_once $garden_cms;
             <button type="button" class="tab-btn active uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">&#1050;&#1072;&#1083;&#1100;&#1103;&#1085;&#1099;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('kitchen', this)">&#1050;&#1091;&#1093;&#1085;&#1103;</button>
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('bar', this)">&#1041;&#1072;&#1088;</button>
-            <button type="button" class="tab-btn tab-promos uppercase font-medium tracking-[0.4em] text-[12px]" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
         </nav>
         <div class="gold-divider-nav"></div>
     </div>

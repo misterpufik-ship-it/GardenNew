@@ -150,7 +150,7 @@
                         <div class="promo-card">
                             <h2 class="font-serif-lux text-2xl text-white italic mb-1"><cms:show p_title /></h2>
                             <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3"><cms:show p_desc /></p>
-                            <p class="text-[9px] uppercase tracking-[0.2em] subtitle-gold font-medium"><cms:show p_tag /></p>
+                            <p class="text-[12px] uppercase tracking-[0.4em] subtitle-gold font-medium m-0"><cms:show p_tag /></p>
                         </div>
                     </cms:show_repeatable>
                 </div>
