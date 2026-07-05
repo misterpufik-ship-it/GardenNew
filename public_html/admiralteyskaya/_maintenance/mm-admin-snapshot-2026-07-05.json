@@ -1,0 +1,17 @@
+{
+  "note": "Snapshot of user-tuned legacy px fields from production DB before restore to clamp fields",
+  "layout-mobile-menu.php": {
+    "mm_adm_shell_pad_top": "22",
+    "mm_adm_logo_menu_gap": "42",
+    "mm_adm_menu_contact_gap": "13",
+    "mm_adm_contact_pad_top": "36",
+    "mm_adm_contact_push": "8",
+    "mm_adm_social_gap": "2",
+    "mm_udel_shell_pad_top": "32",
+    "mm_udel_logo_menu_gap": "12",
+    "mm_udel_menu_contact_gap": "16",
+    "mm_udel_contact_pad_top": "36",
+    "mm_udel_contact_push": "8",
+    "mm_udel_social_gap": "4"
+  }
+}

@@ -375,6 +375,21 @@ foreach ($legacyFieldNames as $legacyName) {
     }
 }
 
+// Never overwrite existing CMS values on re-register. Legacy migration only with ?migrate_legacy=1
+$clampMigration = array();
+if ((isset($_GET['migrate_legacy']) ? $_GET['migrate_legacy'] : '') === '1') {
+    echo "Legacy migration requested explicitly...\n";
+    $clampMigration = array(
+        array('legacy' => 'shell_pad_top', 'key' => 'shell_top', 'kind' => 'shell_top'),
+        array('legacy' => 'logo_menu_gap', 'key' => 'logo_gap', 'kind' => 'logo_gap'),
+        array('legacy' => 'menu_contact_gap', 'key' => 'menu_contact', 'kind' => 'menu_contact'),
+        array('legacy' => 'contact_pad_top', 'key' => 'contact_pad', 'kind' => 'contact_pad'),
+        array('legacy' => 'contact_push', 'key' => 'contact_push', 'kind' => 'contact_push'),
+    );
+} else {
+    echo "Skipped value migration (existing admin data preserved). Use ?migrate_legacy=1 to migrate once from hidden legacy px fields.\n";
+}
+
 function gl_mm_set_field_value($db, $dataText, $pageId, $fieldId, $value)
 {
     $hasValue = gl_fetch_one($db, "SELECT id FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1");
@@ -396,62 +411,56 @@ function gl_mm_upsert_field_value($db, $dataText, $pageId, $fieldId, $value)
     return (bool) $db->query($sql);
 }
 
-$clampMigration = array(
-    array('legacy' => 'shell_pad_top', 'key' => 'shell_top', 'kind' => 'shell_top'),
-    array('legacy' => 'logo_menu_gap', 'key' => 'logo_gap', 'kind' => 'logo_gap'),
-    array('legacy' => 'menu_contact_gap', 'key' => 'menu_contact', 'kind' => 'menu_contact'),
-    array('legacy' => 'contact_pad_top', 'key' => 'contact_pad', 'kind' => 'contact_pad'),
-    array('legacy' => 'contact_push', 'key' => 'contact_push', 'kind' => 'contact_push'),
-);
-
-foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
-    foreach ($clampMigration as $map) {
-        $legacyFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['legacy']);
-        if (!$legacyFieldId) {
-            continue;
-        }
-        $legacyValue = gl_get_field_value($db, $dataText, $pageId, $legacyFieldId);
-        $triplet = gl_mm_register_legacy_triplet($legacyValue, $map['kind']);
-        if (!$triplet) {
-            continue;
-        }
-        $minFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['key'] . '_min');
-        $vhFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['key'] . '_vh');
-        $maxFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['key'] . '_max');
-        if (!$minFieldId || !$vhFieldId || !$maxFieldId) {
-            continue;
-        }
-        if (gl_mm_upsert_field_value($db, $dataText, $pageId, $minFieldId, $triplet[0]) &&
-            gl_mm_upsert_field_value($db, $dataText, $pageId, $vhFieldId, $triplet[1]) &&
-            gl_mm_upsert_field_value($db, $dataText, $pageId, $maxFieldId, $triplet[2])) {
-            $migrated += 3;
-            echo "Migrated {$prefix}{$map['key']} from legacy px ({$legacyValue})\n";
-        }
-    }
-
-    $legacySocialId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap');
-    if ($legacySocialId) {
-        $legacySocial = gl_get_field_value($db, $dataText, $pageId, $legacySocialId);
-        $socialTriplet = gl_mm_register_legacy_triplet($legacySocial, 'social');
-        if ($socialTriplet) {
-            $socialMinId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_min');
-            $socialMidId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_mid');
-            $socialMaxId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_max');
-            if ($socialMinId && $socialMidId && $socialMaxId &&
-                gl_mm_upsert_field_value($db, $dataText, $pageId, $socialMinId, $socialTriplet[0]) &&
-                gl_mm_upsert_field_value($db, $dataText, $pageId, $socialMidId, $socialTriplet[1]) &&
-                gl_mm_upsert_field_value($db, $dataText, $pageId, $socialMaxId, $socialTriplet[2])) {
+if (!empty($clampMigration)) {
+    foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
+        foreach ($clampMigration as $map) {
+            $legacyFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['legacy']);
+            if (!$legacyFieldId) {
+                continue;
+            }
+            $legacyValue = gl_get_field_value($db, $dataText, $pageId, $legacyFieldId);
+            $triplet = gl_mm_register_legacy_triplet($legacyValue, $map['kind']);
+            if (!$triplet) {
+                continue;
+            }
+            $minFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['key'] . '_min');
+            $vhFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['key'] . '_vh');
+            $maxFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . $map['key'] . '_max');
+            if (!$minFieldId || !$vhFieldId || !$maxFieldId) {
+                continue;
+            }
+            if (gl_mm_upsert_field_value($db, $dataText, $pageId, $minFieldId, $triplet[0]) &&
+                gl_mm_upsert_field_value($db, $dataText, $pageId, $vhFieldId, $triplet[1]) &&
+                gl_mm_upsert_field_value($db, $dataText, $pageId, $maxFieldId, $triplet[2])) {
                 $migrated += 3;
-                echo "Migrated {$prefix}social_gap from legacy px ({$legacySocial})\n";
+                echo "Migrated {$prefix}{$map['key']} from legacy px ({$legacyValue})\n";
             }
         }
-    }
 
-    $presetFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . 'preset');
-    if ($presetFieldId && gl_get_field_value($db, $dataText, $pageId, $presetFieldId) === '') {
-        if (gl_mm_set_field_value($db, $dataText, $pageId, $presetFieldId, 'standard')) {
-            $migrated++;
-            echo "Set {$prefix}preset=standard\n";
+        $legacySocialId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap');
+        if ($legacySocialId) {
+            $legacySocial = gl_get_field_value($db, $dataText, $pageId, $legacySocialId);
+            $socialTriplet = gl_mm_register_legacy_triplet($legacySocial, 'social');
+            if ($socialTriplet) {
+                $socialMinId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_min');
+                $socialMidId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_mid');
+                $socialMaxId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_max');
+                if ($socialMinId && $socialMidId && $socialMaxId &&
+                    gl_mm_upsert_field_value($db, $dataText, $pageId, $socialMinId, $socialTriplet[0]) &&
+                    gl_mm_upsert_field_value($db, $dataText, $pageId, $socialMidId, $socialTriplet[1]) &&
+                    gl_mm_upsert_field_value($db, $dataText, $pageId, $socialMaxId, $socialTriplet[2])) {
+                    $migrated += 3;
+                    echo "Migrated {$prefix}social_gap from legacy px ({$legacySocial})\n";
+                }
+            }
+        }
+
+        $presetFieldId = gl_get_field_id($db, $fields, $templateId, $prefix . 'preset');
+        if ($presetFieldId && gl_get_field_value($db, $dataText, $pageId, $presetFieldId) === '') {
+            if (gl_mm_set_field_value($db, $dataText, $pageId, $presetFieldId, 'standard')) {
+                $migrated++;
+                echo "Set {$prefix}preset=standard\n";
+            }
         }
     }
 }

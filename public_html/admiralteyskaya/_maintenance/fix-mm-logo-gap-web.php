@@ -1,13 +1,16 @@
 <?php
 /**
- * Force logo→menu gap to legacy px value (or 32px default) in CouchCMS DB.
- * https://garden-lounge.pro/admiralteyskaya/_maintenance/fix-mm-logo-gap-web.php?key=<md5>
+ * Force logo→menu gap from legacy px (or override). Requires force=1 to overwrite existing clamp values.
+ * https://garden-lounge.pro/admiralteyskaya/_maintenance/fix-mm-logo-gap-web.php?key=<md5>&force=1
  * key = md5('garden-lounge-fix-mm-logo-gap')
  */
 $expectedKey = md5('garden-lounge-fix-mm-logo-gap');
 if ((isset($_GET['key']) ? $_GET['key'] : '') !== $expectedKey) {
     http_response_code(403);
     exit("Forbidden\n");
+}
+if ((isset($_GET['force']) ? $_GET['force'] : '') !== '1') {
+    exit("Refusing to overwrite CMS values without force=1\n");
 }
 header('Content-Type: text/plain; charset=utf-8');
 
