@@ -31,21 +31,10 @@ if ($db->connect_errno) {
 }
 $db->set_charset('utf8');
 
-$templates = K_DB_TABLES_PREFIX . 'couch_templates';
-$pages = K_DB_TABLES_PREFIX . 'couch_pages';
-$fieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
-$dataText = K_DB_TABLES_PREFIX . 'couch_data_text';
-
-$template = $db->query("SELECT id FROM `{$templates}` WHERE name='layout-mobile-menu.php' LIMIT 1")->fetch_assoc();
-if (!$template) {
-    exit("Template not found\n");
-}
-$templateId = (int) $template['id'];
-$page = $db->query("SELECT id FROM `{$pages}` WHERE template_id={$templateId} AND is_master='1' LIMIT 1")->fetch_assoc();
-if (!$page) {
-    exit("Master page not found\n");
-}
-$pageId = (int) $page['id'];
+$mmTemplates = K_DB_TABLES_PREFIX . 'couch_templates';
+$mmPages = K_DB_TABLES_PREFIX . 'couch_pages';
+$mmFieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
+$mmDataText = K_DB_TABLES_PREFIX . 'couch_data_text';
 
 function gl_fetch_one_dump($db, $sql)
 {
@@ -53,13 +42,27 @@ function gl_fetch_one_dump($db, $sql)
     return $res ? $res->fetch_assoc() : null;
 }
 
-$res = $db->query("SELECT f.id AS field_id, f.name, f.label, f.not_active FROM `{$fieldsTable}` f WHERE f.template_id={$templateId} AND f.k_type NOT IN ('group','message') ORDER BY f.k_order, f.id");
-echo "layout-mobile-menu.php page_id={$pageId}\n\n";
+$template = gl_fetch_one_dump($db, "SELECT id FROM `{$mmTemplates}` WHERE name='layout-mobile-menu.php' LIMIT 1");
+if (!$template) {
+    exit("Template not found\n");
+}
+$mmTemplateId = (int) $template['id'];
+$page = gl_fetch_one_dump($db, "SELECT id FROM `{$mmPages}` WHERE template_id={$mmTemplateId} AND is_master='1' LIMIT 1");
+if (!$page) {
+    exit("Master page not found\n");
+}
+$mmPageId = (int) $page['id'];
+
+$res = $db->query("SELECT f.id AS field_id, f.name, f.not_active FROM `{$mmFieldsTable}` f WHERE f.template_id={$mmTemplateId} AND f.k_type NOT IN ('group','message') ORDER BY f.k_order, f.id");
+if (!$res) {
+    exit("Query failed: {$db->error}\n");
+}
+
+echo "layout-mobile-menu.php page_id={$mmPageId}\n\n";
 while ($row = $res->fetch_assoc()) {
     $fieldId = (int) $row['field_id'];
-    $valRow = gl_fetch_one_dump($db, "SELECT value FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} ORDER BY id DESC LIMIT 1");
+    $valRow = gl_fetch_one_dump($db, "SELECT value FROM `{$mmDataText}` WHERE page_id={$mmPageId} AND field_id={$fieldId} ORDER BY id DESC LIMIT 1");
     $value = $valRow ? (string) $valRow['value'] : '';
     $flag = $row['not_active'] ? ' [legacy/hidden]' : '';
     echo $row['name'] . $flag . ': ' . $value . "\n";
 }
-exit;
