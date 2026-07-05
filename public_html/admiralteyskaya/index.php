@@ -123,7 +123,7 @@
     <?php gl_preloader_render(); ?>
 
     <cms:pages masterpage='header.php' limit='1'><cms:embed 'header.html' /></cms:pages>
-    <cms:pages masterpage='about.php' limit='1'><cms:embed 'about.html' /></cms:pages>
+    <cms:pages masterpage='about.php' limit='1'><cms:embed 'about-admiralteyskaya.html' /></cms:pages>
     <cms:pages masterpage='gallery.php' limit='1'><cms:embed 'gallery.html' /></cms:pages>
     <cms:pages masterpage='menu.php' limit='1'><cms:embed 'menu.html' /></cms:pages>
     <cms:pages masterpage='akzii.php' limit='1'><cms:embed 'akzii.html' /></cms:pages>
