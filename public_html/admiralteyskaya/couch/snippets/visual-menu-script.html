@@ -2,33 +2,51 @@
     #desc-modal {
         position: fixed;
         inset: 0;
-        background: #000;
-        display: none;
+        z-index: 2500;
+        display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 2500;
-        padding: 56px 20px 24px;
+        padding: 20px 16px;
         box-sizing: border-box;
+        background: rgba(0, 0, 0, 0.55);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.22s ease, visibility 0.22s ease;
+    }
+    #desc-modal.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
     }
     #desc-modal .desc-modal-panel {
-        width: 100%;
-        max-width: 520px;
-        max-height: calc(100vh - 80px);
+        position: relative;
+        width: fit-content;
+        max-width: min(92vw, 440px);
+        max-height: min(72vh, 520px);
         overflow-y: auto;
         background: #000;
-        border: 1px solid rgba(197, 160, 89, 0.35);
-        padding: 28px 22px 32px;
+        border: 1px solid rgba(197, 160, 89, 0.38);
+        padding: 22px 36px 20px 20px;
         text-align: center;
         box-sizing: border-box;
+        box-shadow: 0 10px 36px rgba(0, 0, 0, 0.55);
+        transform: scale(0.97) translateY(8px);
+        opacity: 0;
+        transition: transform 0.24s ease, opacity 0.24s ease;
+    }
+    #desc-modal.is-open .desc-modal-panel {
+        transform: scale(1) translateY(0);
+        opacity: 1;
     }
     #desc-modal .desc-modal-title {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 1.25rem;
+        font-size: 1.1rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         color: var(--gold, #C5A059);
-        margin: 0 0 16px;
+        margin: 0 0 12px;
         line-height: 1.35;
     }
     #desc-modal .desc-modal-body {
@@ -39,21 +57,25 @@
         white-space: pre-line;
     }
     .desc-modal-close {
-        position: fixed;
-        top: 12px;
-        right: 16px;
-        z-index: 2501;
-        width: 44px;
-        height: 44px;
+        position: absolute;
+        top: 4px;
+        right: 6px;
+        width: 32px;
+        height: 32px;
         border: none;
         background: transparent;
         color: var(--gold, #C5A059);
-        font-size: 36px;
+        font-size: 28px;
         line-height: 1;
         cursor: pointer;
         transition: opacity 0.2s, transform 0.2s;
     }
-    .desc-modal-close:hover { opacity: 0.85; transform: scale(1.06); }
+    .desc-modal-close:hover { opacity: 0.85; transform: scale(1.08); }
+    @media (prefers-reduced-motion: reduce) {
+        #desc-modal,
+        #desc-modal .desc-modal-panel { transition: none; }
+        #desc-modal .desc-modal-panel { transform: none; opacity: 1; }
+    }
 </style>
 
 <cms:php>
@@ -135,8 +157,8 @@ function ensureDescModal() {
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
     modal.innerHTML = `
-        <button type="button" class="desc-modal-close" aria-label="Закрыть">&times;</button>
         <div class="desc-modal-panel" onclick="event.stopPropagation()">
+            <button type="button" class="desc-modal-close" aria-label="Закрыть">&times;</button>
             <h3 class="desc-modal-title" id="desc-modal-title"></h3>
             <div class="desc-modal-body" id="desc-modal-body"></div>
         </div>
@@ -152,16 +174,17 @@ function ensureDescModal() {
 function openDescModal(title, desc) {
     if (!desc || !String(desc).trim()) return;
     ensureDescModal();
+    const modal = document.getElementById('desc-modal');
     document.getElementById('desc-modal-title').textContent = title || '';
     document.getElementById('desc-modal-body').textContent = String(desc).trim();
-    document.getElementById('desc-modal').style.display = 'flex';
+    modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
 }
 
 function closeDescModal() {
     const modal = document.getElementById('desc-modal');
     if (!modal) return;
-    modal.style.display = 'none';
+    modal.classList.remove('is-open');
     if (document.getElementById('lightbox')?.style.display !== 'flex'
         && document.getElementById('loyalty-modal')?.style.display !== 'flex') {
         document.body.style.overflow = 'auto';
