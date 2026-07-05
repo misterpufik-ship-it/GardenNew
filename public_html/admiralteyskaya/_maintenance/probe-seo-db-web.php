@@ -12,6 +12,10 @@ header('Content-Type: text/plain; charset=utf-8');
 
 $root = realpath(__DIR__ . '/..');
 $config = $root . '/couch/config.php';
+if (!is_file($config)) {
+    exit("CouchCMS config not found\n");
+}
+define('K_COUCH_DIR', dirname($config) . '/');
 require_once $config;
 
 $host = K_DB_HOST;

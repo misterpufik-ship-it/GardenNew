@@ -81,32 +81,38 @@ function gl_seo_sync_field($db, $prefix, $templateName, $fieldName, $value)
     }
     $fieldId = (int)$fieldRow['id'];
 
-    $pageRes = $db->query(
-        "SELECT id FROM {$prefix}couch_pages WHERE template_id={$templateId} ORDER BY is_master DESC, id ASC LIMIT 1"
+    $rows = $db->query(
+        "SELECT dt.id, dt.page_id, dt.value FROM {$prefix}couch_data_text dt " .
+        "INNER JOIN {$prefix}couch_pages p ON p.id = dt.page_id " .
+        "WHERE p.template_id={$templateId} AND dt.field_id={$fieldId}"
     );
-    if (!$pageRes || !($pageRow = $pageRes->fetch_assoc())) {
-        echo "Skip page (missing): {$templateName}\n";
-        return;
-    }
-    $pageId = (int)$pageRow['id'];
-
-    $dataRes = $db->query(
-        "SELECT id, value FROM {$prefix}couch_data_text WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
-    );
-    if ($dataRes && ($dataRow = $dataRes->fetch_assoc())) {
-        $old = (string)$dataRow['value'];
-        $db->query("UPDATE {$prefix}couch_data_text SET value='{$valueEsc}' WHERE id=" . (int)$dataRow['id'] . " LIMIT 1");
-        echo "Updated {$templateName}::{$fieldName} on page #{$pageId}\n";
-        if ($old !== $value) {
-            echo "  was: {$old}\n";
+    $count = 0;
+    if ($rows) {
+        while ($row = $rows->fetch_assoc()) {
+            $old = (string)$row['value'];
+            $db->query("UPDATE {$prefix}couch_data_text SET value='{$valueEsc}' WHERE id=" . (int)$row['id'] . " LIMIT 1");
+            echo "Updated {$templateName}::{$fieldName} page #{$row['page_id']}\n";
+            if ($old !== $value) {
+                echo "  was: {$old}\n";
+            }
+            $count++;
         }
-        return;
     }
 
-    $db->query(
-        "INSERT INTO {$prefix}couch_data_text (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$valueEsc}')"
-    );
-    echo "Inserted {$templateName}::{$fieldName} on page #{$pageId}\n";
+    if ($count === 0) {
+        $pageRes = $db->query(
+            "SELECT id FROM {$prefix}couch_pages WHERE template_id={$templateId} ORDER BY is_master DESC, id ASC LIMIT 1"
+        );
+        if (!$pageRes || !($pageRow = $pageRes->fetch_assoc())) {
+            echo "Skip page (missing): {$templateName}\n";
+            return;
+        }
+        $pageId = (int)$pageRow['id'];
+        $db->query(
+            "INSERT INTO {$prefix}couch_data_text (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$valueEsc}')"
+        );
+        echo "Inserted {$templateName}::{$fieldName} on page #{$pageId}\n";
+    }
 }
 
 function gl_seo_sync_page_meta($db, $prefix, $templateName, $pageTitle, $pageDesc)
@@ -115,7 +121,7 @@ function gl_seo_sync_page_meta($db, $prefix, $templateName, $pageTitle, $pageDes
     $titleEsc = $db->real_escape_string($pageTitle);
     $descEsc = $db->real_escape_string($pageDesc);
 
-    $tpl = $db->query("SELECT id FROM {$prefix}couch_templates WHERE name='{$tplEsc}' LIMIT 1");
+    $tpl = $db->query("SELECT id, name, title FROM {$prefix}couch_templates WHERE name='{$tplEsc}' LIMIT 1");
     if (!$tpl || !($tplRow = $tpl->fetch_assoc())) {
         echo "Skip page meta (template missing): {$templateName}\n";
         return;
@@ -143,6 +149,18 @@ function gl_seo_sync_page_meta($db, $prefix, $templateName, $pageTitle, $pageDes
     }
 }
 
+function gl_seo_find_template_name($db, $prefix, $candidates)
+{
+    foreach ($candidates as $candidate) {
+        $esc = $db->real_escape_string($candidate);
+        $res = $db->query("SELECT name FROM {$prefix}couch_templates WHERE name='{$esc}' LIMIT 1");
+        if ($res && $res->fetch_assoc()) {
+            return $candidate;
+        }
+    }
+    return null;
+}
+
 foreach ($fieldUpdates as $templateName => $fields) {
     foreach ($fields as $fieldName => $value) {
         gl_seo_sync_field($db, $prefix, $templateName, $fieldName, $value);
@@ -151,6 +169,16 @@ foreach ($fieldUpdates as $templateName => $fields) {
 
 foreach ($pageMetaUpdates as $templateName => $meta) {
     gl_seo_sync_page_meta($db, $prefix, $templateName, $meta['page_title'], $meta['page_desc']);
+}
+
+$admTpl = gl_seo_find_template_name($db, $prefix, array('index.php', 'admiralteyskaya/index.php'));
+if ($admTpl && isset($pageMetaUpdates['index.php'])) {
+    gl_seo_sync_page_meta($db, $prefix, $admTpl, $pageMetaUpdates['index.php']['page_title'], $pageMetaUpdates['index.php']['page_desc']);
+}
+
+$udelTpl = gl_seo_find_template_name($db, $prefix, array('udelnaya/index.php'));
+if ($udelTpl && isset($pageMetaUpdates['udelnaya/index.php'])) {
+    gl_seo_sync_page_meta($db, $prefix, $udelTpl, $pageMetaUpdates['udelnaya/index.php']['page_title'], $pageMetaUpdates['udelnaya/index.php']['page_desc']);
 }
 
 $cacheDir = $root . '/couch/cache';
