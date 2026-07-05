@@ -13,19 +13,26 @@ header('Content-Type: text/plain; charset=utf-8');
 ini_set('display_errors', '1');
 error_reporting(E_ALL);
 
-$root = realpath(__DIR__ . '/..');
-require_once $root . '/menu/text/menu-copy-lib.php';
+$config = __DIR__ . '/../couch/config.php';
+define('K_COUCH_DIR', dirname($config) . '/');
+require_once $config;
 
-chdir($root);
-require_once $root . '/couch/cms.php';
-
-global $AUTH, $FUNCS;
-
-if (!isset($AUTH->user) || !is_object($AUTH->user)) {
-    exit("Couch auth not initialized\n");
+$host = K_DB_HOST;
+$port = ini_get('mysqli.default_port') ?: 3306;
+if (strpos($host, ':') !== false) {
+    list($host, $port) = explode(':', $host, 2);
 }
 
-$AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
+$db = @new mysqli($host, K_DB_USER, K_DB_PASSWORD, K_DB_NAME, (int) $port);
+if ($db->connect_errno) {
+    exit("DB connection failed: {$db->connect_error}\n");
+}
+$db->set_charset('utf8');
+
+$templates = K_DB_TABLES_PREFIX . 'couch_templates';
+$pages = K_DB_TABLES_PREFIX . 'couch_pages';
+$fields = K_DB_TABLES_PREFIX . 'couch_fields';
+$dataText = K_DB_TABLES_PREFIX . 'couch_data_text';
 
 $branches = array(
     'admiralteyskaya' => array(
@@ -65,6 +72,12 @@ $sections = array(
     ),
 );
 
+function gl_sync_q1($db, $sql)
+{
+    $res = $db->query($sql);
+    return $res ? $res->fetch_assoc() : null;
+}
+
 function gl_sync_norm_name($name)
 {
     $name = trim((string) $name);
@@ -73,6 +86,79 @@ function gl_sync_norm_name($name)
     $name = str_replace(array("\xe2\x80\x99", "\xe2\x80\x98", '`', '´'), "'", $name);
 
     return $name;
+}
+
+function gl_sync_get_master_page_id($db, $templates, $pages, $templateName)
+{
+    $tplEsc = $db->real_escape_string($templateName);
+    $tpl = gl_sync_q1($db, "SELECT id FROM `{$templates}` WHERE name='{$tplEsc}' LIMIT 1");
+    if (!$tpl) {
+        return 0;
+    }
+    $tplId = (int) $tpl['id'];
+    $page = gl_sync_q1($db, "SELECT id FROM `{$pages}` WHERE template_id={$tplId} ORDER BY is_master DESC, id ASC LIMIT 1");
+    return $page ? (int) $page['id'] : 0;
+}
+
+function gl_sync_get_repeatable_field_id($db, $fields, $templateName, $repeatableName)
+{
+    global $templates;
+    $tplEsc = $db->real_escape_string($templateName);
+    $repEsc = $db->real_escape_string($repeatableName);
+    $row = gl_sync_q1(
+        $db,
+        "SELECT f.id FROM `{$fields}` f " .
+        "JOIN `{$templates}` t ON t.id=f.template_id " .
+        "WHERE t.name='{$tplEsc}' AND f.name='{$repEsc}' LIMIT 1"
+    );
+    return $row ? (int) $row['id'] : 0;
+}
+
+function gl_sync_read_repeatable_json($db, $dataText, $pageId, $fieldId)
+{
+    $row = gl_sync_q1(
+        $db,
+        "SELECT id, value FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} ORDER BY id DESC LIMIT 1"
+    );
+    if (!$row) {
+        return array(null, array());
+    }
+
+    $decoded = json_decode((string) $row['value'], true);
+    if (!is_array($decoded)) {
+        return array((int) $row['id'], array());
+    }
+
+    return array((int) $row['id'], $decoded);
+}
+
+function gl_sync_write_repeatable_json($db, $dataText, $dataId, $pageId, $fieldId, $rows)
+{
+    $json = json_encode($rows, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($json === false) {
+        throw new RuntimeException('Failed to encode repeatable JSON');
+    }
+    $jsonEsc = $db->real_escape_string($json);
+
+    if ($dataId > 0) {
+        $db->query("UPDATE `{$dataText}` SET value='{$jsonEsc}' WHERE id={$dataId} LIMIT 1");
+        return;
+    }
+
+    $db->query("INSERT INTO `{$dataText}` (page_id, field_id, value) VALUES ({$pageId}, {$fieldId}, '{$jsonEsc}')");
+}
+
+function gl_sync_row_value($row, $key)
+{
+    if (!is_array($row) || !isset($row[$key])) {
+        return '';
+    }
+    $value = $row[$key];
+    if (is_array($value)) {
+        return '';
+    }
+
+    return trim((string) $value);
 }
 
 function gl_sync_build_desc_map($rows, $nameField, $descField)
@@ -84,13 +170,13 @@ function gl_sync_build_desc_map($rows, $nameField, $descField)
             continue;
         }
 
-        $rowType = isset($row['row_type']) ? trim((string) $row['row_type']) : 'item';
+        $rowType = gl_sync_row_value($row, 'row_type');
         if ($rowType !== '' && $rowType !== 'item') {
             continue;
         }
 
-        $name = isset($row[$nameField]) ? trim((string) $row[$nameField]) : '';
-        $desc = isset($row[$descField]) ? trim((string) $row[$descField]) : '';
+        $name = gl_sync_row_value($row, $nameField);
+        $desc = gl_sync_row_value($row, $descField);
         if ($name === '' || $desc === '') {
             continue;
         }
@@ -118,7 +204,7 @@ function gl_sync_apply_descriptions($visualRows, $descMap, $nameField, $descFiel
             continue;
         }
 
-        $name = isset($row[$nameField]) ? trim((string) $row[$nameField]) : '';
+        $name = gl_sync_row_value($row, $nameField);
         if ($name === '') {
             continue;
         }
@@ -131,7 +217,7 @@ function gl_sync_apply_descriptions($visualRows, $descMap, $nameField, $descFiel
 
         $matched++;
         $newDesc = $descMap[$key];
-        $oldDesc = isset($row[$descField]) ? trim((string) $row[$descField]) : '';
+        $oldDesc = gl_sync_row_value($row, $descField);
 
         if ($oldDesc === $newDesc) {
             $unchanged++;
@@ -152,43 +238,32 @@ $totals = array(
     'no_match' => 0,
 );
 
-echo "Sync visual menu descriptions from text menu\n";
+echo "Sync visual menu descriptions from text menu (DB JSON)\n";
 echo str_repeat('=', 60) . "\n";
 
-foreach ($branches as $branch => $templates) {
+foreach ($branches as $branch => $tpls) {
     echo "\nBranch: {$branch}\n";
 
-    $textPg = new KWebpage($templates['text']);
-    if (!empty($textPg->error)) {
-        echo "  ERROR loading text menu: {$textPg->err_msg}\n";
+    $textPageId = gl_sync_get_master_page_id($db, $templates, $pages, $tpls['text']);
+    $visualPageId = gl_sync_get_master_page_id($db, $templates, $pages, $tpls['visual']);
+    if (!$textPageId || !$visualPageId) {
+        echo "  ERROR missing page (text={$textPageId}, visual={$visualPageId})\n";
         continue;
     }
-
-    $visualPg = new KWebpage($templates['visual']);
-    if (!empty($visualPg->error)) {
-        echo "  ERROR loading visual menu: {$visualPg->err_msg}\n";
-        continue;
-    }
-
-    $branchUpdated = 0;
 
     foreach ($sections as $section => $cfg) {
-        $textField = garden_menu_copy_get_page_field($textPg, $cfg['text_repeatable']);
-        $visualField = garden_menu_copy_get_page_field($visualPg, $cfg['visual_repeatable']);
+        $textFieldId = gl_sync_get_repeatable_field_id($db, $fields, $tpls['text'], $cfg['text_repeatable']);
+        $visualFieldId = gl_sync_get_repeatable_field_id($db, $fields, $tpls['visual'], $cfg['visual_repeatable']);
 
-        if (!$textField) {
-            echo "  {$section}: text repeatable missing ({$cfg['text_repeatable']})\n";
-            continue;
-        }
-        if (!$visualField) {
-            echo "  {$section}: visual repeatable missing ({$cfg['visual_repeatable']})\n";
+        if (!$textFieldId || !$visualFieldId) {
+            echo "  {$section}: missing field (text={$textFieldId}, visual={$visualFieldId})\n";
             continue;
         }
 
-        $textRows = garden_menu_copy_read_rows($textField);
-        $visualRows = garden_menu_copy_read_rows($visualField);
+        list($textDataId, $textRows) = gl_sync_read_repeatable_json($db, $dataText, $textPageId, $textFieldId);
+        list($visualDataId, $visualRows) = gl_sync_read_repeatable_json($db, $dataText, $visualPageId, $visualFieldId);
+
         $descMap = gl_sync_build_desc_map($textRows, $cfg['text_name'], $cfg['text_desc']);
-
         list($visualRows, $updated, $matched, $unchanged, $noMatch) = gl_sync_apply_descriptions(
             $visualRows,
             $descMap,
@@ -201,8 +276,8 @@ foreach ($branches as $branch => $templates) {
             . ", matched={$matched}, updated={$updated}, unchanged={$unchanged}, no_match={$noMatch}\n";
 
         if ($updated > 0) {
-            garden_menu_copy_save_rows($visualPg, $cfg['visual_repeatable'], $visualRows);
-            $branchUpdated += $updated;
+            gl_sync_write_repeatable_json($db, $dataText, $visualDataId, $visualPageId, $visualFieldId, $visualRows);
+            echo "    saved {$updated} update(s) to {$cfg['visual_repeatable']}\n";
         }
 
         $totals['updated'] += $updated;
@@ -210,27 +285,20 @@ foreach ($branches as $branch => $templates) {
         $totals['unchanged'] += $unchanged;
         $totals['no_match'] += $noMatch;
     }
-
-    if ($branchUpdated > 0) {
-        $errors = $visualPg->save('db_persist');
-        if ($errors) {
-            echo "  SAVE FAILED with {$errors} error(s)\n";
-            foreach ($visualPg->fields as $field) {
-                if (!empty($field->err_msg)) {
-                    echo "    - {$field->name}: {$field->err_msg}\n";
-                }
-            }
-            exit(1);
-        }
-        echo "  Saved {$branchUpdated} description update(s)\n";
-    } else {
-        echo "  No changes to save\n";
-    }
 }
 
-if (isset($FUNCS) && method_exists($FUNCS, 'invalidate_cache')) {
-    $FUNCS->invalidate_cache();
+$cacheDir = dirname($config) . '/cache';
+$removed = 0;
+if (is_dir($cacheDir)) {
+    foreach (glob($cacheDir . '/*') as $file) {
+        if (is_file($file) && basename($file) !== '.htaccess') {
+            if (@unlink($file)) {
+                $removed++;
+            }
+        }
+    }
 }
 
 echo "\n" . str_repeat('=', 60) . "\n";
 echo "Done. Total updated={$totals['updated']}, matched={$totals['matched']}, unchanged={$totals['unchanged']}, no_match={$totals['no_match']}\n";
+echo "Cache files removed: {$removed}\n";

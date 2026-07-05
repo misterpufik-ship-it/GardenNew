@@ -63,6 +63,20 @@ foreach ($tplNames as $label => $tplName) {
             $decoded = @json_decode($val, true);
             if (is_array($decoded)) {
                 echo " json_rows=" . count($decoded);
+                if (isset($decoded[0]) && is_array($decoded[0])) {
+                    $first = $decoded[0];
+                    $preview = array();
+                    foreach ($first as $k => $v) {
+                        if (is_string($k) && $k[0] !== '_' && $v !== '' && $v !== null) {
+                            $preview[] = $k . '=' . mb_substr((string) $v, 0, 40, 'UTF-8');
+                        }
+                    }
+                    if ($preview) {
+                        echo " first={" . implode(', ', array_slice($preview, 0, 4)) . "}";
+                    }
+                }
+            } else {
+                echo " (not json)";
             }
         }
         echo "\n";
