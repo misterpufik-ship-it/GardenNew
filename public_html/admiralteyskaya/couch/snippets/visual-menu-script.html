@@ -1,3 +1,61 @@
+<style>
+    #desc-modal {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2500;
+        padding: 56px 20px 24px;
+        box-sizing: border-box;
+    }
+    #desc-modal .desc-modal-panel {
+        width: 100%;
+        max-width: 520px;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        background: #000;
+        border: 1px solid rgba(197, 160, 89, 0.35);
+        padding: 28px 22px 32px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    #desc-modal .desc-modal-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--gold, #C5A059);
+        margin: 0 0 16px;
+        line-height: 1.35;
+    }
+    #desc-modal .desc-modal-body {
+        font-size: 13px;
+        line-height: 1.55;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.82);
+        white-space: pre-line;
+    }
+    .desc-modal-close {
+        position: fixed;
+        top: 12px;
+        right: 16px;
+        z-index: 2501;
+        width: 44px;
+        height: 44px;
+        border: none;
+        background: transparent;
+        color: var(--gold, #C5A059);
+        font-size: 36px;
+        line-height: 1;
+        cursor: pointer;
+        transition: opacity 0.2s, transform 0.2s;
+    }
+    .desc-modal-close:hover { opacity: 0.85; transform: scale(1.06); }
+</style>
+
 <cms:php>
 $GLOBALS['GL_VISUAL_MENU_ITEMS'] = array();
 </cms:php>
@@ -70,12 +128,56 @@ function getTagHtml(tag) {
     return html;
 }
 
+function ensureDescModal() {
+    if (document.getElementById('desc-modal')) return;
+    const modal = document.createElement('div');
+    modal.id = 'desc-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.innerHTML = `
+        <button type="button" class="desc-modal-close" aria-label="Закрыть">&times;</button>
+        <div class="desc-modal-panel" onclick="event.stopPropagation()">
+            <h3 class="desc-modal-title" id="desc-modal-title"></h3>
+            <div class="desc-modal-body" id="desc-modal-body"></div>
+        </div>
+    `;
+    modal.addEventListener('click', closeDescModal);
+    modal.querySelector('.desc-modal-close').addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeDescModal();
+    });
+    document.body.appendChild(modal);
+}
+
+function openDescModal(title, desc) {
+    if (!desc || !String(desc).trim()) return;
+    ensureDescModal();
+    document.getElementById('desc-modal-title').textContent = title || '';
+    document.getElementById('desc-modal-body').textContent = String(desc).trim();
+    document.getElementById('desc-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeDescModal() {
+    const modal = document.getElementById('desc-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    if (document.getElementById('lightbox')?.style.display !== 'flex'
+        && document.getElementById('loyalty-modal')?.style.display !== 'flex') {
+        document.body.style.overflow = 'auto';
+    }
+}
+
 function renderMenu(filter = 'shisha') {
     const container = document.getElementById('menu-items');
     container.innerHTML = '';
     const data = menuData.filter(i => i.cat === filter);
     data.forEach(item => {
         const imgSrc = item.img && item.img.trim() ? item.img : VISUAL_MENU_FALLBACK_IMG;
+        const hasDesc = item.desc && String(item.desc).trim();
+        const detailsHtml = hasDesc
+            ? `<div class="details-trigger" onclick='openDescModal(${JSON.stringify(item.title)}, ${JSON.stringify(item.desc)})'>Подробнее</div>`
+            : '';
         const card = document.createElement('div');
         card.className = 'dish-card';
         card.innerHTML = `
@@ -89,8 +191,7 @@ function renderMenu(filter = 'shisha') {
                     <span class="price">${item.price} ₽</span>
                     <span class="weight">${item.weight}</span>
                 </div>
-                <div class="details-trigger" onclick="toggleDetails(this)">Подробнее</div>
-                <div class="details-content">${item.desc}</div>
+                ${detailsHtml}
             </div>
         `;
         container.appendChild(card);
@@ -119,16 +220,29 @@ function openLightbox(src) {
     document.body.style.overflow = 'hidden';
 }
 
-function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; document.body.style.overflow = 'auto'; }
-
-function toggleDetails(btn) {
-    const content = btn.nextElementSibling;
-    content.classList.toggle('is-open');
-    btn.innerText = content.classList.contains('is-open') ? 'Свернуть' : 'Подробнее';
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    if (document.getElementById('desc-modal')?.style.display !== 'flex'
+        && document.getElementById('loyalty-modal')?.style.display !== 'flex') {
+        document.body.style.overflow = 'auto';
+    }
 }
 
 function openLoyaltyModal() { document.getElementById('loyalty-modal').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-function closeLoyaltyModal() { document.getElementById('loyalty-modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+function closeLoyaltyModal() {
+    document.getElementById('loyalty-modal').style.display = 'none';
+    if (document.getElementById('desc-modal')?.style.display !== 'flex'
+        && document.getElementById('lightbox')?.style.display !== 'flex') {
+        document.body.style.overflow = 'auto';
+    }
+}
 
-window.onload = () => renderMenu('shisha');
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDescModal();
+});
+
+window.onload = () => {
+    ensureDescModal();
+    renderMenu('shisha');
+};
 </script>

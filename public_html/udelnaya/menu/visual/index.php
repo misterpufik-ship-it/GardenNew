@@ -130,8 +130,7 @@ require_once $garden_cms;
         .price { font-size: 1.1rem; font-weight: 600; color: #fff; }
         .weight { font-size: 11px; color: #777; font-weight: 400; font-style: italic; }
         .details-trigger { font-size: 10px; text-transform: uppercase; color: #8e7037; letter-spacing: 0.15em; cursor: pointer; opacity: 0.8; text-align: center; padding: 5px 0; }
-        .details-content { font-size: 12px; color: #A0A0A0; line-height: 1.4; font-weight: 300; margin-top: 10px; display: none; text-align: center; padding: 5px; background: rgba(255,255,255,0.02); border-radius: 4px; }
-        .details-content.is-open { display: block; animation: fadeIn 0.3s ease; }
+        .details-trigger:hover { opacity: 1; color: var(--gold); }
         
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
