@@ -181,6 +181,43 @@ if ($udelTpl && isset($pageMetaUpdates['udelnaya/index.php'])) {
     gl_seo_sync_page_meta($db, $prefix, $udelTpl, $pageMetaUpdates['udelnaya/index.php']['page_title'], $pageMetaUpdates['udelnaya/index.php']['page_desc']);
 }
 
+$brute = $db->query(
+    "SELECT dt.id, dt.value, f.name AS field, t.name AS tpl " .
+    "FROM {$prefix}couch_data_text dt " .
+    "JOIN {$prefix}couch_fields f ON f.id = dt.field_id " .
+    "JOIN {$prefix}couch_pages p ON p.id = dt.page_id " .
+    "JOIN {$prefix}couch_templates t ON t.id = p.template_id " .
+    "WHERE f.name IN ('seo_title_default','seo_desc_default','home_seo_desc')"
+);
+if ($brute) {
+    while ($row = $brute->fetch_assoc()) {
+        echo "Existing {$row['tpl']}::{$row['field']} id={$row['id']} value={$row['value']}\n";
+    }
+}
+
+$fixes = array(
+    array('like' => '%Удельной%', 'field' => 'seo_title_default', 'tpl' => 'globals.php', 'value' => $fieldUpdates['globals.php']['seo_title_default']),
+    array('like' => '%лучшей кальянной%', 'field' => 'seo_desc_default', 'tpl' => 'globals.php', 'value' => $fieldUpdates['globals.php']['seo_desc_default']),
+    array('like' => '%995 624%', 'field' => 'seo_desc_default', 'tpl' => 'udelnaya/globals.php', 'value' => $fieldUpdates['udelnaya/globals.php']['seo_desc_default']),
+);
+foreach ($fixes as $fix) {
+    $likeEsc = $db->real_escape_string($fix['like']);
+    $fieldEsc = $db->real_escape_string($fix['field']);
+    $tplEsc = $db->real_escape_string($fix['tpl']);
+    $valueEsc = $db->real_escape_string($fix['value']);
+    $db->query(
+        "UPDATE {$prefix}couch_data_text dt " .
+        "JOIN {$prefix}couch_fields f ON f.id = dt.field_id " .
+        "JOIN {$prefix}couch_pages p ON p.id = dt.page_id " .
+        "JOIN {$prefix}couch_templates t ON t.id = p.template_id " .
+        "SET dt.value='{$valueEsc}' " .
+        "WHERE f.name='{$fieldEsc}' AND t.name='{$tplEsc}' AND dt.value LIKE '{$likeEsc}'"
+    );
+    if ($db->affected_rows > 0) {
+        echo "Brute-fixed {$fix['tpl']}::{$fix['field']} ({$db->affected_rows} row(s))\n";
+    }
+}
+
 $cacheDir = $root . '/couch/cache';
 if (is_dir($cacheDir)) {
     $files = glob($cacheDir . '/*');
