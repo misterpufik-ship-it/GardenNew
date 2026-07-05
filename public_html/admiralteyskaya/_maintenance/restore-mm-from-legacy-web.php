@@ -38,7 +38,7 @@ mysqli_report(MYSQLI_REPORT_OFF);
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
-$fields = K_DB_TABLES_PREFIX . 'couch_fields';
+$fieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
 $dataText = K_DB_TABLES_PREFIX . 'couch_data_text';
 
 function gl_qval($db, $value)
@@ -52,11 +52,11 @@ function gl_fetch_one($db, $sql)
     return $res ? $res->fetch_assoc() : null;
 }
 
-function gl_get_field_id($db, $fields, $templateId, $name)
+function gl_get_field_id($db, $fieldsTable, $templateId, $name)
 {
     $row = gl_fetch_one(
         $db,
-        "SELECT id FROM `{$fields}` WHERE template_id={$templateId} AND name='" . $db->real_escape_string($name) . "' LIMIT 1"
+        "SELECT id FROM `{$fieldsTable}` WHERE template_id={$templateId} AND name='" . $db->real_escape_string($name) . "' LIMIT 1"
     );
     return $row ? (int) $row['id'] : 0;
 }
@@ -131,16 +131,16 @@ foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
             $db,
             $dataText,
             $pageId,
-            gl_get_field_id($db, $fields, $templateId, $prefix . $item['legacy'])
+            gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['legacy'])
         );
         $triplet = gl_legacy_triplet($legacyVal, $item['kind']);
         if (!$triplet) {
             echo "  skip {$item['key']}: legacy empty\n";
             continue;
         }
-        $minId = gl_get_field_id($db, $fields, $templateId, $prefix . $item['key'] . '_min');
-        $vhId = gl_get_field_id($db, $fields, $templateId, $prefix . $item['key'] . '_vh');
-        $maxId = gl_get_field_id($db, $fields, $templateId, $prefix . $item['key'] . '_max');
+        $minId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['key'] . '_min');
+        $vhId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['key'] . '_vh');
+        $maxId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['key'] . '_max');
         if (!$minId || !$vhId || !$maxId) {
             echo "  skip {$item['key']}: clamp fields missing\n";
             continue;
@@ -156,13 +156,13 @@ foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
         $db,
         $dataText,
         $pageId,
-        gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap')
+        gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap')
     );
     $socialTriplet = gl_legacy_triplet($legacySocial, 'social');
     if ($socialTriplet) {
-        $socialMinId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_min');
-        $socialMidId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_mid');
-        $socialMaxId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_max');
+        $socialMinId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap_min');
+        $socialMidId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap_mid');
+        $socialMaxId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap_max');
         if ($socialMinId && $socialMidId && $socialMaxId) {
             gl_upsert_field_value($db, $dataText, $pageId, $socialMinId, $socialTriplet[0]);
             gl_upsert_field_value($db, $dataText, $pageId, $socialMidId, $socialTriplet[1]);

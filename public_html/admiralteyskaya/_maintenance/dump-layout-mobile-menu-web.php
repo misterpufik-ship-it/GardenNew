@@ -33,7 +33,7 @@ $db->set_charset('utf8');
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
-$fields = K_DB_TABLES_PREFIX . 'couch_fields';
+$fieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
 $dataText = K_DB_TABLES_PREFIX . 'couch_data_text';
 
 $template = $db->query("SELECT id FROM `{$templates}` WHERE name='layout-mobile-menu.php' LIMIT 1")->fetch_assoc();
@@ -53,7 +53,7 @@ function gl_fetch_one_dump($db, $sql)
     return $res ? $res->fetch_assoc() : null;
 }
 
-$res = $db->query("SELECT f.id AS field_id, f.name, f.label, f.not_active FROM `{$fields}` f WHERE f.template_id={$templateId} AND f.k_type NOT IN ('group','message') ORDER BY f.k_order, f.id");
+$res = $db->query("SELECT f.id AS field_id, f.name, f.label, f.not_active FROM `{$fieldsTable}` f WHERE f.template_id={$templateId} AND f.k_type NOT IN ('group','message') ORDER BY f.k_order, f.id");
 echo "layout-mobile-menu.php page_id={$pageId}\n\n";
 while ($row = $res->fetch_assoc()) {
     $fieldId = (int) $row['field_id'];
