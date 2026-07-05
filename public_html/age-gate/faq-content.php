@@ -149,7 +149,7 @@ function gl_render_faq_section($branch)
         $id = 'gl-faq-item-' . ($index + 1);
         echo '<article class="gl-faq-item">';
         echo '<button type="button" class="gl-faq-question" aria-expanded="false" aria-controls="' . $id . '">';
-        echo '<span class="gl-faq-question-text shimmer-gold">' . htmlspecialchars($item['q'], ENT_QUOTES, 'UTF-8') . '</span>';
+        echo '<span class="gl-faq-question-text">' . htmlspecialchars($item['q'], ENT_QUOTES, 'UTF-8') . '</span>';
         echo '<i class="fas fa-chevron-down gl-faq-icon" aria-hidden="true"></i>';
         echo '</button>';
         echo '<div id="' . $id . '" class="gl-faq-answer" hidden>';
@@ -237,10 +237,7 @@ function gl_render_faq_styles()
     letter-spacing: 0.025em;
     text-align: left;
     text-transform: none;
-}
-.gl-faq-question-text.shimmer-gold {
-    display: block;
-    width: 100%;
+    color: #fff;
 }
 .gl-faq-icon {
     flex: 0 0 auto;
@@ -266,14 +263,23 @@ function gl_render_faq_styles()
 }
 .gl-faq-answer p {
     margin: 0;
-    font-size: 11px;
-    line-height: 1.65;
-    color: rgba(234, 234, 234, 0.82);
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 1.625;
+    letter-spacing: 0.025em;
+    background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold-main) 40%, var(--gold-light) 50%, var(--gold-main) 60%, var(--gold-dark) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: shineGold 5s linear infinite;
 }
 @media (max-width: 767px) {
     .gl-faq-question { padding: 10px 12px; }
     .gl-faq-question-text { font-size: 0.8125rem; }
-    .gl-faq-answer p { font-size: 10px; }
+    .gl-faq-answer p { font-size: 0.8125rem; }
 }
 </style>
 HTML;
