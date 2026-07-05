@@ -170,6 +170,23 @@ foreach ($fieldUpdates as $templateName => $fields) {
     }
 }
 
+foreach ($fieldUpdates['home.php'] as $fieldName => $value) {
+    $fieldEsc = $db->real_escape_string($fieldName);
+    $tplEsc = $db->real_escape_string('home.php');
+    $valueEsc = $db->real_escape_string($value);
+    $db->query(
+        "UPDATE {$prefix}couch_data_text dt " .
+        "JOIN {$prefix}couch_fields f ON f.id = dt.field_id " .
+        "JOIN {$prefix}couch_pages p ON p.id = dt.page_id " .
+        "JOIN {$prefix}couch_templates t ON t.id = p.template_id " .
+        "SET dt.value='{$valueEsc}' " .
+        "WHERE f.name='{$fieldEsc}' AND t.name='{$tplEsc}'"
+    );
+    if ($db->affected_rows > 0) {
+        echo "Force-set home.php::{$fieldName} ({$db->affected_rows} row(s))\n";
+    }
+}
+
 foreach ($pageMetaUpdates as $templateName => $meta) {
     gl_seo_sync_page_meta($db, $prefix, $templateName, $meta['page_title'], $meta['page_desc']);
 }
