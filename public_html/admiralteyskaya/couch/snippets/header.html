@@ -520,7 +520,7 @@
         .mobile-menu-shell {
             justify-content: flex-start;
             gap: 0;
-            padding-top: calc(env(safe-area-inset-top, 0px) + 38px);
+            padding-top: calc(env(safe-area-inset-top, 0px) + 32px);
             padding-bottom: max(14px, env(safe-area-inset-bottom));
         }
         .mobile-menu-top {
@@ -529,13 +529,13 @@
         .mobile-menu-top .mobile-menu-logo {
             width: min(calc(78vw * var(--mm-scale, 1)), calc(320px * var(--mm-scale, 1))) !important;
             max-width: min(92vw, calc(384px * var(--mm-scale, 1))) !important;
-            margin: 0 auto !important;
+            margin: 0 auto calc(12px * var(--mm-scale, 1)) !important;
             opacity: 1 !important;
             transform: none !important;
             animation: none !important;
         }
         .mobile-menu-links {
-            margin-top: 18px !important;
+            margin-top: 0 !important;
             padding: 0 !important;
             overflow: visible !important;
             gap: calc(6px * var(--mm-scale, 1)) !important;
@@ -619,9 +619,9 @@
             align-self: center;
         }
         @media (max-height: 720px) {
-            .mobile-menu-shell { justify-content: flex-start; gap: 0; padding-top: calc(env(safe-area-inset-top, 0px) + 42px); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
-            .mobile-menu-top .mobile-menu-logo { width: min(calc(72vw * var(--mm-scale, 1)), calc(280px * var(--mm-scale, 1))) !important; max-width: min(92vw, calc(336px * var(--mm-scale, 1))) !important; }
-            .mobile-menu-links { margin-top: 16px !important; gap: calc(4px * var(--mm-scale, 1)) !important; }
+            .mobile-menu-shell { justify-content: flex-start; gap: 0; padding-top: calc(env(safe-area-inset-top, 0px) + 36px); padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+            .mobile-menu-top .mobile-menu-logo { width: min(calc(72vw * var(--mm-scale, 1)), calc(280px * var(--mm-scale, 1))) !important; max-width: min(92vw, calc(336px * var(--mm-scale, 1))) !important; margin-bottom: calc(10px * var(--mm-scale, 1)) !important; }
+            .mobile-menu-links { margin-top: 0 !important; gap: calc(4px * var(--mm-scale, 1)) !important; }
             .mobile-menu-contact { margin-top: 14px !important; }
             .mobile-link { min-height: calc(32px * var(--mm-scale, 1)); font-size: clamp(calc(20px * var(--mm-scale, 1)), calc(5.6vw * var(--mm-scale, 1)), calc(25px * var(--mm-scale, 1))) !important; padding: calc(4px * var(--mm-scale, 1)) calc(12px * var(--mm-scale, 1)) !important; }
             .mobile-branch-nav-link { font-size: clamp(calc(17px * var(--mm-scale, 1)), calc(4.8vw * var(--mm-scale, 1)), calc(21px * var(--mm-scale, 1))) !important; }
