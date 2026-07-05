@@ -37,6 +37,19 @@ if ($count) {
     echo "Removed garden_faq_admin_menu_fix listener ({$count})\n";
 }
 
+$listenerStart = strpos($content, 'function garden_faq_admin_menu_fix');
+if ($listenerStart !== false) {
+    $listenerEnd = strpos($content, "garden_faq_admin_menu_fix' );", $listenerStart);
+    if ($listenerEnd !== false) {
+        $listenerEnd = strpos($content, "\n", $listenerEnd);
+        if ($listenerEnd !== false) {
+            $content = substr($content, 0, $listenerStart) . substr($content, $listenerEnd + 1);
+            $changed = true;
+            echo "Removed garden_faq_admin_menu_fix listener (fallback)\n";
+        }
+    }
+}
+
 $content = preg_replace(
     '/\s*if\s*\(\s*in_array\(\s*\$name,\s*array\(\s*\'faq\.php\',\s*\'udelnaya\/faq\.php\'\s*\),\s*true\s*\)\s*\)\{\s*\n\s*\$items\[\$name\]\[\'parent\'\]\s*=\s*\'_garden_faq_\';\s*\n\s*\}/',
     '',
