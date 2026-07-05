@@ -65,8 +65,11 @@ require_once $garden_cms;
         <cms:set social_youtube=link_youtube 'global' />
     </cms:pages>
 
-    <title><cms:if global_title><cms:show global_title /><cms:else />Garden Lounge в Приморском районе — кальянная и лаунж-бар, м. Удельная</cms:if></title>
-    <meta name="description" content="<cms:if global_desc><cms:show global_desc /><cms:else />Garden Lounge на ул. Аккуратова 13, Приморский район: премиальные кальяны, кухня, VIP-комнаты, PS5 и бронь столика у метро Удельная. Тел. +7 950 047-33-65.</cms:if>">
+    <cms:set global_title='Garden Lounge в Приморском районе — кальянная и лаунж-бар, м. Удельная' 'global' />
+    <cms:set global_desc='Garden Lounge на ул. Аккуратова 13, Приморский район: премиальные кальяны, кухня, VIP-комнаты, PS5 и бронь столика у метро Удельная. Тел. +7 950 047-33-65.' 'global' />
+
+    <title><cms:show global_title /></title>
+    <meta name="description" content="<cms:show global_desc />">
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
