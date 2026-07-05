@@ -352,12 +352,12 @@ img { display: block; max-width: 100%; height: auto; }
     margin: 0 !important; 
 }
 
-/* Слоган в концепции */
+/* Слоган в концепции — как .menu-footer-note («Гастрономическая поэзия») */
 .slogan-rituals {
-    font-size: 11px !important;
+    font-size: 10px !important;
     font-weight: 500 !important; 
     text-transform: uppercase !important; 
-    letter-spacing: 0.4em !important;
+    letter-spacing: 0.3em !important;
     text-align: center !important; 
     line-height: 1.8 !important; 
     margin: var(--gl-divider-mt, 24px) auto 0 !important; 
