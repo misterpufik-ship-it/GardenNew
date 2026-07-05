@@ -34,6 +34,7 @@ if ($db->connect_errno) {
     exit("DB connection failed: {$db->connect_error}\n");
 }
 $db->set_charset('utf8');
+mysqli_report(MYSQLI_REPORT_OFF);
 
 $templates = K_DB_TABLES_PREFIX . 'couch_templates';
 $pages = K_DB_TABLES_PREFIX . 'couch_pages';
@@ -140,6 +141,10 @@ foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
         $minId = gl_get_field_id($db, $fields, $templateId, $prefix . $item['key'] . '_min');
         $vhId = gl_get_field_id($db, $fields, $templateId, $prefix . $item['key'] . '_vh');
         $maxId = gl_get_field_id($db, $fields, $templateId, $prefix . $item['key'] . '_max');
+        if (!$minId || !$vhId || !$maxId) {
+            echo "  skip {$item['key']}: clamp fields missing\n";
+            continue;
+        }
         gl_upsert_field_value($db, $dataText, $pageId, $minId, $triplet[0]);
         gl_upsert_field_value($db, $dataText, $pageId, $vhId, $triplet[1]);
         gl_upsert_field_value($db, $dataText, $pageId, $maxId, $triplet[2]);
@@ -155,11 +160,16 @@ foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
     );
     $socialTriplet = gl_legacy_triplet($legacySocial, 'social');
     if ($socialTriplet) {
-        gl_upsert_field_value($db, $dataText, $pageId, gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_min'), $socialTriplet[0]);
-        gl_upsert_field_value($db, $dataText, $pageId, gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_mid'), $socialTriplet[1]);
-        gl_upsert_field_value($db, $dataText, $pageId, gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_max'), $socialTriplet[2]);
-        echo "  social_gap: legacy {$legacySocial}px -> clamp({$socialTriplet[0]}px, {$socialTriplet[1]}px, {$socialTriplet[2]}px)\n";
-        $updated++;
+        $socialMinId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_min');
+        $socialMidId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_mid');
+        $socialMaxId = gl_get_field_id($db, $fields, $templateId, $prefix . 'social_gap_max');
+        if ($socialMinId && $socialMidId && $socialMaxId) {
+            gl_upsert_field_value($db, $dataText, $pageId, $socialMinId, $socialTriplet[0]);
+            gl_upsert_field_value($db, $dataText, $pageId, $socialMidId, $socialTriplet[1]);
+            gl_upsert_field_value($db, $dataText, $pageId, $socialMaxId, $socialTriplet[2]);
+            echo "  social_gap: legacy {$legacySocial}px -> clamp({$socialTriplet[0]}px, {$socialTriplet[1]}px, {$socialTriplet[2]}px)\n";
+            $updated++;
+        }
     }
 }
 
