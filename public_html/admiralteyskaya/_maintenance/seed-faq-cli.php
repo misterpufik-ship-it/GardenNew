@@ -11,7 +11,7 @@ if (PHP_SAPI !== 'cli' && !defined('GL_SKIP_CLI_CHECK')) {
 $root = realpath(__DIR__ . '/..');
 chdir($root);
 require_once $root . '/couch/cms.php';
-require_once dirname(__DIR__) . '/../age-gate/faq-content.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/faq-content.php';
 
 global $AUTH, $FUNCS;
 

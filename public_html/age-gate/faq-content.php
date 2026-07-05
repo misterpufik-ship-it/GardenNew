@@ -1,5 +1,38 @@
 <?php
 
+function gl_faq_masterpage($branch)
+{
+    return $branch === 'udelnaya' ? 'udelnaya/faq.php' : 'faq.php';
+}
+
+function gl_faq_template_registered($masterpage)
+{
+    global $DB;
+
+    if (!isset($DB) || !is_object($DB) || !defined('K_TBL_TEMPLATES')) {
+        return false;
+    }
+
+    $name = $DB->sanitize((string) $masterpage);
+    $rs = $DB->select(K_TBL_TEMPLATES, array('id'), "name = '" . $name . "'");
+
+    return is_array($rs) && count($rs) > 0;
+}
+
+function gl_faq_render_fallback($branch)
+{
+    $items = gl_faq_default_items($branch);
+    gl_render_faq_styles();
+    gl_render_faq_section_items(
+        $items,
+        array(
+            'title' => 'Частые вопросы',
+            'subtitle' => 'FAQ Garden Lounge',
+        )
+    );
+    gl_render_faq_script();
+}
+
 function gl_faq_schema_text($plain, $html)
 {
     $plain = trim((string) $plain);

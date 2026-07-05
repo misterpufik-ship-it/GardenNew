@@ -1,3 +1,20 @@
-<cms:pages masterpage='<cms:if is_udelnaya>udelnaya/faq.php<cms:else />faq.php</cms:if>' limit='1'>
+<cms:php>
+global $CTX;
+require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/faq-content.php';
+$branch = $CTX->get('is_udelnaya') ? 'udelnaya' : 'admiralteyskaya';
+$master = gl_faq_masterpage($branch);
+$use_cms = gl_faq_template_registered($master);
+if ($use_cms) {
+    $CTX->set('gl_faq_master', $master, 'parent');
+    $CTX->set('gl_faq_use_cms', '1', 'parent');
+} else {
+    $CTX->set('gl_faq_use_cms', '0', 'parent');
+    gl_faq_render_fallback($branch);
+}
+</cms:php>
+
+<cms:if gl_faq_use_cms='1'>
+<cms:pages masterpage="<cms:show gl_faq_master />" limit='1'>
     <cms:embed 'faq-section.html' />
 </cms:pages>
+</cms:if>

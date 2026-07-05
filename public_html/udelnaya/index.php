@@ -165,7 +165,7 @@ require_once $garden_cms;
     <cms:pages masterpage='udelnaya/reservation.php' limit='1'><cms:embed 'reservation.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='udelnaya/filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
-    <cms:pages masterpage='udelnaya/faq.php' limit='1'><cms:embed 'faq-section.html' /></cms:pages>
+    <cms:embed 'faq.html' />
 
     <style>
         .footer-brand-col { order: 1; }
