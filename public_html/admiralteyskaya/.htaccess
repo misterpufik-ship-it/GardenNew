@@ -1,5 +1,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^udelnaya/menu/?(.*)$ https://garden-lounge.pro/udelnaya/menu/$1 [R=301,L]
+    RewriteRule ^udelnaya/?(.*)$ https://garden-lounge.pro/udelnaya/$1 [R=301,L]
     RewriteRule ^menu$ menu/ [R=301,L]
     RewriteCond %{HTTP:Accept} image/webp
     RewriteCond %{DOCUMENT_ROOT}/admiralteyskaya/$1.webp -f
