@@ -57,9 +57,9 @@ require_once $garden_cms;
 
     <!-- ГРУППА: SEO ПО УМОЛЧАНИЮ -->
     <cms:editable name='group_seo' label='SEO по умолчанию' type='group' />
-        <cms:editable name='seo_title_default' label='Заголовок (Title)' group='group_seo' type='text'>Garden Lounge на Удельной — кальянная и лаунж-бар на севере СПб</cms:editable>
-        <cms:editable name='seo_desc_default' label='Описание (Description)' group='group_seo' type='textarea'>Garden Lounge на ул. Аккуратова 13: премиальные кальяны, кухня, VIP-комнаты, PS5 и бронь столика рядом с метро Удельная. Тел. +7 950 047-33-65.</cms:editable>
-        <cms:editable name='seo_keywords_default' label='Ключевые слова' group='group_seo' type='textarea'>Garden Lounge Удельная, кальянная Удельная, кальянная у метро Удельная, лаунж бар Удельная, кальянная на севере СПб, кальянная СПб, ул. Аккуратова 13, VIP-комнаты, PS5, кухня</cms:editable>
+        <cms:editable name='seo_title_default' label='Заголовок (Title)' group='group_seo' type='text'>Garden Lounge в Приморском районе — кальянная и лаунж-бар, м. Удельная</cms:editable>
+        <cms:editable name='seo_desc_default' label='Описание (Description)' group='group_seo' type='textarea'>Garden Lounge на ул. Аккуратова 13, Приморский район: премиальные кальяны, кухня, VIP-комнаты, PS5 и бронь столика у метро Удельная. Тел. +7 950 047-33-65.</cms:editable>
+        <cms:editable name='seo_keywords_default' label='Ключевые слова' group='group_seo' type='textarea'>Garden Lounge Приморский район, кальянная Приморский район, кальянная в Приморском районе, кальянная у метро Удельная, лаунж бар Приморский район, кальянная на севере СПб, кальянная СПб, ул. Аккуратова 13, VIP-комнаты, PS5, кухня</cms:editable>
         <cms:editable name='seo_image_default' label='Картинка для соцсетей (OG Image)' group='group_seo' type='image'>https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg</cms:editable>
 
 </cms:template>

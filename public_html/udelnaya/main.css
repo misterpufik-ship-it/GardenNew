@@ -325,6 +325,24 @@ img { display: block; max-width: 100%; height: auto; }
     font-family: 'Montserrat', sans-serif !important;
 }
 
+.philosophy-seo-h1 {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 18px !important;
+    line-height: 1.45 !important;
+    font-weight: 300 !important;
+    font-style: italic !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    max-width: 36rem;
+    margin: 0 auto 1rem !important;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .philosophy-seo-h1 {
+        font-size: 20px !important;
+    }
+}
+
 /* Подписи КОНЦЕПЦИЯ / ВИЗУАЛЬНАЯ ЭСТЕТИКА / ЭСТЕТИКА ВКУСА */
 .title-concept, .shimmer-gold.text-\[12px\], .shimmer-gold.tracking-\[0\.4em\] { 
     font-size: 11px !important; 
