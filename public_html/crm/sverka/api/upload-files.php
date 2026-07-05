@@ -8,7 +8,30 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require dirname(__DIR__, 2) . '/_lib/storage.php';
+require_once dirname(__DIR__, 2) . '/_lib/storage.php';
+
+function sverka_upload_error(string $field): ?string
+{
+    if (!isset($_FILES[$field])) {
+        return null;
+    }
+    $err = (int) $_FILES[$field]['error'];
+    if ($err === UPLOAD_ERR_OK) {
+        return null;
+    }
+    $name = $_FILES[$field]['name'] ?? $field;
+    $messages = [
+        UPLOAD_ERR_INI_SIZE => 'Файл слишком большой (лимит сервера)',
+        UPLOAD_ERR_FORM_SIZE => 'Файл слишком большой',
+        UPLOAD_ERR_PARTIAL => 'Файл загружен не полностью',
+        UPLOAD_ERR_NO_FILE => 'Файл не выбран',
+        UPLOAD_ERR_NO_TMP_DIR => 'Нет временной папки на сервере',
+        UPLOAD_ERR_CANT_WRITE => 'Нет места на диске или нет прав записи',
+        UPLOAD_ERR_EXTENSION => 'Загрузка заблокирована расширением PHP',
+    ];
+    $msg = $messages[$err] ?? ('Код ошибки загрузки: ' . $err);
+    return $name . ': ' . $msg;
+}
 
 $entity = $_POST['entity'] ?? 'lounge';
 if (!in_array($entity, ['lounge', 'vympel'], true)) {
@@ -19,7 +42,11 @@ if (!in_array($entity, ['lounge', 'vympel'], true)) {
 
 function sverka_store_upload(string $entity, string $field, string $kind): ?array
 {
-    if (!isset($_FILES[$field]) || $_FILES[$field]['error'] !== UPLOAD_ERR_OK) {
+    $uploadErr = sverka_upload_error($field);
+    if ($uploadErr !== null) {
+        throw new RuntimeException($uploadErr);
+    }
+    if (!isset($_FILES[$field])) {
         return null;
     }
 

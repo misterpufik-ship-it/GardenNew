@@ -1135,11 +1135,19 @@ async function runReconciliation() {
 
     CONFIG = collectConfigFromForm();
     const entity = CONFIG.entity;
-    const [reportBuf, stmtBuf, uploaded] = await Promise.all([
+    const [reportBuf, stmtBuf] = await Promise.all([
       readFileAsArrayBuffer(reportInput.files[0]),
       readFileAsArrayBuffer(stmtInput.files[0]),
-      uploadSourceFiles(entity, reportInput.files[0], stmtInput.files[0]),
     ]);
+
+    let uploaded = null;
+    let uploadWarning = '';
+    try {
+      uploaded = await uploadSourceFiles(entity, reportInput.files[0], stmtInput.files[0]);
+    } catch (uploadErr) {
+      uploadWarning = uploadErr.message || 'Не удалось сохранить файлы на сервере';
+      console.warn('uploadSourceFiles:', uploadErr);
+    }
 
     const reportWb = XLSX.read(reportBuf, { type: 'array', cellDates: true });
     const stmtWb = XLSX.read(stmtBuf, { type: 'array', cellDates: true });
@@ -1175,10 +1183,12 @@ async function runReconciliation() {
       await saveData({ silent: true });
       await loadArchive();
       renderSessionTabs();
-      msg.textContent = `Сверка выполнена и сохранена на сервере: ${reportInput.files[0].name} + ${stmtInput.files[0].name}`;
-      msg.className = 'msg ok';
+      const okText = `Сверка выполнена и сохранена: ${reportInput.files[0].name} + ${stmtInput.files[0].name}`;
+      msg.textContent = uploadWarning ? `${okText}. ${uploadWarning}` : okText;
+      msg.className = uploadWarning ? 'msg err' : 'msg ok';
     } catch (saveErr) {
-      msg.textContent = `Сверка выполнена, но сохранение не удалось: ${saveErr.message}`;
+      const base = `Сверка выполнена, но сохранение не удалось: ${saveErr.message}`;
+      msg.textContent = uploadWarning ? `${base}. ${uploadWarning}` : base;
       msg.className = 'msg err';
     }
   } catch (err) {
