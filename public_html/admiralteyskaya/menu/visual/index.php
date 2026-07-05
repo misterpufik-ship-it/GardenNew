@@ -125,7 +125,7 @@
 
         /* СТИЛИ АКЦИЙ (ИЗ ТЕКСТОВОГО МЕНЮ) */
         .promo-card { border:1px solid rgba(197,160,89,0.2); background-color: rgba(20,20,20,0.4); padding:20px; text-align:center; margin-bottom: 15px; }
-        .promo-card .promo-offer { font-size: 12px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 500; margin: 0; }
+        .promo-card .promo-offer { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 500; margin: 0; }
         .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
         .film-grain { position:absolute; top:0; left:0; width:100%; height:100%; background:url('/img/noise.svg'); opacity:.04; pointer-events:none; z-index:1; }
 

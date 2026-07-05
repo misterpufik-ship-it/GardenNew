@@ -427,7 +427,7 @@ img { display: block; max-width: 100%; height: auto; }
 .promo-card .promo-offer,
 #special .promo-offer {
     font-family: 'Montserrat', sans-serif !important;
-    font-size: 11px !important;
+    font-size: 10px !important;
     line-height: 1.8 !important;
     letter-spacing: 0.4em !important;
     text-transform: uppercase !important;
