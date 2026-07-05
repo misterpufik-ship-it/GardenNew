@@ -364,6 +364,16 @@ img { display: block; max-width: 100%; height: auto; }
     max-width: 640px !important; 
 }
 
+@media (max-width: 767px) {
+    .slogan-rituals {
+        font-size: 10px !important;
+        letter-spacing: 0.3em !important;
+        line-height: 1.8 !important;
+        max-width: min(100%, 22rem) !important;
+        padding: 0 12px;
+    }
+}
+
 .gl-section-footer,
 #menu-block .content-limiter > .mt-12,
 .akzii-footer,
