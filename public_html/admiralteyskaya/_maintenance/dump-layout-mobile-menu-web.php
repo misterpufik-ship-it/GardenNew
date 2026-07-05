@@ -47,7 +47,7 @@ if (!$page) {
 }
 $pageId = (int) $page['id'];
 
-$res = $db->query("SELECT f.name, f.label, f.not_active, d.value FROM `{$fields}` f LEFT JOIN `{$dataText}` d ON d.field_id=f.id AND d.page_id={$pageId} WHERE f.template_id={$templateId} AND f.k_type NOT IN ('group','message') ORDER BY f.k_order, f.id");
+$res = $db->query("SELECT f.name, f.label, f.not_active, COALESCE((SELECT d.value FROM `{$dataText}` d WHERE d.page_id={$pageId} AND d.field_id=f.id ORDER BY d.id DESC LIMIT 1), '') AS value FROM `{$fields}` f WHERE f.template_id={$templateId} AND f.k_type NOT IN ('group','message') ORDER BY f.k_order, f.id");
 echo "layout-mobile-menu.php page_id={$pageId}\n\n";
 while ($row = $res->fetch_assoc()) {
     $flag = $row['not_active'] ? ' [legacy/hidden]' : '';

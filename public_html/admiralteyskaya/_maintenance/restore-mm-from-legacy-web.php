@@ -75,10 +75,10 @@ function gl_get_field_value($db, $dataText, $pageId, $fieldId)
 
 function gl_upsert_field_value($db, $dataText, $pageId, $fieldId, $value)
 {
-    $row = gl_fetch_one($db, "SELECT id FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1");
-    if ($row) {
-        return (bool) $db->query("UPDATE `{$dataText}` SET value=" . gl_qval($db, $value) . " WHERE id=" . (int) $row['id'] . " LIMIT 1");
+    if (!$fieldId) {
+        return false;
     }
+    $db->query("DELETE FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId}");
     return (bool) $db->query("INSERT INTO `{$dataText}` (`page_id`,`field_id`,`value`) VALUES ({$pageId},{$fieldId}," . gl_qval($db, $value) . ")");
 }
 
