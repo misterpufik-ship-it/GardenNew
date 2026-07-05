@@ -32,6 +32,36 @@ foreach ($replacements as $old => $new) {
     }
 }
 
+if (strpos($content, "'title'=>'Адмирал', 'weight'=>26") === false &&
+    preg_match("/'faq\\.php'\\s*=>\\s*array\\('field'=>'label_faq',\\s*'title'=>'[^']*',\\s*'weight'=>\\d+\\),/", $content)) {
+    $content = preg_replace(
+        "/'faq\\.php'\\s*=>\\s*array\\('field'=>'label_faq',\\s*'title'=>'[^']*',\\s*'weight'=>\\d+\\),/",
+        "'faq.php' => array('field'=>'label_faq', 'title'=>'Адмирал', 'weight'=>26),",
+        $content,
+        1,
+        $count
+    );
+    if ($count) {
+        $changed = true;
+        echo "Regex-updated faq.php label\n";
+    }
+}
+
+if (strpos($content, "'title'=>'Уделка', 'weight'=>27") === false &&
+    preg_match("/'udelnaya\\/faq\\.php'\\s*=>\\s*array\\('field'=>'label_u_faq',\\s*'title'=>'[^']*',\\s*'weight'=>\\d+\\),/", $content)) {
+    $content = preg_replace(
+        "/'udelnaya\\/faq\\.php'\\s*=>\\s*array\\('field'=>'label_u_faq',\\s*'title'=>'[^']*',\\s*'weight'=>\\d+\\),/",
+        "'udelnaya/faq.php' => array('field'=>'label_u_faq', 'title'=>'Уделка', 'weight'=>27),",
+        $content,
+        1,
+        $count
+    );
+    if ($count) {
+        $changed = true;
+        echo "Regex-updated udelnaya/faq.php label\n";
+    }
+}
+
 if (strpos($content, "'_garden_faq_'") === false) {
     $needle = "\$items['_garden_udelnaya_'] = garden_admin_menu_header( '_garden_udelnaya_', 'Удельная', 1 );";
     if (strpos($content, $needle) === false) {
