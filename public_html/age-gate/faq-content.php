@@ -149,7 +149,7 @@ function gl_render_faq_section($branch)
         $id = 'gl-faq-item-' . ($index + 1);
         echo '<article class="gl-faq-item">';
         echo '<button type="button" class="gl-faq-question" aria-expanded="false" aria-controls="' . $id . '">';
-        echo '<span class="gl-faq-question-text">' . htmlspecialchars($item['q'], ENT_QUOTES, 'UTF-8') . '</span>';
+        echo '<span class="gl-faq-question-text shimmer-gold">' . htmlspecialchars($item['q'], ENT_QUOTES, 'UTF-8') . '</span>';
         echo '<i class="fas fa-chevron-down gl-faq-icon" aria-hidden="true"></i>';
         echo '</button>';
         echo '<div id="' . $id . '" class="gl-faq-answer" hidden>';
@@ -215,27 +215,32 @@ function gl_render_faq_styles()
 .gl-faq-question {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
-    padding: 11px 14px;
+    padding: 12px 14px;
     background: transparent;
     border: 0;
-    color: #fff;
+    color: inherit;
     text-align: left;
     font-family: 'Montserrat', sans-serif;
     cursor: pointer;
 }
 .gl-faq-question-text {
     flex: 1 1 auto;
-    font-size: 11px;
-    line-height: 1.45;
-    letter-spacing: 0.03em;
-    font-weight: 500;
+    display: block;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.875rem;
+    font-weight: 300;
+    line-height: 1.625;
+    letter-spacing: 0.025em;
+    text-align: left;
+    text-transform: none;
 }
-.gl-faq-question:hover,
-.gl-faq-item.is-open .gl-faq-question {
-    color: #C5A059;
+.gl-faq-question-text.shimmer-gold {
+    display: block;
+    width: 100%;
 }
 .gl-faq-icon {
     flex: 0 0 auto;
@@ -267,7 +272,7 @@ function gl_render_faq_styles()
 }
 @media (max-width: 767px) {
     .gl-faq-question { padding: 10px 12px; }
-    .gl-faq-question-text { font-size: 10px; }
+    .gl-faq-question-text { font-size: 0.8125rem; }
     .gl-faq-answer p { font-size: 10px; }
 }
 </style>
