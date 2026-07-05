@@ -49,6 +49,9 @@ require_once $garden_cms;
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title><cms:get_custom_field 'seo_title_default' masterpage='udelnaya/globals.php' /></title>
+    <meta name="description" content="<cms:get_custom_field 'seo_desc_default' masterpage='udelnaya/globals.php' />">
+
     <cms:pages masterpage='udelnaya/globals.php' limit='1'>
         <cms:set global_title=seo_title_default 'global' />
         <cms:set global_desc=seo_desc_default 'global' />
@@ -64,9 +67,6 @@ require_once $garden_cms;
         <cms:set social_telegram=link_telegram 'global' />
         <cms:set social_youtube=link_youtube 'global' />
     </cms:pages>
-
-    <title><cms:show global_title /></title>
-    <meta name="description" content="<cms:show global_desc />">
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
