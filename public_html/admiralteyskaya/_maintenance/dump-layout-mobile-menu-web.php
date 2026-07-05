@@ -42,16 +42,16 @@ function gl_fetch_one_dump($db, $sql)
     return $res ? $res->fetch_assoc() : null;
 }
 
-$template = gl_fetch_one_dump($db, "SELECT id FROM `{$mmTemplates}` WHERE name='layout-mobile-menu.php' LIMIT 1");
-if (!$template) {
+$mmTemplateRow = gl_fetch_one_dump($db, "SELECT id FROM `{$mmTemplates}` WHERE name='layout-mobile-menu.php' LIMIT 1");
+if (!$mmTemplateRow) {
     exit("Template not found\n");
 }
-$mmTemplateId = (int) $template['id'];
-$page = gl_fetch_one_dump($db, "SELECT id FROM `{$mmPages}` WHERE template_id={$mmTemplateId} AND is_master='1' LIMIT 1");
-if (!$page) {
+$mmTemplateId = (int) $mmTemplateRow['id'];
+$mmPageRow = gl_fetch_one_dump($db, "SELECT id FROM `{$mmPages}` WHERE template_id={$mmTemplateId} AND is_master='1' LIMIT 1");
+if (!$mmPageRow) {
     exit("Master page not found\n");
 }
-$mmPageId = (int) $page['id'];
+$mmPageId = (int) $mmPageRow['id'];
 
 $res = $db->query("SELECT f.id AS field_id, f.name, f.not_active FROM `{$mmFieldsTable}` f WHERE f.template_id={$mmTemplateId} AND f.k_type NOT IN ('group','message') ORDER BY f.k_order, f.id");
 if (!$res) {

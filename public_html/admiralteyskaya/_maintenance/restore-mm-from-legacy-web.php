@@ -36,10 +36,10 @@ if ($db->connect_errno) {
 $db->set_charset('utf8');
 mysqli_report(MYSQLI_REPORT_OFF);
 
-$templates = K_DB_TABLES_PREFIX . 'couch_templates';
-$pages = K_DB_TABLES_PREFIX . 'couch_pages';
-$fieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
-$dataText = K_DB_TABLES_PREFIX . 'couch_data_text';
+$mmTemplates = K_DB_TABLES_PREFIX . 'couch_templates';
+$mmPages = K_DB_TABLES_PREFIX . 'couch_pages';
+$mmFieldsTable = K_DB_TABLES_PREFIX . 'couch_fields';
+$mmDataText = K_DB_TABLES_PREFIX . 'couch_data_text';
 
 function gl_qval($db, $value)
 {
@@ -61,25 +61,25 @@ function gl_get_field_id($db, $fieldsTable, $templateId, $name)
     return $row ? (int) $row['id'] : 0;
 }
 
-function gl_get_field_value($db, $dataText, $pageId, $fieldId)
+function gl_get_field_value($db, $mmDataText, $pageId, $fieldId)
 {
     if (!$fieldId) {
         return '';
     }
     $row = gl_fetch_one(
         $db,
-        "SELECT value FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
+        "SELECT value FROM `{$mmDataText}` WHERE page_id={$pageId} AND field_id={$fieldId} LIMIT 1"
     );
     return $row ? (string) $row['value'] : '';
 }
 
-function gl_upsert_field_value($db, $dataText, $pageId, $fieldId, $value)
+function gl_upsert_field_value($db, $mmDataText, $pageId, $fieldId, $value)
 {
     if (!$fieldId) {
         return false;
     }
-    $db->query("DELETE FROM `{$dataText}` WHERE page_id={$pageId} AND field_id={$fieldId}");
-    return (bool) $db->query("INSERT INTO `{$dataText}` (`page_id`,`field_id`,`value`) VALUES ({$pageId},{$fieldId}," . gl_qval($db, $value) . ")");
+    $db->query("DELETE FROM `{$mmDataText}` WHERE page_id={$pageId} AND field_id={$fieldId}");
+    return (bool) $db->query("INSERT INTO `{$mmDataText}` (`page_id`,`field_id`,`value`) VALUES ({$pageId},{$fieldId}," . gl_qval($db, $value) . ")");
 }
 
 function gl_legacy_triplet($legacyPx, $kind)
@@ -104,16 +104,16 @@ function gl_legacy_triplet($legacyPx, $kind)
     }
 }
 
-$template = gl_fetch_one($db, "SELECT id FROM `{$templates}` WHERE name='layout-mobile-menu.php' LIMIT 1");
-if (!$template) {
+$mmTemplateRow = gl_fetch_one($db, "SELECT id FROM `{$mmTemplates}` WHERE name='layout-mobile-menu.php' LIMIT 1");
+if (!$mmTemplateRow) {
     exit("Template not found\n");
 }
-$templateId = (int) $template['id'];
-$page = gl_fetch_one($db, "SELECT id FROM `{$pages}` WHERE template_id={$templateId} AND is_master='1' LIMIT 1");
-if (!$page) {
+$mmTemplateId = (int) $mmTemplateRow['id'];
+$mmPageRow = gl_fetch_one($db, "SELECT id FROM `{$mmPages}` WHERE template_id={$mmTemplateId} AND is_master='1' LIMIT 1");
+if (!$mmPageRow) {
     exit("Master page not found\n");
 }
-$pageId = (int) $page['id'];
+$mmPageId = (int) $mmPageRow['id'];
 
 $map = array(
     array('legacy' => 'shell_pad_top', 'key' => 'shell_top', 'kind' => 'shell_top'),
@@ -129,44 +129,44 @@ foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
     foreach ($map as $item) {
         $legacyVal = gl_get_field_value(
             $db,
-            $dataText,
-            $pageId,
-            gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['legacy'])
+            $mmDataText,
+            $mmPageId,
+            gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . $item['legacy'])
         );
         $triplet = gl_legacy_triplet($legacyVal, $item['kind']);
         if (!$triplet) {
             echo "  skip {$item['key']}: legacy empty\n";
             continue;
         }
-        $minId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['key'] . '_min');
-        $vhId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['key'] . '_vh');
-        $maxId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . $item['key'] . '_max');
+        $minId = gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . $item['key'] . '_min');
+        $vhId = gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . $item['key'] . '_vh');
+        $maxId = gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . $item['key'] . '_max');
         if (!$minId || !$vhId || !$maxId) {
             echo "  skip {$item['key']}: clamp fields missing\n";
             continue;
         }
-        gl_upsert_field_value($db, $dataText, $pageId, $minId, $triplet[0]);
-        gl_upsert_field_value($db, $dataText, $pageId, $vhId, $triplet[1]);
-        gl_upsert_field_value($db, $dataText, $pageId, $maxId, $triplet[2]);
+        gl_upsert_field_value($db, $mmDataText, $mmPageId, $minId, $triplet[0]);
+        gl_upsert_field_value($db, $mmDataText, $mmPageId, $vhId, $triplet[1]);
+        gl_upsert_field_value($db, $mmDataText, $mmPageId, $maxId, $triplet[2]);
         echo "  {$item['key']}: legacy {$legacyVal}px -> clamp({$triplet[0]}px, {$triplet[1]}vh, {$triplet[2]}px)\n";
         $updated++;
     }
 
     $legacySocial = gl_get_field_value(
         $db,
-        $dataText,
-        $pageId,
-        gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap')
+        $mmDataText,
+        $mmPageId,
+        gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . 'social_gap')
     );
     $socialTriplet = gl_legacy_triplet($legacySocial, 'social');
     if ($socialTriplet) {
-        $socialMinId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap_min');
-        $socialMidId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap_mid');
-        $socialMaxId = gl_get_field_id($db, $fieldsTable, $templateId, $prefix . 'social_gap_max');
+        $socialMinId = gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . 'social_gap_min');
+        $socialMidId = gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . 'social_gap_mid');
+        $socialMaxId = gl_get_field_id($db, $mmFieldsTable, $mmTemplateId, $prefix . 'social_gap_max');
         if ($socialMinId && $socialMidId && $socialMaxId) {
-            gl_upsert_field_value($db, $dataText, $pageId, $socialMinId, $socialTriplet[0]);
-            gl_upsert_field_value($db, $dataText, $pageId, $socialMidId, $socialTriplet[1]);
-            gl_upsert_field_value($db, $dataText, $pageId, $socialMaxId, $socialTriplet[2]);
+            gl_upsert_field_value($db, $mmDataText, $mmPageId, $socialMinId, $socialTriplet[0]);
+            gl_upsert_field_value($db, $mmDataText, $mmPageId, $socialMidId, $socialTriplet[1]);
+            gl_upsert_field_value($db, $mmDataText, $mmPageId, $socialMaxId, $socialTriplet[2]);
             echo "  social_gap: legacy {$legacySocial}px -> clamp({$socialTriplet[0]}px, {$socialTriplet[1]}px, {$socialTriplet[2]}px)\n";
             $updated++;
         }
