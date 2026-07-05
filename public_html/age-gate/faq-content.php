@@ -1,6 +1,21 @@
 <?php
 
-function gl_faq_branch_items($branch)
+function gl_faq_schema_text($plain, $html)
+{
+    $plain = trim((string) $plain);
+    if ($plain !== '') {
+        return $plain;
+    }
+
+    $html = trim((string) $html);
+    if ($html === '') {
+        return '';
+    }
+
+    return trim(preg_replace('/\s+/u', ' ', strip_tags($html)));
+}
+
+function gl_faq_default_items($branch)
 {
     if ($branch === 'udelnaya') {
         return array(
@@ -30,8 +45,8 @@ function gl_faq_branch_items($branch)
             ),
             array(
                 'q' => 'Можно ли отметить день рождения?',
-                'a' => 'Да: зал или VIP-комната, кальян, кухня и бар. Детали — при бронировании.',
-                'a_html' => 'Да: зал или VIP-комната, кальян, кухня и бар. Детали — <a href="#reservation">при бронировании</a>.',
+                'a' => 'Конечно! Забронируйте стол в зале или VIP-комнату — с кальянами, кухней и баром. Детали уточняйте при бронировании.',
+                'a_html' => 'Конечно! Можно <a href="#reservation">забронировать стол</a> в зале или VIP-комнату — с кальянами, кухней и баром. Детали уточняйте <a href="#reservation">при бронировании</a>.',
             ),
             array(
                 'q' => 'Можно ли принести свой алкоголь или еду?',
@@ -82,8 +97,8 @@ function gl_faq_branch_items($branch)
         ),
         array(
             'q' => 'Можно ли отметить день рождения?',
-            'a' => 'Да: стол или VIP, кальян, кухня и бар. Детали — при бронировании.',
-            'a_html' => 'Да: стол или VIP, кальян, кухня и бар. Детали — <a href="#reservation">при бронировании</a>.',
+            'a' => 'Конечно! Забронируйте стол в зале или VIP-комнату — с кальянами, кухней и баром. Детали уточняйте при бронировании.',
+            'a_html' => 'Конечно! Можно <a href="#reservation">забронировать стол</a> в зале или VIP-комнату — с кальянами, кухней и баром. Детали уточняйте <a href="#reservation">при бронировании</a>.',
         ),
         array(
             'q' => 'Можно ли принести свой алкоголь или еду?',
@@ -107,6 +122,20 @@ function gl_faq_branch_items($branch)
     );
 }
 
+function gl_faq_default_cms_rows($branch)
+{
+    $rows = array();
+    foreach (gl_faq_default_items($branch) as $item) {
+        $html = isset($item['a_html']) ? $item['a_html'] : htmlspecialchars($item['a'], ENT_QUOTES, 'UTF-8');
+        $rows[] = array(
+            'faq_question' => $item['q'],
+            'faq_answer_schema' => $item['a'],
+            'faq_answer_html' => $html,
+        );
+    }
+    return $rows;
+}
+
 function gl_faq_answer_html($item)
 {
     if (!empty($item['a_html'])) {
@@ -116,15 +145,17 @@ function gl_faq_answer_html($item)
     return htmlspecialchars($item['a'], ENT_QUOTES, 'UTF-8');
 }
 
-function gl_render_faq_schema($branch)
+function gl_render_faq_schema($items)
 {
-    $items = gl_faq_branch_items($branch);
     if (!$items) {
         return;
     }
 
     $entities = array();
     foreach ($items as $item) {
+        if (empty($item['q']) || empty($item['a'])) {
+            continue;
+        }
         $entities[] = array(
             '@type' => 'Question',
             'name' => $item['q'],
@@ -133,6 +164,10 @@ function gl_render_faq_schema($branch)
                 'text' => $item['a'],
             ),
         );
+    }
+
+    if (!$entities) {
+        return;
     }
 
     $json = json_encode(
@@ -151,27 +186,34 @@ function gl_render_faq_schema($branch)
     echo '<script type="application/ld+json">' . $json . '</script>' . "\n";
 }
 
-function gl_render_faq_section($branch)
+function gl_render_faq_section_items($items, $options = array())
 {
-    $items = gl_faq_branch_items($branch);
     if (!$items) {
         return;
     }
 
-    gl_render_faq_schema($branch);
+    $title = !empty($options['title']) ? $options['title'] : 'Частые вопросы';
+    $subtitle = !empty($options['subtitle']) ? $options['subtitle'] : 'FAQ Garden Lounge';
+
+    gl_render_faq_schema($items);
 
     echo '<section id="faq" class="gl-faq-section">';
     echo '<div class="gl-faq-grain"></div>';
     echo '<div class="gl-faq-inner widget-limiter">';
     echo '<div class="gl-section-head text-center mb-8 fade-up">';
-    echo '<h2 class="gl-faq-title font-serif-lux">Частые вопросы</h2>';
+    echo '<h2 class="gl-faq-title font-serif-lux">' . htmlspecialchars($title, ENT_QUOTES, 'UTF-8') . '</h2>';
     echo '<div class="golden-line"></div>';
-    echo '<p class="gl-faq-subtitle subtitle-gold">FAQ Garden Lounge</p>';
+    echo '<p class="gl-faq-subtitle subtitle-gold">' . htmlspecialchars($subtitle, ENT_QUOTES, 'UTF-8') . '</p>';
     echo '</div>';
     echo '<div class="gl-faq-list fade-up" style="animation-delay:0.15s">';
 
-    foreach ($items as $index => $item) {
-        $id = 'gl-faq-item-' . ($index + 1);
+    $index = 0;
+    foreach ($items as $item) {
+        if (empty($item['q'])) {
+            continue;
+        }
+        $index++;
+        $id = 'gl-faq-item-' . $index;
         echo '<article class="gl-faq-item">';
         echo '<button type="button" class="gl-faq-question" aria-expanded="false" aria-controls="' . $id . '">';
         echo '<span class="gl-faq-question-text">' . htmlspecialchars($item['q'], ENT_QUOTES, 'UTF-8') . '</span>';
@@ -305,17 +347,16 @@ function gl_render_faq_styles()
     background: none;
     -webkit-background-clip: border-box;
     background-clip: border-box;
-    -webkit-text-fill-color: var(--gold-light);
-    color: var(--gold-light);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-color: rgba(197, 160, 89, 0.55);
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-}
-.gl-faq-answer p a:hover {
     -webkit-text-fill-color: #fff;
     color: #fff;
-    text-decoration-color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(255, 255, 255, 0.45);
+    transition: opacity 0.2s ease, text-decoration-color 0.2s ease;
+}
+.gl-faq-answer p a:hover {
+    opacity: 0.85;
+    text-decoration-color: rgba(255, 255, 255, 0.85);
 }
 @media (max-width: 767px) {
     .gl-faq-question { padding: 10px 12px; }

@@ -133,7 +133,7 @@
     <cms:pages masterpage='reservation.php' limit='1'><cms:embed 'reservation.html' /></cms:pages>
     <cms:pages masterpage='contacts.php' limit='1'><cms:embed 'contacts.html' /></cms:pages>
     <cms:pages masterpage='filial.php' limit='1'><cms:embed 'filial.html' /></cms:pages>
-    <cms:embed 'faq.html' />
+    <cms:pages masterpage='faq.php' limit='1'><cms:embed 'faq-section.html' /></cms:pages>
 
     <cms:embed 'footer.html' />
 
