@@ -49,9 +49,6 @@ require_once $garden_cms;
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><cms:get_custom_field 'seo_title_default' masterpage='udelnaya/globals.php' /></title>
-    <meta name="description" content="<cms:get_custom_field 'seo_desc_default' masterpage='udelnaya/globals.php' />">
-
     <cms:pages masterpage='udelnaya/globals.php' limit='1'>
         <cms:set global_title=seo_title_default 'global' />
         <cms:set global_desc=seo_desc_default 'global' />
@@ -67,6 +64,9 @@ require_once $garden_cms;
         <cms:set social_telegram=link_telegram 'global' />
         <cms:set social_youtube=link_youtube 'global' />
     </cms:pages>
+
+    <title><cms:if global_title><cms:show global_title /><cms:else />Garden Lounge в Приморском районе — кальянная и лаунж-бар, м. Удельная</cms:if></title>
+    <meta name="description" content="<cms:if global_desc><cms:show global_desc /><cms:else />Garden Lounge на ул. Аккуратова 13, Приморский район: премиальные кальяны, кухня, VIP-комнаты, PS5 и бронь столика у метро Удельная. Тел. +7 950 047-33-65.</cms:if>">
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
