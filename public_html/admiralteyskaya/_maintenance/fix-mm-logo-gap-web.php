@@ -88,10 +88,18 @@ if (!$page) {
 $pageId = (int) $page['id'];
 
 $updated = 0;
+$overridePx = isset($_GET['px']) ? max(0, (int) $_GET['px']) : 0;
 foreach (array('mm_adm_', 'mm_udel_') as $prefix) {
+    $branchOverride = 0;
+    if ($prefix === 'mm_adm_' && isset($_GET['adm_px'])) {
+        $branchOverride = max(0, (int) $_GET['adm_px']);
+    }
+    if ($prefix === 'mm_udel_' && isset($_GET['udel_px'])) {
+        $branchOverride = max(0, (int) $_GET['udel_px']);
+    }
     $legacyId = gl_get_field_id($db, $fields, $templateId, $prefix . 'logo_menu_gap');
     $legacy = $legacyId ? (int) gl_get_field_value($db, $dataText, $pageId, $legacyId) : 0;
-    $px = $legacy > 0 ? $legacy : 32;
+    $px = $branchOverride > 0 ? $branchOverride : ($overridePx > 0 ? $overridePx : ($legacy > 0 ? $legacy : 32));
     $vh = round($px / 8, 1);
 
     $minId = gl_get_field_id($db, $fields, $templateId, $prefix . 'logo_gap_min');
