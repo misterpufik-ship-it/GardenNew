@@ -719,22 +719,20 @@
             }
         }
     </style>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "@id": "https://garden-lounge.pro/#organization",
-        "name": "Garden Lounge",
-        "url": "https://garden-lounge.pro/",
-        "logo": "<cms:if home_logo><cms:show home_logo /><cms:else />https://garden-lounge.pro/img/logo3.webp</cms:if>",
-        "sameAs": [
-            "<cms:show home_instagram />",
-            "<cms:show home_vk />",
-            "<cms:show home_youtube />",
-            "<cms:show home_telegram />"
-        ]
+    <cms:php>
+    global $CTX;
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/schema-helpers.php';
+    $gl_home_logo = trim((string) $CTX->get('home_logo'));
+    if ($gl_home_logo === '') {
+        $gl_home_logo = 'https://garden-lounge.pro/img/logo3.webp';
     }
-    </script>
+    gl_render_home_schema_graph($gl_home_logo, array(
+        (string) $CTX->get('home_instagram'),
+        (string) $CTX->get('home_vk'),
+        (string) $CTX->get('home_youtube'),
+        (string) $CTX->get('home_telegram'),
+    ));
+    </cms:php>
     <cms:set home_body_class='home-icon-hover-gold' scope='global' />
     <cms:if home_icon_hover_style='light'><cms:set home_body_class='home-icon-hover-light' scope='global' /></cms:if>
     <cms:if home_icon_hover_style='none'><cms:set home_body_class='home-icon-hover-none' scope='global' /></cms:if>

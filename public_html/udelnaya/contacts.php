@@ -39,9 +39,9 @@ require_once $garden_cms;
     <cms:editable name='cont_telegram' label='Telegram (ссылка)' group='cont_group_social' type='text'>https://t.me/Garden_lounge_spb</cms:editable>
 
     <cms:editable name='cont_group_ratings' label='Рейтинги (цифры и ссылки)' type='group' />
-    <cms:editable name='rate_yandex_val' label='Яндекс (балл)' group='cont_group_ratings' type='text'>5.0</cms:editable>
-    <cms:editable name='rate_yandex_count' label='Яндекс (кол-во отзывов)' group='cont_group_ratings' type='text'>480+ отзывов</cms:editable>
-    <cms:editable name='rate_yandex_link' label='Google (ссылка)' group='cont_group_ratings' type='text'>https://yandex.ru/maps/org/garden_lounge/92097430496/reviews/</cms:editable>
+    <cms:editable name='rate_yandex_val' label='Яндекс (балл)' group='cont_group_ratings' type='text' desc='Отображается на сайте и в JSON-LD (AggregateRating). Обновите при изменении рейтинга на Яндекс.Картах.'>5.0</cms:editable>
+    <cms:editable name='rate_yandex_count' label='Яндекс (кол-во отзывов)' group='cont_group_ratings' type='text' desc='Формат: «480+ отзывов». Число автоматически попадает в schema.org (reviewCount). Обновляйте вместе с Яндекс.Картами.'>480+ отзывов</cms:editable>
+    <cms:editable name='rate_yandex_link' label='Яндекс (ссылка на отзывы)' group='cont_group_ratings' type='text'>https://yandex.ru/maps/-/CPtpbQPg</cms:editable>
    
     <cms:editable name='rate_2gis_val' label='2GIS (балл)' group='cont_group_ratings' type='text'>4.9</cms:editable>
     <cms:editable name='rate_2gis_count' label='2GIS (кол-во отзывов)' group='cont_group_ratings' type='text'>131+ отзыв</cms:editable>

@@ -69,12 +69,14 @@ require_once $garden_cms;
     <title>Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар</title>
     <meta name="description" content="Визуальное меню Garden Lounge на Удельной: кальяны, блюда кухни, бар, десерты и акции лаунж-бара у метро Удельная, ул. Аккуратова 13.">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/visual/">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://garden-lounge.pro/udelnaya/menu/visual/">
-    <meta property="og:title" content="Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар">
-    <meta property="og:description" content="Визуальное меню Garden Lounge на Удельной: кальяны, кухня, бар, десерты и акции.">
     <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    gl_menu_og_render(array(
+        'branch' => 'udelnaya',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/visual/',
+        'title' => 'Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар',
+        'description' => 'Визуальное меню Garden Lounge на Удельной: кальяны, кухня, бар, десерты и акции.',
+    ));
     gl_menu_seo_schema_render(array(
         'branch' => 'udelnaya',
         'page' => 'visual',

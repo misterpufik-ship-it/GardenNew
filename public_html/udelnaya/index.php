@@ -80,52 +80,46 @@ require_once $garden_cms;
     
     <cms:embed 'styles.html' />
     <cms:embed 'seo_tags.html' />
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": ["BarOrPub", "Restaurant"],
-        "@id": "https://garden-lounge.pro/udelnaya/#localbusiness",
-        "name": "Garden Lounge на Удельной",
-        "url": "https://garden-lounge.pro/udelnaya/",
-        "image": "https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg",
-        "telephone": "<cms:show adm_phone />",
-        "priceRange": "$$",
-        "servesCuisine": ["Hookah lounge", "Kitchen", "Bar"],
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "<cms:show adm_address />",
-            "addressLocality": "Санкт-Петербург",
-            "addressCountry": "RU"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 60.0165,
-            "longitude": 30.3142
-        },
-        "openingHoursSpecification": [
-            {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"],
-                "opens": "13:00",
-                "closes": "01:00"
-            },
-            {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Friday", "Saturday"],
-                "opens": "13:00",
-                "closes": "03:00"
-            }
-        ],
-        "sameAs": [
-            "<cms:show social_vk />",
-            "<cms:show social_instagram />",
-            "<cms:show social_telegram />",
-            "<cms:show social_youtube />",
-            "https://maps.app.goo.gl/rcwMbaXdfrbSTowd7"
-        ],
-        "hasMap": "<cms:show adm_map />"
-    }
-    </script>
+    <cms:pages masterpage='udelnaya/contacts.php' limit='1'>
+    <cms:php>
+    global $CTX;
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/schema-helpers.php';
+    gl_render_localbusiness_schema(array(
+        'id' => 'https://garden-lounge.pro/udelnaya/#localbusiness',
+        'name' => 'Garden Lounge на Удельной',
+        'url' => 'https://garden-lounge.pro/udelnaya/',
+        'image' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg',
+        'telephone' => (string) $CTX->get('adm_phone'),
+        'streetAddress' => (string) $CTX->get('adm_address'),
+        'latitude' => 60.0165,
+        'longitude' => 30.3142,
+        'hasMap' => (string) $CTX->get('adm_map'),
+        'sameAs' => array_values(array_filter(array(
+            (string) $CTX->get('social_vk'),
+            (string) $CTX->get('social_instagram'),
+            (string) $CTX->get('social_telegram'),
+            (string) $CTX->get('social_youtube'),
+            'https://maps.app.goo.gl/rcwMbaXdfrbSTowd7',
+        ))),
+        'openingHours' => array(
+            array(
+                '@type' => 'OpeningHoursSpecification',
+                'dayOfWeek' => array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'),
+                'opens' => '13:00',
+                'closes' => '01:00',
+            ),
+            array(
+                '@type' => 'OpeningHoursSpecification',
+                'dayOfWeek' => array('Friday', 'Saturday'),
+                'opens' => '13:00',
+                'closes' => '03:00',
+            ),
+        ),
+        'ratingValue' => (string) $CTX->get('rate_yandex_val'),
+        'ratingCountText' => (string) $CTX->get('rate_yandex_count'),
+    ));
+    </cms:php>
+    </cms:pages>
     
     <link rel="stylesheet" href="main.css?v=<?php echo @filemtime(__DIR__ . '/main.css'); ?>">
     

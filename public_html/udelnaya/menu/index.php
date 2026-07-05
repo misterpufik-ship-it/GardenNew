@@ -6,6 +6,15 @@
     <title>Меню Garden Lounge — Удельная</title>
     <meta name="description" content="Меню Garden Lounge на Удельной: текстовое, визуальное и английское меню — кальяны, кухня, бар на севере Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/">
+    <?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    gl_menu_og_render(array(
+        'branch' => 'udelnaya',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/',
+        'title' => 'Меню Garden Lounge — Удельная',
+        'description' => 'Меню Garden Lounge на Удельной: текстовое, визуальное и английское меню — кальяны, кухня, бар на севере Санкт-Петербурга.',
+    ));
+    ?>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -23,7 +32,6 @@
     }
     </script>
     <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
     gl_menu_seo_schema_render(array(
         'branch' => 'udelnaya',
         'page' => 'hub',

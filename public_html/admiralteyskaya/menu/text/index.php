@@ -162,10 +162,20 @@
     <title>Меню Garden Lounge на Адмиралтейской — кальяны, кухня, бар</title>
     <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения в лаунж-баре на наб. реки Мойки 67-69.</cms:if>">
     <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/text/">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/text/">
-    <meta property="og:title" content="Меню Garden Lounge на Адмиралтейской — кальяны, кухня, бар">
-    <meta property="og:description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения.</cms:if>">
+    <cms:php>
+    global $CTX;
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    $desc = trim((string) $CTX->get('meta_desc'));
+    if ($desc === '') {
+        $desc = 'Меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар, напитки и специальные предложения.';
+    }
+    gl_menu_og_render(array(
+        'branch' => 'admiralteyskaya',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/text/',
+        'title' => 'Меню Garden Lounge на Адмиралтейской — кальяны, кухня, бар',
+        'description' => $desc,
+    ));
+    </cms:php>
     <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
     gl_menu_seo_schema_render(array(

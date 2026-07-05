@@ -46,12 +46,14 @@
     <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
     <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар и акции лаунж-бара в центре Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
-    <meta property="og:title" content="Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб">
-    <meta property="og:description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.">
     <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    gl_menu_og_render(array(
+        'branch' => 'admiralteyskaya',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual/',
+        'title' => 'Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб',
+        'description' => 'Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.',
+    ));
     gl_menu_seo_schema_render(array(
         'branch' => 'admiralteyskaya',
         'page' => 'visual',

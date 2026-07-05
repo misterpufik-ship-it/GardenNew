@@ -36,10 +36,20 @@ require_once $garden_cms;
         <title>Menu Garden Lounge Udelnaya — hookahs, kitchen, bar</title>
         <meta name="description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Udelnaya: hookahs, kitchen, bar, drinks and special offers in northern Saint Petersburg.</cms:if>">
         <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/english/">
-        <meta property="og:type" content="website">
-        <meta property="og:url" content="https://garden-lounge.pro/udelnaya/menu/english/">
-        <meta property="og:title" content="Menu Garden Lounge Udelnaya — hookahs, kitchen, bar">
-        <meta property="og:description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar and drinks.</cms:if>">
+        <cms:php>
+        global $CTX;
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+        $desc = trim((string) $CTX->get('meta_desc_en'));
+        if ($desc === '') {
+            $desc = 'English menu of Garden Lounge near Udelnaya: hookahs, kitchen, bar and drinks.';
+        }
+        gl_menu_og_render(array(
+            'branch' => 'udelnaya',
+            'url' => 'https://garden-lounge.pro/udelnaya/menu/english/',
+            'title' => 'Menu Garden Lounge Udelnaya — hookahs, kitchen, bar',
+            'description' => $desc,
+        ));
+        </cms:php>
         <?php
         require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
         gl_menu_seo_schema_render(array(

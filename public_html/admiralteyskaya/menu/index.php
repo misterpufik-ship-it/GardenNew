@@ -6,6 +6,15 @@
     <title>Меню Garden Lounge — Адмиралтейская</title>
     <meta name="description" content="Меню Garden Lounge на Адмиралтейской: текстовое, визуальное и английское меню — кальяны, кухня, бар в центре Санкт-Петербурга.">
     <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/">
+    <?php
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+    gl_menu_og_render(array(
+        'branch' => 'admiralteyskaya',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/',
+        'title' => 'Меню Garden Lounge — Адмиралтейская',
+        'description' => 'Меню Garden Lounge на Адмиралтейской: текстовое, визуальное и английское меню — кальяны, кухня, бар в центре Санкт-Петербурга.',
+    ));
+    ?>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -23,7 +32,6 @@
     }
     </script>
     <?php
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
     gl_menu_seo_schema_render(array(
         'branch' => 'admiralteyskaya',
         'page' => 'hub',

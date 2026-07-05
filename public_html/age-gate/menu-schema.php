@@ -1,5 +1,48 @@
 <?php
 
+function gl_menu_branch_og_image($branch)
+{
+    if ($branch === 'udelnaya') {
+        return 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg';
+    }
+
+    return 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg';
+}
+
+function gl_menu_og_render(array $opts)
+{
+    $branch = isset($opts['branch']) ? $opts['branch'] : 'admiralteyskaya';
+    $url = isset($opts['url']) ? trim((string) $opts['url']) : '';
+    $title = isset($opts['title']) ? trim((string) $opts['title']) : '';
+    $description = isset($opts['description']) ? trim((string) $opts['description']) : '';
+
+    if ($url === '' || $title === '') {
+        return;
+    }
+
+    $image = gl_menu_branch_og_image($branch);
+    $titleEsc = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+    $descEsc = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
+    $urlEsc = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+    $imageEsc = htmlspecialchars($image, ENT_QUOTES, 'UTF-8');
+
+    echo '<meta property="og:type" content="website">' . "\n";
+    echo '<meta property="og:url" content="' . $urlEsc . '">' . "\n";
+    echo '<meta property="og:title" content="' . $titleEsc . '">' . "\n";
+    if ($description !== '') {
+        echo '<meta property="og:description" content="' . $descEsc . '">' . "\n";
+    }
+    echo '<meta property="og:image" content="' . $imageEsc . '">' . "\n";
+    echo '<meta property="og:site_name" content="Garden Lounge">' . "\n";
+    echo '<meta property="twitter:card" content="summary_large_image">' . "\n";
+    echo '<meta property="twitter:url" content="' . $urlEsc . '">' . "\n";
+    echo '<meta property="twitter:title" content="' . $titleEsc . '">' . "\n";
+    if ($description !== '') {
+        echo '<meta property="twitter:description" content="' . $descEsc . '">' . "\n";
+    }
+    echo '<meta property="twitter:image" content="' . $imageEsc . '">' . "\n";
+}
+
 function gl_menu_seo_schema_render(array $opts)
 {
     $branch = isset($opts['branch']) ? $opts['branch'] : 'admiralteyskaya';

@@ -307,6 +307,20 @@
             justify-items: center;
         }
     }
+
+    .branch-seo-note {
+        position: relative;
+        z-index: 2;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 28px 24px 36px;
+        text-align: center;
+        font-size: 10px;
+        line-height: 1.8;
+        letter-spacing: 0.3em;
+        font-weight: 500;
+        color: rgba(197, 160, 89, 0.85);
+    }
 </style>
 
 <footer class="footer-wrapper">
@@ -413,4 +427,12 @@
             </ul>
         </div>
     </div>
+
+    <p class="branch-seo-note shimmer-gold">
+        <cms:if is_udelnaya>
+            Кальянная Garden Lounge в Приморском районе, ул. Аккуратова 13, м. Удельная.
+        <cms:else />
+            Кальянная и лаунж-бар Garden Lounge в центре Санкт-Петербурга, наб. Мойки 67–69, м. Адмиралтейская.
+        </cms:if>
+    </p>
 </footer>
