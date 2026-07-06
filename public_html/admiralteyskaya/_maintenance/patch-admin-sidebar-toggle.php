@@ -101,8 +101,8 @@ PHP;
 
 $content = file_get_contents($path);
 $content = preg_replace(
-    '/function garden_admin_sidebar_js\(\)\{.*?\n\}/s',
-    trim($newSidebarJs),
+    '/function garden_admin_sidebar_js\(\)\{.*?function garden_admin_sidebar_css\(\)\{/s',
+    trim($newSidebarJs) . "\n\n\$FUNCS->add_event_listener( 'add_admin_js', 'garden_admin_sidebar_js' );\n\nfunction garden_admin_sidebar_css(){",
     $content,
     1,
     $jsCount
