@@ -20,11 +20,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_font_assets(); gl_render_head_assets(); gl_preloader_render_head(); ?>
 
     <title><cms:get_custom_field 'seo_title_default' masterpage='globals.php' /></title>
     <meta name="description" content="<cms:get_custom_field 'seo_desc_default' masterpage='globals.php' />">
@@ -45,14 +43,16 @@
         <cms:set social_youtube=link_youtube 'global' />
     </cms:pages>
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); gl_preloader_render_head(); ?>
+    <cms:embed 'styles.html' />
+    <?php gl_render_nonblocking_stylesheet('main.css?v=' . @filemtime(__DIR__ . '/main.css')); ?>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <?php gl_render_nonblocking_stylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'); ?>
     <cms:pages masterpage='header.php' limit='1'>
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(min-width: 768px)" fetchpriority="high">
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(max-width: 767px)" fetchpriority="high">
         <link rel="preload" as="image" href="couch/uploads/image/logo3.webp" fetchpriority="high">
     </cms:pages>
     
-    <cms:embed 'styles.html' />
     <cms:embed 'seo_tags.html' />
     <cms:pages masterpage='contacts.php' limit='1'>
     <cms:php>
@@ -94,17 +94,6 @@
     ));
     </cms:php>
     </cms:pages>
-    
-    <link rel="stylesheet" href="main.css?v=<?php echo @filemtime(__DIR__ . '/main.css'); ?>">
-    
-   
-    
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap">
-    </noscript>
 
     <style>
         #scrollTopBtn {
