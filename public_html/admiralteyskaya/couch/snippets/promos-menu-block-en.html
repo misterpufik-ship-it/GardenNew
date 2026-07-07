@@ -15,7 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-en-locale.php';
 <div class="<cms:if promos_variant='visual'>space-y-4<cms:else />space-y-3</cms:if>">
     <cms:show_repeatable 'promo_list'>
         <div class="promo-card">
-            <h2 class="font-serif-lux text-2xl text-white italic mb-1">
+            <h2 class="font-serif-lux text-2xl text-white font-light italic mb-1">
                 <cms:php>global $CTX; gl_menu_en_echo($CTX->get('promo_name_en'), $CTX->get('promo_name'));</cms:php>
             </h2>
             <p class="text-[12px] text-gray-400 font-light leading-relaxed mb-3<cms:if promos_variant!='visual'> tracking-wide</cms:if>">

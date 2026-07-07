@@ -235,7 +235,7 @@ require_once $garden_cms;
 
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
         .subtabs-wrap { display:none; flex-wrap:wrap; justify-content:center; gap:10px 12px; padding: 10px 10px 15px; }
-        .subtab-btn { border: 1px solid rgba(197,160,89,0.35); border-radius: 999px; padding: 6px 12px; font-size: 11px; text-transform: uppercase; color: #d0d0d0; cursor:pointer; background: transparent; font-family: inherit; font-weight: 500; line-height: 1.2; }
+        .subtab-btn { border: 1px solid rgba(197,160,89,0.35); border-radius: 999px; padding: 6px 12px; font-size: 11px; text-transform: uppercase; color: #d0d0d0; cursor:pointer; background: transparent; font-family: inherit; line-height: 1.2; }
         .subtab-btn.active { color: #000; background: var(--gold); }
         @media (max-width: 767px) {
             .subtabs-wrap { gap: 6px 8px; padding: 8px 10px 12px; }
@@ -251,7 +251,7 @@ require_once $garden_cms;
         .tab-content.active { display:block; animation: fadeIn .35s ease-out; }
         @keyframes fadeIn { from{ opacity:0; transform: translateY(8px);} to{opacity:1; transform: translateY(0);} }
 
-        .category-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.875rem; margin: 2.2rem 0 1.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: .5rem; text-align: center; }
+        .category-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 1.875rem; margin: 2.2rem 0 1.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: .5rem; text-align: center; }
         .subcat-title { font-weight:700; letter-spacing: .28em; text-transform: uppercase; font-size:.75rem; text-align:center; margin: 1.7rem 0 .9rem; }
         .price-tag { font-weight:500; font-size:1.25rem; white-space:nowrap; }
 

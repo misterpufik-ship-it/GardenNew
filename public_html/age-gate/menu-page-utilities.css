@@ -24,6 +24,11 @@ button, [type='button'], [type='reset'], [type='submit'] {
     border: 0;
 }
 
+h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 @keyframes shineGold { to { background-position: 200% center; } }
 
 .subtitle-gold {
