@@ -203,7 +203,7 @@
         .nav-sticky { position: sticky; top:0; z-index:50; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
 
-        .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; }
+        .tab-btn { position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; font-family: inherit; padding: 0; }
         .tab-btn.active { color: var(--gold); }
         .tab-btn.active::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: var(--gold); }
         @media (min-width: 768px) {
@@ -212,7 +212,7 @@
 
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
         .subtabs-wrap { display:none; flex-wrap:wrap; justify-content:center; gap:10px 12px; padding: 10px 10px 15px; }
-        .subtab-btn { border: 1px solid rgba(197,160,89,0.35); border-radius: 999px; padding: 6px 12px; font-size: 11px; text-transform: uppercase; color: #d0d0d0; cursor:pointer; }
+        .subtab-btn { border: 1px solid rgba(197,160,89,0.35); border-radius: 999px; padding: 6px 12px; font-size: 11px; text-transform: uppercase; color: #d0d0d0; cursor:pointer; background: transparent; font-family: inherit; font-weight: 500; line-height: 1.2; }
         .subtab-btn.active { color: #000; background: var(--gold); }
         @media (max-width: 767px) {
             .subtabs-wrap { gap: 6px 8px; padding: 8px 10px 12px; }
