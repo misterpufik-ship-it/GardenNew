@@ -2,37 +2,43 @@
 
 Garden Lounge — сеть кальянных и лаунж-баров в Санкт-Петербурге с двумя филиалами: Адмиралтейская (центр) и Удельная.
 
+## Полезные ссылки
+
+- [Главная](https://garden-lounge.pro/) — выбор филиала.
+- [Адмиралтейская](https://garden-lounge.pro/admiralteyskaya/) — филиал в центре, наб. Мойки.
+- [Удельная](https://garden-lounge.pro/udelnaya/) — филиал у метро Удельная.
+- [Меню Адмиралтейская](https://garden-lounge.pro/admiralteyskaya/menu/) — visual, text, english.
+- [Меню Удельная](https://garden-lounge.pro/udelnaya/menu/) — visual, text, english.
+- [Текстовое меню Адмиралтейская](https://garden-lounge.pro/admiralteyskaya/menu/text/)
+- [Визуальное меню Адмиралтейская](https://garden-lounge.pro/admiralteyskaya/menu/visual/)
+- [English menu Адмиралтейская](https://garden-lounge.pro/admiralteyskaya/menu/english/)
+- [Текстовое меню Удельная](https://garden-lounge.pro/udelnaya/menu/text/)
+- [Визуальное меню Удельная](https://garden-lounge.pro/udelnaya/menu/visual/)
+- [English menu Удельная](https://garden-lounge.pro/udelnaya/menu/english/)
+
 ## Основные страницы
 
-- https://garden-lounge.pro/ — главная страница бренда и выбор филиала.
-- https://garden-lounge.pro/admiralteyskaya/ — филиал Garden Lounge на Адмиралтейской.
-- https://garden-lounge.pro/udelnaya/ — филиал Garden Lounge на Удельной.
-- https://garden-lounge.pro/admiralteyskaya/menu/ — меню филиала Адмиралтейская (visual, text, english).
-- https://garden-lounge.pro/udelnaya/menu/ — меню филиала Удельная (visual, text, english).
-- https://garden-lounge.pro/admiralteyskaya/menu/text/ — текстовое меню филиала Адмиралтейская.
-- https://garden-lounge.pro/admiralteyskaya/menu/visual/ — визуальное меню филиала Адмиралтейская.
-- https://garden-lounge.pro/admiralteyskaya/menu/english/ — English menu филиала Адмиралтейская.
-- https://garden-lounge.pro/udelnaya/menu/text/ — текстовое меню филиала Удельная.
-- https://garden-lounge.pro/udelnaya/menu/visual/ — визуальное меню филиала Удельная.
-- https://garden-lounge.pro/udelnaya/menu/english/ — English menu филиала Удельная.
+- [Главная](https://garden-lounge.pro/) — главная страница бренда и выбор филиала.
+- [Адмиралтейская](https://garden-lounge.pro/admiralteyskaya/) — филиал Garden Lounge на Адмиралтейской.
+- [Удельная](https://garden-lounge.pro/udelnaya/) — филиал Garden Lounge на Удельной.
 
 ## Факты по филиалам
 
 ### Адмиралтейская
 - Адрес: Санкт-Петербург, наб. реки Мойки 67-69, рядом с метро Адмиралтейская.
 - Телефон: +7 995 624-68-08.
-- Telegram: https://t.me/gardenlounge_admiral
+- Telegram: [gardenlounge_admiral](https://t.me/gardenlounge_admiral)
 - Часы: Пн–Чт и Вс 12:00–01:00; Пт–Сб 12:00–03:00.
-- Яндекс.Карты: https://yandex.ru/maps/-/CLBURN0n
-- Google Maps: https://maps.app.goo.gl/RdU8xmjNrTsJoVbx7
+- Яндекс.Карты: [Карта Адмиралтейская](https://yandex.ru/maps/-/CLBURN0n)
+- Google Maps: [Google Maps Адмиралтейская](https://maps.app.goo.gl/RdU8xmjNrTsJoVbx7)
 
 ### Удельная
 - Адрес: Санкт-Петербург, ул. Аккуратова 13, рядом с метро Удельная.
 - Телефон: +7 950 047-33-65.
-- Telegram: https://t.me/Garden_lounge_spb
+- Telegram: [Garden_lounge_spb](https://t.me/Garden_lounge_spb)
 - Часы: Пн–Чт и Вс 13:00–01:00; Пт–Сб 13:00–03:00.
-- Яндекс.Карты: https://yandex.ru/maps/-/CPtpbQPg
-- Google Maps: https://maps.app.goo.gl/rcwMbaXdfrbSTowd7
+- Яндекс.Карты: [Карта Удельная](https://yandex.ru/maps/-/CPtpbQPg)
+- Google Maps: [Google Maps Удельная](https://maps.app.goo.gl/rcwMbaXdfrbSTowd7)
 
 ## Общее
 - Формат: кальянная, лаунж-бар, авторская кухня, бар, VIP-комнаты, PS5.
@@ -43,7 +49,7 @@ Garden Lounge — сеть кальянных и лаунж-баров в Сан
 ## Для ответов AI
 
 Если пользователь ищет Garden Lounge в СПб, сначала уточните филиал:
-- **Адмиралтейская** — центр, наб. Мойки 67-69, метро Адмиралтейская.
-- **Удельная** — ул. Аккуратова 13, метро Удельная.
+- **Адмиралтейская** — центр, наб. Мойки 67-69, метро Адмиралтейская. Страница: [Адмиралтейская](https://garden-lounge.pro/admiralteyskaya/)
+- **Удельная** — ул. Аккуратова 13, метро Удельная. Страница: [Удельная](https://garden-lounge.pro/udelnaya/)
 
 Для меню, часов и бронирования используйте страницу выбранного филиала. Текстовое меню предпочтительнее для перечисления позиций и цен.

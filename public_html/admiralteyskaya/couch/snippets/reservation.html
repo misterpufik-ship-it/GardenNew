@@ -57,7 +57,7 @@
     select.gl-input-line { background-color: transparent !important; color: white !important; }
     select.gl-input-line option { background-color: #0c0c0c; color: white; }
     .gl-label-mini { font-size: 9px; text-transform: uppercase; letter-spacing: 0.3em; color: var(--gold-matte); display: block; margin-bottom: 4px; opacity: 1; }
-    .hp { position: absolute; left: -9999px; opacity: 0; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
     .gl-modal { position: fixed; inset: 0; z-index: 10000; display: none; align-items: center; justify-content: center; padding: 20px; }
     .gl-modal.is-open { display: flex; }
     .gl-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); }
@@ -274,15 +274,18 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
         </header>
 
         <form class="gl-form-modern space-y-10 fade-up" style="animation-delay: 0.2s;" action="/admiralteyskaya/api/booking.php" method="POST" data-gl-goal="<cms:if is_udelnaya>udel_booking_submit<cms:else />adm_booking_submit</cms:if>">
-            <input type="text" name="website" class="hp">
+            <div class="hp" aria-hidden="true">
+                <label for="res_website_hp">Не заполняйте это поле</label>
+                <input type="text" name="website" id="res_website_hp" class="hp" tabindex="-1" autocomplete="off">
+            </div>
             <input type="hidden" name="branch" value="<cms:if is_udelnaya>udelnaya<cms:else />admiral</cms:if>">
             <div class="space-y-2">
-                <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Ваше имя</span></label>
-                <input class="gl-input-line text-center !text-xl font-serif-lux italic" name="name" placeholder="Например: Никита" required>
+                <label class="gl-label-mini text-center" for="res_name"><span class="shimmer-text-gold">Ваше имя</span></label>
+                <input class="gl-input-line text-center !text-xl font-serif-lux italic" id="res_name" name="name" placeholder="Например: Никита" required autocomplete="name">
             </div>
             <div class="space-y-2">
-                <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Номер телефона</span></label>
-                <input class="gl-input-line text-center !text-lg phone-mask" name="phone" placeholder="+7 (___) ___-__-__" required>
+                <label class="gl-label-mini text-center" for="res_phone"><span class="shimmer-text-gold">Номер телефона</span></label>
+                <input class="gl-input-line text-center !text-lg phone-mask" id="res_phone" name="phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
             </div>
             <div class="res-booking-row">
                 <div class="res-field-block space-y-2">
@@ -302,8 +305,8 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
                     <input type="hidden" name="visit_time" class="visit-time-hidden" value="">
                 </div>
                 <div class="res-field-block space-y-2">
-                    <label class="gl-label-mini text-center"><span class="shimmer-text-gold">Гости</span></label>
-                    <select class="guest-select outline-none" name="guests" required>
+                    <label class="gl-label-mini text-center" for="res_guests"><span class="shimmer-text-gold">Гости</span></label>
+                    <select class="guest-select outline-none" id="res_guests" name="guests" required aria-label="Количество гостей">
                         <option value="" disabled selected>Кол-во</option>
                     </select>
                 </div>
