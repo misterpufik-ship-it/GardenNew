@@ -22,7 +22,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_font_assets(); gl_render_head_assets(); gl_preloader_render_head(); ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_font_assets(); ?>
+    <?php gl_render_blocking_stylesheet('main.css?v=' . @filemtime(__DIR__ . '/main.css')); ?>
 
     <title><cms:get_custom_field 'seo_title_default' masterpage='globals.php' /></title>
     <meta name="description" content="<cms:get_custom_field 'seo_desc_default' masterpage='globals.php' />">
@@ -44,9 +45,9 @@
     </cms:pages>
 
     <cms:embed 'styles.html' />
-    <?php gl_render_nonblocking_stylesheet('main.css?v=' . @filemtime(__DIR__ . '/main.css')); ?>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <?php gl_render_nonblocking_stylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'); ?>
+    <?php gl_render_blocking_stylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'); ?>
+    <?php gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='header.php' limit='1'>
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(min-width: 768px)" fetchpriority="high">
         <link rel="preload" as="image" href="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" media="(max-width: 767px)" fetchpriority="high">

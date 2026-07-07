@@ -45,7 +45,8 @@ require_once $garden_cms;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_font_assets(); gl_render_head_assets(); gl_preloader_render_head(); ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_font_assets(); ?>
+    <?php gl_render_blocking_stylesheet('main.css?v=' . @filemtime(__DIR__ . '/main.css')); ?>
 
     <cms:pages masterpage='udelnaya/globals.php' limit='1'>
         <cms:set global_title=seo_title_default 'global' />
@@ -70,9 +71,9 @@ require_once $garden_cms;
     <meta name="description" content="<cms:show global_desc />">
 
     <cms:embed 'styles.html' />
-    <?php gl_render_nonblocking_stylesheet('main.css?v=' . @filemtime(__DIR__ . '/main.css')); ?>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <?php gl_render_nonblocking_stylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'); ?>
+    <?php gl_render_blocking_stylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'); ?>
+    <?php gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
         <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(min-width: 768px)" fetchpriority="high">
         <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(max-width: 767px)" fetchpriority="high">

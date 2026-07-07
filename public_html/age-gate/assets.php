@@ -96,6 +96,13 @@ function gl_render_nonblocking_stylesheet($href)
     echo '<noscript><link rel="stylesheet" href="' . $safeHref . '"></noscript>' . "\n";
 }
 
+function gl_render_blocking_stylesheet($href)
+{
+    $safeHref = htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+    echo '<link rel="preload" as="style" href="' . $safeHref . '">' . "\n";
+    echo '<link rel="stylesheet" href="' . $safeHref . '">' . "\n";
+}
+
 function gl_render_nonblocking_script($src, $defer = true)
 {
     $safeSrc = htmlspecialchars($src, ENT_QUOTES, 'UTF-8');
@@ -143,8 +150,7 @@ function gl_age_gate_render_assets()
         . '--ag-overlay-inner:rgba(18,16,14,' . $overlay_inner . ');'
         . '--ag-overlay-outer:rgba(0,0,0,' . $overlay_outer . ');'
         . '}</style>' . "\n";
-    echo '<link rel="preload" as="style" href="' . $css . '" onload="this.onload=null;this.rel=\'stylesheet\'">' . "\n";
-    echo '<noscript><link rel="stylesheet" href="' . $css . '"></noscript>' . "\n";
+    echo '<link rel="stylesheet" href="' . $css . '">' . "\n";
     echo '<script>window.__glAgeGateConfig=' . json_encode($config, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . ';</script>' . "\n";
     echo '<script src="' . $js . '" defer></script>' . "\n";
 }
@@ -225,8 +231,8 @@ function gl_menu_page_head_assets()
 {
     gl_render_font_assets();
     echo '<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>' . "\n";
-    gl_render_nonblocking_stylesheet(gl_age_gate_asset_url('menu-page-utilities.css'));
-    gl_render_nonblocking_stylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+    echo '<link rel="stylesheet" href="' . htmlspecialchars(gl_age_gate_asset_url('menu-page-utilities.css'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
+    echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">' . "\n";
 }
 
 function gl_preloader_video_url($variant = 'desktop')
