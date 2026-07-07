@@ -164,16 +164,56 @@ function gl_yandex_metrika_render()
     $rendered = true;
 
     echo <<<'HTML'
-<!-- Yandex.Metrika counter -->
+<!-- Yandex.Metrika counter (deferred after load to keep LCP path clear) -->
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
 <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110415128', 'ym');
+(function () {
+    var COUNTER = 110415128;
+    var SRC = 'https://mc.yandex.ru/metrika/tag.js?id=' + COUNTER;
 
-    ym(110415128, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    (function (m, e, t, r, i) {
+        m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+        m[i].l = 1 * new Date();
+    })(window, document, 'script', SRC, 'ym');
+
+    function bootMetrika() {
+        for (var j = 0; j < document.scripts.length; j++) {
+            if (document.scripts[j].src === SRC) {
+                return;
+            }
+        }
+        var s = document.createElement('script');
+        var ref = document.getElementsByTagName('script')[0];
+        s.async = 1;
+        s.src = SRC;
+        ref.parentNode.insertBefore(s, ref);
+
+        ym(COUNTER, 'init', {
+            ssr: true,
+            webvisor: true,
+            clickmap: true,
+            ecommerce: 'dataLayer',
+            referrer: document.referrer,
+            url: location.href,
+            accurateTrackBounce: true,
+            trackLinks: true
+        });
+    }
+
+    function scheduleMetrika() {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(bootMetrika, { timeout: 3500 });
+        } else {
+            setTimeout(bootMetrika, 2500);
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        scheduleMetrika();
+    } else {
+        window.addEventListener('load', scheduleMetrika, { once: true });
+    }
+})();
 </script>
 <script type="text/javascript">
 (function () {

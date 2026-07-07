@@ -47,13 +47,9 @@ function gl_hero_lcp_url($sourceUrl, $role = 'desk')
         if (isset($aliases[$base]) && is_file($docRoot . $aliases[$base])) {
             return $aliases[$base];
         }
-    } else {
-        $desk = $dir . '/' . $base . '-desk-1280.webp';
-        if (is_file($docRoot . $desk)) {
-            return $desk;
-        }
     }
 
+    // Desktop keeps the original CMS file for full visual quality.
     return $path;
 }
 
