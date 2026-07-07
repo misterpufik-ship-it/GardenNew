@@ -36,15 +36,16 @@ function gl_hero_lcp_url($sourceUrl, $role = 'desk')
     $base = pathinfo($path, PATHINFO_FILENAME);
 
     if ($role === 'mob') {
+        $mob = $dir . '/' . $base . '-mob-768.webp';
+        if (is_file($docRoot . $mob)) {
+            return $mob;
+        }
+
         $aliases = array(
             'garden-main' => '/admiralteyskaya/couch/uploads/image/garden-main-mobile.webp',
         );
         if (isset($aliases[$base]) && is_file($docRoot . $aliases[$base])) {
             return $aliases[$base];
-        }
-        $mob = $dir . '/' . $base . '-mob-768.webp';
-        if (is_file($docRoot . $mob)) {
-            return $mob;
         }
     } else {
         $desk = $dir . '/' . $base . '-desk-1280.webp';
