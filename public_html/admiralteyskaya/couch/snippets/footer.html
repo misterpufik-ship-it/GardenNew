@@ -317,14 +317,12 @@
         margin: 0 auto;
         padding: 12px 20px 18px;
         text-align: center !important;
+        font-family: 'Montserrat', sans-serif !important;
         font-size: 10px;
         line-height: 1.6;
         letter-spacing: 0.3em;
         font-weight: 500;
-        color: rgba(197, 160, 89, 0.85);
-        -webkit-text-fill-color: rgba(197, 160, 89, 0.85);
-        background: none;
-        animation: none;
+        text-transform: uppercase;
     }
     .branch-seo-note.shimmer-gold {
         display: block;
@@ -333,6 +331,13 @@
         margin-left: auto;
         margin-right: auto;
         text-align: center !important;
+        background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-main) 40%, var(--gold-light) 50%, var(--gold-main) 60%, var(--gold-dark) 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: footerShine 5s linear infinite;
     }
 
     @media (min-width: 768px) {
