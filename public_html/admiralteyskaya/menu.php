@@ -1,5 +1,5 @@
 <?php require_once( 'couch/cms.php' ); ?>
-<cms:template title='Меню (общие настройки)' name='menu_section' executable='0' order='130'>
+<cms:template title='Меню (общие настройки)' name='menu_section' icon='' executable='0' order='130'>
     
     <cms:editable name='menu_group_titles' label='Заголовки' type='group' />
     <cms:editable name='menu_main_title' label='Главный заголовок' group='menu_group_titles' type='text'>Menu</cms:editable>

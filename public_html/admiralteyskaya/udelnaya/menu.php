@@ -4,7 +4,7 @@ if (!defined('K_TEMPLATE_NAME')) {
 }
 require_once dirname(__DIR__) . '/couch/cms.php';
 ?>
-<cms:template title='Уделка Меню' name='menu_section' executable='0' order='35'>
+<cms:template title='Уделка Меню' name='menu_section' icon='' executable='0' order='35'>
     
     <cms:editable name='menu_group_titles' label='Заголовки' type='group' />
     <cms:editable name='menu_main_title' label='Главный заголовок' group='menu_group_titles' type='text'>Menu</cms:editable>

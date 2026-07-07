@@ -1,6 +1,6 @@
 <?php require_once( '../../couch/cms.php' ); ?>
 
-<cms:template title='Меню RU' icon='restaurant' order='140'>
+<cms:template title='Меню RU' order='140'>
 
     <cms:editable name='translation_script' type='message' order='0'>
         <cms:embed 'auto-translate-admin.html' />

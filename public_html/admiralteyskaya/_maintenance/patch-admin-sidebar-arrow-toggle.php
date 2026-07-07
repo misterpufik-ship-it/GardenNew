@@ -76,6 +76,28 @@ function garden_admin_sidebar_js(){
         $arrow.text(collapsed ? '\u203A' : '\u2039');
         $toggle.attr('title', collapsed ? 'Показать меню' : 'Скрыть меню');
         $toggle.attr('aria-label', collapsed ? 'Показать боковое меню' : 'Скрыть боковое меню');
+        syncCollapsedTogglePosition();
+    }
+
+    function syncCollapsedTogglePosition(){
+        var $sidebar = $('#sidebar');
+        var $toggle = $('#sidebar-toggle');
+        var $greeting = $('#sidebar-greeting, #sidebar-top').first();
+        if (!$toggle.length || !$greeting.length) return;
+
+        if (!$sidebar.hasClass('collapsed')) {
+            $toggle.css({ top: '', bottom: '', left: '', transform: '' });
+            return;
+        }
+
+        var rect = $greeting[0].getBoundingClientRect();
+        var top = rect.top + ((rect.height - $toggle.outerHeight()) / 2);
+        $toggle.css({
+            top: Math.round(top) + 'px',
+            bottom: 'auto',
+            left: '0',
+            transform: 'none'
+        });
     }
 
     $(function(){
@@ -83,8 +105,13 @@ function garden_admin_sidebar_js(){
         setupSidebarToggle();
 
         $('#sidebar-toggle').on('click', function(){
-            window.setTimeout(syncSidebarToggleArrow, 0);
+            window.setTimeout(function(){
+                syncSidebarToggleArrow();
+                syncCollapsedTogglePosition();
+            }, 0);
         });
+
+        $(window).on('resize', syncCollapsedTogglePosition);
 
         addDumpLink();
         gardenAdminLandingRedirect();
@@ -177,10 +204,9 @@ function garden_admin_sidebar_toggle_css(){
 #sidebar.collapsed #sidebar-toggle.gl-sidebar-toggle-btn{
   position:fixed!important;
   left:0!important;
-  top:50%!important;
   right:auto!important;
   bottom:auto!important;
-  transform:translateY(-50%)!important;
+  transform:none!important;
   width:26px!important;
   height:52px!important;
   border-radius:0 6px 6px 0!important;
@@ -188,6 +214,7 @@ function garden_admin_sidebar_toggle_css(){
   z-index:220!important;
   background:#0a0a0a!important;
 }
+#sidebar #nav a[href*="menu"] .i{display:none!important}
 CSS;
 
     $FUNCS->add_css( $css );

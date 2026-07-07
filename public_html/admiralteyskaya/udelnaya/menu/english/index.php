@@ -4,7 +4,7 @@ if (!defined('K_TEMPLATE_NAME')) {
 }
 require_once dirname(__DIR__, 3) . '/couch/cms.php';
 ?>
-<cms:template title='Уделка Меню En' icon='globe' />
+<cms:template title='Уделка Меню En' />
 
 <cms:pages masterpage='udelnaya/menu/text/index.php' limit='1'>
     <cms:set my_lang='en' 'global' />

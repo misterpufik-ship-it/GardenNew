@@ -5,7 +5,7 @@ if (!defined('K_TEMPLATE_NAME')) {
 require_once dirname(__DIR__, 3) . '/couch/cms.php';
 ?>
 
-<cms:template title='Уделка Меню' icon='restaurant'>
+<cms:template title='Уделка Меню' order='140'>
 
     <cms:editable name='translation_script' type='message' order='0'>
         <cms:embed 'auto-translate-admin.html' />

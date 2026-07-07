@@ -1,5 +1,5 @@
 <?php require_once( '../../couch/cms.php' ); ?>
-<cms:template title='Меню EN' icon='globe' order='150' />
+<cms:template title='Меню EN' order='150' />
 
 <cms:pages masterpage='menu/text/index.php' limit='1'>
     <cms:set my_lang='en' 'global' />
