@@ -847,8 +847,19 @@
 
 <header class="hero-section" id="home">
     <div class="hero-bg">
-        <img src="<cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if>" class="hidden md:block" fetchpriority="high" decoding="async" alt="<cms:if hero_img_alt><cms:show hero_img_alt /><cms:else />Интерьер Garden Lounge Санкт-Петербург</cms:if>">
-        <img src="<cms:if hero_bg_mob><cms:show hero_bg_mob /><cms:else /><cms:if hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'>couch/uploads/image/garden-main.webp<cms:else /><cms:show hero_bg_desk /></cms:if></cms:if>" class="block md:hidden" fetchpriority="high" decoding="async" alt="<cms:if hero_img_alt><cms:show hero_img_alt /><cms:else />Интерьер Garden Lounge Санкт-Петербург</cms:if>">
+        <cms:php>
+        global $CTX;
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/hero-helpers.php';
+        $desk = (string) $CTX->get('hero_bg_desk');
+        $mob = (string) $CTX->get('hero_bg_mob');
+        if ($mob === '') {
+            $mob = $desk;
+        }
+        $CTX->set('hero_lcp_desk', gl_hero_lcp_url($desk, 'desk'));
+        $CTX->set('hero_lcp_mob', gl_hero_lcp_url($mob, 'mob'));
+        </cms:php>
+        <img src="<cms:show hero_lcp_desk />" class="hidden md:block" fetchpriority="high" decoding="sync" width="1280" height="720" alt="<cms:if hero_img_alt><cms:show hero_img_alt /><cms:else />Интерьер Garden Lounge Санкт-Петербург</cms:if>">
+        <img src="<cms:show hero_lcp_mob />" class="block md:hidden" fetchpriority="high" decoding="sync" width="768" height="1024" alt="<cms:if hero_img_alt><cms:show hero_img_alt /><cms:else />Интерьер Garden Lounge Санкт-Петербург</cms:if>">
         <div class="hero-overlay"></div>
     </div>
     

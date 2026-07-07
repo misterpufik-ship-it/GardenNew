@@ -57,9 +57,16 @@ require_once dirname(__DIR__) . '/couch/cms.php';
     <?php gl_render_blocking_stylesheet('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'); ?>
     <?php gl_render_head_assets(); gl_preloader_render_head(); ?>
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
-        <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(min-width: 768px)" fetchpriority="high">
-        <link rel="preload" as="image" href="https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp" media="(max-width: 767px)" fetchpriority="high">
-        <link rel="preload" as="image" href="couch/uploads/image/logo3.webp" fetchpriority="high">
+        <cms:php>
+        global $CTX;
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/hero-helpers.php';
+        $desk = (string) $CTX->get('hero_bg_desk');
+        $mob = (string) $CTX->get('hero_bg_mob');
+        if ($mob === '') {
+            $mob = $desk;
+        }
+        gl_hero_render_preload_tags($desk, $mob);
+        </cms:php>
     </cms:pages>
     
     <cms:embed 'seo_tags.html' />
