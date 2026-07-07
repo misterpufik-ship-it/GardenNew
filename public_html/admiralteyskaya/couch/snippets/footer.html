@@ -48,7 +48,7 @@
     .footer-inner {
         width: min(100%, 1180px);
         margin: 0 auto;
-        padding: 44px 20px 74px;
+        padding: 44px 20px 40px;
         display: grid;
         grid-template-columns: minmax(220px, 1.2fr) minmax(210px, 1fr) minmax(210px, 1fr) minmax(170px, 0.8fr);
         gap: clamp(24px, 4vw, 58px);
@@ -245,7 +245,7 @@
         .footer-inner {
             grid-template-columns: 1fr;
             gap: 26px;
-            padding: 38px 18px 62px;
+            padding: 38px 18px 36px;
         }
 
         .footer-col {
@@ -315,10 +315,10 @@
         width: 100%;
         max-width: 720px;
         margin: 0 auto;
-        padding: 28px 24px 36px;
+        padding: 12px 20px 18px;
         text-align: center !important;
         font-size: 10px;
-        line-height: 1.8;
+        line-height: 1.6;
         letter-spacing: 0.3em;
         font-weight: 500;
         color: rgba(197, 160, 89, 0.85);
@@ -333,6 +333,17 @@
         margin-left: auto;
         margin-right: auto;
         text-align: center !important;
+    }
+
+    @media (min-width: 768px) {
+        .branch-seo-note,
+        .branch-seo-note.shimmer-gold {
+            max-width: none;
+            white-space: nowrap;
+            line-height: 1.4;
+            letter-spacing: 0.22em;
+            padding: 10px 24px 22px;
+        }
     }
 </style>
 
