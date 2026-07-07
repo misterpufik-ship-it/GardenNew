@@ -120,6 +120,7 @@ function gl_hero_optimize_variants($imageDir)
     $jobs = array(
         array('file' => 'garden-main.webp', 'desk' => 'garden-main-desk-1280.webp', 'deskW' => 1280, 'mob' => 'garden-main-mob-768.webp', 'mobW' => 768),
         array('file' => 'kalyannaya-garden-lounge-udelnaya-interer-spb.webp', 'desk' => 'kalyannaya-garden-lounge-udelnaya-interer-spb-desk-1280.webp', 'deskW' => 1280, 'mob' => 'kalyannaya-garden-lounge-udelnaya-interer-spb-mob-768.webp', 'mobW' => 768),
+        array('file' => 'main-mobile_1.webp', 'desk' => 'main-mobile_1-desk-1280.webp', 'deskW' => 1280, 'mob' => 'main-mobile_1-mob-768.webp', 'mobW' => 768),
     );
 
     foreach ($jobs as $job) {

@@ -28,6 +28,8 @@ $check = array(
     'kalyannaya-garden-lounge-udelnaya-interer-spb.webp',
     'kalyannaya-garden-lounge-udelnaya-interer-spb-desk-1280.webp',
     'kalyannaya-garden-lounge-udelnaya-interer-spb-mob-768.webp',
+    'main-mobile_1.webp',
+    'main-mobile_1-mob-768.webp',
 );
 
 echo "\nSizes:\n";
