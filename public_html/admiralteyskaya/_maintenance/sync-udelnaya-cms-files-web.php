@@ -1,7 +1,7 @@
 <?php
 /**
- * Ensure Udelnaya menu CMS templates exist where Couch admin expects them.
- * https://garden-lounge.pro/admiralteyskaya/_maintenance/sync-udelnaya-menu-cms-files-web.php?token=gl-cache-clear-20260623
+ * Verify all Udelnaya CMS templates load in Couch admin context.
+ * https://garden-lounge.pro/admiralteyskaya/_maintenance/sync-udelnaya-cms-files-web.php?token=gl-cache-clear-20260623
  */
 $token = isset($_GET['token']) ? (string) $_GET['token'] : '';
 if ($token !== 'gl-cache-clear-20260623') {
@@ -13,10 +13,21 @@ header('Content-Type: text/plain; charset=utf-8');
 
 $root = realpath(__DIR__ . '/..');
 $templates = array(
+    'udelnaya/header.php',
+    'udelnaya/about.php',
+    'udelnaya/akzii.php',
     'udelnaya/menu.php',
     'udelnaya/menu/text/index.php',
-    'udelnaya/menu/visual/index.php',
     'udelnaya/menu/english/index.php',
+    'udelnaya/menu/visual/index.php',
+    'udelnaya/sticky-sticker.php',
+    'udelnaya/gallery.php',
+    'udelnaya/faq.php',
+    'udelnaya/reservation.php',
+    'udelnaya/contacts.php',
+    'udelnaya/filial.php',
+    'udelnaya/globals.php',
+    'udelnaya/index.php',
 );
 
 require_once $root . '/couch/cms.php';
@@ -27,35 +38,31 @@ if (!isset($AUTH->user) || !is_object($AUTH->user)) {
 }
 $AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
 
+$ok = 0;
+$fail = 0;
+
 foreach ($templates as $tpl) {
     $target = $root . '/' . $tpl;
     if (!is_file($target)) {
-        echo "MISSING: {$target}\n";
+        echo "MISSING FILE: {$tpl}\n";
+        $fail++;
         continue;
     }
 
-    chdir(dirname($target));
-    $_SERVER['HTTP_HOST'] = 'garden-lounge.pro';
-    $_SERVER['REQUEST_URI'] = '/admiralteyskaya/' . $tpl;
-    $_SERVER['SCRIPT_NAME'] = '/admiralteyskaya/' . $tpl;
-    $_SERVER['SCRIPT_FILENAME'] = $target;
-    $_SERVER['REQUEST_METHOD'] = 'GET';
-    $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-
-    ob_start();
-    require $target;
-    ob_end_clean();
-
     $pg = new KWebpage($tpl);
     if (!empty($pg->error)) {
-        echo "KWebpage failed for {$tpl}: {$pg->err_msg}\n";
+        echo "FAIL {$tpl}: {$pg->err_msg}\n";
+        $fail++;
         continue;
     }
 
     echo "OK {$tpl} fields=" . count($pg->fields) . "\n";
+    $ok++;
 }
 
 if (isset($FUNCS)) {
     $FUNCS->invalidate_cache();
 }
+
+echo "Summary: ok={$ok} fail={$fail}\n";
 echo "Done\n";
