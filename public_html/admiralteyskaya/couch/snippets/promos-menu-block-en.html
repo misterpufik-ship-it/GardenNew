@@ -24,7 +24,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-en-locale.php';
             <cms:if promos_variant!='visual'>
                 <div class="w-6 h-px bg-[#C5A059]/30 mx-auto mb-3"></div>
             </cms:if>
-            <p class="promo-offer shimmer-gold font-medium">
+            <p class="promo-offer shimmer-gold m-0">
                 <cms:php>global $CTX; gl_menu_en_echo($CTX->get('promo_offer_en'), $CTX->get('promo_offer'));</cms:php>
             </p>
         </div>
@@ -33,7 +33,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-en-locale.php';
 
 <cms:if promos_variant!='visual'>
     <footer class="mt-8 text-center">
-        <p class="text-[10px] uppercase tracking-[0.3em] font-medium m-0 italic shimmer-gold">
+        <p class="akzii-footer-note m-0 shimmer-gold">
             <cms:php>global $CTX; gl_menu_en_echo($CTX->get('akzii_footer_en'), $CTX->get('akzii_footer'), 'The perfect place for connoisseurs.');</cms:php>
         </p>
     </footer>

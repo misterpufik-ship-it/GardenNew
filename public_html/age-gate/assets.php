@@ -185,6 +185,20 @@ function gl_render_head_assets($faviconHref = '/favicon.png')
     gl_yandex_metrika_render();
 }
 
+function gl_menu_page_head_assets()
+{
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
+    echo '<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>' . "\n";
+    echo '<link rel="stylesheet" href="' . htmlspecialchars(gl_age_gate_asset_url('menu-page-utilities.css'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
+    echo '<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel=\'stylesheet\'">' . "\n";
+    echo '<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" onload="this.onload=null;this.rel=\'stylesheet\'">' . "\n";
+    echo '<noscript>' . "\n";
+    echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">' . "\n";
+    echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap">' . "\n";
+    echo '</noscript>' . "\n";
+}
+
 function gl_preloader_video_url($variant = 'desktop')
 {
     $settings = garden_preloader_get_settings();

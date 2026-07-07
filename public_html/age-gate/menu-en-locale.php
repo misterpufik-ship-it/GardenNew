@@ -12,25 +12,7 @@ function gl_menu_en_or_translate($en, $ru)
         return '';
     }
 
-    static $cache = array();
-    if (isset($cache[$ru])) {
-        return $cache[$ru];
-    }
-
-    $url = 'https://api.mymemory.translated.net/get?q=' . rawurlencode($ru) . '&langpair=ru|en';
-    $response = @file_get_contents($url);
-    if ($response !== false) {
-        $data = json_decode($response, true);
-        if (!empty($data['responseData']['translatedText'])) {
-            $translated = trim((string) $data['responseData']['translatedText']);
-            if ($translated !== '') {
-                $cache[$ru] = $translated;
-                return $translated;
-            }
-        }
-    }
-
-    $cache[$ru] = $ru;
+    // Fallback to RU text — live translation API removed (blocked page render).
     return $ru;
 }
 
