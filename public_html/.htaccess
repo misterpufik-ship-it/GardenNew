@@ -1,21 +1,17 @@
-<IfModule mod_dir.c>
-    DirectorySlash Off
-</IfModule>
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
     # Страницы-папки без слэша -> index.php
-    RewriteRule ^admiralteyskaya$ admiralteyskaya/index.php [L]
-    RewriteRule ^udelnaya$ udelnaya/index.php [L]
-    RewriteRule ^admiralteyskaya/menu$ admiralteyskaya/menu/index.php [L]
-    RewriteRule ^admiralteyskaya/menu/text$ admiralteyskaya/menu/text/index.php [L]
-    RewriteRule ^admiralteyskaya/menu/visual$ admiralteyskaya/menu/visual/index.php [L]
-    RewriteRule ^admiralteyskaya/menu/english$ admiralteyskaya/menu/english/index.php [L]
-    RewriteRule ^udelnaya/menu$ udelnaya/menu/index.php [L]
-    RewriteRule ^udelnaya/menu/text$ udelnaya/menu/text/index.php [L]
-    RewriteRule ^udelnaya/menu/visual$ udelnaya/menu/visual/index.php [L]
-    RewriteRule ^udelnaya/menu/english$ udelnaya/menu/english/index.php [L]
+    RewriteRule ^admiralteyskaya$ /admiralteyskaya/index.php [L]
+    RewriteRule ^udelnaya$ /udelnaya/index.php [L]
+    RewriteRule ^admiralteyskaya/menu$ /admiralteyskaya/menu/index.php [L]
+    RewriteRule ^admiralteyskaya/menu/text$ /admiralteyskaya/menu/text/index.php [L]
+    RewriteRule ^admiralteyskaya/menu/visual$ /admiralteyskaya/menu/visual/index.php [L]
+    RewriteRule ^admiralteyskaya/menu/english$ /admiralteyskaya/menu/english/index.php [L]
+    RewriteRule ^udelnaya/menu$ /udelnaya/menu/index.php [L]
+    RewriteRule ^udelnaya/menu/text$ /udelnaya/menu/text/index.php [L]
+    RewriteRule ^udelnaya/menu/visual$ /udelnaya/menu/visual/index.php [L]
+    RewriteRule ^udelnaya/menu/english$ /udelnaya/menu/english/index.php [L]
 
     # HTTP -> HTTPS
     RewriteCond %{HTTPS} !=on
