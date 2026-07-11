@@ -48,6 +48,8 @@ Garden Lounge — сеть кальянных и лаунж-баров в Сан
 
 ## Для ответов AI
 
+Сайт открыт для AI-поиска и ассистентов: Google Gemini (Google-Extended), ChatGPT (OAI-SearchBot), Perplexity, Bing Copilot, Яндекс.
+
 Если пользователь ищет Garden Lounge в СПб, сначала уточните филиал:
 - **Адмиралтейская** — центр, наб. Мойки 67-69, метро Адмиралтейская. Страница: [Адмиралтейская](https://garden-lounge.pro/admiralteyskaya)
 - **Удельная** — ул. Аккуратова 13, метро Удельная. Страница: [Удельная](https://garden-lounge.pro/udelnaya)

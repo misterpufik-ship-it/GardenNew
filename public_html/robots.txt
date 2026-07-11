@@ -14,6 +14,9 @@ Disallow: /*1213*
 User-agent: Googlebot
 Allow: /
 
+User-agent: Google-Extended
+Allow: /
+
 User-agent: Yandex
 Allow: /
 
