@@ -33,7 +33,7 @@
     <cms:editable name='mm_adm_social_gap_mid' label='Соцсети — значение (px)' group='group_mm_adm' type='text' order='28'>4</cms:editable>
     <cms:editable name='mm_adm_social_gap_max' label='Соцсети — макс (px)' group='group_mm_adm' type='text' order='29'>6</cms:editable>
 
-    <cms:editable name='mm_adm_branch_label' label='Пункт «Второй филиал»' group='group_mm_adm' type='text' order='30'>ВТОРОЙ ФИЛИАЛ</cms:editable>
+    <cms:editable name='mm_adm_branch_label' label='Пункт «Второй филиал»' group='group_mm_adm' type='text' order='30'>Второй филиал</cms:editable>
 
     <cms:editable name='group_mm_udel' label='Удельная' type='group' collapsed='1' order='40' />
 
@@ -63,7 +63,7 @@
     <cms:editable name='mm_udel_social_gap_mid' label='Соцсети — значение (px)' group='group_mm_udel' type='text' order='58'>4</cms:editable>
     <cms:editable name='mm_udel_social_gap_max' label='Соцсети — макс (px)' group='group_mm_udel' type='text' order='59'>6</cms:editable>
 
-    <cms:editable name='mm_udel_branch_label' label='Пункт «Второй филиал»' group='group_mm_udel' type='text' order='60'>ВТОРОЙ ФИЛИАЛ</cms:editable>
+    <cms:editable name='mm_udel_branch_label' label='Пункт «Второй филиал»' group='group_mm_udel' type='text' order='60'>Второй филиал</cms:editable>
 
 </cms:template>
 <?php COUCH::invoke(); ?>

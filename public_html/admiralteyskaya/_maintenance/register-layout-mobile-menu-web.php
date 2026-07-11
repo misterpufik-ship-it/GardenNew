@@ -198,7 +198,7 @@ function gl_mm_register_branch_fields($prefix, $group, $startOrder, $copyPrefix 
         array('name' => $prefix . 'social_gap_min', 'label' => 'Соцсети — мин (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '2'),
         array('name' => $prefix . 'social_gap_mid', 'label' => 'Соцсети — значение (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '4'),
         array('name' => $prefix . 'social_gap_max', 'label' => 'Соцсети — макс (px)', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => '6'),
-        array('name' => $prefix . 'branch_label', 'label' => 'Пункт «Второй филиал»', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => 'ВТОРОЙ ФИЛИАЛ', 'copy_from' => $copy('branch_label')),
+        array('name' => $prefix . 'branch_label', 'label' => 'Пункт «Второй филиал»', 'type' => 'text', 'group' => $group, 'order' => $order++, 'default' => 'Второй филиал', 'copy_from' => $copy('branch_label')),
     );
     return $fields;
 }
