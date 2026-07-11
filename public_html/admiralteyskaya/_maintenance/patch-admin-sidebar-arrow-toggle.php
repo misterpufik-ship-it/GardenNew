@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Sidebar collapse toggle: arrow button to the right of the greeting line.
  * Run: php _maintenance/patch-admin-sidebar-arrow-toggle.php
@@ -73,8 +73,8 @@ function garden_admin_sidebar_js(){
 
         var collapsed = $('#sidebar').hasClass('collapsed');
         $arrow.text(collapsed ? '\u203A' : '\u2039');
-        $toggle.attr('title', collapsed ? 'Показать меню' : 'Скрыть меню');
-        $toggle.attr('aria-label', collapsed ? 'Показать боковое меню' : 'Скрыть боковое меню');
+        $toggle.attr('title', collapsed ? 'РџРѕРєР°Р·Р°С‚СЊ РјРµРЅСЋ' : 'РЎРєСЂС‹С‚СЊ РјРµРЅСЋ');
+        $toggle.attr('aria-label', collapsed ? 'РџРѕРєР°Р·Р°С‚СЊ Р±РѕРєРѕРІРѕРµ РјРµРЅСЋ' : 'РЎРєСЂС‹С‚СЊ Р±РѕРєРѕРІРѕРµ РјРµРЅСЋ');
         syncSidebarTogglePosition();
     }
 
