@@ -27,8 +27,8 @@ require_once dirname(__DIR__) . '/couch/cms.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_font_assets(); ?>
-    <?php gl_render_blocking_stylesheet('main.css?v=' . @filemtime(__DIR__ . '/main.css')); ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_base_href('udelnaya'); gl_render_font_assets(); ?>
+    <?php gl_render_blocking_stylesheet(gl_branch_main_css_url('udelnaya')); ?>
 
     <cms:pages masterpage='udelnaya/globals.php' limit='1'>
         <cms:set global_title=seo_title_default 'global' />

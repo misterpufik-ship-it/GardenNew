@@ -22,8 +22,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_font_assets(); ?>
-    <?php gl_render_blocking_stylesheet('main.css?v=' . @filemtime(__DIR__ . '/main.css')); ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_base_href('admiralteyskaya'); gl_render_font_assets(); ?>
+    <?php gl_render_blocking_stylesheet(gl_branch_main_css_url('admiralteyskaya')); ?>
 
     <title><cms:get_custom_field 'seo_title_default' masterpage='globals.php' /></title>
     <meta name="description" content="<cms:get_custom_field 'seo_desc_default' masterpage='globals.php' />">

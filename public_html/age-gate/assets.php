@@ -96,6 +96,60 @@ function gl_render_nonblocking_stylesheet($href)
     echo '<noscript><link rel="stylesheet" href="' . $safeHref . '"></noscript>' . "\n";
 }
 
+function gl_branch_web_base($branch = '')
+{
+    if ($branch === 'udelnaya') {
+        return 'https://garden-lounge.pro/udelnaya/';
+    }
+    if ($branch === 'admiralteyskaya') {
+        return 'https://garden-lounge.pro/admiralteyskaya/';
+    }
+
+    $uri = isset($_SERVER['REQUEST_URI']) ? strtok($_SERVER['REQUEST_URI'], '?') : '';
+    if (strpos($uri, '/udelnaya') === 0 || strpos($uri, '/admiralteyskaya/udelnaya') === 0) {
+        return 'https://garden-lounge.pro/udelnaya/';
+    }
+    if (strpos($uri, '/admiralteyskaya') === 0) {
+        return 'https://garden-lounge.pro/admiralteyskaya/';
+    }
+
+    return '';
+}
+
+function gl_render_base_href($branch = '')
+{
+    static $rendered = false;
+    if ($rendered) {
+        return;
+    }
+
+    $base = gl_branch_web_base($branch);
+    if ($base === '') {
+        return;
+    }
+
+    $rendered = true;
+    echo '<base href="' . htmlspecialchars($base, ENT_QUOTES, 'UTF-8') . '">' . "\n";
+}
+
+function gl_branch_main_css_url($branch = '')
+{
+    if ($branch === '' || $branch === 'auto') {
+        $base = gl_branch_web_base('');
+        $branch = ($base === 'https://garden-lounge.pro/udelnaya/') ? 'udelnaya' : 'admiralteyskaya';
+    }
+
+    if ($branch === 'udelnaya') {
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/udelnaya/main.css';
+        $web = '/udelnaya/main.css';
+    } else {
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/admiralteyskaya/main.css';
+        $web = '/admiralteyskaya/main.css';
+    }
+
+    return $web . '?v=' . (@filemtime($path) ?: 1);
+}
+
 function gl_render_blocking_stylesheet($href)
 {
     $safeHref = htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
