@@ -136,7 +136,7 @@ function garden_admin_sidebar_toggle_css(){
 @media (max-height:540px){#scroll-sidebar{bottom:168px!important}}
 #sidebar-toggle.gl-sidebar-toggle-btn{
   position:fixed!important;
-  left:0!important;
+  left:auto!important;
   right:auto!important;
   bottom:auto!important;
   display:flex!important;
@@ -147,8 +147,8 @@ function garden_admin_sidebar_toggle_css(){
   margin:0!important;
   padding:0!important;
   border:1px solid rgba(197,160,89,.35)!important;
-  border-left:0!important;
-  border-radius:0 6px 6px 0!important;
+  border-right:0!important;
+  border-radius:6px 0 0 6px!important;
   background:#0a0a0a!important;
   background-image:none!important;
   fill:var(--gl-gold,#C5A059)!important;
