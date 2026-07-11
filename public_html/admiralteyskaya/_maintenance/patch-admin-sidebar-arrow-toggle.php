@@ -42,7 +42,6 @@ function garden_admin_sidebar_js(){
             $greeting.attr('id', 'sidebar-greeting');
             $greeting.insertBefore($btns);
         }
-        $('#sidebar-greeting, #sidebar-top').addClass('gl-sidebar-greeting-row');
     }
 
     function setupSidebarToggle(){
@@ -51,7 +50,7 @@ function garden_admin_sidebar_js(){
 
         var $greeting = $('#sidebar-greeting, #sidebar-top').first();
         if ($greeting.length) {
-            $toggle.appendTo($greeting);
+            $toggle.insertBefore($greeting);
         }
 
         $toggle.addClass('gl-sidebar-toggle-btn');
@@ -138,38 +137,23 @@ function garden_admin_sidebar_toggle_css(){
 
     $css = <<<'CSS'
 /* gl-sidebar-arrow-toggle */
-#sidebar-greeting.gl-sidebar-greeting-row,
-#sidebar-top.gl-sidebar-greeting-row{
+#scroll-sidebar{bottom:152px!important}
+@media (max-height:540px){#scroll-sidebar{bottom:144px!important}}
+#sidebar-toggle.gl-sidebar-toggle-btn{
+  position:absolute!important;
+  right:0!important;
+  left:0!important;
+  bottom:116px!important;
   display:flex!important;
   align-items:center!important;
-  justify-content:space-between!important;
-  gap:10px!important;
-  padding:10px 12px 8px!important;
-  border-top:1px solid rgba(197,160,89,.18)!important;
-}
-#sidebar-greeting.gl-sidebar-greeting-row>p,
-#sidebar-top.gl-sidebar-greeting-row>p{
-  flex:1 1 auto!important;
-  min-width:0!important;
-  margin:0!important;
-  font-size:12px!important;
-  line-height:1.45!important;
-  white-space:nowrap!important;
-  overflow:hidden!important;
-  text-overflow:ellipsis!important;
-}
-#sidebar-toggle.gl-sidebar-toggle-btn{
-  position:static!important;
-  flex:0 0 28px!important;
-  width:28px!important;
+  justify-content:center!important;
+  width:100%!important;
   height:28px!important;
   margin:0!important;
   padding:0!important;
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  border:1px solid rgba(197,160,89,.35)!important;
-  border-radius:4px!important;
+  border:0!important;
+  border-top:1px solid rgba(197,160,89,.18)!important;
+  border-radius:0!important;
   background:rgba(197,160,89,.08)!important;
   background-image:none!important;
   fill:var(--gl-gold,#C5A059)!important;
@@ -177,11 +161,6 @@ function garden_admin_sidebar_toggle_css(){
   cursor:pointer!important;
   z-index:3!important;
   box-shadow:none!important;
-  bottom:auto!important;
-  left:auto!important;
-  right:auto!important;
-  top:auto!important;
-  transform:none!important;
 }
 #sidebar-toggle.gl-sidebar-toggle-btn:hover,
 #sidebar-toggle.gl-sidebar-toggle-btn:focus{
@@ -211,6 +190,7 @@ function garden_admin_sidebar_toggle_css(){
   height:52px!important;
   border-radius:0 6px 6px 0!important;
   border-left:0!important;
+  border-top:1px solid rgba(197,160,89,.35)!important;
   z-index:220!important;
   background:#0a0a0a!important;
 }
