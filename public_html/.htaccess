@@ -12,17 +12,21 @@
     RewriteCond %{HTTP_HOST} ^www\.garden-lounge\.pro$ [NC]
     RewriteRule ^ https://garden-lounge.pro%{REQUEST_URI} [R=301,L]
 
-    # Главная без слэша
-    RewriteCond %{REQUEST_URI} ^/$
-    RewriteRule ^ https://%{HTTP_HOST} [R=301,L]
-
-    # Убираем trailing slash
+    # Убираем trailing slash (кроме корня /)
     RewriteCond %{REQUEST_URI} ^(.+)/$
     RewriteRule ^ https://%{HTTP_HOST}%1 [R=301,L]
 
-    # Директории без слэша -> index.php
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^(.+[^/])$ $1/index.php [L]
+    # Страницы-директории без слэша -> index.php
+    RewriteRule ^admiralteyskaya$ admiralteyskaya/index.php [L]
+    RewriteRule ^udelnaya$ udelnaya/index.php [L]
+    RewriteRule ^admiralteyskaya/menu$ admiralteyskaya/menu/index.php [L]
+    RewriteRule ^admiralteyskaya/menu/text$ admiralteyskaya/menu/text/index.php [L]
+    RewriteRule ^admiralteyskaya/menu/visual$ admiralteyskaya/menu/visual/index.php [L]
+    RewriteRule ^admiralteyskaya/menu/english$ admiralteyskaya/menu/english/index.php [L]
+    RewriteRule ^udelnaya/menu$ udelnaya/menu/index.php [L]
+    RewriteRule ^udelnaya/menu/text$ udelnaya/menu/text/index.php [L]
+    RewriteRule ^udelnaya/menu/visual$ udelnaya/menu/visual/index.php [L]
+    RewriteRule ^udelnaya/menu/english$ udelnaya/menu/english/index.php [L]
 
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
 
