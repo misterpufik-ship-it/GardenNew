@@ -256,8 +256,11 @@ function garden_admin_sidebar_js(){
         var $toggle = $('#sidebar-toggle');
         if (!$toggle.length) return;
 
+        var $menuContent = $('#menu-content');
         var $greeting = $('#sidebar-greeting, #sidebar-top').first();
-        if ($greeting.length) {
+        if ($menuContent.length) {
+            $toggle.appendTo($menuContent);
+        } else if ($greeting.length) {
             $toggle.insertBefore($greeting);
         }
 
@@ -283,26 +286,6 @@ function garden_admin_sidebar_js(){
         $arrow.text(collapsed ? '\u203A' : '\u2039');
         $toggle.attr('title', collapsed ? 'Показать меню' : 'Скрыть меню');
         $toggle.attr('aria-label', collapsed ? 'Показать боковое меню' : 'Скрыть боковое меню');
-        syncSidebarTogglePosition();
-    }
-
-    function syncSidebarTogglePosition(){
-        var $sidebar = $('#sidebar');
-        var $toggle = $('#sidebar-toggle');
-        var $greeting = $('#sidebar-greeting, #sidebar-top').first();
-        if (!$toggle.length || !$greeting.length) return;
-
-        var greetingRect = $greeting[0].getBoundingClientRect();
-        var sidebarRect = $sidebar[0].getBoundingClientRect();
-        var top = greetingRect.top - $toggle.outerHeight() - 4;
-        var left = sidebarRect.right - $toggle.outerWidth();
-        $toggle.css({
-            top: Math.round(top) + 'px',
-            bottom: 'auto',
-            left: Math.round(left) + 'px',
-            right: 'auto',
-            transform: 'none'
-        });
     }
 
     $(function(){
@@ -310,13 +293,8 @@ function garden_admin_sidebar_js(){
         setupSidebarToggle();
 
         $('#sidebar-toggle').on('click', function(){
-            window.setTimeout(function(){
-                syncSidebarToggleArrow();
-                syncSidebarTogglePosition();
-            }, 0);
+            window.setTimeout(syncSidebarToggleArrow, 0);
         });
-
-        $(window).on('resize', syncSidebarTogglePosition);
 
         $('#gl-header-user').remove();
         addDumpLink();
@@ -385,10 +363,11 @@ function garden_admin_sidebar_css(){
 #scroll-sidebar{bottom:176px!important}
 @media (max-height:540px){#scroll-sidebar{bottom:168px!important}}
 #sidebar-toggle.gl-sidebar-toggle-btn{
-  position:fixed!important;
+  position:absolute!important;
+  right:0!important;
   left:auto!important;
-  right:auto!important;
-  bottom:auto!important;
+  bottom:124px!important;
+  top:auto!important;
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;

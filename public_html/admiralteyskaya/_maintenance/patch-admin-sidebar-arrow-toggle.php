@@ -48,8 +48,11 @@ function garden_admin_sidebar_js(){
         var $toggle = $('#sidebar-toggle');
         if (!$toggle.length) return;
 
+        var $menuContent = $('#menu-content');
         var $greeting = $('#sidebar-greeting, #sidebar-top').first();
-        if ($greeting.length) {
+        if ($menuContent.length) {
+            $toggle.appendTo($menuContent);
+        } else if ($greeting.length) {
             $toggle.insertBefore($greeting);
         }
 
@@ -75,7 +78,6 @@ function garden_admin_sidebar_js(){
         $arrow.text(collapsed ? '\u203A' : '\u2039');
         $toggle.attr('title', collapsed ? 'РџРѕРєР°Р·Р°С‚СЊ РјРµРЅСЋ' : 'РЎРєСЂС‹С‚СЊ РјРµРЅСЋ');
         $toggle.attr('aria-label', collapsed ? 'РџРѕРєР°Р·Р°С‚СЊ Р±РѕРєРѕРІРѕРµ РјРµРЅСЋ' : 'РЎРєСЂС‹С‚СЊ Р±РѕРєРѕРІРѕРµ РјРµРЅСЋ');
-        syncSidebarTogglePosition();
     }
 
     function syncSidebarTogglePosition(){
@@ -135,10 +137,11 @@ function garden_admin_sidebar_toggle_css(){
 #scroll-sidebar{bottom:176px!important}
 @media (max-height:540px){#scroll-sidebar{bottom:168px!important}}
 #sidebar-toggle.gl-sidebar-toggle-btn{
-  position:fixed!important;
+  position:absolute!important;
+  right:0!important;
   left:auto!important;
-  right:auto!important;
-  bottom:auto!important;
+  bottom:124px!important;
+  top:auto!important;
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;

@@ -150,10 +150,11 @@ fieldset.row_fieldset legend:hover:after,fieldset.row_fieldset legend:focus:afte
 #scroll-sidebar{bottom:176px!important}
 @media (max-height:540px){#scroll-sidebar{bottom:168px!important}}
 #sidebar-toggle.gl-sidebar-toggle-btn{
-  position:fixed!important;
+  position:absolute!important;
+  right:0!important;
   left:auto!important;
-  right:auto!important;
-  bottom:auto!important;
+  bottom:124px!important;
+  top:auto!important;
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
