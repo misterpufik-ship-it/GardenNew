@@ -283,22 +283,17 @@ function garden_admin_sidebar_js(){
         $arrow.text(collapsed ? '\u203A' : '\u2039');
         $toggle.attr('title', collapsed ? 'Показать меню' : 'Скрыть меню');
         $toggle.attr('aria-label', collapsed ? 'Показать боковое меню' : 'Скрыть боковое меню');
-        syncCollapsedTogglePosition();
+        syncSidebarTogglePosition();
     }
 
-    function syncCollapsedTogglePosition(){
+    function syncSidebarTogglePosition(){
         var $sidebar = $('#sidebar');
         var $toggle = $('#sidebar-toggle');
         var $greeting = $('#sidebar-greeting, #sidebar-top').first();
         if (!$toggle.length || !$greeting.length) return;
 
-        if (!$sidebar.hasClass('collapsed')) {
-            $toggle.css({ top: '', bottom: '', left: '', transform: '' });
-            return;
-        }
-
         var rect = $greeting[0].getBoundingClientRect();
-        var top = rect.top + ((rect.height - $toggle.outerHeight()) / 2);
+        var top = rect.top - $toggle.outerHeight() - 4;
         $toggle.css({
             top: Math.round(top) + 'px',
             bottom: 'auto',
@@ -314,11 +309,11 @@ function garden_admin_sidebar_js(){
         $('#sidebar-toggle').on('click', function(){
             window.setTimeout(function(){
                 syncSidebarToggleArrow();
-                syncCollapsedTogglePosition();
+                syncSidebarTogglePosition();
             }, 0);
         });
 
-        $(window).on('resize', syncCollapsedTogglePosition);
+        $(window).on('resize', syncSidebarTogglePosition);
 
         $('#gl-header-user').remove();
         addDumpLink();
@@ -384,35 +379,36 @@ function garden_admin_sidebar_css(){
   display:flex!important;
   visibility:visible!important;
 }
-#scroll-sidebar{bottom:152px!important}
-@media (max-height:540px){#scroll-sidebar{bottom:144px!important}}
+#scroll-sidebar{bottom:176px!important}
+@media (max-height:540px){#scroll-sidebar{bottom:168px!important}}
 #sidebar-toggle.gl-sidebar-toggle-btn{
-  position:absolute!important;
-  right:0!important;
+  position:fixed!important;
   left:0!important;
-  bottom:116px!important;
+  right:auto!important;
+  bottom:auto!important;
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
-  width:100%!important;
-  height:28px!important;
+  width:26px!important;
+  height:52px!important;
   margin:0!important;
   padding:0!important;
-  border:0!important;
-  border-top:1px solid rgba(197,160,89,.18)!important;
-  border-radius:0!important;
-  background:rgba(197,160,89,.08)!important;
+  border:1px solid rgba(197,160,89,.35)!important;
+  border-left:0!important;
+  border-radius:0 6px 6px 0!important;
+  background:#0a0a0a!important;
   background-image:none!important;
   fill:var(--gl-gold,#C5A059)!important;
   color:var(--gl-gold,#C5A059)!important;
   cursor:pointer!important;
-  z-index:3!important;
+  z-index:220!important;
   box-shadow:none!important;
+  transform:none!important;
 }
 #sidebar-toggle.gl-sidebar-toggle-btn:hover,
 #sidebar-toggle.gl-sidebar-toggle-btn:focus{
-  background:rgba(197,160,89,.18)!important;
-  border-color:rgba(197,160,89,.45)!important;
+  background:rgba(197,160,89,.12)!important;
+  border-color:rgba(197,160,89,.55)!important;
   color:#fff!important;
   fill:#fff!important;
 }
@@ -424,20 +420,6 @@ function garden_admin_sidebar_css(){
   font-weight:600!important;
   color:inherit!important;
   pointer-events:none!important;
-}
-#sidebar.collapsed #sidebar-toggle.gl-sidebar-toggle-btn{
-  position:fixed!important;
-  left:0!important;
-  right:auto!important;
-  bottom:auto!important;
-  transform:none!important;
-  width:26px!important;
-  height:52px!important;
-  border-radius:0 6px 6px 0!important;
-  border-left:0!important;
-  border-top:1px solid rgba(197,160,89,.35)!important;
-  z-index:220!important;
-  background:#0a0a0a!important;
 }
 @media (max-height:540px){
   #sidebar-greeting{display:block!important}
@@ -461,8 +443,8 @@ function garden_admin_sidebar_css(){
 #menu-wrap .garden-admin-brand{padding:8px 10px 4px}
 #menu-wrap .garden-admin-brand__logo,#menu-wrap #logo{max-width:210px!important;max-height:82px!important;width:100%!important}
 #menu-content{flex:1 1 auto!important;position:relative!important;height:auto!important;min-height:0!important}
-#scroll-sidebar{position:absolute!important;top:0!important;right:0;left:0;bottom:152px!important;overflow-y:auto}
-@media (max-height:540px){#scroll-sidebar{top:0!important;bottom:144px!important}}
+#scroll-sidebar{position:absolute!important;top:0!important;right:0;left:0;bottom:176px!important;overflow-y:auto}
+@media (max-height:540px){#scroll-sidebar{top:0!important;bottom:168px!important}}
 #nav-links{display:none!important}
 #sidebar-greeting,#sidebar-top{position:absolute!important;right:0;bottom:84px;left:0;z-index:2;box-sizing:border-box;border-top:1px solid #000;border-bottom:none;padding:10px 12px 8px;background-color:var(--gl-black)!important;box-shadow:0 -1px 0 rgba(197,160,89,.08)}
 #sidebar-greeting>p,#sidebar-top>p{color:#999;margin:0;font-size:12px;line-height:1.45}
