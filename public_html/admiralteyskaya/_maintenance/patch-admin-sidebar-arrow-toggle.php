@@ -161,6 +161,16 @@ function garden_admin_sidebar_toggle_css(){
   box-shadow:none!important;
   transform:none!important;
 }
+#sidebar.collapsed #sidebar-toggle.gl-sidebar-toggle-btn{
+  position:fixed!important;
+  left:0!important;
+  right:auto!important;
+  bottom:124px!important;
+  top:auto!important;
+  border-radius:0 6px 6px 0!important;
+  border-right:1px solid rgba(197,160,89,.35)!important;
+  border-left:0!important;
+}
 #sidebar-toggle.gl-sidebar-toggle-btn:hover,
 #sidebar-toggle.gl-sidebar-toggle-btn:focus{
   background:rgba(197,160,89,.12)!important;
