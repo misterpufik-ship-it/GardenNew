@@ -1,17 +1,12 @@
+Options -MultiViews
+
+<IfModule mod_dir.c>
+    DirectorySlash Off
+</IfModule>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
-
-    # Страницы-папки без слэша -> index.php
-    RewriteRule ^admiralteyskaya$ /admiralteyskaya/index.php [L]
-    RewriteRule ^udelnaya$ /udelnaya/index.php [L]
-    RewriteRule ^admiralteyskaya/menu$ /admiralteyskaya/menu/index.php [L]
-    RewriteRule ^admiralteyskaya/menu/text$ /admiralteyskaya/menu/text/index.php [L]
-    RewriteRule ^admiralteyskaya/menu/visual$ /admiralteyskaya/menu/visual/index.php [L]
-    RewriteRule ^admiralteyskaya/menu/english$ /admiralteyskaya/menu/english/index.php [L]
-    RewriteRule ^udelnaya/menu$ /udelnaya/menu/index.php [L]
-    RewriteRule ^udelnaya/menu/text$ /udelnaya/menu/text/index.php [L]
-    RewriteRule ^udelnaya/menu/visual$ /udelnaya/menu/visual/index.php [L]
-    RewriteRule ^udelnaya/menu/english$ /udelnaya/menu/english/index.php [L]
+    RewriteBase /
 
     # HTTP -> HTTPS
     RewriteCond %{HTTPS} !=on
@@ -24,6 +19,37 @@
     # Убрать слэш только в конце URL (кроме главной /)
     RewriteCond %{REQUEST_URI} ^(.+)/$
     RewriteRule ^ https://%{HTTP_HOST}%1 [R=301,L]
+
+    # Страницы-папки без слэша -> index.php
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya$
+    RewriteRule ^ /admiralteyskaya/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya$
+    RewriteRule ^ /udelnaya/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/menu$
+    RewriteRule ^ /admiralteyskaya/menu/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/menu/text$
+    RewriteRule ^ /admiralteyskaya/menu/text/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/menu/visual$
+    RewriteRule ^ /admiralteyskaya/menu/visual/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/menu/english$
+    RewriteRule ^ /admiralteyskaya/menu/english/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya/menu$
+    RewriteRule ^ /udelnaya/menu/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya/menu/text$
+    RewriteRule ^ /udelnaya/menu/text/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya/menu/visual$
+    RewriteRule ^ /udelnaya/menu/visual/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya/menu/english$
+    RewriteRule ^ /udelnaya/menu/english/index.php [L]
 
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
 
