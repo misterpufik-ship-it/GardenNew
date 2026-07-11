@@ -53,14 +53,31 @@ function gl_hero_lcp_url($sourceUrl, $role = 'desk')
     return $path;
 }
 
-function gl_hero_render_preload_tags($deskUrl, $mobUrl = '')
+function gl_hero_resolve_lcp_urls($deskUrl, $mobUrl = '')
 {
     if ($mobUrl === '') {
         $mobUrl = $deskUrl;
     }
 
-    $desk = htmlspecialchars(gl_hero_lcp_url($deskUrl, 'desk'), ENT_QUOTES, 'UTF-8');
-    $mob = htmlspecialchars(gl_hero_lcp_url($mobUrl, 'mob'), ENT_QUOTES, 'UTF-8');
+    $deskPath = gl_hero_normalize_public_path($deskUrl);
+    $mobPath = gl_hero_normalize_public_path($mobUrl);
+    $deskLcp = gl_hero_lcp_url($deskUrl, 'desk');
+
+    // Explicit CMS mobile asset — serve exactly as uploaded (no -mob-768 rewrite).
+    if ($mobPath !== '' && $deskPath !== '' && $mobPath !== $deskPath) {
+        $mobLcp = $mobPath;
+    } else {
+        $mobLcp = gl_hero_lcp_url($mobUrl, 'mob');
+    }
+
+    return array('desk' => $deskLcp, 'mob' => $mobLcp);
+}
+
+function gl_hero_render_preload_tags($deskUrl, $mobUrl = '')
+{
+    $urls = gl_hero_resolve_lcp_urls($deskUrl, $mobUrl);
+    $desk = htmlspecialchars($urls['desk'], ENT_QUOTES, 'UTF-8');
+    $mob = htmlspecialchars($urls['mob'], ENT_QUOTES, 'UTF-8');
 
     echo '<link rel="preload" as="image" href="' . $desk . '" media="(min-width: 768px)" fetchpriority="high">' . "\n";
     echo '<link rel="preload" as="image" href="' . $mob . '" media="(max-width: 767px)" fetchpriority="high">' . "\n";

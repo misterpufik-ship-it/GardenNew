@@ -132,9 +132,6 @@ require_once dirname(__DIR__) . '/couch/cms.php';
 
     <cms:set is_udelnaya='1' 'global' />
     <cms:pages masterpage='udelnaya/header.php' limit='1'>
-        <cms:set hero_bg_desk='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp' />
-        <cms:set hero_bg_mob='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp' />
-        <cms:set hero_img_alt='Интерьер кальянной Garden Lounge на Удельной, лаунж-бар на улице Аккуратова 13 в Санкт-Петербурге' />
         <cms:embed 'header.html' />
     </cms:pages>
     <cms:pages masterpage='udelnaya/about.php' limit='1'><cms:embed 'about-udelnaya.html' /></cms:pages>
