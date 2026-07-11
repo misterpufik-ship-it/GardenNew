@@ -6,6 +6,7 @@ Disallow: /udelnaya/couch/
 Disallow: /udelnaya/couch/uploads/
 Disallow: /crm/
 Disallow: /_maintenance/
+Disallow: /admiralteyskaya/_maintenance/
 Disallow: /*copy*
 Disallow: /*import*
 Disallow: /*1213*
@@ -27,5 +28,7 @@ Allow: /
 
 User-agent: PerplexityBot
 Allow: /
+
+Host: garden-lounge.pro
 
 Sitemap: https://garden-lounge.pro/sitemap.xml
