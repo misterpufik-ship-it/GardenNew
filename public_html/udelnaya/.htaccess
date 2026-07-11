@@ -1,6 +1,8 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    DirectorySlash Off
+
     # HTTP -> HTTPS
     RewriteCond %{HTTPS} !=on
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
