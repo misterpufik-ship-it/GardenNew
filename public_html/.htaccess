@@ -27,6 +27,8 @@
 
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
 
+    RewriteRule ^udelnaya/couch/uploads/(.*)$ /admiralteyskaya/couch/uploads/$1 [L]
+
     # Legacy duplicate paths
     RewriteRule ^admiralteyskaya/udelnaya/menu/?(.*)$ https://garden-lounge.pro/udelnaya/menu/$1 [R=301,L]
     RewriteRule ^admiralteyskaya/udelnaya/?(.*)$ https://garden-lounge.pro/udelnaya/$1 [R=301,L]
@@ -37,10 +39,7 @@
     RewriteRule ^home/m/mrpuffch/garden-lounge\.pro/public_html/udelnaya/menu/?$ https://garden-lounge.pro/udelnaya/menu [R=301,L]
     RewriteRule ^home/m/mrpuffch/garden-lounge\.pro/public_html/admiralteyskaya/menu/(.*)$ https://garden-lounge.pro/admiralteyskaya/menu/$1 [R=301,L]
     RewriteRule ^home/m/mrpuffch/garden-lounge\.pro/public_html/udelnaya/menu/(.*)$ https://garden-lounge.pro/udelnaya/menu/$1 [R=301,L]
-</IfModule>
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
     RewriteCond %{HTTP:Accept} image/webp
     RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
     RewriteRule ^(.+)\.(jpe?g|png)$ $1.webp [T=image/webp,L]
