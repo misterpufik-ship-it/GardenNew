@@ -57,10 +57,10 @@ function gl_menu_seo_schema_render(array $opts)
     }
 
     $branchName = $branch === 'udelnaya' ? 'Удельная' : 'Адмиралтейская';
-    $branchUrl = 'https://garden-lounge.pro/' . $branch . '/';
+    $branchUrl = 'https://garden-lounge.pro' . $branch;
     $branchId = $branchUrl . '#localbusiness';
-    $homeUrl = 'https://garden-lounge.pro/';
-    $menuHubUrl = $branchUrl . 'menu/';
+    $homeUrl = 'https://garden-lounge.pro';
+    $menuHubUrl = $branchUrl . '/menu';
 
     $crumbs = array(
         array(

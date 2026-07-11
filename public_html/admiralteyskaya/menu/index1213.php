@@ -175,7 +175,7 @@
         
         <!-- ЛОГОТИП -->
         <header class="mb-8 fade-up" style="animation-delay: 0.1s;">
-            <a href="https://garden-lounge.pro/admiralteyskaya/" class="block">
+            <a href="https://garden-lounge.pro/admiralteyskaya" class="block">
                 <img src="/img/logo3.webp" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500">
             </a>
         </header>
@@ -232,7 +232,7 @@
                 </p>
 
                 <!-- Кнопка возврата -->
-                <a href="https://garden-lounge.pro/admiralteyskaya/" class="back-button">
+                <a href="https://garden-lounge.pro/admiralteyskaya" class="back-button">
                     <i class="fas fa-chevron-left text-[8px]"></i>
                     Вернуться на главную
                 </a>

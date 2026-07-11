@@ -537,8 +537,8 @@ function garden_booking_handle_request() {
     }
 
     $source_url = ($branch === 'udelnaya')
-        ? 'https://garden-lounge.pro/udelnaya/#reservation'
-        : 'https://garden-lounge.pro/admiralteyskaya/#reservation';
+        ? 'https://garden-lounge.pro/udelnaya#reservation'
+        : 'https://garden-lounge.pro/admiralteyskaya#reservation';
 
     $booking_data = array(
         'name' => $name,

@@ -12,14 +12,14 @@ header('Content-Type: text/plain; charset=utf-8');
 
 $fixes = array(
     'menu.php' => array(
-        'menu_visual_link' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual/',
-        'menu_text_link' => 'https://garden-lounge.pro/admiralteyskaya/menu/text/',
-        'menu_eng_link' => 'https://garden-lounge.pro/admiralteyskaya/menu/english/',
+        'menu_visual_link' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual',
+        'menu_text_link' => 'https://garden-lounge.pro/admiralteyskaya/menu/text',
+        'menu_eng_link' => 'https://garden-lounge.pro/admiralteyskaya/menu/english',
     ),
     'udelnaya/menu.php' => array(
-        'menu_visual_link' => 'https://garden-lounge.pro/udelnaya/menu/visual/',
-        'menu_text_link' => 'https://garden-lounge.pro/udelnaya/menu/text/',
-        'menu_eng_link' => 'https://garden-lounge.pro/udelnaya/menu/english/',
+        'menu_visual_link' => 'https://garden-lounge.pro/udelnaya/menu/visual',
+        'menu_text_link' => 'https://garden-lounge.pro/udelnaya/menu/text',
+        'menu_eng_link' => 'https://garden-lounge.pro/udelnaya/menu/english',
     ),
 );
 

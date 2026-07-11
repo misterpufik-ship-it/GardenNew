@@ -45,19 +45,19 @@
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
     <title>Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб</title>
     <meta name="description" content="Визуальное меню Garden Lounge на Адмиралтейской: кальяны, блюда кухни, бар и акции лаунж-бара в центре Санкт-Петербурга.">
-    <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/visual/">
+    <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/visual">
     <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
     gl_menu_og_render(array(
         'branch' => 'admiralteyskaya',
-        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual/',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual',
         'title' => 'Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб',
         'description' => 'Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.',
     ));
     gl_menu_seo_schema_render(array(
         'branch' => 'admiralteyskaya',
         'page' => 'visual',
-        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual/',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/visual',
         'name' => 'Визуальное меню Garden Lounge — кальяны, кухня и бар в СПб',
         'description' => 'Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.',
     ));
@@ -201,7 +201,7 @@
             <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">
                 Программа лояльности
             </div>
-            <a href="https://garden-lounge.pro/admiralteyskaya/menu/text/" class="btn-base">
+            <a href="https://garden-lounge.pro/admiralteyskaya/menu/text" class="btn-base">
                 <span class="subtitle-gold">Текстовое меню</span>
             </a>
         </div>

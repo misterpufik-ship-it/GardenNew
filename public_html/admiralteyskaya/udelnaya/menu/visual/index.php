@@ -50,19 +50,19 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
     <title>Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар</title>
     <meta name="description" content="Визуальное меню Garden Lounge на Удельной: кальяны, блюда кухни, бар, десерты и акции лаунж-бара у метро Удельная, ул. Аккуратова 13.">
-    <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/visual/">
+    <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/visual">
     <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
     gl_menu_og_render(array(
         'branch' => 'udelnaya',
-        'url' => 'https://garden-lounge.pro/udelnaya/menu/visual/',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/visual',
         'title' => 'Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар',
         'description' => 'Визуальное меню Garden Lounge на Удельной: кальяны, кухня, бар, десерты и акции.',
     ));
     gl_menu_seo_schema_render(array(
         'branch' => 'udelnaya',
         'page' => 'visual',
-        'url' => 'https://garden-lounge.pro/udelnaya/menu/visual/',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/visual',
         'name' => 'Визуальное меню Garden Lounge на Удельной — кальяны, кухня и бар',
         'description' => 'Визуальное меню Garden Lounge на Удельной: кальяны, кухня, бар, десерты и акции.',
     ));
@@ -206,7 +206,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
             <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">
                 Программа лояльности
             </div>
-            <a href="https://garden-lounge.pro/udelnaya/menu/text/" class="btn-base">
+            <a href="https://garden-lounge.pro/udelnaya/menu/text" class="btn-base">
                 <span class="subtitle-gold">Текстовое меню</span>
             </a>
         </div>

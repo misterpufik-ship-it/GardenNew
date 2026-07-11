@@ -12,7 +12,7 @@
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
         <title>Menu Garden Lounge Admiralteyskaya — hookahs, kitchen, bar</title>
         <meta name="description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar, drinks and special offers in central Saint Petersburg.</cms:if>">
-        <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/english/">
+        <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/english">
         <cms:php>
         global $CTX;
         require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
@@ -22,7 +22,7 @@
         }
         gl_menu_og_render(array(
             'branch' => 'admiralteyskaya',
-            'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/english/',
+            'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/english',
             'title' => 'Menu Garden Lounge Admiralteyskaya — hookahs, kitchen, bar',
             'description' => $desc,
         ));
@@ -32,7 +32,7 @@
         gl_menu_seo_schema_render(array(
             'branch' => 'admiralteyskaya',
             'page' => 'english',
-            'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/english/',
+            'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/english',
             'name' => 'Menu Garden Lounge Admiralteyskaya — hookahs, kitchen, bar',
             'description' => 'English menu of Garden Lounge near Admiralteyskaya: hookahs, kitchen, bar and drinks.',
             'lang' => 'en-US',
@@ -313,7 +313,7 @@
                 <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">
                     Loyalty Program
                 </div>
-                <a href="https://garden-lounge.pro/admiralteyskaya/menu/visual/" class="btn-base">
+                <a href="https://garden-lounge.pro/admiralteyskaya/menu/visual" class="btn-base">
                     <span class="subtitle-gold">Visual Menu</span>
                 </a>
             </div>

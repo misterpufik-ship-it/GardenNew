@@ -2,7 +2,7 @@
 <cms:template title='Главная' name='home_section' executable='0' order='1'>
 
     <cms:editable name='home_intro' label='Справка' type='message' order='1'>
-        Настройки главной страницы https://garden-lounge.pro/ — логотип, филиалы, кнопки, соцсети, оформление иконок и кнопок.
+        Настройки главной страницы https://garden-lounge.pro — логотип, филиалы, кнопки, соцсети, оформление иконок и кнопок.
     </cms:editable>
 
     <cms:editable name='group_seo' label='SEO' type='group' order='10' />

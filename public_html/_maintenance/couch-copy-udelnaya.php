@@ -228,15 +228,15 @@ try {
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_hours_2', '13:00 – 03:00');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_whatsapp', 'https://wa.me/79500473365');
     set_field_text($db, $tables, 'udelnaya/contacts.php', 'cont_telegram', 'https://t.me/Garden_lounge_spb');
-    set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_visual_link', 'https://garden-lounge.pro/udelnaya/menu/visual/');
-    set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_text_link', 'https://garden-lounge.pro/udelnaya/menu/text/');
-    set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_eng_link', 'https://garden-lounge.pro/udelnaya/menu/english/');
+    set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_visual_link', 'https://garden-lounge.pro/udelnaya/menu/visual');
+    set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_text_link', 'https://garden-lounge.pro/udelnaya/menu/text');
+    set_field_text($db, $tables, 'udelnaya/menu.php', 'menu_eng_link', 'https://garden-lounge.pro/udelnaya/menu/english');
     set_field_text($db, $tables, 'udelnaya/filial.php', 'final_title', 'Garden Lounge Admiralteyskaya');
     set_field_text($db, $tables, 'udelnaya/filial.php', 'final_img', 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.webp');
     set_field_text($db, $tables, 'udelnaya/filial.php', 'final_img_alt', 'Garden Lounge Admiralteyskaya, интерьер филиала на наб. реки Мойки 67-69');
     set_field_text($db, $tables, 'udelnaya/filial.php', 'final_address', 'СПб., наб. реки Мойки, д. 67-69');
     set_field_text($db, $tables, 'udelnaya/filial.php', 'final_metro', 'м. Адмиралтейская');
-    set_field_text($db, $tables, 'udelnaya/filial.php', 'final_btn_link', 'https://garden-lounge.pro/admiralteyskaya/');
+    set_field_text($db, $tables, 'udelnaya/filial.php', 'final_btn_link', 'https://garden-lounge.pro/admiralteyskaya');
 
     $db->commit();
     echo "Done. Udelnaya CouchCMS templates and menu data are ready.\n";

@@ -324,7 +324,7 @@
                 <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">
                     Loyalty Program
                 </div>
-                <a href="https://garden-lounge.pro/admiralteyskaya/menu/visual/" class="btn-base">
+                <a href="https://garden-lounge.pro/admiralteyskaya/menu/visual" class="btn-base">
                     <span class="subtitle-gold">Visual Menu</span>
                 </a>
             </div>

@@ -166,7 +166,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
     <title>Меню Garden Lounge на Удельной — кальяны, кухня, бар</title>
     <meta name="description" content="<cms:if meta_desc><cms:show meta_desc /><cms:else />Меню Garden Lounge на Удельной: кальяны, кухня, бар, напитки и специальные предложения в лаунж-баре на ул. Аккуратова 13.</cms:if>">
-    <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/text/">
+    <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/text">
     <cms:php>
     global $CTX;
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
@@ -176,7 +176,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
     }
     gl_menu_og_render(array(
         'branch' => 'udelnaya',
-        'url' => 'https://garden-lounge.pro/udelnaya/menu/text/',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/text',
         'title' => 'Меню Garden Lounge на Удельной — кальяны, кухня, бар',
         'description' => $desc,
     ));
@@ -186,7 +186,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
     gl_menu_seo_schema_render(array(
         'branch' => 'udelnaya',
         'page' => 'text',
-        'url' => 'https://garden-lounge.pro/udelnaya/menu/text/',
+        'url' => 'https://garden-lounge.pro/udelnaya/menu/text',
         'name' => 'Меню Garden Lounge на Удельной — кальяны, кухня, бар',
         'description' => 'Меню Garden Lounge на Удельной: кальяны, кухня, бар, напитки и специальные предложения.',
     ));
@@ -462,7 +462,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
     <div class="action-area">
         <a href="https://garden-lounge.pro/udelnaya/menu" class="btn-base"><span class="subtitle-gold">Вернуться Назад</span></a>
         <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">Программа лояльности</div>
-        <a href="https://garden-lounge.pro/udelnaya/menu/visual/" class="btn-base"><span class="subtitle-gold">Визуальное меню</span></a>
+        <a href="https://garden-lounge.pro/udelnaya/menu/visual" class="btn-base"><span class="subtitle-gold">Визуальное меню</span></a>
     </div>
 
 </main>

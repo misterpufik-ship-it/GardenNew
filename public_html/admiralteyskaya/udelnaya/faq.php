@@ -12,7 +12,7 @@ require_once dirname(__DIR__) . '/couch/cms.php';
             <p><strong>Как редактировать FAQ</strong></p>
             <ul style="margin:8px 0;padding-left:18px;">
                 <li><strong>Вопрос</strong> — текст в аккордеоне.</li>
-                <li><strong>Ответ на сайте</strong> — можно HTML-ссылки: <code>&lt;a href="#contact"&gt;Контакты&lt;/a&gt;</code>, <code>&lt;a href="#reservation"&gt;Забронировать&lt;/a&gt;</code>, <code>&lt;a href="tel:+79500473365"&gt;+7 950 047-33-65&lt;/a&gt;</code>, <code>&lt;a href="https://t.me/Garden_lounge_spb" target="_blank" rel="noopener"&gt;Telegram&lt;/a&gt;</code>, <code>&lt;a href="/udelnaya/menu/text/"&gt;Меню&lt;/a&gt;</code>.</li>
+                <li><strong>Ответ на сайте</strong> — можно HTML-ссылки: <code>&lt;a href="#contact"&gt;Контакты&lt;/a&gt;</code>, <code>&lt;a href="#reservation"&gt;Забронировать&lt;/a&gt;</code>, <code>&lt;a href="tel:+79500473365"&gt;+7 950 047-33-65&lt;/a&gt;</code>, <code>&lt;a href="https://t.me/Garden_lounge_spb" target="_blank" rel="noopener"&gt;Telegram&lt;/a&gt;</code>, <code>&lt;a href="/udelnaya/menu/text"&gt;Меню&lt;/a&gt;</code>.</li>
                 <li><strong>Текст для поисковиков</strong> — без HTML. Если пусто, подставится автоматически из ответа на сайте.</li>
             </ul>
         </div>

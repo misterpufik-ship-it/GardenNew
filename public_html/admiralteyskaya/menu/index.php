@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Меню Garden Lounge — Адмиралтейская</title>
     <meta name="description" content="Меню Garden Lounge на Адмиралтейской: текстовое, визуальное и английское меню — кальяны, кухня, бар в центре Санкт-Петербурга.">
-    <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu/">
+    <link rel="canonical" href="https://garden-lounge.pro/admiralteyskaya/menu">
     <?php
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
     gl_menu_og_render(array(
         'branch' => 'admiralteyskaya',
-        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu',
         'title' => 'Меню Garden Lounge — Адмиралтейская',
         'description' => 'Меню Garden Lounge на Адмиралтейской: текстовое, визуальное и английское меню — кальяны, кухня, бар в центре Санкт-Петербурга.',
     ));
@@ -19,15 +19,15 @@
     {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "@id": "https://garden-lounge.pro/admiralteyskaya/menu/#webpage",
-        "url": "https://garden-lounge.pro/admiralteyskaya/menu/",
+        "@id": "https://garden-lounge.pro/admiralteyskaya/menu#webpage",
+        "url": "https://garden-lounge.pro/admiralteyskaya/menu",
         "name": "Меню Garden Lounge — Адмиралтейская",
         "description": "Меню Garden Lounge на Адмиралтейской: текстовое, визуальное и английское меню — кальяны, кухня, бар в центре Санкт-Петербурга.",
-        "isPartOf": { "@id": "https://garden-lounge.pro/admiralteyskaya/#localbusiness" },
+        "isPartOf": { "@id": "https://garden-lounge.pro/admiralteyskaya#localbusiness" },
         "hasPart": [
-            { "@type": "WebPage", "url": "https://garden-lounge.pro/admiralteyskaya/menu/text/", "name": "Текстовое меню" },
-            { "@type": "WebPage", "url": "https://garden-lounge.pro/admiralteyskaya/menu/visual/", "name": "Визуальное меню" },
-            { "@type": "WebPage", "url": "https://garden-lounge.pro/admiralteyskaya/menu/english/", "name": "English menu" }
+            { "@type": "WebPage", "url": "https://garden-lounge.pro/admiralteyskaya/menu/text", "name": "Текстовое меню" },
+            { "@type": "WebPage", "url": "https://garden-lounge.pro/admiralteyskaya/menu/visual", "name": "Визуальное меню" },
+            { "@type": "WebPage", "url": "https://garden-lounge.pro/admiralteyskaya/menu/english", "name": "English menu" }
         ]
     }
     </script>
@@ -35,7 +35,7 @@
     gl_menu_seo_schema_render(array(
         'branch' => 'admiralteyskaya',
         'page' => 'hub',
-        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu/',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya/menu',
         'name' => 'Меню Garden Lounge — Адмиралтейская',
     ));
     ?>
@@ -209,7 +209,7 @@
         
         <!-- ЛОГОТИП -->
         <header class="mb-8 fade-up" style="animation-delay: 0.1s;">
-            <a href="https://garden-lounge.pro/admiralteyskaya/" class="block">
+            <a href="https://garden-lounge.pro/admiralteyskaya" class="block">
                 <img src="/admiralteyskaya/couch/uploads/image/logo3.webp" alt="Lounge Garden Logo" class="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-105 duration-500" width="384" height="162" decoding="async">
             </a>
         </header>
@@ -266,7 +266,7 @@
                 </p>
 
                 <!-- Кнопка возврата -->
-                <a href="https://garden-lounge.pro/admiralteyskaya/" class="back-button">
+                <a href="https://garden-lounge.pro/admiralteyskaya" class="back-button">
                     <i class="fas fa-chevron-left text-[8px]"></i>
                     Вернуться на главную
                 </a>

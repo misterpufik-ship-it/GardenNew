@@ -32,7 +32,7 @@
         <cms:set global_title=seo_title_default 'global' />
         <cms:set global_desc=seo_desc_default 'global' />
         <cms:set seo_keywords=seo_keywords_default scope='global' />
-        <cms:set seo_canonical='https://garden-lounge.pro/admiralteyskaya/' scope='global' />
+        <cms:set seo_canonical='https://garden-lounge.pro/admiralteyskaya' scope='global' />
         <cms:set seo_og_image='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg' scope='global' />
         <cms:set adm_address=admiral_address 'global' />
         <cms:set adm_phone=admiral_phone 'global' />
@@ -67,9 +67,9 @@
     global $CTX;
     require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/schema-helpers.php';
     gl_render_localbusiness_schema(array(
-        'id' => 'https://garden-lounge.pro/admiralteyskaya/#localbusiness',
+        'id' => 'https://garden-lounge.pro/admiralteyskaya#localbusiness',
         'name' => 'Garden Lounge на Адмиралтейской',
-        'url' => 'https://garden-lounge.pro/admiralteyskaya/',
+        'url' => 'https://garden-lounge.pro/admiralteyskaya',
         'image' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg',
         'telephone' => (string) $CTX->get('adm_phone'),
         'streetAddress' => (string) $CTX->get('adm_address'),

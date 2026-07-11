@@ -13,7 +13,7 @@ function gl_hero_normalize_public_path($url)
     }
 
     if ($url[0] !== '/') {
-        return '/admiralteyskaya/' . ltrim($url, '/');
+        return '/admiralteyskaya' . ltrim($url, '/');
     }
 
     return $url;

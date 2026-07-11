@@ -10,10 +10,10 @@
     <meta name="description" content="<cms:show home_seo_desc />">
     <meta name="keywords" content="<cms:show home_seo_keywords />">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://garden-lounge.pro/">
+    <link rel="canonical" href="https://garden-lounge.pro">
     <link rel="icon" type="image/png" href="<cms:if home_favicon><cms:show home_favicon /><cms:else />/udelnaya/favicon.png</cms:if>">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://garden-lounge.pro/">
+    <meta property="og:url" content="https://garden-lounge.pro">
     <meta property="og:title" content="<cms:show home_seo_title />">
     <meta property="og:description" content="<cms:show home_seo_desc />">
     <meta property="og:image" content="<cms:if home_seo_og_image><cms:show home_seo_og_image /><cms:else />https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg</cms:if>">
@@ -674,9 +674,9 @@
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "@id": "https://garden-lounge.pro/#organization",
+        "@id": "https://garden-lounge.pro#organization",
         "name": "Garden Lounge",
-        "url": "https://garden-lounge.pro/",
+        "url": "https://garden-lounge.pro",
         "logo": "<cms:if home_logo><cms:show home_logo /><cms:else />https://garden-lounge.pro/img/logo3.webp</cms:if>",
         "sameAs": [
             "<cms:show home_instagram />",

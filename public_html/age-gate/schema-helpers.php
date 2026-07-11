@@ -38,7 +38,7 @@ function gl_schema_aggregate_rating($ratingValue, $reviewCountText)
  */
 function gl_render_localbusiness_schema(array $opts)
 {
-    $orgId = 'https://garden-lounge.pro/#organization';
+    $orgId = 'https://garden-lounge.pro#organization';
     $data = array(
         '@context' => 'https://schema.org',
         '@type' => array('BarOrPub', 'Restaurant'),
@@ -92,23 +92,23 @@ function gl_render_home_schema_graph($logoUrl, array $sameAs)
     $graph = array(
         array(
             '@type' => 'WebSite',
-            '@id' => 'https://garden-lounge.pro/#website',
-            'url' => 'https://garden-lounge.pro/',
+            '@id' => 'https://garden-lounge.pro#website',
+            'url' => 'https://garden-lounge.pro',
             'name' => 'Garden Lounge',
             'description' => 'Сеть кальянных и лаунж-баров Garden Lounge в Санкт-Петербурге: филиалы Адмиралтейская и Удельная.',
             'inLanguage' => 'ru-RU',
-            'publisher' => array('@id' => 'https://garden-lounge.pro/#organization'),
+            'publisher' => array('@id' => 'https://garden-lounge.pro#organization'),
         ),
         array(
             '@type' => 'Organization',
-            '@id' => 'https://garden-lounge.pro/#organization',
+            '@id' => 'https://garden-lounge.pro#organization',
             'name' => 'Garden Lounge',
-            'url' => 'https://garden-lounge.pro/',
+            'url' => 'https://garden-lounge.pro',
             'logo' => $logoUrl,
             'sameAs' => $sameAs,
             'department' => array(
-                array('@id' => 'https://garden-lounge.pro/admiralteyskaya/#localbusiness'),
-                array('@id' => 'https://garden-lounge.pro/udelnaya/#localbusiness'),
+                array('@id' => 'https://garden-lounge.pro/admiralteyskaya#localbusiness'),
+                array('@id' => 'https://garden-lounge.pro/udelnaya#localbusiness'),
             ),
         ),
     );

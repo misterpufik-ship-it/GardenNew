@@ -106,8 +106,8 @@ if ( !empty($options['test-send']) ) {
         'visit_time' => '19:00',
         'guests' => '2',
         'source_url' => ($branch === 'udelnaya')
-            ? 'https://garden-lounge.pro/udelnaya/#reservation'
-            : 'https://garden-lounge.pro/admiralteyskaya/#reservation',
+            ? 'https://garden-lounge.pro/udelnaya#reservation'
+            : 'https://garden-lounge.pro/admiralteyskaya#reservation',
     ));
     list($ok, $error) = garden_booking_send_telegram($settings, $message);
     if ( !$ok ) {

@@ -138,7 +138,7 @@ if (isset($options['test-send-admiral'])) {
         'date' => date('d.m.Y'),
         'visit_time' => '19:00',
         'guests' => '2',
-        'source_url' => 'https://garden-lounge.pro/admiralteyskaya/#reservation',
+        'source_url' => 'https://garden-lounge.pro/admiralteyskaya#reservation',
     ));
     list($ok, $error) = garden_booking_send_telegram($settings, $message);
     if (!$ok) {
@@ -156,7 +156,7 @@ if (isset($options['test-send-udelnaya'])) {
         'date' => date('d.m.Y'),
         'visit_time' => '19:00',
         'guests' => '3',
-        'source_url' => 'https://garden-lounge.pro/udelnaya/#reservation',
+        'source_url' => 'https://garden-lounge.pro/udelnaya#reservation',
     ));
     list($ok, $error) = garden_booking_send_telegram($settings, $message);
     if (!$ok) {

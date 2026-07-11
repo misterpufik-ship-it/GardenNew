@@ -13,9 +13,9 @@
     <meta name="description" content="<cms:get_custom_field 'home_seo_desc' masterpage='home.php' />">
     <meta name="keywords" content="<cms:get_custom_field 'home_seo_keywords' masterpage='home.php' />">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://garden-lounge.pro/">
+    <link rel="canonical" href="https://garden-lounge.pro">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://garden-lounge.pro/">
+    <meta property="og:url" content="https://garden-lounge.pro">
     <meta property="og:title" content="<cms:get_custom_field 'home_seo_title' masterpage='home.php' />">
     <meta property="og:description" content="<cms:get_custom_field 'home_seo_desc' masterpage='home.php' />">
     <meta property="og:image" content="<cms:if home_seo_og_image><cms:show home_seo_og_image /><cms:else />https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg</cms:if>">

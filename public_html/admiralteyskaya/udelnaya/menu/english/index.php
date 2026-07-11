@@ -17,7 +17,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/assets.php'; gl_render_head_assets(); ?>
         <title>Menu Garden Lounge Udelnaya — hookahs, kitchen, bar</title>
         <meta name="description" content="<cms:if meta_desc_en><cms:show meta_desc_en /><cms:else />English menu of Garden Lounge near Udelnaya: hookahs, kitchen, bar, drinks and special offers in northern Saint Petersburg.</cms:if>">
-        <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/english/">
+        <link rel="canonical" href="https://garden-lounge.pro/udelnaya/menu/english">
         <cms:php>
         global $CTX;
         require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
@@ -27,7 +27,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         }
         gl_menu_og_render(array(
             'branch' => 'udelnaya',
-            'url' => 'https://garden-lounge.pro/udelnaya/menu/english/',
+            'url' => 'https://garden-lounge.pro/udelnaya/menu/english',
             'title' => 'Menu Garden Lounge Udelnaya — hookahs, kitchen, bar',
             'description' => $desc,
         ));
@@ -37,7 +37,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         gl_menu_seo_schema_render(array(
             'branch' => 'udelnaya',
             'page' => 'english',
-            'url' => 'https://garden-lounge.pro/udelnaya/menu/english/',
+            'url' => 'https://garden-lounge.pro/udelnaya/menu/english',
             'name' => 'Menu Garden Lounge Udelnaya — hookahs, kitchen, bar',
             'description' => 'English menu of Garden Lounge near Udelnaya: hookahs, kitchen, bar and drinks.',
             'lang' => 'en-US',
@@ -318,7 +318,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
                 <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">
                     Loyalty Program
                 </div>
-                <a href="https://garden-lounge.pro/udelnaya/menu/visual/" class="btn-base">
+                <a href="https://garden-lounge.pro/udelnaya/menu/visual" class="btn-base">
                     <span class="subtitle-gold">Visual Menu</span>
                 </a>
             </div>

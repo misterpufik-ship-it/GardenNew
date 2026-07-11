@@ -126,17 +126,17 @@
 <cms:php>
 global $CTX;
 $branch = $CTX->get('is_udelnaya') ? 'udelnaya' : 'admiralteyskaya';
-$base = 'https://garden-lounge.pro/' . $branch . '/menu/';
+$base = 'https://garden-lounge.pro/' . $branch . '/menu';
 $normalize = function ($url, $fallback) {
     $url = trim((string)$url);
     if ($url === '' || strpos($url, '/home/m/') !== false || strpos($url, 'public_html') !== false || strpos($url, 'mrpuffch') !== false) {
         return $fallback;
     }
-    return $url;
+    return rtrim($url, '/');
 };
-$CTX->set('menu_visual_href', $normalize($CTX->get('menu_visual_link'), $base . 'visual/'), 'parent');
-$CTX->set('menu_text_href', $normalize($CTX->get('menu_text_link'), $base . 'text/'), 'parent');
-$CTX->set('menu_eng_href', $normalize($CTX->get('menu_eng_link'), $base . 'english/'), 'parent');
+$CTX->set('menu_visual_href', $normalize($CTX->get('menu_visual_link'), $base . '/visual'), 'parent');
+$CTX->set('menu_text_href', $normalize($CTX->get('menu_text_link'), $base . '/text'), 'parent');
+$CTX->set('menu_eng_href', $normalize($CTX->get('menu_eng_link'), $base . '/english'), 'parent');
 </cms:php>
 
 <div id="menu-block">

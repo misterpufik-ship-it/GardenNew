@@ -110,7 +110,7 @@ foreach (array('mm_adm_branch_label', 'mm_udel_branch_label') as $fieldName) {
         echo "{$fieldName}: updated to {$newLabel}\n";
         $updated++;
     } else {
-        echo "{$fieldName}: update failed\n";
+        echo "{$fieldName}: update failed ({$db->error})\n";
     }
 }
 

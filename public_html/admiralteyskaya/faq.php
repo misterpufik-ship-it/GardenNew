@@ -7,7 +7,7 @@
             <p><strong>Как редактировать FAQ</strong></p>
             <ul style="margin:8px 0;padding-left:18px;">
                 <li><strong>Вопрос</strong> — текст в аккордеоне.</li>
-                <li><strong>Ответ на сайте</strong> — можно HTML-ссылки: <code>&lt;a href="#contact"&gt;Контакты&lt;/a&gt;</code>, <code>&lt;a href="#reservation"&gt;Забронировать&lt;/a&gt;</code>, <code>&lt;a href="tel:+79956246808"&gt;+7 995 624-68-08&lt;/a&gt;</code>, <code>&lt;a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener"&gt;Telegram&lt;/a&gt;</code>, <code>&lt;a href="/admiralteyskaya/menu/text/"&gt;Меню&lt;/a&gt;</code>.</li>
+                <li><strong>Ответ на сайте</strong> — можно HTML-ссылки: <code>&lt;a href="#contact"&gt;Контакты&lt;/a&gt;</code>, <code>&lt;a href="#reservation"&gt;Забронировать&lt;/a&gt;</code>, <code>&lt;a href="tel:+79956246808"&gt;+7 995 624-68-08&lt;/a&gt;</code>, <code>&lt;a href="https://t.me/gardenlounge_admiral" target="_blank" rel="noopener"&gt;Telegram&lt;/a&gt;</code>, <code>&lt;a href="/admiralteyskaya/menu/text"&gt;Меню&lt;/a&gt;</code>.</li>
                 <li><strong>Текст для поисковиков</strong> — без HTML. Если пусто, подставится автоматически из ответа на сайте.</li>
             </ul>
         </div>

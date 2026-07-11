@@ -905,7 +905,7 @@
             phoneDisplay: "+7 995 624 68 08",
             telegram: "https://t.me/gardenlounge_admiral",
             mapUrl: "https://yandex.ru/maps/-/CLBURN0n",
-            url: "/admiralteyskaya/"
+            url: "/admiralteyskaya"
         },
         udelnaya: {
             name: "Удельная",
@@ -917,7 +917,7 @@
             phoneDisplay: "+7 950 047-33-65",
             telegram: "https://t.me/Garden_lounge_spb",
             mapUrl: "https://yandex.ru/maps/-/CPtpbQPg",
-            url: "/udelnaya/"
+            url: "/udelnaya"
         }
     };
 
@@ -1040,7 +1040,7 @@
         }
     }, { passive: true });
 
-    const initialBranch = window.location.pathname.indexOf('/udelnaya/') === 0 ? 'udelnaya' : 'admiral';
+    const initialBranch = window.location.pathname.indexOf('/udelnaya') === 0 ? 'udelnaya' : 'admiral';
     updateBranchUI(initialBranch);
     syncResponsiveNav();
     window.addEventListener('resize', syncResponsiveNav, { passive: true });
