@@ -66,7 +66,7 @@ if (!$page) {
 
 $row = qrow(
     $db,
-    "SELECT id, value FROM `{$dataText}` WHERE field_id=" . (int)$field['id'] .
+    "SELECT value FROM `{$dataText}` WHERE field_id=" . (int)$field['id'] .
     " AND page_id=" . (int)$page['id'] . " LIMIT 1"
 );
 if (!$row || !$row['value']) {
@@ -108,7 +108,10 @@ echo 'after: ' . implode(', ', $after) . "\n";
 
 if ($before !== $after) {
     $escaped = $db->real_escape_string(serialize($items));
-    if (!$db->query("UPDATE `{$dataText}` SET value='{$escaped}' WHERE id=" . (int)$row['id'] . " LIMIT 1")) {
+    if (!$db->query(
+        "UPDATE `{$dataText}` SET value='{$escaped}' WHERE field_id=" . (int)$field['id'] .
+        " AND page_id=" . (int)$page['id'] . " LIMIT 1"
+    )) {
         exit("update failed: {$db->error}\n");
     }
     echo "gallery updated\n";

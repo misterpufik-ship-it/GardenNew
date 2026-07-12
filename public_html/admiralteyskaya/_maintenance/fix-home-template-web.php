@@ -175,12 +175,15 @@ function update_page_field($db, $fields, $text, $templates, $pages, $templateNam
 
     $row = fetch_one(
         $db,
-        "SELECT id, value FROM `{$text}` WHERE field_id=" . (int)$field['id'] .
+        "SELECT value FROM `{$text}` WHERE field_id=" . (int)$field['id'] .
         " AND page_id=" . (int)$page['id'] . " LIMIT 1"
     );
     $escaped = $db->real_escape_string($newValue);
     if ($row) {
-        $db->query("UPDATE `{$text}` SET value='{$escaped}' WHERE id=" . (int)$row['id'] . " LIMIT 1");
+        $db->query(
+            "UPDATE `{$text}` SET value='{$escaped}' WHERE field_id=" . (int)$field['id'] .
+            " AND page_id=" . (int)$page['id'] . " LIMIT 1"
+        );
         echo "Updated {$fieldName}: {$row['value']} -> {$newValue}\n";
         return;
     }
@@ -255,7 +258,7 @@ function reorder_home_adm_gallery($db, $fieldsTable, $dataText, $templates, $pag
 
     $row = fetch_one(
         $db,
-        "SELECT id, value FROM `{$dataText}` WHERE field_id=" . (int)$field['id'] .
+        "SELECT value FROM `{$dataText}` WHERE field_id=" . (int)$field['id'] .
         " AND page_id=" . (int)$page['id'] . " LIMIT 1"
     );
     if (!$row || !$row['value']) {
@@ -303,7 +306,10 @@ function reorder_home_adm_gallery($db, $fieldsTable, $dataText, $templates, $pag
     }
 
     $escaped = $db->real_escape_string(serialize($items));
-    $db->query("UPDATE `{$dataText}` SET value='{$escaped}' WHERE id=" . (int)$row['id'] . " LIMIT 1");
+    $db->query(
+        "UPDATE `{$dataText}` SET value='{$escaped}' WHERE field_id=" . (int)$field['id'] .
+        " AND page_id=" . (int)$page['id'] . " LIMIT 1"
+    );
     if ($db->error) {
         echo "Gallery reorder failed: {$db->error}\n";
         return;
