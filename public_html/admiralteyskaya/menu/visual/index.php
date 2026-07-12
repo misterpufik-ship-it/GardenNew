@@ -62,10 +62,7 @@
         'description' => 'Визуальное меню Garden Lounge на Адмиралтейской: кальяны, кухня, бар и акции.',
     ));
     ?>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    
+    <?php gl_menu_page_head_assets(); ?>
     <style>
         :root { --bg-color: #000; --gold: #C5A059; --gold-light: #FFEebb; --gold-dark: #8e7037; }
         body { background-color: var(--bg-color); color: #EAEAEA; font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }

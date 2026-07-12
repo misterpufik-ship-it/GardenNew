@@ -163,6 +163,9 @@ img { display: block; max-width: 100%; height: auto; }
 .whitespace-nowrap { white-space: nowrap !important; }
 
 .text-white { color: #fff !important; }
+.text-white\/40 { color: rgba(255, 255, 255, 0.4) !important; }
+.text-\[\#C5A059\] { color: #C5A059 !important; }
+.text-\[\#8e7037\] { color: #8e7037 !important; }
 .text-gray-300 { color: #d1d5db !important; }
 .text-gray-400 { color: #9ca3af !important; }
 .text-gray-500 { color: #6b7280 !important; }
