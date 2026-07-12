@@ -250,8 +250,8 @@
                             Визуальное меню
                         </h3>
                         <div class="mt-6 flex items-center gap-2 opacity-60">
-                            <i class="fas fa-camera text-[10px] text-[#C5A059]"></i>
-                            <span class="text-[9px] uppercase tracking-[0.2em] text-[#C5A059]">Открыть галерею</span>
+                            <i class="fas fa-camera text-[10px] shimmer-gold"></i>
+                            <span class="text-[9px] uppercase tracking-[0.2em] shimmer-gold">Открыть галерею</span>
                         </div>
                     </div>
                 </a>
@@ -260,14 +260,14 @@
                 <div class="card-right">
                     <a href="/udelnaya/menu/text" class="menu-btn group">
                         <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 group-hover:scale-105 transition-transform">Текстовое</h3>
-                        <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">Classic List</span>
+                        <span class="text-[8px] uppercase tracking-[0.2em] shimmer-gold">Classic List</span>
                     </a>
                     
                     <div class="card-divider"></div>
                     
                     <a href="/udelnaya/menu/english" class="menu-btn group">
                         <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 group-hover:scale-105 transition-transform">English</h3>
-                        <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">classic list</span>
+                        <span class="text-[8px] uppercase tracking-[0.2em] shimmer-gold">classic list</span>
                     </a>
                 </div>
             </div>

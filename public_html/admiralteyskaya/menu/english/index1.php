@@ -15,7 +15,12 @@
         <style>
             body { background-color: #000; color: #fff; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
             .font-serif-lux { font-family: 'Cormorant Garamond', serif; }
-            :root { --gold:#C5A059; --gold-light:#FFEebb; --gold-dark:#8e7037; --bg-deep:#000; --border-muted:#1a1a1a; }
+            :root {
+                --gold:#C5A059; --gold-light:#FFEebb; --gold-dark:#8e7037; --bg-deep:#000; --border-muted:#1a1a1a;
+                --gl-shimmer: linear-gradient(90deg,
+                    var(--gold-dark) 0%, var(--gold) 20%, var(--gold-light) 25%, var(--gold) 30%, var(--gold-dark) 50%,
+                    var(--gold-dark) 50%, var(--gold) 70%, var(--gold-light) 75%, var(--gold) 80%, var(--gold-dark) 100%);
+            }
             @keyframes shineGold {
                 0% { background-position: 0% center; }
                 100% { background-position: 100% center; }
@@ -25,21 +30,17 @@
                 100% { background-position: 100% center; }
             }
             
-            .gold-shimmer{
-                background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark) 100%);
-                background-size: 200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color: transparent; color: transparent; animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite;
-            }
             .nav-sticky { position: sticky; top:0; z-index:50; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-muted); }
             .gold-divider-nav{ width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
             
             .tab-btn{ position: relative; transition: all .3s ease; color:#888; background:none; border:none; cursor:pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;}
-            .tab-btn.active{ background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark) 100%); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation: shineGold 5s linear infinite; }
-            .tab-btn.active::after{ content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark) 100%); background-size:200% auto; animation: shineGold 5s linear infinite; }
+            .tab-btn.active{ background-image: var(--gl-shimmer); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation: shineGold 5s linear infinite; }
+            .tab-btn.active::after{ content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background-image: var(--gl-shimmer); background-size:200% auto; animation: shineGold 5s linear infinite; }
             
             .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }
             .subtabs-wrap { display:none; flex-wrap:wrap; justify-content:center; gap:8px 10px; padding: 10px 10px 6px; }
             .subtab-btn{ border: 1px solid rgba(197,160,89,0.3); border-radius: 999px; padding: 6px 12px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; transition: all .25s ease; background: rgba(0,0,0,0.2); cursor:pointer; }
-            .subtab-btn.active{ color: #000; background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, var(--gold-dark) 100%); background-size: 200% auto; animation: shineGold 5s linear infinite; border-color: rgba(197,160,89,0.9); }
+            .subtab-btn.active{ color: #000; background-image: var(--gl-shimmer); background-size: 200% auto; animation: shineGold 5s linear infinite; border-color: rgba(197,160,89,0.9); }
             @media (max-width: 767px) {
                 .subtabs-wrap { gap: 6px 8px; padding: 8px 10px 12px; }
                 .subtab-btn { padding: 5px 10px; font-size: 10px; letter-spacing: 0.04em; line-height: 1.2; white-space: nowrap; }
@@ -71,7 +72,6 @@
             .content-limiter { max-width:600px; margin:0 auto; padding: 0 20px; position: relative; z-index: 10; }
             .promo-card { border:1px solid rgba(197,160,89,0.2); background-color: rgba(20,20,20,0.4); padding:20px; text-align:center; margin-bottom: 15px; }
             .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
-            .shimmer-gold { background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%); background-size:200% auto; -webkit-text-fill-color:transparent; color:transparent; -webkit-background-clip:text; background-clip:text; animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite; display:inline-block; }
 
             /* BUTTONS */
             .action-area { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 40px; width: 100%; }
@@ -83,16 +83,14 @@
                 text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em;
                 text-decoration: none; text-align: center; box-sizing: border-box; transition: 0.3s; cursor: pointer;
             }
-            .btn-base:hover { border-color: #C5A059; }
-            .btn-gold-fill { 
-                background: linear-gradient(to right, #8e7037, #C5A059, #FFEebb, #C5A059, #8e7037); 
-                background-size: 200% auto; animation: shineGold 5s linear infinite; 
-                color: #000 !important; font-weight: 700; border: none; 
+            .btn-base:hover:not(.btn-gold-fill) { border-color: #C5A059; background: rgba(197,160,89,0.05); }
+            .btn-gold-fill {
+                background: var(--gold);
+                color: #000 !important; font-weight: 700; border: none;
             }
-            .subtitle-gold {
-                background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
-                background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
-                color: transparent; animation: shineGold 5s linear infinite;
+            .btn-gold-fill:hover {
+                background: var(--gold);
+                color: #000 !important; border: none;
             }
 
             /* MODAL */

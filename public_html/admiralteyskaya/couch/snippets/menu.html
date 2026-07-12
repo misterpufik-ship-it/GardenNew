@@ -33,7 +33,9 @@
 
     #menu-block .shimmer-gold {
         background-color: transparent;
-        background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-image: linear-gradient(90deg,
+            #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
+            #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
         background-repeat: no-repeat;
         background-size: 200% auto;
         background-position: 0% center;
@@ -44,6 +46,12 @@
         animation: menuShine 5s linear infinite;
         -webkit-animation: menuShine 5s linear infinite;
         display: inline-block;
+    }
+
+    #menu-block .text-center > .shimmer-gold,
+    #menu-block .text-center > .menu-footer-note {
+        display: block;
+        width: 100%;
     }
 
     #menu-block .fade-up { animation: menuFadeIn 1s ease-out forwards; opacity: 0; }
@@ -109,18 +117,20 @@
         font-size: 8px !important;
         color: transparent !important;
         -webkit-text-fill-color: transparent !important;
-        background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-image: linear-gradient(90deg,
+            #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
+            #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
         background-clip: text;
         animation: menuShine 5s linear infinite;
+        -webkit-animation: menuShine 5s linear infinite;
     }
 
     #menu-block .gallery-open-caption,
     #menu-block .gallery-open-icon {
         font-size: 9px !important;
         line-height: 1.2 !important;
-        color: #C5A059 !important;
         letter-spacing: 0.2em !important;
     }
 
@@ -171,22 +181,22 @@ $CTX->set('menu_eng_href', $normalize($CTX->get('menu_eng_link'), $base . '/engl
                 <div class="absolute inset-0 flex flex-col items-center justify-center p-4">
                     <h3 class="font-serif-lux text-xl italic text-white text-center m-0 mb-1">&#1042;&#1080;&#1079;&#1091;&#1072;&#1083;&#1100;&#1085;&#1086;&#1077; &#1084;&#1077;&#1085;&#1102;</h3>
                     <div class="mt-6 flex items-center gap-2 opacity-60">
-                        <i class="gallery-open-icon fas fa-camera"></i>
-                        <span class="gallery-open-caption uppercase">Open Gallery</span>
+                        <i class="gallery-open-icon fas fa-camera shimmer-gold"></i>
+                        <span class="gallery-open-caption uppercase shimmer-gold">Open Gallery</span>
                     </div>
                 </div>
             </a>
 
             <div class="card-right">
                 <a href="<cms:show menu_text_href />" target="_self" class="menu-btn group">
-                    <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">&#1058;&#1077;&#1082;&#1089;&#1090;&#1086;&#1074;&#1086;&#1077;</h3>
+                    <h3 class="font-serif-lux text-xl italic text-white m-0 mb-1">&#1058;&#1077;&#1082;&#1089;&#1090;&#1086;&#1074;&#1086;&#1077;</h3>
                     <span class="menu-card-caption uppercase shimmer-gold">Classic List</span>
                 </a>
 
                 <div class="card-divider"></div>
 
                 <a href="<cms:show menu_eng_href />" target="_self" class="menu-btn group">
-                    <h3 class="font-serif-lux text-xl italic text-[#C5A059] m-0 mb-1">English menu</h3>
+                    <h3 class="font-serif-lux text-xl italic text-white m-0 mb-1">English menu</h3>
                     <div class="flex items-center gap-1">
                          <span class="menu-card-caption uppercase shimmer-gold">Open</span>
                          <i class="menu-card-caption-icon fas fa-download"></i>

@@ -198,16 +198,6 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         .font-serif-lux { font-family: 'Cormorant Garamond', serif; }
         :root { --gold:#C5A059; --gold-dark:#8e7037; }
 
-        @keyframes shineGold { to { background-position: 100% center; } }
-        .gold-shimmer {
-            background-image: linear-gradient(90deg,
-                var(--gold-dark) 0%, var(--gold) 20%, #FFEebb 25%, var(--gold) 30%, var(--gold-dark) 50%,
-                var(--gold-dark) 50%, var(--gold) 70%, #FFEebb 75%, var(--gold) 80%, var(--gold-dark) 100%);
-            background-size: 200% auto; -webkit-background-clip:text; background-clip:text;
-            -webkit-text-fill-color: transparent; color: transparent;
-            animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite;
-        }
-
         .nav-sticky { position: sticky; top:0; z-index:50; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
 
@@ -268,7 +258,6 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         .film-grain { position:absolute; top:0; left:0; width:100%; height:100%; background:url('/img/noise.svg'); opacity:.04; pointer-events:none; z-index:1; }
         .promo-card { border:1px solid rgba(197,160,89,0.2); background-color: rgba(20,20,20,0.4); padding:20px; text-align:center; margin-bottom: 15px; }
         .gold-line-fade { width:160px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 16px auto; }
-        .shimmer-gold { background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%); background-size:200% auto; -webkit-text-fill-color:transparent; color:transparent; -webkit-background-clip:text; background-clip:text; animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite; display:inline-block; }
         .promo-offer { font-size: 10px; line-height: 1.8; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 500; margin: 0; }
         .akzii-footer-note { font-size: 10px; line-height: 1.8; letter-spacing: 0.3em; font-weight: 500; font-style: normal; margin: 0; }
 
