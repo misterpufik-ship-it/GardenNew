@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿# CouchCMS — ядро и vendor, не наш код
 public_html/admiralteyskaya/couch/includes/
 public_html/admiralteyskaya/couch/theme/
@@ -36,53 +35,9 @@ assets/
 **/*.pptx
 **/*.pdf
 **/*.xlsx
+images-menu/
 
 # Дампы, логи
 _local_db/
 *.sql
 *.log
-=======
-﻿# Dependencies and build output
-node_modules/
-vendor/
-dist/
-build/
-.next/
-.nuxt/
-.cache/
-
-# Version control
-.git/
-
-# Logs and temp files
-*.log
-logs/
-tmp/
-temp/
-
-# Environment and secrets
-.env
-.env.*
-!.env.example
-*.pem
-*.key
-credentials.json
-
-# OS and editor
-.DS_Store
-Thumbs.db
-*.swp
-*.swo
-
-# Large/binary media (Garden Lounge)
-*.mp4
-*.mov
-*.zip
-*.tar
-*.gz
-images-menu/
-
-# CouchCMS cache
-public_html/**/cache/
-public_html/**/couch/cache/
->>>>>>> 7f062ba (Добавить .cursorignore и исключить images-menu/ из git.)
