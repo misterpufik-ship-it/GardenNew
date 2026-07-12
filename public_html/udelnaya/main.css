@@ -138,14 +138,20 @@ img { display: block; max-width: 100%; height: auto; }
 
 .gl_tp_serif, .font-serif-lux { font-family: 'Cormorant Garamond', serif !important; font-style: italic !important; }
 
+/* Важно: НЕ использовать shorthand background + !important —
+   в Chrome/Safari это замораживает background-position и shimmer «стартует и встаёт». */
 .shimmer-gold, .shimmer-text, .shimmer-text-gold, .subtitle-gold, .tagline-premium {
-    background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold-main) 40%, var(--gold-light) 50%, var(--gold-main) 60%, var(--gold-dark) 100%) !important;
+    background-color: transparent !important;
+    background-image: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-main) 40%, var(--gold-light) 50%, var(--gold-main) 60%, var(--gold-dark) 100%) !important;
+    background-repeat: no-repeat !important;
     background-size: 200% auto !important;
+    background-position: 0% center;
     -webkit-background-clip: text !important;
     background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     color: transparent !important;
     animation: shineGold 5s linear infinite !important;
+    -webkit-animation: shineGold 5s linear infinite !important;
     display: inline-block;
 }
 

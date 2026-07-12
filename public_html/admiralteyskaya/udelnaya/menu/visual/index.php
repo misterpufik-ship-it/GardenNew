@@ -82,10 +82,23 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
             100% { background-position: 200% center; }
         }
         .subtitle-gold {
-            background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
-            background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite;
+            background-color: transparent;
+            background-image: linear-gradient(90deg, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-repeat: no-repeat;
+            background-size: 200% auto;
+            background-position: 0% center;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+            animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite;
         }
-        .shimmer-gold { background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite; }
+        .shimmer-gold {
+            background-color: transparent;
+            background-image: linear-gradient(90deg, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-repeat: no-repeat;
+            background-size: 200% auto;
+            background-position: 0% center;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+            animation: shineGold 5s linear infinite; -webkit-animation: shineGold 5s linear infinite;
+        }
 
         .nav-sticky { position: sticky; top:0; z-index:50; background-color: rgba(0,0,0,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #1a1a1a; margin-bottom: 30px; }
         .tabs-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:14px 18px; padding: 14px 10px 8px; }

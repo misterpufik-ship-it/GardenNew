@@ -77,13 +77,19 @@
         margin-top: 0 !important;
     }
 
-    @keyframes goldShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+    @keyframes goldShimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
+    @-webkit-keyframes goldShimmer { 0% { background-position: 0% center; } 100% { background-position: 200% center; } }
     .shimmer-text {
-        background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-color: transparent;
+        background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-repeat: no-repeat;
         background-size: 200% auto;
+        background-position: 0% center;
         -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         animation: goldShimmer 5s linear infinite;
+        -webkit-animation: goldShimmer 5s linear infinite;
         z-index: 10;
+        filter: none !important;
     }
 /* Класс для активного пункта в мобильном меню */
 .mobile-link.active-click {
@@ -189,13 +195,17 @@
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-weight: 300 !important;
-        background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-color: transparent;
+        background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-repeat: no-repeat;
         background-size: 200% auto;
+        background-position: 0% center;
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
         color: transparent !important;
         animation: goldShimmer 5s linear infinite;
+        -webkit-animation: goldShimmer 5s linear infinite;
     }
     .mobile-branch-modal .mobile-branch-opt p {
         font-family: 'Montserrat', sans-serif !important;
@@ -224,13 +234,17 @@
     .mobile-link { display: inline-flex; align-items: center; justify-content: center; align-self: center; width: auto; max-width: 92vw; font-family: 'Cormorant Garamond', serif; font-size: calc(24px * var(--mm-scale, 1)); color: #ffffff !important; margin: 0; opacity: 0; transform: translateY(20px); transition: all 0.3s ease; text-decoration: none; letter-spacing: 0.04em; border: 1px solid transparent; padding: calc(7px * var(--mm-scale, 1)) calc(14px * var(--mm-scale, 1)); border-radius: 0; text-align: center; box-sizing: border-box; line-height: 1.1; min-height: calc(38px * var(--mm-scale, 1)); }
     .mobile-branch-nav-link { /* идентификатор для скрытия на десктопе */ }
     .mm-shimmer-gold {
-        background: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-color: transparent;
+        background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
+        background-repeat: no-repeat;
         background-size: 200% auto;
+        background-position: 0% center;
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent !important;
         color: transparent !important;
         animation: goldShimmer 5s linear infinite;
+        -webkit-animation: goldShimmer 5s linear infinite;
         display: inline;
     }
     .mobile-link .mm-shimmer-gold {
@@ -311,8 +325,8 @@
         transform: scale(1.06);
     }
 
-    .hero-bottom-content { position: relative; z-index: 60 !important; filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.95)); }
-    .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.15)); display: inline-block; text-align: center; }
+    .hero-bottom-content { position: relative; z-index: 60 !important; }
+    .tagline-premium { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.22em; filter: none !important; display: inline-block; text-align: center; }
     .hero-branch-row { display: flex !important; align-items: center; justify-content: center; gap: 14px; width: min(86vw, 560px); margin: 4px auto 0; opacity: 1; position: relative; z-index: 70 !important; }
     .gold-line-thin {
         flex: 1 1 72px;

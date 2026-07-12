@@ -87,8 +87,11 @@
 
         /* Золотое свечение текста */
         .shimmer-gold {
-            background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-color: transparent;
+            background-image: linear-gradient(90deg, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-repeat: no-repeat;
             background-size: 200% auto;
+            background-position: 0% center;
             color: transparent;
             -webkit-text-fill-color: transparent;
             -webkit-background-clip: text;
