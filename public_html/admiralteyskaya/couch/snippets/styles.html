@@ -70,6 +70,17 @@ body {
   position: relative;
 }
 
+/* Метрика <noscript> в body не должна резервировать line-box и сдвигать hero */
+body > noscript {
+  display: block;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 img, video { max-width: 100%; height: auto; display: block; }
 .font-serif-lux { font-family: 'Cormorant Garamond', serif !important; }
 

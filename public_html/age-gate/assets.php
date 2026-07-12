@@ -308,7 +308,7 @@ function gl_yandex_metrika_render()
     }, true);
 })();
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/110415128" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><img src="https://mc.yandex.ru/watch/110415128" style="position:absolute;left:-9999px;width:1px;height:1px;border:0;" alt="" /></noscript>
 <!-- /Yandex.Metrika counter -->
 HTML;
     echo "\n";
