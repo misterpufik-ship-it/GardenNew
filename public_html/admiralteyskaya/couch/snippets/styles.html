@@ -68,6 +68,12 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   position: relative;
+  line-height: 0;
+}
+
+/* Восстановить line-height у видимых блоков (body line-height:0 убирает BOM/strut сверху) */
+body > :is(header, div, section, footer, nav) {
+  line-height: 1.5;
 }
 
 /* Метрика <noscript> в body не должна резервировать line-box и сдвигать hero */
