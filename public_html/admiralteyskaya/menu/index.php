@@ -88,7 +88,9 @@
         /* Золотое свечение текста */
         .shimmer-gold {
             background-color: transparent;
-            background-image: linear-gradient(90deg, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-image: linear-gradient(90deg,
+                #8e7037 0%, var(--gold) 20%, var(--gold-light) 25%, var(--gold) 30%, #8e7037 50%,
+                #8e7037 50%, var(--gold) 70%, var(--gold-light) 75%, var(--gold) 80%, #8e7037 100%);
             background-repeat: no-repeat;
             background-size: 200% auto;
             background-position: 0% center;
@@ -98,6 +100,11 @@
             background-clip: text;
             animation: menuShine 5s linear infinite;
             -webkit-animation: menuShine 5s linear infinite;
+        }
+
+        .text-center > .shimmer-gold {
+            display: block;
+            width: 100%;
         }
 
         @keyframes menuShine {
@@ -221,7 +228,7 @@
         </header>
 
         <!-- ОСНОВНОЙ БЛОК МЕНЮ -->
-        <main class="w-full max-w-[600px] z-10">
+        <main class="w-full max-w-[600px] mx-auto z-10">
             
             <!-- Заголовок секции -->
             <div class="text-center mb-6 fade-up" style="animation-delay: 0.2s;">
@@ -252,14 +259,14 @@
                 <!-- Ссылки (Правая часть) -->
                 <div class="card-right">
                     <a href="/admiralteyskaya/menu/text" class="menu-btn group">
-                        <h3 class="font-serif-lux text-2xl italic text-[#C5A059] m-0 mb-1 group-hover:scale-105 transition-transform">Текстовое</h3>
+                        <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 group-hover:scale-105 transition-transform">Текстовое</h3>
                         <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">Classic List</span>
                     </a>
                     
                     <div class="card-divider"></div>
                     
                     <a href="/admiralteyskaya/menu/english" class="menu-btn group">
-                        <h3 class="font-serif-lux text-2xl italic text-[#C5A059] m-0 mb-1 group-hover:scale-105 transition-transform">English</h3>
+                        <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 group-hover:scale-105 transition-transform">English</h3>
                         <span class="text-[8px] uppercase tracking-[0.2em] text-white/40">classic list</span>
                     </a>
                 </div>

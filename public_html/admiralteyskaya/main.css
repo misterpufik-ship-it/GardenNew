@@ -142,7 +142,9 @@ img { display: block; max-width: 100%; height: auto; }
    в Chrome/Safari это замораживает background-position и shimmer «стартует и встаёт». */
 .shimmer-gold, .shimmer-text, .shimmer-text-gold, .subtitle-gold, .tagline-premium {
     background-color: transparent !important;
-    background-image: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold-main) 40%, var(--gold-light) 50%, var(--gold-main) 60%, var(--gold-dark) 100%) !important;
+    background-image: linear-gradient(90deg,
+        var(--gold-dark) 0%, var(--gold-main) 20%, var(--gold-light) 25%, var(--gold-main) 30%, var(--gold-dark) 50%,
+        var(--gold-dark) 50%, var(--gold-main) 70%, var(--gold-light) 75%, var(--gold-main) 80%, var(--gold-dark) 100%) !important;
     background-repeat: no-repeat !important;
     background-size: 200% auto !important;
     background-position: 0% center;

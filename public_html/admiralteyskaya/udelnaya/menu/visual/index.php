@@ -83,7 +83,9 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         }
         .subtitle-gold {
             background-color: transparent;
-            background-image: linear-gradient(90deg, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-image: linear-gradient(90deg,
+                #8e7037 0%, var(--gold) 20%, var(--gold-light) 25%, var(--gold) 30%, #8e7037 50%,
+                #8e7037 50%, var(--gold) 70%, var(--gold-light) 75%, var(--gold) 80%, #8e7037 100%);
             background-repeat: no-repeat;
             background-size: 200% auto;
             background-position: 0% center;
@@ -92,7 +94,9 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         }
         .shimmer-gold {
             background-color: transparent;
-            background-image: linear-gradient(90deg, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
+            background-image: linear-gradient(90deg,
+                #8e7037 0%, var(--gold) 20%, var(--gold-light) 25%, var(--gold) 30%, #8e7037 50%,
+                #8e7037 50%, var(--gold) 70%, var(--gold-light) 75%, var(--gold) 80%, #8e7037 100%);
             background-repeat: no-repeat;
             background-size: 200% auto;
             background-position: 0% center;
@@ -161,8 +165,9 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
             text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em;
             text-decoration: none; text-align: center; transition: 0.3s; cursor: pointer; color: #fff;
         }
-        .btn-base:hover { border-color: var(--gold); background: rgba(197,160,89,0.05); }
+        .btn-base:hover:not(.btn-gold-fill) { border-color: var(--gold); background: rgba(197,160,89,0.05); }
         .btn-gold-fill { background: var(--gold); color: #000 !important; font-weight: 700; border: none; }
+        .btn-gold-fill:hover { background: var(--gold); color: #000 !important; border: none; }
 
         #loyalty-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .modal-content { background: #0a0a0a; border: 1px solid var(--gold); padding: 40px 25px; width: 100%; max-width: 400px; text-align: center; position: relative; }
