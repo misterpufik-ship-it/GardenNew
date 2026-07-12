@@ -1,4 +1,4 @@
-/* Garden Lounge — age verification overlay */
+﻿/* Garden Lounge — age verification overlay */
 :root {
     --ag-gold-main: #C5A059;
     --ag-gold-dark: #8e7037;
@@ -161,7 +161,7 @@ body.gl-age-gate-open {
 }
 
 @keyframes glAgeGateShine {
-    to { background-position: 200% center; }
+    to { background-position: 100% center; }
 }
 
 .gl-age-gate__denied {

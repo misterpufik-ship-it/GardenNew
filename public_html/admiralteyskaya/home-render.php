@@ -162,7 +162,7 @@
         }
 
         @keyframes shineGold {
-            to { background-position: 200% center; }
+            to { background-position: 100% center; }
         }
 
         @keyframes ringPhone {

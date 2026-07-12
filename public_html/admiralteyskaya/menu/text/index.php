@@ -195,11 +195,11 @@
 
         @keyframes shineGold {
             0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+            100% { background-position: 100% center; }
         }
         @-webkit-keyframes shineGold {
             0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+            100% { background-position: 100% center; }
         }
         .gold-shimmer {
             background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, #FFEebb 50%, var(--gold) 60%, var(--gold-dark) 100%);

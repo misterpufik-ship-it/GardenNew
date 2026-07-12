@@ -70,11 +70,11 @@
 
         @keyframes shineGold {
             0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+            100% { background-position: 100% center; }
         }
         @-webkit-keyframes shineGold {
             0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
+            100% { background-position: 100% center; }
         }
         .subtitle-gold {
             background-color: transparent;

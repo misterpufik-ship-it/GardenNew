@@ -66,7 +66,7 @@
         }
 
         @keyframes menuShine {
-            to { background-position: 200% center; }
+            to { background-position: 100% center; }
         }
 
         /* Стили карточки */

@@ -18,11 +18,11 @@
             :root { --gold:#C5A059; --gold-light:#FFEebb; --gold-dark:#8e7037; --bg-deep:#000; --border-muted:#1a1a1a; }
             @keyframes shineGold {
                 0% { background-position: 0% center; }
-                100% { background-position: 200% center; }
+                100% { background-position: 100% center; }
             }
             @-webkit-keyframes shineGold {
                 0% { background-position: 0% center; }
-                100% { background-position: 200% center; }
+                100% { background-position: 100% center; }
             }
             
             .gold-shimmer{

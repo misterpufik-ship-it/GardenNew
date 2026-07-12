@@ -636,7 +636,7 @@ function garden_admin_typography_css(){
     $css = <<<'CSS'
 body,input,select,textarea,.btn,.label,.field-label,.table,.tab>a{font-family:'Montserrat',Arial,sans-serif}
 #header-title,#header-title a,.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend,#content .panel>.panel-heading:not(.simple-heading):not(.panel-primary){font-family:'Cormorant Garamond',Georgia,serif!important;font-style:italic;font-weight:600;letter-spacing:.02em}
-@keyframes glGoldShine{to{background-position:200% center}}
+@keyframes glGoldShine{to{background-position: 100% center}}
 .gl-gold-shimmer,#header-title,#header-title a,.nav-heading-toggle,.group-wrapper .panel-heading.panel-toggle,fieldset.row_fieldset legend{
 background:linear-gradient(to right,#8e7037 0%,#C5A059 40%,#FFEebb 50%,#C5A059 60%,#8e7037 100%);
 background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent!important;

@@ -198,7 +198,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         .font-serif-lux { font-family: 'Cormorant Garamond', serif; }
         :root { --gold:#C5A059; --gold-dark:#8e7037; }
 
-        @keyframes shineGold { to { background-position: 200% center; } }
+        @keyframes shineGold { to { background-position: 100% center; } }
         .gold-shimmer {
             background: linear-gradient(to right, var(--gold-dark) 0%, var(--gold) 40%, #FFEebb 50%, var(--gold) 60%, var(--gold-dark) 100%);
             background-size: 200% auto; -webkit-background-clip:text; background-clip:text;

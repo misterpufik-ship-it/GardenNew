@@ -1,4 +1,4 @@
-/* Static Tailwind-like utilities for menu pages (hub / visual / text / english).
+﻿/* Static Tailwind-like utilities for menu pages (hub / visual / text / english).
    Replaces cdn.tailwindcss.com — keep HTML class names unchanged for easy rollback. */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -33,11 +33,11 @@ h2, h3, h4, h5, h6 {
 
 @keyframes shineGold {
     0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+    100% { background-position: 100% center; }
 }
 @-webkit-keyframes shineGold {
     0% { background-position: 0% center; }
-    100% { background-position: 200% center; }
+    100% { background-position: 100% center; }
 }
 
 .subtitle-gold,
