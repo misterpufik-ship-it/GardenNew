@@ -4,6 +4,8 @@ if ((isset($_GET['token']) ? $_GET['token'] : '') !== 'gl-home-fix-20260619') {
     exit;
 }
 
+set_time_limit(60);
+
 $config = __DIR__ . '/../couch/config.php';
 if (!is_file($config)) {
     http_response_code(500);
@@ -227,37 +229,91 @@ update_page_field(
     'https://t.me/gardenlounge_udelnaya'
 );
 
-echo "Syncing home.php editable fields...\n";
-$homeRoot = realpath(__DIR__ . '/..');
-if ($homeRoot) {
-    chdir($homeRoot);
-    if (!defined('K_COUCH_DIR')) {
-        require_once $homeRoot . '/couch/cms.php';
+function reorder_home_adm_gallery($db, $fieldsTable, $dataText, $templates, $pagesTable)
+{
+    $tpl = fetch_one($db, "SELECT id FROM `{$templates}` WHERE name='home.php' LIMIT 1");
+    if (!$tpl) {
+        echo "Gallery reorder skipped: home.php template missing\n";
+        return;
     }
-    global $AUTH, $DB;
-    if (isset($AUTH->user) && is_object($AUTH->user)) {
-        $AUTH->user->access_level = K_ACCESS_LEVEL_SUPER_ADMIN;
-        $_SERVER['HTTP_HOST'] = 'garden-lounge.pro';
-        $_SERVER['REQUEST_URI'] = '/admiralteyskaya/home.php';
-        $_SERVER['SCRIPT_NAME'] = '/admiralteyskaya/home.php';
-        $_SERVER['SCRIPT_FILENAME'] = $homeRoot . '/home.php';
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        ob_start();
-        require $homeRoot . '/home.php';
-        ob_end_clean();
-        if (isset($DB)) {
-            $tplRows = $DB->select(K_TBL_TEMPLATES, array('id'), "name='home.php'");
-            if (count($tplRows)) {
-                $fid = $tplRows[0]['id'];
-                $fc = $DB->select(K_TBL_FIELDS, array('count(*) as cnt'), "template_id='" . $DB->sanitize($fid) . "'");
-                echo "home.php fields in DB: " . $fc[0]['cnt'] . "\n";
+
+    $field = fetch_one(
+        $db,
+        "SELECT id FROM `{$fieldsTable}` WHERE template_id=" . (int)$tpl['id'] .
+        " AND name='home_adm_gallery' LIMIT 1"
+    );
+    if (!$field) {
+        echo "Gallery reorder skipped: home_adm_gallery field missing\n";
+        return;
+    }
+
+    $page = fetch_one($db, "SELECT id FROM `{$pagesTable}` WHERE template_id=" . (int)$tpl['id'] . " LIMIT 1");
+    if (!$page) {
+        echo "Gallery reorder skipped: home.php page missing\n";
+        return;
+    }
+
+    $row = fetch_one(
+        $db,
+        "SELECT id, value FROM `{$dataText}` WHERE field_id=" . (int)$field['id'] .
+        " AND page_id=" . (int)$page['id'] . " LIMIT 1"
+    );
+    if (!$row || !$row['value']) {
+        echo "Gallery reorder skipped: no gallery data\n";
+        return;
+    }
+
+    $items = @unserialize($row['value']);
+    if (!is_array($items) || count($items) < 2) {
+        echo "Gallery reorder skipped: gallery has less than 2 items\n";
+        return;
+    }
+
+    $darkNeedles = array('garden-main-1', 'garden_main_1');
+    $score = function ($item) use ($darkNeedles) {
+        $img = '';
+        if (is_array($item) && isset($item['home_adm_gallery_img'])) {
+            $img = (string)$item['home_adm_gallery_img'];
+        }
+        foreach ($darkNeedles as $needle) {
+            if ($needle !== '' && stripos($img, $needle) !== false) {
+                return 1;
             }
         }
-    } else {
-        echo "Field sync skipped: auth not initialized\n";
+        return 0;
+    };
+
+    $before = array();
+    foreach ($items as $item) {
+        $before[] = is_array($item) && isset($item['home_adm_gallery_img']) ? basename((string)$item['home_adm_gallery_img']) : '?';
     }
+
+    usort($items, function ($a, $b) use ($score) {
+        return $score($a) - $score($b);
+    });
+
+    $after = array();
+    foreach ($items as $item) {
+        $after[] = is_array($item) && isset($item['home_adm_gallery_img']) ? basename((string)$item['home_adm_gallery_img']) : '?';
+    }
+
+    if ($before === $after) {
+        echo "Gallery reorder: already optimal (" . implode(', ', $after) . ")\n";
+        return;
+    }
+
+    $escaped = $db->real_escape_string(serialize($items));
+    $db->query("UPDATE `{$dataText}` SET value='{$escaped}' WHERE id=" . (int)$row['id'] . " LIMIT 1");
+    if ($db->error) {
+        echo "Gallery reorder failed: {$db->error}\n";
+        return;
+    }
+
+    echo "Gallery reorder: " . implode(' -> ', $before) . " | after: " . implode(', ', $after) . "\n";
 }
+
+echo "Reordering home adm gallery...\n";
+reorder_home_adm_gallery($db, $fieldsTable, $dataText, $templates, $pagesTable);
 
 $cacheDir = K_COUCH_DIR . 'cache';
 $removed = 0;
