@@ -31,17 +31,37 @@ h2, h3, h4, h5, h6 {
     font-weight: inherit;
 }
 
-@keyframes shineGold { to { background-position: 200% center; } }
+@keyframes shineGold {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+@-webkit-keyframes shineGold {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
 
 .subtitle-gold,
-.shimmer-gold {
+.shimmer-gold,
+.gold-shimmer {
     background: linear-gradient(to right, #8e7037 0%, #C5A059 40%, #FFEebb 50%, #C5A059 60%, #8e7037 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
     animation: shineGold 5s linear infinite;
+    -webkit-animation: shineGold 5s linear infinite;
     display: inline-block;
+}
+
+.font-serif-lux {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 .separator-img {

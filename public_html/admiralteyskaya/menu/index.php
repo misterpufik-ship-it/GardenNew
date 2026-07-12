@@ -90,13 +90,20 @@
             background: linear-gradient(to right, #8e7037 0%, var(--gold) 40%, var(--gold-light) 50%, var(--gold) 60%, #8e7037 100%);
             background-size: 200% auto;
             color: transparent;
+            -webkit-text-fill-color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
             animation: menuShine 5s linear infinite;
+            -webkit-animation: menuShine 5s linear infinite;
         }
 
         @keyframes menuShine {
-            to { background-position: 200% center; }
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        @-webkit-keyframes menuShine {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         /* Стили карточки */
