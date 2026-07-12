@@ -42,3 +42,5 @@ _local_db/
 __pycache__/
 *.pyc
 
+# Local menu image exports (not for git)
+images-menu/
