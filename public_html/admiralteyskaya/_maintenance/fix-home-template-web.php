@@ -232,6 +232,34 @@ update_page_field(
     'https://t.me/gardenlounge_udelnaya'
 );
 
+function home_gallery_img_label($item)
+{
+    $img = '';
+    if (!is_array($item)) {
+        return '';
+    }
+    if (!empty($item['home_adm_gallery_img'])) {
+        $img = (string)$item['home_adm_gallery_img'];
+    } elseif (!empty($item['home_gallery_img'])) {
+        $img = (string)$item['home_gallery_img'];
+    }
+    if ($img === '') {
+        return '';
+    }
+
+    $decoded = base64_decode($img, true);
+    if ($decoded !== false && $decoded !== '' && strpos($decoded, ':') === 0) {
+        return $decoded;
+    }
+
+    return $img;
+}
+
+function is_dark_home_gallery_image($label)
+{
+    return stripos($label, 'garden-main-1') !== false || stripos($label, 'garden_main_1') !== false;
+}
+
 function reorder_home_adm_gallery($db, $fieldsTable, $dataText, $templates, $pagesTable)
 {
     $tpl = fetch_one($db, "SELECT id FROM `{$templates}` WHERE name='home.php' LIMIT 1");
@@ -273,22 +301,14 @@ function reorder_home_adm_gallery($db, $fieldsTable, $dataText, $templates, $pag
     }
 
     $darkNeedles = array('garden-main-1', 'garden_main_1');
-    $score = function ($item) use ($darkNeedles) {
-        $img = '';
-        if (is_array($item) && isset($item['home_adm_gallery_img'])) {
-            $img = (string)$item['home_adm_gallery_img'];
-        }
-        foreach ($darkNeedles as $needle) {
-            if ($needle !== '' && stripos($img, $needle) !== false) {
-                return 1;
-            }
-        }
-        return 0;
+    $score = function ($item) {
+        return is_dark_home_gallery_image(home_gallery_img_label($item)) ? 1 : 0;
     };
 
     $before = array();
     foreach ($items as $item) {
-        $before[] = is_array($item) && isset($item['home_adm_gallery_img']) ? basename((string)$item['home_adm_gallery_img']) : '?';
+        $label = home_gallery_img_label($item);
+        $before[] = $label !== '' ? basename($label) : '?';
     }
 
     usort($items, function ($a, $b) use ($score) {
@@ -297,7 +317,8 @@ function reorder_home_adm_gallery($db, $fieldsTable, $dataText, $templates, $pag
 
     $after = array();
     foreach ($items as $item) {
-        $after[] = is_array($item) && isset($item['home_adm_gallery_img']) ? basename((string)$item['home_adm_gallery_img']) : '?';
+        $label = home_gallery_img_label($item);
+        $after[] = $label !== '' ? basename($label) : '?';
     }
 
     if ($before === $after) {

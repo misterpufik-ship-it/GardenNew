@@ -78,20 +78,43 @@ if (!is_array($items) || count($items) < 2) {
     exit("gallery has less than 2 items\n");
 }
 
-$darkNeedles = array('garden-main-1', 'garden_main_1');
-$score = function ($item) use ($darkNeedles) {
-    $img = is_array($item) && isset($item['home_adm_gallery_img']) ? (string)$item['home_adm_gallery_img'] : '';
-    foreach ($darkNeedles as $needle) {
-        if ($needle !== '' && stripos($img, $needle) !== false) {
-            return 1;
-        }
+function gallery_img_label($item)
+{
+    $img = '';
+    if (!is_array($item)) {
+        return '';
     }
-    return 0;
+    if (!empty($item['home_adm_gallery_img'])) {
+        $img = (string)$item['home_adm_gallery_img'];
+    } elseif (!empty($item['home_gallery_img'])) {
+        $img = (string)$item['home_gallery_img'];
+    }
+    if ($img === '') {
+        return '';
+    }
+
+    $decoded = base64_decode($img, true);
+    if ($decoded !== false && $decoded !== '' && strpos($decoded, ':') === 0) {
+        return $decoded;
+    }
+
+    return $img;
+}
+
+function is_dark_gallery_image($label)
+{
+    return stripos($label, 'garden-main-1') !== false || stripos($label, 'garden_main_1') !== false;
+}
+
+$darkNeedles = array('garden-main-1', 'garden_main_1');
+$score = function ($item) {
+    return is_dark_gallery_image(gallery_img_label($item)) ? 1 : 0;
 };
 
 $before = array();
 foreach ($items as $item) {
-    $before[] = is_array($item) && isset($item['home_adm_gallery_img']) ? basename((string)$item['home_adm_gallery_img']) : '?';
+    $label = gallery_img_label($item);
+    $before[] = $label !== '' ? basename($label) : '?';
 }
 
 usort($items, function ($a, $b) use ($score) {
@@ -100,7 +123,8 @@ usort($items, function ($a, $b) use ($score) {
 
 $after = array();
 foreach ($items as $item) {
-    $after[] = is_array($item) && isset($item['home_adm_gallery_img']) ? basename((string)$item['home_adm_gallery_img']) : '?';
+    $label = gallery_img_label($item);
+    $after[] = $label !== '' ? basename($label) : '?';
 }
 
 echo 'before: ' . implode(', ', $before) . "\n";
