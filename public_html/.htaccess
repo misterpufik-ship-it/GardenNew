@@ -16,7 +16,12 @@ Options -MultiViews
     RewriteCond %{HTTP_HOST} ^www\.garden-lounge\.pro$ [NC]
     RewriteRule ^ https://garden-lounge.pro%{REQUEST_URI} [R=301,L]
 
-    # Убрать слэш только в конце URL (кроме главной /)
+    # CouchCMS admin: папка без слэша (DirectorySlash Off) -> index.php
+    RewriteRule ^admiralteyskaya/couch/?$ admiralteyskaya/couch/index.php [L]
+    RewriteRule ^udelnaya/couch/?$ admiralteyskaya/couch/index.php [L]
+
+    # Убрать слэш только в конце URL (кроме главной / и CouchCMS admin)
+    RewriteCond %{REQUEST_URI} !^/(admiralteyskaya|udelnaya)/couch/$
     RewriteCond %{REQUEST_URI} ^(.+)/$
     RewriteRule ^ https://%{HTTP_HOST}%1 [R=301,L]
 
@@ -50,12 +55,6 @@ Options -MultiViews
 
     RewriteCond %{REQUEST_URI} ^/udelnaya/menu/english$
     RewriteRule ^ /udelnaya/menu/english/index.php [L]
-
-    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/couch$
-    RewriteRule ^ /admiralteyskaya/couch/index.php [L]
-
-    RewriteCond %{REQUEST_URI} ^/udelnaya/couch$
-    RewriteRule ^ /udelnaya/couch/index.php [L]
 
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
 
