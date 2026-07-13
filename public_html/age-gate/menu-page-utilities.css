@@ -249,3 +249,10 @@ html, body {
 .note-after--wine {
     margin-top: 8px;
 }
+
+/* Tablet: slightly wider text menu column (landscape iPad) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    main.max-w-2xl {
+        max-width: 47.5rem;
+    }
+}

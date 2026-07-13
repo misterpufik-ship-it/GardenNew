@@ -987,6 +987,11 @@
             return;
         }
 
+        // Tablet: desktop nav uses flex zones; skip overflow fallback to avoid burger menu on iPad.
+        if (window.innerWidth < 1024) {
+            return;
+        }
+
         const totalWidth = Array.from(desktopZones).reduce((sum, item) => {
             return sum + item.scrollWidth;
         }, 0);

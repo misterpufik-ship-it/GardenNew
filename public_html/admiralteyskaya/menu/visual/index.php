@@ -80,7 +80,12 @@
         
         .main-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px 15px; width: 100%; align-items: start; }
-        @media (min-width: 768px) { .menu-grid { grid-template-columns: repeat(4, 1fr); gap: 40px 30px; } }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .menu-grid { grid-template-columns: repeat(3, 1fr); gap: 30px 20px; }
+        }
+        @media (min-width: 1024px) {
+            .menu-grid { grid-template-columns: repeat(4, 1fr); gap: 40px 30px; }
+        }
         
         .dish-card { display: flex; flex-direction: column; height: 100%; position: relative; }
 
