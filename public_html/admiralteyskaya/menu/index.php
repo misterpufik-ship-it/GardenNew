@@ -213,6 +213,22 @@
             color: black;
             border-color: var(--gold);
         }
+
+        #loyalty-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
+        .modal-content { background: #0a0a0a; border: 1px solid var(--gold); padding: 40px 25px; width: 100%; max-width: 400px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(197, 160, 89, 0.2); }
+        .modal-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; margin-bottom: 25px; color: #fff; line-height: 1.2; }
+        .modal-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 54px; border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 12px; color: #fff !important; text-decoration: none; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; transition: 0.3s; }
+        .modal-btn:hover { background: rgba(197, 160, 89, 0.1); border-color: var(--gold); }
+        .modal-btn i { font-size: 18px; color: var(--gold); }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 28px; color: rgba(255,255,255,0.3); cursor: pointer; line-height: 1; }
+        .close-modal:hover { color: #fff; }
+
+        .action-area { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 16px; }
+        @media (min-width: 768px) { .action-area { flex-direction: row; justify-content: center; gap: 15px; } }
+        .btn-base { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 280px; height: 52px; border: 1px solid rgba(197,160,89,0.3); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s; cursor: pointer; color: #fff; }
+        .btn-base:hover:not(.btn-gold-fill) { border-color: var(--gold); background: rgba(197,160,89,0.05); }
+        .btn-gold-fill { background: var(--gold); color: #000 !important; font-weight: 700; border: none; }
+        .btn-gold-fill:hover { background: var(--gold); color: #000 !important; border: none; }
     </style>
 </head>
 <body class="antialiased">
@@ -278,13 +294,38 @@
                     Гастрономическая поэзия
                 </p>
 
-                <!-- Кнопка возврата -->
-                <a href="https://garden-lounge.pro/admiralteyskaya" class="back-button">
-                    <i class="fas fa-chevron-left text-[8px]"></i>
-                    Вернуться на главную
-                </a>
+                <div class="action-area">
+                    <a href="https://garden-lounge.pro/admiralteyskaya" class="btn-base">
+                        <span class="subtitle-gold">Вернуться на главную</span>
+                    </a>
+                    <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">Программа лояльности</div>
+                </div>
             </div>
         </main>
     </div>
+
+    <div id="loyalty-modal" onclick="closeLoyaltyModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeLoyaltyModal()">&times;</span>
+            <div class="modal-title gold-shimmer">Выберите способ регистрации</div>
+
+            <a href="https://access.clientomer.ru/feedback/676900-1/" target="_blank" rel="noopener" class="modal-btn">
+                <i class="fa-solid fa-wallet"></i> Регистрация через Wallet
+            </a>
+
+            <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" rel="noopener" class="modal-btn">
+                <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
+            </a>
+        </div>
+    </div>
+
+    <script>
+    function openLoyaltyModal() {
+        document.getElementById('loyalty-modal').style.display = 'flex';
+    }
+    function closeLoyaltyModal() {
+        document.getElementById('loyalty-modal').style.display = 'none';
+    }
+    </script>
 </body>
 </html>
