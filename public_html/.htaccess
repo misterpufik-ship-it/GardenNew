@@ -51,6 +51,12 @@ Options -MultiViews
     RewriteCond %{REQUEST_URI} ^/udelnaya/menu/english$
     RewriteRule ^ /udelnaya/menu/english/index.php [L]
 
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/couch$
+    RewriteRule ^ /admiralteyskaya/couch/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya/couch$
+    RewriteRule ^ /udelnaya/couch/index.php [L]
+
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
 
     RewriteRule ^udelnaya/couch/uploads/(.*)$ /admiralteyskaya/couch/uploads/$1 [L]
