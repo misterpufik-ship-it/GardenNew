@@ -200,7 +200,28 @@
         }
 
         @keyframes shineGold {
-            to { background-position: 100% center; }
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
+        }
+        @-webkit-keyframes shineGold {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
+        }
+
+        .gold-shimmer {
+            background-color: transparent;
+            background-image: linear-gradient(90deg,
+                #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
+                #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+            background-repeat: no-repeat;
+            background-size: 200% auto;
+            background-position: 0% center;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: shineGold 5s linear infinite;
+            -webkit-animation: shineGold 5s linear infinite;
         }
 
         @keyframes ringPhone {
@@ -255,7 +276,6 @@
         }
 
         .branch-address {
-            color: var(--gold-main);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -268,13 +288,15 @@
 
         .branch-address:hover,
         .branch-address:focus-visible {
-            color: var(--gold-light);
+            opacity: 0.92;
         }
 
         .branch-address .pin {
             width: 14px;
             height: 14px;
             flex-basis: 14px;
+            color: var(--gold-main);
+            fill: currentColor;
         }
 
         .slider {
@@ -332,7 +354,6 @@
             border-radius: var(--branch-btn-radius, 0);
             border: var(--branch-btn-border-width, 1px) solid var(--branch-btn-border-color, rgba(166, 138, 92, 0.75));
             background: var(--branch-btn-bg, rgba(18, 16, 14, 0.55));
-            color: var(--branch-btn-color, #a68a5c);
             text-decoration: none;
             font-family: Montserrat, Arial, sans-serif;
             font-size: var(--branch-btn-font-size, 11px);
@@ -346,7 +367,7 @@
             cursor: pointer;
             box-shadow: none;
             text-shadow: none;
-            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
         }
 
         .branch.branch-btn-animate-on .slider-cta,
@@ -369,7 +390,16 @@
             animation-play-state: paused;
             border-color: var(--branch-btn-hover-border, rgba(197, 160, 89, 0.95));
             background: var(--branch-btn-hover-bg, rgba(18, 16, 14, 0.78));
+        }
+
+        .branch .slider-cta:hover .gold-shimmer,
+        .branch .slider-cta:focus-visible .gold-shimmer,
+        .branch .button:hover .gold-shimmer,
+        .branch .button:focus-visible .gold-shimmer {
+            -webkit-text-fill-color: var(--branch-btn-hover-color, #c5a059);
             color: var(--branch-btn-hover-color, #c5a059);
+            background-image: none;
+            animation: none;
         }
 
         .slider-overlay .contact-btn {
