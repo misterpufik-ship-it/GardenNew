@@ -143,3 +143,55 @@ function gl_menu_seo_schema_render(array $opts)
 
     echo '<script type="application/ld+json">' . $json . '</script>' . "\n";
 }
+
+function gl_menu_format_multiline_html($text, $wineMode = false)
+{
+    $text = trim((string) $text);
+    if ($text === '') {
+        return '';
+    }
+
+    if ($wineMode) {
+        $text = preg_replace('/\s+(Сорт винограда:)/u', "\n$1", $text);
+    }
+
+    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+}
+
+function gl_menu_format_note_html($note, $wineMode = false)
+{
+    return gl_menu_format_multiline_html($note, $wineMode);
+}
+
+function gl_menu_get_note_text($lang = 'ru')
+{
+    global $CTX;
+    if ($lang === 'en') {
+        $en = trim((string) $CTX->get('note_after_ru_en'));
+        if ($en !== '') {
+            return $en;
+        }
+    }
+
+    return trim((string) $CTX->get('note_after_ru'));
+}
+
+function gl_menu_render_note_after(array $opts = array())
+{
+    $wineMode = !empty($opts['wine']);
+    $inGrid = !empty($opts['in_grid']);
+    $lang = !empty($opts['en']) ? 'en' : 'ru';
+    $note = gl_menu_get_note_text($lang);
+    if ($note === '') {
+        return;
+    }
+
+    $cls = 'note-after menu-multiline' . ($wineMode ? ' note-after--wine' : '');
+    if ($inGrid) {
+        $cls .= ' col-span-2';
+    }
+
+    echo '<div class="' . htmlspecialchars($cls, ENT_QUOTES, 'UTF-8') . '">';
+    echo gl_menu_format_note_html($note, $wineMode);
+    echo '</div>';
+}

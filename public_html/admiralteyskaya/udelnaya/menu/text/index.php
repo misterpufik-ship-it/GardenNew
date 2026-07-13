@@ -277,6 +277,9 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         .btn-gold-fill { background: var(--gold); color: #000; font-weight: 700; border: none; }
         .btn-gold-fill:hover { background: var(--gold); color: #000 !important; border: none; }
         .note-after { margin-top: 6px; font-size: 12px; color: #a9a9a9; line-height: 1.5; }
+        .menu-item-volume { font-size: 12px; color: #a9a9a9; margin-top: 4px; line-height: 1.45; }
+        .menu-multiline { white-space: pre-line; line-height: 1.55; }
+        .note-after--wine { margin-top: 8px; }
     </style>
 </head>
 
@@ -346,9 +349,13 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
                                 </div>
                             </div>
                             <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
-                            <cms:if i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show i_desc /></div></cms:if>
+                            <cms:if i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 menu-multiline"><cms:show i_desc /></div></cms:if>
                         </div>
-                        <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
+                        <cms:php>
+                        global $CTX;
+                        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+                        gl_menu_render_note_after();
+                        </cms:php>
                     </div>
                 </cms:if>
             </div>
@@ -377,9 +384,13 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
                                 </div>
                             </div>
                             <span class="price-tag gold-shimmer"><cms:show kit_price /> ₽</span>
-                            <cms:if kit_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show kit_desc /></div></cms:if>
+                            <cms:if kit_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 menu-multiline"><cms:show kit_desc /></div></cms:if>
                         </div>
-                        <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
+                        <cms:php>
+                        global $CTX;
+                        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+                        gl_menu_render_note_after();
+                        </cms:php>
                     </div>
                 </cms:if>
             </div>
@@ -405,9 +416,13 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
                                 </div>
                             </div>
                             <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
-                            <cms:if i_subheader><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show i_subheader /></div></cms:if>
+                            <cms:if i_subheader><div class="col-span-2 menu-item-volume"><cms:show i_subheader /></div></cms:if>
                         </div>
-                        <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
+                        <cms:php>
+                        global $CTX;
+                        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+                        gl_menu_render_note_after(array('wine' => $CTX->get('bar_alc_subtab') === 'wine'));
+                        </cms:php>
                     </div>
                 </cms:if>
             </div>
@@ -433,9 +448,13 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
                                 </div>
                             </div>
                             <span class="price-tag gold-shimmer"><cms:show i_price /> ₽</span>
-                            <cms:if i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1"><cms:show i_desc /></div></cms:if>
+                            <cms:if i_desc><div class="col-span-2 text-[12px] text-gray-400 mt-1 menu-multiline"><cms:show i_desc /></div></cms:if>
                         </div>
-                        <cms:if note_after_ru><div class="note-after"><cms:show note_after_ru /></div></cms:if>
+                        <cms:php>
+                        global $CTX;
+                        require_once $_SERVER['DOCUMENT_ROOT'] . '/age-gate/menu-schema.php';
+                        gl_menu_render_note_after();
+                        </cms:php>
                     </div>
                 </cms:if>
             </div>
