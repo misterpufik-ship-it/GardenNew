@@ -7,6 +7,8 @@ Disallow: /udelnaya/couch/uploads/
 Disallow: /crm/
 Disallow: /_maintenance/
 Disallow: /admiralteyskaya/_maintenance/
+Disallow: /pdf-excel/
+Disallow: /pdf-excel
 Disallow: /*copy*
 Disallow: /*import*
 Disallow: /*1213*
