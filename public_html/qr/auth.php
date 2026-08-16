@@ -1,16 +1,16 @@
 <?php
+if (!defined('K_COUCH_DIR')) {
+    define('K_COUCH_DIR', str_replace('\\', '/', dirname(__DIR__) . '/admiralteyskaya/couch/'));
+}
+if (!defined('K_ADMIN')) {
+    define('K_ADMIN', 1);
+}
+require_once K_COUCH_DIR . 'header.php';
+
 function gl_qr_require_admin($ajax = false)
 {
-    if (!defined('K_COUCH_DIR')) {
-        define('K_COUCH_DIR', str_replace('\\', '/', dirname(__DIR__) . '/admiralteyskaya/couch/'));
-    }
-    if (!defined('K_ADMIN')) {
-        define('K_ADMIN', 1);
-    }
-    require_once K_COUCH_DIR . 'header.php';
-
     global $AUTH;
-    $ok = isset($AUTH->user) && is_object($AUTH->user) && $AUTH->user->access_level >= K_ACCESS_LEVEL_ADMIN;
+    $ok = isset($AUTH) && isset($AUTH->user) && is_object($AUTH->user) && $AUTH->user->access_level >= K_ACCESS_LEVEL_ADMIN;
     if ($ok) {
         return;
     }

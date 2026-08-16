@@ -130,6 +130,6 @@ try {
     }
 
     gl_qr_json(array('ok' => false, 'error' => 'Неизвестное действие'), 400);
-} catch (Exception $e) {
+} catch (Throwable $e) {
     gl_qr_json(array('ok' => false, 'error' => $e->getMessage()), 500);
 }

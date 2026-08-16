@@ -35,8 +35,14 @@
             opts.body = JSON.stringify(payload);
         }
         return fetch('/qr/api.php?action=' + encodeURIComponent(action), opts).then(function (res) {
-            return res.json().then(function (data) {
-                if (!res.ok || !data.ok) {
+            return res.text().then(function (text) {
+                var data = null;
+                try {
+                    data = text ? JSON.parse(text) : null;
+                } catch (err) {
+                    throw new Error('Сервер вернул не JSON');
+                }
+                if (!data || !res.ok || !data.ok) {
                     throw new Error((data && data.error) || 'Ошибка запроса');
                 }
                 return data;
