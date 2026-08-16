@@ -28,13 +28,13 @@
     }
 
     function api(action, payload) {
-        var opts = { credentials: 'same-origin', headers: { Accept: 'application/json' } };
+        var opts = { credentials: 'include', headers: { Accept: 'application/json' } };
         if (payload) {
             opts.method = 'POST';
             opts.headers['Content-Type'] = 'application/json';
             opts.body = JSON.stringify(payload);
         }
-        return fetch('/qr/api.php?action=' + encodeURIComponent(action), opts).then(function (res) {
+        return fetch('/admiralteyskaya/qr-api.php?action=' + encodeURIComponent(action), opts).then(function (res) {
             return res.text().then(function (text) {
                 var data = null;
                 try {
