@@ -80,6 +80,21 @@
 • Фото меню лежат в couch/uploads/image/menu-visual/ — при деплое синхронизируются отдельно и не затирают новые загрузки из админки.
 ]]></cms:editable>
 
+    <cms:editable name='group_qr' label='Раздел «QR коды»' type='group' collapsed='1' order='55' />
+    <cms:editable name='guide_qr' label='Содержание' group='group_qr' type='textarea' order='56'><![CDATA[
+Отдельный раздел админки для постоянных QR филиалов. Сторонние сервисы не используются: генерация и хранение на сайте.
+
+Как пользоваться:
+1. Откройте «QR коды».
+2. В карточке филиала укажите название и ссылку, нажмите «Сгенерировать постоянный QR».
+3. Скачайте PNG и печатайте / клеьте этот файл.
+
+Важно:
+• В сам QR вшит постоянный адрес вида https://garden-lounge.pro/qr/admiralteyskaya/site
+• Поле «Ссылка» можно менять в любой момент — гости по тому же QR попадут на новый адрес.
+• Картинка QR сохраняется на сервере и не пропадает при смене ссылки.
+]]></cms:editable>
+
     <cms:editable name='group_common' label='Раздел «Общие»' type='group' collapsed='1' order='60' />
     <cms:editable name='guide_common' label='Содержание' group='group_common' type='textarea' order='61'><![CDATA[
 Общие настройки для всего сайта:

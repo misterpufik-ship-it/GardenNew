@@ -1,5 +1,6 @@
 <?php require_once( 'couch/cms.php' ); ?>
 <cms:template title='Названия разделов' executable='0' order='230'>
+    <cms:editable name='label_qr_codes' label='QR коды' type='text' order='1'>QR коды</cms:editable>
     <cms:editable name='label_layout_mobile_menu' label='Гамбургер-меню (Общие)' type='text' order='9'>Гамбургер-меню</cms:editable>
     <cms:editable name='label_layout_hero' label='Hero — мобильный лого (Общие)' type='text' order='8'>Hero — мобильный лого</cms:editable>
     <cms:editable name='label_layout_scroll' label='Прокрутка по меню (Общие)' type='text' order='7'>Прокрутка по меню</cms:editable>

@@ -1,0 +1,13 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /qr/
+
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    RewriteRule ^([a-z0-9-]+)/?$ index.php?branch=$1&slug=site [L,QSA]
+    RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/?$ index.php?branch=$1&slug=$2 [L,QSA]
+</IfModule>

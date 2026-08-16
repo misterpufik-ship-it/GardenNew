@@ -20,12 +20,16 @@ Options -MultiViews
     RewriteCond %{THE_REQUEST} \s/+udelnaya/couch[\s?] [NC]
     RewriteRule ^ /admiralteyskaya/couch/index.php [L]
 
-    # Убрать слэш только в конце URL (кроме главной / и CouchCMS admin)
+    # Убрать слэш только в конце URL (кроме главной / , CouchCMS admin и ikko)
     RewriteCond %{REQUEST_URI} !^/(admiralteyskaya|udelnaya)/couch/$
+    RewriteCond %{REQUEST_URI} !^/ikko/
     RewriteCond %{REQUEST_URI} ^(.+)/$
     RewriteRule ^ https://%{HTTP_HOST}%1 [R=301,L]
 
     # Страницы-папки без слэша -> index.php
+    RewriteCond %{REQUEST_URI} ^/ikko$
+    RewriteRule ^ /ikko/index.php [L]
+
     RewriteCond %{REQUEST_URI} ^/admiralteyskaya$
     RewriteRule ^ /admiralteyskaya/index.php [L]
 
@@ -58,6 +62,14 @@ Options -MultiViews
 
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
 
+    # Permanent branch QR redirects: /qr/{branch}/{slug}
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^qr/([a-z0-9-]+)/([a-z0-9-]+)$ /qr/index.php?branch=$1&slug=$2 [L,QSA]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^qr/([a-z0-9-]+)$ /qr/index.php?branch=$1&slug=site [L,QSA]
+
     RewriteRule ^udelnaya/couch/uploads/(.*)$ /admiralteyskaya/couch/uploads/$1 [L]
 
     # Legacy duplicate paths
@@ -77,6 +89,7 @@ Options -MultiViews
 </IfModule>
 
 # BeGet: /admiralteyskaya/couch без слэша → 403 (DirectorySlash Off)
+RedirectMatch 301 ^/ikko$ https://garden-lounge.pro/ikko/
 RedirectMatch 301 ^/admiralteyskaya/couch$ https://garden-lounge.pro/admiralteyskaya/couch/
 
 <IfModule mod_deflate.c>

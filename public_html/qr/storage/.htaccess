@@ -1,0 +1,13 @@
+<IfModule mod_authz_core.c>
+    <Files "codes.json">
+        Require all denied
+    </Files>
+    <Files "*.tmp">
+        Require all denied
+    </Files>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <Files "codes.json">
+        Deny from all
+    </Files>
+</IfModule>
