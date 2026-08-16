@@ -4,6 +4,7 @@ if ( !defined('K_COUCH_DIR') ) die();
 function garden_admin_label_defaults(){
     return array(
         
+        'qr-codes.php' => array('field'=>'label_qr_codes', 'title'=>'QR коды', 'weight'=>1),
         'admin-instructions.php' => array('field'=>'', 'title'=>'Инструкции', 'weight'=>-10),
 'header.php' => array('field'=>'label_header', 'title'=>'Шапка сайта (Header)', 'weight'=>100),
         'about.php' => array('field'=>'label_about', 'title'=>'Концепция', 'weight'=>110),
@@ -121,10 +122,11 @@ function garden_alter_admin_menuitems( &$items ){
     $items['_garden_home_'] = garden_admin_menu_header( '_garden_home_', 'Главная', -1 );
     $items['_garden_admiral_'] = garden_admin_menu_header( '_garden_admiral_', 'Адмиралтейская', 0 );
     $items['_garden_udelnaya_'] = garden_admin_menu_header( '_garden_udelnaya_', 'Удельная', 1 );
+    $items['_garden_qr_'] = garden_admin_menu_header( '_garden_qr_', 'QR коды', 2 );
 
     if ( isset($items['_templates_']) ){
         $items['_templates_']['title'] = 'Общие';
-        $items['_templates_']['weight'] = 2;
+        $items['_templates_']['weight'] = 3;
         $items['_templates_']['class'] = 'separator';
     }
 
@@ -135,6 +137,9 @@ function garden_alter_admin_menuitems( &$items ){
             $items[$name]['weight'] = $info['weight'];
             if ( $name === 'admin-instructions.php' ){
                 $items[$name]['parent'] = '_garden_instructions_';
+            }
+            elseif ( $name === 'qr-codes.php' ){
+                $items[$name]['parent'] = '_garden_qr_';
             }
             elseif ( strpos($name, 'udelnaya/') === 0 ){
                 $items[$name]['parent'] = '_garden_udelnaya_';
@@ -664,5 +669,21 @@ $FUNCS->add_event_listener( 'add_admin_css', 'garden_admin_typography_css' );
 
 require_once K_ADDONS_DIR . 'garden-cache/garden-cache.php';
 
+function garden_qr_admin_assets_css(){
+    global $FUNCS;
+    $ver = @filemtime( K_SITE_DIR . '../qr/admin.css' );
+    if ( !$ver ) $ver = time();
+    $FUNCS->add_css( '@import url("/qr/admin.css?v=' . intval($ver) . '");' );
+    $FUNCS->add_css( 'body.gl-qr-admin-page #scroll-content .ctrl-bot,body.gl-qr-admin-page .ctrl-bot,body.gl-qr-admin-page #advanced-settings{display:none!important}' );
+}
 
+function garden_qr_admin_assets_js(){
+    global $FUNCS;
+    $ver = @filemtime( K_SITE_DIR . '../qr/admin.js' );
+    if ( !$ver ) $ver = time();
+    $js = '(function($){$(function(){var params=new URLSearchParams(window.location.search||"");if(params.get("o")!=="qr-codes.php")return;document.body.classList.add("gl-qr-admin-page");if(!document.getElementById("gl-qr-root")){var host=document.getElementById("scroll-content")||document.body;var box=document.createElement("div");box.id="gl-qr-root";host.insertBefore(box,host.firstChild);}if(!document.querySelector("script[src^=\'/qr/admin.js\']")){var s=document.createElement("script");s.src="/qr/admin.js?v=' . intval($ver) . '";document.body.appendChild(s);}});})(jQuery);';
+    $FUNCS->add_js( $js );
+}
 
+$FUNCS->add_event_listener( 'add_admin_css', 'garden_qr_admin_assets_css' );
+$FUNCS->add_event_listener( 'add_admin_js', 'garden_qr_admin_assets_js' );
