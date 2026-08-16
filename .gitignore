@@ -34,10 +34,11 @@ public_html/crm/storage/**/*
 !public_html/crm/storage/**/.gitkeep
 !public_html/crm/storage/.htaccess
 
-# QR codes runtime data (JSON + generated PNG persist on hosting)
-public_html/qr/storage/codes.json
-public_html/qr/storage/*.tmp
-public_html/qr/storage/png/*.png
+# QR runtime data: JSON + PNG persist on hosting, never in git / never overwritten by deploy
+public_html/qr/storage/**
+!public_html/qr/storage/.gitkeep
+!public_html/qr/storage/.htaccess
+!public_html/qr/storage/png/
 !public_html/qr/storage/png/.gitkeep
 
 # Local database dumps/imports

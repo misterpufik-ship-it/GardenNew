@@ -194,6 +194,10 @@ function gl_qr_find_by_slug($data, $branch, $slug)
 
 function gl_qr_write_png($code)
 {
+    $path = gl_qr_png_path($code['branch'], $code['slug']);
+    if (is_file($path)) {
+        return $path;
+    }
     if (!function_exists('imagecreatetruecolor')) {
         throw new RuntimeException('На сервере нет GD для генерации PNG');
     }
@@ -201,7 +205,6 @@ function gl_qr_write_png($code)
     $url = gl_qr_stable_url($code['branch'], $code['slug']);
     $qr = QRCode::getMinimumQRCode($url, QR_ERROR_CORRECT_LEVEL_M);
     $im = $qr->createImage(10, 16, 0x111111, 0xFFFFFF);
-    $path = gl_qr_png_path($code['branch'], $code['slug']);
     imagepng($im, $path, 6);
     imagedestroy($im);
     return $path;

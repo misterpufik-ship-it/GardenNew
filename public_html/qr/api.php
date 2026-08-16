@@ -111,22 +111,11 @@ try {
         $data['codes'][$idx]['updated_at'] = date('c');
         gl_qr_save($data);
         $code = $data['codes'][$idx];
-        if (!is_file(gl_qr_png_path($code['branch'], $code['slug']))) {
-            gl_qr_write_png($code);
-        }
         gl_qr_json(array('ok' => true, 'code' => gl_qr_public_code($code)));
     }
 
     if ($action === 'rebuild' && $method === 'POST') {
-        $body = gl_qr_read_json_body();
-        $id = isset($body['id']) ? (string)$body['id'] : '';
-        $data = gl_qr_load();
-        $idx = gl_qr_find($data, $id);
-        if ($idx < 0) {
-            gl_qr_json(array('ok' => false, 'error' => 'QR не найден'), 404);
-        }
-        gl_qr_write_png($data['codes'][$idx]);
-        gl_qr_json(array('ok' => true, 'code' => gl_qr_public_code($data['codes'][$idx])));
+        gl_qr_json(array('ok' => false, 'error' => 'Картинка QR фиксируется при создании и не пересобирается'), 400);
     }
 
     gl_qr_json(array('ok' => false, 'error' => 'Неизвестное действие'), 400);

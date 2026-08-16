@@ -52,7 +52,7 @@ try {
     & ssh -i $IdentityFile -o BatchMode=yes -o ConnectTimeout=15 $target $remoteCommand
     if ($LASTEXITCODE -ne 0) { throw "Remote VPS deploy failed." }
 
-    # deploy-site excludes all uploads/; sync versioned visual menu images separately
+    # deploy-site excludes uploads/, cache/, storage/ (CRM + QR JSON/PNG stay on hosting)
     if ($Project -eq "garden-lounge.pro") {
         $menuVisualSync = @(
             "sudo -u deploy rsync -az",
