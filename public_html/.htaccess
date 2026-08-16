@@ -60,6 +60,18 @@ Options -MultiViews
     RewriteCond %{REQUEST_URI} ^/udelnaya/menu/english$
     RewriteRule ^ /udelnaya/menu/english/index.php [L]
 
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/loyality$
+    RewriteRule ^ /admiralteyskaya/loyalty [R=301,L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya/loyality$
+    RewriteRule ^ /udelnaya/loyalty [R=301,L]
+
+    RewriteCond %{REQUEST_URI} ^/admiralteyskaya/loyalty$
+    RewriteRule ^ /admiralteyskaya/loyalty/index.php [L]
+
+    RewriteCond %{REQUEST_URI} ^/udelnaya/loyalty$
+    RewriteRule ^ /udelnaya/loyalty/index.php [L]
+
     RewriteRule ^$ admiralteyskaya/site-home.php [L]
 
     # Permanent branch QR redirects: /qr/{branch}/{slug}

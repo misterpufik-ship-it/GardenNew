@@ -12,6 +12,10 @@ Disallow: /pdf-excel
 Disallow: /*copy*
 Disallow: /*import*
 Disallow: /*1213*
+Disallow: /admiralteyskaya/loyalty
+Disallow: /udelnaya/loyalty
+Disallow: /admiralteyskaya/loyality
+Disallow: /udelnaya/loyality
 
 User-agent: Googlebot
 Allow: /
