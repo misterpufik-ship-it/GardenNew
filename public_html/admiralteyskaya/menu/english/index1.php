@@ -116,6 +116,21 @@
             .modal-btn i { font-size: 20px; color: var(--gold); width: 25px; }
             .close-modal { position: absolute; top: 12px; right: 18px; font-size: 24px; color: #555; cursor: pointer; transition: 0.3s; }
             .close-modal:hover { color: #fff; }
+            .loyalty-bonus-note {
+            margin: 18px 0 0; padding: 0; text-align: center;
+            font-size: 12px; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; line-height: 1.6;
+            color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+        }
+        .loyalty-bonus-note .loyalty-bonus-num {
+            font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
+            background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            animation: shineGold 5s linear infinite;
+        }
+
+        
+        
         </style>
     </head>
 
@@ -343,6 +358,7 @@
                 <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
                     <i class="fa-brands fa-telegram"></i> Register via Telegram
                 </a>
+                <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
             </div>
         </div>
 

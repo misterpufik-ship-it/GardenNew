@@ -148,11 +148,27 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         .modal-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; margin-bottom: 25px; color: #fff; }
         .modal-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 54px; border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 12px; color: #fff; text-decoration: none; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; transition: 0.3s; }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 28px; color: #555; cursor: pointer; }
+        .loyalty-bonus-note {
+            margin: 18px 0 0; padding: 0; text-align: center;
+            font-size: 12px; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; line-height: 1.6;
+            color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+        }
+        .loyalty-bonus-note .loyalty-bonus-num {
+            font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
+            background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            animation: loyaltyBonusShine 5s linear infinite;
+        }
+
+        
+        
 
         #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; justify-content: center; align-items: center; z-index: 2000; }
         #lightbox img { max-width: 95%; max-height: 85vh; border: 1px solid var(--gold-dark); }
         .lightbox-close { position: fixed; top: 12px; right: 16px; z-index: 2001; width: 44px; height: 44px; border: none; background: transparent; color: #fff; font-size: 36px; line-height: 1; cursor: pointer; transition: color 0.2s; }
         .lightbox-close:hover { color: var(--gold); }
+            @keyframes loyaltyBonusShine { 0% { background-position: 0% center; }
     </style>
 </head>
 <body class="antialiased">
@@ -220,6 +236,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
             <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
                 <i class="fa-brands fa-telegram"></i> Telegram
             </a>
+            <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
         </div>
     </div>
 

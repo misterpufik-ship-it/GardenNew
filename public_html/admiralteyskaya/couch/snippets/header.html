@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     :root {
         --gold-main: #C5A059;
         --gold-dark: #8e7037;
@@ -122,9 +122,53 @@
     padding-bottom: 5px !important; 
 }
     
-    .nav-link { position: relative; color: #ffffff !important; text-transform: uppercase; font-size: clamp(8px, 0.72vw, 11px); letter-spacing: clamp(0.08em, 0.12vw, 0.15em); font-weight: 500; transition: all 0.3s ease; padding: clamp(5px, 0.55vw, 8px) clamp(6px, 0.78vw, 12px); text-decoration: none; border: 1px solid transparent; white-space: nowrap; }
+    .nav-link { position: relative; color: #ffffff !important; text-transform: uppercase; font-size: clamp(8px, 0.72vw, 11px); letter-spacing: clamp(0.08em, 0.12vw, 0.15em); font-weight: 500; transition: all 0.3s ease; padding: clamp(5px, 0.55vw, 8px) clamp(6px, 0.78vw, 12px); text-decoration: none; border: 1px solid transparent; white-space: nowrap; cursor: pointer; background: none; font-family: inherit; }
     .nav-link:hover { color: var(--gold-main) !important; }
     .nav-booking-rect { border: 1px solid rgba(197, 160, 89, 0.6) !important; background-color: rgba(197, 160, 89, 0.1) !important; color: var(--gold-main) !important; }
+
+    #nav-loyalty-modal {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+        display: none; justify-content: center; align-items: center; z-index: 1000010; padding: 20px;
+    }
+    #nav-loyalty-modal .modal-content {
+        background: #0a0a0a; border: 1px solid var(--gold-main, #C5A059); padding: 40px 25px;
+        width: 100%; max-width: 400px; text-align: center; position: relative;
+        box-shadow: 0 0 30px rgba(197, 160, 89, 0.2); box-sizing: border-box;
+    }
+    #nav-loyalty-modal .modal-title {
+        font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px;
+        margin-bottom: 25px; color: #fff; line-height: 1.2;
+    }
+    #nav-loyalty-modal .modal-btn {
+        display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 54px;
+        border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 12px; color: #fff !important;
+        text-decoration: none; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em;
+        transition: 0.3s; box-sizing: border-box; font-family: Montserrat, Arial, sans-serif;
+    }
+    #nav-loyalty-modal .modal-btn:hover { background: rgba(197, 160, 89, 0.1); border-color: var(--gold-main, #C5A059); }
+    #nav-loyalty-modal .modal-btn i { font-size: 18px; color: var(--gold-main, #C5A059); }
+    #nav-loyalty-modal .close-modal {
+        position: absolute; top: 10px; right: 15px; font-size: 28px; color: rgba(255,255,255,0.3);
+        cursor: pointer; line-height: 1; background: none; border: none; padding: 0;
+    }
+    #nav-loyalty-modal .close-modal:hover { color: #fff; }
+    #nav-loyalty-modal .loyalty-bonus-note {
+        margin: 18px 0 0; padding: 0; text-align: center;
+        font-size: 12px; font-weight: 500; letter-spacing: .34em;
+        text-transform: uppercase; line-height: 1.6;
+        color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+    }
+    #nav-loyalty-modal .loyalty-bonus-note .loyalty-bonus-num {
+        font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
+        background-image: linear-gradient(90deg,
+            #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
+            #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        animation: goldShimmer 5s linear infinite;
+        -webkit-animation: goldShimmer 5s linear infinite;
+    }
 
     .desktop-social-link {
         display: inline-flex;
@@ -767,6 +811,7 @@
                     <cms:show item_name />
                 </a>
             </cms:show_repeatable>
+            <a href="#" role="button" class="nav-link nav-loyalty-trigger" onclick="event.preventDefault(); openNavLoyaltyModal();">Лояльность</a>
         </div>
     </div>
 
@@ -838,6 +883,7 @@
                     <cms:show item_name />
                 </a>
             </cms:show_repeatable>
+            <a href="#" role="button" class="mobile-link nav-loyalty-trigger">Лояльность</a>
             <cms:pages masterpage='layout-mobile-menu.php' limit='1'>
             <a href="#branch-filial" class="mobile-link mobile-branch-nav-link">
                 <span class="mm-shimmer-gold"><cms:if is_udelnaya><cms:if mm_udel_branch_label><cms:show mm_udel_branch_label /><cms:else />Второй филиал</cms:if><cms:else /><cms:if mm_adm_branch_label><cms:show mm_adm_branch_label /><cms:else />Второй филиал</cms:if></cms:if></span>
@@ -862,6 +908,20 @@
                 <a href="<cms:if social_youtube><cms:show social_youtube /><cms:else />https://www.youtube.com/@garden.lounge</cms:if>" target="_blank" rel="noopener noreferrer" class="mobile-menu-social-link text-2xl" title="YouTube" aria-label="YouTube Garden Lounge"><i class="fab fa-youtube" aria-hidden="true"></i></a>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="nav-loyalty-modal" onclick="closeNavLoyaltyModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button type="button" class="close-modal" onclick="closeNavLoyaltyModal()" aria-label="Закрыть">&times;</button>
+        <div class="modal-title">Выберите способ регистрации</div>
+        <a href="https://access.clientomer.ru/feedback/676900-1/" target="_blank" rel="noopener" class="modal-btn">
+            <i class="fa-solid fa-wallet"></i> Регистрация через Wallet
+        </a>
+        <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" rel="noopener" class="modal-btn">
+            <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
+        </a>
+        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
     </div>
 </div>
 
@@ -1172,6 +1232,13 @@
 
         this.classList.add('active-rect');
 
+        if (this.classList.contains('nav-loyalty-trigger')) {
+            e.preventDefault();
+            setMenuState(false);
+            openNavLoyaltyModal();
+            return;
+        }
+
         if (href.charAt(0) === '#') {
             e.preventDefault();
             setMenuState(false, { keepScroll: true });
@@ -1187,11 +1254,27 @@
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
+                if (link.classList.contains('nav-loyalty-trigger')) return;
                 navLinks.forEach(l => l.classList.remove('nav-booking-rect'));
                 link.classList.add('nav-booking-rect');
             });
         });
     });
+</script>
+
+<script>
+function openNavLoyaltyModal() {
+    var modal = document.getElementById('nav-loyalty-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+function closeNavLoyaltyModal() {
+    var modal = document.getElementById('nav-loyalty-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
 </script>
    
 

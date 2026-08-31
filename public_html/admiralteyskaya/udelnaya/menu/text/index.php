@@ -269,6 +269,21 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         .modal-btn i { font-size: 18px; color: var(--gold); }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 28px; color: rgba(255,255,255,0.3); cursor: pointer; line-height: 1; }
         .close-modal:hover { color: #fff; }
+        .loyalty-bonus-note {
+            margin: 18px 0 0; padding: 0; text-align: center;
+            font-size: 12px; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; line-height: 1.6;
+            color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+        }
+        .loyalty-bonus-note .loyalty-bonus-num {
+            font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
+            background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            animation: loyaltyBonusShine 5s linear infinite;
+        }
+
+        
+        
 
         .action-area { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 40px; }
         @media (min-width: 768px) { .action-area { flex-direction: row; justify-content: center; gap: 15px; } }
@@ -280,6 +295,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         .menu-item-volume { font-size: 12px; color: #a9a9a9; margin-top: 4px; line-height: 1.45; }
         .menu-multiline { white-space: pre-line; line-height: 1.55; }
         .note-after--wine { margin-top: 8px; }
+            @keyframes loyaltyBonusShine { 0% { background-position: 0% center; }
     </style>
 </head>
 
@@ -495,6 +511,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
         <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
             <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
         </a>
+        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
     </div>
 </div>
 

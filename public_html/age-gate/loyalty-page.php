@@ -81,7 +81,6 @@ function gl_loyalty_page_render($branch)
 
         .lead {
             margin: 0 0 clamp(22px, 3.2vw, 32px);
-            color: var(--gold);
             font-size: clamp(10px, 1vw, 13px);
             font-weight: 500;
             letter-spacing: .34em;
@@ -144,7 +143,7 @@ function gl_loyalty_page_render($branch)
             transition: 0.3s;
         }
 
-        .modal-btn:last-child { margin-bottom: 0; }
+        .modal-btn:last-of-type { margin-bottom: 0; }
 
         .modal-btn:hover,
         .modal-btn:focus-visible {
@@ -156,6 +155,35 @@ function gl_loyalty_page_render($branch)
             font-size: 18px;
             color: var(--gold);
         }
+
+        .loyalty-bonus-note {
+            margin: 22px 0 0;
+            padding: 0 12px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            font-size: clamp(10px, 1vw, 13px);
+            font-weight: 500;
+            letter-spacing: .34em;
+            text-transform: uppercase;
+            line-height: 1.6;
+            color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+        }
+
+        .loyalty-bonus-note .loyalty-bonus-num {
+            font-size: 1.55em;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            background-image: linear-gradient(90deg,
+                #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
+                #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: shineGold 5s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -166,7 +194,7 @@ function gl_loyalty_page_render($branch)
             </a>
         </header>
 
-        <p class="lead"><?php echo $esc($branchLabel); ?></p>
+        <p class="lead gold-shimmer"><?php echo $esc($branchLabel); ?></p>
 
         <main class="card">
             <h1 class="card-title gold-shimmer">Выберите способ регистрации</h1>
@@ -181,6 +209,8 @@ function gl_loyalty_page_render($branch)
                 Регистрация через Telegram
             </a>
         </main>
+
+        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
     </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<style>
+<style>
     /* РћСЃРЅРѕРІРЅРѕР№ РєРѕРЅС‚РµР№РЅРµСЂ */
     #menu-block {
         --bg-color: #000000;
@@ -260,6 +260,23 @@
     }
 
     #menu-loyalty-modal .close-modal:hover { color: #fff; }
+    #menu-loyalty-modal .loyalty-bonus-note {
+        margin: 18px 0 0; padding: 0; text-align: center;
+        font-size: 12px; font-weight: 500; letter-spacing: .34em;
+        text-transform: uppercase; line-height: 1.6;
+        color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+    }
+    #menu-loyalty-modal .loyalty-bonus-note .loyalty-bonus-num {
+        font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
+        background-image: linear-gradient(90deg,
+            #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
+            #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        animation: menuShine 5s linear infinite;
+        -webkit-animation: menuShine 5s linear infinite;
+    }
 
 </style>
 
@@ -348,6 +365,7 @@ $CTX->set('menu_eng_href', $normalize($CTX->get('menu_eng_link'), $base . '/engl
         <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" rel="noopener" class="modal-btn">
             <i class="fa-brands fa-telegram"></i> &#1056;&#1077;&#1075;&#1080;&#1089;&#1090;&#1088;&#1072;&#1094;&#1080;&#1103; &#1095;&#1077;&#1088;&#1077;&#1079; Telegram
         </a>
+        <p class="loyalty-bonus-note">&#1044;&#1072;&#1088;&#1080;&#1084; <span class="loyalty-bonus-num">300</span> &#1073;&#1086;&#1085;&#1091;&#1089;&#1086;&#1074; &#1079;&#1072; &#1088;&#1077;&#1075;&#1080;&#1089;&#1090;&#1088;&#1072;&#1094;&#1080;&#1102;</p>
     </div>
 </div>
 
