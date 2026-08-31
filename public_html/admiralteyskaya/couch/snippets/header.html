@@ -132,7 +132,7 @@
     }
     #nav-loyalty-modal .modal-content {
         background: #0a0a0a; border: 1px solid var(--gold-main, #C5A059); padding: 40px 25px;
-        width: 100%; max-width: 400px; text-align: center; position: relative;
+        width: 100%; max-width: 560px; text-align: center; position: relative;
         box-shadow: 0 0 30px rgba(197, 160, 89, 0.2); box-sizing: border-box;
     }
     #nav-loyalty-modal .modal-title {
@@ -153,22 +153,29 @@
     }
     #nav-loyalty-modal .close-modal:hover { color: #fff; }
     #nav-loyalty-modal .loyalty-bonus-note {
-        margin: 18px 0 0; padding: 0; text-align: center;
-        font-size: 12px; font-weight: 500; letter-spacing: .34em;
-        text-transform: uppercase; line-height: 1.6;
-        color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+        margin: 18px 0 0; padding: 0 8px; text-align: center; width: 100%;
+        font-size: 12px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; line-height: 1.55;
+        background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+        background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        animation: goldShimmer 5s linear infinite; -webkit-animation: goldShimmer 5s linear infinite;
+        white-space: nowrap;
     }
     #nav-loyalty-modal .loyalty-bonus-note .loyalty-bonus-num {
         font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
-        background-image: linear-gradient(90deg,
-            #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
-            #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
-        background-size: 200% auto;
-        -webkit-background-clip: text; background-clip: text;
+        background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+        background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
         -webkit-text-fill-color: transparent; color: transparent;
-        animation: goldShimmer 5s linear infinite;
-        -webkit-animation: goldShimmer 5s linear infinite;
+        animation: goldShimmer 5s linear infinite; -webkit-animation: goldShimmer 5s linear infinite;
     }
+    #nav-loyalty-modal .loyalty-bonus-break { display: none; }
+    @media (max-width: 767px) {
+        #nav-loyalty-modal .modal-content { max-width: 400px; }
+        #nav-loyalty-modal .loyalty-bonus-note { white-space: normal; letter-spacing: .2em; }
+        #nav-loyalty-modal .loyalty-bonus-break { display: block; }
+    }
+
+    
 
     .desktop-social-link {
         display: inline-flex;
@@ -921,7 +928,7 @@
         <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" rel="noopener" class="modal-btn">
             <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
         </a>
-        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
+        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов<br class="loyalty-bonus-break">за регистрацию</p>
     </div>
 </div>
 

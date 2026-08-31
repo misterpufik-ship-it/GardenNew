@@ -101,7 +101,7 @@
             }
             .modal-content {
                 background: #0a0a0a; border: 1px solid var(--gold);
-                padding: 35px 25px; width: 100%; max-width: 400px;
+                padding: 35px 25px; width: 100%; max-width: 560px;
                 text-align: center; position: relative;
                 box-shadow: 0 0 40px rgba(197, 160, 89, 0.2);
             }
@@ -117,9 +117,13 @@
             .close-modal { position: absolute; top: 12px; right: 18px; font-size: 24px; color: #555; cursor: pointer; transition: 0.3s; }
             .close-modal:hover { color: #fff; }
             .loyalty-bonus-note {
-            margin: 18px 0 0; padding: 0; text-align: center;
-            font-size: 12px; font-weight: 500; letter-spacing: .34em; text-transform: uppercase; line-height: 1.6;
-            color: var(--gold, #C5A059); -webkit-text-fill-color: var(--gold, #C5A059);
+            margin: 18px 0 0; padding: 0 8px; text-align: center; width: 100%;
+            font-size: 12px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; line-height: 1.55;
+            background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; color: transparent;
+            animation: shineGold 5s linear infinite;
+            white-space: nowrap;
         }
         .loyalty-bonus-note .loyalty-bonus-num {
             font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
@@ -128,7 +132,13 @@
             -webkit-text-fill-color: transparent; color: transparent;
             animation: shineGold 5s linear infinite;
         }
+        .loyalty-bonus-break { display: none; }
+        @media (max-width: 767px) {
+            .loyalty-bonus-note { white-space: normal; letter-spacing: .2em; }
+            .loyalty-bonus-break { display: block; }
+        }
 
+        
         
         
         </style>
@@ -358,7 +368,7 @@
                 <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
                     <i class="fa-brands fa-telegram"></i> Register via Telegram
                 </a>
-                <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
+                <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов<br class="loyalty-bonus-break">за регистрацию</p>
             </div>
         </div>
 
