@@ -290,15 +290,22 @@
 
             <!-- ПОДПИСЬ -->
             <div class="mt-8 text-center fade-up" style="animation-delay: 0.6s;">
-                <p class="text-[10px] uppercase tracking-[0.3em] font-medium shimmer-gold m-0 mb-4">
+                <p class="text-[10px] uppercase tracking-[0.3em] font-medium shimmer-gold m-0 mb-6">
                     Гастрономическая поэзия
                 </p>
+
+                <div class="flex justify-center mb-7">
+                    <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">Программа лояльности</div>
+                </div>
+
+                <div class="flex justify-center mb-6">
+                    <img src="/admiralteyskaya/couch/uploads/image/div.webp" alt="Разделитель" class="separator-img opacity-70" loading="lazy" decoding="async" style="max-width: 220px; width: 70%; height: auto;">
+                </div>
 
                 <div class="action-area">
                     <a href="https://garden-lounge.pro/udelnaya" class="btn-base">
                         <span class="subtitle-gold">Вернуться на главную</span>
                     </a>
-                    <div onclick="openLoyaltyModal()" class="btn-base btn-gold-fill">Программа лояльности</div>
                 </div>
             </div>
         </main>

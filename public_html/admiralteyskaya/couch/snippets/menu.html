@@ -144,6 +144,123 @@
         letter-spacing: 0.3em !important;
     }
 
+    #menu-block .menu-loyalty-wrap {
+        display: flex;
+        justify-content: center;
+        margin: 0 0 28px;
+    }
+
+    #menu-block .btn-base {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 280px;
+        height: 52px;
+        border: 1px solid rgba(197,160,89,0.3);
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+        text-decoration: none;
+        transition: 0.3s;
+        cursor: pointer;
+        color: #fff;
+        font-family: Montserrat, Arial, sans-serif;
+        box-sizing: border-box;
+    }
+
+    #menu-block .btn-base:hover:not(.btn-gold-fill) {
+        border-color: var(--gold);
+        background: rgba(197,160,89,0.05);
+    }
+
+    #menu-block .btn-gold-fill {
+        background: var(--gold);
+        color: #000 !important;
+        font-weight: 700;
+        border: none;
+    }
+
+    #menu-block .btn-gold-fill:hover {
+        background: #d4b06a;
+        color: #000 !important;
+        border: none;
+    }
+
+    #menu-loyalty-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(10px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 3000;
+        padding: 20px;
+    }
+
+    #menu-loyalty-modal .modal-content {
+        background: #0a0a0a;
+        border: 1px solid var(--gold, #C5A059);
+        padding: 40px 25px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
+        box-sizing: border-box;
+    }
+
+    #menu-loyalty-modal .modal-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 24px;
+        margin-bottom: 25px;
+        color: #fff;
+        line-height: 1.2;
+    }
+
+    #menu-loyalty-modal .modal-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        height: 54px;
+        border: 1px solid rgba(197, 160, 89, 0.3);
+        margin-bottom: 12px;
+        color: #fff !important;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        transition: 0.3s;
+        box-sizing: border-box;
+        font-family: Montserrat, Arial, sans-serif;
+    }
+
+    #menu-loyalty-modal .modal-btn:hover {
+        background: rgba(197, 160, 89, 0.1);
+        border-color: var(--gold, #C5A059);
+    }
+
+    #menu-loyalty-modal .modal-btn i {
+        font-size: 18px;
+        color: var(--gold, #C5A059);
+    }
+
+    #menu-loyalty-modal .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 28px;
+        color: rgba(255,255,255,0.3);
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    #menu-loyalty-modal .close-modal:hover { color: #fff; }
+
 </style>
 
 <cms:php>
@@ -206,9 +323,13 @@ $CTX->set('menu_eng_href', $normalize($CTX->get('menu_eng_link'), $base . '/engl
         </div>
 
         <div class="mt-12 text-center fade-up" style="animation-delay: 0.5s;">
-            <p class="menu-footer-note uppercase font-medium shimmer-gold m-0 mb-8">
+            <p class="menu-footer-note uppercase font-medium shimmer-gold m-0 mb-6">
                 <cms:show menu_footer_text />
             </p>
+
+            <div class="menu-loyalty-wrap">
+                <div role="button" tabindex="0" onclick="openMenuLoyaltyModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMenuLoyaltyModal();}" class="btn-base btn-gold-fill">&#1055;&#1088;&#1086;&#1075;&#1088;&#1072;&#1084;&#1084;&#1072; &#1083;&#1086;&#1103;&#1083;&#1100;&#1085;&#1086;&#1089;&#1090;&#1080;</div>
+            </div>
 
             <div class="flex justify-center">
                 <img src="<cms:if menu_sep='https://garden-lounge.pro/img/div.png'>couch/uploads/image/div.webp<cms:else /><cms:if menu_sep='https://misterpufik.ru/div.png'>couch/uploads/image/div.webp<cms:else /><cms:show menu_sep /></cms:if></cms:if>" alt="&#1056;&#1072;&#1079;&#1076;&#1077;&#1083;&#1080;&#1090;&#1077;&#1083;&#1100;" class="separator-img" loading="lazy" decoding="async">
@@ -216,3 +337,31 @@ $CTX->set('menu_eng_href', $normalize($CTX->get('menu_eng_link'), $base . '/engl
         </div>
     </div>
 </div>
+
+<div id="menu-loyalty-modal" onclick="closeMenuLoyaltyModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="close-modal" onclick="closeMenuLoyaltyModal()">&times;</span>
+        <div class="modal-title">&#1042;&#1099;&#1073;&#1077;&#1088;&#1080;&#1090;&#1077; &#1089;&#1087;&#1086;&#1089;&#1086;&#1073; &#1088;&#1077;&#1075;&#1080;&#1089;&#1090;&#1088;&#1072;&#1094;&#1080;&#1080;</div>
+        <a href="https://access.clientomer.ru/feedback/676900-1/" target="_blank" rel="noopener" class="modal-btn">
+            <i class="fa-solid fa-wallet"></i> &#1056;&#1077;&#1075;&#1080;&#1089;&#1090;&#1088;&#1072;&#1094;&#1080;&#1103; &#1095;&#1077;&#1088;&#1077;&#1079; Wallet
+        </a>
+        <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" rel="noopener" class="modal-btn">
+            <i class="fa-brands fa-telegram"></i> &#1056;&#1077;&#1075;&#1080;&#1089;&#1090;&#1088;&#1072;&#1094;&#1080;&#1103; &#1095;&#1077;&#1088;&#1077;&#1079; Telegram
+        </a>
+    </div>
+</div>
+
+<script>
+function openMenuLoyaltyModal() {
+    var modal = document.getElementById('menu-loyalty-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+function closeMenuLoyaltyModal() {
+    var modal = document.getElementById('menu-loyalty-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+</script>
