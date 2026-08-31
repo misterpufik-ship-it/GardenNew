@@ -158,7 +158,7 @@ function gl_loyalty_page_render($branch)
 
         .loyalty-bonus-note {
             margin: 22px 0 0;
-            padding: 0 8px;
+            padding: 0 4px;
             max-width: 560px;
             width: 100%;
             text-align: center;
@@ -194,16 +194,18 @@ function gl_loyalty_page_render($branch)
             animation: shineGold 5s linear infinite;
         }
 
-        .loyalty-bonus-break { display: none; }
-
         @media (max-width: 767px) {
             .card { max-width: 400px; }
             .loyalty-bonus-note {
-                max-width: 400px;
-                white-space: normal;
-                letter-spacing: .2em;
+                max-width: 100%;
+                font-size: 8.5px;
+                letter-spacing: .14em;
+                white-space: nowrap;
             }
-            .loyalty-bonus-break { display: block; }
+            .loyalty-bonus-note .loyalty-bonus-num {
+                font-size: 1.4em;
+                letter-spacing: 0.08em;
+            }
         }
     </style>
 </head>
@@ -231,7 +233,7 @@ function gl_loyalty_page_render($branch)
             </a>
         </main>
 
-        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов<br class="loyalty-bonus-break">за регистрацию</p>
+        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
     </div>
 </body>
 </html>

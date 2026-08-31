@@ -164,17 +164,18 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
             -webkit-text-fill-color: transparent; color: transparent;
             animation: loyaltyBonusShine 5s linear infinite;
         }
-        .loyalty-bonus-break { display: none; }
         @media (max-width: 767px) {
-            .loyalty-bonus-note { white-space: normal; letter-spacing: .2em; }
-            .loyalty-bonus-break { display: block; }
+            .loyalty-bonus-note {
+                font-size: 8.5px;
+                letter-spacing: .14em;
+                white-space: nowrap;
+            }
+            .loyalty-bonus-note .loyalty-bonus-num {
+                font-size: 1.4em;
+                letter-spacing: 0.08em;
+            }
         }
-
-        
-        
-        
-
-        #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; justify-content: center; align-items: center; z-index: 2000; }
+#lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.96); display: none; justify-content: center; align-items: center; z-index: 2000; }
         #lightbox img { max-width: 95%; max-height: 85vh; border: 1px solid var(--gold-dark); }
         .lightbox-close { position: fixed; top: 12px; right: 16px; z-index: 2001; width: 44px; height: 44px; border: none; background: transparent; color: #fff; font-size: 36px; line-height: 1; cursor: pointer; transition: color 0.2s; }
         .lightbox-close:hover { color: var(--gold); }
@@ -246,7 +247,7 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
             <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
                 <i class="fa-brands fa-telegram"></i> Telegram
             </a>
-            <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов<br class="loyalty-bonus-break">за регистрацию</p>
+            <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
         </div>
     </div>
 

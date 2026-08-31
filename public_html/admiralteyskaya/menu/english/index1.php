@@ -132,16 +132,18 @@
             -webkit-text-fill-color: transparent; color: transparent;
             animation: shineGold 5s linear infinite;
         }
-        .loyalty-bonus-break { display: none; }
         @media (max-width: 767px) {
-            .loyalty-bonus-note { white-space: normal; letter-spacing: .2em; }
-            .loyalty-bonus-break { display: block; }
+            .loyalty-bonus-note {
+                font-size: 8.5px;
+                letter-spacing: .14em;
+                white-space: nowrap;
+            }
+            .loyalty-bonus-note .loyalty-bonus-num {
+                font-size: 1.4em;
+                letter-spacing: 0.08em;
+            }
         }
-
-        
-        
-        
-        </style>
+</style>
     </head>
 
     <body>
@@ -368,7 +370,7 @@
                 <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" class="modal-btn">
                     <i class="fa-brands fa-telegram"></i> Register via Telegram
                 </a>
-                <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов<br class="loyalty-bonus-break">за регистрацию</p>
+                <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
             </div>
         </div>
 

@@ -239,16 +239,18 @@
             -webkit-text-fill-color: transparent; color: transparent;
             animation: menuShine 5s linear infinite;
         }
-        .loyalty-bonus-break { display: none; }
         @media (max-width: 767px) {
-            .loyalty-bonus-note { white-space: normal; letter-spacing: .2em; }
-            .loyalty-bonus-break { display: block; }
+            .loyalty-bonus-note {
+                font-size: 8.5px;
+                letter-spacing: .14em;
+                white-space: nowrap;
+            }
+            .loyalty-bonus-note .loyalty-bonus-num {
+                font-size: 1.4em;
+                letter-spacing: 0.08em;
+            }
         }
-
-        
-        
-
-        .action-area { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 16px; }
+.action-area { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 16px; }
         @media (min-width: 768px) { .action-area { flex-direction: row; justify-content: center; gap: 15px; } }
         .btn-base { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 280px; height: 52px; border: 1px solid rgba(197,160,89,0.3); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s; cursor: pointer; color: #fff; }
         .btn-base:hover:not(.btn-gold-fill) { border-color: var(--gold); background: rgba(197,160,89,0.05); }
@@ -348,7 +350,7 @@
             <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" rel="noopener" class="modal-btn">
                 <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
             </a>
-            <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов<br class="loyalty-bonus-break">за регистрацию</p>
+            <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
         </div>
     </div>
 
