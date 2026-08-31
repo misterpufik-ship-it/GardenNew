@@ -130,7 +130,7 @@ function gl_loyalty_page_render($branch)
             align-items: center;
             justify-content: center;
             gap: 12px;
-            width: 100%;
+            width: 100%; max-width: 350px; margin-left: auto; margin-right: auto;
             height: 54px;
             margin-bottom: 12px;
             border: 1px solid rgba(197, 160, 89, 0.3);
@@ -167,22 +167,10 @@ function gl_loyalty_page_render($branch)
             letter-spacing: .28em;
             text-transform: uppercase;
             line-height: 1.55;
-            background-image: linear-gradient(90deg,
-                #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
-                #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            animation: shineGold 5s linear infinite;
             white-space: nowrap;
         }
-
-        .loyalty-bonus-note .loyalty-bonus-num {
-            font-size: 1.55em;
-            font-weight: 700;
-            letter-spacing: 0.12em;
+        .loyalty-bonus-note .loyalty-bonus-glow {
+            display: inline;
             background-image: linear-gradient(90deg,
                 #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%,
                 #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
@@ -193,20 +181,13 @@ function gl_loyalty_page_render($branch)
             color: transparent;
             animation: shineGold 5s linear infinite;
         }
-
         @media (max-width: 767px) {
             .card { max-width: 400px; }
-            .loyalty-bonus-note {
-                max-width: 100%;
-                font-size: 8.5px;
-                letter-spacing: .14em;
+            .loyalty-bonus-note { font-size: 11px; letter-spacing: .11em; padding: 0 10px;
                 white-space: nowrap;
             }
-            .loyalty-bonus-note .loyalty-bonus-num {
-                font-size: 1.4em;
-                letter-spacing: 0.08em;
-            }
         }
+    
     </style>
 </head>
 <body>
@@ -233,7 +214,7 @@ function gl_loyalty_page_render($branch)
             </a>
         </main>
 
-        <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
+        <p class="loyalty-bonus-note"><span class="loyalty-bonus-glow">Дарим 300 бонусов за регистрацию</span></p>
     </div>
 </body>
 </html>

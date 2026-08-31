@@ -217,7 +217,7 @@
         #loyalty-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px; }
         .modal-content { background: #0a0a0a; border: 1px solid var(--gold); padding: 40px 25px; width: 100%; max-width: 560px; text-align: center; position: relative; box-shadow: 0 0 30px rgba(197, 160, 89, 0.2); }
         .modal-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; margin-bottom: 25px; color: #fff; line-height: 1.2; }
-        .modal-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 54px; border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 12px; color: #fff !important; text-decoration: none; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; transition: 0.3s; }
+        .modal-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; max-width: 350px; margin-left: auto; margin-right: auto; height: 54px; border: 1px solid rgba(197, 160, 89, 0.3); margin-bottom: 12px; color: #fff !important; text-decoration: none; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; transition: 0.3s; }
         .modal-btn:hover { background: rgba(197, 160, 89, 0.1); border-color: var(--gold); }
         .modal-btn i { font-size: 18px; color: var(--gold); }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 28px; color: rgba(255,255,255,0.3); cursor: pointer; line-height: 1; }
@@ -226,30 +226,23 @@
         .loyalty-bonus-note {
             margin: 18px 0 0; padding: 0 8px; text-align: center; width: 100%;
             font-size: 12px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; line-height: 1.55;
-            background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
-            background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent; color: transparent;
-            animation: menuShine 5s linear infinite;
             white-space: nowrap;
         }
-        .loyalty-bonus-note .loyalty-bonus-num {
-            font-size: 1.55em; font-weight: 700; letter-spacing: 0.12em;
+        .loyalty-bonus-note .loyalty-bonus-glow {
+            display: inline;
             background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
-            background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+            background-size: 200% auto;
+            -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent; color: transparent;
             animation: menuShine 5s linear infinite;
         }
         @media (max-width: 767px) {
-            .loyalty-bonus-note {
-                font-size: 8.5px;
-                letter-spacing: .14em;
+            .loyalty-bonus-note { font-size: 11px; letter-spacing: .11em; padding: 0 10px;
                 white-space: nowrap;
             }
-            .loyalty-bonus-note .loyalty-bonus-num {
-                font-size: 1.4em;
-                letter-spacing: 0.08em;
-            }
         }
+
+        
 .action-area { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 16px; }
         @media (min-width: 768px) { .action-area { flex-direction: row; justify-content: center; gap: 15px; } }
         .btn-base { display: flex; align-items: center; justify-content: center; width: 100%; max-width: 280px; height: 52px; border: 1px solid rgba(197,160,89,0.3); text-transform: uppercase; font-size: 10px; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s; cursor: pointer; color: #fff; }
@@ -350,7 +343,7 @@
             <a href="https://t.me/GardenLounge_Loyalty_Bot" target="_blank" rel="noopener" class="modal-btn">
                 <i class="fa-brands fa-telegram"></i> Регистрация через Telegram
             </a>
-            <p class="loyalty-bonus-note">Дарим <span class="loyalty-bonus-num">300</span> бонусов за регистрацию</p>
+            <p class="loyalty-bonus-note"><span class="loyalty-bonus-glow">Дарим 300 бонусов за регистрацию</span></p>
         </div>
     </div>
 
