@@ -229,6 +229,29 @@ html, body {
 .hover\:scale-105:hover { transform: scale(1.05); }
 .group:hover .group-hover\:scale-105 { transform: scale(1.05); }
 
+@keyframes menuChoicePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+}
+
+.menu-choice-title {
+    display: inline-block;
+    transform-origin: center center;
+    animation: menuChoicePulse 2.6s ease-in-out infinite;
+}
+
+.card-left:hover .menu-choice-title,
+.menu-btn:hover .menu-choice-title {
+    animation-play-state: paused;
+    transform: scale(1.07);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu-choice-title {
+        animation: none;
+    }
+}
+
 @media (min-width: 768px) {
     .md\:h-32 { height: 8rem; }
     .md\:py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }

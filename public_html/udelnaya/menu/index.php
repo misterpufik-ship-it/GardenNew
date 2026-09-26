@@ -282,7 +282,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                     
                     <div class="absolute inset-0 flex flex-col items-center justify-center p-4">
-                        <h3 class="font-serif-lux text-2xl italic text-white text-center m-0 mb-1 leading-tight">
+                        <h3 class="font-serif-lux text-2xl italic text-white text-center m-0 mb-1 leading-tight menu-choice-title">
                             Визуальное меню
                         </h3>
                         <div class="mt-6 flex items-center gap-2 opacity-60">
@@ -295,14 +295,14 @@
                 <!-- Ссылки (Правая часть) -->
                 <div class="card-right">
                     <a href="/udelnaya/menu/text" class="menu-btn group">
-                        <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 group-hover:scale-105 transition-transform">Текстовое</h3>
+                        <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 menu-choice-title">Текстовое</h3>
                         <span class="text-[8px] uppercase tracking-[0.2em] shimmer-gold">Classic List</span>
                     </a>
                     
                     <div class="card-divider"></div>
                     
                     <a href="/udelnaya/menu/english" class="menu-btn group">
-                        <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 group-hover:scale-105 transition-transform">English</h3>
+                        <h3 class="font-serif-lux text-2xl italic text-white m-0 mb-1 menu-choice-title">English menu</h3>
                         <span class="text-[8px] uppercase tracking-[0.2em] shimmer-gold">classic list</span>
                     </a>
                 </div>
