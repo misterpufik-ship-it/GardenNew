@@ -126,8 +126,10 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
             animation: shineGold 5s linear infinite;
         }
         .visual-text-menu-note {
+            display: block;
+            width: 100%;
             text-align: center;
-            margin: 0;
+            margin: 0 auto;
             padding: 4px 16px 10px;
             font-size: 11px;
             letter-spacing: 0.03em;

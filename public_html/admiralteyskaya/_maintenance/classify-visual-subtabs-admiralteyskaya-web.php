@@ -31,27 +31,49 @@ $textTpl = 'menu/text/index.php';
 
 $kitchenSlugs = array('snacks', 'salads', 'rolls', 'soups', 'poke_bowl_wok', 'hot', 'desserts', 'other');
 $barSlugs = array('beer', 'wine', 'cocktails', 'spirits', 'tea_coffee', 'lemonades', 'other');
-$barHeaderNorms = array(
-    'signature coctails' => true,
-    'classic coctails' => true,
-    'shot line' => true,
-    'shot drink' => true,
-    'homemade lemonade 400ml/1000ml' => true,
-    'lemonade/juice' => true,
-    'still/sparkling water' => true,
-    'beer' => true,
-    'draft beer' => true,
-    'honey mead' => true,
-    'non-alcohol coctail' => true,
-    'vodka' => true,
-    'rum' => true,
-    'whiskey/burbon' => true,
-    'gin' => true,
-    'brandy / cognac' => true,
-    'tequila / mescal' => true,
-    'sparkling wine' => true,
-    'red wine' => true,
-    'white wine' => true,
+$barHeaderMap = array(
+    'signature coctails' => 'cocktails',
+    'classic coctails' => 'cocktails',
+    'shot line' => 'cocktails',
+    'shot drink' => 'cocktails',
+    'non-alcohol coctail' => 'cocktails',
+    'homemade lemonade 400ml/1000ml' => 'lemonades',
+    'lemonade/juice' => 'other',
+    'still/sparkling water' => 'other',
+    'beer' => 'beer',
+    'draft beer' => 'beer',
+    'honey mead' => 'beer',
+    'vodka' => 'spirits',
+    'rum' => 'spirits',
+    'whiskey/burbon' => 'spirits',
+    'gin' => 'spirits',
+    'brandy / cognac' => 'spirits',
+    'tequila / mescal' => 'spirits',
+    'sparkling wine' => 'wine',
+    'red wine' => 'wine',
+    'white wine' => 'wine',
+);
+$barItemOverride = array(
+    'royal gold' => 'spirits',
+    'lemon pie' => 'cocktails',
+    'лесные ягоды' => 'tea_coffee',
+    'молочный улун & белый шоколад' => 'tea_coffee',
+    'молочный чай с пряностями' => 'tea_coffee',
+    'облепиха&имбирь' => 'tea_coffee',
+    'облепиха & имбирь' => 'tea_coffee',
+    'пуэр на вишневом соке' => 'tea_coffee',
+    'травяной чай' => 'tea_coffee',
+    'мятная малина' => 'tea_coffee',
+);
+$kitchenItemOverride = array(
+    'говядина сырокопченая' => 'snacks',
+    'курица сырокопченая' => 'snacks',
+    'арахис копченый' => 'snacks',
+    'фисташки' => 'snacks',
+    'крем-суп из лосося' => 'soups',
+    'крем суп из лосося' => 'soups',
+    'крем-суп с лососем, брокколи и маслом' => 'soups',
+    'крем суп с лососем, брокколи и маслом' => 'soups',
 );
 
 function gl_subtab_collect_text_items($rows, $nameField, $subtabField, $priceField, $allowed)
@@ -93,7 +115,7 @@ function gl_subtab_load_text($db, $dataText, $fields, $textTpl, $textPageId, $re
     return gl_subtab_collect_text_items($rows, $nameField, $subtabField, $priceField, $allowed);
 }
 
-function gl_subtab_apply_section(&$visualRows, $textItems, $allowed, $force)
+function gl_subtab_apply_section(&$visualRows, $textItems, $allowed, $force, $headerMap = array(), $itemOverride = array())
 {
     $matched = 0;
     $updated = 0;
@@ -110,16 +132,75 @@ function gl_subtab_apply_section(&$visualRows, $textItems, $allowed, $force)
         if ($name === '') {
             continue;
         }
-        if (trim(gl_sync_row_value($row, 'item_type')) === 'header') {
+
+        $norm = gl_sync_norm_name($name);
+        $current = trim(gl_sync_row_value($row, 'item_subtab'));
+        $currentType = trim(gl_sync_row_value($row, 'item_type'));
+
+        if (!empty($headerMap[$norm])) {
+            $newSub = $headerMap[$norm];
+            $changed = false;
+            if ($currentType !== 'header') {
+                gl_sync_set_row_value($visualRows[$idx], 'item_type', 'header');
+                $changed = true;
+            }
+            if ($current !== $newSub) {
+                gl_sync_set_row_value($visualRows[$idx], 'item_subtab', $newSub);
+                $changed = true;
+            }
+            $matched++;
+            if ($changed) {
+                $updated++;
+                if (count($examples) < 12) {
+                    $examples[] = gl_sync_prepare_name($name) . " => header/{$newSub}";
+                }
+            } else {
+                $unchanged++;
+            }
             continue;
         }
 
-        $current = trim(gl_sync_row_value($row, 'item_subtab'));
-        global $barHeaderNorms;
-        if (!empty($barHeaderNorms[gl_sync_norm_name($name)])) {
-            $noMatch++;
+        if ($currentType === 'header') {
             continue;
         }
+
+        if (!empty($itemOverride[$norm])) {
+            $newSub = $itemOverride[$norm];
+            $matched++;
+            if ($current === $newSub) {
+                $unchanged++;
+            } else {
+                gl_sync_set_row_value($visualRows[$idx], 'item_subtab', $newSub);
+                $updated++;
+                if (count($examples) < 12) {
+                    $from = $current === '' ? '(empty)' : $current;
+                    $examples[] = gl_sync_prepare_name($name) . " {$from} => {$newSub} (override)";
+                }
+            }
+            continue;
+        }
+
+        $loose = gl_sync_norm_loose($name);
+        if (
+            mb_strpos($loose, 'крем') !== false
+            && mb_strpos($loose, 'суп') !== false
+            && mb_strpos($loose, 'лосос') !== false
+        ) {
+            $newSub = 'soups';
+            $matched++;
+            if ($current === $newSub) {
+                $unchanged++;
+            } else {
+                gl_sync_set_row_value($visualRows[$idx], 'item_subtab', $newSub);
+                $updated++;
+                if (count($examples) < 12) {
+                    $from = $current === '' ? '(empty)' : $current;
+                    $examples[] = gl_sync_prepare_name($name) . " {$from} => {$newSub} (soup heuristic)";
+                }
+            }
+            continue;
+        }
+
         $match = gl_sync_find_desc($name, gl_sync_row_value($row, 'item_price'), $textItems);
         if (!$match || empty($match['sub']) || !in_array($match['sub'], $allowed, true)) {
             $noMatch++;
@@ -235,7 +316,9 @@ foreach ($jobs as $section => $job) {
         $visualRows,
         $job['text_items'],
         $job['allowed'],
-        $force
+        $force,
+        $section === 'bar' ? $barHeaderMap : array(),
+        $section === 'bar' ? $barItemOverride : $kitchenItemOverride
     );
 
     echo "\n{$section} ({$job['visual']}):\n";

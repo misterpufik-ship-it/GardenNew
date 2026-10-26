@@ -209,12 +209,82 @@ function ensureDescModal() {
     document.body.appendChild(modal);
 }
 
+function formatVisualDesc(desc) {
+    const phrases = [
+        ['gigner ale', 'имбирный эль'],
+        ['ginger ale', 'имбирный эль'],
+        ['red currant', 'красная смородина'],
+        ['sakura tonic', 'тоник сакура'],
+        ['lemon-lime', 'лимон-лайм'],
+        ['lemon‑lime', 'лимон-лайм'],
+        ['semi-sweet', 'полусладкое'],
+        ['semi sweet', 'полусладкое'],
+        ['semi-dry', 'полусухое'],
+        ['semi dry', 'полусухое'],
+    ];
+    const words = {
+        mango: 'манго', peach: 'персик', apple: 'яблоко', tomato: 'томат',
+        classic: 'классик', zero: 'зеро', tonic: 'тоник',
+        pink: 'розовое', white: 'белое', red: 'красное', dry: 'сухое',
+        brut: 'брют', brutus: 'брют',
+        russia: 'россия', italy: 'италия', spain: 'испания', chile: 'чили',
+        germany: 'германия', france: 'франция', portugal: 'португалия',
+        moselle: 'мозель', burgundy: 'бургундия', puglia: 'апулия', veneto: 'венето',
+        summer: 'лето', autumn: 'осень', winter: 'зима', spring: 'весна',
+        elderflower: 'бузина'
+    };
+    const ucFirst = (s) => {
+        s = String(s || '').trim();
+        if (!s || /^\d/.test(s)) return s;
+        return s.charAt(0).toLocaleUpperCase('ru-RU') + s.slice(1);
+    };
+    const partsShort = (parts) => parts.length >= 2 && parts.every((p) => {
+        const wordsIn = p.trim().split(/\s+/).filter(Boolean);
+        return wordsIn.length > 0 && wordsIn.length <= 7 && p.length <= 56;
+    });
+    let text = String(desc || '').replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
+    if (!text) return '';
+    phrases.forEach(([from, to]) => {
+        text = text.replace(new RegExp(from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), to);
+    });
+    Object.keys(words).forEach((from) => {
+        text = text.replace(new RegExp('\\b' + from + '\\b', 'gi'), words[from]);
+    });
+    const protect = [];
+    text = text.replace(/\bб\/[аaгg]\b/gi, (m) => {
+        protect.push(m);
+        return '%%GLP' + (protect.length - 1) + '%%';
+    });
+    text = text.replace(/\b\d+(?:[.,]\d+)?\s*\/\s*\d+(?:[.,]\d+)?(?:\s*(?:мл|ml|л|l))?\b/gi, (m) => {
+        protect.push(m);
+        return '%%GLP' + (protect.length - 1) + '%%';
+    });
+    const unprotect = (s) => s.replace(/%%GLP(\d+)%%/g, (_, i) => protect[Number(i)] || _);
+    const formatBlock = (block) => {
+        block = block.trim();
+        if (!block) return '';
+        if (/^%%GLP\d+%%$/.test(block)) return unprotect(block);
+        if (block.includes('/')) {
+            const joined = block.replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+            const parts = joined.split(/\s*\/\s*/).map((p) => p.trim()).filter(Boolean);
+            if (partsShort(parts)) return parts.map((p) => ucFirst(unprotect(p))).join('\n');
+        }
+        const plain = unprotect(block);
+        if (plain.includes(',') && !/[.!?](\s|$)/.test(plain)) {
+            const parts = plain.split(/\s*,\s*/).map((p) => p.trim()).filter(Boolean);
+            if (partsShort(parts)) return parts.map(ucFirst).join('\n');
+        }
+        return plain;
+    };
+    return text.split(/\n{2,}/).map(formatBlock).filter(Boolean).join('\n\n').trim();
+}
+
 function openDescModal(title, desc) {
     if (!desc || !String(desc).trim()) return;
     ensureDescModal();
     const modal = document.getElementById('desc-modal');
     document.getElementById('desc-modal-title').textContent = title || '';
-    document.getElementById('desc-modal-body').textContent = String(desc).trim();
+    document.getElementById('desc-modal-body').textContent = formatVisualDesc(desc);
     modal.classList.remove('is-open');
     void modal.offsetWidth;
     modal.classList.add('is-open');
@@ -267,12 +337,7 @@ function setSubtabsVisible(cat) {
             btn.style.display = 'none';
             return;
         }
-        if (sub && sub !== 'all') {
-            const hasItems = menuData.some(i => i.cat === cat && itemMatchesSub(i, sub));
-            btn.style.display = hasItems ? '' : 'none';
-        } else {
-            btn.style.display = '';
-        }
+        btn.style.display = '';
         btn.classList.toggle('active', sub === 'all');
     });
     wrap.style.display = 'flex';

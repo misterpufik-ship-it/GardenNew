@@ -138,6 +138,28 @@ foreach ($targetBranches as $branchName) {
             }
         }
 
+        $siblingDescByTitle = array();
+        $siblingTpl = $branchName === 'admiralteyskaya'
+            ? $branchMap['udelnaya']
+            : $branchMap['admiralteyskaya'];
+        $siblingPageId = gl_sync_get_master_page_id($db, $mmTemplates, $mmPages, $siblingTpl);
+        if ($siblingPageId) {
+            $siblingFieldId = gl_sync_get_repeatable_field_id($db, $mmFields, $siblingTpl, $cfg['field']);
+            if ($siblingFieldId) {
+                list(, $siblingRows) = gl_sync_read_repeatable_rows($db, $mmDataText, $siblingPageId, $siblingFieldId);
+                foreach ($siblingRows as $siblingRow) {
+                    if (!is_array($siblingRow)) {
+                        continue;
+                    }
+                    $siblingTitle = gl_restore_norm_title(gl_sync_row_value($siblingRow, 'item_title'));
+                    $siblingDesc = gl_sync_row_value($siblingRow, 'item_desc');
+                    if ($siblingTitle !== '' && $siblingDesc !== '') {
+                        $siblingDescByTitle[$siblingTitle] = $siblingDesc;
+                    }
+                }
+            }
+        }
+
         $added = 0;
         $addedNames = array();
         foreach ($sourceRows as $item) {
@@ -153,7 +175,25 @@ foreach ($targetBranches as $branchName) {
                 continue;
             }
 
-            $existingRows[] = gl_restore_row_from_plain($item);
+            $newRow = gl_restore_row_from_plain($item);
+            $teaTitles = array(
+                'лесные ягоды',
+                'молочный улун & белый шоколад',
+                'молочный чай с пряностями',
+                'облепиха&имбирь',
+                'облепиха & имбирь',
+                'пуэр на вишневом соке',
+                'травяной чай',
+                'мятная малина',
+            );
+            if (in_array($norm, $teaTitles, true)) {
+                gl_sync_set_row_value($newRow, 'item_type', 'item');
+                gl_sync_set_row_value($newRow, 'item_subtab', 'tea_coffee');
+            }
+            if (gl_sync_row_value($newRow, 'item_desc') === '' && !empty($siblingDescByTitle[$norm])) {
+                gl_sync_set_row_value($newRow, 'item_desc', $siblingDescByTitle[$norm]);
+            }
+            $existingRows[] = $newRow;
             $existingTitles[$norm] = true;
             $added++;
             $addedNames[] = $title;

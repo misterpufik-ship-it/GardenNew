@@ -71,9 +71,12 @@ h1.subtitle-gold, h2.subtitle-gold, h3.subtitle-gold, h4.subtitle-gold,
 
 .text-center > .shimmer-gold,
 .text-center > .subtitle-gold,
-.text-center > .gold-shimmer {
+.text-center > .gold-shimmer,
+p.visual-text-menu-note,
+.visual-text-menu-note.gold-shimmer {
     display: block;
     width: 100%;
+    text-align: center;
 }
 
 .price-tag.gold-shimmer,

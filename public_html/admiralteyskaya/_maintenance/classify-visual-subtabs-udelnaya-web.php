@@ -31,6 +31,22 @@ $textTpl = 'udelnaya/menu/text/index.php';
 
 $kitchenSlugs = array('snacks', 'salads', 'rolls', 'soups', 'poke_bowl_wok', 'hot', 'desserts', 'other');
 $barSlugs = array('beer', 'wine', 'cocktails', 'spirits', 'tea_coffee', 'lemonades', 'other');
+$kitchenItemOverride = array(
+    'крем-суп из лосося' => 'soups',
+    'крем суп из лосося' => 'soups',
+    'крем-суп с лососем, брокколи и маслом' => 'soups',
+    'крем суп с лососем, брокколи и маслом' => 'soups',
+);
+$barItemOverride = array(
+    'лесные ягоды' => 'tea_coffee',
+    'молочный улун & белый шоколад' => 'tea_coffee',
+    'молочный чай с пряностями' => 'tea_coffee',
+    'облепиха&имбирь' => 'tea_coffee',
+    'облепиха & имбирь' => 'tea_coffee',
+    'пуэр на вишневом соке' => 'tea_coffee',
+    'травяной чай' => 'tea_coffee',
+    'мятная малина' => 'tea_coffee',
+);
 
 function gl_subtab_collect_text_items($rows, $nameField, $subtabField, $priceField, $allowed)
 {
@@ -71,7 +87,7 @@ function gl_subtab_load_text($db, $dataText, $fields, $textTpl, $textPageId, $re
     return gl_subtab_collect_text_items($rows, $nameField, $subtabField, $priceField, $allowed);
 }
 
-function gl_subtab_apply_section(&$visualRows, $textItems, $allowed, $force)
+function gl_subtab_apply_section(&$visualRows, $textItems, $allowed, $force, $itemOverride = array())
 {
     $matched = 0;
     $updated = 0;
@@ -93,6 +109,44 @@ function gl_subtab_apply_section(&$visualRows, $textItems, $allowed, $force)
         }
 
         $current = trim(gl_sync_row_value($row, 'item_subtab'));
+        $norm = gl_sync_norm_name($name);
+        if (!empty($itemOverride[$norm])) {
+            $newSub = $itemOverride[$norm];
+            $matched++;
+            if ($current === $newSub) {
+                $unchanged++;
+            } else {
+                gl_sync_set_row_value($visualRows[$idx], 'item_subtab', $newSub);
+                $updated++;
+                if (count($examples) < 12) {
+                    $from = $current === '' ? '(empty)' : $current;
+                    $examples[] = gl_sync_prepare_name($name) . " {$from} => {$newSub} (override)";
+                }
+            }
+            continue;
+        }
+
+        $loose = gl_sync_norm_loose($name);
+        if (
+            mb_strpos($loose, 'крем') !== false
+            && mb_strpos($loose, 'суп') !== false
+            && mb_strpos($loose, 'лосос') !== false
+        ) {
+            $newSub = 'soups';
+            $matched++;
+            if ($current === $newSub) {
+                $unchanged++;
+            } else {
+                gl_sync_set_row_value($visualRows[$idx], 'item_subtab', $newSub);
+                $updated++;
+                if (count($examples) < 12) {
+                    $from = $current === '' ? '(empty)' : $current;
+                    $examples[] = gl_sync_prepare_name($name) . " {$from} => {$newSub} (soup heuristic)";
+                }
+            }
+            continue;
+        }
+
         $match = gl_sync_find_desc($name, gl_sync_row_value($row, 'item_price'), $textItems);
         if (!$match || empty($match['sub']) || !in_array($match['sub'], $allowed, true)) {
             $noMatch++;
@@ -208,7 +262,8 @@ foreach ($jobs as $section => $job) {
         $visualRows,
         $job['text_items'],
         $job['allowed'],
-        $force
+        $force,
+        $section === 'bar' ? $barItemOverride : $kitchenItemOverride
     );
 
     echo "\n{$section} ({$job['visual']}):\n";
