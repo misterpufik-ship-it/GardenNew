@@ -6,9 +6,31 @@
 
     <cms:set tag_options = 'Нет=- | New | Hit | Special | Chef’s Choice | 🌶️ | 🌶️🌶️ | 🌶️🌶️🌶️ | New + 🌶️ | Hit + 🌶️' />
 
+    <cms:editable name='group_visibility' label='Видимость вкладок и подвкладок' type='group' collapsed='1' order='5' />
+    <cms:editable name='vis_hide_tab_shisha' label='Скрыть вкладку: Кальяны' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_tab_kitchen' label='Скрыть вкладку: Кухня' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_tab_bar' label='Скрыть вкладку: Бар' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_tab_promos' label='Скрыть вкладку: Акции' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_snacks' label='Скрыть подвкладку кухни: Закуски' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_salads' label='Скрыть подвкладку кухни: Салаты' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_rolls' label='Скрыть подвкладку кухни: Роллы' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_soups' label='Скрыть подвкладку кухни: Супы' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_poke' label='Скрыть подвкладку кухни: Поке / Боул / Wok' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_hot' label='Скрыть подвкладку кухни: Горячее' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_desserts' label='Скрыть подвкладку кухни: Десерты' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_kt_other' label='Скрыть подвкладку кухни: Ланчи' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_bar_beer' label='Скрыть подвкладку бара: Пиво' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_bar_wine' label='Скрыть подвкладку бара: Вино' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_bar_cocktails' label='Скрыть подвкладку бара: Коктейли' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_bar_spirits' label='Скрыть подвкладку бара: Крепкий алкоголь' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_bar_tea' label='Скрыть подвкладку бара: Чай / Кофе' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_bar_lemon' label='Скрыть подвкладку бара: Лемонады' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+    <cms:editable name='vis_hide_bar_other' label='Скрыть подвкладку бара: Напитки' type='checkbox' opt_values='Скрыть=1' group='group_visibility' />
+
     <cms:editable name='group_shisha' label='Кальяны' type='group' collapsed='1' order='10' />
     <cms:repeatable name='menu_shisha' label='Блюда' group='group_shisha'>
         <cms:editable name='item_title' label='Название' type='text' />
+        <cms:editable name='item_type' label='Тип' type='dropdown' opt_values='Товар=item | Заголовок=header' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
         <cms:editable name='item_weight' label='Вес/Объем' type='text' />
@@ -19,6 +41,8 @@
     <cms:editable name='group_kitchen' label='Кухня' type='group' collapsed='1' order='20' />
     <cms:repeatable name='menu_kitchen' label='Блюда' group='group_kitchen'>
         <cms:editable name='item_title' label='Название' type='text' />
+        <cms:editable name='item_type' label='Тип' type='dropdown' opt_values='Товар=item | Заголовок=header' />
+        <cms:editable name='item_subtab' label='Категория' type='dropdown' opt_values='Не задано= | Закуски=snacks | Салаты=salads | Роллы=rolls | Супы=soups | Поке / Боул / Wok=poke_bowl_wok | Горячее=hot | Десерты=desserts | Другое=other' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
         <cms:editable name='item_weight' label='Вес/Объем' type='text' />
@@ -29,6 +53,8 @@
     <cms:editable name='group_bar' label='Бар' type='group' collapsed='1' order='30' />
     <cms:repeatable name='menu_bar' label='Блюда' group='group_bar'>
         <cms:editable name='item_title' label='Название' type='text' />
+        <cms:editable name='item_type' label='Тип' type='dropdown' opt_values='Товар=item | Заголовок=header' />
+        <cms:editable name='item_subtab' label='Категория' type='dropdown' opt_values='Не задано= | Пиво=beer | Вино=wine | Коктейли=cocktails | Крепкий алкоголь=spirits | Чай / Кофе=tea_coffee | Лемонады=lemonades | Другое=other' />
         <cms:editable name='item_tag' label='Тег' type='dropdown' opt_values="<cms:show tag_options />" />
         <cms:editable name='item_price' label='Цена' type='text' />
         <cms:editable name='item_weight' label='Вес/Объем' type='text' />
@@ -77,6 +103,53 @@
             .tabs-wrap .tab-btn { font-size: 11px; letter-spacing: 0.16em; padding-bottom: 7px; }
         }
         .gold-divider-nav { width:100%; height:1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity:0.8; margin-top: 6px; }
+        .subtabs-wrap { display:none; flex-wrap:wrap; justify-content:center; gap:10px 12px; padding: 10px 10px 15px; }
+        .subtab-btn { border: 1px solid rgba(197,160,89,0.35); border-radius: 999px; padding: 6px 12px; font-size: 11px; text-transform: uppercase; color: #d0d0d0; cursor:pointer; background: transparent; font-family: inherit; line-height: 1.2; }
+        .subtab-btn.active { color: #000; background: var(--gold); }
+        @media (max-width: 767px) {
+            .subtabs-wrap { gap: 6px 8px; padding: 8px 10px 12px; }
+            .subtab-btn { padding: 5px 10px; font-size: 10px; letter-spacing: 0.04em; line-height: 1.2; white-space: nowrap; }
+        }
+        @keyframes shineGold { 0% { background-position: 0% center; } 100% { background-position: 100% center; } }
+        .gold-shimmer {
+            background-image: linear-gradient(90deg, #8e7037 0%, #C5A059 20%, #FFEebb 25%, #C5A059 30%, #8e7037 50%, #8e7037 50%, #C5A059 70%, #FFEebb 75%, #C5A059 80%, #8e7037 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: shineGold 5s linear infinite;
+        }
+        .visual-text-menu-note {
+            text-align: center;
+            margin: 0;
+            padding: 4px 16px 10px;
+            font-size: 11px;
+            letter-spacing: 0.03em;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+        .visual-text-menu-note a {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 600;
+        }
+        .visual-section-title {
+            grid-column: 1 / -1;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.7rem;
+            text-align: center;
+            margin: 18px 0 6px;
+            padding: 6px 12px 12px;
+            border-bottom: 1px solid rgba(197,160,89,0.28);
+            letter-spacing: 0.04em;
+        }
+        .menu-grid > .visual-section-title:first-child { margin-top: 0; }
+        @media (max-width: 767px) {
+            .visual-section-title { font-size: 1.35rem; margin: 12px 0 4px; padding-bottom: 8px; }
+        }
         
         .main-wrapper { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px 15px; width: 100%; align-items: start; }
@@ -185,11 +258,43 @@
 
     <div class="nav-sticky">
         <nav class="tabs-wrap">
-            <button type="button" class="tab-btn active uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">&#1050;&#1072;&#1083;&#1100;&#1103;&#1085;&#1099;</button>
+            <cms:if vis_hide_tab_shisha='1'><cms:else />
+            <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('shisha', this)">&#1050;&#1072;&#1083;&#1100;&#1103;&#1085;&#1099;</button>
+            </cms:if>
+            <cms:if vis_hide_tab_kitchen='1'><cms:else />
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('kitchen', this)">&#1050;&#1091;&#1093;&#1085;&#1103;</button>
+            </cms:if>
+            <cms:if vis_hide_tab_bar='1'><cms:else />
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="filterMenu('bar', this)">&#1041;&#1072;&#1088;</button>
+            </cms:if>
+            <cms:if vis_hide_tab_promos='1'><cms:else />
             <button type="button" class="tab-btn uppercase font-bold tracking-widest text-xs" onclick="showPromos(this)">&#1040;&#1082;&#1094;&#1080;&#1080;</button>
+            </cms:if>
         </nav>
+        <cms:pages masterpage='menu/text/index.php' limit='1'>
+        <div id="subtabs-kitchen" class="subtabs-wrap">
+            <button type="button" class="subtab-btn active" data-sub="all" onclick="switchSubtab('kitchen','all', this)">Все</button>
+            <button type="button" class="subtab-btn" data-sub="snacks" onclick="switchSubtab('kitchen','snacks', this)"><cms:show kt_sub_snacks /></button>
+            <button type="button" class="subtab-btn" data-sub="salads" onclick="switchSubtab('kitchen','salads', this)"><cms:show kt_sub_salads /></button>
+            <button type="button" class="subtab-btn" data-sub="rolls" onclick="switchSubtab('kitchen','rolls', this)"><cms:show kt_sub_rolls /></button>
+            <button type="button" class="subtab-btn" data-sub="soups" onclick="switchSubtab('kitchen','soups', this)"><cms:show kt_sub_soups /></button>
+            <button type="button" class="subtab-btn" data-sub="poke_bowl_wok" onclick="switchSubtab('kitchen','poke_bowl_wok', this)"><cms:show kt_sub_poke /></button>
+            <button type="button" class="subtab-btn" data-sub="hot" onclick="switchSubtab('kitchen','hot', this)"><cms:show kt_sub_hot /></button>
+            <button type="button" class="subtab-btn" data-sub="desserts" onclick="switchSubtab('kitchen','desserts', this)"><cms:show kt_sub_desserts /></button>
+            <button type="button" class="subtab-btn" data-sub="other" onclick="switchSubtab('kitchen','other', this)">Ланчи</button>
+        </div>
+        <div id="subtabs-bar" class="subtabs-wrap">
+            <button type="button" class="subtab-btn active" data-sub="all" onclick="switchSubtab('bar','all', this)">Все</button>
+            <button type="button" class="subtab-btn" data-sub="beer" onclick="switchSubtab('bar','beer', this)"><cms:show bt_sub_beer /></button>
+            <button type="button" class="subtab-btn" data-sub="wine" onclick="switchSubtab('bar','wine', this)"><cms:show bt_sub_wine /></button>
+            <button type="button" class="subtab-btn" data-sub="cocktails" onclick="switchSubtab('bar','cocktails', this)"><cms:show bt_sub_cocktails /></button>
+            <button type="button" class="subtab-btn" data-sub="spirits" onclick="switchSubtab('bar','spirits', this)"><cms:show bt_sub_strong /></button>
+            <button type="button" class="subtab-btn" data-sub="tea_coffee" onclick="switchSubtab('bar','tea_coffee', this)"><cms:show dt_sub_tea /></button>
+            <button type="button" class="subtab-btn" data-sub="lemonades" onclick="switchSubtab('bar','lemonades', this)"><cms:show dt_sub_lemon /></button>
+            <button type="button" class="subtab-btn" data-sub="other" onclick="switchSubtab('bar','other', this)">Напитки</button>
+        </div>
+        </cms:pages>
+        <p class="visual-text-menu-note gold-shimmer">Полный перечень представлен в разделе <a href="https://garden-lounge.pro/admiralteyskaya/menu/text" class="gold-shimmer">Текстовое меню</a></p>
         <div class="gold-divider-nav"></div>
     </div>
 
@@ -239,7 +344,30 @@
         </div>
     </div>
 
-    <cms:embed 'visual-menu-script.html' />
+    <script>
+    window.GL_HIDDEN_SUBS = {
+        kitchen: {
+            snacks: '<cms:show vis_hide_kt_snacks />',
+            salads: '<cms:show vis_hide_kt_salads />',
+            rolls: '<cms:show vis_hide_kt_rolls />',
+            soups: '<cms:show vis_hide_kt_soups />',
+            poke_bowl_wok: '<cms:show vis_hide_kt_poke />',
+            hot: '<cms:show vis_hide_kt_hot />',
+            desserts: '<cms:show vis_hide_kt_desserts />',
+            other: '<cms:show vis_hide_kt_other />'
+        },
+        bar: {
+            beer: '<cms:show vis_hide_bar_beer />',
+            wine: '<cms:show vis_hide_bar_wine />',
+            cocktails: '<cms:show vis_hide_bar_cocktails />',
+            spirits: '<cms:show vis_hide_bar_spirits />',
+            tea_coffee: '<cms:show vis_hide_bar_tea />',
+            lemonades: '<cms:show vis_hide_bar_lemon />',
+            other: '<cms:show vis_hide_bar_other />'
+        }
+    };
+    </script>
+    <cms:embed 'visual-menu-script-adm.html' />
 </body>
 </html>
 <?php COUCH::invoke(); ?>
