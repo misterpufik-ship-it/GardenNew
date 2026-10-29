@@ -32,57 +32,59 @@
     opacity: .6;
     cursor: wait;
 }
-#f_rep_hookahs_v2 .col-actions,
-#f_rep_kitchen_v2 .col-actions,
-#f_rep_bar_alc_v2 .col-actions,
-#f_rep_bar_non_v2 .col-actions,
-#f_list_promos_v2 .col-actions,
-#f_rep_hookahs_v2 th.delete,
-#f_rep_kitchen_v2 th.delete,
-#f_rep_bar_alc_v2 th.delete,
-#f_rep_bar_non_v2 th.delete,
-#f_list_promos_v2 th.delete,
-#f_rep_hookahs_v2 td.delete,
-#f_rep_kitchen_v2 td.delete,
-#f_rep_bar_alc_v2 td.delete,
-#f_rep_bar_non_v2 td.delete,
-#f_list_promos_v2 td.delete {
-    width: 78px !important;
-    min-width: 78px !important;
-    white-space: nowrap;
-    text-align: right;
-    vertical-align: middle;
-}
 table.garden-row-tools-on th.delete,
-table.garden-row-tools-on td.delete {
-    width: 92px !important;
-    min-width: 92px !important;
-    white-space: nowrap;
-    text-align: right;
+table.garden-row-tools-on td.delete,
+table.garden-row-tools-on .col-actions {
+    width: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+    padding: 1px 0 !important;
+    overflow: hidden;
+    text-align: center !important;
     vertical-align: middle;
+    white-space: normal;
 }
-table.garden-row-tools-on td.delete label {
-    display: inline-block !important;
-    vertical-align: middle;
+.garden-row-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    width: 14px;
+    margin: 0 auto;
+    line-height: 0;
+}
+table.garden-row-tools-on td.delete label,
+table.garden-row-tools-on .delete-row {
+    display: block !important;
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+table.garden-row-tools-on td.delete img,
+table.garden-row-tools-on .delete-row svg {
+    display: block;
+    width: 12px !important;
+    height: 12px !important;
 }
 .garden-row-tool {
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    margin: 0 0 0 4px;
-    padding: 2px;
-    border: 1px solid #C5A059;
-    border-radius: 3px;
-    background: #fff;
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
     color: #6b4f1d;
     cursor: pointer;
-    vertical-align: middle;
     line-height: 0;
 }
 .garden-row-tool svg {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
 }
 .garden-row-tool:hover,
 .garden-row-tool:focus {
@@ -328,14 +330,24 @@ tr.garden-row-flash td {
             }
             flashRow(created);
         });
-        var del = actions.querySelector('.delete-row');
-        if (del) {
-            actions.insertBefore(addBtn, del);
-            actions.insertBefore(copyBtn, addBtn);
-        } else {
-            actions.appendChild(copyBtn);
-            actions.appendChild(addBtn);
+        var del = actions.querySelector('.delete-row') || actions.querySelector('label');
+        var delImg = actions.querySelector('img');
+        if (delImg) {
+            delImg.alt = 'Удалить позицию';
+            delImg.title = 'Удалить позицию';
         }
+        if (del && !del.getAttribute('title')) {
+            del.setAttribute('title', 'Удалить позицию');
+            del.setAttribute('aria-label', 'Удалить позицию');
+        }
+        var stack = document.createElement('div');
+        stack.className = 'garden-row-stack';
+        if (del) {
+            stack.appendChild(del);
+        }
+        stack.appendChild(copyBtn);
+        stack.appendChild(addBtn);
+        actions.appendChild(stack);
     }
 
     function decorateRow(rowEl) {
