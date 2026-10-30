@@ -6,6 +6,10 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
 ?>
 <cms:template title='Уделка Меню Визуальное' name='menu_visual_udel' executable='1' order='160'>
 
+    <cms:editable name='row_copy_script' type='message' order='0'>
+        <cms:embed 'menu-copy-admin.html' />
+    </cms:editable>
+
     <cms:editable name='visual_logo' label='Логотип меню' type='image' hidden='1' order='1'>couch/uploads/image/logo3.webp</cms:editable>
     <cms:editable name='visual_divider' label='Разделитель (линия)' type='image' hidden='1' order='2'>couch/uploads/image/div.webp</cms:editable>
 

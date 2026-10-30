@@ -1,6 +1,10 @@
 <?php require_once( '../../couch/cms.php' ); ?>
 <cms:template title='Меню визуальное' name='menu_visual' executable='1' order='160'>
 
+    <cms:editable name='row_copy_script' type='message' order='0'>
+        <cms:embed 'menu-copy-admin.html' />
+    </cms:editable>
+
     <cms:editable name='visual_logo' label='Логотип меню' type='image' hidden='1' order='1'>couch/uploads/image/logo3.webp</cms:editable>
     <cms:editable name='visual_divider' label='Разделитель (линия)' type='image' hidden='1' order='2'>couch/uploads/image/div.webp</cms:editable>
 

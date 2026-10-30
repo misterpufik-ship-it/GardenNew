@@ -1,78 +1,32 @@
 <style>
-.garden-copy-row-btn-wrap {
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    z-index: 30;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .15s ease;
-}
-.repeatable-region tbody tr:hover .garden-copy-row-btn-wrap,
-.repeatable-region .mosaic_contents:hover .garden-copy-row-btn-wrap {
-    opacity: 1;
-    pointer-events: auto;
-}
-.garden-copy-row-btn {
-    border: 1px solid #C5A059;
-    background: #fff;
-    color: #6b4f1d;
-    font-size: 11px;
-    line-height: 1;
-    padding: 5px 8px;
-    border-radius: 3px;
-    cursor: pointer;
-    white-space: nowrap;
-}
-.garden-copy-row-btn:hover {
-    background: #C5A059;
-    color: #fff;
-}
-.garden-copy-row-btn[disabled] {
-    opacity: .6;
-    cursor: wait;
-}
-table.garden-row-tools-on th.delete,
-table.garden-row-tools-on td.delete,
-table.garden-row-tools-on .col-actions {
-    width: 16px !important;
-    min-width: 16px !important;
-    max-width: 16px !important;
-    padding: 1px 0 !important;
-    overflow: hidden;
-    text-align: center !important;
-    vertical-align: middle;
-    white-space: normal;
-}
 .garden-row-stack {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 1px;
-    width: 14px;
-    margin: 0 auto;
+    width: 16px;
+    margin: 0;
+    gap: 0;
     line-height: 0;
 }
-table.garden-row-tools-on td.delete label,
-table.garden-row-tools-on .delete-row {
-    display: block !important;
-    width: 12px;
-    height: 12px;
+.garden-row-stack label,
+.garden-row-stack .delete-row {
+    display: block;
+    width: 16px;
+    height: 16px;
     margin: 0;
     padding: 0;
     line-height: 0;
 }
-table.garden-row-tools-on td.delete img,
-table.garden-row-tools-on .delete-row svg {
+.garden-row-stack img,
+.garden-row-stack .delete-row svg {
     display: block;
-    width: 12px !important;
-    height: 12px !important;
+    width: 16px;
+    height: 16px;
 }
 .garden-row-tool {
     display: block;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 14px;
     margin: 0;
     padding: 0;
     border: 0;
@@ -83,8 +37,9 @@ table.garden-row-tools-on .delete-row svg {
 }
 .garden-row-tool svg {
     display: block;
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
+    margin: 0 auto;
 }
 .garden-row-tool:hover,
 .garden-row-tool:focus {
@@ -103,15 +58,12 @@ tr.garden-row-flash td {
 <script>
 (function() {
     var path = window.location.pathname || '';
-    if (path.indexOf('/couch/admin.php') === -1) {
+    if (path.indexOf('/couch/') === -1) {
         return;
     }
 
-    var TARGET_BRANCH = '<cms:show branch_copy_to />';
-    var TARGET_LABEL = '<cms:show branch_copy_to_label />';
-    var API_URL = '/admiralteyskaya/couch/menu-copy-api.php';
-    var REPEATABLES = ['rep_hookahs_v2', 'rep_kitchen_v2', 'rep_bar_alc_v2', 'rep_bar_non_v2', 'list_promos_v2'];
-    var FIELD_RE = /^f_(rep_[a-z0-9_]+|list_promos_v2)\[(\d+)\]\[([a-z0-9_]+)\]$/i;
+    var REPEATABLES = ['rep_hookahs_v2', 'rep_kitchen_v2', 'rep_bar_alc_v2', 'rep_bar_non_v2', 'list_promos_v2', 'menu_shisha', 'menu_kitchen', 'menu_bar'];
+    var FIELD_RE = /^f_(rep_[a-z0-9_]+|list_promos_v2|menu_shisha|menu_kitchen|menu_bar)\[(\d+)\]\[([a-z0-9_]+)\]$/i;
 
     function toast(message, ok) {
         var el = document.getElementById('garden-copy-toast');
@@ -159,9 +111,6 @@ tr.garden-row-flash td {
         }
         return null;
     }
-
-    var COPY_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.2" y="1.2" width="9" height="10.2" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="1.6" y="4.6" width="9" height="10.2" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>';
-    var ADD_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.2 3.2h11.6M2.2 6.4h11.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M8 9.2v5.2M5.4 11.8h5.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
 
     function fieldKey(name) {
         var match = String(name || '').match(/\[([a-z0-9_]+)\]$/i);
@@ -277,13 +226,11 @@ tr.garden-row-flash td {
         box.classList.add('garden-row-flash');
     }
 
-    function makeTool(label, svg, onClick) {
+    function makeCopyButton(onClick) {
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'garden-row-tool icon';
-        btn.title = label;
-        btn.setAttribute('aria-label', label);
-        btn.innerHTML = svg;
+        btn.className = 'garden-row-tool';
+        btn.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="5.2" y="1.4" width="9" height="10" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4"/><rect x="1.6" y="4.6" width="9" height="10" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>';
         btn.addEventListener('mousedown', function(event) {
             event.stopPropagation();
         });
@@ -304,15 +251,11 @@ tr.garden-row-flash td {
             return;
         }
         var sample = actions.closest('tr');
-        if (!sample || !sample.querySelector('input[name^="f_rep_"], input[name^="f_list_promos_v2"], select[name^="f_rep_"], textarea[name^="f_rep_"]')) {
+        if (!sample || !sample.querySelector('input[name^="f_rep_"], input[name^="f_list_promos_v2"], input[name^="f_menu_"], select[name^="f_rep_"], select[name^="f_menu_"], textarea[name^="f_rep_"], textarea[name^="f_menu_"]')) {
             return;
         }
         actions.dataset.gardenRowTools = '1';
-        var table = rowEl.closest('table');
-        if (table) {
-            table.classList.add('garden-row-tools-on');
-        }
-        var copyBtn = makeTool('Копировать позицию', COPY_ICON, function() {
+        var copyBtn = makeCopyButton(function() {
             var data = readFields(rowEl);
             var created = insertBelow(rowEl);
             if (!created) {
@@ -322,31 +265,13 @@ tr.garden-row-flash td {
             writeFields(created, data);
             flashRow(created);
         });
-        var addBtn = makeTool('Добавить пустую позицию ниже', ADD_ICON, function() {
-            var created = insertBelow(rowEl);
-            if (!created) {
-                toast('Не удалось добавить позицию.', false);
-                return;
-            }
-            flashRow(created);
-        });
         var del = actions.querySelector('.delete-row') || actions.querySelector('label');
-        var delImg = actions.querySelector('img');
-        if (delImg) {
-            delImg.alt = 'Удалить позицию';
-            delImg.title = 'Удалить позицию';
-        }
-        if (del && !del.getAttribute('title')) {
-            del.setAttribute('title', 'Удалить позицию');
-            del.setAttribute('aria-label', 'Удалить позицию');
-        }
         var stack = document.createElement('div');
         stack.className = 'garden-row-stack';
         if (del) {
             stack.appendChild(del);
         }
         stack.appendChild(copyBtn);
-        stack.appendChild(addBtn);
         actions.appendChild(stack);
     }
 
@@ -355,7 +280,7 @@ tr.garden-row-flash td {
             return;
         }
 
-        var sample = rowEl.querySelector('input[name^="f_rep_"], input[name^="f_list_promos_v2"], select[name^="f_rep_"], select[name^="f_list_promos_v2"], textarea[name^="f_rep_"], textarea[name^="f_list_promos_v2"]');
+        var sample = rowEl.querySelector('input[name^="f_rep_"], input[name^="f_list_promos_v2"], input[name^="f_menu_"], select[name^="f_rep_"], select[name^="f_list_promos_v2"], select[name^="f_menu_"], textarea[name^="f_rep_"], textarea[name^="f_list_promos_v2"], textarea[name^="f_menu_"]');
         if (!sample) {
             return;
         }
@@ -366,63 +291,11 @@ tr.garden-row-flash td {
         }
 
         rowEl.dataset.gardenCopyReady = '1';
-
-        var anchor = rowEl.querySelector('.mosaic_contents') || rowEl.querySelector('.col-contents') || rowEl;
-        if (getComputedStyle(anchor).position === 'static') {
-            anchor.style.position = 'relative';
-        }
-
-        var wrap = document.createElement('div');
-        wrap.className = 'garden-copy-row-btn-wrap';
-        wrap.title = 'Копировать во второй филиал (' + TARGET_LABEL + ')';
-
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'garden-copy-row-btn';
-        btn.textContent = 'Копировать в ' + TARGET_LABEL;
-        btn.addEventListener('click', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            var payload = collectRowData(rowEl);
-            if (!payload.repeatable || !Object.keys(payload.row).length) {
-                toast('Не удалось собрать данные строки.', false);
-                return;
-            }
-
-            btn.disabled = true;
-            fetch(API_URL, {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    target_branch: TARGET_BRANCH,
-                    repeatable: payload.repeatable,
-                    row: payload.row
-                })
-            })
-            .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
-            .then(function(result) {
-                if (!result.ok || !result.data.ok) {
-                    throw new Error((result.data && result.data.error) || 'Copy failed');
-                }
-                toast(result.data.message || 'Скопировано.', true);
-            })
-            .catch(function(err) {
-                toast(err.message || 'Ошибка копирования.', false);
-            })
-            .finally(function() {
-                btn.disabled = false;
-            });
-        });
-
-        wrap.appendChild(btn);
-        anchor.appendChild(wrap);
         attachRowTools(rowEl);
     }
 
     function scanRepeatables() {
-        document.querySelectorAll('input[name^="f_rep_"], input[name^="f_list_promos_v2"], select[name^="f_rep_"], select[name^="f_list_promos_v2"], textarea[name^="f_rep_"], textarea[name^="f_list_promos_v2"]').forEach(function(input) {
+        document.querySelectorAll('input[name^="f_rep_"], input[name^="f_list_promos_v2"], input[name^="f_menu_"], select[name^="f_rep_"], select[name^="f_list_promos_v2"], select[name^="f_menu_"], textarea[name^="f_rep_"], textarea[name^="f_list_promos_v2"], textarea[name^="f_menu_"]').forEach(function(input) {
             var rowEl = findRowContainer(input);
             if (rowEl) {
                 decorateRow(rowEl);
