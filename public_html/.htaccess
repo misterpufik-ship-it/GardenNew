@@ -8,8 +8,9 @@ Options -MultiViews
     RewriteEngine On
     RewriteBase /
 
-    # HTTP -> HTTPS
+    # HTTP -> HTTPS (учитываем nginx X-Forwarded-Proto)
     RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     # www -> без www

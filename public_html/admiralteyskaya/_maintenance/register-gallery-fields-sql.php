@@ -129,9 +129,7 @@ function ensure_group_field($db, $fields, $templateId, $name, $label, $order)
 
 function sync_repeatable_html($db, $fields, $repeatableId)
 {
-    $html = "<cms:editable name='gallery_img' label='Фото' type='image' />\r\n" .
-            "<cms:editable name='gallery_img_title' label='Подпись к фото' type='text' />\r\n" .
-            "<cms:editable name='gallery_img_alt' label='ALT для SEO' type='text' />";
+    $html = "<cms:editable name='gallery_img' label='Фото' type='image' />";
     $db->query("UPDATE `{$fields}` SET _html=" . q($db, $html) . " WHERE id=" . (int) $repeatableId . " LIMIT 1");
 }
 
@@ -164,8 +162,6 @@ function ensure_gallery_repeatable($db, $fields, $templateId, $sourceRepeatableN
 
     $childNames = array(
         'gallery_img' => 'Фото',
-        'gallery_img_title' => 'Подпись к фото',
-        'gallery_img_alt' => 'ALT для SEO',
     );
 
     foreach ($childNames as $childName => $childLabel) {

@@ -98,6 +98,10 @@ try {
 
     $remoteZip = "/tmp/garden-$commit-$stamp.zip"
     $sshTarget = "$DeployUser@$DeployHost"
+    $sshIdentityArgs = @()
+    if ($DeployIdentityFile) {
+        $sshIdentityArgs = @("-i", $DeployIdentityFile, "-o", "IdentitiesOnly=yes")
+    }
 
     if ($DryRun) {
         Write-Host "Dry run OK."
@@ -108,7 +112,7 @@ try {
         exit 0
     }
 
-    & scp -P $DeployPort $zipPath "${sshTarget}:$remoteZip"
+    & scp @sshIdentityArgs -P $DeployPort $zipPath "${sshTarget}:$remoteZip"
     if ($LASTEXITCODE -ne 0) { throw "Upload over SSH failed." }
 
     $remoteScript = @"
@@ -134,7 +138,7 @@ printf '%s commit=%s path=%s\n' "`$(date -Is)" "`$COMMIT" "`$REMOTE_PATH" >> "`$
 ls -1t "`$BACKUP_BASE"/public_html-*.tgz 2>/dev/null | tail -n +`$((KEEP_BACKUPS + 1)) | xargs -r rm -f
 "@
 
-    & ssh -p $DeployPort $sshTarget $remoteScript
+    & ssh @sshIdentityArgs -p $DeployPort $sshTarget $remoteScript
     if ($LASTEXITCODE -ne 0) { throw "Remote deploy failed. A backup may have been created on the server." }
 
     Write-Host "Deploy complete: $commit -> ${sshTarget}:$RemotePath"

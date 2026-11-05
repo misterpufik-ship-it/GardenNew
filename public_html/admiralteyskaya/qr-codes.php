@@ -4,7 +4,6 @@
     <cms:editable name='qr_manager' label='QR коды' type='message' order='1'>
         <div id="gl-qr-root">Загрузка раздела QR…</div>
         <link rel="stylesheet" href="/qr/admin.css">
-        <script src="/qr/admin.js"></script>
     </cms:editable>
 
 </cms:template>

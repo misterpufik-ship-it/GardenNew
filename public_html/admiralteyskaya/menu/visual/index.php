@@ -192,6 +192,11 @@
         .dish-info { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; justify-content: center; }
         .price { font-size: 1.1rem; font-weight: 600; color: #fff; }
         .weight { font-size: 11px; color: #777; font-weight: 400; font-style: italic; }
+        @media (max-width: 767px) {
+            .dish-info { flex-direction: column; align-items: center; gap: 2px; margin-bottom: 6px; }
+            .price { font-size: 1.05rem; line-height: 1.2; }
+            .weight { line-height: 1.2; }
+        }
         .details-trigger { font-size: 10px; text-transform: uppercase; color: #8e7037; letter-spacing: 0.15em; cursor: pointer; opacity: 0.8; text-align: center; padding: 5px 0; }
         .details-trigger:hover { opacity: 1; color: var(--gold); }
         

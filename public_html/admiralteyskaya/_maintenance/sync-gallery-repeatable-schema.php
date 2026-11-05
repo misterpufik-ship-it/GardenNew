@@ -37,9 +37,7 @@ function one($db, $sql)
 
 function clean_repeatable_html()
 {
-    return "<cms:editable name='gallery_img' label='Фото' type='image' />\r\n" .
-           "<cms:editable name='gallery_img_title' label='Подпись к фото' type='text' />\r\n" .
-           "<cms:editable name='gallery_img_alt' label='ALT для SEO' type='text' />";
+    return "<cms:editable name='gallery_img' label='Фото' type='image' />";
 }
 
 $targets = array(

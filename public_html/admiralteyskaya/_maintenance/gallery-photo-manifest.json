@@ -1,0 +1,36 @@
+{
+  "description": "Списки файлов галереи для восстановления после деплоя (php _maintenance/force-gallery-data-sql.php). Файлы в couch/uploads/image.",
+  "gallery.php": {
+    "gallery_interior_items": [":chatgpt-image-18-anv-2026-g-14_56_49.webp"],
+    "gallery_menu_items": [
+      ":menu-visual/kurinaia-grudka-s-triufel-nym-piure.webp",
+      ":menu-visual/summer-spritz.webp",
+      ":menu-visual/poke-s-lososem.webp"
+    ],
+    "gallery_vibe_items": [
+      ":vibe-adm-01.webp",
+      ":vibe-adm-02.webp",
+      ":vibe-adm-03.webp",
+      ":vibe-adm-04.webp",
+      ":vibe-adm-05.webp",
+      ":vibe-adm-06.webp",
+      ":vibe-adm-07.webp",
+      ":vibe-adm-08.webp",
+      ":vibe-adm-09.webp",
+      ":vibe-adm-10.webp",
+      ":safonovleonid_green_65.webp"
+    ]
+  },
+  "udelnaya/gallery.php": {
+    "gallery_interior_items": [":garden-2.webp"],
+    "gallery_menu_items": [],
+    "gallery_vibe_items": [
+      ":safonovleonid_green_65.webp",
+      ":garden.webp",
+      ":vibe-udel-01.webp",
+      ":vibe-udel-01b.webp",
+      ":vibe-udel-02.webp",
+      ":vibe-udel-03.webp"
+    ]
+  }
+}

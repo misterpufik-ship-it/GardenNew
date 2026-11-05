@@ -62,7 +62,7 @@ function gl_schema_clone($sample, $name, $label, $optValues)
     $field['name'] = $encode($name);
     $field['label'] = $encode($label);
     $field['k_type'] = $encode('dropdown');
-    $field['opt_values'] = $optValues;
+    $field['opt_values'] = $encode($optValues);
     $field['required'] = isset($field['required']) ? $encode('0') : '0';
     $field['hidden'] = isset($field['hidden']) ? $encode('0') : '0';
     return $field;

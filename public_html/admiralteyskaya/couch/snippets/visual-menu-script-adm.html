@@ -173,6 +173,66 @@ echo 'const menuData = ' . json_encode(
 ) . ";\n";
 </cms:php>
 const VISUAL_MENU_FALLBACK_IMG = '/admiralteyskaya/couch/uploads/image/sajt-menu-gl.webp';
+const VISUAL_HEADER_RU = {
+    'signature coctails': 'Авторские коктейли',
+    'signature cocktails': 'Авторские коктейли',
+    'classic coctails': 'Классические коктейли',
+    'classic cocktails': 'Классические коктейли',
+    'shot line': 'Шот-линия',
+    'shot drink': 'Классические шоты',
+    'homemade lemonade 400ml/1000ml': 'Домашний лимонад 400/1000 мл',
+    'lemonade/juice': 'Лимонады / Соки',
+    'still/sparkling water': 'Вода',
+    'beer': 'Пиво',
+    'draft beer': 'Разливное пиво',
+    'honey mead': 'Медовуха',
+    'non-alcohol coctail': 'Безалкогольные коктейли',
+    'non-alcohol cocktail': 'Безалкогольные коктейли',
+    'vodka': 'Водка',
+    'rum': 'Ром',
+    'whiskey/burbon': 'Виски / Бурбон',
+    'whiskey/bourbon': 'Виски / Бурбон',
+    'gin': 'Джин',
+    'brandy / cognac': 'Бренди / Коньяк',
+    'brandy/cognac': 'Бренди / Коньяк',
+    'tequila / mescal': 'Текила / Мескаль',
+    'tequila / mezcal': 'Текила / Мескаль',
+    'tequila/mescal': 'Текила / Мескаль',
+    'sparkling wine': 'Игристое вино',
+    'red wine': 'Красное вино',
+    'white wine': 'Белое вино'
+};
+
+function visualHeaderKey(title) {
+    return String(title || '').replace(/&#039;|&apos;|&#39;/g, "'").toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+function translateVisualHeader(title) {
+    const key = visualHeaderKey(title);
+    return VISUAL_HEADER_RU[key] || title || '';
+}
+
+function formatVisualPrice(price) {
+    const p = String(price || '').replace(/\s*₽\s*/g, '').replace(/\s*\/\s*/g, '/').trim();
+    return p ? (p + ' ₽') : '';
+}
+
+function formatVisualWeight(weight) {
+    let w = String(weight || '').trim();
+    if (!w) return '';
+    w = w.replace(/\bmls?\b/ig, 'мл').replace(/\bg\b/ig, 'г');
+    w = w.replace(/(\d)\.(\d)/g, '$1,$2');
+    w = w.replace(/\s*\/\s*/g, '/');
+    w = w.replace(/(\d)(мл|г)\b/gi, '$1 $2');
+    return w;
+}
+
+function visualPriceWeightHtml(item) {
+    const price = formatVisualPrice(item.price);
+    const weight = formatVisualWeight(item.weight);
+    return (price ? `<span class="price">${price}</span>` : '')
+        + (weight ? `<span class="weight">${weight}</span>` : '');
+}
 
 function getTagHtml(tag) {
     if (!tag || tag === '-') return '';
@@ -351,7 +411,7 @@ function renderMenu(filter = 'shisha', sub = 'all') {
         if (isHeader(item)) {
             const heading = document.createElement('h3');
             heading.className = 'visual-section-title gold-shimmer';
-            heading.textContent = item.title || '';
+            heading.textContent = translateVisualHeader(item.title);
             container.appendChild(heading);
             return;
         }
@@ -370,8 +430,7 @@ function renderMenu(filter = 'shisha', sub = 'all') {
             <h3 class="dish-title subtitle-gold">${item.title}</h3>
             <div class="dish-bottom">
                 <div class="dish-info">
-                    <span class="price">${item.price} ₽</span>
-                    <span class="weight">${item.weight}</span>
+                    ${visualPriceWeightHtml(item)}
                 </div>
                 ${detailsHtml}
             </div>

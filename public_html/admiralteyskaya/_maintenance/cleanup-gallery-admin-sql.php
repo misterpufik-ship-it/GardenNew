@@ -58,11 +58,9 @@ function all($db, $sql)
     return $rows;
 }
 
-function clean_repeatable_html($repeatableName, $repeatableLabel)
+function clean_repeatable_html()
 {
-    return "<cms:editable name='gallery_img' label='Фото' type='image' />\r\n" .
-           "<cms:editable name='gallery_img_title' label='Подпись к фото' type='text' />\r\n" .
-           "<cms:editable name='gallery_img_alt' label='ALT для SEO' type='text' />";
+    return "<cms:editable name='gallery_img' label='Фото' type='image' />";
 }
 
 function delete_field_tree($db, $fields, $text, $fieldId)
@@ -110,18 +108,18 @@ try {
                 continue;
             }
 
-            $categoryChildren = all(
+            $extraChildren = all(
                 $db,
                 "SELECT id, name FROM `{$fields}` WHERE template_id={$templateId} AND k_group=" . q($db, $repeatableName) .
-                " AND name='gallery_category'"
+                " AND name IN ('gallery_category','gallery_img_title','gallery_img_alt')"
             );
-            foreach ($categoryChildren as $child) {
+            foreach ($extraChildren as $child) {
                 $db->query("DELETE FROM `{$text}` WHERE field_id=" . (int) $child['id']);
                 $db->query("DELETE FROM `{$fields}` WHERE id=" . (int) $child['id']);
-                echo "  removed {$repeatableName}::gallery_category (#{$child['id']})\n";
+                echo "  removed {$repeatableName}::{$child['name']} (#{$child['id']})\n";
             }
 
-            $html = clean_repeatable_html($repeatableName, $repeatableLabel);
+            $html = clean_repeatable_html();
             $db->query(
                 "UPDATE `{$fields}` SET _html=" . q($db, $html) . ", label=" . q($db, $repeatableLabel) .
                 " WHERE id=" . (int) $field['id'] . " LIMIT 1"

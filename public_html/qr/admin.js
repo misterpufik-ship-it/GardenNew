@@ -63,6 +63,19 @@
         );
     }
 
+    function readFile(file) {
+        return new Promise(function (resolve, reject) {
+            if (!file) {
+                resolve('');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function () { resolve(String(reader.result || '')); };
+            reader.onerror = function () { reject(new Error('Не удалось прочитать картинку')); };
+            reader.readAsDataURL(file);
+        });
+    }
+
     function api(action, payload) {
         var opts = { credentials: 'include', headers: { Accept: 'application/json' } };
         if (payload) {
@@ -101,10 +114,12 @@
                     fieldHtml('Название', '<input type="text" class="text" size="105" data-field="title" value="' + esc(code.title) + '">') +
                     fieldHtml('Ссылка внутри QR (можно менять)', '<input type="text" class="text" size="105" data-field="target_url" value="' + esc(code.target_url) + '" placeholder="https://...">') +
                     fieldHtml('Постоянный адрес QR', '<a href="' + esc(code.stable_url) + '" target="_blank" rel="noopener">' + esc(code.stable_url) + '</a>') +
+                    fieldHtml('Заменить картинку', '<input type="file" accept="image/png,image/jpeg" data-field="png">') +
                     '<div class="field k_element">' +
-                        '<button type="button" class="btn btn-primary" data-act="save">Сохранить ссылку</button> ' +
+                        '<button type="button" class="btn btn-primary" data-act="save">Сохранить</button> ' +
                         '<a class="btn" href="' + esc(code.png_url) + '" download="qr-' + esc(code.branch) + '-' + esc(code.slug) + '.png">Скачать PNG</a> ' +
-                        '<button type="button" class="btn" data-act="copy">Копировать адрес</button>' +
+                        '<button type="button" class="btn" data-act="copy">Копировать адрес</button> ' +
+                        '<button type="button" class="btn" data-act="delete">Удалить</button>' +
                     '</div>' +
                     groupHtml({
                         kind: 'qr',
@@ -127,9 +142,10 @@
             }
             var create =
                 '<form class="gl-qr-create">' +
-                    fieldHtml('Название нового QR', '<input type="text" class="text" size="105" name="title" placeholder="Например, Меню">') +
-                    fieldHtml('Ссылка', '<input type="text" class="text" size="105" name="target_url" placeholder="https://garden-lounge.pro/' + esc(branch) + '/menu" required>') +
-                    '<div class="field k_element"><button type="submit" class="btn btn-primary">Сгенерировать постоянный QR</button></div>' +
+                    fieldHtml('Название нового QR', '<input type="text" class="text" size="105" name="title" placeholder="Например, Меню" required>') +
+                    fieldHtml('Куда ведёт код', '<input type="text" class="text" size="105" name="target_url" placeholder="https://garden-lounge.pro/' + esc(branch) + '/menu" required>') +
+                    fieldHtml('Готовая картинка, если код уже напечатан', '<input type="file" accept="image/png,image/jpeg" name="png">') +
+                    '<div class="field k_element"><button type="submit" class="btn btn-primary">Добавить QR</button></div>' +
                 '</form>';
             return groupHtml({
                 kind: 'branch',
@@ -144,7 +160,7 @@
         root.innerHTML =
             '<div class="gl-qr-app">' +
                 '<div class="field k_element k_message">' +
-                    '<p>QR печатается <strong>один раз</strong>. В него вшит постоянный адрес сайта Garden Lounge. Ссылку назначения можно менять — картинка при этом не меняется и не затирается деплоем.</p>' +
+                    '<p>Код можно добавить, переименовать и поменять ссылку, куда он ведёт. Постоянный адрес внутри картинки не меняется: напечатанный QR продолжит открываться. Если картинка уже есть, приложите её — новая не будет сгенерирована поверх.</p>' +
                     '<p class="gl-qr-status"></p>' +
                 '</div>' +
                 branchHtml +
@@ -156,13 +172,15 @@
                 var branch = form.closest('[data-branch]').getAttribute('data-branch');
                 var title = form.querySelector('[name="title"]').value;
                 var target = form.querySelector('[name="target_url"]').value;
+                var file = form.querySelector('[name="png"]').files[0];
                 captureUi();
                 if (!state.ui.branch) state.ui.branch = {};
                 state.ui.branch[branch] = true;
-                setStatus('Создаём QR…');
-                api('create', { branch: branch, title: title, target_url: target })
-                    .then(load)
-                    .then(function () { setStatus('QR создан и сохранён. Картинка зафиксирована.'); })
+                setStatus('Сохраняем QR…');
+                readFile(file).then(function (png) {
+                    return api('create', { branch: branch, title: title, target_url: target, png_base64: png });
+                }).then(load)
+                    .then(function () { setStatus('QR добавлен и сохранён.'); })
                     .catch(function (err) { setStatus(err.message, true); });
             });
         });
@@ -172,11 +190,24 @@
             card.querySelector('[data-act="save"]').addEventListener('click', function () {
                 var title = card.querySelector('[data-field="title"]').value;
                 var target = card.querySelector('[data-field="target_url"]').value;
+                var fileInput = card.querySelector('[data-field="png"]');
+                var file = fileInput && fileInput.files ? fileInput.files[0] : null;
                 captureUi();
-                setStatus('Сохраняем ссылку…');
-                api('update', { id: id, title: title, target_url: target })
+                setStatus('Сохраняем…');
+                readFile(file).then(function (png) {
+                    return api('update', { id: id, title: title, target_url: target, png_base64: png });
+                }).then(load)
+                    .then(function () { setStatus('Код сохранён.'); })
+                    .catch(function (err) { setStatus(err.message, true); });
+            });
+            card.querySelector('[data-act="delete"]').addEventListener('click', function () {
+                var title = card.querySelector('[data-field="title"]').value || 'этот QR';
+                if (!window.confirm('Удалить «' + title + '»? Напечатанный код перестанет открываться.')) return;
+                captureUi();
+                setStatus('Удаляем…');
+                api('delete', { id: id })
                     .then(load)
-                    .then(function () { setStatus('Ссылка обновлена. Картинка QR не менялась.'); })
+                    .then(function () { setStatus('QR удалён.'); })
                     .catch(function (err) { setStatus(err.message, true); });
             });
             card.querySelector('[data-act="copy"]').addEventListener('click', function () {
