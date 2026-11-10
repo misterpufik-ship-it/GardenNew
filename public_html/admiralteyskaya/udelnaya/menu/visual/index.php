@@ -384,6 +384,8 @@ require_once dirname(__DIR__, 3) . '/couch/cms.php';
     };
     </script>
     <cms:embed 'visual-menu-script-udel.html' />
+    <cms:set sticky_masterpage='udelnaya/sticky-sticker.php' scope='global' />
+    <cms:embed 'sticky-sticker.html' />
 </body>
 </html>
 <?php COUCH::invoke(); ?>

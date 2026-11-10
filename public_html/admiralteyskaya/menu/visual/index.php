@@ -379,6 +379,8 @@
     };
     </script>
     <cms:embed 'visual-menu-script-adm.html' />
+    <cms:set sticky_masterpage='sticky-sticker.php' scope='global' />
+    <cms:embed 'sticky-sticker.html' />
 </body>
 </html>
 <?php COUCH::invoke(); ?>
