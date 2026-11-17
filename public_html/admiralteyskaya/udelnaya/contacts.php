@@ -31,7 +31,7 @@ require_once dirname(__DIR__) . '/couch/cms.php';
     
 <cms:editable name='rate_google_val' label='Google (балл)' group='cont_group_ratings' type='text'>4.7</cms:editable>
     <cms:editable name='rate_google_count' label='Google (отзывы)' group='cont_group_ratings' type='text'>13 отзывов</cms:editable>
-    <cms:editable name='rate_google_link' label='Google (ссылка)' group='cont_group_ratings' type='text'>https://maps.app.goo.gl/rcwMbaXdfrbSTowd7</cms:editable>
+    <cms:editable name='rate_google_link' label='Google (ссылка)' group='cont_group_ratings' type='text'>https://maps.app.goo.gl/4WacDNewMYdX6iwCA</cms:editable>
   
     <cms:editable name='cont_map_iframe' label='Код виджета карты (только URL из src)' group='cont_group_main' type='text'>https://yandex.ru/map-widget/v1/?um=constructor%3A9c01ea252def4e8d3a60d6cdfd40306362e2b0066d801eeb700fd5dd8fd4283f&source=constructor</cms:editable>
 

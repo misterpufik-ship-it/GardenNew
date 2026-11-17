@@ -26,7 +26,7 @@
     
 <cms:editable name='rate_google_val' label='Google (балл)' group='cont_group_ratings' type='text'>4.7</cms:editable>
     <cms:editable name='rate_google_count' label='Google (отзывы)' group='cont_group_ratings' type='text'>13 отзывов</cms:editable>
-    <cms:editable name='rate_google_link' label='Google (ссылка)' group='cont_group_ratings' type='text'>https://maps.app.goo.gl/rcwMbaXdfrbSTowd7</cms:editable>
+    <cms:editable name='rate_google_link' label='Google (ссылка)' group='cont_group_ratings' type='text'>https://maps.app.goo.gl/RdU8xmjNrTsJoVbx7</cms:editable>
   
     <cms:editable name='cont_map_iframe' label='Код виджета карты (только URL из src)' group='cont_group_main' type='text'>https://yandex.ru/map-widget/v1/?um=constructor%3A86b78088cdeb728323715abfc506cc9bb4ed50969d2f614eda2941d37b52b3c5&source=constructor</cms:editable>
 

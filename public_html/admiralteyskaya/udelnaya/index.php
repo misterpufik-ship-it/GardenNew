@@ -79,17 +79,17 @@ require_once dirname(__DIR__) . '/couch/cms.php';
         'name' => 'Garden Lounge на Удельной',
         'url' => 'https://garden-lounge.pro/udelnaya',
         'image' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg',
-        'telephone' => (string) $CTX->get('adm_phone'),
+        'telephone' => '+7 950 047-33-65',
         'streetAddress' => (string) $CTX->get('adm_address'),
-        'latitude' => 60.0165,
-        'longitude' => 30.3142,
+        'latitude' => 60.0161967,
+        'longitude' => 30.3108646,
         'hasMap' => (string) $CTX->get('adm_map'),
         'sameAs' => array_values(array_filter(array(
             (string) $CTX->get('social_vk'),
             (string) $CTX->get('social_instagram'),
             (string) $CTX->get('social_telegram'),
             (string) $CTX->get('social_youtube'),
-            'https://maps.app.goo.gl/rcwMbaXdfrbSTowd7',
+            'https://maps.app.goo.gl/4WacDNewMYdX6iwCA',
         ))),
         'openingHours' => array(
             array(
