@@ -36,13 +36,18 @@ function gl_hero_lcp_url($sourceUrl, $role = 'desk')
     $base = pathinfo($path, PATHINFO_FILENAME);
 
     if ($role === 'mob') {
-        $mob = $dir . '/' . $base . '-mob-768.webp';
-        if (is_file($docRoot . $mob)) {
-            return $mob;
+        // Full landscape file for main hero (avoid legacy portrait garden-main-mobile.webp).
+        if ($base === 'garden-main' && is_file($full)) {
+            return $path;
+        }
+
+        $mob768 = $dir . '/' . $base . '-mob-768.webp';
+        if (is_file($docRoot . $mob768)) {
+            return $mob768;
         }
 
         $aliases = array(
-            'garden-main' => '/admiralteyskaya/couch/uploads/image/garden-main-mobile.webp',
+            'garden-main' => '/admiralteyskaya/couch/uploads/image/garden-main.webp',
         );
         if (isset($aliases[$base]) && is_file($docRoot . $aliases[$base])) {
             return $aliases[$base];

@@ -19,7 +19,7 @@
     <cms:editable name='group_hero' label='Главный экран (Hero)' type='group' />
     <cms:editable name='hero_tagline' label='Слоган под лого' group='group_hero' type='text'>Магический вечнозеленый сад в самом сердце Санкт-Петербурга</cms:editable>
     <cms:editable name='hero_bg_desk' label='Фон (Десктоп)' group='group_hero' type='image'>:garden-main.webp</cms:editable>
-    <cms:editable name='hero_bg_mob' label='Фон (Мобилка)' group='group_hero' type='image'>:garden-main-mobile.webp</cms:editable>
+    <cms:editable name='hero_bg_mob' label='Фон (Мобилка)' group='group_hero' type='image' desc='Landscape 16:9, не узкий портрет. По умолчанию — тот же кадр, что десктоп.'>:garden-main.webp</cms:editable>
     <cms:editable name='hero_img_alt' label='Alt для главного фото' group='group_hero' type='text'>Интерьер Garden Lounge Адмиралтейская в центре Санкт-Петербурга</cms:editable>
 
 </cms:template>

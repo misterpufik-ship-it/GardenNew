@@ -25,25 +25,6 @@ function gl_qr_read_json_body()
     return is_array($data) ? $data : array();
 }
 
-function gl_qr_binary_from_body($body)
-{
-    if (!isset($body['png_base64'])) {
-        return '';
-    }
-    $raw = trim((string)$body['png_base64']);
-    if ($raw === '') {
-        return '';
-    }
-    if (strpos($raw, ',') !== false && strncmp($raw, 'data:', 5) === 0) {
-        $raw = substr($raw, strpos($raw, ',') + 1);
-    }
-    $binary = base64_decode($raw, true);
-    if ($binary === false) {
-        gl_qr_json(array('ok' => false, 'error' => 'Картинка передана с ошибкой'), 400);
-    }
-    return $binary;
-}
-
 $action = isset($_GET['action']) ? (string)$_GET['action'] : 'list';
 $method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper($_SERVER['REQUEST_METHOD']) : 'GET';
 
@@ -102,12 +83,7 @@ try {
         );
         $data['codes'][] = $code;
         gl_qr_save($data);
-        $uploaded = gl_qr_binary_from_body($body);
-        if ($uploaded !== '') {
-            gl_qr_store_uploaded_png($code, $uploaded);
-        } else {
-            gl_qr_write_png($code);
-        }
+        gl_qr_write_png($code);
         gl_qr_json(array('ok' => true, 'code' => gl_qr_public_code($code)));
     }
 
@@ -133,31 +109,9 @@ try {
             $data['codes'][$idx]['target_url'] = $target;
         }
         $data['codes'][$idx]['updated_at'] = date('c');
-        $code = $data['codes'][$idx];
-        $uploaded = gl_qr_binary_from_body($body);
-        if ($uploaded !== '') {
-            gl_qr_store_uploaded_png($code, $uploaded);
-        }
         gl_qr_save($data);
+        $code = $data['codes'][$idx];
         gl_qr_json(array('ok' => true, 'code' => gl_qr_public_code($code)));
-    }
-
-    if ($action === 'delete' && $method === 'POST') {
-        $body = gl_qr_read_json_body();
-        $id = isset($body['id']) ? (string)$body['id'] : '';
-        $data = gl_qr_load();
-        $idx = gl_qr_find($data, $id);
-        if ($idx < 0) {
-            gl_qr_json(array('ok' => false, 'error' => 'QR не найден'), 404);
-        }
-        $code = $data['codes'][$idx];
-        array_splice($data['codes'], $idx, 1);
-        gl_qr_save($data);
-        $png = gl_qr_png_path($code['branch'], $code['slug']);
-        if (is_file($png)) {
-            @unlink($png);
-        }
-        gl_qr_json(array('ok' => true));
     }
 
     if ($action === 'rebuild' && $method === 'POST') {

@@ -39,8 +39,11 @@ function gl_qr_json_path()
 
 function gl_qr_public_base()
 {
-    // Printed QR must keep working after a local preview or a hosting move.
-    return 'https://garden-lounge.pro';
+    $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (isset($_SERVER['SERVER_PORT']) && (string)$_SERVER['SERVER_PORT'] === '443')
+        || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'garden-lounge.pro';
+    return ($https ? 'https://' : 'http://') . $host;
 }
 
 function gl_qr_ensure_storage()
@@ -119,42 +122,7 @@ function gl_qr_stable_url($branch, $slug)
 
 function gl_qr_png_path($branch, $slug)
 {
-    $dir = gl_qr_png_dir();
-    $hyphen = $dir . '/' . preg_replace('/[^a-z0-9-]+/', '-', $branch . '-' . $slug) . '.png';
-    $legacy = $dir . '/' . preg_replace('/[^a-z0-9-]+/', '-', $branch . '__' . $slug) . '.png';
-    if (is_file($hyphen) || !is_file($legacy)) {
-        return $hyphen;
-    }
-    return $legacy;
-}
-
-function gl_qr_store_uploaded_png($code, $binary)
-{
-    $binary = (string)$binary;
-    if ($binary === '' || strlen($binary) > 2 * 1024 * 1024) {
-        throw new RuntimeException('Картинка пустая или больше 2 МБ');
-    }
-    if (strncmp($binary, "\x89PNG", 4) !== 0 && strncmp($binary, "\xFF\xD8\xFF", 3) !== 0) {
-        throw new RuntimeException('Нужна картинка PNG или JPEG');
-    }
-    gl_qr_ensure_storage();
-    $path = gl_qr_png_path($code['branch'], $code['slug']);
-    if (strncmp($binary, "\xFF\xD8\xFF", 3) === 0) {
-        if (!function_exists('imagecreatefromstring')) {
-            throw new RuntimeException('На сервере нет GD для сохранения JPEG');
-        }
-        $im = imagecreatefromstring($binary);
-        if (!$im) {
-            throw new RuntimeException('Не удалось прочитать картинку');
-        }
-        imagepng($im, $path, 6);
-        imagedestroy($im);
-        return $path;
-    }
-    if (file_put_contents($path, $binary, LOCK_EX) === false) {
-        throw new RuntimeException('Не удалось сохранить картинку QR');
-    }
-    return $path;
+    return gl_qr_png_dir() . '/' . preg_replace('/[^a-z0-9-]+/', '-', $branch . '__' . $slug) . '.png';
 }
 
 function gl_qr_normalize_url($url)

@@ -1,4 +1,27 @@
 ﻿<style>
+    .visual-tea-list { grid-column: 1 / -1; min-width: 0; }
+    .visual-tea-profile {
+        margin: 1.7rem 0 .9rem;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: .75rem;
+        font-weight: 700;
+        letter-spacing: .28em;
+    }
+    .visual-tea-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: .25rem 1rem;
+        align-items: baseline;
+        margin-bottom: .9rem;
+        padding-bottom: .65rem;
+        border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .visual-tea-name { color: #fff; font-size: clamp(1rem, 2.2vw, 1.25rem); overflow-wrap: anywhere; }
+    .visual-tea-price { font-size: clamp(1rem, 2.2vw, 1.25rem); font-weight: 500; white-space: nowrap; }
+    .visual-tea-desc { grid-column: 1 / -1; color: #9ca3af; font-size: .85rem; line-height: 1.55; white-space: pre-line; }
+    .visual-tea-name .badge-container { position: static; display: inline-flex; vertical-align: middle; margin-left: .4rem; }
+
     @keyframes shineGold { to { background-position: 100% center; } }
     @keyframes descModalGoldReveal {
         from { background-position: -80% center; opacity: 0.55; }
@@ -403,11 +426,79 @@ function setSubtabsVisible(cat) {
     wrap.style.display = 'flex';
 }
 
+const VISUAL_CHINESE_TEA_PROFILES = new Map([
+    ['чай с зеленым профилем', 'Чай с зелёным профилем'],
+    ['чай с черным профилем', 'Чай с чёрным профилем'],
+    ['чай с древесным профилем', 'Чай с древесным профилем'],
+    ['чай с древесным рофилем', 'Чай с древесным профилем'],
+    ['чай с необычным профилем', 'Чай с необычным профилем'],
+]);
+
+function renderVisualTeaRow(item) {
+    const row = document.createElement('div');
+    row.className = 'visual-tea-row';
+
+    // Couch may supply HTML entities in text fields.
+    const decoder = document.createElement('textarea');
+    decoder.innerHTML = item.title;
+    const name = document.createElement('div');
+    name.className = 'visual-tea-name';
+    name.textContent = decoder.value;
+    name.insertAdjacentHTML('beforeend', getTagHtml(item.tag));
+
+    const price = document.createElement('span');
+    price.className = 'visual-tea-price gold-shimmer';
+    price.textContent = formatVisualPrice(item.price);
+    row.append(name, price);
+
+    const details = [item.desc, formatVisualWeight(item.weight)].filter(value => value && value.trim());
+    if (details.length) {
+        decoder.innerHTML = details.join('\n');
+        const desc = document.createElement('div');
+        desc.className = 'visual-tea-desc';
+        desc.textContent = decoder.value;
+        row.appendChild(desc);
+    }
+    return row;
+}
+
 function renderMenu(filter = 'shisha', sub = 'all') {
     const container = document.getElementById('menu-items');
     container.innerHTML = '';
-    const data = menuData.filter(i => i.cat === filter && itemMatchesSub(i, sub));
-    data.forEach(item => {
+    let teaList = null;
+    menuData.forEach(item => {
+        if (item.cat !== filter || item.sub !== 'tea_coffee') teaList = null;
+        if (item.cat !== filter || !itemMatchesSub(item, sub)) return;
+
+        if (filter === 'bar' && item.sub === 'tea_coffee' && isHeader(item)) {
+            const key = visualHeaderKey(item.title).replace(/ё/g, 'е');
+            if (key === 'китайские чаи') {
+                teaList = document.createElement('section');
+                teaList.className = 'visual-tea-list';
+                const heading = document.createElement('h3');
+                heading.className = 'visual-section-title gold-shimmer';
+                heading.textContent = item.title;
+                teaList.appendChild(heading);
+                container.appendChild(teaList);
+                return;
+            }
+
+            const profile = VISUAL_CHINESE_TEA_PROFILES.get(key);
+            if (teaList && profile) {
+                const heading = document.createElement('h4');
+                heading.className = 'visual-tea-profile gold-shimmer';
+                heading.textContent = profile;
+                teaList.appendChild(heading);
+                return;
+            }
+            teaList = null;
+        }
+
+        if (teaList) {
+            teaList.appendChild(renderVisualTeaRow(item));
+            return;
+        }
+
         if (isHeader(item)) {
             const heading = document.createElement('h3');
             heading.className = 'visual-section-title gold-shimmer';

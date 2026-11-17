@@ -450,10 +450,22 @@
             min-height: 100%;
         }
         .hero-bg img {
-            object-position: center center !important;
+            object-position: center 42% !important;
             transform: translateZ(0);
             backface-visibility: hidden;
             will-change: auto;
+        }
+        .hero-bg img.block.md\:hidden {
+            /* Чуть «дальний план» на landscape-кадре */
+            width: 112% !important;
+            height: 112% !important;
+            max-width: none !important;
+            max-height: none !important;
+            left: -6% !important;
+            top: -6% !important;
+            right: auto !important;
+            bottom: auto !important;
+            object-position: center 36% !important;
         }
         .mobile-menu-overlay {
             height: 100vh;

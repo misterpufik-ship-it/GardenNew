@@ -22,6 +22,10 @@ function garden_admin_label_defaults(){
         'index.php' => array('field'=>'label_index', 'title'=>'Общая страница', 'weight'=>220),
         'home.php' => array('field'=>'label_home', 'title'=>'Главная', 'weight'=>1),
         'booking-settings.php' => array('field'=>'label_booking_settings', 'title'=>'Бронирование Telegram', 'weight'=>5),
+        'layout-spacing.php' => array('field'=>'label_layout_spacing', 'title'=>'Отступы между блоками', 'weight'=>6),
+        'layout-scroll.php' => array('field'=>'label_layout_scroll', 'title'=>'Прокрутка по меню', 'weight'=>7),
+        'layout-hero.php' => array('field'=>'label_layout_hero', 'title'=>'Hero — мобильный лого', 'weight'=>8),
+        'layout-mobile-menu.php' => array('field'=>'label_layout_mobile_menu', 'title'=>'Гамбургер-меню', 'weight'=>9),
         'preloader-settings.php' => array('field'=>'label_preloader_settings', 'title'=>'Прелоадер', 'weight'=>3),
         'age-gate-settings.php' => array('field'=>'label_age_gate_settings', 'title'=>'Заглушка 18+', 'weight'=>4),
         'admin-labels.php' => array('field'=>'', 'title'=>'Названия разделов', 'weight'=>230),
@@ -147,7 +151,7 @@ function garden_alter_admin_menuitems( &$items ){
             elseif ( $name === 'home.php' ){
                 $items[$name]['parent'] = '_garden_home_';
             }
-            elseif ( in_array( $name, array( 'admin-labels.php', 'booking-settings.php', 'age-gate-settings.php', 'preloader-settings.php' ), true ) ){
+            elseif ( in_array( $name, array( 'admin-labels.php', 'booking-settings.php', 'age-gate-settings.php', 'preloader-settings.php', 'layout-spacing.php', 'layout-scroll.php', 'layout-hero.php', 'layout-mobile-menu.php' ), true ) ){
                 $items[$name]['parent'] = '_templates_';
             }
             else{
@@ -158,6 +162,27 @@ function garden_alter_admin_menuitems( &$items ){
 }
 
 $FUNCS->add_event_listener( 'alter_admin_menuitems', 'garden_alter_admin_menuitems' );
+function garden_faq_admin_menu_fix( &$items ){
+    if ( !isset($items['_garden_faq_']) ) {
+        $items['_garden_faq_'] = garden_admin_menu_header( '_garden_faq_', 'Вопросы и ответы', 25 );
+    }
+
+    $faqItems = array(
+        'faq.php' => array( 'title' => 'Адмирал', 'weight' => 26 ),
+        'udelnaya/faq.php' => array( 'title' => 'Уделка', 'weight' => 27 ),
+    );
+
+    foreach ( $faqItems as $name => $info ) {
+        if ( !isset($items[$name]) ) {
+            continue;
+        }
+        $items[$name]['title'] = $info['title'];
+        $items[$name]['weight'] = $info['weight'];
+        $items[$name]['parent'] = '_garden_faq_';
+    }
+}
+
+$FUNCS->add_event_listener( 'alter_admin_menuitems', 'garden_faq_admin_menu_fix' );
 
 function garden_remove_couch_footer( &$html ){
     $html = preg_replace(
