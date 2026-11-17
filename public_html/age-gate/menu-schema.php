@@ -3,10 +3,10 @@
 function gl_menu_branch_og_image($branch)
 {
     if ($branch === 'udelnaya') {
-        return 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg';
+        return 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp';
     }
 
-    return 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg';
+    return 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.webp';
 }
 
 function gl_menu_og_render(array $opts)

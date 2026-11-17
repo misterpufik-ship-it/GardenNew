@@ -18,7 +18,7 @@
     <meta property="og:url" content="https://garden-lounge.pro">
     <meta property="og:title" content="<cms:get_custom_field 'home_seo_title' masterpage='home.php' />">
     <meta property="og:description" content="<cms:get_custom_field 'home_seo_desc' masterpage='home.php' />">
-    <meta property="og:image" content="<cms:if home_seo_og_image><cms:show home_seo_og_image /><cms:else />https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg</cms:if>">
+    <meta property="og:image" content="<cms:if home_seo_og_image && home_seo_og_image!='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg'><cms:show home_seo_og_image /><cms:else />https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.webp</cms:if>">
     <meta property="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

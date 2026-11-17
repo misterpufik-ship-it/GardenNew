@@ -224,7 +224,7 @@
         <div class="branch-inner">
             <div class="content-limiter">
                 <div class="gl-section-head fade-up">
-                    <h2 class="title-branch"><cms:show final_title /></h2>
+                    <h2 class="title-branch"><cms:if is_udelnaya>Garden Lounge на Адмиралтейской<cms:else /><cms:show final_title /></cms:if></h2>
                     <div class="gold-line"></div>
                     <p class="subtitle-gold"><cms:show final_subtitle /></p>
                 </div>
@@ -238,19 +238,14 @@
                 <div class="fade-up" style="animation-delay: 0.5s;">
                     <div class="branch-address-wrap">
                         <p class="branch-address-text">
-                            <cms:show final_address />
+                            <cms:if is_udelnaya>СПб., наб. реки Мойки, 67–69<cms:else /><cms:show final_address /></cms:if>
                         </p>
                         <p class="branch-metro-text">
-                            <cms:show final_metro />
+                            <cms:if is_udelnaya>м. Адмиралтейская<cms:else /><cms:show final_metro /></cms:if>
                         </p>
                     </div>
 
-                    <cms:set branch_btn_link='https://garden-lounge.pro/udelnaya' />
-                    <cms:if final_metro='м. Адмиралтейская'>
-                        <cms:set branch_btn_link='https://garden-lounge.pro/admiralteyskaya' />
-                    </cms:if>
-
-                    <a href="<cms:show branch_btn_link />" class="btn-action">
+                    <a href="<cms:if is_udelnaya>/admiralteyskaya<cms:else />/udelnaya</cms:if>" class="btn-action">
                         <cms:show final_btn_text />
                     </a>
 

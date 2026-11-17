@@ -24,8 +24,17 @@ $faq_items[] = array(
 <cms:php>
 global $CTX, $faq_items;
 $branch = $CTX->get('is_udelnaya') ? 'udelnaya' : 'admiralteyskaya';
+$defaults = gl_faq_default_items($branch);
 if (empty($faq_items)) {
-    $faq_items = gl_faq_default_items($branch);
+    $faq_items = $defaults;
+} elseif ($branch === 'udelnaya') {
+    $defaultsByQuestion = array_column($defaults, null, 'q');
+    foreach ($faq_items as $index => $item) {
+        if (isset($defaultsByQuestion[$item['q']])
+            && strpos($item['a'] . ' ' . strip_tags($item['a_html']), 'Меню общее для обоих филиалов') !== false) {
+            $faq_items[$index] = $defaultsByQuestion[$item['q']];
+        }
+    }
 }
 $title = trim((string) $CTX->get('faq_main_title'));
 $subtitle = trim((string) $CTX->get('faq_subtitle'));

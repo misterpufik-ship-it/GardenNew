@@ -35,7 +35,7 @@ require_once dirname(__DIR__) . '/couch/cms.php';
         <cms:set global_desc=seo_desc_default 'global' />
         <cms:set seo_keywords=seo_keywords_default scope='global' />
         <cms:set seo_canonical='https://garden-lounge.pro/udelnaya' scope='global' />
-        <cms:set seo_og_image='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg' scope='global' />
+        <cms:set seo_og_image='https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp' scope='global' />
         <cms:set adm_address=udel_address 'global' />
         <cms:set adm_phone=udel_phone 'global' />
         <cms:set adm_phone_clean=udel_phone_clean 'global' />
@@ -78,7 +78,7 @@ require_once dirname(__DIR__) . '/couch/cms.php';
         'id' => 'https://garden-lounge.pro/udelnaya#localbusiness',
         'name' => 'Garden Lounge на Удельной',
         'url' => 'https://garden-lounge.pro/udelnaya',
-        'image' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.jpg',
+        'image' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/kalyannaya-garden-lounge-udelnaya-interer-spb.webp',
         'telephone' => '+7 950 047-33-65',
         'streetAddress' => (string) $CTX->get('adm_address'),
         'latitude' => 60.0161967,
