@@ -87,7 +87,7 @@ require_once dirname(__DIR__) . '/couch/cms.php';
         'sameAs' => array_values(array_filter(array(
             (string) $CTX->get('social_vk'),
             (string) $CTX->get('social_instagram'),
-            (string) $CTX->get('social_telegram'),
+            'https://t.me/Garden_lounge_spb',
             (string) $CTX->get('social_youtube'),
             'https://maps.app.goo.gl/4WacDNewMYdX6iwCA',
         ))),

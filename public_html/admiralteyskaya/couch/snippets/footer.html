@@ -422,9 +422,9 @@
                     </a>
                 </li>
                 <li class="footer-phone-row">
-                    <a href="tel:<cms:if is_udelnaya>+79500473365<cms:else /><cms:get_custom_field 'udel_phone_clean' masterpage='globals.php' /></cms:if>" class="footer-phone-link">
+                    <a href="tel:+79500473365" class="footer-phone-link">
                         <i class="fas fa-phone-alt text-xs"></i>
-                        <span class="footer-info-main"><cms:if is_udelnaya>+7 950 047-33-65<cms:else /><cms:get_custom_field 'udel_phone' masterpage='globals.php' /></cms:if></span>
+                        <span class="footer-info-main">+7 950 047-33-65</span>
                     </a>
                     <a href="<cms:if is_udelnaya>https://t.me/Garden_lounge_spb<cms:else /><cms:get_custom_field 'udel_tg_chat' masterpage='globals.php' /></cms:if>" target="_blank" class="tg-chat-btn" title="Написать администратору">
                         <i class="fab fa-telegram-plane"></i>
@@ -433,8 +433,8 @@
                 <li class="footer-info-row">
                     <i class="far fa-clock text-xs"></i>
                     <span class="footer-hours">
-                        <span><cms:if is_udelnaya>Пн–Чт; Вс: 13:00 – 01:00<cms:else /><cms:get_custom_field 'udel_hours_week' masterpage='globals.php' /></cms:if></span><br>
-                        <span><cms:if is_udelnaya>Пт–Сб: 13:00 – 03:00<cms:else /><cms:get_custom_field 'udel_hours_weekend' masterpage='globals.php' /></cms:if></span>
+                        <span>Пн–Чт; Вс: 13:00 – 01:00</span><br>
+                        <span>Пт–Сб: 13:00 – 03:00</span>
                     </span>
                 </li>
             </ul>

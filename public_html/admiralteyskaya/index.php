@@ -73,8 +73,8 @@
         'image' => 'https://garden-lounge.pro/admiralteyskaya/couch/uploads/image/garden-main.jpg',
         'telephone' => (string) $CTX->get('adm_phone'),
         'streetAddress' => (string) $CTX->get('adm_address'),
-        'latitude' => 59.9394,
-        'longitude' => 30.3219,
+        'latitude' => 59.933719,
+        'longitude' => 30.315957,
         'hasMap' => (string) $CTX->get('adm_map'),
         'sameAs' => array_values(array_filter(array(
             (string) $CTX->get('social_vk'),

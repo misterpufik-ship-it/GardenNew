@@ -458,19 +458,21 @@
                         </div>
                     </a>
 
-                    <a href="https://2gis.ru/spb/firm/70000001089303834/tab/reviews" target="_blank" class="gl_rating_item">
-                        <div class="gl_platform_box">
-                            <span class="gl_platform_name">2GIS</span>
-                            <span class="gl_action_label">написать отзыв</span>
-                        </div>
-                        <div class="gl_stars_box">
-                            <cms:repeat count='5'><i class="fas fa-star" style="font-size: 10px;"></i></cms:repeat>
-                        </div>
-                        <div class="gl_rating_stats">
-                            <span class="gl_rating_value subtitle-gold" style="font-size: 18px; font-weight: 700;"><cms:show rate_2gis_val /></span>
-                            <span class="gl_rating_count"><cms:show rate_2gis_count /></span>
-                        </div>
-                    </a>
+                    <cms:if is_udelnaya!='1'>
+                        <a href="https://2gis.ru/spb/firm/70000001089303834/tab/reviews" target="_blank" class="gl_rating_item">
+                            <div class="gl_platform_box">
+                                <span class="gl_platform_name">2GIS</span>
+                                <span class="gl_action_label">написать отзыв</span>
+                            </div>
+                            <div class="gl_stars_box">
+                                <cms:repeat count='5'><i class="fas fa-star" style="font-size: 10px;"></i></cms:repeat>
+                            </div>
+                            <div class="gl_rating_stats">
+                                <span class="gl_rating_value subtitle-gold" style="font-size: 18px; font-weight: 700;"><cms:show rate_2gis_val /></span>
+                                <span class="gl_rating_count"><cms:show rate_2gis_count /></span>
+                            </div>
+                        </a>
+                    </cms:if>
 
                     <a href="<cms:if is_udelnaya>https://maps.app.goo.gl/4WacDNewMYdX6iwCA<cms:else /><cms:show rate_google_link /></cms:if>" target="_blank" class="gl_rating_item">
                         <div class="gl_platform_box">
