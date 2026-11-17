@@ -1,0 +1,56 @@
+--- a/srv/deploy/bin/deploy-site
++++ b/srv/deploy/bin/deploy-site
+@@ -42,6 +42,25 @@
+   "--exclude=node_modules/"
+ )
+ 
++# Match the root entry, including a symlink or file named ikko.
++# A normal exclude both hides it from transfer and protects it from --delete.
++if [[ "$PROJECT" == "garden-lounge.pro" ]]; then
++  DEFAULT_EXCLUDES+=("--exclude=/ikko")
++fi
++
++REMOTE="$HOSTING_USER@$HOSTING_HOST"
++export RSYNC_RSH="ssh -o BatchMode=yes -o StrictHostKeyChecking=yes"
++PUBLISH_ARGS=(-az "${DEFAULT_EXCLUDES[@]}")
++if [[ "${DELETE_REMOTE:-false}" == "true" ]]; then
++  PUBLISH_ARGS+=(--delete)
++fi
++PUBLISH_PATHS=("$REPO_DIR/$SOURCE_DIR/" "$REMOTE:$HOSTING_PATH/")
++if [[ "${2:-}" == "--dry-run" ]]; then
++  # Preview the current checkout without updating Git, building or backing up.
++  rsync "${PUBLISH_ARGS[@]}" -ni "${PUBLISH_PATHS[@]}"
++  exit
++fi
++
+ if [[ ! -d "$REPO_DIR/.git" ]]; then
+   git clone --branch "$BRANCH" "$REPO_URL" "$REPO_DIR"
+ else
+@@ -53,13 +72,7 @@
+   (cd "$REPO_DIR" && bash -lc "$BUILD_COMMAND")
+ fi
+ 
+-REMOTE="$HOSTING_USER@$HOSTING_HOST"
+ export GIT_TERMINAL_PROMPT=0
+-export RSYNC_RSH="ssh -o BatchMode=yes -o StrictHostKeyChecking=yes"
+-if [[ "${2:-}" == "--dry-run" ]]; then
+-  rsync -aznci "${DEFAULT_EXCLUDES[@]}" "$REPO_DIR/$SOURCE_DIR/" "$REMOTE:$HOSTING_PATH/"
+-  exit
+-fi
+ ssh -o BatchMode=yes "$REMOTE" "test -d '$HOSTING_PATH'"
+ ssh "$REMOTE" "mkdir -p '$BACKUP_PATH/$TIMESTAMP'"
+ ssh "$REMOTE" \
+@@ -82,12 +95,7 @@
+ fi
+ REMOTE_BACKUP
+ 
+-RSYNC_DELETE=()
+-if [[ "${DELETE_REMOTE:-false}" == "true" ]]; then
+-  RSYNC_DELETE=("--delete")
+-fi
+-
+-rsync -az "${RSYNC_DELETE[@]}" "${DEFAULT_EXCLUDES[@]}" "$REPO_DIR/$SOURCE_DIR/" "$REMOTE:$HOSTING_PATH/"
++rsync "${PUBLISH_ARGS[@]}" "${PUBLISH_PATHS[@]}"
+ 
+ ssh "$REMOTE" "ls -1dt '$BACKUP_PATH'/*/ 2>/dev/null | tail -n +$((KEEP_BACKUPS + 1)) | xargs -r rm -rf"
+ 

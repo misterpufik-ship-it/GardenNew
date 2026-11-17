@@ -18,8 +18,8 @@ Git и `deploy-vps.ps1` пушат **код**. Позиции меню из ад
 ```
 
 - Не вызывает maintenance-скрипты.
-- Синхронизирует `menu-visual` **изображения** с VPS (версионные файлы), не затирая уникальные загрузки из админки без необходимости.
-- После деплоя при необходимости: `clear-cache-web.php?token=gl-cache-clear-20260623`
+- Загрузки CouchCMS исключены. Для отдельного добавления версионных изображений после публикации кода используйте `-SyncMenuVisual`: существующие файлы не перезаписываются, удаления отключены.
+- После деплоя при необходимости: `clear-cache-web.php?token=<token>`
 
 ## Скрипты — НЕ запускать при обычном деплое
 
@@ -50,3 +50,38 @@ Git и `deploy-vps.ps1` пушат **код**. Позиции меню из ад
 ## Правило
 
 **Данные из админки — источник истины.** Код и скрипты не должны удалять или перезаписывать позиции и фото, пока пользователь сам не удалил их в CouchCMS.
+
+## Защита /ikko/ и проверка перед публикацией
+
+Штатный маршрут: `scripts/deploy-vps.ps1` → VPS `159.194.232.89` →
+`sudo -u deploy /srv/deploy/bin/deploy-site garden-lounge.pro` →
+rsync из `/srv/deploy/projects/garden-lounge.pro/repo/public_html/` в
+`mrpuffch@mrpuffch.beget.tech:/home/m/mrpuffch/garden-lounge.pro/public_html/`.
+Сервер берёт `main` из GardenNew; сейчас `DELETE_REMOTE=false`, сборка не настроена.
+
+[Точный diff для VPS](deploy-site-ikko.patch). Исключение `/ikko` привязано к
+корню передачи и защищает весь каталог от копирования и штатного `--delete`.
+Параметры основного rsync общие; preview добавляет только `-ni` и читает
+существующий checkout. До применения патча не передавайте `--dry-run` старому
+серверному скрипту: он сначала обновляет Git и делает `reset --hard`.
+
+Проверка кандидата до установки (PowerShell, из корня этого worktree; скрипт
+передаётся в stdin, не устанавливается на VPS):
+
+```powershell
+python -c "import pathlib,subprocess; k=str(pathlib.Path.home()/'.ssh/codex_beget_vps_ed25519'); subprocess.run(['ssh','-i',k,'-o','BatchMode=yes','root@159.194.232.89','sudo -u deploy bash -s -- garden-lounge.pro --dry-run'],input=pathlib.Path('docs/deploy-site-ikko.review.sh').read_bytes().replace(bytes([13,10]),bytes([10])),check=True)"
+```
+
+После согласованной установки серверного патча: `./scripts/deploy-vps.ps1 -DryRun`.
+Preview не пушит и не обновляет VPS checkout. Сверьте его HEAD с GitHub main,
+если нужен прогноз ближайшего обычного запуска. Для просмотра добавлений фото
+можно отдельно указать `-DryRun -SyncMenuVisual`.
+
+Серверный rsync резервного копирования перед публикацией читает Beget
+`public_html` и пишет в отдельный каталог `deploy_backups/garden-lounge.pro`;
+при пустом `BACKUP_EXCLUDES` используется `cp -a`. Этот шаг по-прежнему может
+включать `ikko` в резервную копию и не меняет исходный каталог. Preview его пропускает.
+
+`scripts/deploy.ps1` — старый прямой маршрут для REG.RU (архив и публикация
+по SSH, настройки из `scripts/deploy.env.ps1`); штатный маршрут VPS → Beget его
+не вызывает. Для Garden Lounge используйте `scripts/deploy-vps.ps1`.

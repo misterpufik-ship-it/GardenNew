@@ -1,5 +1,7 @@
 # Безопасная публикация сайта
 
+> Legacy REG.RU workflow. For Garden Lounge on Beget, use [the VPS deployment guide](docs/DEPLOY-DATA-SAFETY.md).
+
 ## Как связаны локальный проект, GitHub, SSH и хостинг
 
 Локальная папка - это место, где мы редактируем сайт.
