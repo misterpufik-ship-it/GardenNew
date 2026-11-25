@@ -311,6 +311,7 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
                     </select>
                 </div>
             </div>
+            <div class="gl-modal__notice" id="reserveWarning" role="alert" hidden></div>
             <div class="pt-4">
                 <button class="gl-btn-luxe reservation-submit" type="submit">Забронировать</button>
             </div>
@@ -361,8 +362,7 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
         const guestSelect = form.querySelector('.guest-select');
         const btn = form.querySelector('button');
 
-        const today = new Date();
-        const minDate = today.toISOString().slice(0, 10);
+        const minDate = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
         dateInput.min = minDate;
 
         function formatDateLabel(isoDate) {
@@ -472,8 +472,39 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
             return hi >= 0 && hi <= 23 && mi >= 0 && mi <= 59;
         }
 
+        const warningBox = document.getElementById('reserveWarning');
+        function showWarning(data) {
+            warningBox.replaceChildren();
+            warningBox.hidden = !data;
+            if (!data) return;
+            const text = document.createElement('p');
+            text.textContent = data.message;
+            const link = document.createElement('a');
+            link.textContent = data.phone;
+            link.href = data.phone_href;
+            link.style.cssText = 'color:#FFEebb;text-decoration:underline;font-size:18px;display:inline-block;padding:8px 0';
+            warningBox.append(text, link);
+        }
+        let availabilityVersion = 0;
+        async function checkAvailability() {
+            const version = ++availabilityVersion;
+            showWarning(null);
+            if (!dateInput.value || !isValidTime(hoursInput.value.trim(), minutesInput.value.trim())) return;
+            syncTimeHidden();
+            const params = new URLSearchParams({mode: 'availability', branch: form.elements.branch.value,
+                date: formatDateForApi(dateInput.value), visit_time: timeHidden.value});
+            try {
+                const resp = await fetch(form.action, {method: 'POST', body: params});
+                const data = await resp.json();
+                if (version === availabilityVersion && data.code === 'reserve_phone_required') showWarning(data);
+            } catch (err) { /* Submission repeats the authoritative server check. */ }
+        }
+        [dateInput, hoursInput, minutesInput].forEach(input => input.addEventListener('change', checkAvailability));
+
         form.onsubmit = async (e) => {
             e.preventDefault();
+            ++availabilityVersion;
+            showWarning(null);
             const fd = new FormData(form);
             if (fd.get('website')) return;
 
@@ -524,6 +555,11 @@ select.guest-select:focus { outline: none; border-bottom-color: var(--gold-matte
                     syncDateLabel();
                     timeHidden.value = '';
                 } else {
+                    if (data && data.code === 'reserve_phone_required') {
+                        showWarning(data);
+                        warningBox.scrollIntoView({behavior: 'smooth', block: 'center'});
+                        return;
+                    }
                     showToast((data && data.message) ? data.message : 'Ошибка. Попробуйте позже.');
                 }
             } catch (err) {

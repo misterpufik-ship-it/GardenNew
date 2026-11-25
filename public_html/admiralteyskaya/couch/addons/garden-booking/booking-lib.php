@@ -466,6 +466,47 @@ function garden_booking_send_vk( $settings, $message ) {
     return array(false, $description);
 }
 
+function garden_booking_reserve_rule($branch) {
+    $prefix = $branch === 'udelnaya' ? 'udel' : 'adm';
+    $defaults = array(
+        'enabled' => '1', 'days' => '5,6', 'start' => '18:00', 'end' => '22:00', 'minutes' => '90',
+        'message' => 'До времени вашего визита осталось меньше {minutes} минут. Для резерва свяжитесь, пожалуйста, с нами по телефону.',
+        'phone' => $branch === 'udelnaya' ? '+7 950 047-33-65' : '+7 995 624-68-08',
+    );
+    foreach ($defaults as $key => $default) {
+        $value = garden_booking_get_field_value($prefix . '_reserve_' . $key);
+        $defaults[$key] = $value === '' ? $default : $value;
+    }
+    return $defaults;
+}
+
+// All visit dates and lead times are interpreted in Saint Petersburg time.
+function garden_booking_parse_visit($date, $time) {
+    if (!preg_match('/^\d{2}\.\d{2}\.\d{4}$/D', $date) || !preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/D', $time)) return null;
+    $visit = DateTimeImmutable::createFromFormat('!d.m.Y H:i', $date . ' ' . $time, new DateTimeZone('Europe/Moscow'));
+    return $visit && $visit->format('d.m.Y H:i') === $date . ' ' . $time ? $visit : null;
+}
+
+function garden_booking_reserve_warning($rule, $visit, $now = null) {
+    if ($rule['enabled'] !== '1') return null;
+    $now = $now ?: new DateTimeImmutable('now', new DateTimeZone('Europe/Moscow'));
+    $days = preg_split('/[\s,;]+/', trim($rule['days']));
+    if (!in_array($visit->format('N'), $days, true)) return null;
+    $start = preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/', $rule['start']) ? $rule['start'] : '18:00';
+    $end = preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/', $rule['end']) ? $rule['end'] : '22:00';
+    $time = $visit->format('H:i');
+    $inside = $start <= $end ? ($time >= $start && $time <= $end) : ($time >= $start || $time <= $end);
+    $minutes = ctype_digit((string)$rule['minutes']) ? (int)$rule['minutes'] : 90;
+    if (!$inside || $visit->getTimestamp() - $now->getTimestamp() >= $minutes * 60) return null;
+    $phone = garden_booking_clean_phone($rule['phone']);
+    return array(
+        'code' => 'reserve_phone_required',
+        'message' => str_replace('{minutes}', (string)$minutes, $rule['message']),
+        'phone' => $rule['phone'],
+        'phone_href' => 'tel:+' . $phone,
+    );
+}
+
 function garden_booking_handle_request() {
     garden_booking_cors_headers();
 
@@ -476,6 +517,22 @@ function garden_booking_handle_request() {
 
     if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
         garden_booking_json_response('error', array('message' => 'Метод не поддерживается.'), 405);
+    }
+
+    $branch = garden_booking_normalize_branch(isset($_POST['branch']) ? $_POST['branch'] : '');
+    $date = trim((string)(isset($_POST['date']) ? $_POST['date'] : ''));
+    $visit_time = trim((string)(isset($_POST['visit_time']) ? $_POST['visit_time'] : ''));
+    $visit = garden_booking_parse_visit($date, $visit_time);
+    if (!$branch || !$visit) {
+        garden_booking_json_response('error', array('message' => 'Укажите корректные филиал, дату и время визита.'), 400);
+    }
+    if ($visit <= new DateTimeImmutable('now', new DateTimeZone('Europe/Moscow'))) {
+        garden_booking_json_response('error', array('message' => 'Выберите будущее время визита.'), 400);
+    }
+    $warning = garden_booking_reserve_warning(garden_booking_reserve_rule($branch), $visit);
+    if ($warning) garden_booking_json_response('error', $warning, 409);
+    if (isset($_POST['mode']) && $_POST['mode'] === 'availability') {
+        garden_booking_json_response('ok', array('message' => 'Время доступно для онлайн-бронирования.'));
     }
 
     $ip = garden_booking_client_ip();

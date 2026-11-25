@@ -48,5 +48,23 @@
     <cms:editable name='udel_vk_user_id' label='VK — ID пользователя (личка)' group='group_udelnaya_booking' type='text' order='38' desc='Числовой ID рабочего VK-аккаунта администратора Удельной. Узнать: vk.com/id123 или через vk.com/dev. Аккаунт должен один раз написать сообществу, чтобы ему можно было писать.'>868620727</cms:editable>
     <cms:editable name='udel_vk_message_template' label='VK — текст сообщения' group='group_udelnaya_booking' type='textarea' height='180' order='39' desc='Пусто — используется тот же текст, что и для Telegram.' />
 
+    <cms:editable name='adm_reserve_rule' label='Адмиралтейская — ограничение онлайн-брони' type='group' order='50' />
+    <cms:editable name='adm_reserve_enabled' label='Включить ограничение' group='adm_reserve_rule' type='dropdown' order='51' opt_values='Нет=0 | Да=1'>1</cms:editable>
+    <cms:editable name='adm_reserve_days' label='Дни недели (1 — Пн, 7 — Вс)' group='adm_reserve_rule' type='text' order='52' desc='Номера дней через запятую. Например: 5,6 — пятница и суббота. День определяется по дате визита.'>5,6</cms:editable>
+    <cms:editable name='adm_reserve_start' label='Начало интервала (ЧЧ:ММ)' group='adm_reserve_rule' type='text' order='53' >18:00</cms:editable>
+    <cms:editable name='adm_reserve_end' label='Конец интервала включительно (ЧЧ:ММ)' group='adm_reserve_rule' type='text' order='54' desc='Время Санкт-Петербурга. Если конец раньше начала, интервал проходит через полночь.'>22:00</cms:editable>
+    <cms:editable name='adm_reserve_minutes' label='Минимум минут до визита' group='adm_reserve_rule' type='text' order='55' desc='Целое число минут: 90 — полтора часа, 120 — два часа, 0 — без минимального запаса.'>90</cms:editable>
+    <cms:editable name='adm_reserve_message' label='Предупреждение гостю' group='adm_reserve_rule' type='textarea' order='56' desc='Переменная {minutes} заменяется на установленное число минут. Телефон выводится отдельной ссылкой для звонка.'>До времени вашего визита осталось меньше {minutes} минут. Для резерва свяжитесь, пожалуйста, с нами по телефону.</cms:editable>
+    <cms:editable name='adm_reserve_phone' label='Телефон для звонка' group='adm_reserve_rule' type='text' order='57' >+7 995 624-68-08</cms:editable>
+
+    <cms:editable name='udel_reserve_rule' label='Удельная — ограничение онлайн-брони' type='group' order='70' />
+    <cms:editable name='udel_reserve_enabled' label='Включить ограничение' group='udel_reserve_rule' type='dropdown' order='71' opt_values='Нет=0 | Да=1'>1</cms:editable>
+    <cms:editable name='udel_reserve_days' label='Дни недели (1 — Пн, 7 — Вс)' group='udel_reserve_rule' type='text' order='72' desc='Номера дней через запятую. Например: 5,6 — пятница и суббота. День определяется по дате визита.'>5,6</cms:editable>
+    <cms:editable name='udel_reserve_start' label='Начало интервала (ЧЧ:ММ)' group='udel_reserve_rule' type='text' order='73' >18:00</cms:editable>
+    <cms:editable name='udel_reserve_end' label='Конец интервала включительно (ЧЧ:ММ)' group='udel_reserve_rule' type='text' order='74' desc='Время Санкт-Петербурга. Если конец раньше начала, интервал проходит через полночь.'>22:00</cms:editable>
+    <cms:editable name='udel_reserve_minutes' label='Минимум минут до визита' group='udel_reserve_rule' type='text' order='75' desc='Целое число минут: 90 — полтора часа, 120 — два часа, 0 — без минимального запаса.'>90</cms:editable>
+    <cms:editable name='udel_reserve_message' label='Предупреждение гостю' group='udel_reserve_rule' type='textarea' order='76' desc='Переменная {minutes} заменяется на установленное число минут. Телефон выводится отдельной ссылкой для звонка.'>До времени вашего визита осталось меньше {minutes} минут. Для резерва свяжитесь, пожалуйста, с нами по телефону.</cms:editable>
+    <cms:editable name='udel_reserve_phone' label='Телефон для звонка' group='udel_reserve_rule' type='text' order='77' >+7 950 047-33-65</cms:editable>
+
 </cms:template>
 <?php COUCH::invoke(); ?>
