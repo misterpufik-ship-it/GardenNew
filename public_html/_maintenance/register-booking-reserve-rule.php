@@ -17,7 +17,7 @@ $page = $db->query("SELECT id FROM {$prefix}couch_pages WHERE template_id=$tid A
 if (!$page) throw new RuntimeException('Master page missing');
 $pid = (int)$page['id'];
 $source = file_get_contents(dirname(__DIR__) . '/admiralteyskaya/booking-settings.php');
-preg_match_all('~<cms:editable\s+([^>]*)(?:/>|>(.*?)</cms:editable>)~s', $source, $matches, PREG_SET_ORDER);
+preg_match_all('~<cms:editable\s+([^>]*?)(?:\s*/>|>(.*?)</cms:editable>)~s', $source, $matches, PREG_SET_ORDER);
 $created = 0;
 foreach ($matches as $match) {
     preg_match_all("~([a-z_]+)='([^']*)'~", $match[1], $attributes, PREG_SET_ORDER);
