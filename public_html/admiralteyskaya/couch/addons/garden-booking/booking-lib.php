@@ -75,12 +75,11 @@ function garden_booking_field_map( $branch ) {
     );
 }
 
-function garden_booking_get_field_value( $field_name ) {
+function garden_booking_get_field_value( $field_name, $template = 'booking-settings.php' ) {
     $db = garden_booking_db();
     if ( !$db ) return '';
 
     $prefix = defined('K_DB_TABLES_PREFIX') ? K_DB_TABLES_PREFIX : '';
-    $template = 'booking-settings.php';
     $field_name = $db->real_escape_string($field_name);
     $template = $db->real_escape_string($template);
 
@@ -474,7 +473,7 @@ function garden_booking_reserve_rule($branch) {
         'phone' => $branch === 'udelnaya' ? '+7 950 047-33-65' : '+7 995 624-68-08',
     );
     foreach ($defaults as $key => $default) {
-        $value = garden_booking_get_field_value($prefix . '_reserve_' . $key);
+        $value = garden_booking_get_field_value($prefix . '_reserve_' . $key, $branch === 'udelnaya' ? 'udelnaya/reservation.php' : 'reservation.php');
         $defaults[$key] = $value === '' ? $default : $value;
     }
     return $defaults;

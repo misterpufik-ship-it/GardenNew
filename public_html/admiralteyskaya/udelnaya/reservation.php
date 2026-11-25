@@ -20,6 +20,15 @@ require_once dirname(__DIR__) . '/couch/cms.php';
     <cms:editable name='res_group_decor' label='Декор' type='group' />
     <cms:editable name='res_sep' label='Картинка разделителя' group='res_group_decor' type='image'>:div.webp</cms:editable>
 
+<cms:editable name='udel_reserve_rule' label='Удельная — ограничение онлайн-брони' type='group' order='70' />
+    <cms:editable name='udel_reserve_enabled' label='Включить ограничение' group='udel_reserve_rule' type='dropdown' order='71' opt_values='Нет=0 | Да=1'>1</cms:editable>
+    <cms:editable name='udel_reserve_days' label='Дни недели (1 — Пн, 7 — Вс)' group='udel_reserve_rule' type='text' order='72' desc='Номера дней через запятую. Например: 5,6 — пятница и суббота. День определяется по дате визита.'>5,6</cms:editable>
+    <cms:editable name='udel_reserve_start' label='Начало интервала (ЧЧ:ММ)' group='udel_reserve_rule' type='text' order='73' >18:00</cms:editable>
+    <cms:editable name='udel_reserve_end' label='Конец интервала включительно (ЧЧ:ММ)' group='udel_reserve_rule' type='text' order='74' desc='Время Санкт-Петербурга. Если конец раньше начала, интервал проходит через полночь.'>22:00</cms:editable>
+    <cms:editable name='udel_reserve_minutes' label='Минимум минут до визита' group='udel_reserve_rule' type='text' order='75' desc='Целое число минут: 90 — полтора часа, 120 — два часа, 0 — без минимального запаса.'>90</cms:editable>
+    <cms:editable name='udel_reserve_message' label='Предупреждение гостю' group='udel_reserve_rule' type='textarea' order='76' desc='Переменная {minutes} заменяется на установленное число минут. Телефон выводится отдельной ссылкой для звонка.'>До времени вашего визита осталось меньше {minutes} минут. Для резерва свяжитесь, пожалуйста, с нами по телефону.</cms:editable>
+    <cms:editable name='udel_reserve_phone' label='Телефон для звонка' group='udel_reserve_rule' type='text' order='77' >+7 950 047-33-65</cms:editable>
+
 </cms:template>
 <?php COUCH::invoke(); ?>
 
